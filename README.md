@@ -4,26 +4,47 @@
 
 ## Table of Contents
 * [Intro](#intro)
-* [Set up Workflow](#set-up-workflow)
-* [Gulp Commands](#gulp-commands)
+* [Installation](#installation)
+* [Gulp](#gulp-commands)
 * [Authors](#authors)
 * [License](#license)
 
-
 ## Intro
 
-The Availity Workflow provides the [Gulp](http://gulpjs.com), [Karma](http://karma-runner.github.io/) and [Webpack](https://webpack.github.io/) tasks needed to build and maintain an [availity-toolkit](https://github.com/Availity/availity-toolkit) projects.
+The Availity Workflow provides [Gulp](http://gulpjs.com), [Karma](http://karma-runner.github.io/) and [Webpack](https://webpack.github.io/) tasks needed to build and maintain a [availity-toolkit](https://github.com/Availity/availity-toolkit) projects.
 
-## Set up Workflow
+## Installation
+
+* Install using NPM
+
+```bash
+npm install availity-workflow --save-dev
+```
+
+* Integrate with Gulp
+
+```javascript
+
+// gulpfile.js
+
+var gulp = require('gulp');
+
+var workflow = require('availity-workflow');
+
+workflow.use({
+  gulp: gulp
+});
+
+gulp.task('default', ['av:default']);
+gulp.task('lint', ['av:lint']);
+gulp.task('test', ['av:test']);
+
+```
 
 
-#### Gulp
+### Gulp
 
-Workflow provides all gulp files needed for your [availity-toolkit](https://github.com/Availity/availity-toolkit) app. By default all of these tasks are prefixed by `av:` to give you more freedom to create your own tasks.
-
-#### Gulp Commands
-
-To use gulp, you type (in a terminal or command prompt) `gulp` and then the name of the task you wish to run. If you want to run a task named "foo" for example, you would type:
+`availity-workflow` provides gulp tasks needed for your [availity-toolkit](https://github.com/Availity/availity-toolkit) project. By default all of these tasks are prefixed by `av:` to prevent name clashes with your own Gulp tasks.
 
 ##### Default
 
@@ -90,13 +111,13 @@ Checks for stylistic and programming errors using [ESLint](http://eslint.org/)
 
 >
 ```sh
-av:server:rest
-av:server:web
+av:server
 ```
 
 Starts two servers and the browser:
-* av:server:web is a [hapi](http://hapijs.com/) server which uses your plugin to distribute data and proxy the [Ekko](https://github.com/Availity/availity-ekko) server
-* av:server:rest starts the [Availity Ekko]((https://github.com/Availity/availity-ekko)) server, which is a json mock server that simulates REST APIs.
+
+* `av:server:web` is a [hapi](http://hapijs.com/) server which uses your plugin to distribute data and proxy requests to the [Ekko](https://github.com/Availity/availity-ekko) server
+* `av:server:rest` starts the [Availity Ekko]((https://github.com/Availity/availity-ekko)) server, which is a json mock server that simulates REST APIs.
 
 
 ## Authors
