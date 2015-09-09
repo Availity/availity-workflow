@@ -7,6 +7,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var context = require('../context');
 var webpackConfig = require('../webpack');
 
+var VERSION = require(path.join(process.cwd(),  './package.json')).version;
+
 var wpConfig = webpackConfig.extend({
   devtool: 'inline-source-map',
   cache: true,
@@ -25,6 +27,10 @@ wpConfig.plugins = [
       /bootstrap.*\.css/,
       /select2.*\.(png|gif|css)/
     ]
+  }),
+
+  new webpack.DefinePlugin({
+    APP_VERSION: JSON.stringify(VERSION)
   }),
 
   new webpack.ProvidePlugin({
