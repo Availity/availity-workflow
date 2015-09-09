@@ -96,7 +96,7 @@ module.exports = function(cli) {
           message: 'keywords (comma separated):',
           default: _.get(cli.manifests.availity.json, 'keywords', []).join(','),
           filter: function filter(val) {
-            return (val.toLowerCase() || '').split(', ');
+            return (val.toLowerCase() || '').split(',');
           },
           validate: function validate(value) {
             var schema = Joi
@@ -104,7 +104,7 @@ module.exports = function(cli) {
                 Joi.string().regex(/^[a-z0-9\-]+$/).max(30)
               )
               .single();
-            var valid = Joi.validate((value.toLowerCase() || '').split(', '), schema);
+            var valid = Joi.validate((value.toLowerCase() || '').split(','), schema);
 
             if (!valid.error) {
               return true;
