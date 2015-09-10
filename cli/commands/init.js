@@ -8,13 +8,13 @@ module.exports = function(cli) {
 
   cli.program
     .command('init')
-    .description('initialize project meta data (package.json, bower.json, availity.json)')
+    .description('initialize project meta data: package.json, bower.json, availity.json')
     .action(function action() {
 
       var questions = [
         {
           name: 'author',
-          message: 'name (author)',
+          message: 'author name:',
           default: _.get(cli.manifests.availity.json, 'author.name') || null,
           validate: function(value) {
             var schema = Joi.string();
@@ -29,7 +29,7 @@ module.exports = function(cli) {
         },
         {
           name: 'email',
-          message: 'email (author email)',
+          message: 'author email:',
           default: _.get(cli.manifests.availity.json, 'author.email') || null,
           validate: function validate(value) {
 
@@ -45,7 +45,7 @@ module.exports = function(cli) {
         },
         {
           name: 'name',
-          message: 'project name (npm package naming conventions):',
+          message: 'project name:',
           default: cli.manifests.availity.json.name || null,
           filter: function(val) {
             return val.toLowerCase();
@@ -63,12 +63,12 @@ module.exports = function(cli) {
         },
         {
           name: 'description',
-          message: 'description:',
+          message: 'project description:',
           default: cli.manifests.availity.json.description || null
         },
         {
           name: 'version',
-          message: 'version:',
+          message: 'project version:',
           default: cli.manifests.availity.json.version || '1.0.0',
           validate: function(value) {
 
@@ -93,18 +93,30 @@ module.exports = function(cli) {
         },
         {
           name: 'keywords',
-          message: 'keywords (comma separated):',
+          message: 'keywords - separated by commas:',
           default: _.get(cli.manifests.availity.json, 'keywords', []).join(','),
           filter: function filter(val) {
-            return (val.toLowerCase() || '').split(',');
+
+            var result = (val.toLowerCase() || '').split(',');
+            return _.map(result, function(keyword) {
+              return keyword.trim();
+            });
+
           },
           validate: function validate(value) {
+
             var schema = Joi
               .array().items(
                 Joi.string().regex(/^[a-z0-9\-]+$/).max(30)
               )
               .single();
-            var valid = Joi.validate((value.toLowerCase() || '').split(','), schema);
+
+            var values = (value.toLowerCase() || '').split(',');
+            values = _.map(values, function(keyword) {
+              return keyword.trim();
+            });
+
+            var valid = Joi.validate(values, schema);
 
             if (!valid.error) {
               return true;
