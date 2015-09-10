@@ -6,7 +6,8 @@ var context = require('../context');
 
 context.gulp.task('av:server', [
   'av:server:web',
-  'av:server:rest'
+  'av:server:rest',
+  'av:open'
 ]);
 
 context.gulp.task('av:server:web', function() {

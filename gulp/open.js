@@ -7,7 +7,7 @@ var _url = _.template('http://localhost:<%= port %>/<%= open %>');
 context.gulp.task('av:open', function() {
   if (context.getConfig().open) {
     var url = _url({
-      port: context.getConfig().servers.web.port,
+      port: context.getConfig().servers.app.port,
       open: context.getConfig().open
     });
     context.gulp.src('').pipe(open({uri: url}));
