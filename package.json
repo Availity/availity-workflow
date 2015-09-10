@@ -13,6 +13,7 @@
     "type": "git",
     "url": "https://github.com/Availity/availity-workflow.git"
   },
+  "homepage": "https://github.com/Availity/availity-workflow",
   "keywords": [
     "availity",
     "hapi",
@@ -22,7 +23,7 @@
     "toolkit"
   ],
   "bugs": "https://github.com/Availity/availity-workflow/issues",
-  "authors": [
+  "contributors": [
     {
       "name": "Kasey Powers",
       "email": "Kasey.Powers@availity.com"
