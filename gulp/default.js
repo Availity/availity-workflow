@@ -7,7 +7,6 @@ context.gulp.task('av:default', function(cb) {
     'av:clean',
     ['av:copy', 'av:concat'],
     'av:server',
-    'av:open',
     'av:watch'
     );
   cb();
