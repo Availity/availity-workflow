@@ -3,6 +3,10 @@ var argv = require('minimist')(process.argv.slice(2));
 
 var _settings =  {
 
+  packages: {
+    src: [path.join(process.cwd(), './package.json'), path.join(process.cwd(), './bower.json')]
+  },
+
   project: {
     path: process.cwd()
   },
