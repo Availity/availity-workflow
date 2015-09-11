@@ -44,7 +44,7 @@ gulp.task('test', ['av:test']);
 
 ### Gulp
 
-`availity-workflow` provides gulp tasks needed for your [availity-toolkit](https://github.com/Availity/availity-toolkit) project. By default all of these tasks are prefixed by `av:` to prevent name clashes with your own Gulp tasks.
+By default all Gulp tasks are prefixed by `av:` to prevent name clashes with your own Gulp tasks.
 
 ##### Default
 
@@ -55,12 +55,11 @@ gulp av:default
 
 Runs the default task, which runs these tasks:
 
-* av:clean
-* av:copy 
-* av:concat
-* av:server
-* av:open
-* av:watch
+* `av:clean`
+* `av:copy `
+* `av:concat`
+* `av:server`
+* `av:watch`
 
 ##### Clean
 
@@ -89,14 +88,6 @@ gulp av:copy
 
 Copies templates into the build/dist folder
 
-##### Less
-
->
-```sh
-gulp av:less
-```
-
-Compiles your Less code to CSS.
 
 ##### Lint
 
@@ -107,17 +98,16 @@ gulp av:lint
 
 Checks for stylistic and programming errors using [ESLint](http://eslint.org/)
 
-##### Rest Server
+##### Server
 
 >
 ```sh
 av:server
 ```
 
-Starts two servers and the browser:
-
-* `av:server:web` is a [hapi](http://hapijs.com/) server which uses your plugin to distribute data and proxy requests to the [Ekko](https://github.com/Availity/availity-ekko) server
+* `av:server:web` is a [hapi](http://hapijs.com/) server that proxies requests to the [Ekko](https://github.com/Availity/availity-ekko) server
 * `av:server:rest` starts the [Availity Ekko]((https://github.com/Availity/availity-ekko)) server, which is a json mock server that simulates REST APIs.
+* `av:open` opens the system default browser and loads the web application
 
 
 ## Authors
