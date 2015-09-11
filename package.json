@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Upgradable workflow for Availity Toolkit projects.",
   "private": false,
-  "author": "Kasey Powers <kasey.powers@availity.com>",
+  "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "engines": {
     "node": ">= 0.12.0",
     "iojs": ">= 1.0.0"
@@ -34,7 +34,7 @@
     }
   ],
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec --recursive gulp"
+    "prepublish": "gulp lint"
   },
   "bin": {
     "av": "./cli/index.js"
