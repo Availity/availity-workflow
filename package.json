@@ -34,7 +34,7 @@
     }
   ],
   "scripts": {
-    "prepublish": "gulp lint"
+    "preversion": "gulp lint"
   },
   "bin": {
     "av": "./cli/index.js"
