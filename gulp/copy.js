@@ -7,7 +7,7 @@ context.gulp.task('av:copy', ['av:copy:templates']);
 
 context.gulp.task('av:copy:templates', function() {
 
-  context.gulp.src(context.settings.templates.src)
+  return context.gulp.src(context.settings.templates.src)
     .pipe(changed(context.settings.dest()))
     .pipe(context.gulp.dest(context.settings.dest()))
     .pipe(size({

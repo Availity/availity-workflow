@@ -9,23 +9,27 @@ var context = require('../context');
 context.gulp.task('av:lint', ['av:lint:js', 'av:lint:node']);
 
 context.gulp.task('av:lint:js', function lint() {
-  context.gulp.src(context.settings.js.src)
-  .pipe(gulpif(context.settings.args.verbose, using({
-    prefix: 'Task [av:lint] using'
-  })))
-  .pipe(eslint(context.settings.js.linter))
-  .pipe(eslint.format())
-  .pipe(eslint.failAfterError());
+
+  return context.gulp.src(context.settings.js.src)
+    .pipe(gulpif(context.settings.args.verbose, using({
+      prefix: 'Task [av:lint] using'
+    })))
+    .pipe(eslint(context.settings.js.linter))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+
 });
 
 context.gulp.task('av:lint:node', function lint() {
-  context.gulp.src(context.settings.js.srcNode)
-  .pipe(gulpif(context.settings.args.verbose, using({
-    prefix: 'Task [av:lint] using'
-  })))
-  .pipe(eslint(context.settings.js.linterNode))
-  .pipe(eslint.format())
-  .pipe(eslint.failAfterError());
+
+  return context.gulp.src(context.settings.js.srcNode)
+    .pipe(gulpif(context.settings.args.verbose, using({
+      prefix: 'Task [av:lint] using'
+    })))
+    .pipe(eslint(context.settings.js.linterNode))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+
 });
 
 var _plato = function _plato(done) {

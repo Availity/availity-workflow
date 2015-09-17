@@ -10,6 +10,8 @@ context.gulp.task('av:open', function() {
       port: context.getConfig().servers.app.port,
       open: context.getConfig().open
     });
-    context.gulp.src('').pipe(open({uri: url}));
+    return context.gulp.src('').pipe(open({uri: url}));
   }
+
+  return context.gulp.src('');
 });
