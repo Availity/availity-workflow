@@ -23,7 +23,9 @@ var utils = {
   },
 
   output: function() {
-    return  context.settings.isProduction() ? path.join(context.settings.project.path, 'dist') : path.join(context.settings.project.path, 'build');
+    return  context.settings.isProduction() ?
+      path.join(context.settings.project.path, 'dist') :
+      path.join(context.settings.project.path, 'build');
   }
 };
 
