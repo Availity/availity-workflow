@@ -27,6 +27,10 @@ var _settings =  {
     return this.environment() === 'testing';
   },
 
+  isStaging: function() {
+    return this.environment() === 'staging';
+  },
+
   isDevelopment: function() {
     return this.environment() === 'development';
   },
