@@ -27,22 +27,10 @@ function callback(err, stats, cb) {
   }
 }
 
-context.gulp.task('av:build:dev', function(cb) {
-
-  process.env.NODE_ENV = 'development';
+context.gulp.task('av:build', function(cb) {
 
   webpack(webpackConfig, function(err, stats) {
     callback(err, stats, cb);
   });
-});
-
-context.gulp.task('av:build:prod', function(cb) {
-
-  process.env.NODE_ENV = 'production';
-
-  webpack(webpackConfig, function(err, stats) {
-    callback(err, stats, cb);
-  });
-
 });
 

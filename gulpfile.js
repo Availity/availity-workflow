@@ -28,11 +28,12 @@ gulp.task('lint', function() {
 
 var type = 'patch';
 
-gulp.task('release:sequence', function() {
+gulp.task('release:sequence', function(cb) {
   runSequence(
     'lint',
     'release:bump',
-    'release:tag'
+    'release:tag',
+    cb
   );
 });
 
