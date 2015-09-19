@@ -9,7 +9,7 @@ var env = {
     var developerConfig = file(path.join(context.settings.project.path, '/project/config/developer-config'));
 
     if (!developerConfig) {
-      context.flags.developerConfig = false;
+      context.meta.developerConfig = false;
     }
 
     return developerConfig;

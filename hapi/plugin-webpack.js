@@ -10,7 +10,7 @@ function register(server, options, next) {
   var compiler = webpack(webpackConfig);
   var webpackDev = webpackMiddleware(compiler, {
     noInfo: false,
-    quiet: false,
+    quiet: true,
     stats: {
       colors: true,
       modules: false,

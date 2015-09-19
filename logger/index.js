@@ -24,5 +24,7 @@ module.exports = {
     log('red', Array.prototype.slice.call(arguments));
   },
 
-  messages: require('./messages')
+  success: function() {
+    log('green', Array.prototype.slice.call(arguments));
+  }
 };

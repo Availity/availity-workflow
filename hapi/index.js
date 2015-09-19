@@ -37,7 +37,10 @@ proto.start = function() {
       }
 
       self.server.start(function() {
-        logger.info('[hapi] Server started at ' + self.server.info.uri);
+
+        context.meta.uri = self.server.info.uri;
+        logger.success('[hapi] server started');
+
         resolve(true);
       });
 
@@ -51,6 +54,7 @@ proto.stop = function() {
   var self = this;
 
   return new BPromise(function(resolve, reject) {
+
     self.server.stop({ timeout: 60 * 1000 }, function(err) {
 
       if (err) {
@@ -59,7 +63,7 @@ proto.stop = function() {
       }
 
       resolve(true);
-      logger.info('Server stopped');
+      logger.info('[hapi] server stopped');
     });
   });
 

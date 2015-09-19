@@ -4,11 +4,15 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var BowerWebpackPlugin = require('bower-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BlessPlugin = require('bless-webpack-plugin');
+var symbols = require('log-symbols');
+var _ = require('lodash');
+
 // var fs = require('fs');
 // var mkdirp = require('node-mkdirp');
 
 var context = require('../context');
 var helper = require('./helper');
+var logger = require('../logger');
 
 var pkg = require('../package.json');
 
@@ -82,7 +86,7 @@ var config = {
   devServer: {
     contentBase: helper.output(),
     noInfo: true, //  --no-info option
-    hot: true,
+    hot: false,
     inline: true
   },
 
@@ -165,20 +169,26 @@ var config = {
     // Use bundle name for extracting bundle css
     new ExtractTextPlugin('css/' + helper.cssFileName(), {
       allChunks: true
-    })
+    }),
 
-    // function() {
-    //   this.plugin('done', function(stats) {
-    //     mkdirp(path.join(process.cwd(), 'reports'), function(err) {
+    function() {
 
-    //       if (!err) {
-    //         fs.writeFileSync(wpStatsPath, JSON.stringify(stats.toJson()));
-    //       }
+      var finished = _.after(2, function() {
+        logger.success('[server] ' + symbols.success + ' open browser to ' + context.meta.uri);
+      });
 
-    //     });
+      this.plugin('done', function() {
+        finished();
+      });
 
-    //   });
-    // }
+      // this.plugin('done', function(stats) {
+      // mkdirp(path.join(process.cwd(), 'reports'), function(err) {
+      //   if (!err) {
+      //     fs.writeFileSync(wpStatsPath, JSON.stringify(stats.toJson()));
+      //   }
+      // });
+
+    }
   ]
 };
 

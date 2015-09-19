@@ -4,8 +4,9 @@ var utils = require('../utils');
 var Context = function() {
 
   this.settings = require('../settings');
-  var environment = utils.env.load(this);
+  this.meta = {};
 
+  var environment = utils.env.load(this);
   _.merge(this.settings, environment);
 
 };
