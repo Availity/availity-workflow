@@ -22,5 +22,7 @@ module.exports = {
 
   error: function() {
     log('red', Array.prototype.slice.call(arguments));
-  }
+  },
+
+  messages: require('./messages')
 };

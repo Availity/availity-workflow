@@ -12,6 +12,10 @@ context.gulp.task('av:server', [
 
 context.gulp.task('av:server:web', function() {
 
+  if (!context.flags.developerConfig) {
+    logger.warn(logger.messages.missingConfig);
+  }
+
   var Server = require('../hapi');
   var server = new Server();
 
