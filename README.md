@@ -41,7 +41,6 @@ gulp.task('test', ['av:test']);
 
 ```
 
-
 ### Gulp
 
 By default all Gulp tasks are prefixed by `av:` to prevent name clashes with your own Gulp tasks.
@@ -55,7 +54,7 @@ gulp av:default
 
 Runs the default task, which runs these tasks:
 
-* `av:clean`
+* cleans the destination directory `./build` or `./dist`
 * `av:copy `
 * `av:concat`
 * `av:server`
@@ -74,10 +73,15 @@ Clears the build/dist environment
 
 >
 ```sh
-gulp av:build:dev
+gulp av:build
 ```
 
-Builds your latest code for development.
+Builds your latest code for development|staging|production.
+
+By default `development` builds are created.  To build assets for staging or production:
+
+* `NODE_ENV=staging gulp av:release`
+* `NODE_ENV=production gulp av:release`
 
 ##### Copy
 
@@ -86,7 +90,7 @@ Builds your latest code for development.
 gulp av:copy
 ```
 
-Copies templates into the build/dist folder
+Copies templates into the build/dist folder.  Setting `NODE_ENV` environment variable determines the output path.
 
 
 ##### Lint
