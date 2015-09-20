@@ -18,18 +18,24 @@ var getPkg = function() {
 var type = 'patch';
 
 var runSequence = require('run-sequence').use(context.gulp);
-context.gulp.task('av:release:sequence', function() {
+
+context.gulp.task('av:release:sequence', function(cb) {
 
   del.sync([context.settings.dest()]);
 
   runSequence(
     'av:lint',
-    'av:release:bump',
+    context.settings.isProduction() ?  'av:release:bump' : 'av:noop',
     ['av:copy', 'av:concat'],
-    'av:build:prod',
-    'av:release:add',
-    'av:release:tag'
-    );
+    'av:build',
+    context.settings.isProduction() ?  'av:release:add' : 'av:noop',
+    context.settings.isProduction() ?  'av:release:tag' : 'av:noop',
+    cb
+  );
+});
+
+context.gulp.task('av:noop', function() {
+  return context.gulp.src('');
 });
 
 context.gulp.task('av:release:add', function() {
@@ -58,28 +64,32 @@ context.gulp.task('av:release', function() {
 
   var version = getPkg();
 
+  if (context.settings.isStaging() || context.settings.isDevelopment()) {
+    return context.gulp.start('av:release:sequence');
+  }
+
   return context.gulp.src('')
-  .pipe(prompt.prompt({
-    type: 'rawlist',
-    name: 'bump',
-    message: 'What type of version bump would you like to do ? (current version is ' + version + ')',
-    choices: [
-      'patch (' + version + ' --> ' + semver.inc(version, 'patch') + ')',
-      'minor (' + version + ' --> ' + semver.inc(version, 'minor') + ')',
-      'major (' + version + ' --> ' + semver.inc(version, 'major') + ')',
-      'none (exit)'
-    ]
-  }, function(res) {
-      if (res.bump.match(/^patch/)) {
-        type = 'patch';
-      } else if (res.bump.match(/^minor/)) {
-        type = 'minor';
-      } else if (res.bump.match(/^major/)) {
-        type = 'major';
-      }
+    .pipe(prompt.prompt({
+      type: 'rawlist',
+      name: 'bump',
+      message: 'What type of version bump would you like to do ? (current version is ' + version + ')',
+      choices: [
+        'patch (' + version + ' --> ' + semver.inc(version, 'patch') + ')',
+        'minor (' + version + ' --> ' + semver.inc(version, 'minor') + ')',
+        'major (' + version + ' --> ' + semver.inc(version, 'major') + ')',
+        'none (exit)'
+      ]
+    }, function(res) {
+        if (res.bump.match(/^patch/)) {
+          type = 'patch';
+        } else if (res.bump.match(/^minor/)) {
+          type = 'minor';
+        } else if (res.bump.match(/^major/)) {
+          type = 'major';
+        }
 
-      context.gulp.start('av:release:sequence');
+        context.gulp.start('av:release:sequence');
 
-    }));
+      }));
 
 });

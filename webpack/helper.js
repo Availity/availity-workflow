@@ -15,15 +15,17 @@ var utils = {
   // In production, [chunkhash] generate hashes depending on the file contents this if
   // the contents don't change the file could potentially be cached in the browser.
   fileName: function() {
-    return context.settings.isProduction() ? '[name]-[chunkhash].js' : '[name].js';
+    return context.settings.isProduction() || context.settings.isStaging() ? '[name]-[chunkhash].js' : '[name].js';
   },
 
   cssFileName: function() {
-    return context.settings.isProduction() ? '[name]-[chunkhash].css' : '[name].css';
+    return context.settings.isProduction() || context.settings.isStaging() ? '[name]-[chunkhash].css' : '[name].css';
   },
 
   output: function() {
-    return  context.settings.isProduction() ? path.join(context.settings.project.path, 'dist') : path.join(context.settings.project.path, 'build');
+    return  context.settings.isProduction() ?
+      path.join(context.settings.project.path, 'dist') :
+      path.join(context.settings.project.path, 'build');
   }
 };
 

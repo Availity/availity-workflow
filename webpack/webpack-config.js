@@ -4,8 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var BowerWebpackPlugin = require('bower-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BlessPlugin = require('bless-webpack-plugin');
-// var fs = require('fs');
-// var mkdirp = require('node-mkdirp');
+var WebpackMd5Hash = require('webpack-md5-hash');
 
 var context = require('../context');
 var helper = require('./helper');
@@ -13,7 +12,6 @@ var helper = require('./helper');
 var pkg = require('../package.json');
 
 var wpProjectPath = path.join(process.cwd(), 'project/app');
-// var wpStatsPath =  path.join(process.cwd(), 'reports/stats.json');
 var VERSION = require(path.join(process.cwd(),  './package.json')).version;
 
 function resolveBower(componentPath) {
@@ -79,33 +77,22 @@ var config = {
     ]
   },
 
-  devServer: {
-    contentBase: helper.output(),
-    noInfo: true, //  --no-info option
-    hot: true,
-    inline: true
-  },
-
   module: {
     loaders: [
       { test: /[\\\/]angular\.js$/, loader: 'expose?angular!exports?angular' }, // export angular so we can do `var angular = require('angular')`
       { test: /[\\\/]jquery\.js$/, loader: 'expose?$!expose?jQuery' }, // export jQuery and $ to global scope.
       { test: /[\\\/]lodash\.js$/, loader: 'expose?_' }, // export jQuery and $ to global scope.
       { test: /[\\\/]moment\.js$/, loader: 'expose?moment' },
-      { test: /\.css$/,
-          loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css-loader',
-            {
-              publicPath: '../'
-            }
-          )
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css')
       },
-      { test: /\.less$/,
-          loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css-loader!autoprefixer-loader?{browsers: ["last 3 versions", "ie 8", "ie 9", "> 1%"]}!less-loader'
-          )
+      {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract(
+          'style-loader',
+          'css-loader!autoprefixer-loader?{browsers: ["last 3 versions", "ie 8", "ie 9", "> 1%"]}!less-loader'
+        )
       },
       {
         // test should match the following:
@@ -135,6 +122,8 @@ var config = {
         /select2.*\.(png|gif|css)/
       ]
     }),
+
+    new WebpackMd5Hash(),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor'],
@@ -166,19 +155,6 @@ var config = {
     new ExtractTextPlugin('css/' + helper.cssFileName(), {
       allChunks: true
     })
-
-    // function() {
-    //   this.plugin('done', function(stats) {
-    //     mkdirp(path.join(process.cwd(), 'reports'), function(err) {
-
-    //       if (!err) {
-    //         fs.writeFileSync(wpStatsPath, JSON.stringify(stats.toJson()));
-    //       }
-
-    //     });
-
-    //   });
-    // }
   ]
 };
 
