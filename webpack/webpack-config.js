@@ -85,13 +85,18 @@ var config = {
       { test: /[\\\/]moment\.js$/, loader: 'expose?moment' },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css')
+        loader: ExtractTextPlugin.extract('style', 'css', {
+          publicPath: '../'
+        })
       },
       {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
-          'css-loader!autoprefixer-loader?{browsers: ["last 3 versions", "ie 8", "ie 9", "> 1%"]}!less-loader'
+          'css-loader!autoprefixer-loader?{browsers: ["last 3 versions", "ie 8", "ie 9", "> 1%"]}!less-loader',
+          {
+            publicPath: '../'
+          }
         )
       },
       {
