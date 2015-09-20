@@ -1,6 +1,6 @@
 var dateformat = require('dateformat');
 
-var template = '[{grey:%s}]} {yellow:[av]} ';
+var template = '[{grey:%s}]} {yellow:[av-workflow]} ';
 
 var Logger = require('eazy-logger').Logger;
 
