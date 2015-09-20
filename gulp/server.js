@@ -12,6 +12,10 @@ context.gulp.task('av:server', [
 
 context.gulp.task('av:server:web', function() {
 
+  if (!context.meta.developerConfig) {
+    logger.warn('[workflow] Missing ./project/config/developer-config.  Using defaults https://github.com/Availity/availity-workflow/blob/master/settings/index.js');
+  }
+
   var Server = require('../hapi');
   var server = new Server();
 
@@ -33,6 +37,6 @@ context.gulp.task('av:server:rest', function() {
       'NODE_ENV': 'development'
     }
   }).on('restart', function() {
-    logger.log('EKKO server restarted.');
+    logger.log('[ekko] server restarted.');
   });
 });

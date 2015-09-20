@@ -28,11 +28,12 @@ gulp.task('lint', function() {
 
 var type = 'patch';
 
-gulp.task('release:sequence', function() {
+gulp.task('release:sequence', function(cb) {
   runSequence(
     'lint',
     'release:bump',
-    'release:tag'
+    'release:tag',
+    cb
   );
 });
 
@@ -44,7 +45,7 @@ gulp.task('release:tag', function() {
   };
 
   return gulp.src(['./package.json', 'README.md'])
-    .pipe(git.commit('bump package version v' + getPkg())) // commit the changed version number
+    .pipe(git.commit('v' + getPkg())) // commit the changed version number
     .pipe(filter('package.json'))
     .pipe(tagVersion());
 });
