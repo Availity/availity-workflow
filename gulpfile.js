@@ -45,7 +45,7 @@ gulp.task('release:tag', function() {
   };
 
   return gulp.src(['./package.json', 'README.md'])
-    .pipe(git.commit('bump package version v' + getPkg())) // commit the changed version number
+    .pipe(git.commit('v' + getPkg())) // commit the changed version number
     .pipe(filter('package.json'))
     .pipe(tagVersion());
 });
