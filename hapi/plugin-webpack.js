@@ -1,20 +1,26 @@
-// https://github.com/SimonDegraeve/hapi-webpack-plugin
-
 var webpack = require('webpack');
 var webpackMiddleware = require('webpack-dev-middleware');
 
 var webpackConfig = require('../webpack');
+var logger = require('../logger');
 
 function register(server, options, next) {
 
   var compiler = webpack(webpackConfig);
+
+  compiler.plugin('done', function(stats) {
+    logger.info('webpack bundle[%s] complete', stats.hash);
+  });
+
+
   var webpackDev = webpackMiddleware(compiler, {
-    noInfo: false,
-    quiet: true,
-    stats: {
-      colors: true,
-      modules: false,
-      reasons: false
+    noInfo: true, // display no info to console (only warnings and errors)
+    quiet: true, // display nothing to the console
+    lazy: false,
+    stats: false,
+    watchOptions: {
+      aggregateTimeout: 1200,
+      poll: 1000
     }
   });
 
