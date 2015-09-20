@@ -39,7 +39,7 @@ proto.start = function() {
       self.server.start(function() {
 
         context.meta.uri = self.server.info.uri;
-        logger.success('[hapi] server started');
+        logger.info('hapi server started');
 
         resolve(true);
       });
@@ -63,7 +63,7 @@ proto.stop = function() {
       }
 
       resolve(true);
-      logger.info('[hapi] server stopped');
+      logger.info('hapi server stopped');
     });
   });
 
