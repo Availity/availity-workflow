@@ -1,30 +1,12 @@
-var utils = require('gulp-util');
-var chalk = require('chalk');
-var util = require('util');
+var dateformat = require('dateformat');
 
-var log = function(color, message) {
-  utils.log([chalk[color](util.format.apply(util, message))].join(' '));
-};
+var template = '[{grey:%s}]} {yellow:[av]} ';
 
-module.exports = {
+var Logger = require('eazy-logger').Logger;
 
-  log: function() {
-    log('grey', Array.prototype.slice.call(arguments));
-  },
+var logger = new Logger({
+  prefix: template.replace('%s', dateformat(new Date(), 'HH:MM:ss')),
+  useLevelPrefixes: false
+});
 
-  info: function() {
-    log('blue', Array.prototype.slice.call(arguments));
-  },
-
-  warn: function() {
-    log('yellow', Array.prototype.slice.call(arguments));
-  },
-
-  error: function() {
-    log('red', Array.prototype.slice.call(arguments));
-  },
-
-  success: function() {
-    log('green', Array.prototype.slice.call(arguments));
-  }
-};
+module.exports = logger;
