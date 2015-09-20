@@ -4,15 +4,14 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var BowerWebpackPlugin = require('bower-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BlessPlugin = require('bless-webpack-plugin');
-var symbols = require('log-symbols');
-var _ = require('lodash');
+var WebpackMd5Hash = require('webpack-md5-hash');
+
 
 // var fs = require('fs');
 // var mkdirp = require('node-mkdirp');
 
 var context = require('../context');
 var helper = require('./helper');
-var logger = require('../logger');
 
 var pkg = require('../package.json');
 
@@ -83,33 +82,22 @@ var config = {
     ]
   },
 
-  devServer: {
-    contentBase: helper.output(),
-    noInfo: true, //  --no-info option
-    hot: false,
-    inline: true
-  },
-
   module: {
     loaders: [
       { test: /[\\\/]angular\.js$/, loader: 'expose?angular!exports?angular' }, // export angular so we can do `var angular = require('angular')`
       { test: /[\\\/]jquery\.js$/, loader: 'expose?$!expose?jQuery' }, // export jQuery and $ to global scope.
       { test: /[\\\/]lodash\.js$/, loader: 'expose?_' }, // export jQuery and $ to global scope.
       { test: /[\\\/]moment\.js$/, loader: 'expose?moment' },
-      { test: /\.css$/,
-          loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css-loader',
-            {
-              publicPath: '../'
-            }
-          )
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css')
       },
-      { test: /\.less$/,
-          loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css-loader!autoprefixer-loader?{browsers: ["last 3 versions", "ie 8", "ie 9", "> 1%"]}!less-loader'
-          )
+      {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract(
+          'style-loader',
+          'css-loader!autoprefixer-loader?{browsers: ["last 3 versions", "ie 8", "ie 9", "> 1%"]}!less-loader'
+        )
       },
       {
         // test should match the following:
@@ -140,6 +128,8 @@ var config = {
       ]
     }),
 
+    new WebpackMd5Hash(),
+
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor'],
       minChunks: Infinity
@@ -169,26 +159,7 @@ var config = {
     // Use bundle name for extracting bundle css
     new ExtractTextPlugin('css/' + helper.cssFileName(), {
       allChunks: true
-    }),
-
-    function() {
-
-      var finished = _.after(2, function() {
-        logger.success('[server] ' + symbols.success + ' open browser to ' + context.meta.uri);
-      });
-
-      this.plugin('done', function() {
-        finished();
-      });
-
-      // this.plugin('done', function(stats) {
-      // mkdirp(path.join(process.cwd(), 'reports'), function(err) {
-      //   if (!err) {
-      //     fs.writeFileSync(wpStatsPath, JSON.stringify(stats.toJson()));
-      //   }
-      // });
-
-    }
+    })
   ]
 };
 
