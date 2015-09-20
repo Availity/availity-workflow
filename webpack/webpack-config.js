@@ -6,17 +6,12 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BlessPlugin = require('bless-webpack-plugin');
 var WebpackMd5Hash = require('webpack-md5-hash');
 
-
-// var fs = require('fs');
-// var mkdirp = require('node-mkdirp');
-
 var context = require('../context');
 var helper = require('./helper');
 
 var pkg = require('../package.json');
 
 var wpProjectPath = path.join(process.cwd(), 'project/app');
-// var wpStatsPath =  path.join(process.cwd(), 'reports/stats.json');
 var VERSION = require(path.join(process.cwd(),  './package.json')).version;
 
 function resolveBower(componentPath) {
