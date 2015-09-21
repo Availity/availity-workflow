@@ -4,15 +4,13 @@ function register(server, options, next) {
 
   server.route({
     path: '/api/{param*}',
-    method: 'GET',
-    handler: function(request, reply) {
-
-      return reply.proxy({
+    method: ['GET', 'PUT', 'POST', 'DELETE'],
+    handler: {
+      proxy: {
         host: context.getConfig().servers.web.host,
         port: context.getConfig().servers.web.port,
-        protocol: 'http'
-      });
-
+        passThrough: true
+      }
     }
   });
 
