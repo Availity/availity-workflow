@@ -80,16 +80,17 @@ context.gulp.task('av:release', function() {
         'none (exit)'
       ]
     }, function(res) {
-        if (res.bump.match(/^patch/)) {
-          type = 'patch';
-        } else if (res.bump.match(/^minor/)) {
-          type = 'minor';
-        } else if (res.bump.match(/^major/)) {
-          type = 'major';
-        }
 
-        context.gulp.start('av:release:sequence');
+      if (res.bump.match(/^patch/)) {
+        type = 'patch';
+      } else if (res.bump.match(/^minor/)) {
+        type = 'minor';
+      } else if (res.bump.match(/^major/)) {
+        type = 'major';
+      }
 
-      }));
+      context.gulp.start('av:release:sequence');
+
+    }));
 
 });

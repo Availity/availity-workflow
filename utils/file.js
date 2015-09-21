@@ -8,7 +8,7 @@ module.exports = function(file, raw) {
     }else {
       _file = require(file);
     }
-  }catch(err) {
+  }catch (err) {
     // no op
   }
 
