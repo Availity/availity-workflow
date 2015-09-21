@@ -15,17 +15,15 @@ The Availity Workflow provides [Gulp](http://gulpjs.com), [Karma](http://karma-r
 
 ## Installation
 
-* Install using NPM
+- Install using NPM
 
 ```bash
 npm install availity-workflow --save-dev
 ```
 
-* Integrate with Gulp
+- Integrate with Gulp
 
 ```javascript
-
-// gulpfile.js
 
 var gulp = require('gulp');
 
@@ -47,7 +45,6 @@ By default all Gulp tasks are prefixed by `av:` to prevent name clashes with you
 
 ##### Default
 
->
 ```bash
 gulp av:default
 ```
@@ -62,7 +59,6 @@ Runs the default task, which runs these tasks:
 
 ##### Clean
 
->
 ```sh
 gulp av:clean
 ```
@@ -71,7 +67,6 @@ Clears the build/dist environment
 
 ##### Build
 
->
 ```sh
 gulp av:build
 ```
@@ -85,7 +80,6 @@ By default `development` builds are created.  To build assets for staging or pro
 
 ##### Copy
 
->
 ```sh
 gulp av:copy
 ```
@@ -95,7 +89,6 @@ Copies templates into the build/dist folder.  Setting `NODE_ENV` environment var
 
 ##### Lint
 
->
 ```sh
 gulp av:lint
 ```
@@ -104,7 +97,6 @@ Checks for stylistic and programming errors using [ESLint](http://eslint.org/)
 
 ##### Server
 
->
 ```sh
 av:server
 ```
