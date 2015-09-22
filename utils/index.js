@@ -5,6 +5,7 @@ var banner = require('./banner');
 var avBanner = require('./banner-availity');
 var file = require('./file');
 var merge = require('./merge');
+var readme = require('./readme');
 
 module.exports = {
   env: env,
@@ -13,5 +14,6 @@ module.exports = {
   banner: banner,
   availity: avBanner,
   file: file,
-  merge: merge
+  merge: merge,
+  readme: readme
 };

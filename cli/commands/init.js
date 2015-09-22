@@ -3,6 +3,8 @@ var semver = require('semver');
 var _ = require('lodash');
 var utils = require('../../utils');
 var Joi = require('joi');
+var fs = require('fs');
+var path = require('path');
 
 module.exports = function(cli) {
 
@@ -130,6 +132,7 @@ module.exports = function(cli) {
       inquirer.prompt(questions, function(answers) {
         cli.answers = answers;
         utils.write(cli);
+        utils.readme(cli, fs.readFileSync(path.join(__dirname, '..', 'templates', 'readme.md')).toString());
       });
 
     });

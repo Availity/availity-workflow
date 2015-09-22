@@ -82,6 +82,7 @@
     "h2o2": "^4.0.1",
     "hapi": "^9.3.0",
     "hoek": "^2.14.0",
+    "hogan": "^1.0.2",
     "html-loader": "^0.3.0",
     "html-webpack-plugin": "^1.6.1",
     "inert": "^3.0.1",
