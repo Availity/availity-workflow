@@ -1,6 +1,6 @@
-# {{name}}
+# <%= name %>
 
-> {{description}}
+> <%= description %>
 
 ## Table of Contents
 * [Intro](#intro)
@@ -23,8 +23,8 @@ Put usage information here.
 
 ## Authors
 
-**{{author}}**
-+ [{{email}}]({{email}})
+**<%= author %>**
++ [<%= email %>](<%= email %>)
 
 ## License
 
