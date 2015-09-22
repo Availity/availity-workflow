@@ -10,11 +10,11 @@ var config = _.merge({}, settings, {
     routes: path.join(settings.project.path, 'project/config/routes.json'),
     servers: {
       app: {
-        host: '0.0.0.0',
+        host: '127.0.0.1',
         port: 3000
       },
       web: {
-        host: '0.0.0.0',
+        host: '127.0.0.1',
         port: 9999
       }
     }
@@ -23,11 +23,11 @@ var config = _.merge({}, settings, {
   production: {
     servers: {
       app: {
-        host: '0.0.0.0',
+        host: '127.0.0.1',
         port: 3000
       },
       web: {
-        host: '0.0.0.0',
+        host: '127.0.0.1',
         port: 9999
       }
     },
