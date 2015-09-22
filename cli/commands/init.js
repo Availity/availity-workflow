@@ -8,7 +8,7 @@ module.exports = function(cli) {
 
   cli.program
     .command('init')
-    .description('initialize project meta data: package.json, bower.json, availity.json')
+    .description('initialize project metadata: package.json, bower.json, availity.json')
     .action(function action() {
 
       var questions = [
