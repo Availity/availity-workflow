@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Upgradable workflow for Availity Toolkit projects.",
   "private": false,
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
