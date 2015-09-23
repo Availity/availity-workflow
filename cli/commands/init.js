@@ -126,13 +126,26 @@ module.exports = function(cli) {
 
             return 'Keywords must be unique, start with a letter and can only contain alpha and dashes';
           }
+        },
+        {
+          name: 'readme',
+          type: 'confirm',
+          message: 'overwrite existing readme',
+          default: false,
+          when: function() {
+            return fs.existsSync(path.join(process.cwd(), 'availity.json'));
+          }
         }
       ];
 
       inquirer.prompt(questions, function(answers) {
         cli.answers = answers;
+        // If we didn't show the 'readme' question, or they said to overwrite,
+        // then overwrite the readme
+        if (!_.has(cli.answers, 'readme') || cli.answers.readme) {
+          utils.readme(cli, fs.readFileSync(path.join(__dirname, '..', 'templates', 'readme.md')).toString());
+        }
         utils.write(cli);
-        utils.readme(cli, fs.readFileSync(path.join(__dirname, '..', 'templates', 'readme.md')).toString());
       });
 
     });
