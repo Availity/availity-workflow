@@ -39,13 +39,13 @@ context.gulp.task('av:noop', function() {
 });
 
 context.gulp.task('av:release:add', function() {
-  return context.gulp.src(path.join(process.cwd(), './dist/*'))
-    .pipe(git.add({args: '-f'}));
+  return context.gulp.src(path.join(process.cwd(), './dist/'))
+    .pipe(git.add({args: '-fA'}));
 });
 
 context.gulp.task('av:release:tag', function() {
 
-  return context.gulp.src(['./package.json', './bower.json', './dist/*', 'README.md'])
+  return context.gulp.src(['./package.json', './bower.json', './dist/', 'README.md'])
     .pipe(git.commit('bump package version v' + getPkg())) // commit the changed version number
     .pipe(filter('package.json'))
     .pipe(tagVersion());
