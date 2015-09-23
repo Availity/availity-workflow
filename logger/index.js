@@ -6,7 +6,8 @@ var Logger = require('eazy-logger').Logger;
 
 var logger = new Logger({
   prefix: template.replace('%s', dateformat(new Date(), 'HH:MM:ss')),
-  useLevelPrefixes: false
+  useLevelPrefixes: false,
+  level: 'warn'
 });
 
 module.exports = logger;
