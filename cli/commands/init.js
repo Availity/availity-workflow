@@ -3,12 +3,14 @@ var semver = require('semver');
 var _ = require('lodash');
 var utils = require('../../utils');
 var Joi = require('joi');
+var fs = require('fs');
+var path = require('path');
 
 module.exports = function(cli) {
 
   cli.program
     .command('init')
-    .description('initialize project meta data: package.json, bower.json, availity.json')
+    .description('initialize project metadata: package.json, bower.json, availity.json')
     .action(function action() {
 
       var questions = [
@@ -124,11 +126,25 @@ module.exports = function(cli) {
 
             return 'Keywords must be unique, start with a letter and can only contain alpha and dashes';
           }
+        },
+        {
+          name: 'readme',
+          type: 'confirm',
+          message: 'overwrite existing readme',
+          default: false,
+          when: function() {
+            return fs.existsSync(path.join(process.cwd(), 'availity.json'));
+          }
         }
       ];
 
       inquirer.prompt(questions, function(answers) {
         cli.answers = answers;
+        // If we didn't show the 'readme' question, or they said to overwrite,
+        // then overwrite the readme
+        if (!_.has(cli.answers, 'readme') || cli.answers.readme) {
+          utils.readme(cli, fs.readFileSync(path.join(__dirname, '..', 'templates', 'readme.md')).toString());
+        }
         utils.write(cli);
       });
 
