@@ -17,6 +17,7 @@ module.exports = function(cli) {
           message: 'author name:',
           default: _.get(cli.manifests.availity.json, 'author.name') || null,
           validate: function(value) {
+
             var schema = Joi.string();
             var valid = Joi.validate(value, schema);
 
@@ -51,6 +52,7 @@ module.exports = function(cli) {
             return val.toLowerCase();
           },
           validate: function(value) {
+
             var schema = Joi.string().regex(/^[a-z][a-z0-9\-]+$/i).min(1).max(214);
             var valid = Joi.validate(value, schema);
 
