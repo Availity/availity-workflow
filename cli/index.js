@@ -25,6 +25,6 @@ program.parse(process.argv);
 
 // if (!program.args.length)  {
   // this conflicts when running 'gulp' default task
-  // pro gram.help();
+  // program.help();
 // }
 
