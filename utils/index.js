@@ -6,6 +6,7 @@ var avBanner = require('./banner-availity');
 var file = require('./file');
 var merge = require('./merge');
 var notifier = require('./notifier');
+var readme = require('./readme');
 
 module.exports = {
   env: env,
@@ -15,5 +16,6 @@ module.exports = {
   availity: avBanner,
   file: file,
   merge: merge,
-  notifier: notifier
+  notifier: notifier,
+  readme: readme
 };
