@@ -1,9 +1,7 @@
-var updateNotifier = require('update-notifier');
+var chalk = require('chalk');
 
 var logger = require('../../logger');
 var utils = require('../../utils');
-
-var pkg = require('../../package.json');
 
 module.exports = function(cli) {
 
@@ -12,20 +10,18 @@ module.exports = function(cli) {
     .description('display version information about availity-workflow project')
     .action(function action() {
 
-      var notifier = updateNotifier({
-        pkg: pkg
-      });
+      var notifier = utils.notifier();
 
-      var nameVer = notifier.packageName + ' v' + notifier.packageVersion;
+      var nameVer = chalk.bold('v' + notifier.packageVersion);
 
       var message = '\n\n' +
         nameVer  +
         utils.availity +
-        '- https://github.com/availity/availity-workflow\n' +
-        '- https://twitter.com/availity\n' +
-        '- https://developer.availity.com\n';
+        chalk.gray('- https://github.com/availity/availity-workflow\n') +
+        chalk.gray('- https://twitter.com/availity\n') +
+        chalk.gray('- https://developer.availity.com\n');
 
       logger.warn(message);
-      notifier.notify();
+
     });
 };

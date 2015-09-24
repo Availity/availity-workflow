@@ -13,7 +13,7 @@ context.gulp.task('av:server', [
 context.gulp.task('av:server:web', function() {
 
   if (!context.meta.developerConfig) {
-    logger.warn('{bold:WARNING} Missing {cyan:./project/config/developer-config}. Using defaults {cyan:https://github.com/Availity/availity-workflow/blob/master/settings/index.js}');
+    logger.warn('Missing {cyan:./project/config/developer-config.js}. Using defaults {cyan:https://github.com/Availity/availity-workflow/blob/master/settings/index.js}');
   }
 
   var Server = require('../hapi');

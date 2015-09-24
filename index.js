@@ -1,16 +1,10 @@
 var context = require('./context');
 var cli = require('./cli');
-var updateNotifier = require('update-notifier');
-var pkg = require('./package.json');
-
-var notifier = updateNotifier({
-  pkg: pkg,
-  updateCheckInterval: 1000 * 60 * 60 * 24 * 7 // 1 week
-});
+var utils = require('./utils');
 
 module.exports.use = function use(_context) {
 
-  notifier.notify();
+  utils.notifier();
 
   context.set(_context || {});
 
@@ -23,8 +17,6 @@ module.exports.use = function use(_context) {
 };
 
 module.exports.cli = function _cli() {
-
-  notifier.notify();
 
   return cli;
 };
