@@ -14,6 +14,8 @@ module.exports.use = function use(_context) {
     recurse: false
   });
 
+  return context;
+
 };
 
 module.exports.cli = function _cli() {
