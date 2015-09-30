@@ -12,7 +12,16 @@ var VERSION = require(path.join(process.cwd(),  './package.json')).version;
 var wpConfig = webpackConfig.extend({
   devtool: 'inline-source-map',
   cache: true,
-  debug: true
+  debug: true,
+  module: {
+    postLoaders: [
+      {
+        test: /\.js$/,
+        exclude: /(-spec.js|node_modules|bower_components|specs.js|module.js|vendor.js)/,
+        loader: 'istanbul-instrumenter'
+      }
+    ]
+  }
 });
 
 wpConfig.plugins = [
@@ -99,9 +108,9 @@ module.exports = function(config) {
           file: 'text.txt'
         },
         {
-          type: 'text-summary',
-          file: 'text-summary.txt'
-        }, {
+          type: 'text-summary'
+        },
+        {
           type: 'html'
         }
       ]
@@ -127,6 +136,7 @@ module.exports = function(config) {
       require('karma-mocha-reporter'),
       require('karma-spec-reporter'),
       require('karma-chrome-launcher'),
+      require('istanbul-instrumenter-loader'),
       require('karma-firefox-launcher'),
       require('karma-sourcemap-loader'),
       require('karma-coverage'),
