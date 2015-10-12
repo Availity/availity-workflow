@@ -19,11 +19,11 @@ function getContextSegments() {
 
   var servers = context.getConfig().servers;
 
-  var contexts =  _.map(servers, function(server) {
-    return getSegments(server);
-  });
-
-  contexts = _.chain(contexts).flatten().unique().value();
+  var contexts = _.chain(servers)
+    .map(getSegments)
+    .flatten()
+    .unique()
+    .value();
 
   return contexts;
 
