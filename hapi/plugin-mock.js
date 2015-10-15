@@ -34,7 +34,7 @@ function getRoutes() {
   var contexts = getContextSegments();
 
   if (contexts.length === 0) {
-    context.push('api');
+    contexts.push('api');
   }
 
   var routes =  _.map(contexts, function(path) {
