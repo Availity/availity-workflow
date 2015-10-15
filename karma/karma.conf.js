@@ -24,6 +24,10 @@ var wpConfig = webpackConfig.extend({
   }
 });
 
+if (context.settings.isDebugTesting()) {
+  delete wpConfig.module.postLoaders;
+}
+
 wpConfig.plugins = [
 
   // ignore all the moment local files
@@ -98,6 +102,7 @@ module.exports = function(config) {
     reporters: ['mocha', 'coverage'],
 
     coverageReporter: {
+      includeAllSources: true,
       dir: context.settings.js.reportsDir,
       subdir: function(browser) {
         return browser.toLowerCase().split(/[ /-]/)[0];
