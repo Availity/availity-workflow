@@ -44,7 +44,9 @@ wpConfig.plugins = [
 
   new webpack.DefinePlugin({
     APP_VERSION: JSON.stringify(VERSION),
-    ENVIRONMENT: JSON.stringify(process.env.NODE_ENV)
+    __DEV__: JSON.stringify(JSON.parse(process.env.NODE_ENV === 'development')),
+    __PROD__: JSON.stringify(JSON.parse(process.env.NODE_ENV === 'production')),
+    __TEST__: JSON.stringify(JSON.parse(process.env.NODE_ENV === 'test'))
   }),
 
   new webpack.ProvidePlugin({
