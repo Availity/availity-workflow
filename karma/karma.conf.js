@@ -43,7 +43,8 @@ wpConfig.plugins = [
   }),
 
   new webpack.DefinePlugin({
-    APP_VERSION: JSON.stringify(VERSION)
+    APP_VERSION: JSON.stringify(VERSION),
+    ENVIRONMENT: JSON.stringify(process.env.NODE_ENV)
   }),
 
   new webpack.ProvidePlugin({
