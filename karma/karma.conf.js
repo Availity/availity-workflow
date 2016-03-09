@@ -72,7 +72,7 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'specs.js': ['webpack', 'sourcemap']
+      'specs.js': context.settings.isDebugTesting() ? ['webpack'] : ['webpack', 'sourcemap']
     },
 
     webpack: wpConfig,
