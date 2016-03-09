@@ -169,7 +169,7 @@ if (context.settings.isProduction()) {
     new webpack.optimize.OccurenceOrderPlugin(true),
     new webpack.optimize.UglifyJsPlugin({
       mangle: false,
-      sourceMap: false,
+      sourceMap: true,
       compress: {
         drop_console: true,
         warnings: false
