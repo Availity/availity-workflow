@@ -1,8 +1,8 @@
-var path = require('path');
-var _ = require('lodash');
-var settings = require('./settings');
+const path = require('path');
+const _ = require('lodash');
 
-var config = _.merge({}, settings, {
+const settings = require('./settings');
+const config = _.merge({}, settings, {
 
   development: {
     // open: '/#foo'
