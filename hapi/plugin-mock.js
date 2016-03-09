@@ -4,13 +4,11 @@ var context = require('../context');
 
 function getSegments(server) {
 
-  var segments =  _.chain(server.proxies)
-    .pluck('context')
-    .map(function(url) {
-      var segs = _.chain(url.split('/')).omit(_.isEmpty).values().value();
-      return segs[0];
-    })
-    .value();
+  var segments = _.map(server.proxies, 'context');
+  segments = _.map(segments, function(url) {
+    var segs = _.chain(url.split('/')).omitBy(_.isEmpty).values().value();
+    return segs[0];
+  });
 
   return segments;
 }
@@ -18,12 +16,10 @@ function getSegments(server) {
 function getContextSegments() {
 
   var servers = context.getConfig().servers;
+  var segments = _.map(servers, getSegments);
+  segments = _.flatten(segments);
+  var contexts = _.uniq(segments);
 
-  var contexts = _.chain(servers)
-    .map(getSegments)
-    .flatten()
-    .unique()
-    .value();
 
   return contexts;
 
