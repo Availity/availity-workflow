@@ -1,32 +1,32 @@
-var _ = require('lodash');
-var utils = require('../utils');
+const _ = require('lodash');
+const utils = require('../utils');
 
-var Context = function() {
+class Context {
 
-  this.settings = require('../settings');
-  this.meta = {};
+  constructor() {
 
-  var environment = utils.env.load(this);
-  _.merge(this.settings, environment);
+    this.settings = require('../settings');
+    this.meta = {};
 
-};
+    const environment = utils.env.load(this);
+    _.merge(this.settings, environment);
+  }
 
-var proto = Context.prototype;
+  set(context) {
 
-proto.set = function(context) {
+    const self = this;
 
-  var self = this;
+    _.forEach(['gulp', 'webpack', 'karma'], function(value) {
+      self[value] = context[value];
+    });
 
-  _.forEach(['gulp', 'webpack', 'karma'], function(value) {
-    self[value] = context[value];
-  });
+  }
 
-};
-
-proto.getConfig = function() {
-  var environment = process.env.NODE_ENV || 'development';
-  return this.settings[environment];
-};
+  getConfig() {
+    const environment = process.env.NODE_ENV || 'development';
+    return this.settings[environment];
+  }
+}
 
 
 module.exports = new Context();
