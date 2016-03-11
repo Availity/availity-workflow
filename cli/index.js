@@ -23,8 +23,3 @@ _.forEach(commands, function(command) {
 
 program.parse(process.argv);
 
-// if (!program.args.length)  {
-  // this conflicts when running 'gulp' default task
-  // program.help();
-// }
-

@@ -1,6 +1,6 @@
 var del = require('del');
 
-var version = require('./version');
+var version = require('../dev/version');
 var context = require('../context');
 
 var runSequence = require('run-sequence').use(context.gulp);
