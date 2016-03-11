@@ -76,17 +76,17 @@ function prompt() {
   'use strict';
 
   var choices = [
-    { name: 'patch ( ' + version + ' --> ' + semver.inc(simpleVersion, 'patch'), value: semver.inc(simpleVersion, 'patch') },
-    { name: 'minor ( ' + version + ' --> ' + semver.inc(simpleVersion, 'minor'), value: semver.inc(simpleVersion, 'minor') },
-    { name: 'major ( ' + version + ' --> ' + semver.inc(simpleVersion, 'major'), value: semver.inc(simpleVersion, 'major') },
+    { name: 'patch ( ' + version + ' => ' + semver.inc(simpleVersion, 'patch') + ' )', value: semver.inc(simpleVersion, 'patch') },
+    { name: 'minor ( ' + version + ' => ' + semver.inc(simpleVersion, 'minor') + ' )', value: semver.inc(simpleVersion, 'minor') },
+    { name: 'major ( ' + version + ' => ' + semver.inc(simpleVersion, 'major') + ' )', value: semver.inc(simpleVersion, 'major') },
     new inquirer.Separator(), { name: 'other', value: 'other' }
   ];
 
   // pre-release
   if (parsed.prerelease && parsed.prerelease.length) {
     choices = [
-      { name: 'prerelease ( ' + version + ' => ' + semver.inc(version, 'prerelease', parsed[0]) + ')', value: semver.inc(version, 'prerelease', parsed[0]) },
-      { name: 'release ( ' + version + ' => ' + simpleVersion + ')', value: simpleVersion },
+      { name: 'prerelease ( ' + version + ' => ' + semver.inc(version, 'prerelease', parsed[0]) + ' )', value: semver.inc(version, 'prerelease', parsed[0]) },
+      { name: 'release ( ' + version + ' => ' + simpleVersion + ' )', value: simpleVersion },
       new inquirer.Separator(), { name: 'other', value: 'other' }
     ];
   }
@@ -137,16 +137,7 @@ function prompt() {
 
 }
 
-function release() {
-
-  return prompt()
-    .then(bump)
-    .then(git);
-
-}
-
 module.exports = {
-  release: release,
   prompt: prompt,
   git: git,
   bump: bump

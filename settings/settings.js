@@ -12,7 +12,7 @@ var _settings =  {
   },
 
   dest: function() {
-    return this.isProduction() ? path.join(process.cwd(), './dist') : path.join(process.cwd(), './build');
+    return this.isProduction() || this.isIntegration() ? path.join(process.cwd(), './dist') : path.join(process.cwd(), './build');
   },
 
   verbose: !!argv.verbose,
@@ -27,12 +27,16 @@ var _settings =  {
     return this.environment() === 'testing';
   },
 
-  isDebugTesting: function() {
-    return this.environment() === 'debug_testing';
+  isDebug: function() {
+    return this.environment() === 'debug';
   },
 
   isStaging: function() {
     return this.environment() === 'staging';
+  },
+
+  isIntegration: function() {
+    return this.environment === 'integration';
   },
 
   isDevelopment: function() {

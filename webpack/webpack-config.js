@@ -161,7 +161,18 @@ var config = {
       allChunks: true
     })
   ]
+
 };
+
+if (context.settings.isIntegration()) {
+
+  config.plugins.push(
+    new webpack.optimize.OccurenceOrderPlugin(true),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.NoErrorsPlugin()
+  );
+
+}
 
 if (context.settings.isProduction()) {
 
@@ -179,8 +190,10 @@ if (context.settings.isProduction()) {
         max_line_len: 1000
       }
     }),
-    new webpack.optimize.DedupePlugin()
+    new webpack.optimize.DedupePlugin(),
+    new webpack.NoErrorsPlugin()
   );
+
 }
 
 module.exports = config;

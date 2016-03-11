@@ -20,7 +20,7 @@ context.gulp.task('av:test:ci', function(done) {
 
 context.gulp.task('av:test:server', ['av:lint'], function(done) {
 
-  process.env.NODE_ENV = 'debug_testing';
+  process.env.NODE_ENV = 'debug';
 
   var server = new karma.Server({
     configFile: path.join(__dirname, '../karma/karma.conf.js'),
