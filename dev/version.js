@@ -45,7 +45,7 @@ function bump() {
   return new BPromise(function(resolve, reject) {
 
     if (!VERSION) {
-      return reject(false);
+      return reject('version is undefined');
     }
 
     var contents = raw();
