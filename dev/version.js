@@ -73,7 +73,6 @@ function prompt() {
 
   // regular release
   var simpleVersion = parsed.major + '.' + parsed.minor + '.' + parsed.patch;
-  'use strict';
 
   var choices = [
     { name: 'patch ( ' + version + ' => ' + semver.inc(simpleVersion, 'patch') + ' )', value: semver.inc(simpleVersion, 'patch') },
