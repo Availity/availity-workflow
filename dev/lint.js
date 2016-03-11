@@ -4,7 +4,7 @@ var BPromise = require('bluebird');
 
 var logger = require('../logger');
 
-module.exports.lint = function lint() {
+module.exports = function lint() {
 
   var engine = new eslint.CLIEngine({
     useEslintrc: true
@@ -18,11 +18,11 @@ module.exports.lint = function lint() {
       var formatter = engine.getFormatter();
 
       if (report.errorCount || report.warningCount) {
-        logger.error('eslint');
-        logger.log('' + formatter(report.results));
+        logger.error('eslint failed');
+        logger.info('' + formatter(report.results));
         reject();
       } else {
-        logger.log('eslint');
+        logger.info('eslint ok');
         resolve();
       }
 

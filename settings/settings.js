@@ -1,5 +1,5 @@
 var path = require('path');
-var argv = require('minimist')(process.argv.slice(2));
+var argv = require('yargs').argv;
 
 var _settings =  {
 
