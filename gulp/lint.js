@@ -1,4 +1,4 @@
-var glob = require('glob');
+var globby = require('globby');
 var gulpif = require('gulp-if');
 var g = require('gulp-util');
 var using = require('gulp-using');
@@ -34,7 +34,7 @@ context.gulp.task('av:lint:node', function lint() {
 
 var _plato = function _plato(done) {
 
-  var files = glob.sync(context.settings.js.src);
+  var files = globby.sync(context.settings.js.src);
   var excludeFiles = /.*-spec\.js/;
   var plato = require('plato');
 
