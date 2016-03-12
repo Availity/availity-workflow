@@ -6,7 +6,7 @@ module.exports =  function release() {
   return lint()
    .then(version.prompt)
    .then(version.bump)
-   .then(version.git);
+   .then(version.tag);
 
 };
 

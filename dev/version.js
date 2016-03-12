@@ -27,7 +27,8 @@ function pkg(contents) {
   return JSON.parse(contents || raw());
 }
 
-function git() {
+
+function tag() {
 
   return new BPromise(function(resolve) {
 
@@ -137,7 +138,7 @@ function prompt() {
 }
 
 module.exports = {
+  tag: tag,
   prompt: prompt,
-  git: git,
   bump: bump
 };
