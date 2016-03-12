@@ -17,7 +17,7 @@ context.gulp.task('av:release:sequence', function(cb) {
     context.settings.isDistribution() ? 'av:release:bump' : 'av:noop',
     ['av:copy', 'av:concat'],
     'av:build',
-    context.settings.isDistribution() ? 'av:release:git' : 'av:noop',
+    context.settings.isDistribution() ? 'av:release:tag' : 'av:noop',
     cb
   );
 });
