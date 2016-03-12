@@ -30,7 +30,7 @@ var config = {
   output: {
     path: helper.output(),
     filename: helper.fileName(),
-    hash: context.settings.isProduction(),
+    hash: context.settings.isDistribution(),
     pathinfo: context.settings.isDevelopment()
   },
 
@@ -164,7 +164,7 @@ var config = {
 
 };
 
-if (context.settings.isIntegration()) {
+if (context.settings.isStaging()) {
 
   config.plugins.push(
     new webpack.optimize.OccurenceOrderPlugin(true),
