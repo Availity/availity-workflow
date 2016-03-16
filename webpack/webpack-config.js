@@ -108,7 +108,7 @@ var config = {
         test: /\.(ttf|woff|eot|svg).*/,
         loader: 'file?name=fonts/[name].[ext]'
       },
-      {test: /\.(\.jpe?g|png|gif)$/, loader: 'file?name=images/[name].[ext]'},
+      {test: /\.(jpe?g|png|gif)$/, loader: 'file?name=images/[name].[ext]'},
       {test: /\.html$/, loader: 'html'},
       {test: /\.json$/, loader: 'json-loader'}
 
