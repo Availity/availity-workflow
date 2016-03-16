@@ -1,7 +1,7 @@
 var path = require('path');
-var argv = require('minimist')(process.argv.slice(2));
+var argv = require('yargs').argv;
 
-var _settings =  {
+var settings =  {
 
   packages: {
     src: [path.join(process.cwd(), './package.json'), path.join(process.cwd(), './bower.json')]
@@ -12,7 +12,7 @@ var _settings =  {
   },
 
   dest: function() {
-    return this.isProduction() ? path.join(process.cwd(), './dist') : path.join(process.cwd(), './build');
+    return this.isDistribution() ? path.join(process.cwd(), './dist') : path.join(process.cwd(), './build');
   },
 
   verbose: !!argv.verbose,
@@ -27,12 +27,20 @@ var _settings =  {
     return this.environment() === 'testing';
   },
 
-  isDebugTesting: function() {
-    return this.environment() === 'debug_testing';
+  isDistribution: function() {
+    return this.isProduction() || this.isStaging();
+  },
+
+  isDebug: function() {
+    return this.environment() === 'debug';
   },
 
   isStaging: function() {
     return this.environment() === 'staging';
+  },
+
+  isIntegration: function() {
+    return this.environment() === 'integration';
   },
 
   isDevelopment: function() {
@@ -72,5 +80,5 @@ var _settings =  {
   }
 };
 
-module.exports = _settings;
+module.exports = settings;
 

@@ -125,4 +125,4 @@ Open source software components distributed or made available in the Availity Ma
 
 ## License
 
-Copyright (c) 2015 Availity, LLC. Code released under the [the MIT license](LICENSE)
+Copyright (c) 2016 Availity, LLC. Code released under the [the MIT license](LICENSE)

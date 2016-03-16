@@ -3,6 +3,7 @@ var h2o2 = require('h2o2');
 var Hoek = require('hoek');
 var inert = require('inert');
 var BPromise = require('bluebird');
+var figures = require('figures');
 
 var pluginMock = require('./plugin-mock');
 var pluginWebpack = require('./plugin-webpack');
@@ -39,7 +40,9 @@ proto.start = function() {
       self.server.start(function() {
 
         context.meta.uri = self.server.info.uri;
-        logger.info('hapi server started');
+
+        logger.info('Server started');
+        logger.info('{bold:%s} {green:open browser to %s', figures.tick, context.meta.uri);
 
         resolve(true);
       });
@@ -63,7 +66,7 @@ proto.stop = function() {
       }
 
       resolve(true);
-      logger.info('hapi server stopped');
+      logger.info('Server stopped');
     });
   });
 

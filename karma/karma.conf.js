@@ -24,7 +24,7 @@ var wpConfig = webpackConfig.extend({
   }
 });
 
-if (context.settings.isDebugTesting()) {
+if (context.settings.isDebug()) {
   delete wpConfig.module.postLoaders;
 }
 
