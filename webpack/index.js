@@ -11,6 +11,6 @@ proto.extend = function(options) {
   return utils.merge(new Config(this), options);
 };
 
-var config =  new Config(webpackConfig);
+var config = new Config(webpackConfig);
 
 module.exports = config;

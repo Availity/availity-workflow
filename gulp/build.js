@@ -33,8 +33,7 @@ context.gulp.task('av:build', function(cb) {
     gUtil.log('[av:build]', _stats);
 
     // Webpack will emit stats per entry point bundle created.  Gulp will
-    // cry foul if the callback is called multiple time.  Only all after
-    // the second bundle has been emitted.
+    // cry foul if the callback is called multiple times.
     done();
 
   });
