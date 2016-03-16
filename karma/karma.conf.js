@@ -7,7 +7,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var context = require('../context');
 var webpackConfig = require('../webpack');
 
-var VERSION = require(path.join(process.cwd(),  './package.json')).version;
+var VERSION = require(path.join(process.cwd(), './package.json')).version;
 
 var wpConfig = webpackConfig.extend({
   devtool: 'inline-source-map',
