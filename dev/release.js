@@ -1,13 +1,15 @@
 var version = require('./version');
 var lint = require('./lint');
 
-module.exports =  function release() {
+function release() {
 
-  return version.prompt
+  return version.prompt()
    .then(lint)
    .then(version.bump)
    .then(version.tag);
 
-};
+}
+
+module.exports = release;
 
 
