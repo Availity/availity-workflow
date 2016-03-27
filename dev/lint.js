@@ -1,6 +1,6 @@
 var eslint = require('eslint');
 var globby = require('globby');
-var BPromise = require('bluebird');
+var Promise = require('bluebird');
 
 var logger = require('../logger');
 
@@ -10,7 +10,7 @@ module.exports = function lint() {
     useEslintrc: true
   });
 
-  return new BPromise(function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
 
     globby(['**/**.js', '!node_modules/**']).then(function(paths) {
 

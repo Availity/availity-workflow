@@ -4,7 +4,7 @@ var shell = require('shelljs');
 var semver = require('semver');
 var inquirer = require('inquirer');
 var _ = require('lodash');
-var BPromise = require('bluebird');
+var Promise = require('bluebird');
 
 var VERSION = null;
 var RAW = null;
@@ -30,7 +30,7 @@ function pkg(contents) {
 
 function tag() {
 
-  return new BPromise(function(resolve) {
+  return new Promise(function(resolve) {
 
     shell.exec('git add .');
     shell.exec('git commit -m "v' + VERSION + '"');
@@ -43,7 +43,7 @@ function tag() {
 
 function bump() {
 
-  return new BPromise(function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
 
     if (!VERSION) {
       return reject('version is undefined');
@@ -123,7 +123,7 @@ function prompt() {
     }
   ];
 
-  return new BPromise( function(resolve) {
+  return new Promise( function(resolve) {
 
     inquirer.prompt(questions, function(answers) {
 
