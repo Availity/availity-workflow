@@ -4,7 +4,7 @@ var Promise = require('bluebird');
 
 var logger = require('../logger');
 
-module.exports = function lint() {
+function lint() {
 
   var engine = new eslint.CLIEngine({
     useEslintrc: true
@@ -30,4 +30,6 @@ module.exports = function lint() {
 
   });
 
-};
+}
+
+module.exports = lint;
