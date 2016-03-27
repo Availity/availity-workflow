@@ -12,7 +12,7 @@ module.exports = function lint() {
 
   return new Promise(function(resolve, reject) {
 
-    globby(['**/**.js', '!node_modules/**']).then(function(paths) {
+    globby(['**/**.js', '!node_modules/**', '!bower_components/**']).then(function(paths) {
 
       var report = engine.executeOnFiles(paths.slice(2));
       var formatter = engine.getFormatter();
