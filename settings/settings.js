@@ -73,9 +73,10 @@ var settings =  {
   },
 
   templates: {
+    cwd: 'project/app',
     src: [
-      '!project/app/index.html',
-      'project/app/**/*.html'
+      '**/*.html',
+      '!project/app/index.html'
     ]
   }
 };
