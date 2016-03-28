@@ -1,6 +1,7 @@
 var eslint = require('eslint');
 var globby = require('globby');
 var Promise = require('bluebird');
+var ora = require('ora');
 
 var logger = require('../logger');
 var context = require('../context');
@@ -13,18 +14,29 @@ function lint() {
 
   return new Promise(function(resolve, reject) {
 
+
+    var spinner = ora('Starting eslint...');
+    spinner.color = 'yellow';
+    spinner.start();
+
     globby(context.settings.js.src).then(function(paths) {
 
       var report = engine.executeOnFiles(paths.slice(2));
-      var formatter = engine.getFormatter();
 
       if (report.errorCount || report.warningCount) {
-        logger.error('eslint failed');
+
+        spinner.stop();
+        var formatter = engine.getFormatter();
         logger.info('' + formatter(report.results));
+        logger.error('Failed eslint');
         reject();
+
       } else {
-        logger.info('eslint ok');
+
+        spinner.stop();
+        logger.ok('Completed eslint ');
         resolve();
+
       }
 
     });
