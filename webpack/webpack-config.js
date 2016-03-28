@@ -5,7 +5,6 @@ var BowerWebpackPlugin = require('bower-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BlessPlugin = require('bless-webpack-plugin');
 var WebpackMd5Hash = require('webpack-md5-hash');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var context = require('../context');
 var helper = require('./helper');
@@ -158,10 +157,6 @@ var config = {
     new BlessPlugin({
       imports: true
     }),
-
-    new CopyWebpackPlugin([
-      { from: context.settings.templates.src, to: context.settings.dest() }
-    ]),
 
     new HtmlWebpackPlugin({
       template: 'project/app/index.html',

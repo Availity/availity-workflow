@@ -51,7 +51,6 @@
     "chai": "^3.2.0",
     "chalk": "^1.1.1",
     "commander": "2.9.0",
-    "copy-webpack-plugin": "1.1.1",
     "cpy": "4.0.0",
     "css-loader": "0.14.5",
     "dateformat": "^1.0.11",
