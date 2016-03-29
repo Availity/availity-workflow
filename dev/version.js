@@ -5,6 +5,7 @@ var semver = require('semver');
 var inquirer = require('inquirer');
 var _ = require('lodash');
 var Promise = require('bluebird');
+var context = require('../context');
 
 var VERSION = null;
 var RAW = null;
@@ -27,8 +28,11 @@ function pkg(contents) {
   return JSON.parse(contents || raw());
 }
 
-
 function tag() {
+
+  if (!context.settings.isDistribution()) {
+    return Promise.resolve(true);
+  }
 
   return new Promise(function(resolve) {
 
@@ -42,6 +46,10 @@ function tag() {
 }
 
 function bump() {
+
+  if (!context.settings.isDistribution()) {
+    return Promise.resolve(true);
+  }
 
   return new Promise(function(resolve, reject) {
 
@@ -62,12 +70,15 @@ function bump() {
 
     resolve();
 
-
   });
 
 }
 
 function prompt() {
+
+  if (!context.settings.isDistribution()) {
+    return Promise.resolve(true);
+  }
 
   var version = pkg().version;
   var parsed = semver.parse(version);

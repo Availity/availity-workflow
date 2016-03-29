@@ -1,25 +1,12 @@
-var del = require('del');
 var gUtil = require('gulp-util');
 
 var logger = require('../logger');
+var release = require('../dev/release');
 var version = require('../dev/version');
 var context = require('../context');
 
-var runSequence = require('run-sequence').use(context.gulp);
-
-context.gulp.task('av:release:sequence', function(cb) {
-
-  del.sync([context.settings.dest()]);
-
-  runSequence(
-    context.settings.isDistribution() ? 'av:release:prompt' : 'av:noop',
-    'av:lint',
-    context.settings.isDistribution() ? 'av:release:bump' : 'av:noop',
-    ['av:copy', 'av:concat'],
-    'av:build',
-    context.settings.isDistribution() ? 'av:release:tag' : 'av:noop',
-    cb
-  );
+context.gulp.task('av:release:sequence', function() {
+  return release();
 });
 
 context.gulp.task('av:noop', function() {

@@ -11,5 +11,4 @@ function copy() {
   return cpy(context.settings.templates.src, context.settings.dest(), settings);
 }
 
-
 module.exports = copy;
