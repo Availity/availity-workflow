@@ -34,7 +34,7 @@ function lint() {
       } else {
 
         spinner.stop();
-        logger.ok('Completed linting ');
+        logger.ok('Finished linting ');
         resolve();
 
       }

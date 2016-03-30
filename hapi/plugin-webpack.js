@@ -13,7 +13,7 @@ function register(server, options, next) {
   var bundleCounts = Object.keys(webpackConfig.entry).length;
   var done = _.after(bundleCounts, function() {
     logger.info(statistics[0]);
-    logger.ok('Completed bundling');
+    logger.ok('Finished bundling');
     next();
   });
 

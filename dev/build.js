@@ -24,7 +24,7 @@ function build() {
 
       spinner.stop();
       logger.info(statistics[0]);
-      logger.ok('Completed bundling');
+      logger.ok('Finished bundling');
       resolve();
 
     });

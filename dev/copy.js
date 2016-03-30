@@ -12,7 +12,7 @@ function copy() {
   logger.info('Starting copying templates');
   return cpy(context.settings.templates.src, context.settings.dest(), settings)
     .then(function() {
-      logger.ok('Completed copying templates');
+      logger.ok('Finished copying templates');
     });
 }
 

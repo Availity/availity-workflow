@@ -1,7 +1,6 @@
 var eslint = require('eslint');
 var globby = require('globby');
 var Promise = require('bluebird');
-var ora = require('ora');
 
 var logger = require('./logger');
 
@@ -14,9 +13,6 @@ function lint() {
   return new Promise(function(resolve, reject) {
 
     logger.info('Started linting');
-    var spinner = ora('running linter rules');
-    spinner.color = 'yellow';
-    spinner.start();
 
     globby(['**/*.js', '!node_modules/**']).then(function(paths) {
 
@@ -24,7 +20,6 @@ function lint() {
 
       if (report.errorCount || report.warningCount) {
 
-        spinner.stop();
         var formatter = engine.getFormatter();
         logger.info('' + formatter(report.results));
         logger.error('Failed linting');
@@ -32,8 +27,7 @@ function lint() {
 
       } else {
 
-        spinner.stop();
-        logger.ok('Completed linting ');
+        logger.ok('Finished linting');
         resolve();
 
       }
