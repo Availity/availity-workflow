@@ -22,7 +22,7 @@ function release() {
     })
     .catch(function(e) {
       logger.error('Failed release');
-      console.log(e);
+      logger.error(e);
     });
 
 }
