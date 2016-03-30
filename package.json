@@ -8,6 +8,11 @@
     "node": ">= 0.12.0",
     "iojs": ">= 1.0.0"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preversion": "npm run lint",
+    "lint": "node tools"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -33,12 +38,6 @@
       "email": "rob.mcguinness@availity.com"
     }
   ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preversion": "node dev --command=lint",
-    "lint": "node dev --command=lint",
-    "release": "node dev --command=release"
-  },
   "bin": {
     "av": "./cli/index.js"
   },
