@@ -3,7 +3,6 @@ var webpack = require('webpack');
 var _ = require('lodash');
 var ora = require('ora');
 
-var webpackConfig = require('../webpack');
 var logger = require('../logger');
 
 function build() {
@@ -12,7 +11,9 @@ function build() {
 
   return new Promise(function(resolve, reject) {
 
-    var spinner = ora('Starting webpack build...');
+    var webpackConfig = require('../webpack').get();
+    logger.info('Started bundling');
+    var spinner = ora('Running webpack');
     spinner.color = 'yellow';
     spinner.start();
 
@@ -23,7 +24,7 @@ function build() {
 
       spinner.stop();
       logger.info(statistics[0]);
-      logger.ok('Completed webpack build');
+      logger.ok('Completed bundling');
       resolve();
 
     });
@@ -32,7 +33,7 @@ function build() {
 
       if (err) {
         spinner.stop();
-        logger.error('Failed webpack build', err);
+        logger.error('Failed bundle', err);
         reject();
       }
 

@@ -1,16 +1,19 @@
 var utils = require('../utils');
-var webpackConfig = require('./webpack-config');
 
-function Config(options) {
-  utils.merge(this, options);
+function Config() {
 }
 
 var proto = Config.prototype;
 
-proto.extend = function(options) {
-  return utils.merge(new Config(this), options);
+proto.extend = function(_webpackConfig) {
+  return utils.merge(this.get(), _webpackConfig);
 };
 
-var config = new Config(webpackConfig);
+proto.get = function() {
+  this.webpackConfig = require('./webpack-config');
+  return this.webpackConfig;
+};
+
+var config = new Config();
 
 module.exports = config;

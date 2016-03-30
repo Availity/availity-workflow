@@ -3,11 +3,12 @@ var gUtil = require('gulp-util');
 var _ = require('lodash');
 
 var context = require('../context');
-var webpackConfig = require('../webpack');
 var logger = require('../logger');
 
 
 context.gulp.task('av:build', function(cb) {
+
+  var webpackConfig = require('../webpack').get();
 
   var compiler = webpack(webpackConfig);
   var bundleCounts = Object.keys(webpackConfig.entry).length;

@@ -14,8 +14,8 @@ function lint() {
 
   return new Promise(function(resolve, reject) {
 
-
-    var spinner = ora('Starting eslint...');
+    logger.info('Started linting');
+    var spinner = ora('running linter rules');
     spinner.color = 'yellow';
     spinner.start();
 
@@ -28,13 +28,13 @@ function lint() {
         spinner.stop();
         var formatter = engine.getFormatter();
         logger.info('' + formatter(report.results));
-        logger.error('Failed eslint');
+        logger.error('Failed linting');
         reject();
 
       } else {
 
         spinner.stop();
-        logger.ok('Completed eslint ');
+        logger.ok('Completed linting ');
         resolve();
 
       }

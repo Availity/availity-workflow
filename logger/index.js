@@ -11,6 +11,13 @@ proto.ok = function(message) {
   this.info('{green:%s} %s', figures.tick, message);
 };
 
+proto.alert = function(message) {
+  this.info('{cyan:%s} %s', figures.info, message);
+};
+
+proto.fail = function(message) {
+  this.error('{red:%s} %s', figures.cross, message);
+};
 
 var logger = new Logger({
   prefix: template.replace('%s', dateformat(new Date(), 'HH:MM:ss')),

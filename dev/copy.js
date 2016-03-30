@@ -1,6 +1,7 @@
 var cpy = require('cpy');
-var context = require('../context');
 
+var context = require('../context');
+var logger = require('../logger');
 var settings = {
   cwd: context.settings.templates.cwd,
   overwrite: true,
@@ -8,7 +9,11 @@ var settings = {
 };
 
 function copy() {
-  return cpy(context.settings.templates.src, context.settings.dest(), settings);
+  logger.info('Starting copying templates');
+  return cpy(context.settings.templates.src, context.settings.dest(), settings)
+    .then(function() {
+      logger.ok('Completed copying templates');
+    });
 }
 
 module.exports = copy;

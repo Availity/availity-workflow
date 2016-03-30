@@ -15,14 +15,12 @@ function resolveBower(componentPath) {
   return path.join(process.cwd(), '/bower_components', componentPath);
 }
 
-function getPackage() {
-  var pkg = require(path.join(process.cwd(),  './package.json'));
-  return pkg;
+function getVersion() {
+  return context.meta.version;
 }
 
-function getVersion() {
-  var pkg = getPackage();
-  return pkg.version;
+function getPkg() {
+  return context.meta.pkg || {};
 }
 
 var config = {
@@ -161,7 +159,7 @@ var config = {
     new HtmlWebpackPlugin({
       template: 'project/app/index.html',
       favicon: 'project/app/favicon.ico',
-      pkg: getPackage()
+      pkg: getPkg()
     }),
 
     // Use bundle name for extracting bundle css
