@@ -3,9 +3,10 @@ var webpack = require('webpack');
 var _ = require('lodash');
 var ora = require('ora');
 
+var check = require('./check');
 var logger = require('../logger');
 
-function build() {
+function bundle() {
 
   var statistics = [];
 
@@ -53,7 +54,11 @@ function build() {
 
   });
 
+}
 
+function build() {
+  return check()
+    .then(bundle);
 }
 
 module.exports = build;

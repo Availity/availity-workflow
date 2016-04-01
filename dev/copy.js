@@ -2,6 +2,7 @@ var cpy = require('cpy');
 
 var context = require('../context');
 var logger = require('../logger');
+
 var settings = {
   cwd: context.settings.templates.cwd,
   overwrite: true,

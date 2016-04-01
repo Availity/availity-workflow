@@ -33,7 +33,7 @@ proto.start = function() {
 
       if (err) {
         Hoek.assert(!err, err);
-        reject(false);
+        reject(err);
         return;
       }
 

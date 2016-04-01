@@ -3,9 +3,9 @@ var webpackMiddleware = require('webpack-dev-middleware');
 var _ = require('lodash');
 
 var logger = require('../logger');
+var check = require('../dev/check');
 
-function register(server, options, next) {
-
+function bundle(server, options, next) {
 
   var statistics = [];
   var webpackConfig = require('../webpack').get();
@@ -17,11 +17,10 @@ function register(server, options, next) {
     next();
   });
 
-
   logger.info('Started bundling');
   var compiler = webpack(webpackConfig);
 
-  compiler.plugin('done', function(stats) {
+  compiler.plugin('done', function(err, stats) {
 
     var _stats = stats.toString({
       colors: true,
@@ -58,6 +57,18 @@ function register(server, options, next) {
       reply.continue();
     });
   });
+
+}
+
+function register(server, options, next) {
+
+  check().then(function() {
+    return bundle(next);
+  })
+  .catch(function(err) {
+    return next(err);
+  });
+
 }
 
 register.attributes = {
