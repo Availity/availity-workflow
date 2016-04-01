@@ -4,37 +4,41 @@ var shell = require('shelljs');
 var semver = require('semver');
 var inquirer = require('inquirer');
 var _ = require('lodash');
-var BPromise = require('bluebird');
+var moment = require('moment');
+var Promise = require('bluebird');
 
-var VERSION = null;
-var RAW = null;
-
-function raw() {
-
-  if (!RAW) {
-    RAW = fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8');
-  }
-
-  return RAW;
-}
+var context = require('../context');
+var logger = require('../logger');
 
 function newLine(contents) {
   var lastChar = (contents && contents.slice(-1) === '\n') ? '' : '\n';
   return contents + lastChar;
 }
 
+function raw() {
+
+  if (!context.meta.raw) {
+    context.meta.raw = fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8');
+  }
+
+  return context.meta.raw;
+}
+
 function pkg(contents) {
   return JSON.parse(contents || raw());
 }
 
-
 function tag() {
 
-  return new BPromise(function(resolve) {
+  if (!context.settings.isDistribution()) {
+    return Promise.resolve(true);
+  }
+
+  return new Promise(function(resolve) {
 
     shell.exec('git add .');
-    shell.exec('git commit -m "v' + VERSION + '"');
-    shell.exec('git tag -a v' + VERSION + ' -m "v' + VERSION + '"');
+    shell.exec('git commit -m "v' + context.meta.version + '"');
+    shell.exec('git tag -a v' + context.meta.version + ' -m "v' + context.meta.version + '"');
 
     resolve();
 
@@ -43,31 +47,43 @@ function tag() {
 
 function bump() {
 
-  return new BPromise(function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
 
-    if (!VERSION) {
+    logger.info('Starting versioning');
+
+    if (!context.settings.isDistribution()) {
+      context.meta.version = moment().format();
+    }
+
+    if (!context.meta.version) {
       return reject('version is undefined');
     }
 
-    var contents = raw();
-    var json = pkg(contents);
+    context.meta.pkg = pkg();
+    context.meta.pkg = _.merge({}, context.meta.pkg, {version: context.meta.version});
 
-    json = _.merge({}, json, {version: VERSION});
-
-    contents = JSON.stringify(json, null, 2);
+    var contents = JSON.stringify(context.meta.pkg, null, 2);
     contents = newLine(contents);
+    context.meta.raw = contents;
 
-    // update package.json
-    fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
+    // update package.pkg
+    if (context.settings.isDistribution()) {
+      fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
+    }
+
+    logger.ok('Finished versioning');
 
     resolve();
-
 
   });
 
 }
 
 function prompt() {
+
+  if (!context.settings.isDistribution()) {
+    return Promise.resolve(true);
+  }
 
   var version = pkg().version;
   var parsed = semver.parse(version);
@@ -123,11 +139,11 @@ function prompt() {
     }
   ];
 
-  return new BPromise( function(resolve) {
+  return new Promise( function(resolve) {
 
     inquirer.prompt(questions, function(answers) {
 
-      VERSION = answers.bump !== 'other' ? answers.bump : answers.version;
+      context.meta.version = answers.bump !== 'other' ? answers.bump : answers.version;
 
       return resolve();
 

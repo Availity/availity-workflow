@@ -1,13 +1,35 @@
+var del = require('del');
+
+var context = require('../context');
 var version = require('./version');
 var lint = require('./lint');
+var copy = require('./copy');
+var build = require('./build');
+var logger = require('../logger');
 
-module.exports =  function release() {
+function release() {
 
-  return lint()
-   .then(version.prompt)
-   .then(version.bump)
-   .then(version.tag);
+  del.sync([context.settings.dest()]);
 
-};
+  return version.prompt()
+    .then(function() {
+      logger.info('Started releasing');
+    })
+    .then(lint)
+    .then(copy)
+    .then(version.bump)
+    .then(build)
+    .then(version.tag)
+    .then(function() {
+      logger.ok('Finished releasing');
+    })
+    .catch(function(e) {
+      logger.error('Failed release');
+      logger.error(e);
+    });
+
+}
+
+module.exports = release;
 
 

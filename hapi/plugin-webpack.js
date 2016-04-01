@@ -2,23 +2,37 @@ var webpack = require('webpack');
 var webpackMiddleware = require('webpack-dev-middleware');
 var _ = require('lodash');
 
-var webpackConfig = require('../webpack');
 var logger = require('../logger');
 
 function register(server, options, next) {
 
+
+  var statistics = [];
+  var webpackConfig = require('../webpack').get();
+
   var bundleCounts = Object.keys(webpackConfig.entry).length;
   var done = _.after(bundleCounts, function() {
+    logger.info(statistics[0]);
+    logger.ok('Finished bundling');
     next();
   });
 
+
+  logger.info('Started bundling');
   var compiler = webpack(webpackConfig);
 
   compiler.plugin('done', function(stats) {
-    logger.info('webpack bundle[%s] complete', stats.hash);
+
+    var _stats = stats.toString({
+      colors: true,
+      cached: true,
+      reasons: false,
+      source: false,
+      chunks: false
+    });
+    statistics.push(_stats);
     done();
   });
-
 
   var webpackDev = webpackMiddleware(compiler, {
     noInfo: true, // display no info to console (only warnings and errors)

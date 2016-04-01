@@ -1,12 +1,17 @@
 {
   "name": "availity-workflow",
-  "version": "1.2.8",
+  "version": "1.2.9-beta.0",
   "description": "Upgradable workflow for Availity Toolkit projects.",
   "private": false,
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "engines": {
     "node": ">= 0.12.0",
     "iojs": ">= 1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preversion": "npm run lint",
+    "lint": "node tools"
   },
   "license": "MIT",
   "repository": {
@@ -33,12 +38,6 @@
       "email": "rob.mcguinness@availity.com"
     }
   ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preversion": "node dev --command=lint",
-    "lint": "node dev --command=lint",
-    "release": "node dev --command=release"
-  },
   "bin": {
     "av": "./cli/index.js"
   },
@@ -51,6 +50,7 @@
     "chai": "^3.2.0",
     "chalk": "^1.1.1",
     "commander": "2.9.0",
+    "cpy": "4.0.0",
     "css-loader": "0.14.5",
     "dateformat": "^1.0.11",
     "del": "2.2.0",
@@ -64,7 +64,6 @@
     "globby": "4.0.0",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^3.0.1",
-    "gulp-changed": "^1.3.0",
     "gulp-concat": "^2.5.2",
     "gulp-eslint": "^1.0.0",
     "gulp-filter": "^3.0.1",
@@ -75,7 +74,6 @@
     "gulp-nodemon": "^2.0.4",
     "gulp-open": "^1.0.0",
     "gulp-plumber": "^1.0.1",
-    "gulp-size": "2.1.0",
     "gulp-using": "0.1.0",
     "gulp-util": "^3.0.4",
     "h2o2": "^4.0.1",
@@ -105,7 +103,9 @@
     "lodash": "4.6.1",
     "meow": "^3.3.0",
     "mocha": "^2.3.2",
+    "moment": "2.12.0",
     "ngtemplate-loader": "^1.3.0",
+    "ora": "0.2.0",
     "phantomjs-prebuilt": "2.1.5",
     "plato": "^1.4.0",
     "require-dir": "^0.3.0",

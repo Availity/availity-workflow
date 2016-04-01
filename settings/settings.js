@@ -52,11 +52,11 @@ var settings =  {
   },
 
   js: {
-    src: 'project/app/**/*.js',
+    src: [
+      path.join(process.cwd(), 'project/**/*.js')
+    ],
     srcNode: [
-      '!' + path.join(process.cwd(), 'project/app/**'),
-      path.join(process.cwd(), 'gulpfile.js'),
-      path.join(process.cwd(), 'project/server/*.js')
+      path.join(process.cwd(), 'gulpfile.js')
     ],
     linter: 'project/app/.eslintrc',
     linterNode: '.eslintrc',
@@ -73,9 +73,10 @@ var settings =  {
   },
 
   templates: {
+    cwd: 'project/app',
     src: [
-      '!project/app/index.html',
-      'project/app/**/*.html'
+      '**/*.html',
+      '!project/app/index.html'
     ]
   }
 };

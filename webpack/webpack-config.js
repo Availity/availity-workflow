@@ -9,13 +9,18 @@ var WebpackMd5Hash = require('webpack-md5-hash');
 var context = require('../context');
 var helper = require('./helper');
 
-var pkg = require('../package.json');
-
 var wpProjectPath = path.join(process.cwd(), 'project/app');
-var VERSION = require(path.join(process.cwd(),  './package.json')).version;
 
 function resolveBower(componentPath) {
   return path.join(process.cwd(), '/bower_components', componentPath);
+}
+
+function getVersion() {
+  return context.meta.version;
+}
+
+function getPkg() {
+  return context.meta.pkg || {};
 }
 
 var config = {
@@ -144,7 +149,7 @@ var config = {
     }),
 
     new webpack.DefinePlugin({
-      APP_VERSION: JSON.stringify(VERSION)
+      APP_VERSION: JSON.stringify(getVersion())
     }),
 
     new BlessPlugin({
@@ -154,7 +159,7 @@ var config = {
     new HtmlWebpackPlugin({
       template: 'project/app/index.html',
       favicon: 'project/app/favicon.ico',
-      pkg: pkg
+      pkg: getPkg()
     }),
 
     // Use bundle name for extracting bundle css

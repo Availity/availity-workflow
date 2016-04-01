@@ -5,7 +5,7 @@ var BowerWebpackPlugin = require('bower-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var context = require('../context');
-var webpackConfig = require('../webpack');
+var webpackConfig = require('../webpack').get();
 
 var VERSION = require(path.join(process.cwd(), './package.json')).version;
 
