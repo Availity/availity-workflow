@@ -1,7 +1,6 @@
 var _ = require('lodash');
 var context = require('../context');
 
-
 function getSegments(server) {
 
   var segments = _.map(server.proxies, 'context');

@@ -132,7 +132,7 @@ function prompt() {
           return true;
         }
 
-        return 'Enter valid semver version number.  Please see https://docs.npmjs.com/misc/semver for more details.';
+        return 'Enter valid semver version. See https://docs.npmjs.com/misc/semver for more details.';
 
       }
 

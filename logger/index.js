@@ -16,7 +16,7 @@ proto.alert = function(message) {
 };
 
 proto.fail = function(message) {
-  this.error('{red:%s} %s', figures.cross, message);
+  this.error('{red:%s %s}', figures.cross, message);
 };
 
 var logger = new Logger({

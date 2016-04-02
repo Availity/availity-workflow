@@ -27,7 +27,7 @@ module.exports = function(cli) {
               return true;
             }
 
-            return 'Please enter name for project author';
+            return 'Enter name for project author';
           }
         },
         {
@@ -43,7 +43,7 @@ module.exports = function(cli) {
               return true;
             }
 
-            return 'Please enter valid email of project author';
+            return 'Enter valid email of project author';
           }
         },
         {
@@ -82,7 +82,7 @@ module.exports = function(cli) {
               return true;
             }
 
-            return 'Enter valid semver version number.  Please see http://semver.org/spec/v2.0.0.html for more details.';
+            return 'Enter valid semver version number. See http://semver.org/spec/v2.0.0.html for more details.';
           }
         },
         {

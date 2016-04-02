@@ -23,9 +23,8 @@ function release() {
     .then(function() {
       logger.ok('Finished releasing');
     })
-    .catch(function(e) {
-      logger.error('Failed release');
-      logger.error(e);
+    .catch(function() {
+      logger.fail('Failed release');
     });
 
 }

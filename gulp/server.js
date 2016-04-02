@@ -1,42 +1,19 @@
-var nodemon = require('gulp-nodemon');
-var path = require('path');
+var Promise = require('bluebird');
 
 var logger = require('../logger');
+var server = require('../dev/server');
 var context = require('../context');
 
-context.gulp.task('av:server', [
-  'av:server:web',
-  'av:server:rest',
-  'av:open'
-]);
+context.gulp.task('av:server', function() {
+  return server.start();
+});
 
 context.gulp.task('av:server:web', function() {
-
-  if (!context.meta.developerConfig) {
-    logger.warn('Missing {cyan:./project/config/developer-config.js}. Using defaults {cyan:https://github.com/Availity/availity-workflow/blob/master/settings/index.js}');
-  }
-
-  var Server = require('../hapi');
-  var server = new Server();
-
-  return server.start();
-
+  logger.error('{red:DEPRECATED. Use av:server task');
+  return Promise.resolve(true);
 });
 
 context.gulp.task('av:server:rest', function() {
-
-  nodemon({
-    script: path.join(__dirname, '..', 'ekko'),
-    ext: 'json',
-    watch: [
-      path.join(context.settings.project.path, 'project/config/routes.json'),
-      path.join(context.settings.project.path, 'project/data')
-    ],
-    // nodeArgs: ['--debug'],
-    env: {
-      'NODE_ENV': 'development'
-    }
-  }).on('restart', function() {
-    logger.log('[ekko] server restarted.');
-  });
+  logger.error('{red:DEPRECATED. Use av:server task');
+  return Promise.resolve(true);
 });

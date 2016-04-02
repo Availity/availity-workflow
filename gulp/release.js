@@ -6,7 +6,16 @@ var version = require('../dev/version');
 var context = require('../context');
 
 context.gulp.task('av:release:sequence', function() {
-  return release();
+  return release()
+    .catch(function(reason) {
+
+      throw new gUtil.PluginError({
+        plugin: 'av:release:bump',
+        message: reason
+      });
+
+    });
+
 });
 
 context.gulp.task('av:noop', function() {
@@ -18,7 +27,7 @@ context.gulp.task('av:release:prompt', function() {
 });
 
 context.gulp.task('av:release:add', function(cb) {
-  logger.warn('gulp task [av:release:add] has been deprecated.  Please use [av:release:tag]');
+  logger.warn('gulp task [av:release:add] has been deprecated. Use [av:release:tag]');
   cb();
 });
 
