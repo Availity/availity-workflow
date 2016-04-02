@@ -20,7 +20,7 @@ function bundle(server, options, next) {
   logger.info('Started bundling');
   var compiler = webpack(webpackConfig);
 
-  compiler.plugin('done', function(err, stats) {
+  compiler.plugin('done', function(stats) {
 
     var _stats = stats.toString({
       colors: true,
@@ -63,7 +63,7 @@ function bundle(server, options, next) {
 function register(server, options, next) {
 
   check().then(function() {
-    return bundle(next);
+    return bundle(server, options, next);
   })
   .catch(function(err) {
     return next(err);
