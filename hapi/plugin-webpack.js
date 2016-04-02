@@ -31,6 +31,7 @@ function bundle(server, options, next) {
     });
     statistics.push(_stats);
     done();
+
   });
 
   var webpackDev = webpackMiddleware(compiler, {
