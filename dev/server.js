@@ -21,19 +21,25 @@ function web() {
 
 function rest() {
 
-  nodemon({
+  var monitor = nodemon({
     script: path.join(__dirname, '..', 'ekko'),
     ext: 'json',
     watch: [
       path.join(context.settings.project.path, 'project/config/routes.json'),
       path.join(context.settings.project.path, 'project/data')
     ],
-    // nodeArgs: ['--debug'],
     env: {
       'NODE_ENV': 'development'
     }
   }).on('restart', function() {
     logger.log('[ekko] server restarted.');
+  });
+
+  // Capture ^C
+  process.once('SIGINT', function() {
+    monitor.once('exit', function() {
+      process.exit();
+    });
   });
 
   return Promise.resolve(true);
