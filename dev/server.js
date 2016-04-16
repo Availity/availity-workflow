@@ -32,7 +32,7 @@ function rest() {
       'NODE_ENV': 'development'
     }
   }).on('restart', function() {
-    logger.log('[ekko] server restarted.');
+    logger.info('{magenta:RESTARTED} Ekko server due configuration file changes');
   });
 
   // Capture ^C
