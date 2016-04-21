@@ -1,4 +1,4 @@
-var utils = require('../utils');
+var merge = require('webpack-merge');
 
 function Config() {
 }
@@ -6,7 +6,7 @@ function Config() {
 var proto = Config.prototype;
 
 proto.extend = function(_webpackConfig) {
-  return utils.merge(this.get(), _webpackConfig);
+  return merge(this.get(), _webpackConfig);
 };
 
 proto.get = function() {

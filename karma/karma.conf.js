@@ -3,13 +3,14 @@ var webpack = require('webpack');
 var path = require('path');
 var BowerWebpackPlugin = require('bower-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var merge = require('webpack-merge');
 
 var context = require('../context');
 var webpackConfig = require('../webpack').get();
 
 var VERSION = require(path.join(process.cwd(), './package.json')).version;
 
-var wpConfig = webpackConfig.extend({
+var wpConfig = merge(webpackConfig, {
   devtool: 'inline-source-map',
   cache: true,
   debug: true,

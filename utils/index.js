@@ -4,7 +4,6 @@ var write = require('./write-sync');
 var banner = require('./banner');
 var avBanner = require('./banner-availity');
 var file = require('./file');
-var merge = require('./merge');
 var notifier = require('./notifier');
 var readme = require('./readme');
 
@@ -15,7 +14,6 @@ module.exports = {
   banner: banner,
   availity: avBanner,
   file: file,
-  merge: merge,
   notifier: notifier,
   readme: readme
 };
