@@ -41,8 +41,7 @@ proto.start = function() {
 
         context.meta.uri = self.server.info.uri;
 
-        logger.info('Server started');
-        logger.info('{bold:%s} {green:open browser to %s', figures.tick, context.meta.uri);
+        logger.info('{green:%s} Finished starting web server. Open browser to {green: %s}', figures.tick, context.meta.uri);
 
         resolve(true);
       });
