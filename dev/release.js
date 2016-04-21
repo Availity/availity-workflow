@@ -3,6 +3,7 @@ var del = require('del');
 var context = require('../context');
 var version = require('./version');
 var lint = require('./lint');
+var testing = require('./test');
 var copy = require('./copy');
 var build = require('./build');
 var logger = require('../logger');
@@ -16,6 +17,7 @@ function release() {
       logger.info('Started releasing');
     })
     .then(lint)
+    .then(testing.continous)
     .then(copy)
     .then(version.bump)
     .then(build)
@@ -24,7 +26,7 @@ function release() {
       logger.ok('Finished releasing');
     })
     .catch(function() {
-      logger.fail('Failed release');
+      logger.fail('Failed releasing');
     });
 
 }
