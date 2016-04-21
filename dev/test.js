@@ -4,8 +4,6 @@ var karma = require('karma');
 var context = require('../context');
 var logger = require('../logger');
 
-context.gulp.task('av:test', ['av:test:ci']);
-
 function continous() {
 
   return new Promise(function(resolve, reject) {
