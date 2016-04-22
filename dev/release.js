@@ -17,7 +17,6 @@ function release() {
       logger.info('Started releasing');
     })
     .then(lint)
-    .then(testing.continous)
     .then(copy)
     .then(version.bump)
     .then(build)
