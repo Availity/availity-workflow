@@ -12,8 +12,8 @@ var VERSION = require(path.join(process.cwd(), './package.json')).version;
 
 var wpConfig = merge(webpackConfig, {
   devtool: 'inline-source-map',
-  cache: true,
-  debug: true,
+  cache: false,
+  debug: false,
   module: {
     postLoaders: [
       {
@@ -79,14 +79,7 @@ module.exports = function(config) {
     webpack: wpConfig,
 
     webpackMiddleware: {
-      noInfo: true
-    },
-
-    webpackServer: {
-      progress: false,
-      stats: false,
-      debug: true,
-      quiet: false
+      quiet: true
     },
 
     exclude: [
