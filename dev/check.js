@@ -32,14 +32,14 @@ function check() {
 
   return new Promise(function(resolve, reject) {
 
-    logger.info('Started checking dependencies');
+    logger.info('Started bower dependencies check');
 
     if (usingBower() && missingBowerDependencies()) {
       logger.fail('Bower dependencies not installed. Run `bower install` to install missing dependencies.');
       return reject('Bower dependencies not installed');
     }
 
-    logger.ok('Finished checking dependencies');
+    logger.ok('Finished bower dependencies check');
 
     return resolve(true);
 
