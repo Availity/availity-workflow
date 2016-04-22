@@ -1,7 +1,6 @@
 var path = require('path');
 var karma = require('karma');
 
-var context = require('../context');
 var logger = require('../logger');
 
 function continous() {
