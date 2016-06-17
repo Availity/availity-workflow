@@ -51,13 +51,14 @@ var settings =  {
     return this.environment() === 'production';
   },
 
-  // Paths use globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
+  // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
   js: {
     src: [
       '**/**.js',
       '!node_modules/**',
       '!bower_components/**',
       '!dist/**',
+      '!reports/**',
       '!build/**'
     ],
     reportsDir: path.join(process.cwd(), 'reports')
