@@ -140,7 +140,7 @@ module.exports = function(cli) {
         }
       ];
 
-      inquirer.prompt(questions, function(answers) {
+      inquirer.prompt(questions).thne(function(answers) {
         cli.answers = answers;
         // If we didn't show the 'readme' question, or they said to overwrite,
         // then overwrite the readme

@@ -13,7 +13,7 @@ var options = {
     }
 
     if (update.type !== 'latest') {
-      logger.warn(chalk.bold.bgYellow('UPDATE AVAILABLE') + chalk.bold.green(' ' + update.latest) + ' (current: %s). Run {blue:npm update availity-workflow}.', update.current);
+      logger.warn(chalk.bold.bgYellow('UPDATE AVAILABLE') + chalk.bold.green(' ' + update.latest) + ' (current: %s). Run {blue:npm install availity-workflow -D}.', update.current);
     }
   }
 };
