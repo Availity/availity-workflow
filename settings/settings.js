@@ -51,15 +51,15 @@ var settings =  {
     return this.environment() === 'production';
   },
 
+  // Paths use globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
   js: {
     src: [
-      path.join(process.cwd(), 'project/**/*.js')
+      '**/**.js',
+      '!node_modules/**',
+      '!bower_components/**',
+      '!dist/**',
+      '!build/**'
     ],
-    srcNode: [
-      path.join(process.cwd(), 'gulpfile.js')
-    ],
-    linter: 'project/app/.eslintrc',
-    linterNode: '.eslintrc',
     reportsDir: path.join(process.cwd(), 'reports')
   },
 

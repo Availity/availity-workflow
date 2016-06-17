@@ -6,7 +6,8 @@ var commands = {
   copy: require('./copy'),
   build: require('./build'),
   version: require('./version'),
-  start: require('./start')
+  start: require('./start'),
+  complexity: require('./complexity')
 };
 
 commands[argv.command]();
