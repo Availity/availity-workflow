@@ -1,19 +1,16 @@
 var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var BowerWebpackPlugin = require('bower-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var BlessPlugin = require('bless-webpack-plugin');
 var WebpackMd5Hash = require('webpack-md5-hash');
+var autoprefixer = require('autoprefixer');
+var NpmImportPlugin = require('less-plugin-npm-import');
 
 var context = require('../context');
 var helper = require('./helper');
 
 var wpProjectPath = path.join(process.cwd(), 'project/app');
-
-function resolveBower(componentPath) {
-  return path.join(process.cwd(), '/bower_components', componentPath);
-}
 
 function getVersion() {
   return context.meta.version;
@@ -23,12 +20,17 @@ function getPkg() {
   return context.meta.pkg || {};
 }
 
+function resolveNpm(componentPath){
+  return path.join(process.cwd(), 'node_modules', componentPath);
+}
+
+
 var config = {
 
   context: wpProjectPath,
 
   entry: {
-    index: 'index.js',
+    index: helper.entry(),
     vendor: ['vendor']
   },
 
@@ -61,16 +63,11 @@ var config = {
   resolve: {
     root: [wpProjectPath],
     modulesDirectories: ['bower_components', 'node_modules'],
-    extensions: ['', '.js', '.jsx', '.css', '.less'],
+    extensions: ['', '.js', '.jsx', '.json', '.css', '.less'],
     alias: {
-      'jquery.ui.widget': resolveBower('blueimp-file-upload/js/vendor/jquery.ui.widget.js'),
-      'load-image': resolveBower('blueimp-load-image/js/load-image.js'),
-      'load-image-meta': resolveBower('blueimp-load-image/js/load-image-meta'),
-      'load-image-exif': resolveBower('blueimp-load-image/js/load-image-exif'),
-      'load-image-ios': resolveBower('blueimp-load-image/js/load-image-ios'),
-      'canvas-to-blob': resolveBower('blueimp-canvas-to-blob/js/canvas-to-blob'),
-      'tmpl': resolveBower('blueimp-tmpl/js/tmpl'),
-      'blueimp-file-upload-angular': resolveBower('blueimp-file-upload/js/jquery.fileupload-angular'),
+      'inputmask.dependencyLib': resolveNpm('jquery.inputmask/dist/inputmask/inputmask.dependencyLib.jquery'),
+      'inputmask' : resolveNpm('jquery.inputmask/dist/inputmask/inputmask'),
+      'jquery.inputmask': resolveNpm('jquery.inputmask/dist/inputmask/jquery.inputmask'),
       'lodash': 'lodash-compat'
     }
   },
@@ -88,6 +85,14 @@ var config = {
       { test: /[\\\/]jquery\.js$/, loader: 'expose?$!expose?jQuery' }, // export jQuery and $ to global scope.
       { test: /[\\\/]lodash\.js$/, loader: 'expose?_' }, // export jQuery and $ to global scope.
       { test: /[\\\/]moment\.js$/, loader: 'expose?moment' },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel',
+        query: {
+          cacheDirectory: true
+        }
+      },
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style', 'css', {
@@ -110,13 +115,28 @@ var config = {
         //  '../fonts/availity-font.eot?18704236'
         //  '../fonts/availity-font.eot'
         //
-        test: /\.(ttf|woff|eot|svg).*/,
+        test: /\.(otf|ttf|woff2?|eot|svg)(\?.*)?$/,
         loader: 'file?name=fonts/[name].[ext]'
       },
       {test: /\.(jpe?g|png|gif)$/, loader: 'file?name=images/[name].[ext]'},
-      {test: /\.html$/, loader: 'html'},
+      {
+        test: /\.html$/,
+        loader: 'ngtemplate?relativeTo=' + process.cwd() + '/!html',
+      },
       {test: /\.json$/, loader: 'json-loader'}
 
+    ]
+  },
+
+  postcss: function() {
+    return [autoprefixer({browsers: ['last 2 versions', 'ie 9-11']})];
+  },
+
+  lessLoader: {
+    lessPlugins: [
+      new NpmImportPlugin({
+        prefix: '~'
+      })
     ]
   },
 
@@ -124,15 +144,6 @@ var config = {
 
     // ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
-
-    new BowerWebpackPlugin({
-      excludes: [
-        /.*\.(less|map)/,
-        /glyphicons-.*\.(eot|svg|ttf|woff)/,
-        /bootstrap.*\.css/,
-        /select2.*\.(png|gif|css)/
-      ]
-    }),
 
     new WebpackMd5Hash(),
 
@@ -165,7 +176,7 @@ var config = {
     // Use bundle name for extracting bundle css
     new ExtractTextPlugin('css/' + helper.cssFileName(), {
       allChunks: true
-    })
+    }),
   ]
 
 };
