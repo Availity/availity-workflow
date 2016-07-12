@@ -67,8 +67,7 @@ var config = {
     alias: {
       'inputmask.dependencyLib': resolveNpm('jquery.inputmask/dist/inputmask/inputmask.dependencyLib.jquery'),
       'inputmask' : resolveNpm('jquery.inputmask/dist/inputmask/inputmask'),
-      'jquery.inputmask': resolveNpm('jquery.inputmask/dist/inputmask/jquery.inputmask'),
-      'lodash': 'lodash-compat'
+      'jquery.inputmask': resolveNpm('jquery.inputmask/dist/inputmask/jquery.inputmask')
     }
   },
 
