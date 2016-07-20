@@ -27,13 +27,18 @@ function web() {
 
 function rest() {
 
+  var toWatch = [];
+  if (context.getConfig().data) {
+    toWatch.push(context.getConfig().data);
+  }
+  if (context.getConfig().routes) {
+    toWatch.push(context.getConfig().routes);
+  }
+
   var monitor = nodemon({
     script: path.join(__dirname, '..', 'ekko'),
     ext: 'json',
-    watch: [
-      path.join(context.settings.project.path, 'project/config/routes.json'),
-      path.join(context.settings.project.path, 'project/data')
-    ],
+    watch: toWatch,
     env: {
       'NODE_ENV': 'development'
     }
