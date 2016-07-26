@@ -101,7 +101,7 @@ module.exports = function(cli) {
           default: _.get(cli.manifests.availity.json, 'keywords', []).join(','),
           filter: function filter(val) {
 
-            var result = (val.toLowerCase() || '').split(',');
+            var result = (val ? val.toString().toLowerCase() : '').split(',');
             return _.map(result, function(keyword) {
               return keyword.trim();
             });
@@ -115,7 +115,7 @@ module.exports = function(cli) {
               )
               .single();
 
-            var values = (value.toLowerCase() || '').split(',');
+            var values = (value ? value.toString().toLowerCase() : '').split(',');
             values = _.map(values, function(keyword) {
               return keyword.trim();
             });
