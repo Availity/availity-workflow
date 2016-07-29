@@ -27,7 +27,7 @@ module.exports = function(cli) {
               return true;
             }
 
-            return 'Please enter name for project author';
+            return 'Enter name for project author';
           }
         },
         {
@@ -43,7 +43,7 @@ module.exports = function(cli) {
               return true;
             }
 
-            return 'Please enter valid email of project author';
+            return 'Enter valid email of project author';
           }
         },
         {
@@ -82,7 +82,7 @@ module.exports = function(cli) {
               return true;
             }
 
-            return 'Enter valid semver version number.  Please see http://semver.org/spec/v2.0.0.html for more details.';
+            return 'Enter valid semver version number. See http://semver.org/spec/v2.0.0.html for more details.';
           }
         },
         {
@@ -101,7 +101,7 @@ module.exports = function(cli) {
           default: _.get(cli.manifests.availity.json, 'keywords', []).join(','),
           filter: function filter(val) {
 
-            var result = (val.toLowerCase() || '').split(',');
+            var result = (val ? val.toString().toLowerCase() : '').split(',');
             return _.map(result, function(keyword) {
               return keyword.trim();
             });
@@ -115,7 +115,7 @@ module.exports = function(cli) {
               )
               .single();
 
-            var values = (value.toLowerCase() || '').split(',');
+            var values = (value ? value.toString().toLowerCase() : '').split(',');
             values = _.map(values, function(keyword) {
               return keyword.trim();
             });
@@ -140,7 +140,7 @@ module.exports = function(cli) {
         }
       ];
 
-      inquirer.prompt(questions, function(answers) {
+      inquirer.prompt(questions).then(function(answers) {
         cli.answers = answers;
         // If we didn't show the 'readme' question, or they said to overwrite,
         // then overwrite the readme

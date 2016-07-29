@@ -9,13 +9,18 @@ var WebpackMd5Hash = require('webpack-md5-hash');
 var context = require('../context');
 var helper = require('./helper');
 
-var pkg = require('../package.json');
-
 var wpProjectPath = path.join(process.cwd(), 'project/app');
-var VERSION = require(path.join(process.cwd(),  './package.json')).version;
 
 function resolveBower(componentPath) {
   return path.join(process.cwd(), '/bower_components', componentPath);
+}
+
+function getVersion() {
+  return context.meta.version;
+}
+
+function getPkg() {
+  return context.meta.pkg || {};
 }
 
 var config = {
@@ -30,7 +35,7 @@ var config = {
   output: {
     path: helper.output(),
     filename: helper.fileName(),
-    hash: context.settings.isProduction(),
+    hash: context.settings.isDistribution(),
     pathinfo: context.settings.isDevelopment()
   },
 
@@ -108,8 +113,9 @@ var config = {
         test: /\.(ttf|woff|eot|svg).*/,
         loader: 'file?name=fonts/[name].[ext]'
       },
-      {test: /\.(\.jpe?g|png|gif)$/, loader: 'file?name=images/[name].[ext]'},
-      {test: /\.html$/, loader: 'html'}
+      {test: /\.(jpe?g|png|gif)$/, loader: 'file?name=images/[name].[ext]'},
+      {test: /\.html$/, loader: 'html'},
+      {test: /\.json$/, loader: 'json-loader'}
 
     ]
   },
@@ -143,7 +149,7 @@ var config = {
     }),
 
     new webpack.DefinePlugin({
-      APP_VERSION: JSON.stringify(VERSION)
+      APP_VERSION: JSON.stringify(getVersion())
     }),
 
     new BlessPlugin({
@@ -153,7 +159,7 @@ var config = {
     new HtmlWebpackPlugin({
       template: 'project/app/index.html',
       favicon: 'project/app/favicon.ico',
-      pkg: pkg
+      pkg: getPkg()
     }),
 
     // Use bundle name for extracting bundle css
@@ -161,7 +167,18 @@ var config = {
       allChunks: true
     })
   ]
+
 };
+
+if (context.settings.isStaging()) {
+
+  config.plugins.push(
+    new webpack.optimize.OccurenceOrderPlugin(true),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.NoErrorsPlugin()
+  );
+
+}
 
 if (context.settings.isProduction()) {
 
@@ -179,8 +196,10 @@ if (context.settings.isProduction()) {
         max_line_len: 1000
       }
     }),
-    new webpack.optimize.DedupePlugin()
+    new webpack.optimize.DedupePlugin(),
+    new webpack.NoErrorsPlugin()
   );
+
 }
 
 module.exports = config;

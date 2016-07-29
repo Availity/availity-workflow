@@ -1,26 +1,38 @@
 var webpack = require('webpack');
 var webpackMiddleware = require('webpack-dev-middleware');
-var symbols = require('log-symbols');
 var _ = require('lodash');
 
-var webpackConfig = require('../webpack');
 var logger = require('../logger');
-var context = require('../context');
+var check = require('../dev/check');
 
-var started = _.once(function() {
-  logger.info('{bold:%s} {green:open browser to %s', symbols.success, context.meta.uri);
-});
+function bundle(server, options, next) {
 
+  var statistics = [];
+  var webpackConfig = require('../webpack').get();
 
-function register(server, options, next) {
+  var bundleCounts = Object.keys(webpackConfig.entry).length;
+  var done = _.after(bundleCounts, function() {
+    logger.info(statistics[0]);
+    logger.ok('Finished bundling');
+    next();
+  });
 
+  logger.info('Started bundling');
   var compiler = webpack(webpackConfig);
 
   compiler.plugin('done', function(stats) {
-    logger.info('webpack bundle[%s] complete', stats.hash);
-    started();
-  });
 
+    var _stats = stats.toString({
+      colors: true,
+      cached: true,
+      reasons: false,
+      source: false,
+      chunks: false
+    });
+    statistics.push(_stats);
+    done();
+
+  });
 
   var webpackDev = webpackMiddleware(compiler, {
     noInfo: true, // display no info to console (only warnings and errors)
@@ -47,7 +59,17 @@ function register(server, options, next) {
     });
   });
 
-  return next();
+}
+
+function register(server, options, next) {
+
+  check().then(function() {
+    return bundle(server, options, next);
+  })
+  .catch(function(err) {
+    return next(err);
+  });
+
 }
 
 register.attributes = {

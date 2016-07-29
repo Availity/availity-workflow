@@ -3,16 +3,17 @@ var webpack = require('webpack');
 var path = require('path');
 var BowerWebpackPlugin = require('bower-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var merge = require('webpack-merge');
 
 var context = require('../context');
-var webpackConfig = require('../webpack');
+var webpackConfig = require('../webpack').get();
 
-var VERSION = require(path.join(process.cwd(),  './package.json')).version;
+var VERSION = require(path.join(process.cwd(), './package.json')).version;
 
-var wpConfig = webpackConfig.extend({
+var wpConfig = merge(webpackConfig, {
   devtool: 'inline-source-map',
-  cache: true,
-  debug: true,
+  cache: false,
+  debug: false,
   module: {
     postLoaders: [
       {
@@ -24,7 +25,7 @@ var wpConfig = webpackConfig.extend({
   }
 });
 
-if (context.settings.isDebugTesting()) {
+if (context.settings.isDebug()) {
   delete wpConfig.module.postLoaders;
 }
 
@@ -78,14 +79,7 @@ module.exports = function(config) {
     webpack: wpConfig,
 
     webpackMiddleware: {
-      noInfo: true
-    },
-
-    webpackServer: {
-      progress: false,
-      stats: false,
-      debug: true,
-      quiet: false
+      quiet: true
     },
 
     exclude: [

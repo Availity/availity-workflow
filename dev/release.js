@@ -1,11 +1,34 @@
-const fs = require('fs');
-const path = require('path');
-const semver = require('semver');
-const inquirer = require('inquirer');
+var del = require('del');
 
-let VERSION = null;
-let RAW = null;
+var context = require('../context');
+var version = require('./version');
+var lint = require('./lint');
+var copy = require('./copy');
+var build = require('./build');
+var logger = require('../logger');
 
-module.exports = function release() {
+function release() {
 
-};
+  del.sync([context.settings.dest()]);
+
+  return version.prompt()
+    .then(function() {
+      logger.info('Started releasing');
+    })
+    .then(lint)
+    .then(copy)
+    .then(version.bump)
+    .then(build)
+    .then(version.tag)
+    .then(function() {
+      logger.ok('Finished releasing');
+    })
+    .catch(function() {
+      logger.fail('Failed releasing');
+    });
+
+}
+
+module.exports = release;
+
+

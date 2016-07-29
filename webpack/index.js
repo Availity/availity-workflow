@@ -1,16 +1,37 @@
-var utils = require('../utils');
-var webpackConfig = require('./webpack-config');
+var merge = require('webpack-merge');
 
-function Config(options) {
-  utils.merge(this, options);
+var context = require('../context');
+
+function Config() {
+
 }
 
 var proto = Config.prototype;
 
-proto.extend = function(options) {
-  return utils.merge(new Config(this), options);
+proto.extend = function(_webpackConfig) {
+  return merge(this.get(), _webpackConfig);
 };
 
-var config =  new Config(webpackConfig);
+proto.get = function() {
+
+  this.webpackConfig = require('./webpack-config');
+
+  // Developers should be able to pass in their own Webpack configuration
+  // in order to override the defaults (loaders, entry points, etc.)
+  //
+  // EX:
+  //
+  //    workflow.use({
+  //      gulp: gulp,
+  //      wepback: require('./loca/webpack.config')
+  //    });
+  //
+  var externalWebpack = context.webpack || {};
+
+  //
+  return merge(this.webpackConfig, externalWebpack);
+};
+
+var config = new Config();
 
 module.exports = config;

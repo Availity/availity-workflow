@@ -19,6 +19,5 @@ module.exports.use = function use(_context) {
 };
 
 module.exports.cli = function _cli() {
-
   return cli;
 };

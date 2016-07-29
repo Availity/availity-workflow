@@ -1,7 +1,7 @@
 var path = require('path');
-var argv = require('minimist')(process.argv.slice(2));
+var argv = require('yargs').argv;
 
-var _settings =  {
+var settings =  {
 
   packages: {
     src: [path.join(process.cwd(), './package.json'), path.join(process.cwd(), './bower.json')]
@@ -12,7 +12,7 @@ var _settings =  {
   },
 
   dest: function() {
-    return this.isProduction() ? path.join(process.cwd(), './dist') : path.join(process.cwd(), './build');
+    return this.isDistribution() ? path.join(process.cwd(), './dist') : path.join(process.cwd(), './build');
   },
 
   verbose: !!argv.verbose,
@@ -27,12 +27,20 @@ var _settings =  {
     return this.environment() === 'testing';
   },
 
-  isDebugTesting: function() {
-    return this.environment() === 'debug_testing';
+  isDistribution: function() {
+    return this.isProduction() || this.isStaging();
+  },
+
+  isDebug: function() {
+    return this.environment() === 'debug';
   },
 
   isStaging: function() {
     return this.environment() === 'staging';
+  },
+
+  isIntegration: function() {
+    return this.environment() === 'integration';
   },
 
   isDevelopment: function() {
@@ -43,15 +51,16 @@ var _settings =  {
     return this.environment() === 'production';
   },
 
+  // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
   js: {
-    src: 'project/app/**/*.js',
-    srcNode: [
-      '!' + path.join(process.cwd(), 'project/app/**'),
-      path.join(process.cwd(), 'gulpfile.js'),
-      path.join(process.cwd(), 'project/server/*.js')
+    src: [
+      '**/**.js',
+      '!node_modules/**',
+      '!bower_components/**',
+      '!dist/**',
+      '!reports/**',
+      '!build/**'
     ],
-    linter: 'project/app/.eslintrc',
-    linterNode: '.eslintrc',
     reportsDir: path.join(process.cwd(), 'reports')
   },
 
@@ -65,12 +74,13 @@ var _settings =  {
   },
 
   templates: {
+    cwd: 'project/app',
     src: [
-      '!project/app/index.html',
-      'project/app/**/*.html'
+      '**/*.html',
+      '!project/app/index.html'
     ]
   }
 };
 
-module.exports = _settings;
+module.exports = settings;
 
