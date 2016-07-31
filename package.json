@@ -21,7 +21,6 @@
   "homepage": "https://github.com/Availity/availity-workflow",
   "keywords": [
     "availity",
-    "hapi",
     "karma",
     "webpack",
     "workflow",
@@ -40,8 +39,7 @@
     }
   ],
   "bin": {
-    "av": "./cli/index.js",
-    "av-dev": "./dev/index.js"
+    "av": "./dev/index.js"
   },
   "dependencies": {
     "autoprefixer": "^6.3.7",
