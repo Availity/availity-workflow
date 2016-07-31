@@ -1,40 +1,42 @@
-var eslint = require('eslint');
-var globby = require('globby');
-var Promise = require('bluebird');
-var ora = require('ora');
+'use strict';
 
-var logger = require('../logger');
-var context = require('../context');
+const eslint = require('eslint');
+const globby = require('globby');
+const Promise = require('bluebird');
+const ora = require('ora');
+
+const Logger = require('../logger');
+const settings = require('../settings')
 
 function lint() {
 
-  var engine = new eslint.CLIEngine({
+  const engine = new eslint.CLIEngine({
     useEslintrc: true
   });
 
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
 
-    logger.info('Started linting');
-    var spinner = ora('running linter rules');
+    Logger.info('Started linting');
+    const spinner = ora('running linter rules');
     spinner.color = 'yellow';
     spinner.start();
 
-    globby(context.settings.js.src).then(function(paths) {
+    globby(settings.js.src).then(paths => {
 
-      var report = engine.executeOnFiles(paths.slice(2));
+      const report = engine.executeOnFiles(paths.slice(2));
 
       if (report.errorCount || report.warningCount) {
 
         spinner.stop();
-        var formatter = engine.getFormatter();
-        logger.info('' + formatter(report.results));
-        logger.error('Failed linting');
+        const formatter = engine.getFormatter();
+        Logger.info(`${formatter(report.results)}`);
+        Logger.error('Failed linting');
         reject();
 
       } else {
 
         spinner.stop();
-        logger.ok('Finished linting ');
+        Logger.ok('Finished linting ');
         resolve();
 
       }
