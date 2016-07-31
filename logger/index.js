@@ -3,7 +3,7 @@
 
 const chalk = require('chalk');
 const dateformat = require('dateformat');
-const symbols = require('log-symbols');
+const figures = require('figures');
 
 class Logger {
 
@@ -26,11 +26,11 @@ class Logger {
   // graphics
 
   static failed(entry) {
-    this._log(`${symbols.error} ${entry}`, 'red');
+    this._log(`${figures.cross} ${entry}`, 'red');
   }
 
   static ok(entry) {
-    this._log(`${symbols.success} ${entry}`, 'green');
+    this._log(`${figures.tick} ${entry}`, 'green');
   }
 
   static _log(entry, _color) {

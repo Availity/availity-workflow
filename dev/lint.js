@@ -6,7 +6,7 @@ const Promise = require('bluebird');
 const ora = require('ora');
 
 const Logger = require('../logger');
-const settings = require('../settings')
+const settings = require('../settings');
 
 function lint() {
 
@@ -17,26 +17,27 @@ function lint() {
   return new Promise((resolve, reject) => {
 
     Logger.info('Started linting');
-    const spinner = ora('running linter rules');
+
+    const spinner = ora('Running ESLint rules...');
     spinner.color = 'yellow';
     spinner.start();
 
     globby(settings.js.src).then(paths => {
 
-      const report = engine.executeOnFiles(paths.slice(2));
+      const report = engine.executeOnFiles(paths);
 
       if (report.errorCount || report.warningCount) {
 
         spinner.stop();
         const formatter = engine.getFormatter();
         Logger.info(`${formatter(report.results)}`);
-        Logger.error('Failed linting');
+        Logger.failed('Failed linting');
         reject();
 
       } else {
 
         spinner.stop();
-        Logger.ok('Finished linting ');
+        Logger.ok(`Finished linting ${paths.length} file(s)`);
         resolve();
 
       }
