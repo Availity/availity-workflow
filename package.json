@@ -77,7 +77,6 @@
     "globby": "6.0.0",
     "html-loader": "0.4.3",
     "html-webpack-plugin": "2.22.0",
-    "inert": "^3.0.1",
     "inquirer": "1.1.2",
     "jasmine-core": "^2.3.4",
     "joi": "6.10.1",
