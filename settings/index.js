@@ -4,6 +4,36 @@ const path = require('path');
 
 const settings = {
 
+  raw: null,
+
+  maps() {
+    return this.isDevelopment() ? 'source-map' : 'source-map';
+  },
+
+  entry() {
+    return {
+      'index': './index.js',
+      'vendor': './vendor.js'
+    };
+  },
+
+  // Don’t use [chunkhash] in development since this will increase compilation time
+  // In production, [chunkhash] generate hashes depending on the file contents this if
+  // the contents don't change the file could potentially be cached in the browser.
+  fileName() {
+    return this.isDevelopment() ? '[name].js' : '[name]-[chunkhash].js';
+  },
+
+  cssFileName() {
+    return this.isDevelopment() ? '[name].css' : '[name]-[chunkhash].css';
+  },
+
+  output() {
+    return this.isDistribution() ?
+      path.join(this.project(), 'dist') :
+      path.join(this.project(), 'build');
+  },
+
   packages() {
     return path.join(this.project(), './package.json');
   },
@@ -12,28 +42,33 @@ const settings = {
     return process.cwd();
   },
 
+  app() {
+    return path.join(this.project(), 'project/app');
+  },
+
   dest() {
     return this.isDistribution() ? path.join(this.project(), './dist') : path.join(this.project(), './build');
   },
 
-  ekko: {
-    data() {
-      return path.join(this.project(), 'project/data');
-    },
-    routes() {
-      return path.join(this.project(), 'project/config/routes.json');
-    }
+  ekko() {
+    return {
+      data: path.join(this.project(), 'project/data'),
+      routes: path.join(this.project(), 'project/config/routes.json')
+    };
   },
 
-  servers: {
-    app: {
-      host: '127.0.0.1',
-      port: 3000
-    },
-    web: {
-      host: '127.0.0.1',
-      port: 9999
-    }
+  servers() {
+    return {
+      app: {
+        host: '127.0.0.1',
+        port: 3000
+      },
+      web: {
+        host: '127.0.0.1',
+        port: 9999
+      }
+    };
+
   },
 
   environment() {
@@ -69,15 +104,15 @@ const settings = {
   },
 
   // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
-  js: {
-    src: [
+  js() {
+    return [
       '**/**.js',
       '!node_modules/**',
       '!bower_components/**',
       '!dist/**',
       '!reports/**',
       '!build/**'
-    ]
+    ];
   },
 
   set(overrides) {

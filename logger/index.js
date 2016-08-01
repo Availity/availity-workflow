@@ -11,7 +11,7 @@ class Logger {
     this.options = options;
   }
 
-  static warning(entry) {
+  static warn(entry) {
     this._log(entry, 'yellow');
   }
 

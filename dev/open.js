@@ -1,23 +1,25 @@
-var opn = require('opn');
-var _ = require('lodash');
-var Promise = require('bluebird');
+'use strict';
 
-var context = require('../context');
-var logger = require('../logger');
+const opn = require('opn');
+const Promise = require('bluebird');
+
+const settings = require('../settings');
+const Logger = require('../logger');
 
 function open() {
 
-  if (context.getConfig().open) {
+  if (settings.open) {
 
-    var _url = _.template('http://localhost:<%= port %>/<%= open %>');
+    Logger.info('Started opening application in browser');
 
-    var url = _url({
-      port: context.getConfig().servers.app.port,
-      open: context.getConfig().open
-    });
+    const port = settings.servers.app.port;
+    const url = settings.open;
 
-    opn(url);
-    logger.ok('Finished opening default browser');
+    const uri = `http://localhost:${port}/${url}`;
+
+    opn(uri);
+    Logger.ok('Finished opening application in browser');
+
   }
 
   return Promise.resolve(true);

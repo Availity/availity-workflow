@@ -5,7 +5,7 @@ const yargs = require('yargs');
 const chalk = require('chalk');
 
 const lint = require('./lint');
-const start = require('./lint');
+const start = require('./start');
 
 yargs
   .usage(`Usage: ${chalk.yellow('$0')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
