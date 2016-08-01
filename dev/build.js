@@ -3,7 +3,6 @@ var webpack = require('webpack');
 var _ = require('lodash');
 var ora = require('ora');
 
-var check = require('./check');
 var logger = require('../logger');
 
 function bundle() {
@@ -56,9 +55,4 @@ function bundle() {
 
 }
 
-function build() {
-  return check()
-    .then(bundle);
-}
-
-module.exports = build;
+module.exports = bundle;

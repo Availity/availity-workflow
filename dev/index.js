@@ -1,13 +1,15 @@
+#! /usr/bin/env node
+
 var argv = require('yargs').argv;
 
 var commands = {
   lint: require('./lint'),
   release: require('./release'),
-  copy: require('./copy'),
   build: require('./build'),
   version: require('./version'),
   start: require('./start'),
-  complexity: require('./complexity')
+  complexity: require('./complexity'),
+  test: require('./test').continous
 };
 
-commands[argv.command]();
+commands[argv._[0]]();

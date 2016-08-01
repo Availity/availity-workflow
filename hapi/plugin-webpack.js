@@ -3,7 +3,6 @@ var webpackMiddleware = require('webpack-dev-middleware');
 var _ = require('lodash');
 
 var logger = require('../logger');
-var check = require('../dev/check');
 
 function bundle(server, options, next) {
 
@@ -19,6 +18,12 @@ function bundle(server, options, next) {
 
   logger.info('Started bundling');
   var compiler = webpack(webpackConfig);
+
+  compiler.plugin('compilation', function(compilation) {
+    compilation.plugin('failed-module', function(err) {
+      logger.fail(err.error.error);
+    });
+  });
 
   compiler.plugin('done', function(stats) {
 
@@ -61,20 +66,9 @@ function bundle(server, options, next) {
 
 }
 
-function register(server, options, next) {
-
-  check().then(function() {
-    return bundle(server, options, next);
-  })
-  .catch(function(err) {
-    return next(err);
-  });
-
-}
-
-register.attributes = {
+bundle.attributes = {
   name: 'webpack',
   pkg: require('../package.json')
 };
 
-module.exports = register;
+module.exports = bundle;

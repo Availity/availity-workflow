@@ -11,15 +11,15 @@ var webpackConfig = require('../webpack').get();
 var VERSION = require(path.join(process.cwd(), './package.json')).version;
 
 var wpConfig = merge(webpackConfig, {
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-source-map',
   cache: false,
   debug: false,
   module: {
     postLoaders: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /(-spec.js|node_modules|bower_components|specs.js|module.js|vendor.js)/,
-        loader: 'istanbul-instrumenter'
+        loader: 'isparta'
       }
     ]
   }
@@ -73,7 +73,7 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'specs.js': context.settings.isDebugTesting() ? ['webpack'] : ['webpack', 'sourcemap']
+      'specs.js': ['webpack']
     },
 
     webpack: wpConfig,
@@ -135,11 +135,9 @@ module.exports = function(config) {
       require('karma-mocha-reporter'),
       require('karma-spec-reporter'),
       require('karma-chrome-launcher'),
-      require('istanbul-instrumenter-loader'),
       require('karma-firefox-launcher'),
-      require('karma-sourcemap-loader'),
       require('karma-coverage'),
-      require('karma-webpack'),
+      require('karma-webpack-with-fast-source-maps'),
       require('karma-phantomjs-launcher')
     ]
   });
