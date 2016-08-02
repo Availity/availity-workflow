@@ -5,7 +5,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-// const BlessPlugin = require('bless-webpack-plugin');
+const BlessPlugin = require('bless-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
@@ -148,9 +148,10 @@ const config = {
       APP_VERSION: JSON.stringify(getVersion())
     }),
 
-    // new BlessPlugin({
-    //   imports: true
-    // }),
+    new BlessPlugin({
+      imports: true
+    }),
+
 
     new CaseSensitivePathsPlugin(),
 
