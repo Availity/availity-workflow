@@ -30,6 +30,8 @@ function web() {
 
   return new Promise((resolve, reject) => {
 
+    Logger.info('Started compiling');
+
     const config = require('../webpack');
     config.plugins.push(new ProgressPlugin( (percentage, msg) => {
 
@@ -102,7 +104,7 @@ function web() {
     });
 
     server.listen(settings.servers().app.port, () => {
-      Logger.info(chalk.cyan('Starting the development server...'));
+      Logger.info('Started development server');
       resolve();
     });
 
