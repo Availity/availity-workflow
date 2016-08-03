@@ -5,6 +5,7 @@
 const chalk = require('chalk');
 const Promise = require('bluebird');
 const webpack = require('webpack');
+const _ = require('lodash');
 const WebpackServer = require('webpack-dev-server');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 
@@ -34,7 +35,7 @@ function web() {
 
       const percent = percentage * 100;
 
-      if (percent % 20 === 0 ){
+      if (percent % 20 === 0 && msg !== null && msg !== undefined && msg !== ''){
         Logger.info(`${chalk.dim('webpack')} ${msg}`);
       }
 
@@ -46,15 +47,25 @@ function web() {
       Logger.info('Started compiling');
     });
 
-    compiler.plugin('done', stats => {
+    const message = _.once(stats => {
 
       const hasErrors = stats.hasErrors();
       const hasWarnings = stats.hasWarnings();
 
       if (!hasErrors && !hasWarnings) {
 
+        const statistics = stats.toString({
+          colors: true,
+          cached: true,
+          reasons: false,
+          source: false,
+          chunks: false,
+          children: false
+        });
+
         const uri = `http://localhost:${settings.servers().app.port}/`;
 
+        Logger.info(statistics);
         Logger.ok('Finished compiling');
         Logger.log(`The app is running at ${chalk.magenta(uri)}`);
 
@@ -69,11 +80,20 @@ function web() {
 
     });
 
+    compiler.plugin('done', stats => {
+
+      // The bless-webpack-plugin listens on the "optimize-assets" and triggers an "emit" event if changes are
+      // made to any css chunks.  This makes it appear that Webpack is bundling everything twice in the logs.
+      // Removing the bless-webpack-plugin resolves the issue but then we run the risk of creating css bundles
+      // great than the IE9 limit. https://blogs.msdn.microsoft.com/ieinternals/2011/05/14/stylesheet-limits-in-internet-explorer
+      message(stats);
+
+    });
+
     const server = new WebpackServer(compiler, {
       contentBase: settings.output(),
-      noInfo: false, // display no info to console (only warnings and errors)
-      quiet: false, // display nothing to the console
-      stats: 'minimal',
+      noInfo: true, // display no info to console (only warnings and errors)
+      quiet: true, // display nothing to the console
       compress: true,
       hot: true,
       watchOptions: {
