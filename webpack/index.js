@@ -86,12 +86,16 @@ const config = {
       {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader!autoprefixer-loader?{browsers: ["last 3 versions", "ie 8", "ie 9", "> 1%"]}!less-loader',
+          'style',
+          'css?-discardDuplicates?limit=32768?name=images/[name].[ext]!postcss!less',
           {
             publicPath: '../'
           }
         )
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass']
       },
       {
         // test should match the following:
@@ -137,13 +141,6 @@ const config = {
       minChunks: Infinity
     }),
 
-    // new webpack.ProvidePlugin({
-    //   $: 'jquery',
-    //   jQuery: 'jquery',
-    //   'window.jQuery': 'jquery',
-    //   _: 'lodash'
-    // }),
-
     new webpack.DefinePlugin({
       APP_VERSION: JSON.stringify(getVersion())
     }),
@@ -162,9 +159,10 @@ const config = {
     }),
 
     // Use bundle name for extracting bundle css
-    new ExtractTextPlugin(`css/${settings.cssFileName()}`, {
+    new ExtractTextPlugin(`css/${settings.css()}`, {
       allChunks: true
     })
+
   ]
 
 };
