@@ -31,9 +31,13 @@ function web() {
 
     const config = require('../webpack');
     config.plugins.push(new ProgressPlugin( (percentage, msg) => {
-      if ((percentage * 100) % 10 === 0 ){
-        Logger.info(`${(percentage * 100)} ${msg}`);
+
+      const percent = percentage * 100;
+
+      if (percent % 20 === 0 ){
+        Logger.info(`${chalk.dim('webpack')} ${msg}`);
       }
+
     }));
 
     const compiler = webpack(config);
@@ -69,11 +73,10 @@ function web() {
       contentBase: settings.output(),
       noInfo: false, // display no info to console (only warnings and errors)
       quiet: false, // display nothing to the console
-      colors: true,
-      stats: { colors: true },
+      stats: 'minimal',
+      compress: true,
+      hot: true,
       watchOptions: {
-        aggregateTimeout: 1200,
-        poll: 1000,
         ignored: /node_modules/
       }
     });
