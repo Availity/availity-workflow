@@ -87,7 +87,10 @@ function web() {
       // The bless-webpack-plugin listens on the "optimize-assets" and triggers an "emit" event if changes are
       // made to any css chunks.  This makes it appear that Webpack is bundling everything twice in the logs.
       // Removing the bless-webpack-plugin resolves the issue but then we run the risk of creating css bundles
-      // great than the IE9 limit. https://blogs.msdn.microsoft.com/ieinternals/2011/05/14/stylesheet-limits-in-internet-explorer
+      // great than the IE9 limit.
+      //
+      // https://blogs.msdn.microsoft.com/ieinternals/2011/05/14/stylesheet-limits-in-internet-explorer
+      //
       message(stats);
 
     });
