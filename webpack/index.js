@@ -65,10 +65,12 @@ const config = {
 
   module: {
     loaders: [
-      { test: /[\\\/]angular\.js$/, loader: 'expose?angular!exports?angular' }, // export angular so we can do `var angular = require('angular')`
-      { test: /[\\\/]jquery\.js$/, loader: 'expose?$!expose?jQuery' }, // export jQuery and $ to global scope.
-      { test: /[\\\/]lodash\.js$/, loader: 'expose?_' }, // export jQuery and $ to global scope.
+
+      { test: /[\\\/]angular\.js$/, loader: 'expose?angular!exports?angular' },
+      { test: /[\\\/]jquery\.js$/, loader: 'expose?$!expose?jQuery' },
+      { test: /[\\\/]lodash\.js$/, loader: 'expose?_' },
       { test: /[\\\/]moment\.js$/, loader: 'expose?moment' },
+
       {
         test: /\.(js|jsx)$/,
         loader: 'babel',
@@ -78,24 +80,19 @@ const config = {
         }
       },
       {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css', {
-          publicPath: '../'
-        })
-      },
-      {
-        test: /\.less$/,
+        test: /(\.less|\.css)$/,
         loader: ExtractTextPlugin.extract(
           'style',
-          'css?-discardDuplicates?limit=32768?name=images/[name].[ext]!postcss!less',
+          'css?name=images/[name].[ext]!postcss!less',
           {
             publicPath: '../'
           }
-        )
+        ),
+        exclude: [/select2.*\.(png|gif)$/]
       },
       {
         test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
+        loader: ExtractTextPlugin.extract('style', 'css?!postcss!sass')
       },
       {
         // test should match the following:
@@ -106,13 +103,19 @@ const config = {
         test: /\.(otf|ttf|woff2?|eot|svg)(\?.*)?$/,
         loader: 'file?name=fonts/[name].[ext]'
       },
-      {test: /\.(jpe?g|png|gif)$/, loader: 'file?name=images/[name].[ext]'},
+      {
+        test: /\.(jpe?g|png|gif)$/,
+        loader: 'url-loader?name=images/[name].[ext]&limit=10000'
+      },
       {
         test: /\.html$/,
         loader: `ngtemplate?relativeTo=${process.cwd()}/!html`,
         exclude: /index\.html/ /* ignore index.html else "window is not defined" error */
       },
-      {test: /\.json$/, loader: 'json-loader'}
+      {
+        test: /\.json$/,
+        loader: 'json'
+      }
 
     ]
   },
@@ -134,6 +137,11 @@ const config = {
     // ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
+    // new webpack.ProvidePlugin({
+    //   'jQuery': 'jquery',
+    //   '$': 'jquery'
+    // }),
+
     new WebpackMd5Hash(),
 
     new CommonsChunkPlugin({
@@ -149,18 +157,17 @@ const config = {
       imports: true
     }),
 
-
     new CaseSensitivePathsPlugin(),
+
+    // Use bundle name for extracting bundle css
+    new ExtractTextPlugin(`css/${settings.css()}`, {
+      allChunks: true
+    }),
 
     new HtmlWebpackPlugin({
       template: './index.html',
       favicon: './favicon.ico',
       pkg: getPkg()
-    }),
-
-    // Use bundle name for extracting bundle css
-    new ExtractTextPlugin(`css/${settings.css()}`, {
-      allChunks: true
     })
 
   ]
