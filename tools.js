@@ -1,26 +1,28 @@
-var eslint = require('eslint');
-var globby = require('globby');
-var Promise = require('bluebird');
+'use strict';
 
-var logger = require('./logger');
+const eslint = require('eslint');
+const globby = require('globby');
+const Promise = require('bluebird');
+
+const logger = require('./logger');
 
 function lint() {
 
-  var engine = new eslint.CLIEngine({
+  const engine = new eslint.CLIEngine({
     useEslintrc: true
   });
 
-  return new Promise(function(resolve, reject) {
+  return new Promise( (resolve, reject) => {
 
     logger.info('Started linting');
 
-    globby(['**/*.js', '!node_modules/**']).then(function(paths) {
+    globby(['**/*.js', '!node_modules/**']).then( paths => {
 
-      var report = engine.executeOnFiles(paths.slice(2));
+      const report = engine.executeOnFiles(paths.slice(2));
 
       if (report.errorCount || report.warningCount) {
 
-        var formatter = engine.getFormatter();
+        const formatter = engine.getFormatter();
         logger.info('' + formatter(report.results));
         logger.error('Failed linting');
         reject();

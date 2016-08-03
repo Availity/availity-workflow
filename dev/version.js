@@ -1,27 +1,29 @@
-var fs = require('fs');
-var path = require('path');
-var shell = require('shelljs');
-var semver = require('semver');
-var inquirer = require('inquirer');
-var _ = require('lodash');
-var moment = require('moment');
-var Promise = require('bluebird');
+'use strict';
 
-var context = require('../context');
-var logger = require('../logger');
+const fs = require('fs');
+const path = require('path');
+const shell = require('shelljs');
+const semver = require('semver');
+const inquirer = require('inquirer');
+const _ = require('lodash');
+const moment = require('moment');
+const Promise = require('bluebird');
+
+const settings = require('../settings');
+const Logger = require('../logger');
 
 function newLine(contents) {
-  var lastChar = (contents && contents.slice(-1) === '\n') ? '' : '\n';
+  const lastChar = (contents && contents.slice(-1) === '\n') ? '' : '\n';
   return contents + lastChar;
 }
 
 function raw() {
 
-  if (!context.meta.raw) {
-    context.meta.raw = fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8');
+  if (!settings.raw) {
+    settings.raw = fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8');
   }
 
-  return context.meta.raw;
+  return settings.raw;
 }
 
 function pkg(contents) {
@@ -30,15 +32,15 @@ function pkg(contents) {
 
 function tag() {
 
-  if (!context.settings.isDistribution()) {
+  if (!settings.isDistribution()) {
     return Promise.resolve(true);
   }
 
-  return new Promise(function(resolve) {
+  return new Promise(resolve => {
 
     shell.exec('git add .');
-    shell.exec('git commit -m "v' + context.meta.version + '"');
-    shell.exec('git tag -a v' + context.meta.version + ' -m "v' + context.meta.version + '"');
+    shell.exec(`git commit -m "v${settings.version}"`);
+    shell.exec(`git tag -a v${settings.version} -m "v${settings.version}"`);
 
     resolve();
 
@@ -47,31 +49,31 @@ function tag() {
 
 function bump() {
 
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
 
-    logger.info('Starting versioning');
+    Logger.info('Starting version bump');
 
-    if (!context.settings.isDistribution()) {
-      context.meta.version = moment().format();
+    if (!settings.isDistribution()) {
+      settings.version = moment().format();
     }
 
-    if (!context.meta.version) {
+    if (!settings.version) {
       return reject('version is undefined');
     }
 
-    context.meta.pkg = pkg();
-    context.meta.pkg = _.merge({}, context.meta.pkg, {version: context.meta.version});
+    settings.pkg = pkg();
+    settings.pkg = _.merge({}, settings.pkg, {version: settings.version});
 
-    var contents = JSON.stringify(context.meta.pkg, null, 2);
+    let contents = JSON.stringify(settings.pkg, null, 2);
     contents = newLine(contents);
-    context.meta.raw = contents;
+    settings.raw = contents;
 
     // update package.pkg
-    if (context.settings.isDistribution()) {
+    if (settings.isDistribution()) {
       fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
     }
 
-    logger.ok('Finished versioning');
+    Logger.ok('Finished version bump');
 
     resolve();
 
@@ -81,52 +83,52 @@ function bump() {
 
 function prompt() {
 
-  if (!context.settings.isDistribution()) {
+  if (!settings.isDistribution()) {
     return Promise.resolve(true);
   }
 
-  var version = pkg().version;
-  var parsed = semver.parse(version);
+  const version = pkg().version;
+  const parsed = semver.parse(version);
 
   // regular release
-  var simpleVersion = parsed.major + '.' + parsed.minor + '.' + parsed.patch;
+  const simpleVersion = `${parsed.major}.${parsed.minor}.${parsed.patch}`;
 
-  var choices = [
-    { name: 'patch ( ' + version + ' => ' + semver.inc(simpleVersion, 'patch') + ' )', value: semver.inc(simpleVersion, 'patch') },
-    { name: 'minor ( ' + version + ' => ' + semver.inc(simpleVersion, 'minor') + ' )', value: semver.inc(simpleVersion, 'minor') },
-    { name: 'major ( ' + version + ' => ' + semver.inc(simpleVersion, 'major') + ' )', value: semver.inc(simpleVersion, 'major') },
+  let choices = [
+    { name: `patch ( ${version} => ${semver.inc(simpleVersion, 'patch')} )`, value: semver.inc(simpleVersion, 'patch') },
+    { name: `minor ( ${version} => ${semver.inc(simpleVersion, 'minor')} )`, value: semver.inc(simpleVersion, 'minor') },
+    { name: `major ( ${version} => ${semver.inc(simpleVersion, 'major')} )`, value: semver.inc(simpleVersion, 'major') },
     new inquirer.Separator(), { name: 'other', value: 'other' }
   ];
 
   // pre-release
   if (parsed.prerelease && parsed.prerelease.length) {
     choices = [
-      { name: 'prerelease ( ' + version + ' => ' + semver.inc(version, 'prerelease', parsed[0]) + ' )', value: semver.inc(version, 'prerelease', parsed[0]) },
-      { name: 'release ( ' + version + ' => ' + simpleVersion + ' )', value: simpleVersion },
+      { name: `prerelease ( ${version} => ${semver.inc(version, 'prerelease', parsed[0])} )`, value: semver.inc(version, 'prerelease', parsed[0]) },
+      { name: `release ( ${version} => ${simpleVersion} )`, value: simpleVersion },
       new inquirer.Separator(), { name: 'other', value: 'other' }
     ];
   }
 
-  var questions = [
+  const questions = [
     {
       type: 'rawlist',
       name: 'bump',
       message: 'What type of version bump would you like to do?',
-      choices: choices
+      choices
     },
     {
       type: 'input',
       name: 'version',
-      message: 'version (current version is ' + pkg().version + ')',
-      when: function(answer) {
+      message: `version (current version is ${pkg().version})`,
+      when(answer) {
         return answer.bump === 'other';
       },
-      filter: function(value) {
+      filter(value) {
         return semver.clean(value);
       },
-      validate: function(value) {
+      validate(value) {
 
-        var valid = semver.valid(value);
+        const valid = semver.valid(value);
 
         if (valid) {
           return true;
@@ -139,14 +141,14 @@ function prompt() {
     }
   ];
 
-  return inquirer.prompt(questions).then(function(answers) {
-    context.meta.version = answers.bump !== 'other' ? answers.bump : answers.version;
+  return inquirer.prompt(questions).then(answers => {
+    settings.version = answers.bump !== 'other' ? answers.bump : answers.version;
   });
 
 }
 
 module.exports = {
-  tag: tag,
-  prompt: prompt,
-  bump: bump
+  tag,
+  prompt,
+  bump
 };

@@ -1,28 +1,53 @@
-var dateformat = require('dateformat');
-var figures = require('figures');
+/* eslint no-console:0 */
+'use strict';
 
-var template = '[{grey:%s}]} {yellow:[av-workflow]} ';
+const chalk = require('chalk');
+const dateformat = require('dateformat');
+const figures = require('figures');
 
-var Logger = require('eazy-logger').Logger;
+class Logger {
 
-var proto = Logger.prototype;
+  constructor(options) {
+    this.options = options;
+  }
 
-proto.ok = function(message) {
-  this.info('{green:%s} %s', figures.tick, message);
-};
+  static warn(entry) {
+    this._log(entry, 'yellow');
+  }
 
-proto.alert = function(message) {
-  this.info('{cyan:%s} %s', figures.info, message);
-};
+  static error(entry) {
+    this._log(entry, 'red');
+  }
 
-proto.fail = function(message) {
-  this.error('{red:%s %s}', figures.cross, message);
-};
+  static info(entry) {
+    this._log(entry);
+  }
 
-var logger = new Logger({
-  prefix: template.replace('%s', dateformat(new Date(), 'HH:MM:ss')),
-  useLevelPrefixes: false,
-  level: 'warn'
-});
+  // graphics
 
-module.exports = logger;
+  static failed(entry) {
+    this._log(`${figures.cross} ${entry}`, 'red');
+  }
+
+  static ok(entry) {
+    this._log(`${figures.tick} ${entry}`, 'green');
+  }
+
+  static _log(entry, _color) {
+
+    const now = dateformat(new Date(), 'HH:MM:ss');
+    const defaultColor = entry instanceof Error ? 'red' : 'gray';
+
+    const color = _color || defaultColor;
+
+    console.log(`[${ chalk.cyan(now) }] ${ chalk[color](entry) }` );
+
+  }
+
+  static log(entry) {
+    this._log(entry);
+  }
+
+}
+
+module.exports = Logger;

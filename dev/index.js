@@ -1,15 +1,25 @@
 #! /usr/bin/env node
+'use strict';
 
-var argv = require('yargs').argv;
+const yargs = require('yargs');
+const chalk = require('chalk');
 
-var commands = {
-  lint: require('./lint'),
-  release: require('./release'),
-  build: require('./build'),
-  version: require('./version'),
-  start: require('./start'),
-  complexity: require('./complexity'),
-  test: require('./test').continous
-};
+const lint = require('./lint');
+const start = require('./start');
 
-commands[argv._[0]]();
+yargs
+  .usage(`Usage: ${chalk.yellow('$0')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
+
+  .command('start', `${chalk.dim('Start the development server')}`, () => { start() })
+  .command('lint', `${chalk.dim('Lint you source files using ESLint')}`, () => { lint() })
+
+  .demand(1, chalk.red('Must provide a valid command'))
+
+  .help('help')
+  .alias('h', 'help')
+  .showHelpOnFail(true, 'Specify --help for available options')
+
+  .example(chalk.yellow('$0 start'))
+  .example(chalk.yellow('$0 lint'))
+
+  .argv;
