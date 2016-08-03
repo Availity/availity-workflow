@@ -24,7 +24,7 @@ const settings = {
     return this.isDevelopment() ? '[name].js' : '[name]-[chunkhash].js';
   },
 
-  cssFileName() {
+  css() {
     return this.isDevelopment() ? '[name].css' : '[name]-[chunkhash].css';
   },
 
