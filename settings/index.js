@@ -124,8 +124,8 @@ const settings = {
     ];
   },
 
-  reports() {
-    return './coverage';
+  coverage() {
+    return path.join(process.cwd(), 'coverage');
   },
 
   set(overrides) {

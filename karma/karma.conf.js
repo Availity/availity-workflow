@@ -69,7 +69,21 @@ module.exports = function(config) {
     webpack: wpConfig,
 
     webpackMiddleware: {
-      stats: 'errors-only'
+      stats: {
+        hash: false,
+        version: false,
+        timings: false,
+        assets: false,
+        chunks: false,
+        modules: false,
+        reasons: false,
+        children: false,
+        source: false,
+        errors: true,
+        errorDetails: true,
+        warnings: false,
+        publicPath: false
+      }
     },
 
     exclude: [
@@ -85,25 +99,25 @@ module.exports = function(config) {
 
     reporters: ['spec', 'coverage'],
 
-    // coverageReporter: {
-    //   includeAllSources: true,
-    //   dir: settings.coverage(),
-    //   subdir(browser) {
-    //     return browser.toLowerCase().split(/[ /-]/)[0];
-    //   },
-    //   reporters: [
-    //     {
-    //       type: 'text',
-    //       file: 'text.txt'
-    //     },
-    //     {
-    //       type: 'text-summary'
-    //     },
-    //     {
-    //       type: 'html'
-    //     }
-    //   ]
-    // },
+    coverageReporter: {
+      includeAllSources: true,
+      dir: settings.coverage(),
+      subdir(browser) {
+        return browser.toLowerCase().split(/[ /-]/)[0];
+      },
+      reporters: [
+        {
+          type: 'text',
+          file: 'text.txt'
+        },
+        {
+          type: 'text-summary'
+        },
+        {
+          type: 'html'
+        }
+      ]
+    },
 
     port: 9876,
 

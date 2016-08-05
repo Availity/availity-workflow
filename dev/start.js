@@ -22,7 +22,7 @@ function warning() {
 
   if (!developerConfig) {
 
-    Logger.warn(`Missing ${chalk.cyan('./project/config/developer-config.js')}. Using defaults.`);
+    Logger.warn(`Missing ${chalk.blue('./project/config/developer-config.js')} (Using defaults)`);
   }
 
   return Promise.resolve(true);
