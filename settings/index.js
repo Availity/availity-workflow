@@ -11,6 +11,15 @@ const settings = {
   },
 
   entry() {
+
+    if (this.isTesting()) {
+
+      return {
+        'index': './index.js'
+      };
+
+    }
+
     return {
       'index': './index.js',
       'vendor': './vendor.js'
@@ -113,6 +122,10 @@ const settings = {
       '!reports/**',
       '!build/**'
     ];
+  },
+
+  reports() {
+    return './coverage';
   },
 
   set(overrides) {

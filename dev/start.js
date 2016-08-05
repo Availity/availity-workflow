@@ -1,8 +1,9 @@
 'use strict';
 
 // const nodemon = require('nodemon');
-// const path = require('path');
+const path = require('path');
 const chalk = require('chalk');
+
 const Promise = require('bluebird');
 const webpack = require('webpack');
 const _ = require('lodash');
@@ -10,21 +11,23 @@ const WebpackServer = require('webpack-dev-server');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 
 const Logger = require('../logger');
+const notifier = require('./notifier');
 const settings = require('../settings');
-// const file = require('./file');
+const file = require('./file');
 const open = require('./open');
 
-// function warning() {
+function warning() {
 
-//   const developerConfig = file(path.join(settings.project(), '/project/config/developer-config'));
+  const developerConfig = file(path.join(settings.project(), '/project/config/developer-config'));
 
-//   if (!developerConfig) {
-//     Logger.warn(`Missing ${chalk.cyan('./project/config/developer-config.js')}. Using defaults.`);
-//   }
+  if (!developerConfig) {
 
-//   return Promise.resolve(true);
+    Logger.warn(`Missing ${chalk.cyan('./project/config/developer-config.js')}. Using defaults.`);
+  }
 
-// }
+  return Promise.resolve(true);
+
+}
 
 function web() {
 
@@ -77,7 +80,8 @@ function web() {
 
       if (hasErrors) {
         Logger.failed('Failed compiling');
-        reject('Failed to compile');
+        Logger.info(stats.compilation.errors);
+        reject('Failed compiling');
       }
 
     });
@@ -106,7 +110,13 @@ function web() {
       }
     });
 
-    server.listen(settings.servers().app.port, () => {
+    server.listen(settings.servers().app.port, (err) => {
+
+      if (err) {
+        Logger.failed(err);
+        reject(err);
+      }
+
       Logger.info('Started development server');
       resolve();
     });
@@ -152,8 +162,10 @@ function web() {
 // }
 
 function start() {
-  return web()
-    .then(open);
+  return warning()
+    .then(web)
+    .then(open)
+    .then(notifier);
 }
 
 module.exports = start;

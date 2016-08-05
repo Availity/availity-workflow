@@ -15,7 +15,8 @@ const options = {
     }
 
     if (update.type !== 'latest') {
-      Logger.warn(`${chalk.bold.bgYellow('UPDATE AVAILABLE')} ${chalk.bold.green(update.latest)} (current: ${update.current}). Run ${chalk.blue('npm install availity-workflow -D')}.`);
+      const message = chalk.bold.black('UPDATE AVAILABLE');
+      Logger.warn(`${chalk.bold.bgYellow(message)} ${chalk.bold.green(update.latest)} (current: ${update.current}). Run ${chalk.blue('npm install availity-workflow -D')}.`);
     }
   }
 };

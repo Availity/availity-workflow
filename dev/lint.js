@@ -17,18 +17,20 @@ function lint() {
   return new Promise((resolve, reject) => {
 
     Logger.info('Started linting');
-
-    const spinner = ora('Running ESLint rules...');
+    const spinner = ora('running linter rules');
     spinner.color = 'yellow';
     spinner.start();
 
-    globby(settings.js.src).then(paths => {
+    const files = settings.js();
+
+    globby(files).then(paths => {
+
+      spinner.stop();
 
       const report = engine.executeOnFiles(paths);
 
       if (report.errorCount || report.warningCount) {
 
-        spinner.stop();
         const formatter = engine.getFormatter();
         Logger.info(`${formatter(report.results)}`);
         Logger.failed('Failed linting');
@@ -36,7 +38,6 @@ function lint() {
 
       } else {
 
-        spinner.stop();
         Logger.ok(`Finished linting ${paths.length} file(s)`);
         resolve();
 

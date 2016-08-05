@@ -1,28 +1,29 @@
-var del = require('del');
+'use strict';
 
-var context = require('../context');
-var version = require('./version');
-var lint = require('./lint');
-var build = require('./build');
-var logger = require('../logger');
+const del = require('del');
+const settings = require('../settings');
+const version = require('./version');
+const lint = require('./lint');
+const build = require('./build');
+const Logger = require('../logger');
 
 function release() {
 
-  del.sync([context.settings.dest()]);
+  del.sync([settings.dest()]);
 
   return version.prompt()
     .then(function() {
-      logger.info('Started releasing');
+      Logger.info('Started releasing');
     })
     .then(lint)
     .then(version.bump)
     .then(build)
     .then(version.tag)
     .then(function() {
-      logger.ok('Finished releasing');
+      Logger.ok('Finished releasing');
     })
     .catch(function() {
-      logger.fail('Failed releasing');
+      Logger.fail('Failed releasing');
     });
 
 }

@@ -10,15 +10,13 @@ function open() {
 
   if (settings.open) {
 
-    Logger.info('Started opening application in browser');
-
-    const port = settings.servers.app.port;
+    const port = settings.servers().app.port;
     const url = settings.open;
 
     const uri = `http://localhost:${port}/${url}`;
 
     opn(uri);
-    Logger.ok('Finished opening application in browser');
+    Logger.ok(`Opening browser at ${uri}`);
 
   }
 

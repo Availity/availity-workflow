@@ -1,27 +1,29 @@
-var path = require('path');
-var karma = require('karma');
+'use strict';
 
-var logger = require('../logger');
+const path = require('path');
+const karma = require('karma');
+
+const Logger = require('../logger');
 
 function continous() {
 
-  return new Promise(function(resolve, reject) {
+  return new Promise( (resolve, reject) => {
 
-    logger.info('Started testing');
+    Logger.info('Started testing');
 
     process.env.NODE_ENV = 'testing';
 
-    var server = new karma.Server({
+    const server = new karma.Server({
       configFile: path.join(__dirname, '../karma/karma.conf.js'),
       autoWatch: false,
       singleRun: true
     }, function(exitStatus) {
 
       if (exitStatus) {
-        logger.fail('Failed testing');
+        Logger.failed('Failed testing');
         reject();
-      }else {
-        logger.ok('Finished testing');
+      } else {
+        Logger.ok('Finished testing');
         resolve();
       }
     });
@@ -35,11 +37,11 @@ function continous() {
 
 function debug() {
 
-  return new Promise(function(resolve, reject) {
+  return new Promise( (resolve, reject) => {
 
     process.env.NODE_ENV = 'debug';
 
-    var server = new karma.Server({
+    const server = new karma.Server({
       configFile: path.join(__dirname, '../karma/karma.conf.js'),
       browsers: ['Chrome'],
       reporters: ['progress'],
@@ -49,7 +51,7 @@ function debug() {
 
       if (exitStatus) {
         reject();
-      }else {
+      } else {
         resolve();
       }
 
@@ -62,7 +64,7 @@ function debug() {
 }
 
 module.exports = {
-  debug: debug,
-  continous: continous
+  debug,
+  continous
 };
 

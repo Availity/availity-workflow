@@ -1,53 +1,56 @@
-var Promise = require('bluebird');
-var webpack = require('webpack');
-var _ = require('lodash');
-var ora = require('ora');
+'use strict';
 
-var logger = require('../logger');
+const Promise = require('bluebird');
+const webpack = require('webpack');
+const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const ora = require('ora');
+
+const Logger = require('../logger');
 
 function bundle() {
 
-  var statistics = [];
-
   return new Promise(function(resolve, reject) {
 
-    var webpackConfig = require('../webpack').get();
-    logger.info('Started bundling');
-    var spinner = ora('Running webpack');
+    const webpackConfig = require('../webpack');
+    Logger.info('Started compiling');
+    const spinner = ora('Running webpack');
     spinner.color = 'yellow';
     spinner.start();
 
-    var compiler = webpack(webpackConfig);
-    var bundleCounts = Object.keys(webpackConfig.entry).length;
+    const config = webpackConfig();
 
-    var done = _.after(bundleCounts, function() {
+    config.plugins.push(new ProgressPlugin( (percentage, msg) => {
 
-      spinner.stop();
-      logger.info(statistics[0]);
-      logger.ok('Finished bundling');
-      resolve();
+      const percent = percentage * 100;
 
-    });
-
-    compiler.run(function(err, stats) {
-
-      if (err) {
-        spinner.stop();
-        logger.error('Failed bundle', err);
-        reject();
+      if (percent % 20 === 0 && msg !== null && msg !== undefined && msg !== ''){
+        spinner.text = `webpack ${msg}`;
       }
 
-      var _stats = stats.toString({
+    }));
+
+    webpack(config).run((err, stats) => {
+
+      if (err) {
+        spinner.fail();
+        Logger.failed('Failed compiling');
+        reject(err);
+      }
+
+      spinner.stop();
+
+      const statistics = stats.toString({
         colors: true,
         cached: true,
         reasons: false,
         source: false,
-        chunks: false
+        chunks: false,
+        children: false
       });
 
-      statistics.push(_stats);
-
-      done();
+      Logger.info(statistics);
+      Logger.ok('Finished compiling');
+      resolve();
 
     });
 

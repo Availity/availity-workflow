@@ -6,12 +6,14 @@ const chalk = require('chalk');
 
 const lint = require('./lint');
 const start = require('./start');
+const test = require('./test');
 
 yargs
   .usage(`Usage: ${chalk.yellow('$0')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
 
   .command('start', `${chalk.dim('Start the development server')}`, () => { start() })
   .command('lint', `${chalk.dim('Lint you source files using ESLint')}`, () => { lint() })
+  .command('test', `${chalk.dim('Run your test files using Karma and PhantomJS')}`, () => { test.continous() })
 
   .demand(1, chalk.red('Must provide a valid command'))
 
