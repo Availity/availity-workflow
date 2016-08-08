@@ -160,9 +160,7 @@ const config = {
     new CaseSensitivePathsPlugin(),
 
     // Use bundle name for extracting bundle css
-    new ExtractTextPlugin(`css/${settings.css()}`, {
-      allChunks: true
-    }),
+    new ExtractTextPlugin(`css/${settings.css()}`),
 
     new HtmlWebpackPlugin({
       template: './index.html',
