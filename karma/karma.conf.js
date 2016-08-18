@@ -16,16 +16,6 @@ const wpConfig = merge(webpackConfig, {
   debug: false
 });
 
-if (!settings.isDebug()) {
-
-  wpConfig.module.loaders.push({
-    test: /\.js$/,
-    loader: 'babel-istanbul-loader',
-    exclude: /(-spec.js|node_modules|bower_components|specs.js|module.js|vendor.js)/
-  });
-
-}
-
 wpConfig.plugins = [
 
   // ignore all the moment local files
@@ -48,57 +38,83 @@ wpConfig.plugins = [
   })
 ];
 
-module.exports = function(config) {
+const karmaConfig = {
 
-  config.set({
+  basePath: path.join(settings.project(), 'project/app'),
 
-    basePath: path.join(settings.project(), 'project/app'),
+  frameworks: ['jasmine'],
 
-    frameworks: ['jasmine'],
+  files: [
+    { pattern: 'specs.js', watched: false }
+  ],
 
-    files: [
-      { pattern: 'specs.js', watched: false }
-    ],
+  reportSlowerThan: 500,
 
-    reportSlowerThan: 500,
+  preprocessors: {
+    'specs.js': ['webpack']
+  },
 
-    preprocessors: {
-      'specs.js': ['webpack']
-    },
+  webpack: wpConfig,
 
-    webpack: wpConfig,
+  webpackMiddleware: {
+    stats: {
+      hash: false,
+      version: false,
+      timings: false,
+      assets: false,
+      chunks: false,
+      modules: false,
+      reasons: false,
+      children: false,
+      source: false,
+      errors: true,
+      errorDetails: true,
+      warnings: false,
+      publicPath: false
+    }
+  },
 
-    webpackMiddleware: {
-      stats: {
-        hash: false,
-        version: false,
-        timings: false,
-        assets: false,
-        chunks: false,
-        modules: false,
-        reasons: false,
-        children: false,
-        source: false,
-        errors: true,
-        errorDetails: true,
-        warnings: false,
-        publicPath: false
-      }
-    },
+  exclude: [
+    '*.less',
+    '*.css'
+  ],
 
-    exclude: [
-      '*.less',
-      '*.css'
-    ],
-
-    client: {
-      // log console output in our test console
-      captureConsole: true
-    },
+  client: {
+    // log console output in our test console
+    captureConsole: true
+  },
 
 
-    reporters: ['spec', 'coverage'],
+  reporters: ['spec', 'coverage'],
 
+  port: 9876,
+
+  colors: true,
+
+  autoWatch: false,
+
+  browsers: ['PhantomJS'],
+
+  singleRun: true,
+
+  browserNoActivityTimeout: 60000, // 60 seconds
+
+  // List plugins explicitly, since auto-loading karma-webpack won't work here
+  plugins: [
+    require('karma-jasmine'),
+    require('karma-spec-reporter'),
+    require('karma-chrome-launcher'),
+    require('karma-coverage'),
+    require('karma-webpack-with-fast-source-maps'),
+    require('karma-phantomjs-launcher')
+  ]
+};
+
+
+// Add coverage statistics if NODE_ENV = testing
+if (settings.isTesting()) {
+
+  Object.assign(karmaConfig, {
     coverageReporter: {
       includeAllSources: true,
       dir: settings.coverage(),
@@ -117,31 +133,15 @@ module.exports = function(config) {
           type: 'html'
         }
       ]
-    },
-
-    port: 9876,
-
-    colors: true,
-
-    logLevel: config.WARN,
-
-    autoWatch: false,
-
-    browsers: ['PhantomJS'],
-
-    singleRun: true,
-
-    browserNoActivityTimeout: 60000, // 60 seconds
-
-    // List plugins explicitly, since auto-loading karma-webpack won't work here
-    plugins: [
-      require('karma-jasmine'),
-      require('karma-spec-reporter'),
-      require('karma-chrome-launcher'),
-      require('karma-coverage'),
-      require('karma-webpack-with-fast-source-maps'),
-      require('karma-phantomjs-launcher')
-    ]
+    }
   });
+
+}
+
+module.exports = function(config) {
+
+  config.set(Object.assign({
+    logLevel: config.WARN
+  }, karmaConfig));
 
 };

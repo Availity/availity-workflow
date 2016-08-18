@@ -13,6 +13,7 @@ const autoprefixer = require('autoprefixer');
 const NpmImportPlugin = require('less-plugin-npm-import');
 
 const settings = require('../settings');
+const babelQuery = require('./babel');
 
 function getVersion() {
   return settings.version || 'N/A';
@@ -72,17 +73,10 @@ const config = {
       { test: /[\\\/]moment\.js$/, loader: 'expose?moment' },
 
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         loader: 'babel',
         exclude: /(bower_components|node_modules)/,
-        query: {
-          cacheDirectory: true,
-          presets: ['es2015', 'stage-0'],
-          plugins: [
-            'transform-class-properties',
-            'transform-object-assign'
-          ]
-        }
+        query: babelQuery
       },
       {
         test: /(\.less|\.css)$/,
@@ -90,6 +84,7 @@ const config = {
           'style',
           'css?name=images/[name].[ext]!postcss!less',
           {
+            // Path relative to the app root
             publicPath: '../'
           }
         ),
@@ -109,13 +104,17 @@ const config = {
         loader: 'file?name=fonts/[name].[ext]'
       },
       {
+        // "url" loader works just like "file" loader but it also embeds
+        // assets smaller than specified size as data URLs to avoid requests.
         test: /\.(jpe?g|png|gif)$/,
         loader: 'url-loader?name=images/[name].[ext]&limit=10000'
       },
       {
         test: /\.html$/,
         loader: `ngtemplate?relativeTo=${process.cwd()}/!html`,
-        exclude: /index\.html/ /* ignore index.html else "window is not defined" error */
+        // ignore index.html else "window is not defined" error from
+        // the HTML webpack plugin
+        exclude: /index\.html/
       },
       {
         test: /\.json$/,
@@ -126,7 +125,15 @@ const config = {
   },
 
   postcss() {
-    return [autoprefixer({browsers: ['last 2 versions', 'ie 9-11']})];
+    return [
+      autoprefixer({
+        browsers: [
+          '>1%',
+          'last 4 versions',
+          'not ie < 9'
+        ]
+      })
+    ];
   },
 
   lessLoader: {
@@ -141,11 +148,6 @@ const config = {
 
     // ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
-
-    // new webpack.ProvidePlugin({
-    //   'jQuery': 'jquery',
-    //   '$': 'jquery'
-    // }),
 
     new WebpackMd5Hash(),
 
@@ -192,20 +194,29 @@ if (settings.isStaging()) {
 if (settings.isProduction()) {
 
   config.plugins.push(
+
+    // This helps ensure the builds are consistent if source hasn't changed
     new webpack.optimize.OccurenceOrderPlugin(true),
+
+    // Minify the code.
     new webpack.optimize.UglifyJsPlugin({
       mangle: false,
       sourceMap: false,
       compress: {
+        screw_ie8: true, // Angular, React and Availity don't support IE8
         drop_console: true,
         warnings: false
       },
       output: {
         comments: false,
+        screw_ie8: true,
         max_line_len: 1000
       }
     }),
+
+    // Try to dedupe duplicated modules
     new webpack.optimize.DedupePlugin(),
+
     new webpack.NoErrorsPlugin()
   );
 
