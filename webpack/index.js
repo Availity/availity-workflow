@@ -73,7 +73,7 @@ const config = {
       { test: /[\\\/]moment\.js$/, loader: 'expose?moment' },
 
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         loader: 'babel',
         exclude: /(bower_components|node_modules)/,
         query: babelQuery
