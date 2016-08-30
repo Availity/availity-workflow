@@ -60,16 +60,26 @@ const settings = {
     return this.isDistribution() ? path.join(this.project(), './dist') : path.join(this.project(), './build');
   },
 
-  htmlWebpackConfig() {
-    var templatePath = './template.html';
-    var faviconPath = './favicon.ico';
-    var hasLocalTemplate = pathExists.sync(path.join(this.app(), templatePath));
-    var hasLocalFavicon = pathExists.sync(path.join(this.app(), faviconPath));
-    return {
-      template: hasLocalTemplate ? templatePath : path.relative(this.app(), path.join(__dirname, '../webpack', templatePath)),
-      favicon: hasLocalFavicon ? faviconPath : path.relative(this.app(), path.join(__dirname, '../webpack', faviconPath))
+  htmlWebpackConfig: (function() {
+    var result;
+    function getConfig() {
+      if (!result) {
+        console.log('generating results');
+        var templatePath = './index.html';
+        var faviconPath = './favicon.ico';
+        var hasLocalTemplate = pathExists.sync(path.join(this.app(), templatePath));
+        var hasLocalFavicon = pathExists.sync(path.join(this.app(), faviconPath));
+        console.log('Using ' + (hasLocalTemplate ? 'user defined' : 'workflow') + ' template');
+        console.log('Using ' + (hasLocalFavicon ? 'user defined' : 'workflow') + ' favicon');
+        result = {
+          template: hasLocalTemplate ? templatePath : path.relative(this.app(), path.join(__dirname, '../webpack', templatePath)),
+          favicon: hasLocalFavicon ? faviconPath : path.relative(this.app(), path.join(__dirname, '../webpack', faviconPath))
+        };
+      }
+      return result;
     }
-  },
+    return getConfig;
+  })(),
 
   ekko() {
     return {
