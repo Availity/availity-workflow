@@ -170,8 +170,8 @@ const config = {
     new ExtractTextPlugin(`css/${settings.css()}`),
 
     new HtmlWebpackPlugin({
-      template: './index.html',
-      favicon: './favicon.ico',
+      template: settings.htmlWebpackConfig().template,
+      favicon: settings.htmlWebpackConfig().favicon,
       pkg: getPkg()
     })
 
