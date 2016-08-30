@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const pathExists = require('path-exists');
 
 const settings = {
 
@@ -57,6 +58,17 @@ const settings = {
 
   dest() {
     return this.isDistribution() ? path.join(this.project(), './dist') : path.join(this.project(), './build');
+  },
+
+  htmlWebpackConfig() {
+    var templatePath = './template.html';
+    var faviconPath = './favicon.ico';
+    var hasLocalTemplate = pathExists.sync(path.join(this.app(), templatePath));
+    var hasLocalFavicon = pathExists.sync(path.join(this.app(), faviconPath));
+    return {
+      template: hasLocalTemplate ? templatePath : path.relative(this.app(), path.join(__dirname, '../webpack', templatePath)),
+      favicon: hasLocalFavicon ? faviconPath : path.relative(this.app(), path.join(__dirname, '../webpack', faviconPath))
+    }
   },
 
   ekko() {
