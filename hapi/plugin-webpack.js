@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 var logger = require('../logger');
 var check = require('../dev/check');
+var context = require('../context');
 
 function bundle(server, options, next) {
 
@@ -14,6 +15,7 @@ function bundle(server, options, next) {
   var done = _.after(bundleCounts, function() {
     logger.info(statistics[0]);
     logger.ok('Finished bundling');
+    context.emit('av:bundle-complete');
     next();
   });
 

@@ -17,7 +17,7 @@ proto.set = function(context) {
 
   var self = this;
 
-  _.forEach(['gulp', 'webpack', 'karma'], function(value) {
+  _.forEach(['gulp', 'webpack', 'karma', 'eventEmitter'], function(value) {
     self[value] = context[value];
   });
 
@@ -26,6 +26,13 @@ proto.set = function(context) {
 proto.getConfig = function() {
   var environment = process.env.NODE_ENV || 'development';
   return this.settings[environment];
+};
+
+proto.emit = function () {
+  var self = this;
+  if (self.eventEmitter) {
+    self.eventEmitter.apply(self.eventEmitter, arguments);
+  }
 };
 
 
