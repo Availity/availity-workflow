@@ -1,3 +1,4 @@
+var EventEmitter = require('events');
 var _ = require('lodash');
 var utils = require('../utils');
 
@@ -31,7 +32,7 @@ proto.getConfig = function() {
 proto.emit = function () {
   var self = this;
   if (self.eventEmitter) {
-    self.eventEmitter.apply(self.eventEmitter, arguments);
+    EventEmitter.prototype.emit.apply(self.eventEmitter, arguments);
   }
 };
 
