@@ -100,7 +100,7 @@ const settings = {
     const name = path.basename(templatePath);
 
     if (!hasLocalTemplate) {
-      Logger.warn(`Using from ${chalk.blue('availity-workflow/webpack/' + name)}`);
+      Logger.warn(`Using ${chalk.blue('availity-workflow/webpack/' + name)}`);
     }
 
 
