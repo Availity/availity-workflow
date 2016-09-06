@@ -17,12 +17,7 @@ const open = require('./open');
 
 function warning() {
 
-  const configPath = path.join(settings.project(), '/project/config/developer-config.js');
-  const isConfigDefined = pathExists.sync(configPath);
-
-  if (!isConfigDefined) {
-    Logger.warn(`Missing ${chalk.blue('project/config/developer-config')}. Using defaults.`);
-  }
+  settings.config();
 
   return Promise.resolve(true);
 

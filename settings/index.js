@@ -5,10 +5,36 @@ const chalk = require('chalk');
 const pathExists = require('path-exists');
 
 const Logger = require('../logger');
+const file = require('../dev/file');
 
 const settings = {
 
   raw: null,
+  configuration: null,
+
+  config() {
+
+    if (this.configuration) {
+      return this.configuration;
+    }
+
+    this.configuration = require('./config');
+    let developerConfig = {};
+
+    const configPath = path.join(settings.project(), '/project/config/developer-config.js');
+    const isConfigDefined = pathExists.sync(configPath);
+
+    if (!isConfigDefined) {
+      Logger.warn(`Missing ${chalk.blue('project/config/developer-config')}. Using defaults.`);
+    } else {
+      developerConfig = file(configPath);
+    }
+
+    Object.assign(this.configuration, developerConfig);
+
+    return this.configuration;
+
+  },
 
   maps() {
     return this.isDevelopment() ? 'source-map' : 'source-map';
@@ -144,6 +170,10 @@ const settings = {
   },
 
   isAngular() {
+    return true;
+  },
+
+  isNotifier() {
     return true;
   },
 
