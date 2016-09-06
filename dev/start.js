@@ -1,9 +1,7 @@
 'use strict';
 
 // const nodemon = require('nodemon');
-const path = require('path');
 const chalk = require('chalk');
-const pathExists = require('path-exists');
 const Promise = require('bluebird');
 const webpack = require('webpack');
 const _ = require('lodash');

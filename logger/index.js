@@ -50,7 +50,7 @@ class Logger {
   }
 
   static box(entry) {
-    console.log(boxen(`${chalk.gray(entry)}`, {padding: 1, borderColor: 'yellow'}));
+    console.log(boxen(`${chalk.gray(entry)}`, {padding: 1, borderColor: 'yellow', borderStyle: 'classic', dimBorder: true}));
   }
 
   static log(entry) {
