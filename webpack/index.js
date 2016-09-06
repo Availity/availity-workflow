@@ -14,6 +14,7 @@ const NpmImportPlugin = require('less-plugin-npm-import');
 
 const settings = require('../settings');
 const babelQuery = require('./babel');
+const angularLoaders = require('./loaders/angular');
 
 function getVersion() {
   return settings.version || 'N/A';
@@ -53,6 +54,11 @@ const config = {
 
   resolve: {
     root: [settings.app()],
+    // resolve.fallback A directory (or array of directories absolute paths),
+    // in which webpack should look for modules that weren’t found in
+    // resolve.root or resolve.modulesDirectories.  This also helps with
+    // npm link of availity-workflow inside other projects.
+    fallback: path.join(__dirname, 'node_modules'),
     modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.jsx', '.json', '.css', '.less', 'scss']
   },
@@ -61,16 +67,12 @@ const config = {
     root: [
       path.join(__dirname, '../node_modules'),  // local
       path.join(process.cwd(), './node_modules') // parent project
-    ]
+    ],
+    fallback: path.join(__dirname, 'node_modules')
   },
 
   module: {
     loaders: [
-
-      { test: /[\\\/]angular\.js$/, loader: 'expose?angular!exports?angular' },
-      { test: /[\\\/]jquery\.js$/, loader: 'expose?$!expose?jQuery' },
-      { test: /[\\\/]lodash\.js$/, loader: 'expose?_' },
-      { test: /[\\\/]moment\.js$/, loader: 'expose?moment' },
 
       {
         test: /\.jsx?$/,
@@ -108,13 +110,6 @@ const config = {
         // assets smaller than specified size as data URLs to avoid requests.
         test: /\.(jpe?g|png|gif)$/,
         loader: 'url-loader?name=images/[name].[ext]&limit=10000'
-      },
-      {
-        test: /\.html$/,
-        loader: `ngtemplate?relativeTo=${process.cwd()}/!html`,
-        // ignore index.html else "window is not defined" error from
-        // the HTML webpack plugin
-        exclude: /index\.html/
       },
       {
         test: /\.json$/,
@@ -170,14 +165,18 @@ const config = {
     new ExtractTextPlugin(`css/${settings.css()}`),
 
     new HtmlWebpackPlugin({
-      template: settings.htmlWebpackConfig().template,
-      favicon: settings.htmlWebpackConfig().favicon,
+      template: settings.template(),
+      favicon: settings.favicon(),
       pkg: getPkg()
     })
 
   ]
 
 };
+
+if (settings.isAngular()) {
+  config.module.loaders.push(angularLoaders);
+}
 
 if (settings.isStaging()) {
 
