@@ -4,6 +4,7 @@
 const chalk = require('chalk');
 const dateformat = require('dateformat');
 const figures = require('figures');
+const boxen = require('boxen');
 
 class Logger {
 
@@ -42,6 +43,14 @@ class Logger {
 
     console.log(`[${ chalk.cyan(now) }] ${ chalk[color](entry) }` );
 
+  }
+
+  static empty() {
+    console.log('');
+  }
+
+  static box(entry) {
+    console.log(boxen(`${chalk.gray(entry)}`, {padding: 1, borderColor: 'yellow'}));
   }
 
   static log(entry) {

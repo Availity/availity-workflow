@@ -24,7 +24,7 @@ function bundle() {
       const percent = percentage * 100;
 
       if (percent % 20 === 0 && msg !== null && msg !== undefined && msg !== ''){
-        spinner.text = `webpack ${msg}`;
+        spinner.text = `Webpack ${msg}`;
       }
 
     }));

@@ -3,7 +3,7 @@
 // const nodemon = require('nodemon');
 const path = require('path');
 const chalk = require('chalk');
-
+const pathExists = require('path-exists');
 const Promise = require('bluebird');
 const webpack = require('webpack');
 const _ = require('lodash');
@@ -13,16 +13,15 @@ const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const Logger = require('../logger');
 const notifier = require('./notifier');
 const settings = require('../settings');
-const file = require('./file');
 const open = require('./open');
 
 function warning() {
 
-  const developerConfig = file(path.join(settings.project(), '/project/config/developer-config'));
+  const configPath = path.join(settings.project(), '/project/config/developer-config.js');
+  const isConfigDefined = pathExists.sync(configPath);
 
-  if (!developerConfig) {
-
-    Logger.warn(`Missing ${chalk.blue('./project/config/developer-config.js')} (Using defaults)`);
+  if (!isConfigDefined) {
+    Logger.warn(`Missing ${chalk.blue('project/config/developer-config')}. Using defaults.`);
   }
 
   return Promise.resolve(true);
@@ -41,7 +40,7 @@ function web() {
       const percent = percentage * 100;
 
       if (percent % 20 === 0 && msg !== null && msg !== undefined && msg !== ''){
-        Logger.info(`${chalk.dim('webpack')} ${msg}`);
+        Logger.info(`${chalk.dim('Webpack')} ${msg}`);
       }
 
     }));
@@ -72,7 +71,7 @@ function web() {
 
         Logger.info(statistics);
         Logger.ok('Finished compiling');
-        Logger.log(`The app is running at ${chalk.magenta(uri)}`);
+        Logger.box(`The app is running at ${chalk.green(uri)}`);
 
         return;
 
@@ -119,6 +118,7 @@ function web() {
 
       Logger.info('Started development server');
       resolve();
+
     });
 
   });
@@ -162,10 +162,12 @@ function web() {
 // }
 
 function start() {
+
   return warning()
     .then(web)
     .then(open)
     .then(notifier);
+
 }
 
 module.exports = start;
