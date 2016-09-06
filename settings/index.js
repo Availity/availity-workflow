@@ -1,7 +1,10 @@
 'use strict';
 
 const path = require('path');
+const chalk = require('chalk');
 const pathExists = require('path-exists');
+
+const Logger = require('../logger');
 
 const settings = {
 
@@ -57,29 +60,35 @@ const settings = {
   },
 
   dest() {
-    return this.isDistribution() ? path.join(this.project(), './dist') : path.join(this.project(), './build');
+    return this.isDistribution() ?
+      path.join(this.project(), './dist') :
+      path.join(this.project(), './build');
   },
 
-  htmlWebpackConfig: (function() {
-    var result;
-    function getConfig() {
-      if (!result) {
-        console.log('generating results');
-        var templatePath = './index.html';
-        var faviconPath = './favicon.ico';
-        var hasLocalTemplate = pathExists.sync(path.join(this.app(), templatePath));
-        var hasLocalFavicon = pathExists.sync(path.join(this.app(), faviconPath));
-        console.log('Using ' + (hasLocalTemplate ? 'user defined' : 'workflow') + ' template');
-        console.log('Using ' + (hasLocalFavicon ? 'user defined' : 'workflow') + ' favicon');
-        result = {
-          template: hasLocalTemplate ? templatePath : path.relative(this.app(), path.join(__dirname, '../webpack', templatePath)),
-          favicon: hasLocalFavicon ? faviconPath : path.relative(this.app(), path.join(__dirname, '../webpack', faviconPath))
-        };
-      }
-      return result;
+  asset(filePath) {
+
+    let templatePath = filePath;
+
+    const hasLocalTemplate = pathExists.sync(path.join(this.app(), templatePath));
+    templatePath = hasLocalTemplate ? templatePath : path.relative(this.app(), path.join(__dirname, '../webpack', templatePath));
+    const name = path.basename(templatePath);
+
+    if (!hasLocalTemplate) {
+      Logger.warn(`Using from ${chalk.blue('availity-workflow/webpack/' + name)}`);
     }
-    return getConfig;
-  })(),
+
+
+    return templatePath;
+
+  },
+
+  template() {
+    return this.asset('./index.html');
+  },
+
+  favicon() {
+    return this.asset('./favicon.ico');
+  },
 
   ekko() {
     return {
@@ -132,6 +141,10 @@ const settings = {
 
   isProduction() {
     return this.environment() === 'production';
+  },
+
+  isAngular() {
+    return true;
   },
 
   // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
