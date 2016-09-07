@@ -33,8 +33,8 @@ const settings = {
 
     Object.assign(this.configuration, developerConfig);
 
-    const message = chalk.underline(this.configuration.development.mode.toUpperCase());
-    Logger.warn(`${message}`);
+    const message = chalk.bgBlue.black(this.configuration.development.mode.toUpperCase());
+    Logger.info(`${message}`);
 
     return this.configuration;
 
