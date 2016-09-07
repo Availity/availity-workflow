@@ -44,12 +44,26 @@ function web() {
       Logger.info('Started compiling');
     });
 
-    const message = _.once(stats => {
+    const openBrowser = _.once(() => open());
+
+    _.onceEvery = function(times, func) {
+      const orig = times;
+      return function() {
+        if (--times < 1) {
+          times = orig;
+          return func.apply(this, arguments);
+        }
+      };
+    };
+
+    const message = _.onceEvery(2, stats => {
 
       const hasErrors = stats.hasErrors();
       const hasWarnings = stats.hasWarnings();
 
       if (!hasErrors && !hasWarnings) {
+
+        openBrowser();
 
         const statistics = stats.toString({
           colors: true,
@@ -60,7 +74,7 @@ function web() {
           children: false
         });
 
-        const uri = `http://localhost:${settings.servers().app.port}/`;
+        const uri = `http://localhost:${settings.config().development.port}/`;
 
         Logger.info(statistics);
         Logger.ok('Finished compiling');
@@ -92,17 +106,28 @@ function web() {
     });
 
     const server = new WebpackServer(compiler, {
+
       contentBase: settings.output(),
-      noInfo: true, // display no info to console (only warnings and errors)
-      quiet: true, // display nothing to the console
+      // display no info to console (only warnings and errors)
+      noInfo: true,
+      // display nothing to the console
+      quiet: true,
       compress: true,
-      hot: true,
+      // Enable hot reloading server. Note that only changes
+      // to CSS are currently hot reloaded. JS changes will refresh the browser.
+      hot: settings.config().development.hot,
+      // Reportedly, this avoids CPU overload on some systems.
+      // https://github.com/facebookincubator/create-react-app/issues/293
       watchOptions: {
         ignored: /node_modules/
       }
+
     });
 
-    server.listen(settings.servers().app.port, (err) => {
+    // middleware
+
+
+    server.listen(settings.config().development.port, (err) => {
 
       if (err) {
         Logger.failed(err);
@@ -158,7 +183,6 @@ function start() {
 
   return warning()
     .then(web)
-    .then(open)
     .then(notifier);
 
 }

@@ -10,6 +10,7 @@ const file = require('../dev/file');
 const settings = {
 
   raw: null,
+
   configuration: null,
 
   config() {
@@ -18,19 +19,22 @@ const settings = {
       return this.configuration;
     }
 
-    this.configuration = require('./config');
+    this.configuration = require('./workflow');
     let developerConfig = {};
 
-    const configPath = path.join(settings.project(), '/project/config/developer-config.js');
+    const configPath = path.join(settings.project(), '/project/config/workflow.js');
     const isConfigDefined = pathExists.sync(configPath);
 
     if (!isConfigDefined) {
-      Logger.warn(`Missing ${chalk.blue('project/config/developer-config')}. Using defaults.`);
+      Logger.warn(`Missing ${chalk.blue('project/config/workflow')}. Using defaults.`);
     } else {
       developerConfig = file(configPath);
     }
 
     Object.assign(this.configuration, developerConfig);
+
+    const message = chalk.underline(this.configuration.development.mode.toUpperCase());
+    Logger.warn(`${message}`);
 
     return this.configuration;
 
@@ -123,20 +127,6 @@ const settings = {
     };
   },
 
-  servers() {
-    return {
-      app: {
-        host: '127.0.0.1',
-        port: 3000
-      },
-      web: {
-        host: '127.0.0.1',
-        port: 9999
-      }
-    };
-
-  },
-
   environment() {
     return process.env.NODE_ENV || 'development';
   },
@@ -170,11 +160,11 @@ const settings = {
   },
 
   isAngular() {
-    return true;
+    return this.config().development.mode === 'angular';
   },
 
-  isNotifier() {
-    return true;
+  isReact() {
+    return this.config().development.mode === 'react';
   },
 
   // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")

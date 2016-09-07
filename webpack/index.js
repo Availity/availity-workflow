@@ -51,7 +51,7 @@ const config = {
 
   cache: settings.isDevelopment(),
 
-  watch: false,
+  watch: settings.isDevelopment(),
 
   resolve: {
     root: [settings.app()],
@@ -189,7 +189,7 @@ if (settings.isStaging()) {
 
 }
 
-if (settings.isNotifier()) {
+if (settings.config().development.notifications) {
   config.plugins.push(new WebpackNotifierPlugin());
 }
 
