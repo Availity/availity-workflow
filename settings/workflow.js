@@ -14,7 +14,8 @@ module.exports = {
     hot: true,
     host: '127.0.0.1',
     port: 3000,
-    // Values can be 'react' or 'angular'
+    // Values can be 'react' or 'angular'.  Depending on the mode different webpack loaders and
+    // babel plugins are initialized.
     mode: 'angular'
   },
 
