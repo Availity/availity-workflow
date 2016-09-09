@@ -1,4 +1,5 @@
 'use strict';
+const path = require('path');
 
 // Inspiration: https://github.com/facebookincubator/create-react-app/blob/master/config/babel.dev.js
 
@@ -15,7 +16,11 @@ module.exports = {
 
   presets: [
     // let, const, destructuring, classes, modules
-    [require.resolve('babel-preset-es2015'), {'loose': true}],
+    [require.resolve('babel-preset-latest'), {
+      'es2105': {
+        loose: true
+      }
+    }],
 
     // JSX, Flow
     require.resolve('babel-preset-react')
@@ -29,7 +34,33 @@ module.exports = {
     require.resolve('babel-plugin-transform-object-assign'),
 
     // { ...todo, completed: true }
-    require.resolve('babel-plugin-transform-object-rest-spread')
+    require.resolve('babel-plugin-transform-object-rest-spread'),
+
+    // const Component = props =>
+    // <div className='myComponent'>
+      // {do {
+        // if(color === 'blue') { <BlueComponent/>; }
+        // if(color === 'red') { <RedComponent/>; }
+        // if(color === 'green') { <GreenComponent/>; }
+      // }}
+    // </div>;
+    require.resolve('babel-plugin-transform-do-expressions'),
+
+    [require.resolve('babel-plugin-transform-regenerator'), {
+      // Async functions are converted to generators by babel-preset-latest
+      async: false
+    }],
+
+    // Polyfills the runtime needed for async/await and generators
+    [require.resolve('babel-plugin-transform-runtime'), {
+      helpers: false,
+      polyfill: false,
+      regenerator: true,
+      // Resolve the Babel runtime relative to the config.
+      // You can safely remove this after ejecting:
+      moduleName: path.dirname(require.resolve('babel-runtime/package'))
+    }]
+
   ],
 
   env: {
