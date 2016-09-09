@@ -15,7 +15,7 @@ module.exports = {
 
   presets: [
     // let, const, destructuring, classes, modules
-    require.resolve('babel-preset-es2015-loose'),
+    [require.resolve('babel-preset-es2015'), {'loose': true}],
 
     // JSX, Flow
     require.resolve('babel-preset-react')
