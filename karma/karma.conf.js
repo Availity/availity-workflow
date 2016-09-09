@@ -141,7 +141,7 @@ if (settings.isTesting()) {
 module.exports = function(config) {
 
   config.set(Object.assign({
-    logLevel: config.WARN
+    logLevel: config.LOG_WARN
   }, karmaConfig));
 
 };
