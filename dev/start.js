@@ -56,32 +56,42 @@ function web() {
       };
     };
 
+    // The bless-webpack-plugin listens on the "optimize-assets" and triggers an "emit" event if changes are
+    // made to any css chunks.  This makes it appear that Webpack is bundling everything twice in the logs thus
+    // this function waits for every 2 emits to print a success message.
+    // Removing the bless-webpack-plugin resolves the issue but then we run the risk of creating css bundles
+    // great than the IE9 limit.
+    //
+    // https://blogs.msdn.microsoft.com/ieinternals/2011/05/14/stylesheet-limits-in-internet-explorer
+    //
     const message = _.onceEvery(2, stats => {
+
+      openBrowser();
+
+      const statistics = stats.toString({
+        colors: true,
+        cached: true,
+        reasons: false,
+        source: false,
+        chunks: false,
+        children: false
+      });
+
+      const uri = `http://localhost:${settings.config().development.port}/`;
+
+      Logger.info(statistics);
+      Logger.ok('Finished compiling');
+      Logger.box(`The app is running at ${chalk.green(uri)}`);
+
+    });
+
+    compiler.plugin('done', stats => {
 
       const hasErrors = stats.hasErrors();
       const hasWarnings = stats.hasWarnings();
 
       if (!hasErrors && !hasWarnings) {
-
-        openBrowser();
-
-        const statistics = stats.toString({
-          colors: true,
-          cached: true,
-          reasons: false,
-          source: false,
-          chunks: false,
-          children: false
-        });
-
-        const uri = `http://localhost:${settings.config().development.port}/`;
-
-        Logger.info(statistics);
-        Logger.ok('Finished compiling');
-        Logger.box(`The app is running at ${chalk.green(uri)}`);
-
-        return;
-
+        message(stats);
       }
 
       if (hasErrors) {
@@ -89,19 +99,6 @@ function web() {
         Logger.info(stats.compilation.errors);
         reject('Failed compiling');
       }
-
-    });
-
-    compiler.plugin('done', stats => {
-
-      // The bless-webpack-plugin listens on the "optimize-assets" and triggers an "emit" event if changes are
-      // made to any css chunks.  This makes it appear that Webpack is bundling everything twice in the logs.
-      // Removing the bless-webpack-plugin resolves the issue but then we run the risk of creating css bundles
-      // great than the IE9 limit.
-      //
-      // https://blogs.msdn.microsoft.com/ieinternals/2011/05/14/stylesheet-limits-in-internet-explorer
-      //
-      message(stats);
 
     });
 
