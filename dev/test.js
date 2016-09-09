@@ -21,10 +21,10 @@ function continous() {
 
       if (exitStatus) {
         Logger.failed('Failed testing');
-        reject();
+        reject(exitStatus);
       } else {
         Logger.ok('Finished testing');
-        resolve();
+        resolve(exitStatus);
       }
     });
 
@@ -50,9 +50,11 @@ function debug() {
     }, function(exitStatus) {
 
       if (exitStatus) {
-        reject();
+        Logger.failed('Failed testing');
+        reject(exitStatus);
       } else {
-        resolve();
+        Logger.ok('Finished testing');
+        resolve(exitStatus);
       }
 
     });
