@@ -190,7 +190,9 @@ if (settings.isStaging()) {
 }
 
 if (settings.config().development.notifications) {
-  config.plugins.push(new WebpackNotifierPlugin());
+  config.plugins.push(new WebpackNotifierPlugin({
+    excludeWarnings: true
+  }));
 }
 
 if (settings.isProduction()) {
