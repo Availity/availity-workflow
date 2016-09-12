@@ -95,7 +95,14 @@ const config = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css?!postcss!sass')
+        loader: ExtractTextPlugin.extract(
+          'style',
+          'css?!postcss!sass',
+          {
+            // Path relative to the app root
+            publicPath: '../'
+          }
+        )
       },
       {
         // test should match the following:
