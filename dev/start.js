@@ -64,7 +64,7 @@ function web() {
     //
     // https://blogs.msdn.microsoft.com/ieinternals/2011/05/14/stylesheet-limits-in-internet-explorer
     //
-    const message = _.onceEvery(2, stats => {
+    const message = _.debounce(stats => {
 
       openBrowser();
 
@@ -83,7 +83,7 @@ function web() {
       Logger.ok('Finished compiling');
       Logger.box(`The app is running at ${chalk.green(uri)}`);
 
-    });
+    }, 300);
 
     compiler.plugin('done', stats => {
 

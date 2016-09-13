@@ -2,7 +2,7 @@
 
 const path = require('path');
 const chalk = require('chalk');
-const pathExists = require('path-exists');
+const exists = require('exists-sync');
 
 const Logger = require('../logger');
 const file = require('../dev/file');
@@ -23,7 +23,7 @@ const settings = {
     let developerConfig = {};
 
     const configPath = path.join(settings.project(), '/project/config/workflow.js');
-    const isConfigDefined = pathExists.sync(configPath);
+    const isConfigDefined = exists(configPath);
 
     if (!isConfigDefined) {
       Logger.warn(`Missing ${chalk.blue('project/config/workflow')}. Using defaults.`);
@@ -33,8 +33,8 @@ const settings = {
 
     Object.assign(this.configuration, developerConfig);
 
-    const message = chalk.bgBlue.black(this.configuration.development.mode.toUpperCase());
-    Logger.info(`${message}`);
+    const message = `${this.configuration.development.mode.toUpperCase()} MODE`;
+    Logger.info(`${chalk.bgBlue.black(message)}`);
 
     return this.configuration;
 
@@ -99,11 +99,11 @@ const settings = {
 
     let templatePath = filePath;
 
-    const hasLocalTemplate = pathExists.sync(path.join(this.app(), templatePath));
+    const hasLocalTemplate = exists(path.join(this.app(), templatePath));
     templatePath = hasLocalTemplate ? templatePath : path.relative(this.app(), path.join(__dirname, '../webpack', templatePath));
     const name = path.basename(templatePath);
 
-    if (!hasLocalTemplate) {
+    if (!hasLocalTemplate && !this.isTesting()) {
       Logger.warn(`Using ${chalk.blue('availity-workflow/webpack/' + name)}`);
     }
 

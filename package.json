@@ -98,7 +98,6 @@
     "nodemon": "1.10.2",
     "opn": "4.0.2",
     "ora": "0.3.0",
-    "path-exists": "3.0.0",
     "postcss-loader": "0.13.0",
     "require-dir": "^0.3.0",
     "sass-loader": "4.0.2",
