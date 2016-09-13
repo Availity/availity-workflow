@@ -2,10 +2,25 @@
 
 const path = require('path');
 const karma = require('karma');
+const exists = require('exists-sync');
 
+const settings = require('../settings');
 const Logger = require('../logger');
 
-function continous() {
+function validate() {
+
+  const specExists = exists(path.join(settings.app(), 'specs.js'));
+
+  if (!specExists) {
+    Logger.failed('Missing specs.js that is required by Karma to run the unit tests.');
+    throw Error();
+  }
+
+  return Promise.resolve(specExists);
+
+}
+
+function ci() {
 
   return new Promise( (resolve, reject) => {
 
@@ -33,7 +48,6 @@ function continous() {
   });
 
 }
-
 
 function debug() {
 
@@ -63,6 +77,11 @@ function debug() {
 
   });
 
+}
+
+function continous() {
+  return validate()
+    .then(ci);
 }
 
 module.exports = {
