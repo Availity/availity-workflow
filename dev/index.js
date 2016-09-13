@@ -19,7 +19,7 @@ yargs
 
   .help('help')
   .alias('h', 'help')
-  .showHelpOnFail(true, 'Specify --help for available options')
+  .showHelpOnFail(false, 'Specify --help for available options')
 
   .example(chalk.yellow('$0 start'))
   .example(chalk.yellow('$0 lint'))
