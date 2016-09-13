@@ -1,23 +1,31 @@
 'use strict';
-const path = require('path');
 
 // Inspiration: https://github.com/facebookincubator/create-react-app/blob/master/config/babel.dev.js
-
+const path = require('path');
+const exists = require('exists-sync');
 const settings = require('../settings');
 
-module.exports = {
+const babelrcPath = path.join(settings.project(), '.babelrc');
+const babelrcExists = exists(babelrcPath);
+const config = {};
+
+// This is a feature of `babel-loader` for webpack (not Babel itself).
+// It enables caching results in OS temporary directory for faster rebuilds.
+config.cacheDirectory = settings.isDevelopment();
+
+const userBabelrc = {
+  babelrc: true
+};
+
+const workflowBabelrc = {
 
   // Don't try to find .babelrc because we want to force this configuration.
   babelrc: false,
 
-  // This is a feature of `babel-loader` for webpack (not Babel itself).
-  // It enables caching results in OS temporary directory for faster rebuilds.
-  cacheDirectory: settings.isDevelopment(),
-
   presets: [
     // let, const, destructuring, classes, modules
     [require.resolve('babel-preset-latest'), {
-      'es2015': {
+      'es2105': {
         loose: true
       }
     }],
@@ -79,5 +87,9 @@ module.exports = {
       ]
     }
   }
-
 };
+
+// Allow project to use their own babel plugins.
+babelrcExists ? Object.assign(config, userBabelrc) : Object.assign(config, workflowBabelrc);
+
+module.exports = config;
