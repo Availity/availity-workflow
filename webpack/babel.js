@@ -17,7 +17,7 @@ module.exports = {
   presets: [
     // let, const, destructuring, classes, modules
     [require.resolve('babel-preset-latest'), {
-      'es2105': {
+      'es2015': {
         loose: true
       }
     }],
