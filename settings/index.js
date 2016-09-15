@@ -3,6 +3,8 @@
 const path = require('path');
 const chalk = require('chalk');
 const exists = require('exists-sync');
+const yargs = require('yargs');
+const _ = require('lodash');
 
 const Logger = require('../logger');
 const file = require('../dev/file');
@@ -31,10 +33,24 @@ const settings = {
       developerConfig = file(configPath);
     }
 
-    Object.assign(this.configuration, developerConfig);
+    _.merge(this.configuration, developerConfig);
 
+    // Merge in CLI overrides.  The command line args can pass nested propertes like:
+    //
+    //    start --development.mode=angular --ekko.port=8000
+    //
+    // Yargs will convert those arguement into an object.  We pluck the only the top level attributes that we
+    // are interested in and merge into the default configuration.
+    //
+    const cliConfig = {
+      development: yargs.argv.development,
+      ekko: yargs.argv.ekko
+    };
+    _.merge(this.configuration, cliConfig);
+
+    console.log('hi');
     const message = `${this.configuration.development.mode.toUpperCase()} MODE`;
-    Logger.info(`${chalk.bgBlue.black(message)}`);
+    Logger.info(`${chalk.bold.blue(message)}`);
 
     return this.configuration;
 
