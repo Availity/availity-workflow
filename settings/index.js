@@ -48,7 +48,6 @@ const settings = {
     };
     _.merge(this.configuration, cliConfig);
 
-    console.log('hi');
     const message = `${this.configuration.development.mode.toUpperCase()} MODE`;
     Logger.info(`${chalk.bold.blue(message)}`);
 
