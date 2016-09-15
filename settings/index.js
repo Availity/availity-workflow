@@ -172,9 +172,9 @@ const settings = {
     return [
       '**/**.js',
       '!node_modules/**',
+      '!coverage/**',
       '!bower_components/**',
       '!dist/**',
-      '!reports/**',
       '!build/**'
     ];
   },

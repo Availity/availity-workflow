@@ -6,6 +6,7 @@ const chalk = require('chalk');
 
 const lint = require('./lint');
 const start = require('./start');
+const release = require('./release');
 const test = require('./test');
 
 yargs
@@ -14,6 +15,8 @@ yargs
   .command('start', `${chalk.dim('Start the development server')}`, () => { start() })
   .command('lint', `${chalk.dim('Lint source files using ESLint')}`, () => { lint() })
   .command('test', `${chalk.dim('Run test files using Karma and PhantomJS')}`, () => { test.continous() })
+  .command('release', `${chalk.dim('Bundle project for release candidate')}`, () => { release() })
+
 
   .demand(1, chalk.red('Must provide a valid command'))
 

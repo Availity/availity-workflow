@@ -17,9 +17,7 @@ function bundle() {
     spinner.color = 'yellow';
     spinner.start();
 
-    const config = webpackConfig();
-
-    config.plugins.push(new ProgressPlugin( (percentage, msg) => {
+    webpackConfig.plugins.push(new ProgressPlugin( (percentage, msg) => {
 
       const percent = percentage * 100;
 
@@ -29,7 +27,7 @@ function bundle() {
 
     }));
 
-    webpack(config).run((err, stats) => {
+    webpack(webpackConfig).run((err, stats) => {
 
       if (err) {
         spinner.fail();
