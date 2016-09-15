@@ -29,13 +29,13 @@ function bundle() {
 
     webpack(webpackConfig).run((err, stats) => {
 
+      spinner.stop();
+
       if (err) {
-        spinner.fail();
         Logger.failed('Failed compiling');
         reject(err);
+        return;
       }
-
-      spinner.stop();
 
       const statistics = stats.toString({
         colors: true,
