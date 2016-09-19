@@ -48,6 +48,10 @@ class Logger {
 
   }
 
+  static simple(entry) {
+    console.log(entry);
+  }
+
   static empty() {
     console.log('');
   }
