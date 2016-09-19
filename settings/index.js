@@ -4,6 +4,8 @@ const path = require('path');
 const chalk = require('chalk');
 const exists = require('exists-sync');
 const yargs = require('yargs');
+const yaml = require('js-yaml');
+const fs = require('fs');
 const _ = require('lodash');
 
 const Logger = require('../logger');
@@ -24,32 +26,47 @@ const settings = {
     this.configuration = require('./workflow');
     let developerConfig = {};
 
-    const configPath = path.join(settings.project(), '/project/config/workflow.js');
-    const isConfigDefined = exists(configPath);
+    // workflow.js
+    let configPath = path.join(settings.project(), '/project/config/workflow.js');
+    let isConfigDefined = exists(configPath);
 
+    // workflow.yml
+    let isYaml = false;
     if (!isConfigDefined) {
-      Logger.warn(`Missing ${chalk.blue('project/config/workflow')}. Using defaults.`);
-    } else {
-      developerConfig = file(configPath);
+      configPath = path.join(settings.project(), '/project/config/workflow.yml');
+      isYaml = isConfigDefined = exists(configPath);
+    }
+
+    if (isConfigDefined) {
+      developerConfig = isYaml ? yaml.safeLoad(fs.readFileSync(configPath, 'utf8')) : file(configPath);
     }
 
     _.merge(this.configuration, developerConfig);
 
-    // Merge in CLI overrides.  The command line args can pass nested propertes like:
+    // Merge in CLI overrides.  The command line args can pass nested properties like:
     //
     //    start --development.mode=angular --ekko.port=8000
     //
-    // Yargs will convert those arguement into an object.  We pluck the only the top level attributes that we
+    // Yargs will convert those arguments into an object.  We pluck the only the top level attributes that we
     // are interested in and merge into the default configuration.
     //
-    const cliConfig = {
+    _.merge(this.configuration, {
       development: yargs.argv.development,
       ekko: yargs.argv.ekko
-    };
-    _.merge(this.configuration, cliConfig);
+    });
 
+    // Log the mode
     const message = `${this.configuration.development.mode.toUpperCase()} MODE`;
     Logger.info(`${chalk.bold.blue(message)}`);
+
+    // Log the config
+    if (!isConfigDefined) {
+      Logger.warn('Missing workflow configuration. Using defaults.');
+    } else {
+      const extension = isYaml ? 'yml' : 'js';
+      const configPathExtension = `./project/config/workflow.${extension}`;
+      Logger.warn(`Using ${chalk.blue(configPathExtension)}`);
+    }
 
     return this.configuration;
 

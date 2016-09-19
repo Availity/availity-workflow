@@ -5,13 +5,21 @@ const chalk = require('chalk');
 const Promise = require('bluebird');
 const webpack = require('webpack');
 const _ = require('lodash');
+const path = require('path');
+const nodemon = require('nodemon');
 const WebpackServer = require('webpack-dev-server');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const os = require('os');
 
 const Logger = require('../logger');
 const notifier = require('./notifier');
 const settings = require('../settings');
 const open = require('./open');
+const proxy = require('./proxy');
+
+function isMac() {
+  return os.platform() === 'darwin';
+}
 
 function warning() {
 
@@ -45,16 +53,6 @@ function web() {
     });
 
     const openBrowser = _.once(() => open());
-
-    _.onceEvery = function(times, func) {
-      const orig = times;
-      return function() {
-        if (--times < 1) {
-          times = orig;
-          return func.apply(this, arguments);
-        }
-      };
-    };
 
     // The bless-webpack-plugin listens on the "optimize-assets" and triggers an "emit" event if changes are
     // made to any css chunks.  This makes it appear that Webpack is bundling everything twice in the logs thus
@@ -102,7 +100,7 @@ function web() {
 
     });
 
-    const server = new WebpackServer(compiler, {
+    const webpackOptions = {
 
       contentBase: settings.output(),
       // display no info to console (only warnings and errors)
@@ -119,10 +117,15 @@ function web() {
         ignored: /node_modules/
       }
 
-    });
+    };
 
-    // middleware
+    const proxyConfig = proxy();
 
+    if (proxyConfig) {
+      webpackOptions.proxy = proxyConfig;
+    }
+
+    const server = new WebpackServer(compiler, webpackOptions);
 
     server.listen(settings.config().development.port, (err) => {
 
@@ -140,45 +143,43 @@ function web() {
 
 }
 
-// function rest() {
+function rest() {
 
-//   const monitor = nodemon({
-//     script: path.join(__dirname, '..', 'ekko'),
-//     ext: 'json',
-//     watch: [
-//       path.join(settings.project(), 'project/config/routes.json'),
-//       path.join(settings.project(), 'project/data')
-//     ],
-//     env: {
-//       'NODE_ENV': 'development'
-//     }
-//   }).on('restart', () => {
-//     Logger.log(`${chalk.magenta('RESTARTED')} Ekko server due configuration file changes`);
-//   });
+  const monitor = nodemon({
+    script: path.join(__dirname, '.', 'ekko'),
+    ext: 'json',
+    watch: [
+      path.join(settings.project(), 'project/config/routes.json'),
+      path.join(settings.project(), 'project/data')
+    ],
+    env: {
+      'NODE_ENV': 'development'
+    }
+  }).on('restart', () => {
+    Logger.log(`${chalk.magenta('RESTARTED')} Ekko server due configuration file changes`);
+  });
 
-//   // Capture ^C
-//   process.once('SIGINT', () => {
-//     monitor.once('exit', () => {
-//       Logger.log(`${chalk.magenta('⌘ + C or CTRL + C')} detected exiting`);
-//       /* eslint no-process-exit:0 */
-//       process.exit();
-//     });
-//   });
+  // Capture ^C
+  process.once('SIGINT', () => {
 
-//   return Promise.resolve(true);
+    monitor.once('exit', () => {
+      const command = isMac() ? '⌘ + C' : 'CTRL + C';
+      Logger.empty();
+      Logger.info(`Detected ${chalk.blue(command)} now exiting.`);
+      /* eslint no-process-exit:0 */
+      process.exit(0);
+    });
 
-// }
+  });
 
-// function start() {
-//   return warning()
-//     // .then(rest)
-//     .then(web)
-//     .then(open);
-// }
+  return Promise.resolve(true);
+
+}
 
 function start() {
 
   return warning()
+    .then(rest)
     .then(web)
     .then(notifier);
 
