@@ -24,6 +24,10 @@ class Logger {
     this._log(entry);
   }
 
+  static log(entry) {
+    this._log(entry);
+  }
+
   // graphics
 
   static failed(entry) {
@@ -40,7 +44,6 @@ class Logger {
     const defaultColor = entry instanceof Error ? 'red' : 'gray';
 
     const color = _color || defaultColor;
-
     console.log(`[${ chalk.cyan(now) }] ${ chalk[color](entry) }` );
 
   }
@@ -51,10 +54,6 @@ class Logger {
 
   static box(entry) {
     console.log(boxen(`${chalk.gray(entry)}`, {padding: 1, borderColor: 'yellow', borderStyle: 'classic', dimBorder: true}));
-  }
-
-  static log(entry) {
-    this._log(entry);
   }
 
 }
