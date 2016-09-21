@@ -61,7 +61,7 @@ const settings = {
 
     // Log the config
     if (!isConfigDefined) {
-      Logger.warn('Missing workflow configuration. Using defaults.');
+      Logger.warn(`Using ${chalk.blue('availity-workflow/settings/workflow.js')}`);
     } else {
       const extension = isYaml ? 'yml' : 'js';
       const configPathExtension = `./project/config/workflow.${extension}`;
