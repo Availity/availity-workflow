@@ -107,6 +107,9 @@ function web() {
       noInfo: true,
       // display nothing to the console
       quiet: true,
+
+      historyApiFallback: settings.historyFallback(),
+
       compress: true,
       // Enable hot reloading server. Note that only changes
       // to CSS are currently hot reloaded. JS changes will refresh the browser.

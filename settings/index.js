@@ -148,6 +148,10 @@ const settings = {
     return this.asset('./index.html');
   },
 
+  historyFallback() {
+    return this.configuration.historyFallback;
+  },
+
   favicon() {
     return this.asset('./favicon.ico');
   },
