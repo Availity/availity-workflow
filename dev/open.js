@@ -16,8 +16,13 @@ function open() {
 
     const uri = `http://localhost:${port}/${url}`;
 
-    opn(uri);
-    Logger.info(`Opening browser at ${chalk.green(uri)}`);
+    try {
+      opn(uri);
+      Logger.info(`Opening browser at ${chalk.green(uri)}`);
+    } catch (err) {
+      // Ignore errors.
+    }
+
 
   }
 
