@@ -23,7 +23,6 @@ function open() {
       // Ignore errors.
     }
 
-
   }
 
   return Promise.resolve(true);

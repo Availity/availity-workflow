@@ -57,15 +57,15 @@ const settings = {
 
     // Log the mode
     const message = `${this.configuration.development.mode.toUpperCase()} MODE`;
-    Logger.info(`${chalk.bold.blue(message)}`);
+    Logger.warn(`${chalk.bold.yellow(message)}`);
 
     // Log the config
     if (!isConfigDefined) {
-      Logger.warn(`Using ${chalk.blue('availity-workflow/settings/workflow.js')}`);
+      Logger.info(`Using ${chalk.blue('availity-workflow/settings/workflow.js')}`);
     } else {
       const extension = isYaml ? 'yml' : 'js';
       const configPathExtension = `./project/config/workflow.${extension}`;
-      Logger.warn(`Using ${chalk.blue(configPathExtension)}`);
+      Logger.info(`Using ${chalk.blue(configPathExtension)}`);
     }
 
     return this.configuration;
@@ -136,7 +136,7 @@ const settings = {
     const name = path.basename(templatePath);
 
     if (!hasLocalTemplate && !this.isTesting()) {
-      Logger.warn(`Using ${chalk.blue('availity-workflow/webpack/' + name)}`);
+      Logger.info(`Using ${chalk.blue('availity-workflow/webpack/' + name)}`);
     }
 
 
@@ -161,6 +161,10 @@ const settings = {
       data: path.join(this.project(), 'project/data'),
       routes: path.join(this.project(), 'project/config/routes.json')
     };
+  },
+
+  isEkko() {
+    return this.configuration.ekko.enabled;
   },
 
   environment() {

@@ -1,12 +1,12 @@
 'use strict';
 
-// const nodemon = require('nodemon');
+const nodemon = require('nodemon');
 const chalk = require('chalk');
 const Promise = require('bluebird');
+const perfy = require('perfy');
 const webpack = require('webpack');
 const _ = require('lodash');
 const path = require('path');
-const nodemon = require('nodemon');
 const WebpackServer = require('webpack-dev-server');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const os = require('os');
@@ -16,6 +16,8 @@ const notifier = require('./notifier');
 const settings = require('../settings');
 const open = require('./open');
 const proxy = require('./proxy');
+
+let server;
 
 function isMac() {
   return os.platform() === 'darwin';
@@ -33,8 +35,6 @@ function web() {
 
   return new Promise((resolve, reject) => {
 
-    Logger.info('Started compiling');
-
     const config = require('../webpack');
     config.plugins.push(new ProgressPlugin( (percentage, msg) => {
 
@@ -48,6 +48,10 @@ function web() {
 
     const compiler = webpack(config);
 
+    compiler.plugin('compile', () => {
+      perfy.start('webpack-perf');
+    });
+
     compiler.plugin('invalid', () => {
       Logger.info('Started compiling');
     });
@@ -56,7 +60,8 @@ function web() {
 
     // The bless-webpack-plugin listens on the "optimize-assets" and triggers an "emit" event if changes are
     // made to any css chunks.  This makes it appear that Webpack is bundling everything twice in the logs thus
-    // this function waits for every 2 emits to print a success message.
+    // this function is debounced to prevent the appearnace of duplicates.
+    //
     // Removing the bless-webpack-plugin resolves the issue but then we run the risk of creating css bundles
     // great than the IE9 limit.
     //
@@ -77,8 +82,12 @@ function web() {
 
       const uri = `http://localhost:${settings.config().development.port}/`;
 
+      const result = perfy.end('webpack-perf');
+
       Logger.info(statistics);
-      Logger.ok('Finished compiling');
+      const time = `${result.time}s`;
+
+      Logger.info(`Finished compiling in ${chalk.magenta(time)}`);
       Logger.box(`The app is running at ${chalk.green(uri)}`);
 
     }, 300);
@@ -114,6 +123,7 @@ function web() {
       // Enable hot reloading server. Note that only changes
       // to CSS are currently hot reloaded. JS changes will refresh the browser.
       hot: settings.config().development.hot,
+
       // Reportedly, this avoids CPU overload on some systems.
       // https://github.com/facebookincubator/create-react-app/issues/293
       watchOptions: {
@@ -128,7 +138,7 @@ function web() {
       webpackOptions.proxy = proxyConfig;
     }
 
-    const server = new WebpackServer(compiler, webpackOptions);
+    server = new WebpackServer(compiler, webpackOptions);
 
     server.listen(settings.config().development.port, (err) => {
 
@@ -148,30 +158,50 @@ function web() {
 
 function rest() {
 
-  const monitor = nodemon({
-    script: path.join(__dirname, '.', 'ekko'),
-    ext: 'json',
-    watch: [
-      path.join(settings.project(), 'project/config/routes.json'),
-      path.join(settings.project(), 'project/data')
-    ],
-    env: {
-      'NODE_ENV': 'development'
-    }
-  }).on('restart', () => {
-    Logger.log(`${chalk.magenta('RESTARTED')} Ekko server due configuration file changes`);
-  });
+  let monitor;
+
+  if (settings.isEkko()) {
+
+    monitor = nodemon({
+      script: path.join(__dirname, '.', 'ekko'),
+      exitcrash: true,
+      ext: 'json',
+      watch: [
+        path.join(settings.project(), 'project/config/routes.json'),
+        path.join(settings.project(), 'project/data')
+      ],
+      env: {
+        'NODE_ENV': 'development'
+      }
+    }).on('restart', () => {
+      Logger.log(`Ekko server ${chalk.magenta('RESTARTED')} due configuration file changes`);
+    });
+
+  } else {
+    Logger.info(`Ekko server is ${chalk.magenta('DISABLED')}`);
+  }
 
   // Capture ^C
   process.once('SIGINT', () => {
 
-    monitor.once('exit', () => {
-      const command = isMac() ? '⌘ + C' : 'CTRL + C';
-      Logger.empty();
-      Logger.info(`Detected ${chalk.blue(command)} now exiting.`);
-      /* eslint no-process-exit:0 */
-      process.exit(0);
-    });
+    const command = isMac() ? '⌘ + C' : 'CTRL + C';
+    Logger.empty();
+    Logger.info(`Detected ${chalk.blue(command)} now exiting.`);
+
+    try {
+      server.close();
+    } catch (err) {
+      // no op
+    }
+
+    if (monitor) {
+
+      monitor.once('exit', () => {
+        /* eslint no-process-exit:0 */
+        process.exit(0);
+      });
+
+    }
 
   });
 

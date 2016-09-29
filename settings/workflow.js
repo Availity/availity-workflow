@@ -23,7 +23,23 @@ module.exports = {
     host: '127.0.0.1',
     port: 9999,
     data: path.join(process.cwd(), '../data'),
-    routes: path.join(process.cwd(), './routes.json')
-  }
+    routes: path.join(process.cwd(), './routes.json'),
+    enabled: true
+  },
+
+  proxies: [
+    {
+      context: '/api',
+      target: 'http://localhost:9999',
+      enabled: true,
+      pathRewrite: {
+        '^api': ''
+      },
+      headers: {
+        RemoteUser: 'janedoe'
+      }
+    }
+
+  ]
 
 };
