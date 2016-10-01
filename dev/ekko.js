@@ -1,6 +1,12 @@
 'use strict';
 
 const Ekko = require('availity-ekko');
-const ekko = new Ekko();
+const settings = require('../settings');
 
-ekko.start();
+settings.init();
+
+const ekko = new Ekko();
+ekko.start({
+  data: settings.config().ekko.data,
+  routes: settings.config().ekko.routes
+});

@@ -23,9 +23,10 @@ function isMac() {
   return os.platform() === 'darwin';
 }
 
-function warning() {
+function init() {
 
-  settings.config();
+  settings.init();
+  settings.log();
 
   return Promise.resolve(true);
 
@@ -167,8 +168,8 @@ function rest() {
       exitcrash: true,
       ext: 'json',
       watch: [
-        path.join(settings.project(), 'project/config/routes.json'),
-        path.join(settings.project(), 'project/data')
+        settings.config().ekko.routes,
+        settings.config().ekko.data
       ],
       env: {
         'NODE_ENV': 'development'
@@ -211,7 +212,7 @@ function rest() {
 
 function start() {
 
-  return warning()
+  return init()
     .then(rest)
     .then(web)
     .then(notifier);

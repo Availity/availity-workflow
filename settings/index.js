@@ -14,31 +14,28 @@ const file = require('../dev/file');
 const settings = {
 
   raw: null,
-
   configuration: null,
+  isYaml: null,
+  isConfigDefined: null,
 
-  config() {
-
-    if (this.configuration) {
-      return this.configuration;
-    }
+  init() {
 
     this.configuration = require('./workflow');
     let developerConfig = {};
 
-    // workflow.js
+    // try workflow.js
     let configPath = path.join(settings.project(), '/project/config/workflow.js');
-    let isConfigDefined = exists(configPath);
+    this.isConfigDefined = exists(configPath);
 
-    // workflow.yml
-    let isYaml = false;
-    if (!isConfigDefined) {
+    // try workflow.yml if worflow.js is not found
+    this.isYaml = false;
+    if (!this.isConfigDefined) {
       configPath = path.join(settings.project(), '/project/config/workflow.yml');
-      isYaml = isConfigDefined = exists(configPath);
+      this.isYaml = this.isConfigDefined = exists(configPath);
     }
 
-    if (isConfigDefined) {
-      developerConfig = isYaml ? yaml.safeLoad(fs.readFileSync(configPath, 'utf8')) : file(configPath);
+    if (this.isConfigDefined) {
+      developerConfig = this.isYaml ? yaml.safeLoad(fs.readFileSync(configPath, 'utf8')) : file(configPath);
     }
 
     _.merge(this.configuration, developerConfig);
@@ -55,21 +52,32 @@ const settings = {
       ekko: yargs.argv.ekko
     });
 
+  },
+
+  log() {
+
     // Log the mode
     const message = `${this.configuration.development.mode.toUpperCase()} MODE`;
     Logger.warn(`${chalk.bold.yellow(message)}`);
 
     // Log the config
-    if (!isConfigDefined) {
+    if (!this.isConfigDefined) {
       Logger.info(`Using ${chalk.blue('availity-workflow/settings/workflow.js')}`);
     } else {
-      const extension = isYaml ? 'yml' : 'js';
+      const extension = this.isYaml ? 'yml' : 'js';
       const configPathExtension = `./project/config/workflow.${extension}`;
       Logger.info(`Using ${chalk.blue(configPathExtension)}`);
     }
 
-    return this.configuration;
+  },
 
+  config() {
+
+    if (!this.configuration) {
+      this.init();
+    }
+
+    return this.configuration;
   },
 
   maps() {
@@ -154,13 +162,6 @@ const settings = {
 
   favicon() {
     return this.asset('./favicon.ico');
-  },
-
-  ekko() {
-    return {
-      data: path.join(this.project(), 'project/data'),
-      routes: path.join(this.project(), 'project/config/routes.json')
-    };
   },
 
   isEkko() {
