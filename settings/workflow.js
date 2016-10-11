@@ -14,6 +14,9 @@ module.exports = {
     hot: true,
     host: '127.0.0.1',
     port: 3000,
+    // When enabled the data and route configuration files for Ekko are monitored
+    // by nodemon
+    monitored: true,
     // Values can be 'react' or 'angular'.  Depending on the mode different webpack loaders and
     // babel plugins are initialized.
     mode: 'angular'
@@ -21,10 +24,15 @@ module.exports = {
 
   ekko: {
     host: '127.0.0.1',
+    latency: 250,
     port: 9999,
     data: path.join(process.cwd(), 'project/data'),
     routes: path.join(process.cwd(), 'project/config/routes.json'),
-    enabled: true
+    enabled: true,
+    plugins: [
+      'availity-mock-data'
+    ],
+    pluginContext: 'http://localhost:3000/api'
   },
 
   proxies: [

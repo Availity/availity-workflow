@@ -8,5 +8,7 @@ settings.init();
 const ekko = new Ekko();
 ekko.start({
   data: settings.config().ekko.data,
-  routes: settings.config().ekko.routes
+  routes: settings.config().ekko.routes,
+  plugins: settings.config().ekko.plugins,
+  pluginContext: settings.config().ekko.pluginContext
 });

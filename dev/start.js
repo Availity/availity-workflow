@@ -157,7 +157,22 @@ function web() {
 
 }
 
-function rest() {
+function ekkoSimple() {
+
+  const Ekko = require('availity-ekko');
+  const ekko = new Ekko();
+
+  return ekko.start({
+    data: settings.config().ekko.data,
+    routes: settings.config().ekko.routes,
+    plugins: [
+      'availity-mock-data'
+    ]
+  });
+
+}
+
+function ekkoMonitored() {
 
   let monitor;
 
@@ -208,6 +223,15 @@ function rest() {
 
   return Promise.resolve(true);
 
+}
+
+function rest() {
+
+  if (settings.config().development.monitored) {
+    return ekkoMonitored();
+  }
+
+  return ekkoSimple();
 }
 
 function start() {
