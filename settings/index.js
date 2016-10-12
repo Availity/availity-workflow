@@ -135,25 +135,29 @@ const settings = {
       path.join(this.project(), './build');
   },
 
-  asset(filePath) {
+  asset(workflowFile, projectFile) {
 
-    let templatePath = filePath;
+    const projectFilePath = path.join(this.app(), projectFile);
+    const workflowFilePath = path.relative(this.app(), path.join(__dirname, '../webpack', workflowFile));
 
-    const hasLocalTemplate = exists(path.join(this.app(), templatePath));
-    templatePath = hasLocalTemplate ? templatePath : path.relative(this.app(), path.join(__dirname, '../webpack', templatePath));
-    const name = path.basename(templatePath);
+    const hasProjectFile = exists(projectFilePath);
 
-    if (!hasLocalTemplate && !this.isTesting()) {
+    const filePath = hasProjectFile ? projectFilePath : workflowFilePath;
+
+    const name = path.basename(filePath);
+    if (!hasProjectFile && !this.isTesting()) {
       Logger.info(`Using ${chalk.blue('availity-workflow/webpack/' + name)}`);
     }
 
 
-    return templatePath;
+    return filePath;
 
   },
 
   template() {
-    return this.asset('./index.html');
+    return this.isAngular() ?
+      this.asset('./html/angular-template.html', './index.html') :
+      this.asset('./html/react-template.html', './index.html');
   },
 
   historyFallback() {
@@ -161,7 +165,7 @@ const settings = {
   },
 
   favicon() {
-    return this.asset('./favicon.ico');
+    return this.asset('./favicon.ico', './favicon.ico');
   },
 
   isEkko() {

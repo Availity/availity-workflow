@@ -17,7 +17,12 @@ const settings = require('../settings');
 const open = require('./open');
 const proxy = require('./proxy');
 
+// Globals that ref the servers so they
+//  can be shutdown properly when SIGINT is
+//  detected
 let server;
+let ekko;
+let monitor;
 
 function isMac() {
   return os.platform() === 'darwin';
@@ -160,21 +165,18 @@ function web() {
 function ekkoSimple() {
 
   const Ekko = require('availity-ekko');
-  const ekko = new Ekko();
+  ekko = new Ekko();
 
   return ekko.start({
     data: settings.config().ekko.data,
     routes: settings.config().ekko.routes,
-    plugins: [
-      'availity-mock-data'
-    ]
+    plugins: settings.config().ekko.plugins,
+    pluginContext: settings.config().ekko.pluginContext
   });
 
 }
 
 function ekkoMonitored() {
-
-  let monitor;
 
   if (settings.isEkko()) {
 
@@ -197,6 +199,21 @@ function ekkoMonitored() {
     Logger.info(`Ekko server is ${chalk.magenta('DISABLED')}`);
   }
 
+  return Promise.resolve(true);
+
+}
+
+function rest() {
+
+  if (settings.config().development.monitored) {
+    return ekkoMonitored();
+  }
+
+  return ekkoSimple();
+}
+
+function exit() {
+
   // Capture ^C
   process.once('SIGINT', () => {
 
@@ -206,6 +223,12 @@ function ekkoMonitored() {
 
     try {
       server.close();
+    } catch (err) {
+      // no op
+    }
+
+    try {
+      ekko.stop();
     } catch (err) {
       // no op
     }
@@ -221,17 +244,6 @@ function ekkoMonitored() {
 
   });
 
-  return Promise.resolve(true);
-
-}
-
-function rest() {
-
-  if (settings.config().development.monitored) {
-    return ekkoMonitored();
-  }
-
-  return ekkoSimple();
 }
 
 function start() {
@@ -239,7 +251,8 @@ function start() {
   return init()
     .then(rest)
     .then(web)
-    .then(notifier);
+    .then(notifier)
+    .then(exit);
 
 }
 

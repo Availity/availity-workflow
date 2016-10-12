@@ -5,8 +5,8 @@
   <title><%= htmlWebpackPlugin.options.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body data-ng-app="app" class="body">
-  <!-- views will be injected here -->
-  <div data-ui-view id="root"></div>
+<body data-ng-app="app" class="body" ng-cloak>
+  <app>
+  </app>
 </body>
 </html>

@@ -9,9 +9,10 @@ module.exports = [
   {
     test: /\.html$/,
     loader: `ngtemplate?relativeTo=${process.cwd()}/!html`,
-    // ignore index.html else "window is not defined" error from
-    // the HTML webpack plugin
-    exclude: /index\.html/
+    // Ignore following templates else errors like:
+    //    - "window is not defined" error from the html-webpack-plugin
+    //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
+    exclude: /(index\.html|react-template\.html|angular-template\.html)/
   }
 ];
 
