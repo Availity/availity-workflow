@@ -1,5 +1,6 @@
 'use strict';
 const _ = require('lodash');
+const chalk = require('chalk');
 
 const Logger = require('../logger');
 const settings = require('../settings');
@@ -41,8 +42,10 @@ function proxy() {
       // Merge in defaults including custom Logger
       const proxyConfig = _.merge({}, proxyConfiguration, defaultProxy);
       // Only create proxy if enabled
-      if (proxyConfig.enabled || false) {
+      if (proxyConfig.enabled) {
         config.push(proxyConfig);
+      } else {
+        Logger.info(`Proxy with context: ${chalk.dim(proxyConfig.context)} and target: ${chalk.dim(proxyConfig.target)} is ${chalk.magenta('DISABLED')}`);
       }
     });
 
