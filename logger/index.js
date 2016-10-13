@@ -28,16 +28,6 @@ class Logger {
     this._log(entry);
   }
 
-  // graphics
-
-  static failed(entry) {
-    this._log(`${figures.cross} ${entry}`, 'red');
-  }
-
-  static ok(entry) {
-    this._log(`${figures.tick} ${entry}`, 'green');
-  }
-
   static _log(entry, _color) {
 
     const now = dateformat(new Date(), 'HH:MM:ss');
@@ -56,9 +46,24 @@ class Logger {
     console.log('');
   }
 
+  // graphics
+
+  static failed(entry) {
+    this._log(`${figures.cross} ${entry}`, 'red');
+  }
+
+  static err(entry) {
+    console.log(`${chalk.red(entry)}`);
+  }
+
+  static ok(entry) {
+    this._log(`${figures.tick} ${entry}`, 'green');
+  }
+
   static box(entry) {
     console.log(boxen(`${chalk.gray(entry)}`, {padding: 1, borderColor: 'yellow', borderStyle: 'classic', dimBorder: true}));
   }
+
 
 }
 
