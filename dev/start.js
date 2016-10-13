@@ -37,6 +37,28 @@ function init() {
 
 }
 
+// Formatting messaging inspired by: // https://github.com/FormidableLabs/webpack-dashboard/blob/master/utils/format-output.js
+
+const friendlySyntaxErrorLabel = 'Syntax error:';
+
+function isLikelyASyntaxError(message) {
+  return message.indexOf(friendlySyntaxErrorLabel) !== -1;
+}
+
+function formatMessage(message) {
+  return message
+    .replace(
+      'Module build failed: SyntaxError:',
+      friendlySyntaxErrorLabel
+    )
+    .replace(
+      /Module not found: Error: Cannot resolve 'file' or 'directory'/,
+      'Module not found:'
+    )
+    .replace(/^\s*at\s.*:\d+:\d+[\s\)]*\n/gm, '')
+    .replace('./~/css-loader!./~/postcss-loader!', '');
+}
+
 function web() {
 
   return new Promise((resolve, reject) => {
@@ -108,8 +130,21 @@ function web() {
       }
 
       if (hasErrors) {
+
+        const json = stats.toJson();
+
+        let formattedErrors = json.errors.map(msg => {
+          return 'Error in ' + formatMessage(msg);
+        });
+
+        if (formattedErrors.some(isLikelyASyntaxError)) {
+          formattedErrors = formattedErrors.filter(isLikelyASyntaxError);
+        }
+
         Logger.failed('Failed compiling');
-        Logger.info(stats.compilation.errors);
+        Logger.empty();
+        Logger.simple(`${formattedErrors}`);
+        Logger.empty();
         reject('Failed compiling');
       }
 
