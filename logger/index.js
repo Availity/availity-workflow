@@ -64,7 +64,6 @@ class Logger {
     console.log(boxen(`${chalk.gray(entry)}`, {padding: 1, borderColor: 'yellow', borderStyle: 'classic', dimBorder: true}));
   }
 
-
 }
 
 module.exports = Logger;
