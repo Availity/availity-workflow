@@ -117,7 +117,7 @@
     "yargs": "6.0.0"
   },
   "devDependencies": {
-    "availity-ekko": "2.0.0-beta.2",
+    "availity-ekko": "2.0.0-beta.3",
     "eslint-config-availity": "2.0.0-beta.10"
   },
   "optionalDependencies": {
