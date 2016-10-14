@@ -7,7 +7,7 @@ module.exports = [
   { test: /[\\\/]lodash\.js$/, loader: 'expose?_' },
   { test: /[\\\/]moment\.js$/, loader: 'expose?moment' },
   {
-    test: /\.html$/,
+    test: /\.htm$/,
     loader: 'html',
     // Ignore following templates else errors like:
     //    - "window is not defined" error from the html-webpack-plugin
@@ -15,7 +15,7 @@ module.exports = [
     exclude: /(index\.html|react-template\.html|angular-template\.html)/
   },
   {
-    test: /\.htm$/,
+    test: /\.html$/,
     loader: `ngtemplate?relativeTo=${process.cwd()}/!html`,
     // Ignore following templates else errors like:
     //    - "window is not defined" error from the html-webpack-plugin
