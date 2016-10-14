@@ -16,7 +16,7 @@ const settings = {
   raw: null,
   configuration: null,
   isYaml: null,
-  isConfigDefined: null,
+  isWorkflowConfig: null,
 
   init() {
 
@@ -24,18 +24,18 @@ const settings = {
     let developerConfig = {};
 
     // try workflow.js
-    let configPath = path.join(settings.project(), '/project/config/workflow.js');
-    this.isConfigDefined = exists(configPath);
+    this.workflowConfigPath = path.join(settings.project(), '/project/config/workflow.js');
+    this.isWorkflowConfig = exists(this.workflowConfigPath);
 
-    // try workflow.yml if worflow.js is not found
+    // try workflow.yml if workflow.js is not found
     this.isYaml = false;
-    if (!this.isConfigDefined) {
-      configPath = path.join(settings.project(), '/project/config/workflow.yml');
-      this.isYaml = this.isConfigDefined = exists(configPath);
+    if (!this.isWorkflowConfig) {
+      this.workflowConfigPath = path.join(settings.project(), '/project/config/workflow.yml');
+      this.isYaml = this.isWorkflowConfig = exists(this.workflowConfigPath);
     }
 
-    if (this.isConfigDefined) {
-      developerConfig = this.isYaml ? yaml.safeLoad(fs.readFileSync(configPath, 'utf8')) : file(configPath);
+    if (this.isWorkflowConfig) {
+      developerConfig = this.isYaml ? yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8')) : file(this.workflowConfigPath);
     }
 
     _.merge(this.configuration, developerConfig);
@@ -60,13 +60,8 @@ const settings = {
     const message = `${this.configuration.development.mode.toUpperCase()} MODE`;
     Logger.warn(`${chalk.bold.yellow(message)}`);
 
-    // Log the config
-    if (!this.isConfigDefined) {
-      Logger.info(`Using ${chalk.blue('availity-workflow/settings/workflow.js')}`);
-    } else {
-      const extension = this.isYaml ? 'yml' : 'js';
-      const configPathExtension = `./project/config/workflow.${extension}`;
-      Logger.info(`Using ${chalk.blue(configPathExtension)}`);
+    if (!this.isTesting()) {
+      Logger.info(`Using ${chalk.blue(_.trimStart(path.relative(process.cwd(), this.workflowConfigPath), 'node_modules/'))}`);
     }
 
   },
