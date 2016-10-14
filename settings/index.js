@@ -138,19 +138,17 @@ const settings = {
   asset(workflowFile, projectFile) {
 
     const projectFilePath = path.join(this.app(), projectFile);
-    const workflowFilePath = path.relative(this.app(), path.join(__dirname, '../webpack', workflowFile));
+    const workflowFilePath = path.join(__dirname, '../webpack', workflowFile);
 
     const hasProjectFile = exists(projectFilePath);
 
     const filePath = hasProjectFile ? projectFilePath : workflowFilePath;
 
-    const name = path.basename(filePath);
-    if (!hasProjectFile && !this.isTesting()) {
-      Logger.info(`Using ${chalk.blue('availity-workflow/webpack/' + name)}`);
+    if (!this.isTesting()) {
+      Logger.info(`Using ${chalk.blue(_.trimStart(path.relative(process.cwd(), filePath), 'node_modules/'))}`);
     }
 
-
-    return filePath;
+    return path.relative(this.app(), filePath);
 
   },
 
