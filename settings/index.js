@@ -173,6 +173,10 @@ const settings = {
     return this.environment() === 'testing';
   },
 
+  isSmokeTest() {
+    return yargs.argv.smokeTest;
+  },
+
   isDistribution() {
     return this.isProduction() || this.isStaging();
   },

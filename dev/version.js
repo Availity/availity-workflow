@@ -32,15 +32,13 @@ function pkg(contents) {
 
 function tag() {
 
-  if (!settings.isDistribution()) {
-    return Promise.resolve(true);
-  }
-
   return new Promise(resolve => {
 
-    shell.exec('git add .');
-    shell.exec(`git commit -m "v${settings.version}"`);
-    shell.exec(`git tag -a v${settings.version} -m "v${settings.version}"`);
+    if (settings.isDistribution() && !settings.isSmokeTest()) {
+      shell.exec('git add .');
+      shell.exec(`git commit -m "v${settings.version}"`);
+      shell.exec(`git tag -a v${settings.version} -m "v${settings.version}"`);
+    }
 
     resolve();
 
@@ -69,7 +67,7 @@ function bump() {
     settings.raw = contents;
 
     // update package.pkg
-    if (settings.isDistribution()) {
+    if (settings.isDistribution() && !settings.isSmokeTest()) {
       fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
     }
 

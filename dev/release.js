@@ -12,17 +12,17 @@ function release() {
   del.sync([settings.dest()]);
 
   return version.prompt()
-    .then(function() {
+    .then(() =>{
       Logger.info('Started releasing');
     })
     .then(lint)
     .then(version.bump)
     .then(build)
     .then(version.tag)
-    .then(function() {
+    .then(() => {
       Logger.ok('Finished releasing');
     })
-    .catch(function() {
+    .catch(() => {
       Logger.fail('Failed releasing');
     });
 

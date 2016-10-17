@@ -16,7 +16,7 @@ yargs
   .command('start', `${chalk.dim('Start the development server')}`, () => { start() })
   .command('lint', `${chalk.dim('Lint source files using ESLint')}`, () => { lint() })
   .command('test', `${chalk.dim('Run test files using Karma and PhantomJS')}`, () => { test.continous() })
-  .command('release', `${chalk.dim('Bundle project for release candidate')}`, () => { release() })
+  .command('release', `${chalk.dim('Bundle project assets for distribution')}`, () => { release() })
   .command('about', `${chalk.dim('About availity-workflow')}`, () => { about() })
 
   .demand(1, chalk.red('Must provide a valid command'))

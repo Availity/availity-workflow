@@ -15,6 +15,7 @@ const NpmImportPlugin = require('less-plugin-npm-import');
 
 const settings = require('../settings');
 const babelQuery = require('./babel');
+const VersionPlugin = require('./plugins/version');
 const angularLoaders = require('./loaders/angular');
 
 function getVersion() {
@@ -152,8 +153,6 @@ const config = {
     // ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
-    new WebpackMd5Hash(),
-
     new CommonsChunkPlugin({
       name: ['vendor'],
       minChunks: Infinity
@@ -161,10 +160,6 @@ const config = {
 
     new webpack.DefinePlugin({
       APP_VERSION: JSON.stringify(getVersion())
-    }),
-
-    new BlessPlugin({
-      imports: true
     }),
 
     new CaseSensitivePathsPlugin(),
@@ -186,35 +181,47 @@ if (settings.isAngular()) {
   config.module.loaders.push(angularLoaders);
 }
 
-if (settings.isStaging()) {
-
-  config.plugins.push(
-    new webpack.optimize.OccurenceOrderPlugin(true),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.NoErrorsPlugin()
-  );
-
-}
-
 if (settings.config().development.notifications) {
   config.plugins.push(new WebpackNotifierPlugin({
     excludeWarnings: true
   }));
 }
 
-if (settings.isProduction()) {
+if (settings.isDistribution()) {
 
   config.plugins.push(
 
     // This helps ensure the builds are consistent if source hasn't changed
     new webpack.optimize.OccurenceOrderPlugin(true),
 
-    // Minify the code.
+    new WebpackMd5Hash(),
+
+    new VersionPlugin({
+      version: JSON.stringify(getVersion())
+    }),
+
+    new BlessPlugin({
+      imports: true
+    }),
+
+    new webpack.optimize.DedupePlugin(),
+
+    new webpack.NoErrorsPlugin()
+
+  );
+
+}
+
+if (settings.isProduction()) {
+
+  config.plugins.push(
+
+    // Minify the code scripts and css
     new webpack.optimize.UglifyJsPlugin({
       mangle: false,
       sourceMap: false,
       compress: {
-        screw_ie8: true, // Angular, React and Availity don't support IE8
+        screw_ie8: true, // IE8 not supported in Angular, React and Availity
         drop_console: true,
         warnings: false
       },
@@ -223,12 +230,7 @@ if (settings.isProduction()) {
         screw_ie8: true,
         max_line_len: 1000
       }
-    }),
-
-    // Try to dedupe duplicated modules
-    new webpack.optimize.DedupePlugin(),
-
-    new webpack.NoErrorsPlugin()
+    })
   );
 
 }

@@ -9,7 +9,7 @@ const Logger = require('../logger');
 
 function bundle() {
 
-  return new Promise(function(resolve, reject) {
+  return new Promise( (resolve, reject) => {
 
     const webpackConfig = require('../webpack');
     Logger.info('Started compiling');
