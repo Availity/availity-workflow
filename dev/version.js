@@ -35,7 +35,7 @@ function tag() {
   return new Promise(resolve => {
 
     if (settings.isDistribution() && !settings.isSmokeTest()) {
-      shell.exec('git add .');
+      shell.exec('git add --all');
       shell.exec(`git commit -m "v${settings.version}"`);
       shell.exec(`git tag -a v${settings.version} -m "v${settings.version}"`);
     }
