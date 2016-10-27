@@ -110,7 +110,16 @@ function web() {
 
       const uri = `http://localhost:${settings.config().development.port}/`;
 
-      const result = perfy.end('webpack-perf');
+      let result = {
+        time: 'N/A'
+      };
+
+      try {
+        result = perfy.end('webpack-perf');
+      } catch (err) {
+        // no op
+      }
+
 
       Logger.info(statistics);
       const time = `${result.time}s`;
@@ -131,7 +140,16 @@ function web() {
 
       if (hasErrors) {
 
-        const json = stats.toJson();
+        const json = stats.toJson({
+          assets: false,
+          colors: true,
+          version: false,
+          hash: false,
+          timings: false,
+          chunks: false,
+          chunkModules: false,
+          errorDetails: false
+        });
 
         let formattedErrors = json.errors.map(msg => {
           return 'Error in ' + formatMessage(msg);
@@ -142,9 +160,13 @@ function web() {
         }
 
         Logger.failed('Failed compiling');
-        Logger.empty();
-        Logger.simple(`${formattedErrors}`);
-        Logger.empty();
+
+        formattedErrors.forEach(error => {
+          Logger.empty();
+          Logger.simple(`${chalk.red(error)}`);
+          Logger.empty();
+        });
+
         reject('Failed compiling');
       }
 
