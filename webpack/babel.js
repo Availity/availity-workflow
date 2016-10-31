@@ -40,6 +40,9 @@ const workflowBabelrc = {
   ],
 
   plugins: [
+    // @observer @observable
+    require.resolve('babel-plugin-transform-decorators-legacy'),
+
     // class { handleClick = () => { } }
     require.resolve('babel-plugin-transform-class-properties'),
 
