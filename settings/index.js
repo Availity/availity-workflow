@@ -213,6 +213,7 @@ const settings = {
   js() {
     return [
       '**/**.js',
+      '**/**.jsx',
       '!node_modules/**',
       '!coverage/**',
       '!bower_components/**',
