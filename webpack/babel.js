@@ -4,7 +4,6 @@
 const path = require('path');
 const exists = require('exists-sync');
 const settings = require('../settings');
-const findCacheDir = require('find-cache-dir');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
@@ -13,7 +12,7 @@ const config = {};
 // This is a feature of `babel-loader` for webpack (not Babel itself).
 // It enables caching results in OS temporary directory for faster rebuilds.
 if (settings.isDevelopment()) {
-  config.cacheDirectory = findCacheDir({ name: 'availity-workflow' });
+  config.cacheDirectory = true;
 }
 
 const userBabelrc = {
