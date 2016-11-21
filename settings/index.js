@@ -210,16 +210,25 @@ const settings = {
   },
 
   // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
-  js() {
-    return [
-      '**/**.js',
-      '**/**.jsx',
+  js(includeGlobs) {
+    const ignoreGlobs = [
       '!node_modules/**',
       '!coverage/**',
       '!bower_components/**',
       '!dist/**',
       '!build/**'
     ];
+
+    const defaultIncludeGlobs = [
+      '**/**.js',
+      '**/**.jsx'
+    ];
+
+    if (!includeGlobs || !Array.isArray(includeGlobs) || includeGlobs.length === 0) {
+      includeGlobs = defaultIncludeGlobs;
+    }
+
+    return includeGlobs.concat(ignoreGlobs);
   },
 
   coverage() {

@@ -10,6 +10,8 @@ const settings = require('../settings');
 
 function lint() {
 
+  const includeGlobs = process.argv.slice(3);
+
   const engine = new eslint.CLIEngine({
     useEslintrc: true
   });
@@ -21,7 +23,7 @@ function lint() {
     spinner.color = 'yellow';
     spinner.start();
 
-    const files = settings.js();
+    const files = settings.js(includeGlobs);
 
     globby(files).then(paths => {
 
