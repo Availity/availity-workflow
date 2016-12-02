@@ -221,6 +221,10 @@ function web() {
 
 function ekkoSimple() {
 
+  if (!settings.isEkko()) {
+    return Promise.resolve(true);
+  }
+
   const Ekko = require('availity-ekko');
   ekko = new Ekko();
 
