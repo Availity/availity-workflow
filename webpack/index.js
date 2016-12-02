@@ -63,6 +63,7 @@ const config = {
     fallback: path.join(__dirname, 'node_modules'),
     modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.jsx', '.json', '.css', '.less', 'scss']
+
   },
 
   resolveLoader: {
@@ -179,6 +180,15 @@ const config = {
 
 if (settings.isAngular()) {
   config.module.loaders.push(angularLoaders);
+
+  config.resolve.alias = config.resolve.alias || {};
+  try {
+    config.resolve.alias.jquery = require.resolve('jquery');
+  } catch (err) {
+    // no op
+  }
+
+
 }
 
 if (settings.config().development.notifications) {
