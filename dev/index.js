@@ -15,7 +15,14 @@ yargs
 
   .command('start', `${chalk.dim('Start the development server')}`, () => { start() })
   .command('lint', `${chalk.dim('Lint source files using ESLint')}`, () => { lint() })
-  .command('test', `${chalk.dim('Run test files using Karma and PhantomJS')}`, () => { test.continous() })
+  .command('test', `${chalk.dim('Run test files using Karma or Mocha')}`, {
+    runner: {
+      alias: 'r',
+      describe: 'Specify the runner',
+      default: 'karma',
+      choices: ['karma', 'mocha']
+    }
+  }, (argv) => { test(argv.runner) })
   .command('release', `${chalk.dim('Bundle project assets for distribution')}`, () => { release() })
   .command('about', `${chalk.dim('About availity-workflow')}`, () => { about() })
 
