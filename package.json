@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "autoprefixer": "^6.7.0",
-    "availity-ekko": "2.0.1",
+    "availity-ekko": "^2.1.0",
     "availity-mock-data": "1.0.0-beta.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "7.1.1",
@@ -120,7 +120,6 @@
     "yargs": "^6.6.0"
   },
   "devDependencies": {
-    "availity-ekko": "^2.1.0",
     "eslint-config-availity": "2.0.0"
   },
   "optionalDependencies": {
