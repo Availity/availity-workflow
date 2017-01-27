@@ -83,29 +83,6 @@ const config = {
         query: babelQuery
       },
       {
-        test: /(\.less|\.css)$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css?name=images/[name].[ext]!postcss!less',
-          {
-            // Path relative to the app root
-            publicPath: '../'
-          }
-        ),
-        exclude: [/select2.*\.(png|gif)$/]
-      },
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css?!postcss!sass',
-          {
-            // Path relative to the app root
-            publicPath: '../'
-          }
-        )
-      },
-      {
         // test should match the following:
         //
         //  '../fonts/availity-font.eot?18704236'
@@ -153,31 +130,18 @@ const config = {
     // ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
-    new CommonsChunkPlugin({
-      name: ['vendor'],
-      minChunks: Infinity
-    }),
-
     new webpack.DefinePlugin({
       APP_VERSION: JSON.stringify(getVersion())
     }),
 
-    new CaseSensitivePathsPlugin(),
-
-    // Use bundle name for extracting bundle css
-    new ExtractTextPlugin(`css/${settings.css()}`),
-
-    new HtmlWebpackPlugin({
-      template: settings.template(),
-      favicon: settings.favicon(),
-      pkg: getPkg()
-    })
+    new CaseSensitivePathsPlugin()
 
   ]
 
 };
 
 if (settings.isAngular()) {
+
   config.module.loaders.push(angularLoaders);
 
   config.resolve.alias = config.resolve.alias || {};
@@ -187,13 +151,58 @@ if (settings.isAngular()) {
     // no op
   }
 
-
 }
 
 if (settings.config().development.notifications) {
   config.plugins.push(new WebpackNotifierPlugin({
     excludeWarnings: true
   }));
+}
+
+if (settings.isDevelopment() || settings.isDistribution()) {
+
+  config.module.loaders.push(
+    {
+      test: /(\.less|\.css)$/,
+      loader: ExtractTextPlugin.extract(
+        'style',
+        'css?name=images/[name].[ext]!postcss!less',
+        {
+          // Path relative to the app root
+          publicPath: '../'
+        }
+      ),
+      exclude: [/select2.*\.(png|gif)$/]
+    },
+    {
+      test: /\.scss$/,
+      loader: ExtractTextPlugin.extract(
+        'style',
+        'css?!postcss!sass',
+        {
+          // Path relative to the app root
+          publicPath: '../'
+        }
+      )
+    }
+  );
+
+  config.plugins.push(
+
+    new ExtractTextPlugin(`css/${settings.css()}`),
+
+    new CommonsChunkPlugin({
+      name: ['vendor'],
+      minChunks: Infinity
+    }),
+
+    new HtmlWebpackPlugin({
+      template: settings.template(),
+      favicon: settings.favicon(),
+      pkg: getPkg()
+    })
+  );
+
 }
 
 if (settings.isDistribution()) {
