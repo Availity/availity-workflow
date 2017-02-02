@@ -1,3 +1,5 @@
-{
-  "extends": "eslint-config-availity"
-}
+---
+extends: eslint-config-availity
+rules:
+  strict: 0
+

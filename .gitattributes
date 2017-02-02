@@ -1,15 +1,2 @@
 # Enforce Unix newlines
 .*      text eol=lf
-*.css   text eol=lf
-*.html  text eol=lf
-*.js    text eol=lf
-*.json  text eol=lf
-*.less  text eol=lf
-*.md    text eol=lf
-*.svg   text eol=lf
-*.yml   text eol=lf
-*.hbs   text eol=lf
-*.sh    text eol=lf
-*.txt   text eol=lf
-*.jshintrc     text eol=lf
-*.jshintignore text eol=lf
