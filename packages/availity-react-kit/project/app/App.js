@@ -1,5 +1,6 @@
 import React from 'react';
+import Request from './request/Request';
 
-const App = () => <h1>React Kit with Hot Module Replacement!</h1>;
+const App = () => <Request />;
 
 export default App;
