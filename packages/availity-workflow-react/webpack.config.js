@@ -18,6 +18,9 @@ module.exports = {
       `webpack-dev-server/client?http://localhost:${settings.port()}`,
       'webpack/hot/only-dev-server',
       './index.js'
+    ],
+    'vendor': [
+      './vendor.js'
     ]
   },
 
@@ -68,7 +71,7 @@ module.exports = {
         //  '../fonts/availity-font.eot'
         //
         test: /\.(otf|ttf|woff2?|eot|svg)(\?.*)?$/,
-        loader: 'file?name=fonts/[name].[ext]'
+        loader: 'file-loader?name=fonts/[name].[ext]'
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
