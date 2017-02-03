@@ -42,6 +42,6 @@
     "eslint-plugin-react": "^6.9.0"
   },
   "availityWorkflow": {
-    "engine": "availity-workflow-react"
+    "plugin": "availity-workflow-react"
   }
 }

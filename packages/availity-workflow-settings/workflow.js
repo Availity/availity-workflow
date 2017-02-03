@@ -14,7 +14,7 @@ module.exports = {
     port: 3000,
     // When enabled the data and route configuration files for Ekko are monitored
     // by nodemon
-    monitored: true
+    monitored: false
   },
 
   ekko: {

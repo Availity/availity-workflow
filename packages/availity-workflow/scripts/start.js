@@ -5,14 +5,20 @@ const webpack = require('webpack');
 const perfy = require('perfy');
 const once = require('lodash.once');
 const debounce = require('lodash.debounce');
+const after = require('lodash.after');
 const Ekko = require('availity-ekko');
 const open = require('opn');
+const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const WebpackDevSever = require('webpack-dev-server');
 
 const proxy = require('./proxy');
 const notifier = require('./notifier');
+
+Promise.config({
+  longStackTraces: true
+});
 
 const friendlySyntaxErrorLabel = 'Syntax error:';
 
@@ -50,11 +56,11 @@ function web() {
     let webpackConfig;
 
     try {
-      webpackConfig = require(`${settings.pkg().availityWorkflow.engine}/webpack.config`);
+      webpackConfig = require(`${settings.pkg().availityWorkflow.plugin}/webpack.config`);
     } catch (err) {
       // workaround when lerna linked modules
       const relative = require('require-relative');
-      webpackConfig = relative(`${settings.pkg().availityWorkflow.engine}/webpack.config`, settings.project());
+      webpackConfig = relative(`${settings.pkg().availityWorkflow.plugin}/webpack.config`, settings.project());
     }
 
     webpackConfig.plugins.push(new ProgressPlugin( (percentage, msg) => {
@@ -188,12 +194,16 @@ function web() {
 
     if (settings.isEkko()) {
 
-      server.use(Ekko.middleware({
+      const ekkoOptions = {
         data: settings.config().ekko.data,
         routes: settings.config().ekko.routes,
         plugins: settings.config().ekko.plugins,
         pluginContext: settings.config().ekko.pluginContext
-      }));
+      };
+
+      const ekko = new Ekko();
+
+      server.use(ekko.middleware(ekkoOptions));
 
     }
 
@@ -234,7 +244,10 @@ function start() {
   return init()
     .then(web)
     .then(notifier)
-    .then(exit);
+    .then(exit)
+    .catch(err => {
+      Logger.error(err);
+    });
 
 }
 

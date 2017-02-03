@@ -6,7 +6,6 @@ const Logger = require('availity-workflow-logger');
 
 const pkg = require('../package.json');
 
-
 const options = {
   pkg,
   callback(err, update) {

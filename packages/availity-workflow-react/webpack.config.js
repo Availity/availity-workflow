@@ -12,13 +12,14 @@ module.exports = {
 
   context: settings.app(),
 
-  entry: [
-    'react-hot-loader/patch',
-    `webpack-dev-server/client?http://localhost:${settings.port()}`,
-    'webpack/hot/only-dev-server',
-    './index.js'
-
-  ],
+  entry: {
+    'index': [
+      'react-hot-loader/patch',
+      `webpack-dev-server/client?http://localhost:${settings.port()}`,
+      'webpack/hot/only-dev-server',
+      './index.js'
+    ]
+  },
 
   output: {
     path: settings.output(),
@@ -29,23 +30,23 @@ module.exports = {
   devtool: 'eval',
 
   resolve: {
-    root: [settings.app()],
-    // resolve.fallback A directory (or array of directories absolute paths),
-    // in which webpack should look for modules that weren’t found in
-    // resolve.root or resolve.modulesDirectories.  This also helps with
-    // npm link of availity-workflow inside other projects.
-    fallback: path.join(__dirname, 'node_modules'),
-    modulesDirectories: ['node_modules'],
-    extensions: settings.extensions()
-
+    // Tell webpack what directories should be searched when resolving modules
+    modules: [
+      settings.app(),
+      path.join(settings.project(), 'node_modules'),
+      path.join(__dirname, 'node_modules')
+    ],
+    extensions: ['.js', '.jsx', '.json', '.css', 'scss']
   },
 
+  // This set of options is identical to the resolve property set above,
+  // but is used only to resolve webpack's loader packages.
   resolveLoader: {
-    root: [
-      path.join(__dirname, '../node_modules'),  // local
-      path.join(process.cwd(), './node_modules') // parent project
+    modules: [
+      path.join(settings.project(), 'node_modules'),
+      path.join(__dirname, 'node_modules')
     ],
-    fallback: path.join(__dirname, 'node_modules')
+    symlinks: true
   },
 
   module: {
