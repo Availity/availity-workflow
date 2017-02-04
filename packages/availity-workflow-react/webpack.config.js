@@ -2,11 +2,14 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const settings = require('availity-workflow-settings');
+const exists = require('exists-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
-const babelQuery = require('./babel');
 const htmlConfig = require('./html');
+
+const babelrcPath = path.join(settings.project(), '.babelrc');
+const babelrcExists = exists(babelrcPath);
 
 module.exports = {
 
@@ -15,8 +18,8 @@ module.exports = {
   entry: {
     'index': [
       'react-hot-loader/patch',
-      `webpack-dev-server/client?http://localhost:${settings.port()}`,
-      'webpack/hot/only-dev-server',
+      'webpack-dev-server/client?http://localhost:3000', // Enables websocket
+      'webpack/hot/only-dev-server', // performs HMR in brwoser
       './index.js'
     ],
     'vendor': [
@@ -39,6 +42,7 @@ module.exports = {
       path.join(settings.project(), 'node_modules'),
       path.join(__dirname, 'node_modules')
     ],
+    symlinks: true,
     extensions: ['.js', '.jsx', '.json', '.css', 'scss']
   },
 
@@ -53,16 +57,34 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: settings.app(),
-        loader: 'babel-loader',
-        query: babelQuery
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                require.resolve('availity-workflow-babel-preset')
+              ],
+              cacheDirectory: settings.isDevelopment(),
+              babelrc: babelrcExists,
+              plugins: [
+                require.resolve('react-hot-loader/babel')
+              ]
+            }
+          }
+        ]
       },
       {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader!postcss-loader!sass-loader?sourceMap'
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+        ]
       },
       {
         // test should match the following:
@@ -71,15 +93,25 @@ module.exports = {
         //  '../fonts/availity-font.eot'
         //
         test: /\.(otf|ttf|woff2?|eot|svg)(\?.*)?$/,
-        loader: 'file-loader?name=fonts/[name].[ext]'
+        use: [
+          'file-loader?name=fonts/[name].[ext]'
+        ]
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        loader: 'url-loader?name=images/[name].[ext]&limit=10000'
+        use: [
+          'url-loader?name=images/[name].[ext]&limit=10000'
+        ]
       }
     ]
   },
   plugins: [
+
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('development')
+      }
+    }),
 
     // Converts:
     //    [HMR] Updated modules:
@@ -89,6 +121,7 @@ module.exports = {
     //    [HMR]  - ./src/middleware/api.js
     new webpack.NamedModulesPlugin(),
 
+    // Generae hot module chunks
     new webpack.HotModuleReplacementPlugin(),
 
     new HtmlWebpackPlugin(htmlConfig),

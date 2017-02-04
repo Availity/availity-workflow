@@ -1,28 +1,11 @@
 // Inspiration: https://github.com/facebookincubator/create-react-app/blob/master/config/babel.dev.js
 const path = require('path');
-const exists = require('exists-sync');
 const settings = require('availity-workflow-settings');
 
-const babelrcPath = path.join(settings.project(), '.babelrc');
-const babelrcExists = exists(babelrcPath);
-const config = {};
-
-// This is a feature of `babel-loader` for webpack (not Babel itself).
-// It enables caching results in OS temporary directory for faster rebuilds.
-if (settings.isDevelopment()) {
-  config.cacheDirectory = true;
-}
-
-const projectBabelRc = {
-  babelrc: true
-};
-
-const workflowBabelRc = {
-
-  // Don't try to find .babelrc because we want to force this configuration.
-  babelrc: false,
+const config = {
 
   presets: [
+
     // let, const, destructuring, classes, modules
     [require.resolve('babel-preset-latest'), {
       'es2015': {
@@ -37,8 +20,6 @@ const workflowBabelRc = {
   ],
 
   plugins: [
-
-    require.resolve('react-hot-loader/babel'),
 
     // @observer @observable
     require.resolve('babel-plugin-transform-decorators-legacy'),
@@ -80,7 +61,21 @@ const workflowBabelRc = {
   ]
 };
 
-// Allow project to use their own babel plugins.
-babelrcExists ? Object.assign(config, projectBabelRc) : Object.assign(config, workflowBabelRc);
+if (settings.isDevelopment() || settings.isTesting()) {
+
+  // The following two plugins are currently necessary to make React warnings
+  // include more valuable information. They are included here because they are
+  // currently not enabled in babel-preset-react. See the below threads for more info:
+  // https://github.com/babel/babel/issues/4702
+  // https://github.com/babel/babel/pull/3540#issuecomment-228673661
+  // https://github.com/facebookincubator/create-react-app/issues/989
+  config.plugins.push.apply([
+    // Adds component stack to warning messages
+    require.resolve('babel-plugin-transform-react-jsx-source'),
+    // Adds __self attribute to JSX which React will use for some warnings
+    require.resolve('babel-plugin-transform-react-jsx-self')
+  ]);
+
+}
 
 module.exports = config;
