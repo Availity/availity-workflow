@@ -1,7 +1,8 @@
 {
   "name": "availity-react-kit",
   "version": "1.0.0",
-  "description": "Sample React project using availity-workflow",
+  "private": true,
+  "description": "Example React project using availity-workflow",
   "main": "index.js",
   "scripts": {
     "start": "av start",
