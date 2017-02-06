@@ -17,7 +17,7 @@ module.exports = {
 
   entry: {
     'index': [
-      'react-hot-loader/patch',
+      'react-hot-loader/patch', // Patches React.createElement in dev
       'webpack-dev-server/client?http://localhost:3000', // Enables websocket
       'webpack/hot/only-dev-server', // performs HMR in brwoser
       './index.js'
@@ -71,7 +71,7 @@ module.exports = {
               cacheDirectory: settings.isDevelopment(),
               babelrc: babelrcExists,
               plugins: [
-                require.resolve('react-hot-loader/babel')
+                babelrcExists ? null : require.resolve('react-hot-loader/babel')
               ]
             }
           }
@@ -126,7 +126,7 @@ module.exports = {
 
     new HtmlWebpackPlugin(htmlConfig),
 
-    // ignore all the moment local files
+    // Ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
     new CaseSensitivePathsPlugin(),
