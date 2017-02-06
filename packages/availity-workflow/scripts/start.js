@@ -15,6 +15,7 @@ const WebpackDevSever = require('webpack-dev-server');
 
 const proxy = require('./proxy');
 const notifier = require('./notifier');
+const plugin = require('./plugin');
 
 Promise.config({
   longStackTraces: true
@@ -53,15 +54,7 @@ function web() {
 
   return new Promise((resolve, reject) => {
 
-    let webpackConfig;
-
-    try {
-      webpackConfig = require(`${settings.pkg().availityWorkflow.plugin}/webpack.config`);
-    } catch (err) {
-      // workaround when lerna linked modules
-      const relative = require('require-relative');
-      webpackConfig = relative(`${settings.pkg().availityWorkflow.plugin}/webpack.config`, settings.project());
-    }
+    const webpackConfig = plugin('webpack.config');
 
     webpackConfig.plugins.push(new ProgressPlugin( (percentage, msg) => {
 

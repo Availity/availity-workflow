@@ -1,9 +1,8 @@
 #! /usr/bin/env node
-'use strict';
-
 const yargs = require('yargs');
 const chalk = require('chalk');
 const start = require('./scripts/start');
+const test = require('./scripts/test');
 
 yargs
 
@@ -12,6 +11,7 @@ yargs
   .command('start', `${chalk.dim('Start the development server')}`, () => { start() })
   .command('lint', `${chalk.dim('Lint source files using ESLint')}`, () => { console.log('lint') })
   .command('release', `${chalk.dim('Bundle project for distribution')}`, () => { console.log('release') })
+  .command('test', `${chalk.dim(test.description)}`, () => { test.run() })
   .command('about', `${chalk.dim('About availity-workflow')}`, () => { console.log('about') })
 
   .demand(1, chalk.red('Must provide a valid command'))
