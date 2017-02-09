@@ -11,7 +11,9 @@ const build = require('./build');
 
 function release() {
 
-  del.sync([settings.dest()]);
+  if (!settings.isDryRun()) {
+    del.sync([settings.dest()]);
+  }
 
   return version.prompt()
     .then(() =>{

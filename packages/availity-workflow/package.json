@@ -36,6 +36,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.0",
     "lodash.once": "^4.1.1",
+    "moment": "^2.17.1",
     "opn": "^4.0.2",
     "ora": "^1.1.0",
     "perfy": "^1.1.2",
@@ -44,5 +45,10 @@
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0",
     "yargs": "^6.6.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.14.1",
+    "eslint-config-availity": "^2.0.0"
   }
 }

@@ -5,6 +5,7 @@ const start = require('./scripts/start');
 const test = require('./scripts/test');
 const lint = require('./scripts/lint');
 const about = require('./scripts/about');
+const release = require('./scripts/release');
 const Promise = require('bluebird');
 
 Promise.config({
@@ -30,7 +31,7 @@ yargs
       });
   })
 
-  .command('release', `${chalk.dim('Bundle project for distribution')}`, () => { console.log('TODO') })
+  .command('release', `${chalk.dim('Bundle project for distribution')}`, () => { release() })
 
   .command('test', `${chalk.dim(test.description)}`, () => { test.run() })
 
