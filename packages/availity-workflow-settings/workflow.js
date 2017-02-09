@@ -7,14 +7,8 @@ module.exports = {
     open: '#',
     // Build status system notifications
     notifications: false,
-    // Enable hot reloading server. Note that only changes
-    // to CSS are currently hot reloaded. JS changes will refresh the browser.
-    hot: true,
     host: '127.0.0.1',
-    port: 3000,
-    // When enabled the data and route configuration files for Ekko are monitored
-    // by nodemon
-    monitored: false
+    port: 3000
   },
 
   ekko: {
