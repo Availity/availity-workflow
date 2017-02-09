@@ -8,6 +8,7 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const argv = require('yargs').argv;
 
+
 const settings = {
 
   // Cache these values
@@ -96,6 +97,7 @@ Instructions:
 `);
 
       throw new Error('');
+
     }
 
     // Log the mode
@@ -131,8 +133,25 @@ Instructions:
     return process.env.NODE_ENV || 'development';
   },
 
-  isSmokeTest() {
-    return argv.smokeTest;
+  // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
+  js() {
+
+    let includeGlobs = argv.include;
+
+    const defaultInclude = [
+      `${this.app()}/**/*.js`,
+      `${this.app()}/**/*.jsx`
+    ];
+
+    if (!includeGlobs || !Array.isArray(includeGlobs) || includeGlobs.length === 0) {
+      includeGlobs = defaultInclude;
+    }
+
+    return includeGlobs.concat(includeGlobs);
+  },
+
+  isDryRun() {
+    return argv.dryRun;
   },
 
   isDebug() {
@@ -165,6 +184,10 @@ Instructions:
 
   historyFallback() {
     return this.configuration.historyFallback;
+  },
+
+  isLinting() {
+    return true;
   },
 
   isEkko() {
