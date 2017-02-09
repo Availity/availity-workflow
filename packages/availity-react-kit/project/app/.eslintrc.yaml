@@ -1,5 +1,2 @@
 ---
-root: true
-extends: eslint-config-availity
-rules:
-  strict: 0
+extends: eslint-config-availity/react
