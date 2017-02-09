@@ -18,7 +18,7 @@ module.exports = {
   entry: {
     'index': [
       'react-hot-loader/patch', // Patches React.createElement in dev
-      'webpack-dev-server/client?http://localhost:3000', // Enables websocket
+      `webpack-dev-server/client?http://localhost:${settings.port()}`, // Enables websocket
       'webpack/hot/only-dev-server', // performs HMR in brwoser
       './index.js'
     ],
