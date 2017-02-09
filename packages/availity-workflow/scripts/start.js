@@ -5,7 +5,6 @@ const webpack = require('webpack');
 const perfy = require('perfy');
 const once = require('lodash.once');
 const debounce = require('lodash.debounce');
-const after = require('lodash.after');
 const Ekko = require('availity-ekko');
 const open = require('opn');
 const Promise = require('bluebird');
