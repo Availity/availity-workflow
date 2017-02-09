@@ -1,10 +1,4 @@
-const Promise = require('bluebird');
-
 const plugin = require('./plugin');
-
-Promise.config({
-  longStackTraces: true
-});
 
 function test() {
   const tester = plugin('test');
