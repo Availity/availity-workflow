@@ -1,12 +1,14 @@
 {
   "name": "availity-react-kit",
-  "version": "1.0.0",
+  "version": "2.0.0-beta.10",
   "private": true,
   "description": "Example React project using availity-workflow",
   "main": "index.js",
   "scripts": {
     "start": "av start",
-    "test": "av test"
+    "test": "av test",
+    "lint": "av lint",
+    "help": "av help"
   },
   "repository": {
     "type": "git",
@@ -26,19 +28,19 @@
     "availity-reactstrap-validation": "^1.4.1",
     "availity-uikit": "^3.0.0-beta.7",
     "availity-workflow": "^2.0.0-beta.10",
-    "availity-workflow-react": "1.0.0",
+    "availity-workflow-react": "^2.0.0-beta.10",
     "axios": "^0.15.3",
     "mobx": "^3.0.2",
     "mobx-react": "^4.1.0",
     "react": "^15.4.2",
     "react-addons-transition-group": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-router": "^4.0.0-alpha.6",
+    "react-router-dom": "^4.0.0-alpha.6",
     "react-select": "^1.0.0-rc.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
-    "eslint": "^3.14.1",
+    "eslint": "^3.15.0",
     "eslint-config-availity": "^2.0.0",
     "eslint-plugin-react": "^6.9.0"
   },

@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow-react",
-  "version": "1.0.0",
+  "version": "2.0.0-beta.10",
   "description": "React module for availity-workflow",
   "main": "index.js",
   "scripts": {
@@ -23,8 +23,8 @@
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
     "autoprefixer": "^6.7.2",
-    "availity-workflow-babel-preset": "1.0.0",
-    "availity-workflow-settings": "1.0.0",
+    "availity-workflow-babel-preset": "^2.0.0-beta.10",
+    "availity-workflow-settings": "^2.0.0-beta.10",
     "babel-core": "^6.22.1",
     "babel-jest": "^18.0.0",
     "babel-loader": "^6.2.10",
