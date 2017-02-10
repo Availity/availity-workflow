@@ -4,7 +4,7 @@ const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const ora = require('ora');
 const Logger = require('availity-workflow-logger');
 
-const plugin = require('.plugin');
+const plugin = require('./plugin');
 
 function bundle() {
 
