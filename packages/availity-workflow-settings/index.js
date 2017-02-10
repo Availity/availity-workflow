@@ -19,7 +19,22 @@ const settings = {
     return path.join(this.project(), 'project/app');
   },
 
-  pkg() {
+  tool() {
+    return this.isDistribution() ? 'eval' : 'cheap-module-source-map';
+  },
+
+  css() {
+    return this.isDevelopment() ? '[name].css' : '[name]-[chunkhash].css';
+  },
+
+  // Returns the JSON object from contents or the JSON object from
+  // the project root
+  pkg(contents) {
+
+    if (contents) {
+      return JSON.parse(contents || this.raw());
+    }
+
     return require(path.join(this.project(), 'package.json'));
   },
 
@@ -76,6 +91,16 @@ const settings = {
       development: argv.development,
       ekko: argv.ekko
     });
+
+  },
+
+  raw() {
+
+    if (!this.raw) {
+      this.raw = fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8');
+    }
+
+    return this.raw;
 
   },
 

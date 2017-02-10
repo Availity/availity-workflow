@@ -11,8 +11,8 @@ const build = require('./build');
 
 function release() {
 
-  if (settings.isDryRun()) {
-    del.sync([settings.dest()]);
+  if (!settings.isDryRun()) {
+    del.sync([settings.output()]);
   }
 
   return version.prompt()
@@ -26,8 +26,10 @@ function release() {
     .then(() => {
       Logger.ok('Finished releasing');
     })
-    .catch(() => {
-      Logger.fail('Failed releasing');
+    .catch(err => {
+      Logger.failed(`Failed releasing:
+${err}
+`);
     });
 
 }

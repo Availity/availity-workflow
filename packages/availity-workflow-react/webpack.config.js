@@ -33,7 +33,7 @@ module.exports = {
     filename: settings.fileName()
   },
 
-  devtool: 'eval',
+  devtool: settings.tool(),
 
   resolve: {
     // Tell webpack what directories should be searched when resolving modules

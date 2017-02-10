@@ -11,22 +11,10 @@ const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
 const Logger = require('availity-workflow-logger');
 
+// Add a new line character to end of contents
 function newLine(contents) {
   const lastChar = (contents && contents.slice(-1) === '\n') ? '' : '\n';
   return contents + lastChar;
-}
-
-function raw() {
-
-  if (!settings.raw) {
-    settings.raw = fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8');
-  }
-
-  return settings.raw;
-}
-
-function pkg(contents) {
-  return JSON.parse(contents || raw());
 }
 
 function tag() {
@@ -58,12 +46,11 @@ function bump() {
       return reject('version is undefined');
     }
 
-    settings.pkg = pkg();
-    settings.pkg = _.merge({}, settings.pkg, {version: settings.version});
+    let pkg = settings.pkg();
+    pkg = _.merge({}, settings.pkg, {version: settings.version});
 
-    let contents = JSON.stringify(settings.pkg, null, 2);
+    let contents = JSON.stringify(pkg, null, 2);
     contents = newLine(contents);
-    settings.raw = contents;
 
     // update package.pkg
     if (settings.isDistribution() && !settings.isDryRun()) {
@@ -84,7 +71,7 @@ function prompt() {
     return Promise.resolve(true);
   }
 
-  const version = pkg().version;
+  const version = settings.pkg().version;
   const parsed = semver.parse(version);
 
   // regular release
@@ -116,7 +103,7 @@ function prompt() {
     {
       type: 'input',
       name: 'version',
-      message: `version (current version is ${pkg().version})`,
+      message: `version (current version is ${settings.pkg().version})`,
       when(answer) {
         return answer.bump === 'other';
       },
