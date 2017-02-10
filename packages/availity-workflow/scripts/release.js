@@ -11,7 +11,7 @@ const build = require('./build');
 
 function release() {
 
-  if (!settings.isDryRun()) {
+  if (settings.isDryRun()) {
     del.sync([settings.dest()]);
   }
 

@@ -151,7 +151,7 @@ Instructions:
   },
 
   isDryRun() {
-    return argv.dryRun;
+    return argv.dryRun !== undefined;
   },
 
   isDebug() {
