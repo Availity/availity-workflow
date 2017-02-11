@@ -146,11 +146,9 @@ if (settings.isProduction()) {
     // Minify the code scripts and css
     new webpack.optimize.UglifyJsPlugin({
       mangle: false,
-      sourceMap: false,
       compress: {
-        screw_ie8: true, // IE8 not supported in Angular, React and Availity
-        drop_console: true,
-        warnings: false
+        screw_ie8: true, // IE8 not supported by Availity
+        drop_console: true
       },
       output: {
         comments: false,
