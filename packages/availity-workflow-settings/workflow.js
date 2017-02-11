@@ -49,12 +49,22 @@ module.exports = {
 
   proxies: [
     {
+
+      // URL context used to match the activation of the proxy per request
       context: '/api',
+
+      // Host and port number for proxy
       target: 'http://localhost:9999',
+
+      // Enables or disalbe this proxy configuration
       enabled: true,
+
+      // Optional.  Rewrites (using regex) the a path before sending request to proxy target.
       pathRewrite: {
         '^api': ''
       },
+
+      // Optional.  Send default headers to the proxy destination.
       headers: {
         RemoteUser: 'janedoe'
       }
