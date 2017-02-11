@@ -16,7 +16,7 @@ function open() {
       const host = settings.host();
 
       const uri = `http://${host}:${port}/${url}`;
-      opn();
+      opn(uri);
       Logger.info(`Opening browser at ${chalk.green(uri)}`);
 
     } catch (err) {
