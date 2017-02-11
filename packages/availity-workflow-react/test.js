@@ -2,6 +2,8 @@
 const jest = require('jest');
 const settings = require('availity-workflow-settings');
 
+// Generates a configuration file for jest to consume from the CLI command.
+// The configuration file stubs out
 function create() {
 
   const rootDir = settings.project();
