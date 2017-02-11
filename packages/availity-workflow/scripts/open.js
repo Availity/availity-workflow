@@ -7,16 +7,18 @@ const Logger = require('availity-workflow-logger');
 
 function open() {
 
-  if (settings.config().development.open) {
-
-    const port = settings.config().development.port;
-    const url = settings.config().development.open;
-
-    const uri = `http://localhost:${port}/${url}`;
+  if (settings.open()) {
 
     try {
-      opn(uri);
+
+      const port = settings.port();
+      const url = settings.open();
+      const host = settings.host();
+
+      const uri = `http://${host}:${port}/${url}`;
+      opn();
       Logger.info(`Opening browser at ${chalk.green(uri)}`);
+
     } catch (err) {
       // Ignore errors.
     }

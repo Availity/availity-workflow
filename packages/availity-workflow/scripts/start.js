@@ -6,7 +6,6 @@ const perfy = require('perfy');
 const once = require('lodash.once');
 const debounce = require('lodash.debounce');
 const Ekko = require('availity-ekko');
-const open = require('opn');
 const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
@@ -15,6 +14,7 @@ const WebpackDevSever = require('webpack-dev-server');
 const proxy = require('./proxy');
 const notifier = require('./notifier');
 const plugin = require('./plugin');
+const open = require('./open');
 
 let server;
 
@@ -143,14 +143,13 @@ function web() {
           formattedErrors = formattedErrors.filter(isLikelyASyntaxError);
         }
 
-        Logger.failed('Failed compiling');
-
         formattedErrors.forEach(error => {
           Logger.empty();
           Logger.simple(`${chalk.red(error)}`);
           Logger.empty();
         });
 
+        Logger.failed('Failed compiling');
         reject('Failed compiling');
       }
 
@@ -242,14 +241,31 @@ function exit() {
 
 function start() {
 
+  process.on('unhandledRejection', (reason) => {
+
+    if (reason && reason.stack) {
+      Logger.error(reason.stack);
+      Logger.empty();
+    }
+
+    Logger.warn(`
+
+A rejection was not handled properly by a promise
+chain in availity-workflow. Please open an issue at:
+
+    ${chalk.blue('https://github.com/Availity/availity-workflow/issues')}
+
+Place the contents of the stack trace in the Github issue.
+
+Thanks!
+    `);
+
+  });
+
   return init()
     .then(web)
     .then(notifier)
-    .then(exit)
-    .catch(err => {
-      Logger.error(err);
-    });
-
+    .then(exit);
 }
 
 module.exports = start;

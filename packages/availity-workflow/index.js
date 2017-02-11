@@ -25,10 +25,7 @@ yargs
         describe: 'Glob patterns to INCLUDE for ESLint scanning'
       });
   }, () => {
-    lint()
-      .catch(() => {
-        // noop
-      });
+    lint().catch(() => { /* noop */});
   })
 
   .command('release', `${chalk.dim('Bundle project for distribution (production, staging or integration)')}`, () => { release() })

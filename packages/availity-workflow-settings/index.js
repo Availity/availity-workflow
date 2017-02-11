@@ -55,6 +55,14 @@ const settings = {
     return this.configuration.development.port;
   },
 
+  host() {
+    return this.configuration.development.host;
+  },
+
+  open() {
+    return this.configuration.development.open;
+  },
+
   project() {
     return process.cwd();
   },
