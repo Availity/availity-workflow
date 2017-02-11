@@ -121,7 +121,7 @@ module.exports = {
     //    [HMR]  - ./src/middleware/api.js
     new webpack.NamedModulesPlugin(),
 
-    // Generae hot module chunks
+    // Generate hot module chunks
     new webpack.HotModuleReplacementPlugin(),
 
     new HtmlWebpackPlugin(htmlConfig),
