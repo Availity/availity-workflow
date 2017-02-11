@@ -38,8 +38,11 @@ function formatMessage(message) {
       /Module not found: Error: Cannot resolve 'file' or 'directory'/,
       'Module not found:'
     )
-    .replace(/^\s*at\s.*:\d+:\d+[\s\)]*\n/gm, '')
-    .replace('./~/css-loader!./~/postcss-loader!', '');
+    // Internal stacks are generally useless so we strip them
+    .replace(/^\s*at\s((?!webpack:).)*:\d+:\d+[\s\)]*(\n|$)/gm, '') // at ... ...:x:y
+    // Webpack loader names obscure CSS filenames
+    .replace('./~/css-loader!./~/postcss-loader!', '')
+    .replace(/\s@ multi .+/, '');
 }
 
 function init() {
