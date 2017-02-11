@@ -6,6 +6,7 @@ const exists = require('exists-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const htmlConfig = require('./html');
 
@@ -142,7 +143,18 @@ const config = {
         context: settings.app(),
         output: { path: settings.output() }
       }
+    }),
+
+    new CopyWebpackPlugin([
+      {
+        context: `${settings.project()}/project/static`, // copy from this directory
+        from: '**/*', // copy all files
+        to: 'static' // copy into {output}/static folder
+      }
+    ], {
+      debug: 'warning'
     })
+
   ]
 };
 

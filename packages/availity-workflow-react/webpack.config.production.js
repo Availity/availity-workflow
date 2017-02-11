@@ -6,10 +6,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const exists = require('exists-sync');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const htmlConfig = require('./html');
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
+
 
 const config = {
 
@@ -134,7 +136,17 @@ const config = {
       minChunks: Infinity
     }),
 
-    new ExtractTextPlugin(`css/${settings.css()}`)
+    new ExtractTextPlugin(`css/${settings.css()}`),
+
+    new CopyWebpackPlugin([
+      {
+        context: `${settings.project()}/project/static`, // copy from this directory
+        from: '**/*', // copy all files
+        to: 'static' // copy into {output}/static folder
+      }
+    ], {
+      debug: 'warning'
+    })
 
   ]
 };
