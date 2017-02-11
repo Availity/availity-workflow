@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const settings = require('availity-workflow-settings');
 const exists = require('exists-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 const htmlConfig = require('./html');
@@ -11,7 +12,7 @@ const htmlConfig = require('./html');
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
 
-module.exports = {
+const config = {
 
   context: settings.app(),
 
@@ -144,4 +145,13 @@ module.exports = {
     })
   ]
 };
+
+if (settings.isNotifications()) {
+  config.plugins.push(new WebpackNotifierPlugin({
+    contentImage: path.join(__dirname, 'availity.png'),
+    excludeWarnings: true
+  }));
+}
+
+module.exports = config;
 

@@ -52,7 +52,7 @@ const settings = {
   },
 
   port() {
-    return 3000;
+    return this.configuration.port;
   },
 
   project() {
@@ -78,11 +78,12 @@ const settings = {
       developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));
     }
 
+    // Merge in ./workflow.js defaults with overrides from developer config
     merge(this.configuration, developerConfig);
 
     // Merge in CLI overrides.  The command line args can pass nested properties like:
     //
-    //    start --development.mode=angular --ekko.port=8000
+    //    start --development.port=3000 --ekko.port=9999
     //
     // Yargs will convert those arguments into an object.  We pluck the only the top level attributes that we
     // are interested in and merge into the default configuration.
@@ -189,6 +190,10 @@ Instructions:
 
   isIntegration() {
     return this.environment() === 'integration';
+  },
+
+  isNotifications() {
+    return this.configuration.development.notification || false;
   },
 
   isDevelopment() {
