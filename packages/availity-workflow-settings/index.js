@@ -118,7 +118,7 @@ Instructions:
 
 - ${chalk.yellow('Update package.json with plugin reference')}
 
-  ${chalk.gray('"availityWorkflow": { "engine": "availity-workflow-<react|angular>" }')}
+  ${chalk.gray('"availityWorkflow": { "plugin": "availity-workflow-<react|angular>" }')}
 `);
 
       throw new Error('');
