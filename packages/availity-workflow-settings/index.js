@@ -52,7 +52,7 @@ const settings = {
   },
 
   port() {
-    return this.configuration.port;
+    return this.configuration.development.port;
   },
 
   project() {
@@ -76,6 +76,8 @@ const settings = {
 
     if (isWorkflowConfig) {
       developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));
+    } else {
+      this.workflowConfigPath = path.join(__dirname, 'workflow.js');
     }
 
     // Merge in ./workflow.js defaults with overrides from developer config
@@ -213,7 +215,7 @@ Instructions:
   },
 
   historyFallback() {
-    return this.configuration.historyFallback;
+    return this.configuration.development.historyFallback || true;
   },
 
   isLinting() {
