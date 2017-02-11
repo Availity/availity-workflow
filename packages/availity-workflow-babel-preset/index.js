@@ -9,7 +9,7 @@ const config = {
     // let, const, destructuring, classes, modules
     [require.resolve('babel-preset-latest'), {
       'es2015': {
-        loose: true
+        modules: false
       }
     }],
 
