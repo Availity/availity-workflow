@@ -16,6 +16,8 @@ const proxy = require('./proxy');
 const notifier = require('./notifier');
 const plugin = require('./plugin');
 
+let server;
+
 Promise.config({
   longStackTraces: true
 });
@@ -182,7 +184,7 @@ function web() {
       webpackOptions.proxy = proxyConfig;
     }
 
-    const server = new WebpackDevSever(compiler, webpackOptions);
+    server = new WebpackDevSever(compiler, webpackOptions);
 
     if (settings.isEkko()) {
 
@@ -223,6 +225,13 @@ function exit() {
 
   // Capture ^C
   process.once('SIGINT', () => {
+
+    try {
+      server.close();
+    } catch (err) {
+      // no op
+    }
+
     const command = isMac() ? '⌘ + C' : 'CTRL + C';
     Logger.empty();
     Logger.info(`Detected ${chalk.blue(command)} now exiting.`);
