@@ -1,6 +1,5 @@
 /* eslint no-console:0 */
 const chalk = require('chalk');
-const dateformat = require('dateformat');
 const figures = require('figures');
 const boxen = require('boxen');
 
@@ -26,13 +25,14 @@ class Logger {
     this.record(entry);
   }
 
-  static record(entry, _color) {
+  static record(entry, elColor) {
 
-    const now = dateformat(new Date(), 'HH:MM:ss');
     const defaultColor = entry instanceof Error ? 'red' : 'gray';
 
-    const color = _color || defaultColor;
-    console.log(`[${ chalk.cyan(now) }] ${ chalk[color](entry) }` );
+    const color = elColor || defaultColor;
+    let label = chalk.gray.bold(figures.pointerSmall);
+    label = `${label}`;
+    console.log(`${label} ${ chalk[color](entry) }` );
 
   }
 
@@ -44,18 +44,19 @@ class Logger {
     console.log('');
   }
 
-  // graphics
-
   static failed(entry) {
-    this.record(`${figures.cross} ${entry}`, 'red');
+    const label = chalk.white.bold(' FAILED ');
+    this.record(`${chalk.bgRed(label)} ${entry}`, 'red');
   }
 
   static err(entry) {
-    console.log(`${chalk.red(entry)}`);
+    const label = chalk.white.bold(' ERROR ');
+    console.log(`${chalk.bgRed(label)} ${chalk.red(entry)}`);
   }
 
   static ok(entry) {
-    this.record(`${figures.tick} ${entry}`, 'green');
+    const label = chalk.white.bold(' SUCCESS ');
+    this.record(`${chalk.bgGreen(label)} ${entry}`, 'green');
   }
 
   static box(entry) {
