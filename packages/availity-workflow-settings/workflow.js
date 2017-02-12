@@ -1,75 +1,81 @@
 const path = require('path');
 
-module.exports = {
+const development = {
 
-  development: {
+  // Opens the url in the default browser
+  open: '',
 
-    // Opens the url in the default browser
-    open: '#',
+  // Webpack build status system notifications
+  notification: true,
 
-    // Webpack build status system notifications
-    notification: true,
+  // Webpack dev server host
+  host: 'localhost',
 
-    // Webpack dev server host
-    host: '127.0.0.1',
+  // Webpack dev server port
+  port: 3000,
 
-    // Webpack dev server port
-    port: 3000,
+  // Enable hot reloading server. The behavior for hot reloading depend on
+  // the appropriate availity-workflow plugin like availity-workflow-react
+  // and availity-workflow-angular.
+  hot: true
 
-    // Enable hot reloading server. The behavior for hot reloading depend on
-    // the appropriate availity-workflow plugin like availity-workflow-react
-    // and availity-workflow-angular.
-    hot: true
+};
 
-  },
+const ekko = {
 
-  ekko: {
+  // Enables or disables Ekko
+  enabled: true,
 
-    // Sets default latency for all route responses
-    latency: 250,
+  port: 9999,
 
-    // Folder that containers the mock data files
-    data: path.join(process.cwd(), 'project/data'),
+  // Sets default latency for all route responses
+  latency: 250,
 
-    // Path to route configuration file used by Ekko to build Express routes
-    routes: path.join(process.cwd(), 'project/config/routes.json'),
+  // Folder that containers the mock data files
+  data: path.join(process.cwd(), 'project/data'),
 
-    // Enables or disables Ekko
+  // Path to route configuration file used by Ekko to build Express routes
+  routes: path.join(process.cwd(), 'project/config/routes.json'),
+
+  // Array of NPM module names that enhance Ekko with additional data and routes.
+  // @See https://github.com/Availity/availity-mock-data
+  plugins: [
+    'availity-mock-data'
+  ],
+
+  // Mock data can be passed a context so that HATEOS links traverse correctly
+  pluginContext: `http://localhost:${development.port}/api`
+};
+
+const proxies = [
+  {
+
+    // URL context used to match the activation of the proxy per request
+    context: '/api',
+
+    // Host and port number for proxy
+    target: `http://localhost:${ekko.port}`,
+
+    // Enables or disalbe this proxy configuration
     enabled: true,
 
-    // Array of NPM module names that enhance Ekko with additional data and routes.
-    // @See https://github.com/Availity/availity-mock-data
-    plugins: [
-      'availity-mock-data'
-    ],
+    // Optional.  Rewrites (using regex) the a path before sending request to proxy target.
+    pathRewrite: {
+      '^api': ''
+    },
 
-    // Mock data can be passed a context used in the HATEOS urls in a response
-    pluginContext: 'http://localhost:3000/api'
-  },
-
-  proxies: [
-    {
-
-      // URL context used to match the activation of the proxy per request
-      context: '/api',
-
-      // Host and port number for proxy
-      target: 'http://localhost:9999',
-
-      // Enables or disalbe this proxy configuration
-      enabled: true,
-
-      // Optional.  Rewrites (using regex) the a path before sending request to proxy target.
-      pathRewrite: {
-        '^api': ''
-      },
-
-      // Optional.  Send default headers to the proxy destination.
-      headers: {
-        RemoteUser: 'janedoe'
-      }
+    // Optional.  Send default headers to the proxy destination.
+    headers: {
+      RemoteUser: 'janedoe'
     }
+  }
 
-  ]
+];
+
+module.exports = {
+
+  development,
+  ekko,
+  proxies
 
 };

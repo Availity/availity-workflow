@@ -2,8 +2,8 @@ const os = require('os');
 const Logger = require('availity-workflow-logger');
 const chalk = require('chalk');
 const webpack = require('webpack');
-const perfy = require('perfy');
 const once = require('lodash.once');
+const pretty = require('pretty-ms');
 const debounce = require('lodash.debounce');
 const Ekko = require('availity-ekko');
 const Promise = require('bluebird');
@@ -17,6 +17,7 @@ const plugin = require('./plugin');
 const open = require('./open');
 
 let server;
+let ekko;
 
 Promise.config({
   longStackTraces: true
@@ -45,35 +46,16 @@ function formatMessage(message) {
     .replace(/\s@ multi .+/, '');
 }
 
+const startupMessage = once(() => {
+  const uri = `http://localhost:${settings.config().development.port}/`;
+  Logger.box(`The app is running at ${chalk.green(uri)}`);
+});
+
 function compileMessage(stats) {
 
-  const statistics = stats.toString({
-    colors: true,
-    cached: true,
-    reasons: false,
-    source: false,
-    chunks: false,
-    children: false
-  });
-
-  const uri = `http://localhost:${settings.config().development.port}/`;
-
-  let result = {
-    time: 'N/A'
-  };
-
-  try {
-    result = perfy.end('webpack-perf');
-  } catch (err) {
-    // no op
-  }
-
-
-  Logger.info(statistics);
-  const time = `${result.time}s`;
-
-  Logger.info(`Finished compiling in ${chalk.magenta(time)}`);
-  Logger.box(`The app is running at ${chalk.green(uri)}`);
+  const statistics = stats.toJson();
+  Logger.info(`${chalk.green.bold('Compiled')} in ${chalk.magenta(pretty(statistics.time))}`);
+  startupMessage();
 }
 
 function init() {
@@ -82,6 +64,27 @@ function init() {
   settings.log();
 
   return Promise.resolve(true);
+
+}
+
+function rest() {
+
+  if (settings.isEkko()) {
+
+    const ekkoOptions = {
+      data: settings.config().ekko.data,
+      routes: settings.config().ekko.routes,
+      plugins: settings.config().ekko.plugins,
+      pluginContext: settings.config().ekko.pluginContext
+    };
+
+    ekko = new Ekko();
+
+    return ekko.start(ekkoOptions);
+
+  }
+
+  return Promise.resolve();
 
 }
 
@@ -95,24 +98,20 @@ function web() {
 
       const percent = percentage * 100;
 
-      if (percent % 20 === 0 && msg !== null && msg !== undefined && msg !== ''){
-        Logger.info(`${chalk.dim('Webpack')} ${msg}`);
+      if (percent % 20 === 0 && msg !== null && msg !== undefined && msg.trim() !== '') {
+        Logger.info(`${chalk.dim('Webpack')} ${Math.round(percent)}% ${msg}`);
       }
 
     }));
 
     const compiler = webpack(webpackConfig);
 
-    compiler.plugin('compile', () => {
-      perfy.start('webpack-perf');
-    });
-
     compiler.plugin('invalid', () => {
       Logger.info('Started compiling');
     });
 
     const openBrowser = once(open);
-    const message = debounce(compileMessage, 300);
+    const message = debounce(compileMessage, 500);
 
     compiler.plugin('done', stats => {
 
@@ -187,21 +186,6 @@ function web() {
 
     server = new WebpackDevSever(compiler, webpackOptions);
 
-    if (settings.isEkko()) {
-
-      const ekkoOptions = {
-        data: settings.config().ekko.data,
-        routes: settings.config().ekko.routes,
-        plugins: settings.config().ekko.plugins,
-        pluginContext: settings.config().ekko.pluginContext
-      };
-
-      const ekko = new Ekko();
-
-      server.use(ekko.middleware(ekkoOptions));
-
-    }
-
     server.listen(settings.config().development.port, (err) => {
 
       if (err) {
@@ -229,6 +213,12 @@ function exit() {
 
     try {
       server.close();
+    } catch (err) {
+      // no op
+    }
+
+    try {
+      ekko.stop();
     } catch (err) {
       // no op
     }
@@ -265,6 +255,7 @@ Thanks!
   });
 
   return init()
+    .then(rest)
     .then(web)
     .then(notifier)
     .then(exit);

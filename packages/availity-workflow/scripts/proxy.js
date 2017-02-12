@@ -3,6 +3,19 @@ const merge = require('lodash.merge');
 const Logger = require('availity-workflow-logger');
 const settings = require('availity-workflow-settings');
 
+// Clean up HPM messages
+function message(arg) {
+
+  if (typeof arg === 'string') {
+    return arg
+    .replace(/\[HPM\] /g, '')
+    .replace(/  /g, ' ');
+  }
+
+  return arg;
+
+}
+
 function proxy() {
 
   let config = null;
@@ -19,7 +32,9 @@ function proxy() {
           Logger.info(Array.prototype.slice.call(arguments));
         },
         info() {
-          Logger.info(Array.prototype.slice.call(arguments));
+          let args = Array.prototype.slice.call(arguments);
+          args = args.map(arg => message(arg));
+          Logger.info(args);
         },
         warn() {
           Logger.warn(Array.prototype.slice.call(arguments));
