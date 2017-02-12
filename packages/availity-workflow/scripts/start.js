@@ -45,6 +45,37 @@ function formatMessage(message) {
     .replace(/\s@ multi .+/, '');
 }
 
+function compileMessage(stats) {
+
+  const statistics = stats.toString({
+    colors: true,
+    cached: true,
+    reasons: false,
+    source: false,
+    chunks: false,
+    children: false
+  });
+
+  const uri = `http://localhost:${settings.config().development.port}/`;
+
+  let result = {
+    time: 'N/A'
+  };
+
+  try {
+    result = perfy.end('webpack-perf');
+  } catch (err) {
+    // no op
+  }
+
+
+  Logger.info(statistics);
+  const time = `${result.time}s`;
+
+  Logger.info(`Finished compiling in ${chalk.magenta(time)}`);
+  Logger.box(`The app is running at ${chalk.green(uri)}`);
+}
+
 function init() {
 
   settings.init();
@@ -80,41 +111,8 @@ function web() {
       Logger.info('Started compiling');
     });
 
-    const openBrowser = once(() => open());
-
-    const message = debounce(stats => {
-
-      openBrowser();
-
-      const statistics = stats.toString({
-        colors: true,
-        cached: true,
-        reasons: false,
-        source: false,
-        chunks: false,
-        children: false
-      });
-
-      const uri = `http://localhost:${settings.config().development.port}/`;
-
-      let result = {
-        time: 'N/A'
-      };
-
-      try {
-        result = perfy.end('webpack-perf');
-      } catch (err) {
-        // no op
-      }
-
-
-      Logger.info(statistics);
-      const time = `${result.time}s`;
-
-      Logger.info(`Finished compiling in ${chalk.magenta(time)}`);
-      Logger.box(`The app is running at ${chalk.green(uri)}`);
-
-    }, 300);
+    const openBrowser = once(open);
+    const message = debounce(compileMessage, 300);
 
     compiler.plugin('done', stats => {
 
@@ -122,6 +120,7 @@ function web() {
       const hasWarnings = stats.hasWarnings();
 
       if (!hasErrors && !hasWarnings) {
+        openBrowser();
         message(stats);
       }
 
