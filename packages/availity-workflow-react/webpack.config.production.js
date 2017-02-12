@@ -74,6 +74,15 @@ const config = {
         ]
       },
       {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader'
+        ],
+        publicPath: '../'
+      },
+      {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -119,17 +128,27 @@ const config = {
 
     new CaseSensitivePathsPlugin(),
 
-    new webpack.LoaderOptionsPlugin({
-      test: /\.scss$/,
-      debug: true,
-      options: {
-        postcss() {
-          return [autoprefixer];
-        },
-        context: settings.app(),
-        output: { path: settings.output() }
+    new webpack.LoaderOptionsPlugin(
+      {
+        test: /\.s?css$/,
+        debug: false,
+        options: {
+          postcss: [
+            autoprefixer(
+              {
+                browsers: [
+                  'last 5 versions',
+                  'Firefox ESR',
+                  'not ie < 9'
+                ]
+              }
+            )
+          ],
+          context: settings.app(),
+          output: { path: settings.output() }
+        }
       }
-    }),
+    ),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',

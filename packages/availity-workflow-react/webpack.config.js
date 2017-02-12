@@ -80,6 +80,14 @@ const config = {
         ]
       },
       {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader'
+        ]
+      },
+      {
         test: /\.scss$/,
         use: [
           'style-loader',
@@ -133,17 +141,19 @@ const config = {
 
     new CaseSensitivePathsPlugin(),
 
-    new webpack.LoaderOptionsPlugin({
-      test: /\.scss$/,
-      debug: true,
-      options: {
-        postcss() {
-          return [autoprefixer];
-        },
-        context: settings.app(),
-        output: { path: settings.output() }
+    new webpack.LoaderOptionsPlugin(
+      {
+        test: /\.s?css$/,
+        debug: true,
+        options: {
+          postcss: [
+            autoprefixer({ browsers: ['last 5 versions'] })
+          ],
+          context: settings.app(),
+          output: { path: settings.output() }
+        }
       }
-    }),
+    ),
 
     new CopyWebpackPlugin([
       {

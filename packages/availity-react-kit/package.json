@@ -40,7 +40,7 @@
     "react-addons-transition-group": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router-dom": "^4.0.0-beta.5",
-    "react-select": "^1.0.0-rc.2"
+    "react-select": "^1.0.0-rc.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
