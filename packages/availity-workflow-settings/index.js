@@ -68,24 +68,23 @@ const settings = {
   },
 
   init() {
-
     this.configuration = require('./workflow');
     let developerConfig = {};
 
-    // try workflow.js
-    this.workflowConfigPath = path.join(settings.project(), 'project/config/workflow.js');
-    let isWorkflowConfig = exists(this.workflowConfigPath);
+    const defaultWorkflowConfig = path.join(settings.project(), 'project/config/workflow.yml');
+    const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
+    const ymlWorkflowConfig = path.join(settings.project(), 'project/config/workflow.yml');
 
-    // try workflow.yml if workflow.js is not found
-    if (!isWorkflowConfig) {
-      this.workflowConfigPath = path.join(settings.project(), 'project/config/workflow.yml');
-      isWorkflowConfig = exists(this.workflowConfigPath);
-    }
+    if (exists(jsWorkflowConfig)) {         // Try workflow.js
+      this.workflowConfigPath = jsWorkflowConfig;
+      developerConfig = require(this.workflowConfigPath);
 
-    if (isWorkflowConfig) {
+    } else if (exists(ymlWorkflowConfig)) { // Try workflow.yml
+      this.workflowConfigPath = ymlWorkflowConfig;
       developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));
-    } else {
-      this.workflowConfigPath = path.join(__dirname, 'workflow.js');
+
+    } else {  // fall back to default workflow.js
+      this.workflowConfigPath = defaultWorkflowConfig;
     }
 
     // Merge in ./workflow.js defaults with overrides from developer config
