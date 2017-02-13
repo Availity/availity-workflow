@@ -3,19 +3,22 @@ const merge = require('lodash.merge');
 const Logger = require('availity-workflow-logger');
 const settings = require('availity-workflow-settings');
 
-// Clean up HPM messages
-function message(arg) {
+// Clean up HPM messages so they appear more availity-workflow like ;)
+function message(daArgs) {
 
-  if (typeof arg === 'string') {
-    return arg
-    .replace(/\[HPM\] /g, '')
-    .replace(/  /g, ' ');
-  }
+  const args = Array.prototype.slice.call(daArgs);
 
-  return arg;
+  return args.map(arg => {
+    if (typeof arg === 'string') {
+      return arg
+      .replace(/\[HPM\] /g, '')
+      .replace(/  /g, ' ');
+    }
+  });
 
 }
 
+// https://github.com/chimurai/http-proxy-middleware/tree/master/recipes
 function proxy() {
 
   let config = null;
@@ -23,24 +26,23 @@ function proxy() {
   const defaultProxy = {
     changeOrigin: true,
     ws: true,
+    logLevel: 'info',
     logProvider() {
       return {
         log() {
-          Logger.log(Array.prototype.slice.call(arguments));
+          Logger.log(message(arguments));
         },
         debug() {
-          Logger.info(Array.prototype.slice.call(arguments));
+          Logger.debug(message(arguments));
         },
         info() {
-          let args = Array.prototype.slice.call(arguments);
-          args = args.map(arg => message(arg));
-          Logger.info(args);
+          Logger.info(message(arguments));
         },
         warn() {
-          Logger.warn(Array.prototype.slice.call(arguments));
+          Logger.warn(message(arguments));
         },
         error() {
-          Logger.error(Array.prototype.slice.call(arguments));
+          Logger.error(message(arguments));
         }
       };
     }
