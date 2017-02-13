@@ -1,5 +1,3 @@
-'use strict';
-
 const UpdateNotifier = require('update-notifier');
 const chalk = require('chalk');
 const Logger = require('availity-workflow-logger');

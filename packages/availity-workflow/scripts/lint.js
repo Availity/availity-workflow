@@ -1,5 +1,3 @@
-'use strict';
-
 const eslint = require('eslint');
 const globby = require('globby');
 const Promise = require('bluebird');
