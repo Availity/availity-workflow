@@ -1,6 +1,6 @@
 {
   "name": "availity-react-kit",
-  "version": "2.0.0-beta.12",
+  "version": "2.0.0-beta.13",
   "private": true,
   "description": "Example React project using availity-workflow",
   "main": "index.js",
@@ -30,7 +30,7 @@
     "availity-reactstrap-validation": "^1.4.1",
     "availity-uikit": "^3.0.0-beta.7",
     "availity-workflow": "^2.0.0-beta.12",
-    "availity-workflow-react": "^2.0.0-beta.12",
+    "availity-workflow-react": "^2.0.0-beta.13",
     "axios": "^0.15.3",
     "cross-env": "^3.1.4",
     "eslint-config-availity": "^2.0.2",
