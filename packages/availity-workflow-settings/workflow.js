@@ -59,9 +59,11 @@ const proxies = [
     // Enables or disalbe this proxy configuration
     enabled: true,
 
+    logLevel: 'info',
+
     // Optional.  Rewrites (using regex) the a path before sending request to proxy target.
     pathRewrite: {
-      '^api': ''
+      '^/api': ''
     },
 
     // Optional.  Send default headers to the proxy destination.
