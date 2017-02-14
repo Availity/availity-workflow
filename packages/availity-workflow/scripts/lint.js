@@ -2,6 +2,7 @@ const eslint = require('eslint');
 const globby = require('globby');
 const Promise = require('bluebird');
 const ora = require('ora');
+const chalk = require('chalk');
 
 const Logger = require('availity-workflow-logger');
 const settings = require('availity-workflow-settings');
@@ -44,13 +45,13 @@ function lint() {
       if (report.errorCount || report.warningCount) {
 
         const formatter = engine.getFormatter();
-        Logger.info(`${formatter(report.results)}`);
+        Logger.simple(`${formatter(report.results)}`);
         Logger.failed('Failed linting');
-        reject('Failed linting');
+        reject(report.results);
 
       } else {
 
-        Logger.ok(`Finished linting ${paths.length} file(s)`);
+        Logger.success(`Finished linting ${chalk.magenta(paths.length)} file(s)`);
         resolve('Finished linting');
 
       }

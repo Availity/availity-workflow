@@ -54,7 +54,7 @@ const startupMessage = once(() => {
 function compileMessage(stats) {
 
   const statistics = stats.toJson();
-  Logger.info(`${chalk.green.bold('Compiled')} in ${chalk.magenta(pretty(statistics.time))}`);
+  Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(pretty(statistics.time))}`);
   startupMessage();
 }
 
@@ -75,7 +75,26 @@ function rest() {
       data: settings.config().ekko.data,
       routes: settings.config().ekko.routes,
       plugins: settings.config().ekko.plugins,
-      pluginContext: settings.config().ekko.pluginContext
+      pluginContext: settings.config().ekko.pluginContext,
+      logProvider() {
+        return {
+          log() {
+            Logger.log(...arguments);
+          },
+          debug() {
+            Logger.debug(...arguments);
+          },
+          info() {
+            Logger.info(...arguments);
+          },
+          warn() {
+            Logger.warn(...arguments);
+          },
+          error() {
+            Logger.error(...arguments);
+          }
+        };
+      }
     };
 
     ekko = new Ekko();
@@ -255,9 +274,9 @@ Thanks!
   });
 
   return init()
-    .then(rest)
     .then(web)
     .then(notifier)
+    .then(rest)
     .then(exit);
 }
 

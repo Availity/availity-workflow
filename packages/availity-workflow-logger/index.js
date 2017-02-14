@@ -21,18 +21,25 @@ class Logger {
     this.record(entry);
   }
 
+  static debug(entry) {
+    this.record(entry);
+  }
+
   static log(entry) {
     this.record(entry);
   }
 
-  static record(entry, elColor) {
+  // › Started dev server
+  static record(entry, color) {
 
     const defaultColor = entry instanceof Error ? 'red' : 'gray';
+    const crayoloa = color || defaultColor;
 
-    const color = elColor || defaultColor;
-    let label = chalk.gray.bold(figures.pointerSmall);
-    label = `${label}`;
-    console.log(`${label} ${ chalk[color](entry) }` );
+    // Determine color of prefix log
+    let delimeter = chalk.bold[crayoloa](figures.pointerSmall);
+    delimeter = `${delimeter}`;
+
+    console.log(`${delimeter} ${chalk[crayoloa](entry) }` );
 
   }
 
@@ -44,19 +51,19 @@ class Logger {
     console.log('');
   }
 
+  // ✖ [ ERROR] Failed linting
   static failed(entry) {
-    const label = chalk.white.bold(' FAILED ');
-    this.record(`${chalk.bgRed(label)} ${entry}`, 'red');
-  }
-
-  static err(entry) {
+    const prefix = chalk.red(figures.cross);
     const label = chalk.white.bold(' ERROR ');
-    console.log(`${chalk.bgRed(label)} ${chalk.red(entry)}`);
+    console.log(`${prefix} ${chalk.bgRed(label)} ${chalk.red(entry)}`);
   }
 
-  static ok(entry) {
-    const label = chalk.white.bold(' SUCCESS ');
-    this.record(`${chalk.bgGreen(label)} ${entry}`, 'green');
+  // ✔︎ Finished linting
+  static success(entry) {
+
+    const prefix = chalk.green.bold(figures.tick);
+    console.log(`${prefix} ${chalk.gray(entry)}` );
+
   }
 
   static box(entry) {

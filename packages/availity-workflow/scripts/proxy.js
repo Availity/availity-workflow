@@ -55,7 +55,7 @@ function proxy() {
     // Iterate through each proxy configuration
     proxies.forEach(proxyConfiguration => {
       // Merge in defaults including custom Logger
-      const proxyConfig = merge({}, proxyConfiguration, defaultProxy);
+      const proxyConfig = merge({logLevel: 'debug'}, defaultProxy, proxyConfiguration);
       // Only create proxy if enabled
       if (proxyConfig.enabled) {
         config.push(proxyConfig);
