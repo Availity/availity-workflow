@@ -11,7 +11,7 @@ function create() {
   // TODO: I don't know if it's safe or not to just use / as path separator
   // in Jest configs. We need help from somebody with Windows to determine this.
   const config = {
-    collectCoverageFrom: [`${settings.app()}/**/*.{js,jsx}`],
+    collectCoverageFrom: ['**/*.{js,jsx}'],
     // setupFiles: [resolve('config/polyfills.js')],
     // setupTestFrameworkScriptFile: setupTestsFile,
     testPathIgnorePatterns: [
