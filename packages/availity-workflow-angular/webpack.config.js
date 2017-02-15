@@ -8,6 +8,7 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const NpmImportPlugin = require('less-plugin-npm-import');
+const requireRelative = require('require-relative');
 
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
@@ -100,25 +101,30 @@ const config = {
         exclude: /index\.html/
       },
       {
-        test: require.resolve('angular'),
+        test: requireRelative.resolve('angular', settings.project()),
         use: [
-          'expose-loader?angular'
+          'expose-loader?angular',
+          'exports-loader?angular'
         ]
       },
       {
-        test: require.resolve('jquery'),
+        test: requireRelative.resolve('jquery', settings.project()),
         use: [
           'expose-loader?$',
           'expose-loader?jQuery'
         ]
       },
       {
-        test: require.resolve('lodash'),
-        use: ['expose-loader?_']
+        test: requireRelative.resolve('lodash', settings.project()),
+        use: [
+          'expose-loader?_'
+        ]
       },
       {
-        test: require.resolve('moment'),
-        use: ['expose-loader?moment']
+        test: requireRelative.resolve('moment', settings.project()),
+        use: [
+          'expose-loader?moment'
+        ]
       },
       {
         test: /\.css$/,
@@ -173,17 +179,15 @@ const config = {
       }
     }),
 
+    new webpack.ProvidePlugin({
+      'window.jQuery': 'jquery',
+      '$': 'jquery',
+      'jQuery': 'jquery'
+    }),
+
     new VersionPlugin({
       version: JSON.stringify(getVersion())
     }),
-
-    // Converts:
-    //    [HMR] Updated modules:
-    //    [HMR]  - 5
-    // To:
-    //    [HMR] Updated modules:
-    //    [HMR]  - ./src/middleware/api.js
-    new webpack.NamedModulesPlugin(),
 
     // Generate hot module chunks
     new webpack.HotModuleReplacementPlugin(),
@@ -194,6 +198,11 @@ const config = {
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
     new CaseSensitivePathsPlugin(),
+
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity
+    }),
 
     new webpack.LoaderOptionsPlugin(
       {
