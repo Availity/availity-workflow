@@ -1,4 +1,6 @@
-const ConcatSource = require('webpack-core/lib/ConcatSource');
+'use strict';
+
+const ConcatSource = require('webpack-sources').ConcatSource;
 const ModuleFilenameHelpers = require('webpack/lib/ModuleFilenameHelpers');
 const moment = require('moment');
 
@@ -35,7 +37,7 @@ class VersionPlugin {
 
         chunks.forEach(chunk => {
 
-          if (options.entryOnly && !chunk.initial) {
+          if (options.entryOnly && !chunk.isInitial()) {
             return;
           }
 

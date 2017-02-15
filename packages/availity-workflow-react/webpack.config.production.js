@@ -9,9 +9,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const htmlConfig = require('./html');
+const VersionPlugin = require('./version');
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
 
+function getVersion() {
+  return settings.pkg().version || 'N/A';
+}
 
 const config = {
 
@@ -119,6 +123,10 @@ const config = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
+    }),
+
+    new VersionPlugin({
+      version: JSON.stringify(getVersion())
     }),
 
     new HtmlWebpackPlugin(htmlConfig),

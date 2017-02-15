@@ -9,9 +9,14 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const htmlConfig = require('./html');
+const VersionPlugin = require('./version');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
+
+function getVersion() {
+  return settings.pkg().version || 'N/A';
+}
 
 const config = {
 
@@ -121,6 +126,10 @@ const config = {
       'process.env': {
         'NODE_ENV': JSON.stringify('development')
       }
+    }),
+
+    new VersionPlugin({
+      version: JSON.stringify(getVersion())
     }),
 
     // Converts:
