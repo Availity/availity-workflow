@@ -67,6 +67,20 @@ const settings = {
     return process.cwd();
   },
 
+  log() {
+
+    // Log the mode
+    let message = `${this.pkg().availityWorkflow.plugin.split('availity-workflow-')[1].toUpperCase()} MODE`;
+    Logger.warn(chalk.bold.yellow(message));
+
+    if (!this.isTesting()) {
+      message = trimStart(path.relative(process.cwd(), this.workflowConfigPath), 'node_modules/');
+      Logger.info(`Using ${chalk.blue(message)}`);
+    }
+
+  },
+
+
   init() {
     this.configuration = require('./workflow');
     let developerConfig = {};
@@ -111,38 +125,6 @@ const settings = {
     }
 
     return this.raw;
-
-  },
-
-  log() {
-
-    if (!this.pkg().availityWorkflow || !this.pkg().availityWorkflow.plugin) {
-
-      Logger.error('Project must be configured to use React or Angular');
-      Logger.simple(`
-Instructions:
-
-- ${chalk.yellow('Install appropriate plugin')}
-
-  ${chalk.gray('npm install availity-workflow-<react|angular>')}
-
-- ${chalk.yellow('Update package.json with plugin reference')}
-
-  ${chalk.gray('"availityWorkflow": { "plugin": "availity-workflow-<react|angular>" }')}
-`);
-
-      throw new Error('');
-
-    }
-
-    // Log the mode
-    let message = `${this.pkg().availityWorkflow.plugin.split('availity-workflow-')[1].toUpperCase()} MODE`;
-    Logger.warn(chalk.bold.yellow(message));
-
-    if (!this.isTesting()) {
-      message = trimStart(path.relative(process.cwd(), this.workflowConfigPath), 'node_modules/');
-      Logger.info(`Using ${chalk.blue(message)}`);
-    }
 
   },
 
