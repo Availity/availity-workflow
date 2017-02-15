@@ -1,0 +1,80 @@
+{
+  "createdDate": "2014-04-28T21:59:29.000+0000",
+  "updatedDate": "2014-04-29T08:28:01.000+0000",
+  "expirationDate": "2014-05-14T21:59:29.000+0000",
+  "customerId": "11314",
+  "updatable": false,
+  "status": "Certified in Total",
+  "statusCode": "A1",
+  "certificationIssueDate": "2014-04-29",
+  "certificationEffectiveDate": "2014-05-01",
+  "certificationExpirationDate": "2014-05-03",
+  "certificationNumber": "129738127",
+  "payer": {
+    "id": "ACMEHP",
+    "name": "Acme Healthplan",
+    "contactName": "Billing Dept",
+    "phone": "1-555-555-5555"
+  },
+  "requestingProvider": {
+    "lastName": "Slice n Dice Discount Surgery",
+    "npi": "1234567893"
+  },
+  "subscriber": {
+    "memberId": "XBH1823812"
+  },
+  "patient": {
+    "lastName": "Smith",
+    "firstName": "Bob",
+    "birthDate": "1956-01-29",
+    "subscriberRelationship": "Self",
+    "subscriberRelationshipCode": "18"
+  },
+  "diagnoses": [
+    {
+      "qualifier": "ICD-10",
+      "qualifierCode": "ABF",
+      "value": "Struck by dolphin, initial encounter",
+      "code": "W5602XA"
+    }
+  ],
+  "requestType": "Admission Review",
+  "requestTypeCode": "AR",
+  "serviceType": "Medical Care",
+  "serviceTypeCode": "1",
+  "placeOfService": "Office",
+  "placeOfServiceCode": "11",
+  "fromDate": "2014-05-01",
+  "toDate": "2014-05-03",
+  "quantity": "3",
+  "quantityType": "Days",
+  "quantityTypeCode": "DA",
+  "admissionType": "Emergency",
+  "admissionTypeCode": "1",
+  "renderingProviders": [
+    {
+      "role": "Attending Provider",
+      "roleCode": "71",
+      "lastName": "Jones",
+      "firstName": "Jane",
+      "npi": "1231231238"
+    },
+    {
+      "role": "Facility",
+      "roleCode": "FA",
+      "lastName": "Slice and Dice Surgery Center",
+      "npi": "1234912380"
+    }
+  ],
+  "procedures": [
+    {
+      "qualifier": "HCPCS",
+      "qualifierCode": "HC",
+      "value": "Low-level laser treatment, 15 minutes",
+      "code": "S8948",
+      "quantity": "1",
+      "quantityType": "Units",
+      "quantityTypeCode": "UN"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+<fieldset>
+
+  <legend>Provider</legend>
+
+  <div class="form-group">
+    <label for="organizations">Organization</label>
+    <select
+      id="organizations"
+      class="form-control"
+      av-dropdown
+      ng-model="vm.request.selectedOrganization"
+      ng-options="organization.name for organization in vm.request.organizations"
+      options="{ allowClear: false, placeholder: 'Select an organization'}"
+      ng-change="vm.request.onSelectedOrganization(vm.request.selectedOrganization)"
+      av-val-field="organization"
+      >
+    </select>
+    <p av-val-container></p>
+  </div>
+
+  <div class="form-group">
+    <label for="providers">Provider</label>
+    <select
+      id="providers"
+      class="form-control"
+      av-dropdown
+      ng-model="vm.request.selectedProvider"
+      ng-disabled="vm.request.isProviderDisabled"
+      ng-options="provider.businessName for provider in vm.request.providers"
+      options="{ allowClear: false, placeholder: 'Select a provider'}"
+      ng-change="vm.request.onSelectedProvider(vm.request.selectedProvider)"
+      >
+    </select>
+    <p av-val-container></p>
+  </div>
+
+  <div class="form-group">
+    <label for="npi">
+      NPI
+      <inline-help title="National Provider Index"></inline-help>
+    </label>
+    <input
+      type="text"
+      class="form-control"
+      id="npi"
+      ng-model="vm.request.npi"
+      av-val-field="npi"
+      >
+      <p av-val-container></p>
+  </div>
+
+</fieldset>
