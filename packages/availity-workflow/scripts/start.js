@@ -59,12 +59,9 @@ function compileMessage(stats) {
 }
 
 function init() {
-
   settings.init();
   settings.log();
-
   return Promise.resolve(true);
-
 }
 
 function rest() {
@@ -144,6 +141,7 @@ function web() {
 
       if (hasErrors) {
 
+        // https://webpack.js.org/configuration/stats/
         const json = stats.toJson({
           assets: false,
           colors: true,
@@ -152,7 +150,7 @@ function web() {
           timings: false,
           chunks: false,
           chunkModules: false,
-          errorDetails: false
+          errorDetails: true
         });
 
         let formattedErrors = json.errors.map(msg => {
@@ -258,18 +256,6 @@ function start() {
       Logger.error(reason.stack);
       Logger.empty();
     }
-
-    Logger.warn(`
-
-A rejection was not handled properly by a promise
-chain in availity-workflow. Please open an issue at:
-
-    ${chalk.blue('https://github.com/Availity/availity-workflow/issues')}
-
-Place the contents of the stack trace in the Github issue.
-
-Thanks!
-    `);
 
   });
 
