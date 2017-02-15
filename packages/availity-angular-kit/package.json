@@ -1,5 +1,6 @@
 {
   "name": "availity-angular-kit",
+  "private": true,
   "version": "2.0.0-beta.12",
   "description": "Example Angular project using availity-workflow",
   "main": "index.js",
