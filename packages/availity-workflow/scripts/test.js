@@ -1,12 +1,8 @@
 const plugin = require('./plugin');
-
-function test() {
-  const tester = plugin('test');
-  return tester();
-}
+const tester = plugin('test');
 
 module.exports = {
-  description: 'Run your test using Jest',
-  run: test
+  description: tester.description,
+  run: tester.run
 };
 
