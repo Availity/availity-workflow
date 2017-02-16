@@ -38,6 +38,7 @@
     "file-loader": "^0.10.0",
     "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.28.0",
+    "karma": "^1.4.1",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
     "less-plugin-npm-import": "^2.1.0",

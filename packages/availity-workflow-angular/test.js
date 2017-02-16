@@ -1,4 +1,9 @@
+const Logger = require('availity-worflow-logger');
 const settings = require('availity-workflow-settings');
+const path = require('join');
+const exists = require('exists-sync');
+const karma = require('karma');
+
 
 function validate() {
 
@@ -47,17 +52,6 @@ function continous() {
     .then(ci);
 }
 
-function test() {
-
-  const argv = process.argv.slice(2);
-  const jestConfig = JSON.stringify(create());
-  argv.push(`--config=${jestConfig}`);
-  argv.push('--env=jsdom');
-
-  jest.run(argv);
-
-}
-
 function debug() {
 
   return new Promise( (resolve, reject) => {
@@ -88,9 +82,8 @@ function debug() {
 
 }
 
-
 module.exports = {
-  test,
+  run: continous,
   debug,
   description: 'Run your tests using Jest'
 };
