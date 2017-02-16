@@ -1,6 +1,6 @@
-const Logger = require('availity-worflow-logger');
+const Logger = require('availity-workflow-logger');
 const settings = require('availity-workflow-settings');
-const path = require('join');
+const path = require('path');
 const exists = require('exists-sync');
 const karma = require('karma');
 
