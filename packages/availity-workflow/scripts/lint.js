@@ -1,11 +1,12 @@
-const eslint = require('eslint');
 const globby = require('globby');
 const Promise = require('bluebird');
+const eslint = require('eslint');
 const ora = require('ora');
 const chalk = require('chalk');
-
 const Logger = require('availity-workflow-logger');
 const settings = require('availity-workflow-settings');
+// const relativeRequire = ('relative-require');
+// const eslint = relativeRequire('eslint', settings.project());
 
 function lint() {
 

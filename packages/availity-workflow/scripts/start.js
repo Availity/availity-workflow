@@ -54,7 +54,8 @@ const startupMessage = once(() => {
 function compileMessage(stats) {
 
   const statistics = stats.toJson();
-  Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(pretty(statistics.time))}`);
+  Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(pretty(statistics.time))}
+`);
   startupMessage();
 }
 

@@ -31,6 +31,7 @@
     "case-sensitive-paths-webpack-plugin": "^1.1.4",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
+    "eslint": "^3.15.0",
     "exists-sync": "0.0.4",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "file-loader": "^0.10.0",
