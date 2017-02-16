@@ -51,11 +51,33 @@ const startupMessage = once(() => {
   Logger.box(`The app is running at ${chalk.green(uri)}`);
 });
 
+// development.logLevel=custom
+function customStats(stats) {
+  return stats.toString({
+    colors: true,
+    cached: true,
+    reasons: false,
+    source: false,
+    chunks: false,
+    children: false,
+    errorDetails: true
+  });
+}
+
 function compileMessage(stats) {
 
+  // Get the time
   const statistics = stats.toJson();
-  Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(pretty(statistics.time))}
+  const level = settings.logLevel();
+
+  const statz = level === 'custom' ? customStats(stats) : stats.toString(level);
+  Logger.info(`${chalk.dim('Webpack stats:')}
+
+${statz}
 `);
+  Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(pretty(statistics.time))}
+  `);
+
   startupMessage();
 }
 
@@ -224,26 +246,34 @@ function isMac() {
   return os.platform() === 'darwin';
 }
 
+function closeServer() {
+  return new Promise((resolve, reject) => {
+    try {
+      server.close(() => resolve());
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
 function exit() {
 
   // Capture ^C
-  process.once('SIGINT', () => {
-
-    try {
-      server.close();
-    } catch (err) {
-      // no op
-    }
-
-    try {
-      ekko.stop();
-    } catch (err) {
-      // no op
-    }
+  process.on('SIGINT', () => {
 
     const command = isMac() ? '⌘ + C' : 'CTRL + C';
     Logger.empty();
     Logger.info(`Detected ${chalk.blue(command)} now exiting.`);
+
+    closeServer()
+      .then(ekko.stop)
+      .catch(err => {
+        Logger.error(err);
+      })
+      .finally(() => {
+        /* eslint no-process-exit: 0 */
+        process.exit(0);
+      });
 
   });
 
