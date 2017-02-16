@@ -50,7 +50,7 @@ function test() {
 }
 
 module.exports = {
-  test,
+  run: test,
   description: 'Run your tests using Jest'
 };
 
