@@ -6,6 +6,7 @@ const chalk = require('chalk');
 const merge = require('lodash.merge');
 const fs = require('fs');
 const yaml = require('js-yaml');
+const get = require('lodash.get');
 const argv = require('yargs').argv;
 
 
@@ -78,6 +79,11 @@ const settings = {
       Logger.info(`Using ${chalk.blue(message)}`);
     }
 
+  },
+
+  logLevel() {
+    const level = get(this.configuration, 'development.logLevel', 'none');
+    return get(argv, 'development.logLevel', level);
   },
 
 

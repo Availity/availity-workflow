@@ -14,6 +14,10 @@ const development = {
   // Webpack dev server port
   port: 3000,
 
+  // Allows presets to be used for Webpack log levels
+  // https://webpack.js.org/configuration/stats/#stats
+  logLevel: 'custom',
+
   // Enable hot reloading server. The behavior for hot reloading depend on
   // the appropriate availity-workflow plugin like availity-workflow-react
   // and availity-workflow-angular.
