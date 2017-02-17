@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 const settings = require('availity-workflow-settings');
 const exists = require('exists-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -10,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
+const postCssLoader = require('./postcss');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
@@ -17,6 +17,8 @@ const babelrcExists = exists(babelrcPath);
 function getVersion() {
   return settings.pkg().version || 'N/A';
 }
+
+
 
 const config = {
 
@@ -89,7 +91,7 @@ const config = {
         use: [
           'style-loader',
           'css-loader',
-          'postcss-loader'
+          postCssLoader
         ]
       },
       {
@@ -97,7 +99,7 @@ const config = {
         use: [
           'style-loader',
           'css-loader',
-          'postcss-loader',
+          postCssLoader,
           'sass-loader'
         ]
       },
@@ -149,20 +151,6 @@ const config = {
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
     new CaseSensitivePathsPlugin(),
-
-    new webpack.LoaderOptionsPlugin(
-      {
-        test: /\.s?css$/,
-        debug: true,
-        options: {
-          postcss: [
-            autoprefixer({ browsers: ['last 5 versions'] })
-          ],
-          context: settings.app(),
-          output: { path: settings.output() }
-        }
-      }
-    ),
 
     new CopyWebpackPlugin([
       {
