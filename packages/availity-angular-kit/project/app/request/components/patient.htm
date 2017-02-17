@@ -1,0 +1,38 @@
+<fieldset>
+
+  <legend>Member</legend>
+
+  <div class="form-group">
+    <label for="memberID">
+      Member ID
+      <inline-help title="Also known as subscriber ID or member number"></inline-help>
+    </label>
+    <input
+      type="text"
+      class="form-control"
+      id="memberID"
+      ng-model="vm.request.memberId"
+      av-val-field="memberId"
+      >
+      <p av-val-container></p>
+  </div>
+
+  <div class="form-group">
+    <label for="dob">Date of Birth</label>
+    <div class="input-group date">
+      <input
+        type="text"
+        class="form-control"
+        id="dob"
+        container-id="dob-container"
+        ng-model="vm.request.dob"
+        av-val-field="dob"
+        data-av-datepicker>
+      <span class="input-group-btn" data-toggle="datepicker">
+        <button class="btn btn-default" type="button"><span class="icon icon-calendar"></span></button>
+      </span>
+    </div>
+    <p av-val-container id="dob-container"></p>
+  </div>
+
+</fieldset>
