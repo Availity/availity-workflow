@@ -198,7 +198,7 @@ const settings = {
   },
 
   isTesting() {
-    return this.environment() === 'testing';
+    return this.environment() === 'testing' || this.environment() === 'test';
   },
 
   isProduction() {
