@@ -1,4 +1,4 @@
-const UpdateNotifier = require('update-notifier');
+const updateNotifier = require('update-notifier');
 const chalk = require('chalk');
 const Logger = require('availity-workflow-logger');
 
@@ -21,5 +21,5 @@ const options = {
 };
 
 module.exports = function notifier() {
-  return new UpdateNotifier(options);
+  return new updateNotifier.UpdateNotifier(options);
 };
