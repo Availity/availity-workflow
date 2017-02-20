@@ -80,12 +80,14 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          postCssLoader
-        ],
-        publicPath: '../'
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            postCssLoader
+          ],
+          publicPath: '../'
+        })
       },
       {
         test: /\.scss$/,
@@ -136,28 +138,6 @@ const config = {
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
     new CaseSensitivePathsPlugin(),
-
-    new webpack.LoaderOptionsPlugin(
-      {
-        test: /\.s?css$/,
-        debug: false,
-        options: {
-          postcss: [
-            autoprefixer(
-              {
-                browsers: [
-                  'last 5 versions',
-                  'Firefox ESR',
-                  'not ie < 9'
-                ]
-              }
-            )
-          ],
-          context: settings.app(),
-          output: { path: settings.output() }
-        }
-      }
-    ),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
