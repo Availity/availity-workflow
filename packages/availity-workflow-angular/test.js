@@ -85,6 +85,6 @@ function debug() {
 module.exports = {
   run: continous,
   debug,
-  description: 'Run your tests using Jest'
+  description: 'Run your tests using Karma and Phantom.js'
 };
 
