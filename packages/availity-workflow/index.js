@@ -31,17 +31,11 @@ yargs
         alias: 'i',
         describe: 'Glob patterns to INCLUDE for ESLint scanning'
       });
-  }, () => {
-    lint().catch(() => { /* noop */});
-  })
+  }, () => {lint().catch(() => { /* noop */}) })
 
   .command('release', `${chalk.dim('Bundle project for distribution (production, staging or integration)')}`, () => { release() })
 
-  .command('test', `${chalk.dim(test.description)}`, () => {
-    test
-      .run()
-      .catch(err => Logger.failed(err));
-  })
+  .command('test', `${chalk.dim(test.description)}`, () => { test.run().catch(() => { /* noop */}) })
 
   .command('about', `${chalk.dim('About availity-workflow')}`, () => { about() })
 

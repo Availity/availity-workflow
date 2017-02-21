@@ -3,7 +3,7 @@ const settings = require('availity-workflow-settings');
 const path = require('path');
 const exists = require('exists-sync');
 const karma = require('karma');
-
+const ora = require('ora');
 
 function validate() {
 
@@ -23,12 +23,17 @@ function ci() {
   return new Promise( (resolve, reject) => {
 
     Logger.info('Started testing');
+    const spinner = ora('Running webpack and karma');
+    spinner.color = 'yellow';
+    spinner.start();
 
     const server = new karma.Server({
       configFile: path.join(__dirname, './karma.conf.js'),
       autoWatch: false,
       singleRun: true
     }, function(exitStatus) {
+
+      spinner.stop();
 
       if (exitStatus) {
         Logger.failed('Failed testing');
@@ -47,7 +52,9 @@ function ci() {
 
 function continous() {
   return validate()
-    .then(ci);
+    .then(ci)
+    /* eslint no-process-exit: 0 */
+    .then(() => process.exit(0));
 }
 
 function debug() {

@@ -24,6 +24,10 @@ const settings = {
     return this.isDistribution() ? 'cheap-module-source-map' : 'eval';
   },
 
+  coverage() {
+    return path.join(this.project(), 'coverage');
+  },
+
   css() {
     return this.isDevelopment() ? '[name].css' : '[name]-[chunkhash].css';
   },
@@ -210,7 +214,7 @@ const settings = {
   },
 
   isCoverage() {
-    return argv.coverage;
+    return argv.coverage !== undefined;
   },
 
   historyFallback() {
