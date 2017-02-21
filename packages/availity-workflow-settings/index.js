@@ -21,7 +21,7 @@ const settings = {
   },
 
   tool() {
-    return this.isDistribution() ? 'eval' : 'cheap-module-source-map';
+    return this.isDistribution() ? 'cheap-module-source-map' : 'eval';
   },
 
   css() {
@@ -202,11 +202,11 @@ const settings = {
   },
 
   isProduction() {
-    return this.environment() === 'production';
+    return argv.production || this.environment() === 'production';
   },
 
   isDistribution() {
-    return this.isProduction() || this.isStaging();
+    return this.isProduction() || this.isStaging() || this.isStaging();
   },
 
   historyFallback() {
