@@ -30,6 +30,7 @@
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.23.0",
     "case-sensitive-paths-webpack-plugin": "^1.1.4",
+    "clean-webpack-plugin": "^0.1.15",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "exists-sync": "0.0.4",

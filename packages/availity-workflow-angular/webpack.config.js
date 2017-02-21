@@ -9,6 +9,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const NpmImportPlugin = require('less-plugin-npm-import');
 const requireRelative = require('require-relative');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
@@ -183,6 +184,12 @@ const config = {
       'window.jQuery': 'jquery',
       '$': 'jquery',
       'jQuery': 'jquery'
+    }),
+
+    new CleanWebpackPlugin(['build'], {
+      root: settings.project(),
+      verbose: false,
+      dry: settings.isDryRun()
     }),
 
     new VersionPlugin({

@@ -1,15 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 const settings = require('availity-workflow-settings');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const exists = require('exists-sync');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
+const postCssLoader = require('./postcss');
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
 
@@ -79,12 +80,14 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader'
-        ],
-        publicPath: '../'
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            postCssLoader
+          ],
+          publicPath: '../'
+        })
       },
       {
         test: /\.scss$/,
@@ -92,7 +95,7 @@ const config = {
           fallback: 'style-loader',
           use: [
             'css-loader',
-            'postcss-loader',
+            postCssLoader,
             'sass-loader?sourceMap'
           ],
           publicPath: '../'
@@ -129,34 +132,18 @@ const config = {
       version: JSON.stringify(getVersion())
     }),
 
+    new CleanWebpackPlugin(['build'], {
+      root: settings.project(),
+      verbose: false,
+      dry: settings.isDryRun()
+    }),
+
     new HtmlWebpackPlugin(htmlConfig),
 
     // Ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
     new CaseSensitivePathsPlugin(),
-
-    new webpack.LoaderOptionsPlugin(
-      {
-        test: /\.s?css$/,
-        debug: false,
-        options: {
-          postcss: [
-            autoprefixer(
-              {
-                browsers: [
-                  'last 5 versions',
-                  'Firefox ESR',
-                  'not ie < 9'
-                ]
-              }
-            )
-          ],
-          context: settings.app(),
-          output: { path: settings.output() }
-        }
-      }
-    ),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',

@@ -6,6 +6,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const exists = require('exists-sync');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
@@ -126,6 +127,12 @@ const config = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
+    }),
+
+    new CleanWebpackPlugin([settings.isIntegration() ? 'build' : 'dist'], {
+      root: settings.project(),
+      verbose: false,
+      dry: settings.isDryRun()
     }),
 
     new VersionPlugin({
