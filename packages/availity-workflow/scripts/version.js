@@ -55,7 +55,7 @@ function bump() {
       fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
     }
 
-    Logger.ok('Finished version bump');
+    Logger.success('Finished version bump');
 
     resolve();
 

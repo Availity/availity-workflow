@@ -22,7 +22,7 @@ function release() {
     .then(build)
     .then(version.tag)
     .then(() => {
-      Logger.ok('Finished releasing');
+      Logger.success('Finished releasing');
     })
     .catch(err => {
       Logger.failed(`Failed releasing:

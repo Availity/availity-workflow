@@ -48,7 +48,7 @@ function bundle() {
       });
 
       Logger.info(statistics);
-      Logger.ok('Finished compiling');
+      Logger.success('Finished compiling');
       resolve();
 
     });
