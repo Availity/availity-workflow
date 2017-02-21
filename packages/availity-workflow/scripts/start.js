@@ -82,7 +82,6 @@ ${statz}
 }
 
 function init() {
-  settings.init();
   settings.log();
   return Promise.resolve(true);
 }

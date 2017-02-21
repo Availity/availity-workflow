@@ -1,4 +1,8 @@
 #! /usr/bin/env node
+
+const Promise = require('bluebird');
+const settings = require('availity-workflow-settings');
+
 const yargs = require('yargs');
 const chalk = require('chalk');
 const start = require('./scripts/start');
@@ -6,11 +10,13 @@ const test = require('./scripts/test');
 const lint = require('./scripts/lint');
 const about = require('./scripts/about');
 const release = require('./scripts/release');
-const Promise = require('bluebird');
+
 
 Promise.config({
   longStackTraces: true
 });
+
+settings.init();
 
 yargs
 
