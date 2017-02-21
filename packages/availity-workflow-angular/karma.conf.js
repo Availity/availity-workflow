@@ -107,7 +107,7 @@ if (settings.isCoverage()) {
 module.exports = function(config) {
 
   config.set(Object.assign({
-    logLevel: config.LOG_DEBUG
+    logLevel: config.LOG_WARN
   }, karmaConfig));
 
 };
