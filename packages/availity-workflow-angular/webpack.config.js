@@ -186,12 +186,6 @@ const config = {
       'jQuery': 'jquery'
     }),
 
-    new CleanWebpackPlugin(['build'], {
-      root: settings.project(),
-      verbose: false,
-      dry: settings.isDryRun()
-    }),
-
     new VersionPlugin({
       version: JSON.stringify(getVersion())
     }),

@@ -132,12 +132,6 @@ const config = {
       version: JSON.stringify(getVersion())
     }),
 
-    new CleanWebpackPlugin(['build'], {
-      root: settings.project(),
-      verbose: false,
-      dry: settings.isDryRun()
-    }),
-
     new HtmlWebpackPlugin(htmlConfig),
 
     // Ignore all the moment local files

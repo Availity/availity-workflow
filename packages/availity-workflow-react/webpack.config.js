@@ -6,7 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
@@ -131,12 +130,6 @@ const config = {
 
     new VersionPlugin({
       version: JSON.stringify(getVersion())
-    }),
-
-    new CleanWebpackPlugin(['build'], {
-      root: settings.project(),
-      verbose: false,
-      dry: settings.isDryRun()
     }),
 
     // Converts:
