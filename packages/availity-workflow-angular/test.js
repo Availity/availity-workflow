@@ -24,8 +24,6 @@ function ci() {
 
     Logger.info('Started testing');
 
-    process.env.NODE_ENV = 'testing';
-
     const server = new karma.Server({
       configFile: path.join(__dirname, './karma.conf.js'),
       autoWatch: false,

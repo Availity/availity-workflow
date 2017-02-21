@@ -2,6 +2,7 @@
 
 const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
+const Logger = require('availity-workflow-logger');
 
 const yargs = require('yargs');
 const chalk = require('chalk');
@@ -36,7 +37,11 @@ yargs
 
   .command('release', `${chalk.dim('Bundle project for distribution (production, staging or integration)')}`, () => { release() })
 
-  .command('test', `${chalk.dim(test.description)}`, () => { test.run() })
+  .command('test', `${chalk.dim(test.description)}`, () => {
+    test
+      .run()
+      .catch(err => Logger.failed(err));
+  })
 
   .command('about', `${chalk.dim('About availity-workflow')}`, () => { about() })
 

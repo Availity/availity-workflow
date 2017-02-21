@@ -1,36 +1,15 @@
-'use strict';
-
-const webpack = require('webpack');
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const merge = require('webpack-merge');
 
 const settings = require('availity-workflow-settings');
-const webpackConfig = require('../webpack.config');
 
-const VERSION = require(path.join(process.cwd(), './package.json')).version;
-
-const wpConfig = merge(webpackConfig, {
-  devtool: 'cheap-module-source-map',
-  cache: false,
-  debug: false
-});
-
-wpConfig.plugins = [
-
-  new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery',
-    'window.jQuery': 'jquery',
-    _: 'lodash'
-  })
-];
+const webpackConfig = require('./webpack.config.test');
 
 const karmaConfig = {
 
   basePath: settings.app(),
 
   frameworks: ['jasmine'],
+
+  failOnEmptyTestSuite: false,
 
   files: [
     { pattern: 'specs.js', watched: false }
@@ -42,7 +21,7 @@ const karmaConfig = {
     'specs.js': ['webpack']
   },
 
-  webpack: wpConfig,
+  webpack: webpackConfig,
 
   webpackMiddleware: {
     stats: {
@@ -63,7 +42,7 @@ const karmaConfig = {
   },
 
   exclude: [
-    '*.less',
+    '*.scss',
     '*.css'
   ],
 
@@ -91,7 +70,6 @@ const karmaConfig = {
   plugins: [
     require('karma-jasmine'),
     require('karma-spec-reporter'),
-    require('karma-chrome-launcher'),
     require('karma-coverage'),
     require('karma-webpack'),
     require('karma-phantomjs-launcher')
@@ -100,7 +78,7 @@ const karmaConfig = {
 
 
 // Add coverage statistics if NODE_ENV = testing
-if (settings.isTesting()) {
+if (settings.isCoverage()) {
 
   Object.assign(karmaConfig, {
     coverageReporter: {
@@ -129,7 +107,7 @@ if (settings.isTesting()) {
 module.exports = function(config) {
 
   config.set(Object.assign({
-    logLevel: config.LOG_WARN
+    logLevel: config.LOG_DEBUG
   }, karmaConfig));
 
 };

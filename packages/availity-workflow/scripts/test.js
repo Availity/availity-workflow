@@ -5,7 +5,7 @@ module.exports = {
   description: tester.description,
   run: () => {
     process.env.NODE_ENV = 'testing';
-    tester.run();
+    return tester.run();
   }
 };
 

@@ -1,18 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 const settings = require('availity-workflow-settings');
 const exists = require('exists-sync');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const NpmImportPlugin = require('less-plugin-npm-import');
 const requireRelative = require('require-relative');
 
-const htmlConfig = require('./html');
+const postCss = require('./postcss');
 const VersionPlugin = require('./version');
-const postcss = require('./postcss');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
@@ -132,7 +127,7 @@ const config = {
         use: [
           'style-loader',
           'css-loader',
-          postcss
+          postCss
         ]
       },
       {
@@ -140,7 +135,7 @@ const config = {
         use: [
           'style-loader',
           'css-loader',
-          postcss,
+          postCss,
           'less-loader'
         ]
       },
@@ -149,7 +144,7 @@ const config = {
         use: [
           'style-loader',
           'css-loader?name=images/[name].[ext]',
-          postcss,
+          postCss,
           'sass-loader'
         ]
       },
@@ -190,29 +185,16 @@ const config = {
       version: JSON.stringify(getVersion())
     }),
 
-    // Generate hot module chunks
-    new webpack.HotModuleReplacementPlugin(),
-
-    new HtmlWebpackPlugin(htmlConfig),
-
     // Ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
     new CaseSensitivePathsPlugin(),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity
-    }),
 
     new webpack.LoaderOptionsPlugin(
       {
         test: /\.less$/,
         debug: true,
         options: {
-          postcss: [
-            autoprefixer({ browsers: ['last 5 versions'] })
-          ],
           lessPlugins: [
             new NpmImportPlugin({
               prefix: '~'
@@ -222,27 +204,10 @@ const config = {
           output: { path: settings.output() }
         }
       }
-    ),
-
-    new CopyWebpackPlugin([
-      {
-        context: `${settings.project()}/project/static`, // copy from this directory
-        from: '**/*', // copy all files
-        to: 'static' // copy into {output}/static folder
-      }
-    ], {
-      debug: 'warning'
-    })
+    )
 
   ]
 };
-
-if (settings.isNotifications()) {
-  config.plugins.push(new WebpackNotifierPlugin({
-    contentImage: path.join(__dirname, 'availity.png'),
-    excludeWarnings: true
-  }));
-}
 
 module.exports = config;
 
