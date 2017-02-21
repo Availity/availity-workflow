@@ -88,6 +88,7 @@ const settings = {
 
 
   init() {
+
     this.configuration = require('./workflow');
     let developerConfig = {};
 
@@ -102,7 +103,6 @@ const settings = {
     } else if (exists(ymlWorkflowConfig)) { // Try workflow.yml
       this.workflowConfigPath = ymlWorkflowConfig;
       developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));
-
     } else {  // fall back to default workflow.js
       this.workflowConfigPath = defaultWorkflowConfig;
     }
@@ -207,6 +207,10 @@ const settings = {
 
   isDistribution() {
     return this.isProduction() || this.isStaging() || this.isStaging();
+  },
+
+  isCoverage() {
+    return argv.coverage;
   },
 
   historyFallback() {
