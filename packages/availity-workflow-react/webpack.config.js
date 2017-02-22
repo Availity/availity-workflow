@@ -36,7 +36,6 @@ const config = {
 
   output: {
     path: settings.output(),
-    publicPath: '/',
     filename: settings.fileName()
   },
 
@@ -66,7 +65,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js?x$/,
+        test: /\.jsx?$/,
         include: settings.app(),
         use: [
           {

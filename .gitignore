@@ -4,5 +4,7 @@ node_modules/
 lerna-debug.log
 npm-debug.log
 /.vscode
+/packages/availity-react-kit/build
 /packages/availity-react-kit/dist
+/packages/availity-angular-kit/build
 /packages/availity-angular-kit/dist
