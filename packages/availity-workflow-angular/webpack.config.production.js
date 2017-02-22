@@ -6,6 +6,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const exists = require('exists-sync');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const requireRelative = require('require-relative');
 
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
@@ -32,7 +33,6 @@ const config = {
 
   output: {
     path: settings.output(),
-    publicPath: '/',
     filename: settings.fileName()
   },
 
@@ -46,7 +46,7 @@ const config = {
       path.join(__dirname, 'node_modules')
     ],
     symlinks: true,
-    extensions: ['.js', '.jsx', '.json', '.css', 'scss']
+    extensions: ['.js', '.jsx', '.json', '.css', 'less', 'scss']
   },
 
   // This set of options is identical to the resolve property set above,
@@ -75,6 +75,32 @@ const config = {
               babelrc: babelrcExists
             }
           }
+        ]
+      },
+      {
+        test: requireRelative.resolve('angular', settings.project()),
+        use: [
+          'expose-loader?angular',
+          'exports-loader?angular'
+        ]
+      },
+      {
+        test: requireRelative.resolve('jquery', settings.project()),
+        use: [
+          'expose-loader?$',
+          'expose-loader?jQuery'
+        ]
+      },
+      {
+        test: requireRelative.resolve('lodash', settings.project()),
+        use: [
+          'expose-loader?_'
+        ]
+      },
+      {
+        test: requireRelative.resolve('moment', settings.project()),
+        use: [
+          'expose-loader?moment'
         ]
       },
       {
@@ -156,6 +182,12 @@ const config = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
+    }),
+
+    new webpack.ProvidePlugin({
+      'window.jQuery': 'jquery',
+      '$': 'jquery',
+      'jQuery': 'jquery'
     }),
 
     new VersionPlugin({
