@@ -53,23 +53,22 @@ function ci() {
 function continous() {
   return validate()
     .then(ci)
-    /* eslint no-process-exit: 0 */
-    .then(() => process.exit(0));
+    .then(() => { /* eslint no-process-exit: 0 */ process.exit(0) });
 }
 
 function debug() {
 
   return new Promise( (resolve, reject) => {
 
-    process.env.NODE_ENV = 'debug';
-
-    const server = new karma.Server({
+    const config = {
       configFile: path.join(__dirname, './karma.conf.js'),
       browsers: ['Chrome'],
       reporters: ['progress'],
       autoWatch: true,
       singleRun: false
-    }, function(exitStatus) {
+    };
+
+    const server = new karma.Server(config, exitStatus => {
 
       if (exitStatus) {
         Logger.failed('Failed testing');
