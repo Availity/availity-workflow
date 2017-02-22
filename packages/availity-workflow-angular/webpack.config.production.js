@@ -78,12 +78,43 @@ const config = {
         ]
       },
       {
+        test: /\.htm$/,
+        use: 'html-loader',
+        // Ignore following templates else errors like:
+        //    - "window is not defined" error from the html-webpack-plugin
+        //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
+        exclude: /index\.html/
+      },
+      {
+        test: /\.html$/,
+        use: [
+          `ngtemplate-loader?relativeTo=${process.cwd()}/`,
+          'html-loader'
+        ],
+        // Ignore following templates else errors like:
+        //    - "window is not defined" error from the html-webpack-plugin
+        //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
+        exclude: /index\.html/
+      },
+      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
             'css-loader',
             postCssLoader
+          ],
+          publicPath: '../'
+        })
+      },
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            postCssLoader,
+            'less-loader'
           ],
           publicPath: '../'
         })
@@ -180,4 +211,3 @@ if (settings.isProduction()) {
 }
 
 module.exports = config;
-
