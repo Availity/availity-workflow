@@ -265,7 +265,11 @@ function exit() {
     Logger.info(`Detected ${chalk.blue(command)} now exiting.`);
 
     closeServer()
-      .then(ekko.stop)
+      .then(() => {
+        if (ekko) {
+          return ekko.stop();
+        }
+      })
       .catch(err => {
         Logger.error(err);
       })
