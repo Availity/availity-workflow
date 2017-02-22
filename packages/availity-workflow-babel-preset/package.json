@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow-babel-preset",
-  "version": "2.0.0-beta.16",
+  "version": "2.0.0-beta.17",
   "description": "Babel preset used by availity-workflow",
   "main": "index.js",
   "files": [
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "availity-workflow-settings": "^2.0.0-beta.15",
+    "availity-workflow-settings": "^2.0.0-beta.17",
     "babel-plugin-transform-class-properties": "^6.22.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-do-expressions": "^6.22.0",
