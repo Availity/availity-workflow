@@ -44,8 +44,8 @@ function bump() {
       return reject('version is undefined');
     }
 
-    let pkg = settings.pkg();
-    pkg = _.merge({}, settings.pkg, {version: settings.version});
+    const pkg = settings.pkg();
+    _.merge(pkg, {version: settings.version});
 
     let contents = JSON.stringify(pkg, null, 2);
     contents = newLine(contents);
