@@ -9,6 +9,7 @@
     "test": "av test",
     "lint": "av lint",
     "help": "av help",
+    "build": "av release",
     "production": "cross-env NODE_ENV=production av release",
     "staging": "cross-env NODE_ENV=staging av release"
   },
