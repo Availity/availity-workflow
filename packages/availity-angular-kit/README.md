@@ -1,3 +1,7 @@
+# availity-workflow-angular
+
+> Example Angular application using availity-workflow and availity-worflow-angular
+
 To see a list of commands available for development and deployment, run:
 
 ```bash
