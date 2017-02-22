@@ -33,7 +33,6 @@ const config = {
 
   output: {
     path: settings.output(),
-    publicPath: '/',
     filename: settings.fileName()
   },
 
