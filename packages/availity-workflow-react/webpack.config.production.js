@@ -63,7 +63,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js?x0$/,
         include: settings.app(),
         use: [
           {
