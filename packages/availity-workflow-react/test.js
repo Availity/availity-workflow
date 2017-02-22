@@ -1,6 +1,7 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/utils/createJestConfig.js
 const jest = require('jest');
 const settings = require('availity-workflow-settings');
+const Promise = require('bluebird');
 
 // Generates a configuration file for jest to consume from the CLI command.
 // The configuration file stubs out
@@ -46,6 +47,8 @@ function test() {
   argv.push('--env=jsdom');
 
   jest.run(argv);
+
+  return Promise.resolve();
 
 }
 
