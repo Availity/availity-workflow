@@ -35,7 +35,7 @@
     "exists-sync": "0.0.4",
     "exports-loader": "^0.6.3",
     "expose-loader": "^0.7.3",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "file-loader": "^0.10.0",
     "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.28.0",
