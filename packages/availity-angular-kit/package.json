@@ -1,7 +1,7 @@
 {
   "name": "availity-angular-kit",
   "private": true,
-  "version": "2.0.0-beta.19",
+  "version": "2.0.0-beta.20",
   "description": "Example Angular project using availity-workflow",
   "main": "index.js",
   "scripts": {
@@ -29,8 +29,8 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "devDependencies": {
-    "availity-workflow": "^2.0.0-beta.19",
-    "availity-workflow-angular": "^2.0.0-beta.19",
+    "availity-workflow": "^2.0.0-beta.20",
+    "availity-workflow-angular": "^2.0.0-beta.20",
     "babel-eslint": "^7.1.1",
     "cross-env": "^3.1.4",
     "eslint": "^3.15.0",
