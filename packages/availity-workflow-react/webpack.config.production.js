@@ -36,7 +36,7 @@ const config = {
     filename: settings.fileName()
   },
 
-  devtool: settings.tool(),
+  devtool: settings.sourceMap(),
 
   resolve: {
     // Tell webpack what directories should be searched when resolving modules

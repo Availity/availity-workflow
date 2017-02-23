@@ -20,8 +20,10 @@ const settings = {
     return path.join(this.project(), 'project/app');
   },
 
-  tool() {
-    return this.isDistribution() ? 'cheap-module-source-map' : 'eval';
+  sourceMap() {
+    return this.isDistribution() || this.isDryRun() ?
+    'source-map' :
+    'eval';
   },
 
   coverage() {
@@ -29,7 +31,9 @@ const settings = {
   },
 
   css() {
-    return this.isDevelopment() ? '[name].css' : '[name]-[chunkhash].css';
+    return this.isDistribution() ?
+      '[name]-[chunkhash].css' :
+      '[name].css';
   },
 
   // Returns the JSON object from contents or the JSON object from
@@ -47,7 +51,9 @@ const settings = {
   // In production, [chunkhash] generate hashes depending on the file contents this if
   // the contents don't change the file could potentially be cached in the browser.
   fileName() {
-    return this.isDevelopment() ? '[name].js' : '[name]-[chunkhash].js';
+    return this.isDistribution() ?
+    '[name]-[chunkhash].js' :
+    '[name].js';
   },
 
   output() {
@@ -210,7 +216,7 @@ const settings = {
   },
 
   isDistribution() {
-    return this.isProduction() || this.isStaging() || this.isStaging();
+    return this.isProduction() || this.isStaging();
   },
 
   isCoverage() {

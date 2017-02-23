@@ -130,7 +130,8 @@ function web() {
 
   return new Promise((resolve, reject) => {
 
-    const webpackConfig = plugin('webpack.config');
+    // Allow production version to run in development
+    const webpackConfig = settings.isDryRun() && settings.isDevelopment() ? plugin('webpack.config.production') : plugin('webpack.config');
 
     webpackConfig.plugins.push(new ProgressPlugin( (percentage, msg) => {
 
