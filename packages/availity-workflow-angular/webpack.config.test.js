@@ -35,7 +35,7 @@ const config = {
     filename: settings.fileName()
   },
 
-  devtool: settings.sourceMap(),
+  devtool: 'inline-source-map',
 
   resolve: {
     // Tell webpack what directories should be searched when resolving modules
@@ -125,27 +125,19 @@ const config = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
-          'css-loader',
-          postCss
+          'null-loader'
         ]
       },
       {
         test: /\.less$/,
         use: [
-          'style-loader',
-          'css-loader',
-          postCss,
-          'less-loader'
+          'null-loader'
         ]
       },
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
-          'css-loader?name=images/[name].[ext]',
-          postCss,
-          'sass-loader'
+          'null-loader'
         ]
       },
       {

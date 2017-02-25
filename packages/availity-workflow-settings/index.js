@@ -187,8 +187,8 @@ const settings = {
     return argv.dryRun !== undefined;
   },
 
-  isDebug() {
-    return this.environment() === 'debug';
+  isDebugTests() {
+    return argv.debugTests;
   },
 
   isStaging() {
