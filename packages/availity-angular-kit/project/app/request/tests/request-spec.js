@@ -1,15 +1,16 @@
 /* global describe, it, beforeEach, inject, expect */
 import angular from 'angular';
 import { availity } from 'availity-angular';
+import app from 'app-module';
 
-import Request from '../request';
+import '../request';
 
 describe('model', () => {
 
   let request;
 
   beforeEach(() => {
-    angular.mock.module('app', 'availity');
+    angular.mock.module(app.name, availity);
   });
 
   beforeEach(inject((_request_) => {
