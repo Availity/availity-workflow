@@ -12,10 +12,6 @@ development:
   # Enable hot reloading server. Note that only changes
   # to CSS are currently hot reloaded. JS changes will refresh the browser.
   hot: true
-  # Values can be 'react' or 'angular'.  Different webpack loaders and
-  # babel plugins are initialized depending on the mode.
-  mode: angular
-  monitored: false
 
 ekko:
   host: 127.0.0.1

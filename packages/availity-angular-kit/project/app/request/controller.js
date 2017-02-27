@@ -1,6 +1,6 @@
-export default class RequestController {
+import './request';
 
-  static _name = 'RequestController';
+class RequestController {
 
   constructor(request) {
 
@@ -13,5 +13,7 @@ export default class RequestController {
   }
 
 }
+
+export default RequestController;
 
 

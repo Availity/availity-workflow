@@ -1,24 +1,29 @@
-import angular from 'angular';
 import { availity, availityUi, availityConfig } from 'availity-angular';
 import uiRouter from 'angular-ui-router';
 import shims from 'angular-shims-placeholder';
+import app from 'app-module';
 
-import config from './app-config';
-import app from 'app-component';
+import './app-component';
+import './request';
+import './response';
 
-import request from './request';
-import response from './response';
-import models from './models';
+app
+  .addModules([
+    availity,
+    availityUi,
+    availityConfig,
+    uiRouter,
+    shims
+  ])
+  .config(($urlRouterProvider, $stateProvider) => {
 
-angular.module('app', [
-  availity,
-  availityUi,
-  availityConfig,
-  uiRouter,
-  shims,
-  request.name,
-  response.name,
-  models.name
-])
-  .component('app', app)
-  .config(config);
+    $stateProvider
+      .state('app', {
+        template: '<app></app>'
+      });
+
+    $urlRouterProvider.otherwise('/request');
+
+  });
+
+export default app;

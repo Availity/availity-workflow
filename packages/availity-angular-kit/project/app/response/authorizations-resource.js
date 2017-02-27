@@ -1,23 +1,24 @@
-export default class AuthorizationResourceFactory {
+import app from 'app-module';
+import { availity } from 'availity-angular';
 
-  static _name = 'authorizationsResource';
+const authorizationResourceFactory = function(AvProxyResource) {
 
-  static factory(AvProxyResource){
+  class AuthorizationResource extends AvProxyResource {
 
-    class AuthorizationResource extends AvProxyResource {
-
-      constructor() {
-        super({
-          tenant: 'healthplan',
-          name: 'v1/authorizations'
-        });
-      }
+    constructor() {
+      super({
+        tenant: 'healthplan',
+        name: 'v1/authorizations'
+      });
     }
-
-    return new AuthorizationResource();
-
   }
 
-}
+  return new AuthorizationResource();
 
+};
 
+app
+  .addModule(availity)
+  .factory('authorizationsResource', authorizationResourceFactory);
+
+export default app;

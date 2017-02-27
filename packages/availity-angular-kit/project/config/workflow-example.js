@@ -14,10 +14,7 @@ module.exports = {
     // to CSS are currently hot reloaded. JS changes will refresh the browser.
     hot: true,
     host: '127.0.0.1',
-    port: 3000,
-    // Values can be 'react' or 'angular'.  Depending on the mode different webpack loaders and
-    // babel plugins are initialized.
-    mode: 'angular'
+    port: 3000
   },
 
   ekko: {

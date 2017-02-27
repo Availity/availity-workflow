@@ -1,6 +1,6 @@
-export default class ResponseController {
+import './response';
 
-  static _name = 'ResponseController';
+export default class ResponseController {
 
   constructor(response) {
 

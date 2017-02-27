@@ -1,6 +1,8 @@
-export default class Response {
+import app from 'app-module';
 
-  static _name = 'response';
+import './authorizations-resource';
+
+class Response {
 
   constructor(request, authorizationsResource) {
     this.di = { request, authorizationsResource };
@@ -20,3 +22,5 @@ export default class Response {
   }
 
 }
+
+app.service('response', Response);

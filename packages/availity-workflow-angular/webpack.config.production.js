@@ -45,6 +45,9 @@ const config = {
       path.join(settings.project(), 'node_modules'),
       path.join(__dirname, 'node_modules')
     ],
+    alias: {
+      app: path.resolve(settings.app(), 'app-module')
+    },
     symlinks: true,
     extensions: ['.js', '.jsx', '.json', '.css', 'less', 'scss']
   },

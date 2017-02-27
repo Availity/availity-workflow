@@ -12,13 +12,13 @@ const karmaConfig = {
   // failOnEmptyTestSuite: false,
 
   files: [
-    { pattern: 'specs.js', watched: false }
+    { pattern: 'specs-bundle.js', watched: false }
   ],
 
   reportSlowerThan: 500,
 
   preprocessors: {
-    'specs.js': ['webpack', 'sourcemap']
+    'specs-bundle.js': ['webpack', 'sourcemap']
   },
 
   webpack: webpackConfig,
@@ -47,7 +47,7 @@ const karmaConfig = {
 
   autoWatch: false,
 
-  browsers: ['PhantomJS'],
+  browsers: ['Chrome'],
 
   singleRun: true,
 
@@ -58,9 +58,12 @@ const karmaConfig = {
     require('karma-jasmine'),
     require('karma-spec-reporter'),
     require('karma-coverage'),
+    require('karma-chrome-launcher'),
+    require('karma-firefox-launcher'),
+    require('karma-ie-launcher'),
+    require('karma-spec-reporter'),
     require('karma-webpack'),
-    require('karma-sourcemap-loader'),
-    require('karma-phantomjs-launcher')
+    require('karma-sourcemap-loader')
   ]
 };
 
@@ -95,7 +98,7 @@ if (settings.isCoverage()) {
 module.exports = function(config) {
 
   config.set(Object.assign({
-    logLevel: config.LOG_DISABLE
+    logLevel: config.LOG_WARN
   }, karmaConfig));
 
 };

@@ -42,5 +42,9 @@
     "babel-eslint": "^7.1.1",
     "eslint": "^3.14.1",
     "eslint-config-availity": "^2.0.0"
+  },
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 4.0.0"
   }
 }

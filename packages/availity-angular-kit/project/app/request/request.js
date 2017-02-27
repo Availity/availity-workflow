@@ -1,6 +1,8 @@
-export default class Request {
+import app from 'app-module';
+import { availity } from 'availity-angular';
+import uiRouter from 'angular-ui-router';
 
-  static _name = 'request';
+class Request {
 
   constructor(avOrganizationsResource, avUsersResource, avProvidersResource, $state) {
 
@@ -106,3 +108,12 @@ export default class Request {
   }
 
 }
+
+app
+  .addModules([
+    availity,
+    uiRouter
+  ])
+  .service('request', Request);
+
+export default app;
