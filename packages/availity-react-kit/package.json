@@ -7,6 +7,7 @@
   "scripts": {
     "start": "av start",
     "test": "av test",
+    "test:debug": "av test --watch",
     "lint": "av lint",
     "help": "av help",
     "build": "av release",

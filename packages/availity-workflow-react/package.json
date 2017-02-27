@@ -54,5 +54,9 @@
     "babel-eslint": "^7.1.1",
     "eslint": "^3.16.0",
     "eslint-config-availity": "^2.0.2"
+  },
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 4.0.0"
   }
 }

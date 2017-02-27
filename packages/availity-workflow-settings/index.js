@@ -187,10 +187,6 @@ const settings = {
     return argv.dryRun !== undefined;
   },
 
-  isDebugTests() {
-    return argv.debugTests;
-  },
-
   isStaging() {
     return this.environment() === 'staging';
   },
@@ -211,6 +207,10 @@ const settings = {
     return this.environment() === 'testing';
   },
 
+  isWatch() {
+    return argv.watch === true;
+  },
+
   isProduction() {
     return argv.production || this.environment() === 'production';
   },
@@ -220,7 +220,7 @@ const settings = {
   },
 
   isCoverage() {
-    return argv.coverage !== undefined;
+    return argv.coverage !== true;
   },
 
   historyFallback() {

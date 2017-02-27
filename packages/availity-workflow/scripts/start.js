@@ -173,7 +173,7 @@ function web() {
           timings: false,
           chunks: false,
           chunkModules: false,
-          errorDetails: true
+          errorDetails: false
         });
 
         let formattedErrors = json.errors.map(msg => {
@@ -191,7 +191,8 @@ function web() {
         });
 
         Logger.failed('Failed compiling');
-        reject('Failed compiling');
+        Logger.empty();
+        reject(json.errors);
       }
 
     });
