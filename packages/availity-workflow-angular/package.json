@@ -23,7 +23,6 @@
   "dependencies": {
     "autoprefixer": "^6.7.5",
     "availity-workflow-babel-preset": "^2.0.0-beta.20",
-    "availity-workflow-karma-reporter": "1.0.0",
     "availity-workflow-logger": "^2.0.0-beta.18",
     "availity-workflow-settings": "^2.0.0-beta.20",
     "babel-core": "^6.23.1",
