@@ -159,6 +159,7 @@ var config = {
     new HtmlWebpackPlugin({
       template: 'project/app/index.html',
       favicon: 'project/app/favicon.ico',
+      filename: 'index.html',
       pkg: getPkg()
     }),
 
