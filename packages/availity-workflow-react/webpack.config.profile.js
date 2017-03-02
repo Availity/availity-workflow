@@ -3,7 +3,10 @@ const webpack = require('webpack');
 const settings = require('availity-workflow-settings');
 const exists = require('exists-sync');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 const VersionPlugin = require('./version');
 const postCssLoader = require('./postcss');
@@ -76,20 +79,26 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          postCssLoader
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            postCssLoader
+          ],
+          publicPath: '../'
+        })
       },
       {
         test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          postCssLoader,
-          'sass-loader'
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            postCssLoader,
+            'sass-loader?sourceMap'
+          ],
+          publicPath: '../'
+        })
       },
       {
         // test should match the following:
@@ -121,6 +130,18 @@ const config = {
     new VersionPlugin({
       version: JSON.stringify(getVersion())
     }),
+
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: 'profile.html'
+    }),
+
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity
+    }),
+
+    new ExtractTextPlugin(`css/${settings.css()}`),
 
     new DuplicatePackageCheckerPlugin(),
 
