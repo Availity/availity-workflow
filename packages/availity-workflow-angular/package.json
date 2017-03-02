@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow-angular",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0-rc.2",
   "description": "Angular 1.x  module for availity-workflow",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,9 +22,9 @@
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
     "autoprefixer": "^6.7.6",
-    "availity-workflow-babel-preset": "^2.0.0-rc.1",
-    "availity-workflow-logger": "^2.0.0-beta.18",
-    "availity-workflow-settings": "^2.0.0-rc.1",
+    "availity-workflow-babel-preset": "^2.0.0-rc.2",
+    "availity-workflow-logger": "^2.0.0-rc.2",
+    "availity-workflow-settings": "^2.0.0-rc.2",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.0",
     "babel-polyfill": "^6.23.0",
