@@ -2,7 +2,6 @@
 
 const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
-const Logger = require('availity-workflow-logger');
 
 const yargs = require('yargs');
 const chalk = require('chalk');
@@ -11,7 +10,7 @@ const test = require('./scripts/test');
 const lint = require('./scripts/lint');
 const about = require('./scripts/about');
 const release = require('./scripts/release');
-
+const profile = require('./scripts/profile');
 
 Promise.config({
   longStackTraces: true
@@ -32,6 +31,8 @@ yargs
         describe: 'Glob patterns to INCLUDE for ESLint scanning'
       });
   }, () => {lint().catch(() => { /* noop */}) })
+
+  .command('profile', `${chalk.dim(profile.description)}`, () => { profile() })
 
   .command('release', `${chalk.dim('Bundle project for distribution (production, staging or integration)')}`, () => { release() })
 

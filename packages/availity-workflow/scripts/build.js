@@ -2,16 +2,21 @@ const Promise = require('bluebird');
 const webpack = require('webpack');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const ora = require('ora');
+const chalk = require('chalk');
 const Logger = require('availity-workflow-logger');
+const sizeTree = require('webpack-bundle-size-analyzer/build/src/size_tree');
+const argv = require('yargs').argv;
 
 const plugin = require('./plugin');
 
-function bundle() {
+function bundle(config) {
 
   return new Promise( (resolve, reject) => {
 
+    // Check arguement or CLI arg or default to false
+    const shouldProfile = (config && config.profile) || argv.profile || false;
 
-    const webpackConfig = plugin('webpack.config.production');
+    const webpackConfig = shouldProfile ? plugin('webpack.config.profile') : plugin('webpack.config.production');
 
     Logger.info('Started compiling');
     const spinner = ora('Running webpack');
@@ -44,10 +49,27 @@ function bundle() {
         reasons: false,
         source: false,
         chunks: false,
-        children: false
+        children: false,
+        errorDetails: shouldProfile,
+        warnings: shouldProfile
       });
 
-      Logger.info(statistics);
+      if (shouldProfile) {
+        Logger.info(`${chalk.dim('Webpack profile:')}
+`);
+        const statz = JSON.stringify(stats.toJson());
+        const parsedStats = JSON.parse(statz);
+        const trees = sizeTree.dependencySizeTree(parsedStats);
+        trees.forEach(tree => {
+          sizeTree.printDependencySizeTree(tree, true, 2, (output) => { Logger.simple(output) });
+        });
+        Logger.empty();
+      }
+
+      Logger.info(`${chalk.dim('Webpack stats:')}
+
+${statistics}
+`);
       Logger.success('Finished compiling');
       resolve();
 

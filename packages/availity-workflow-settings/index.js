@@ -223,6 +223,10 @@ const settings = {
     return argv.coverage !== true;
   },
 
+  isProfile() {
+    return argv.profile === true;
+  },
+
   historyFallback() {
     return this.configuration.development.historyFallback || true;
   },

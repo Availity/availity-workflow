@@ -52,6 +52,7 @@
     "shelljs": "^0.7.6",
     "update-notifier": "^2.1.0",
     "webpack": "^2.2.1",
+    "webpack-bundle-size-analyzer": "^2.5.0",
     "webpack-dev-server": "^2.4.1",
     "yargs": "^6.6.0"
   },

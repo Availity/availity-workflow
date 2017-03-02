@@ -6,10 +6,12 @@
   "main": "index.js",
   "scripts": {
     "start": "av start",
+    "av": "av",
     "test": "av test",
     "test:debug": "av test --watch",
     "lint": "av lint",
     "help": "av help",
+    "profile": "av profile",
     "build": "av release",
     "production": "cross-env NODE_ENV=production av release",
     "staging": "cross-env NODE_ENV=staging av release"
