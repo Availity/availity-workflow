@@ -1,16 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
 const settings = require('availity-workflow-settings');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const exists = require('exists-sync');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const requireRelative = require('require-relative');
 
-const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
 const postCssLoader = require('./postcss');
+
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
 
@@ -45,11 +45,8 @@ const config = {
       path.join(settings.project(), 'node_modules'),
       path.join(__dirname, 'node_modules')
     ],
-    alias: {
-      app: path.resolve(settings.app(), 'app-module')
-    },
     symlinks: true,
-    extensions: ['.js', '.jsx', '.json', '.css', 'less', 'scss']
+    extensions: ['.js', '.jsx', '.json', '.css', 'scss']
   },
 
   // This set of options is identical to the resolve property set above,
@@ -65,7 +62,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         include: settings.app(),
         use: [
           {
@@ -79,6 +76,25 @@ const config = {
             }
           }
         ]
+      },
+      {
+        test: /\.htm$/,
+        use: 'html-loader',
+        // Ignore following templates else errors like:
+        //    - "window is not defined" error from the html-webpack-plugin
+        //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
+        exclude: /index\.html/
+      },
+      {
+        test: /\.html$/,
+        use: [
+          `ngtemplate-loader?relativeTo=${process.cwd()}/`,
+          'html-loader'
+        ],
+        // Ignore following templates else errors like:
+        //    - "window is not defined" error from the html-webpack-plugin
+        //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
+        exclude: /index\.html/
       },
       {
         test: requireRelative.resolve('angular', settings.project()),
@@ -107,25 +123,6 @@ const config = {
         ]
       },
       {
-        test: /\.htm$/,
-        use: 'html-loader',
-        // Ignore following templates else errors like:
-        //    - "window is not defined" error from the html-webpack-plugin
-        //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
-        exclude: /index\.html/
-      },
-      {
-        test: /\.html$/,
-        use: [
-          `ngtemplate-loader?relativeTo=${process.cwd()}/`,
-          'html-loader'
-        ],
-        // Ignore following templates else errors like:
-        //    - "window is not defined" error from the html-webpack-plugin
-        //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
-        exclude: /index\.html/
-      },
-      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -141,15 +138,9 @@ const config = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            {
-              loader: 'css-loader',
-              options: { sourceMap: true, importLoaders: 1 }
-            },
+            'css-loader',
             postCssLoader,
-            {
-              loader: 'less-loader',
-              options: { sourceMap: true }
-            }
+            'less-loader'
           ],
           publicPath: '../'
         })
@@ -159,12 +150,9 @@ const config = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            {
-              loader: 'css-loader',
-              options: { sourceMap: true, importLoaders: 1 }
-            },
+            'css-loader',
             postCssLoader,
-            'sass-loader?sourceMap'
+            'sass-loader'
           ],
           publicPath: '../'
         })
@@ -192,8 +180,12 @@ const config = {
 
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+        'NODE_ENV': JSON.stringify('development')
       }
+    }),
+
+    new VersionPlugin({
+      version: JSON.stringify(getVersion())
     }),
 
     new webpack.ProvidePlugin({
@@ -202,16 +194,10 @@ const config = {
       'jQuery': 'jquery'
     }),
 
-    new VersionPlugin({
-      version: JSON.stringify(getVersion())
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: 'profile.html'
     }),
-
-    new HtmlWebpackPlugin(htmlConfig),
-
-    // Ignore all the moment local files
-    new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
-
-    new CaseSensitivePathsPlugin(),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -220,38 +206,15 @@ const config = {
 
     new ExtractTextPlugin(`css/${settings.css()}`),
 
-    new CopyWebpackPlugin([
-      {
-        context: `${settings.project()}/project/static`, // copy from this directory
-        from: '**/*', // copy all files
-        to: 'static' // copy into {output}/static folder
-      }
-    ], {
-      debug: 'warning'
-    })
+    new DuplicatePackageCheckerPlugin(),
+
+    // Ignore all the moment local files
+    new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
+
+    new CaseSensitivePathsPlugin()
 
   ]
 };
 
-if (settings.isProduction()) {
-
-  config.plugins.push(
-
-    // Minify the code scripts and css
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: false,
-      compress: {
-        screw_ie8: true, // IE8 not supported by Availity
-        drop_console: true
-      },
-      output: {
-        comments: false,
-        screw_ie8: true,
-        max_line_len: 1000
-      }
-    })
-  );
-
-}
-
 module.exports = config;
+
