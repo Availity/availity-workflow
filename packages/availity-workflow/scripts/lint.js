@@ -5,8 +5,6 @@ const ora = require('ora');
 const chalk = require('chalk');
 const Logger = require('availity-workflow-logger');
 const settings = require('availity-workflow-settings');
-// const relativeRequire = ('relative-require');
-// const eslint = relativeRequire('eslint', settings.project());
 
 function lint() {
 
