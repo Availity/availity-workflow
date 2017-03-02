@@ -36,7 +36,7 @@ const config = {
     filename: settings.fileName()
   },
 
-  devtool: settings.sourceMap(),
+  devtool: 'cheap-module-source-map',
 
   resolve: {
     // Tell webpack what directories should be searched when resolving modules
