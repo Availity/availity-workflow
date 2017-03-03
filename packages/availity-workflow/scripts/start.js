@@ -130,15 +130,24 @@ function web() {
 
   return new Promise((resolve, reject) => {
 
+    let previousPercent;
+
     // Allow production version to run in development
     const webpackConfig = settings.isDryRun() && settings.isDevelopment() ? plugin('webpack.config.production') : plugin('webpack.config');
 
     webpackConfig.plugins.push(new ProgressPlugin( (percentage, msg) => {
 
-      const percent = percentage * 100;
+      const percent = Math.round(percentage * 100);
 
-      if (percent % 20 === 0 && msg !== null && msg !== undefined && msg.trim() !== '') {
-        Logger.info(`${chalk.dim('Webpack')} ${Math.round(percent)}% ${msg}`);
+      if (previousPercent === percent) {
+        return;
+      }
+      previousPercent = percent;
+
+      if (percent % 10 === 0 && msg !== null && msg !== undefined && msg.trim() !== '') {
+
+        Logger.info(`${chalk.dim('Webpack')} ${percent}% ${msg}`);
+
       }
 
     }));
@@ -146,6 +155,7 @@ function web() {
     const compiler = webpack(webpackConfig);
 
     compiler.plugin('invalid', () => {
+      previousPercent = null;
       Logger.info('Started compiling');
     });
 
@@ -269,13 +279,15 @@ function exit() {
     closeServer()
       .then(() => {
         if (ekko) {
-          return ekko.stop();
+          Logger.info('Stopping Ekko server');
+          return ekko.stop().then(() => Logger.info('Stopped Ekko server'));
         }
       })
       .catch(err => {
         Logger.error(err);
       })
       .finally(() => {
+        Logger.info('Killing everything');
         /* eslint no-process-exit: 0 */
         process.exit(0);
       });

@@ -23,12 +23,19 @@ function bundle(config) {
     spinner.color = 'yellow';
     spinner.start();
 
+    let previousPercent;
+
     webpackConfig.plugins.push(new ProgressPlugin( (percentage, msg) => {
 
-      const percent = percentage * 100;
+      const percent = Math.round(percentage * 100);
 
-      if (percent % 20 === 0 && msg !== null && msg !== undefined && msg !== ''){
-        spinner.text = `Webpack ${msg}`;
+      if (previousPercent === percent) {
+        return;
+      }
+      previousPercent = percent;
+
+      if (percent % 10 === 0 && msg !== null && msg !== undefined && msg.trim() !== '') {
+        spinner.text = `Webpack ${percent}%`;
       }
 
     }));
