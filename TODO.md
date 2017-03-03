@@ -18,8 +18,8 @@ if (settings.isProduction()) {
   module.exports = require('./dev');
 }
 ```
-- Investigate [webpack-bundle-analyzer](https://github.com/th0r/webpack-bundle-analyzer) or something similar
 - Investigate [optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin)
+- Investigate [unused-files-webpack-plugin](https://github.com/tomchentw/unused-files-webpack-plugin)
 - Add ability to devine environment variables
 
 ```js
