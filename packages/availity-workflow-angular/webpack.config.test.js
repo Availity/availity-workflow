@@ -6,6 +6,8 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const NpmImportPlugin = require('less-plugin-npm-import');
 const requireRelative = require('require-relative');
 
+process.noDeprecation = true;
+
 const VersionPlugin = require('./version');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');

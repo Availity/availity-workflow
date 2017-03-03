@@ -7,6 +7,8 @@ const exists = require('exists-sync');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+process.noDeprecation = true;
+
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
 const postCssLoader = require('./postcss');

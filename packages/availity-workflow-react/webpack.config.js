@@ -7,6 +7,8 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+process.noDeprecation = true;
+
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
 const postCssLoader = require('./postcss');

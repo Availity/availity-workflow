@@ -8,6 +8,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const requireRelative = require('require-relative');
 
+process.noDeprecation = true;
+
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
 const postCssLoader = require('./postcss');

@@ -8,6 +8,8 @@ const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const requireRelative = require('require-relative');
 
+process.noDeprecation = true;
+
 const VersionPlugin = require('./version');
 const postCssLoader = require('./postcss');
 
