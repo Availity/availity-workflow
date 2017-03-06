@@ -17,10 +17,6 @@ const postcss = require('./postcss');
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
 
-function getVersion() {
-  return settings.pkg().version || 'N/A';
-}
-
 const config = {
 
   context: settings.app(),
@@ -190,7 +186,7 @@ const config = {
     }),
 
     new VersionPlugin({
-      version: JSON.stringify(getVersion())
+      version: JSON.stringify(settings.version())
     }),
 
     // Generate hot module chunks

@@ -16,21 +16,29 @@ const postCssLoader = require('./postcss');
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
 
-function getVersion() {
-  return settings.pkg().version || 'N/A';
-}
+const hotLoader = [
+  'react-hot-loader/patch', // Patches React.createElement in dev
+  `webpack-dev-server/client?http://localhost:${settings.port()}`, // Enables websocket
+  'webpack/hot/only-dev-server', // performs HMR in brwoser
+  './index.js'
+];
+
+const hot = [
+  `webpack-dev-server/client?http://localhost:${settings.port()}`, // Enables websocket
+  'webpack/hot/only-dev-server', // performs HMR in brwoser
+  './index.js'
+];
+
+const hotResolve = settings.isHotLoader() ? require.resolve('react-hot-loader/babel') : null;
+
+const index = settings.isHotLoader() ? hotLoader : hot;
 
 const config = {
 
   context: settings.app(),
 
   entry: {
-    'index': [
-      'react-hot-loader/patch', // Patches React.createElement in dev
-      `webpack-dev-server/client?http://localhost:${settings.port()}`, // Enables websocket
-      'webpack/hot/only-dev-server', // performs HMR in brwoser
-      './index.js'
-    ],
+    'index': index,
     'vendor': [
       './vendor.js'
     ]
@@ -79,7 +87,7 @@ const config = {
               cacheDirectory: settings.isDevelopment(),
               babelrc: babelrcExists,
               plugins: [
-                babelrcExists ? null : require.resolve('react-hot-loader/babel')
+                babelrcExists ? null : hotResolve
               ]
             }
           }
@@ -130,7 +138,7 @@ const config = {
     }),
 
     new VersionPlugin({
-      version: JSON.stringify(getVersion())
+      version: JSON.stringify(settings.version())
     }),
 
     // Converts:

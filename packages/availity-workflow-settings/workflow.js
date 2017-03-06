@@ -18,10 +18,13 @@ const development = {
   // https://webpack.js.org/configuration/stats/#stats
   logLevel: 'custom',
 
-  // Enable hot reloading server. The behavior for hot reloading depend on
-  // the appropriate availity-workflow plugin like availity-workflow-react
-  // and availity-workflow-angular.
-  hot: true
+  sourcemap: 'cheap-eval-source-map',
+
+  // Enable hot module replacement for loaders like  style-loader and react-hot-loader
+  hot: true,
+
+  // Enable or disable react-hot-loader
+  hotLoader: true
 
 };
 

@@ -20,10 +20,15 @@ const settings = {
     return path.join(this.project(), 'project/app');
   },
 
+  // https://webpack.js.org/configuration/devtool/
   sourceMap() {
+
+    // Get sourcmap from command line or developer config else "eval"
+    const sourceMap = get(argv, 'development.sourceMap') || this.configuration.development.sourceMap || 'eval';
+
     return this.isDistribution() || this.isDryRun() ?
-    'source-map' :
-    'eval';
+      'source-map' :
+      sourceMap;
   },
 
   coverage() {
@@ -76,6 +81,10 @@ const settings = {
 
   project() {
     return process.cwd();
+  },
+
+  version() {
+    return this.pkg().version || 'N/A';
   },
 
   log() {
@@ -233,6 +242,10 @@ const settings = {
 
   isLinting() {
     return true;
+  },
+
+  isHotLoader() {
+    return argv.development.hotReloader || this.configuration.development.hotReloader || true;
   },
 
   isEkko() {
