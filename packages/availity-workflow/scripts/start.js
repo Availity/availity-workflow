@@ -253,48 +253,50 @@ function web() {
 
 }
 
-function isMac() {
-  return os.platform() === 'darwin';
-}
+// function isMac() {
+//   return os.platform() === 'darwin';
+// }
 
-function closeServer() {
-  return new Promise((resolve, reject) => {
-    try {
-      server.close(() => resolve());
-    } catch (err) {
-      reject(err);
-    }
-  });
-}
+// function closeServer() {
+//   return new Promise((resolve, reject) => {
+//     try {
+//       server.close(function() {
+//         resolve();
+//       });
+//     } catch (err) {
+//       reject(err);
+//     }
+//   });
+// }
 
-function exit() {
+// function exit() {
 
-  // Capture ^C
-  process.on('SIGINT', () => {
+//   // Capture ^C
+//   process.on('SIGINT', () => {
 
-    const command = isMac() ? '⌘ + C' : 'CTRL + C';
-    Logger.empty();
-    Logger.info(`Detected ${chalk.blue(command)} now exiting.`);
+//     const command = isMac() ? '⌘ + C' : 'CTRL + C';
+//     Logger.empty();
+//     Logger.info(`Detected ${chalk.blue(command)} now exiting.`);
 
-    closeServer()
-      .then(() => {
-        if (ekko) {
-          Logger.info('Stopping Ekko server');
-          return ekko.stop().then(() => Logger.info('Stopped Ekko server'));
-        }
-      })
-      .catch(err => {
-        Logger.error(err);
-      })
-      .finally(() => {
-        Logger.info('Killing everything');
-        /* eslint no-process-exit: 0 */
-        process.exit(0);
-      });
+//     closeServer()
+//       .then(() => {
+//         if (ekko) {
+//           Logger.info('Stopping Ekko server');
+//           return ekko.stop().then(() => Logger.info('Stopped Ekko server'));
+//         }
+//       })
+//       .catch(err => {
+//         Logger.error(err);
+//       })
+//       .finally(() => {
+//         Logger.info('Killing everything');
+//         /* eslint no-process-exit: 0 */
+//         process.exit(0);
+//       });
 
-  });
+//   });
 
-}
+// }
 
 function start() {
 
@@ -310,8 +312,7 @@ function start() {
   return init()
     .then(web)
     .then(notifier)
-    .then(rest)
-    .then(exit);
+    .then(rest);
 }
 
 module.exports = start;
