@@ -1,4 +1,4 @@
-const os = require('os');
+// const os = require('os');
 const Logger = require('availity-workflow-logger');
 const chalk = require('chalk');
 const webpack = require('webpack');
