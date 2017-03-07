@@ -139,15 +139,9 @@ function web() {
 
       const percent = Math.round(percentage * 100);
 
-      if (previousPercent === percent) {
-        return;
-      }
-      previousPercent = percent;
-
-      if (percent % 10 === 0 && msg !== null && msg !== undefined && msg.trim() !== '') {
-
+      if (previousPercent !== percent && percent % 10 === 0 && msg !== null && msg !== undefined && msg.trim() !== '') {
         Logger.info(`${chalk.dim('Webpack')} ${percent}% ${msg}`);
-
+        previousPercent = percent;
       }
 
     }));
