@@ -9,8 +9,7 @@
 
 
 ## Table of Contents
-* [Installation](#installation)
-* [Authors](#authors)
+* [Getting Started](#getting-started)
 * [License](#license)
 
 ## Getting Started
