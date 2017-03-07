@@ -16,29 +16,27 @@ const postCssLoader = require('./postcss');
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
 
-const hotLoader = [
+const indexHotLoader = [
   'react-hot-loader/patch', // Patches React.createElement in dev
   `webpack-dev-server/client?http://localhost:${settings.port()}`, // Enables websocket
   'webpack/hot/only-dev-server', // performs HMR in brwoser
   './index.js'
 ];
 
-const hot = [
+const indexHot = [
   `webpack-dev-server/client?http://localhost:${settings.port()}`, // Enables websocket
   'webpack/hot/only-dev-server', // performs HMR in brwoser
   './index.js'
 ];
 
-const hotResolve = settings.isHotLoader() ? require.resolve('react-hot-loader/babel') : null;
-
-const index = settings.isHotLoader() ? hotLoader : hot;
+const index = settings.isHotLoader() ? indexHotLoader : indexHot;
 
 const config = {
 
   context: settings.app(),
 
   entry: {
-    'index': index,
+    index,
     'vendor': [
       './vendor.js'
     ]
@@ -87,7 +85,7 @@ const config = {
               cacheDirectory: settings.isDevelopment(),
               babelrc: babelrcExists,
               plugins: [
-                babelrcExists ? null : hotResolve
+                babelrcExists ? null : require.resolve('react-hot-loader/babel')
               ]
             }
           }

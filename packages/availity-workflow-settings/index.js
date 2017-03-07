@@ -24,7 +24,7 @@ const settings = {
   sourceMap() {
 
     // Get sourcmap from command line or developer config else "eval"
-    const sourceMap = get(argv, 'development.sourceMap') || this.configuration.development.sourceMap || 'eval';
+    const sourceMap = get(this.configuration, 'development.sourceMap', 'eval');
 
     return this.isDistribution() || this.isDryRun() ?
       'source-map' :
@@ -68,15 +68,15 @@ const settings = {
   },
 
   port() {
-    return this.configuration.development.port;
+    return get(this.configuration, 'development.port', 3000);
   },
 
   host() {
-    return this.configuration.development.host;
+    return get(this.configuration, 'development.host', '0.0.0.0');
   },
 
   open() {
-    return this.configuration.development.open;
+    return get(this.configuration, 'development.open');
   },
 
   project() {
@@ -205,7 +205,7 @@ const settings = {
   },
 
   isNotifications() {
-    return this.configuration.development.notification || false;
+    return get(this.configuration, 'development.notification', true);
   },
 
   isDevelopment() {
@@ -237,7 +237,7 @@ const settings = {
   },
 
   historyFallback() {
-    return this.configuration.development.historyFallback || true;
+    return get(this.configuration, 'development.historyFallback', true);
   },
 
   isLinting() {
@@ -245,7 +245,7 @@ const settings = {
   },
 
   isHotLoader() {
-    return argv.development.hotReloader || this.configuration.development.hotReloader || true;
+    return get(this.configuration, 'development.hotLoader', true);
   },
 
   isEkko() {
