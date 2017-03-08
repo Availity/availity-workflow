@@ -249,7 +249,7 @@ const settings = {
   },
 
   isEkko() {
-    return this.configuration.ekko.enabled;
+    return get(this.configuration, 'ekko.enabled', true);
   }
 
 };
