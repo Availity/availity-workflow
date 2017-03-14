@@ -73,7 +73,7 @@ const config = {
             loader: 'babel-loader',
             options: {
               presets: [
-                require.resolve('availity-workflow-babel-preset')
+                require.resolve('availity-workflow-babel-preset-angular')
               ],
               cacheDirectory: settings.isDevelopment(),
               babelrc: babelrcExists
