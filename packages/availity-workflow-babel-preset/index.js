@@ -1,64 +1,42 @@
-// Inspiration: https://github.com/facebookincubator/create-react-app/blob/master/config/babel.dev.js
+// Inspiration: https://github.com/facebookincubator/create-react-app/blob/master/packages/babel-preset-react-app/index.js
 const path = require('path');
 const settings = require('availity-workflow-settings');
 
-const config = {
+const wfPlugins = [
 
-  presets: [
+  // @observer @observable
+  require.resolve('babel-plugin-transform-decorators-legacy'),
 
-    // let, const, destructuring, classes, modules
-    [require.resolve('babel-preset-latest'), {
-      'es2015': {
-        modules: false
-      }
-    }],
+  // class { handleClick = () => { } }
+  require.resolve('babel-plugin-transform-class-properties'),
 
-    // JSX, Flow
-    require.resolve('babel-preset-react'),
+  // Object.assign(a, b)
+  require.resolve('babel-plugin-transform-object-assign'),
 
-    require.resolve('babel-preset-stage-0')
+  [
+    require.resolve('babel-plugin-transform-object-rest-spread'),
+    {
+      useBuiltIns: true
+    }
+  ],
+  // Transforms JSX
+  [
+    require.resolve('babel-plugin-transform-react-jsx'),
+    {
+      useBuiltIns: true
+    }
   ],
 
-  plugins: [
-
-    // @observer @observable
-    require.resolve('babel-plugin-transform-decorators-legacy'),
-
-    // class { handleClick = () => { } }
-    require.resolve('babel-plugin-transform-class-properties'),
-
-    // Object.assign(a, b)
-    require.resolve('babel-plugin-transform-object-assign'),
-
-    // { ...todo, completed: true }
-    require.resolve('babel-plugin-transform-object-rest-spread'),
-
-    // const Component = props =>
-    // <div className='myComponent'>
-      // {do {
-        // if(color === 'blue') { <BlueComponent/>; }
-        // if(color === 'red') { <RedComponent/>; }
-        // if(color === 'green') { <GreenComponent/>; }
-      // }}
-    // </div>;
-    require.resolve('babel-plugin-transform-do-expressions'),
-
-    [require.resolve('babel-plugin-transform-regenerator'), {
-      // Async functions are converted to generators by babel-preset-latest
-      async: false
-    }],
-
-    // Polyfills the runtime needed for async/await and generators
-    [require.resolve('babel-plugin-transform-runtime'), {
-      helpers: false,
-      polyfill: false,
-      regenerator: true,
-      // Resolve the Babel runtime relative to the config.
-      // You can safely remove this after ejecting:
-      moduleName: path.dirname(require.resolve('babel-runtime/package'))
-    }]
-  ]
-};
+  // Polyfills the runtime needed for async/await and generators
+  [require.resolve('babel-plugin-transform-runtime'), {
+    helpers: false,
+    polyfill: false,
+    regenerator: true,
+    // Resolve the Babel runtime relative to the config.
+    // You can safely remove this after ejecting:
+    moduleName: path.dirname(require.resolve('babel-runtime/package'))
+  }]
+];
 
 if (settings.isDevelopment() || settings.isTesting()) {
   // The following two plugins are currently necessary to make React warnings
@@ -67,7 +45,7 @@ if (settings.isDevelopment() || settings.isTesting()) {
   // https://github.com/babel/babel/issues/4702
   // https://github.com/babel/babel/pull/3540#issuecomment-228673661
   // https://github.com/facebookincubator/create-react-app/issues/989
-  config.plugins.push.apply(config.plugins, [
+  wfPlugins.push.apply(wfPlugins, [
     // Adds component stack to warning messages
     require.resolve('babel-plugin-transform-react-jsx-source'),
     // Adds __self attribute to JSX which React will use for some warnings
@@ -76,10 +54,72 @@ if (settings.isDevelopment() || settings.isTesting()) {
 
 }
 
+let config;
+
 if (settings.isTesting()) {
-  config.plugins.push.apply(config.plugins, [
-    // Enables import/export
-    require.resolve('babel-plugin-transform-es2015-modules-commonjs')
-  ]);
+
+  // this will not work for Angular/Karma
+  config = {
+    presets: [
+      // ES features necessary for user's Node version
+      [
+        require('babel-preset-env').default,
+        {
+          targets: {
+            node: 'current'
+          }
+        }
+      ],
+      // JSX, Flow
+      require.resolve('babel-preset-react'),
+      require.resolve('babel-preset-stage-0')
+    ],
+    plugins: wfPlugins.concat([
+      // Compiles import() to a deferred require()
+      require.resolve('babel-plugin-dynamic-import-node')
+    ])
+  };
+
+} else {
+
+  config = {
+    presets: [
+      // Latest stable ECMAScript features
+      [
+        require.resolve('babel-preset-env'),
+        {
+          targets: {
+            ie: 9,
+            // We currently minify with uglify
+            // Remove after https://github.com/mishoo/UglifyJS2/issues/448
+            uglify: true
+          },
+
+          // Tells the es2015 preset to avoid compiling import statements into CommonJS. That lets Webpack do tree shaking on your code.
+          modules: false,
+          // Disable polyfill transforms
+          useBuiltIns: false
+        }
+      ],
+      // JSX, Flow
+      require.resolve('babel-preset-react'),
+      require.resolve('babel-preset-stage-0')
+    ],
+    plugins: wfPlugins.concat([
+      // function* () { yield 42; yield 43; }
+      [
+        require.resolve('babel-plugin-transform-regenerator'),
+        {
+          // Async functions are converted to generators by babel-preset-env
+          async: false
+        }
+      ],
+      // Adds syntax support for import()
+      require.resolve('babel-plugin-syntax-dynamic-import'),
+      // Angular bombs
+      require.resolve('babel-plugin-transform-es2015-shorthand-properties')
+    ])
+  };
+
 }
 module.exports = config;
