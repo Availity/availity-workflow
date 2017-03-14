@@ -4,6 +4,7 @@ import uiRouter from 'angular-ui-router';
 import ResponseController from './controller';
 import body from './body.htm';
 import { footer, header } from '../common';
+
 app
   .addModule(uiRouter)
   .config($stateProvider => {
