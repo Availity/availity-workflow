@@ -14,7 +14,11 @@ ${figures.pointer} npm install availity-workflow-<react|angular>
 
 2. Update package.json with plugin reference:
 
-${figures.pointer} "availityWorkflow": { "plugin": "availity-workflow-<react|angular>" }
+${figures.pointer}
+
+"availityWorkflow": {
+  "plugin": "availity-workflow-<react|angular>"
+}
 
 `);
 
