@@ -32,42 +32,36 @@ const wfPlugins = [
 ];
 
 const config = {
-    presets: [
-      // Latest stable ECMAScript features
-      [
-        require.resolve('babel-preset-env'),
-        {
-          targets: {
-            ie: 9,
-            // We currently minify with uglify
-            // Remove after https://github.com/mishoo/UglifyJS2/issues/448
-            uglify: true
-          },
-
-          // Tells the es2015 preset to avoid compiling import statements into CommonJS. That lets Webpack do tree shaking on your code.
-          modules: false,
-          // Disable polyfill transforms
-          useBuiltIns: false
-        }
-      ],
-      // JSX, Flow
-      require.resolve('babel-preset-stage-0')
+  presets: [
+    // Latest stable ECMAScript features
+    [
+      require.resolve('babel-preset-env'),
+      {
+        targets: settings.targets(),
+        // Tells the es2015 preset to avoid compiling import statements into CommonJS. That lets Webpack do tree shaking on your code.
+        modules: false,
+        // Disable polyfill transforms
+        useBuiltIns: false
+      }
     ],
-    plugins: wfPlugins.concat([
-      // function* () { yield 42; yield 43; }
-      [
-        require.resolve('babel-plugin-transform-regenerator'),
-        {
-          // Async functions are converted to generators by babel-preset-env
-          async: false
-        }
-      ],
-      // Adds syntax support for import()
-      require.resolve('babel-plugin-syntax-dynamic-import'),
-      // Angular bombs
-      require.resolve('babel-plugin-transform-es2015-shorthand-properties')
-    ])
-  };
+    // JSX, Flow
+    require.resolve('babel-preset-stage-0')
+  ],
+  plugins: wfPlugins.concat([
+    // function* () { yield 42; yield 43; }
+    [
+      require.resolve('babel-plugin-transform-regenerator'),
+      {
+        // Async functions are converted to generators by babel-preset-env
+        async: false
+      }
+    ],
+    // Adds syntax support for import()
+    require.resolve('babel-plugin-syntax-dynamic-import'),
+    // Angular bombs without this transform when using shorthand for controllers in ui-router
+    require.resolve('babel-plugin-transform-es2015-shorthand-properties')
+  ])
+};
 
 
 module.exports = config;

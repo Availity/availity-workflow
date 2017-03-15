@@ -26,6 +26,19 @@ const development = {
   // Enable or disable react-hot-loader
   hotLoader: true
 
+  // Allows developers to override the babel-preset-env target to match their developer environment.  This is benefecial if
+  // a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot
+  // of the Es6 thefore not needing to Babelfy code completely.
+  //
+  // This setting is is only used for development and does not effect staging/production/testing builds which default to IE9.
+  //
+  // @See https://github.com/babel/babel-preset-env
+  // Ex:
+  //
+  // targets: { ie: 9 }
+  // targets: { browsers: ['last 2 Chrome versions'] }
+  // browsers: ['last 2 versions', 'safari 7']
+
 };
 
 const ekko = {

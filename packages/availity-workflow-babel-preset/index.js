@@ -88,13 +88,7 @@ if (settings.isTesting()) {
       [
         require.resolve('babel-preset-env'),
         {
-          targets: {
-            ie: 9,
-            // We currently minify with uglify
-            // Remove after https://github.com/mishoo/UglifyJS2/issues/448
-            uglify: true
-          },
-
+          targets: settings.targets(),
           // Tells the es2015 preset to avoid compiling import statements into CommonJS. That lets Webpack do tree shaking on your code.
           modules: false,
           // Disable polyfill transforms

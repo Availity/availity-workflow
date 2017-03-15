@@ -79,6 +79,18 @@ const settings = {
     return get(this.configuration, 'development.open');
   },
 
+  targets() {
+
+    const defaultTargets = {
+      ie: 9,
+      uglify: true
+    };
+
+    const developmentTarget = get(this.configuration, 'development.targets', defaultTargets);
+
+    return this.isDevelopment() ? developmentTarget : defaultTargets;
+  },
+
   project() {
     return process.cwd();
   },
@@ -115,10 +127,9 @@ const settings = {
     const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
     const ymlWorkflowConfig = path.join(settings.project(), 'project/config/workflow.yml');
 
-    if (exists(jsWorkflowConfig)) {         // Try workflow.js
+    if (exists(jsWorkflowConfig)) { // Try workflow.js
       this.workflowConfigPath = jsWorkflowConfig;
       developerConfig = require(this.workflowConfigPath);
-
     } else if (exists(ymlWorkflowConfig)) { // Try workflow.yml
       this.workflowConfigPath = ymlWorkflowConfig;
       developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));
@@ -140,6 +151,8 @@ const settings = {
       development: argv.development,
       ekko: argv.ekko
     });
+
+    this.targets();
 
   },
 
