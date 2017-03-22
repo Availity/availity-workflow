@@ -138,7 +138,11 @@ const settings = {
     }
 
     // Merge in ./workflow.js defaults with overrides from developer config
-    merge(this.configuration, developerConfig);
+    if (typeof developerConfig === 'function') {
+      this.configuration = developerConfig(this.configuration);
+    } else {
+      merge(this.configuration, developerConfig);
+    }
 
     // Merge in CLI overrides.  The command line args can pass nested properties like:
     //
