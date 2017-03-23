@@ -18,7 +18,7 @@ const development = {
   // https://webpack.js.org/configuration/stats/#stats
   logLevel: 'custom',
 
-  sourcemap: 'cheap-eval-source-map',
+  sourceMap: 'source-map',
 
   // Enable hot module replacement for loaders like  style-loader and react-hot-loader
   hot: true,
