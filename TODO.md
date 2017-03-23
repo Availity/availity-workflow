@@ -18,8 +18,11 @@ if (settings.isProduction()) {
   module.exports = require('./dev');
 }
 ```
+
 - Investigate [optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin)
+
 - Investigate [unused-files-webpack-plugin](https://github.com/tomchentw/unused-files-webpack-plugin)
+
 - Add ability to devine environment variables
 
 ```js
@@ -57,3 +60,4 @@ function onClick() {
 // An error will be thrown if a module is used that requires one of the 3rd party
 // libraries below.
 ```
+- Upgrade [less-loader v4](https://github.com/webpack-contrib/less-loader)
