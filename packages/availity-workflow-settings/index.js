@@ -23,8 +23,8 @@ const settings = {
   // https://webpack.js.org/configuration/devtool/
   sourceMap() {
 
-    // Get sourcmap from command line or developer config else "eval"
-    const sourceMap = get(this.configuration, 'development.sourceMap', 'eval');
+    // Get sourcemap from command line or developer config else "source-map"
+    const sourceMap = get(this.configuration, 'development.sourceMap', 'source-map');
 
     return this.isDistribution() || this.isDryRun() ?
       'source-map' :
