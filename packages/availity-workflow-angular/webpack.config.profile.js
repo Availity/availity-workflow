@@ -27,9 +27,6 @@ const config = {
   entry: {
     'index': [
       './index.js'
-    ],
-    'vendor': [
-      './vendor.js'
     ]
   },
 
@@ -199,11 +196,6 @@ const config = {
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
       reportFilename: 'profile.html'
-    }),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity
     }),
 
     new ExtractTextPlugin(`css/${settings.css()}`),

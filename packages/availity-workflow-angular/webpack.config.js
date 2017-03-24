@@ -24,9 +24,6 @@ const config = {
   entry: {
     'index': [
       './index.js'
-    ],
-    'vendor': [
-      './vendor.js'
     ]
   },
 
@@ -198,11 +195,6 @@ const config = {
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 
     new CaseSensitivePathsPlugin(),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity
-    }),
 
     new webpack.LoaderOptionsPlugin(
       {

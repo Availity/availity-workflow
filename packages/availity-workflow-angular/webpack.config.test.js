@@ -24,9 +24,6 @@ const config = {
   entry: {
     'index': [
       './index.js'
-    ],
-    'vendor': [
-      './vendor.js'
     ]
   },
 

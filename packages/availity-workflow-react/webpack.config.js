@@ -36,10 +36,7 @@ const config = {
   context: settings.app(),
 
   entry: {
-    index,
-    'vendor': [
-      './vendor.js'
-    ]
+    index
   },
 
   output: {
