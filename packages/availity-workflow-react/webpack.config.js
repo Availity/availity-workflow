@@ -149,14 +149,6 @@ const config = {
 
     new HtmlWebpackPlugin(htmlConfig),
 
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks(module) {
-        // this assumes your vendor imports exist in the node_modules directory
-        return module.context && module.context.indexOf('node_modules') !== -1;
-      }
-    }),
-
     // Ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
 

@@ -196,11 +196,6 @@ const config = {
 
     new CaseSensitivePathsPlugin(),
 
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity
-    }),
-
     new webpack.LoaderOptionsPlugin(
       {
         test: /\.less$/,

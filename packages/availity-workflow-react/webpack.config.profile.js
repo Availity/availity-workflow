@@ -134,11 +134,6 @@ const config = {
       reportFilename: 'profile.html'
     }),
 
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity
-    }),
-
     new ExtractTextPlugin(`css/${settings.css()}`),
 
     new DuplicatePackageCheckerPlugin(),
