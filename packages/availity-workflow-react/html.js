@@ -9,7 +9,8 @@ const projectFavicon = path.join(settings.app(), 'favicon.ico');
 
 const config = {
   template: settings.asset(workflowTemplate, projectTemplate),
-  favicon: settings.asset(workflowFavicon, projectFavicon)
+  favicon: settings.asset(workflowFavicon, projectFavicon),
+  chunksSortMode: 'dependency'
 };
 
 module.exports = config;

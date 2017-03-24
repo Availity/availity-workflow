@@ -27,9 +27,6 @@ const config = {
   entry: {
     'index': [
       './index.js'
-    ],
-    'vendor': [
-      './vendor.js'
     ]
   },
 
@@ -142,7 +139,10 @@ const config = {
 
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: Infinity
+      minChunks(module) {
+        // this assumes your vendor imports exist in the node_modules directory
+        return module.context && module.context.indexOf('node_modules') !== -1;
+      }
     }),
 
     new ExtractTextPlugin(`css/${settings.css()}`),
