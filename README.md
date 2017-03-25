@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=license)](http://opensource.org/licenses/MIT)
 [![NPM](http://img.shields.io/npm/v/availity-workflow.svg?style=flat-square&label=npm)](https://npmjs.org/package/availity-workflow)
 
-![Alt text](/docs/cli.png)
+![CLI](/docs/cli.png)
 
 
 ## Table of Contents
@@ -53,7 +53,7 @@ npm install eslint eslint eslint-config-availity eslint-plugin-react babel-eslin
 
 `availity-workflow` can be configured using a javascript or yaml configuration file.
 
-
+**Example**:
 ```js
 module.exports = {
     development: {
@@ -89,6 +89,8 @@ Opens the url in the default browser
 
 #### `development.notification`
 Webpack build status system notifications
+
+![Notification](/docs/notification.png)
 
 #### `development.host`
 Webpack dev server host
