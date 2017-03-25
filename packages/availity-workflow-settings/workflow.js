@@ -37,7 +37,6 @@ const development = {
   //
   // targets: { ie: 9 }
   // targets: { browsers: ['last 2 Chrome versions'] }
-  // browsers: ['last 2 versions', 'safari 7']
 
 };
 
@@ -51,7 +50,7 @@ const ekko = {
   // Sets default latency for all route responses
   latency: 250,
 
-  // Folder that containers the mock data files
+  // Folder that contains the mock data files
   data: path.join(process.cwd(), 'project/data'),
 
   // Path to route configuration file used by Ekko to build Express routes
