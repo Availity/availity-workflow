@@ -4,7 +4,7 @@ const tester = plugin('test');
 module.exports = {
   description: tester.description,
   run: () => {
-    process.env.NODE_ENV = 'testing';
+    process.env.NODE_ENV = 'test';
     return tester.run()
       .then(exitCode => {
 

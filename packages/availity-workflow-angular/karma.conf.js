@@ -68,7 +68,7 @@ const karmaConfig = {
 };
 
 
-// Add coverage statistics if NODE_ENV = testing
+// Add coverage statistics if arg --coverage is added from CLI
 if (settings.isCoverage()) {
 
   Object.assign(karmaConfig, {

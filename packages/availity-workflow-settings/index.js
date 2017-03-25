@@ -230,7 +230,7 @@ const settings = {
   },
 
   isTesting() {
-    return this.environment() === 'testing';
+    return this.environment() === 'test';
   },
 
   isWatch() {
