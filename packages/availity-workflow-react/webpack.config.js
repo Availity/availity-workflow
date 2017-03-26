@@ -126,11 +126,7 @@ const config = {
   },
   plugins: [
 
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('development')
-      }
-    }),
+    new webpack.DefinePlugin(settings.globals('development')),
 
     new VersionPlugin({
       version: JSON.stringify(settings.version())

@@ -9,7 +9,6 @@ const yaml = require('js-yaml');
 const get = require('lodash.get');
 const argv = require('yargs').argv;
 
-
 const settings = {
 
   // Cache these values
@@ -91,6 +90,24 @@ const settings = {
     return this.isDevelopment() ? developmentTarget : defaultTargets;
   },
 
+  globals(environment) {
+
+    const globals = get(this.configuration, 'globals');
+
+    // - Read enviroment variables from command line
+    // - Filter out variables that have not been declared in workflow config
+    const parsedGlobals = Object.keys(process.env)
+      .filter(key => key in globals)
+      .reduce( (result, env) => {
+        result[`process.env.${env}`] = JSON.stringify(process.env[env]);
+        return result;
+      }, {
+        'process.env.NODE_ENV': JSON.stringify(environment)
+      });
+
+    return parsedGlobals;
+  },
+
   project() {
     return process.cwd();
   },
@@ -153,10 +170,12 @@ const settings = {
     //
     merge(this.configuration, {
       development: argv.development,
-      ekko: argv.ekko
+      ekko: argv.ekko,
+      globals: argv.globals
     });
 
     this.targets();
+    this.globals('development');
 
   },
 
