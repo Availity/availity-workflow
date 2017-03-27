@@ -99,7 +99,7 @@ const settings = {
     const parsedGlobals = Object.keys(process.env)
       .filter(key => key in globals)
       .reduce( (result, env) => {
-        result[`process.env.${env}`] = JSON.stringify(process.env[env]);
+        result[env] = JSON.stringify(process.env[env]);
         return result;
       }, {
         'process.env.NODE_ENV': JSON.stringify(environment)
