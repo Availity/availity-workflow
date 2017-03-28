@@ -17,7 +17,7 @@ Start the development server and watches for file changes.  Hot-reloading is ena
 #### options
 
 ##### `--dry-run`
-Start the development server using prouction settings. Example:
+Start the development server using production settings. **Example:**
 
 `npm start -- --dry-run`
 
