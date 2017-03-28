@@ -47,6 +47,7 @@ function lint() {
         Logger.simple(`${formatter(report.results)}`);
         Logger.failed('Failed linting');
         reject(report.results);
+        process.exit(1);
 
       } else {
 
