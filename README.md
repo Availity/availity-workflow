@@ -132,7 +132,7 @@ targets: { chrome: 57 }
 ```
 
 #### globals
-Create globals to be used for feature flag detection.  Globals must be defined in the workflow configuration file before they can be used as flags from within your program.
+Create globals to be used for feature flags.  Globals must be defined in the workflow configuration file before they can be used as flags by a project.
 
 ```js
 globals: {
@@ -141,8 +141,7 @@ globals: {
 }
 ```
 
-
-Once declared, override the flags in the command line when running/building the application.  **Example:**
+Once declared, override the default flag values from the command line .  **Example:**
 
 ```bash
 EXPERIMENTAL_FEATURE=true npm run production
