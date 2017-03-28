@@ -200,8 +200,6 @@ headers: {
   RemoteUser: 'janedoe'
 }
 ```
-### Feature Toggles
-
 
 ## Disclaimer
 
