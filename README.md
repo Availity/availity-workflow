@@ -155,6 +155,8 @@ By default, the following feature flags are enabled:
 - `__STAGING__`: **true** when `process.env.NODE_ENV` is **staging**
 - `process.env.NODE_ENV`: is `development`, `test`, `staging` or `production` accordingly.  
 
+> `eslint-config-availity@2.1.0` or higher is needed for the default feature toggles to be recognized as valid globals by **eslint**.  
+
 #### `ekko.enabled`
 Enables or disables Ekko.  Default is `true`.
 
