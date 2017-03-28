@@ -12,7 +12,6 @@
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
 * [CLI](packages/availity-workflow/README.md)
-* [Feature Flags](#feature-flags)
 * [License](#license)
 
 ## Getting Started
