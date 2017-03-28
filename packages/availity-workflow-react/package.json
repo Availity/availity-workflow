@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow-react",
-  "version": "2.0.0-rc.4",
+  "version": "2.0.0-rc.5",
   "description": "React module for availity-workflow",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,8 +22,8 @@
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
     "autoprefixer": "^6.7.6",
-    "availity-workflow-babel-preset": "^2.0.0-rc.4",
-    "availity-workflow-settings": "^2.0.0-rc.4",
+    "availity-workflow-babel-preset": "^2.0.0-rc.5",
+    "availity-workflow-settings": "^2.0.0-rc.5",
     "babel-core": "^6.23.1",
     "babel-jest": "^19.0.0",
     "babel-loader": "^6.4.1",
