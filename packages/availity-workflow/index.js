@@ -30,7 +30,7 @@ yargs
         alias: 'i',
         describe: 'Glob patterns to INCLUDE for ESLint scanning'
       });
-  }, () => {lint().catch(() => { /* noop */}) })
+  }, (argv) => {lint(argv).catch(() => { /* noop */}) })
 
   .command('profile', `${chalk.dim(profile.description)}`, () => { profile() })
 

@@ -6,7 +6,7 @@ const chalk = require('chalk');
 const Logger = require('availity-workflow-logger');
 const settings = require('availity-workflow-settings');
 
-function lint() {
+function lint(argv) {
 
   let engine;
 
@@ -47,8 +47,9 @@ function lint() {
         Logger.simple(`${formatter(report.results)}`);
         Logger.failed('Failed linting');
         reject(report.results);
-        process.exit(1);
-
+        if(argv.fail) {
+          process.exit(1);
+        }
       } else {
 
         Logger.success(`Finished linting ${chalk.magenta(paths.length)} file(s)`);
