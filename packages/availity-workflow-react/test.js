@@ -28,7 +28,8 @@ function create() {
     },
     transformIgnorePatterns: [
       '[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'
-    ]
+    ],
+    globals: settings.globals()
   };
 
   if (rootDir) {

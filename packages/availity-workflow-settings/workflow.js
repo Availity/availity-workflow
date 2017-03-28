@@ -40,6 +40,13 @@ const development = {
 
 };
 
+const globals = {
+  '__DEV__': false,
+  '__TEST__': false,
+  '__PROD__': false,
+  '__STAGING__': false
+};
+
 const ekko = {
 
   // Enables or disables Ekko
@@ -96,6 +103,7 @@ const proxies = [
 module.exports = {
 
   development,
+  globals,
   ekko,
   proxies
 

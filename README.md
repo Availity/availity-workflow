@@ -11,6 +11,7 @@
 ## Table of Contents
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
+* [CLI](packages/availity-workflow/README.md)
 * [License](#license)
 
 ## Getting Started
@@ -53,7 +54,7 @@ npm install eslint eslint eslint-config-availity eslint-plugin-react babel-eslin
 
 `availity-workflow` can be configured using a javascript or yaml configuration file.
 
-**Example**:
+**Example:**
 ```js
 module.exports = {
     development: {
@@ -115,19 +116,46 @@ Allows developers to override the `babel-preset-env` target to match their devel
 
 This setting is is only used for development and does not effect staging/production/testing builds which default to IE9. @See [https://github.com/babel/babel-preset-env](https://github.com/babel/babel-preset-env)
 
-**Examples**
+**Examples:**
 
-```
+```js
 targets: { ie: 9 }
 ```
 
-```
+```js
 targets: { browsers: ['last 2 Chrome versions'] }
 ```
 
-```
+```js
 targets: { chrome: 57 }
 ```
+
+#### globals
+Create globals to be used for feature flags.  Globals must be defined in the workflow configuration file before they can be used as flags by a project.
+
+```js
+globals: {
+    BROWSER_SUPPORTS_HTML5: true,
+    EXPERIMENTAL_FEATURE: false
+}
+```
+
+Once declared, override the default flag values from the command line .  **Example:**
+
+```bash
+EXPERIMENTAL_FEATURE=true npm run production
+```
+
+
+By default, the following feature flags are enabled:
+
+- `__DEV__`: **true** when `process.env.NODE_ENV` is **development** 
+- `__TEST__`: **true** when `process.env.NODE_ENV`  is **test**
+- `__PROD__`: **true** when `process.env.NODE_ENV` is **production**
+- `__STAGING__`: **true** when `process.env.NODE_ENV` is **staging**
+- `process.env.NODE_ENV`: is `development`, `test`, `staging` or `production` accordingly.  
+
+> `eslint-config-availity@2.1.0` or higher is needed for the default feature toggles to be recognized as valid globals by **eslint**.  
 
 #### `ekko.enabled`
 Enables or disables Ekko.  Default is `true`.
@@ -155,7 +183,7 @@ Arry of proxy configurations.  A default configuration is enabled to proxy reque
 
 - `context`: URL context used to match the activation of the proxy per request. **Ex:**:
 
-```
+```js
 context: '/api'
 ```
 
@@ -163,13 +191,13 @@ context: '/api'
 - `enabled`: Enables or disalbe a proxy configuration
 - `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.  **Ex:**:
 
-```
+```js
 pathRewrite: {
   '^/api': ''
 }
 ```
 - `headers`: _(Optional)_ Send default headers to the proxy destination. **Ex:**:
-```
+```js
 headers: {
   RemoteUser: 'janedoe'
 }
