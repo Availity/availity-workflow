@@ -120,7 +120,7 @@ const config = {
   },
   plugins: [
 
-    new webpack.DefinePlugin(settings.globals('production')),
+    new webpack.DefinePlugin(settings.globals()),
 
     new VersionPlugin({
       version: JSON.stringify(getVersion())

@@ -163,7 +163,7 @@ const config = {
   },
   plugins: [
 
-    new webpack.DefinePlugin(settings.globals('test')),
+    new webpack.DefinePlugin(settings.globals()),
 
     new webpack.ProvidePlugin({
       'window.jQuery': 'jquery',

@@ -41,11 +41,10 @@ const development = {
 };
 
 const globals = {
-  'DEV': null,
-  'TEST': null,
-  'PROD': null,
-  'COVERAGE': null,
-  'STAGING': null
+  '__DEV__': false,
+  '__TEST__': false,
+  '__PROD__': false,
+  '__STAGING__': false
 };
 
 const ekko = {

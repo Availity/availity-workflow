@@ -90,22 +90,28 @@ const settings = {
     return this.isDevelopment() ? developmentTarget : defaultTargets;
   },
 
-  globals(environment) {
+  globals() {
 
-    const globals = get(this.configuration, 'globals');
+    const configGlobals = get(this.configuration, 'globals');
+
+    const env = this.environment();
 
     // - Read enviroment variables from command line
     // - Filter out variables that have not been declared in workflow config
     const parsedGlobals = Object.keys(process.env)
-      .filter(key => key in globals)
-      .reduce( (result, env) => {
-        result[env] = JSON.stringify(process.env[env]);
+      .filter(key => key in configGlobals)
+      .reduce( (result, key) => {
+        result[key] = JSON.stringify(process.env[key]);
         return result;
       }, {
-        'process.env.NODE_ENV': JSON.stringify(environment)
+        'process.env.NODE_ENV': JSON.stringify(env),
+        '__TEST__': env === 'test',
+        '__DEV__': env === 'development',
+        '__PROD__': env === 'production',
+        '__STAGING__': env === 'staging'
       });
 
-    return parsedGlobals;
+    return merge(configGlobals, parsedGlobals);
   },
 
   project() {
@@ -175,7 +181,7 @@ const settings = {
     });
 
     this.targets();
-    this.globals('development');
+    this.globals();
 
   },
 
