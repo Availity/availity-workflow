@@ -9,6 +9,7 @@
     "av": "av",
     "test": "av test",
     "test:debug": "av test --watch",
+    "about": "av about",
     "lint": "av lint",
     "help": "av help",
     "profile": "av profile",

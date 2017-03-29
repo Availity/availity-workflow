@@ -1,6 +1,10 @@
 const Logger = require('availity-workflow-logger');
 const chalk = require('chalk');
 
+const notifier = require('./notifier');
+const pkg = require('../package.json');
+const version = chalk.bold.yellow(`v${pkg.version}`);
+
 const logo = `
  LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
  LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
@@ -33,12 +37,20 @@ const logo = `
 const message = `
  ${chalk.underline('Powered by:')}
 
- ${chalk.yellow(logo)}
+ availity-workflow ${version}
 
+ - Documentation: ${chalk.gray('https://github.com/availity/availity-workflow')}
+ - Issues: ${chalk.gray('https://github.com/availity/availity-workflow/issues')}
+ - Release Notes: ${chalk.gray('https://github.com/Availity/availity-workflow/releases')}
+
+ ${chalk.yellow(logo)}
  `;
 
 function about() {
+
+  notifier();
   Logger.simple(message);
+
 }
 
 module.exports = about;
