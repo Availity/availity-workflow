@@ -32,7 +32,7 @@ yargs
       });
   }, () => {lint().catch(() => { /* noop */}) })
 
-  .command('profile', `${chalk.dim(profile.description)}`, () => { profile() })
+  .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their size')}`, () => { profile() })
 
   .command('release', `${chalk.dim('Bundle project for distribution (production, staging or integration)')}`, () => { release() })
 
