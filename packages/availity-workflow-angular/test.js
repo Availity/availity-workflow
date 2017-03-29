@@ -9,7 +9,7 @@ function validate() {
   const specExists = exists(path.join(settings.app(), 'specs-bundle.js'));
 
   if (!specExists) {
-    Logger.failed('Missing specs.js that is required by Karma to run the unit tests.');
+    Logger.failed('Missing specs-bundle.js that is required by Karma to run the unit tests.');
     throw Error();
   }
 
@@ -87,6 +87,6 @@ module.exports = {
 
     return continous();
   },
-  description: 'Run your tests using Karma and Phantom.js'
+  description: 'Run your tests using Karma and Chrome, IE or Firefox'
 };
 
