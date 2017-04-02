@@ -29,10 +29,14 @@ yargs
       .option('include', {
         alias: 'i',
         describe: 'Glob patterns to INCLUDE for ESLint scanning'
+      })
+      .option('fail', {
+        alias: 'f',
+        describe: 'Force linter to fail and exit'
       });
   }, () => {lint().catch(() => { /* noop */}) })
 
-  .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their size')}`, () => { profile() })
+  .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their sizes')}`, () => { profile() })
 
   .command('release', `${chalk.dim('Bundle project for distribution (production, staging or integration)')}`, () => { release() })
 
