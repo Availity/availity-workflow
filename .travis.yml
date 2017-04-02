@@ -1,35 +1,21 @@
 sudo: false
-
 language: node_js
-
 node_js:
-  - "6"
-
+- '6'
 cache:
   directories:
-    - node_modules
-
+  - node_modules
 notifications:
   email: false
-
-env:
-  global:
-    - secure: kI6gZ1NJU5mGBj8CWAByti1JK0ZtxNxmO5Q1gfNK9hQ15YzMORHIOZZYLe4bEb1rWX2cmdqMidNCanwnycjz06PVFb2SouIYMRSfDNgYNsrOhfMLS8wm++hDCg/UzTv6OOTMvGNH0NKdV7M57pE/U3I28K/wK8S1CfOFZlDn3iU=
-    - secure: hVew8Nm9QAmEwhswOF7oGGY+eLlkAK75Y/oJenZivutqkcvHTnRhKAnqQJ5JYBwsnVZfAW5/S7R2NSPfEE8NOmKSw0UPLirViW7R4cX31UyOTnDws+nK9DmpGvlWfUESdN9DOgOZ7wEklSYBBSf8UMkDkeAXnE57MVyekOsrNc4=
-
 addons:
   sauce_connect: true
-
+  jwt:
+    secure: cCfXDoaD1qDwJM+Qez6RdOmeCqyglZRKTtz8gOn33T+Pt1Q0N34H1vcpSlPwTV3EkGs4MrR9ig3W/Xm85BUdZohyv97qt7dFB2UBOHawsiAkH8UkwyVmFCGa7l7yst260IqTIIRsTRHuus0m3d41vMw/n6rnBhclMCGta2xop1mDSxxQJ62xTtHIlobZ5jsaZRFXiaSa4rO1sF6TZkSk3Fa2ZPP6ECOF8jSXq7ceLpI5LOVCtl60hYzMkgtAZ0A7i9KuNo07cNT3bKPt0Ms4kQX7URWq9Lxr7UCKVHnnMhw8s6Bl8Ap8ieoLhRHU+ZjHLjd51cofGwqymu+91+Cl3MhnMlHopcYjrBtWdONr6TTTOk3T75ii+49EGN/RZFxM/NZiIKrN6Eu71J0moWHtZKT4iP1aubfmS0eJk1fsyXiJIWBuj+cfUAgw+uszzYmsXAzvsVfhCByJdmzPCokt0WIWITgfpCK5VrGWUqHYndYGsf53Bk0TAQ4HbK3dp57o7y2TtjzlWUnYOGOuekUxpMWFLYfYVwkQ2CxcU5cjN7OuJCVrZAtNw1icNYlxRrlMfGzFoeUEKiqUEcHLMRYRmYhLdjpuVkdCAfv/8nBcrbUpirRgJZVjDhaYx+GA8d8Wyjz5SefW7vd7NH93HdhbqXb2NlOLXneOiVKfdJoa2pc=
 git:
   depth: 1
-
 matrix:
   fast_finish: true
-
 before_script:
-  - lerna bootstrap
-
+- lerna bootstrap
 script:
-  - lerna run lint
-
-
+- lerna run lint
