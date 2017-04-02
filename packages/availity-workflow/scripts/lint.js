@@ -47,7 +47,11 @@ function lint() {
         Logger.simple(`${formatter(report.results)}`);
         Logger.failed('Failed linting');
         reject(report.results);
-        process.exit(1);
+        if (settings.isFail()) {
+          /* eslint no-process-exit:0 */
+          process.exit(1);
+        }
+
 
       } else {
 

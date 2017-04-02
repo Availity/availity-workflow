@@ -98,13 +98,16 @@ const settings = {
 
     // - Read enviroment variables from command line
     // - Filter out variables that have not been declared in workflow config
+    // - Apply environment variables to the default config
+    // - Map "staging" to "production" for process.env so that React deploys without extra debugging
+    //   capabilities
     const parsedGlobals = Object.keys(process.env)
       .filter(key => key in configGlobals)
       .reduce( (result, key) => {
         result[key] = JSON.stringify(process.env[key]);
         return result;
       }, {
-        'process.env.NODE_ENV': JSON.stringify(env),
+        'process.env.NODE_ENV': JSON.stringify(env === 'staging' ? 'production' : env),
         '__TEST__': env === 'test',
         '__DEV__': env === 'development',
         '__PROD__': env === 'production',
@@ -259,7 +262,7 @@ const settings = {
   },
 
   isWatch() {
-    return argv.watch === true;
+    return argv.watch !== undefined;
   },
 
   isProduction() {
@@ -271,11 +274,15 @@ const settings = {
   },
 
   isCoverage() {
-    return argv.coverage !== true;
+    return argv.coverage !== undefined;
+  },
+
+  isFail() {
+    return argv.fail !== undefined;
   },
 
   isProfile() {
-    return argv.profile === true;
+    return argv.profile !== undefined;
   },
 
   historyFallback() {
