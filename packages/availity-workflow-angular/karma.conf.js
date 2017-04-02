@@ -30,7 +30,8 @@ const karmaConfig = {
 
   exclude: [
     '*.scss',
-    '*.css'
+    '*.css',
+    '*.less'
   ],
 
   client: {

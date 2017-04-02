@@ -1,0 +1,33 @@
+sudo: false
+
+language: node_js
+
+node_js:
+  - "6"
+
+cache:
+  directories:
+    - node_modules
+
+addons:
+  sauce_connect: true
+
+notifications:
+  email: false
+
+env:
+  global:
+    - secure: kI6gZ1NJU5mGBj8CWAByti1JK0ZtxNxmO5Q1gfNK9hQ15YzMORHIOZZYLe4bEb1rWX2cmdqMidNCanwnycjz06PVFb2SouIYMRSfDNgYNsrOhfMLS8wm++hDCg/UzTv6OOTMvGNH0NKdV7M57pE/U3I28K/wK8S1CfOFZlDn3iU=
+    - secure: hVew8Nm9QAmEwhswOF7oGGY+eLlkAK75Y/oJenZivutqkcvHTnRhKAnqQJ5JYBwsnVZfAW5/S7R2NSPfEE8NOmKSw0UPLirViW7R4cX31UyOTnDws+nK9DmpGvlWfUESdN9DOgOZ7wEklSYBBSf8UMkDkeAXnE57MVyekOsrNc4=
+
+git:
+  depth: 1
+
+before_script:
+  - lerna bootstrap
+
+script:
+  - lerna run lint
+
+matrix:
+  fast_finish: true
