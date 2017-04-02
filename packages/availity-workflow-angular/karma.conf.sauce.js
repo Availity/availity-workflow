@@ -37,7 +37,9 @@ const karmaConfig = {
     captureConsole: true
   },
 
-  reporters: ['spec'],
+  captureTimeout: 120000,
+
+  reporters: ['spec', 'saucelabs'],
 
   port: 9876,
 
@@ -97,8 +99,8 @@ module.exports = function(config) {
   };
 
   const sauceLabs = {
-    startConnect: false,
-    testName: 'availity-worflow-angular',
+    startConnect: true,
+    testName: 'availity-workflow-angular',
     recordScreenshots: false,
     transports: ['xhr-polling']
   };

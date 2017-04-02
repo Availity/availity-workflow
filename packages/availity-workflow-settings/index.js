@@ -125,6 +125,10 @@ const settings = {
     return this.pkg().version || 'N/A';
   },
 
+  browsers() {
+    return this.configuration.testing.browsers;
+  },
+
   log() {
 
     // Log the mode
@@ -263,6 +267,10 @@ const settings = {
 
   isWatch() {
     return argv.watch !== undefined;
+  },
+
+  isIntegrationTesting() {
+    return argv.integration !== undefined;
   },
 
   isProduction() {

@@ -40,7 +40,7 @@ function create() {
 
 }
 
-function test() {
+function unit() {
 
   const argv = process.argv.slice(2);
   const jestConfig = JSON.stringify(create());
@@ -54,7 +54,7 @@ function test() {
 }
 
 module.exports = {
-  run: test,
+  run: unit,
   description: 'Run your tests using Jest'
 };
 

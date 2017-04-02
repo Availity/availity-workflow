@@ -48,7 +48,7 @@ const karmaConfig = {
 
   autoWatch: false,
 
-  browsers: ['Chrome'],
+  browsers: settings.browsers(),
 
   singleRun: true,
 

@@ -34,13 +34,19 @@ yargs
         alias: 'f',
         describe: 'Force linter to fail and exit'
       });
-  }, () => {lint().catch(() => { /* noop */}) })
+  }, () => { lint().catch(() => { /* noop */}) })
+
+  .command('test', `${chalk.dim(test.description)}`, yyargs => {
+    return yyargs
+      .option('watch', {
+        alias: 'w',
+        describe: 'Watch files for changes and rerun tests related to changed files.'
+      });
+  }, () => { test.run().catch(() => { /* noop */}) })
 
   .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their sizes')}`, () => { profile() })
 
-  .command('release', `${chalk.dim('Bundle project for distribution (production, staging or integration)')}`, () => { release() })
-
-  .command('test', `${chalk.dim(test.description)}`, () => { test.run().catch(() => { /* noop */}) })
+  .command('release', `${chalk.dim('Bundle project for distribution (production or stagingå)')}`, () => { release() })
 
   .command('about', `${chalk.dim('About availity-workflow')}`, () => { about() })
 

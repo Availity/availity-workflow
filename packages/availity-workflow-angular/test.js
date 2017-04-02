@@ -17,7 +17,34 @@ function validate() {
 
 }
 
-function ci() {
+function integration() {
+
+  return new Promise( (resolve, reject) => {
+
+    Logger.info('Started testing');
+
+    const server = new karma.Server({
+      configFile: path.join(__dirname, './karma.conf.sauce.js'),
+      autoWatch: false,
+      singleRun: true
+    }, function(exitStatus) {
+
+      if (exitStatus) {
+        Logger.failed('Failed testing');
+        reject(exitStatus);
+      } else {
+        Logger.success('Finished testing');
+        resolve(exitStatus);
+      }
+    });
+
+    server.start();
+
+  });
+
+}
+
+function unit() {
 
   return new Promise( (resolve, reject) => {
 
@@ -44,12 +71,7 @@ function ci() {
 
 }
 
-function continous() {
-  return validate()
-    .then(ci);
-}
-
-function debug() {
+function watch() {
 
   return new Promise( (resolve, reject) => {
 
@@ -79,14 +101,20 @@ function debug() {
 }
 
 module.exports = {
+
   run() {
 
     if (settings.isWatch()) {
-      return debug();
+      return watch();
+    } else if (settings.isIntegrationTesting()) {
+      return integration();
     }
 
-    return continous();
+    return validate().then(unit);
+
   },
-  description: 'Run your tests using Karma and Chrome, IE or Firefox'
+
+  description: 'Run your tests using Karma and Chrome, IE or Firefox.  '
+
 };
 

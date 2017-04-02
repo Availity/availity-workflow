@@ -40,6 +40,10 @@ const development = {
 
 };
 
+const testing = {
+  browsers: ['Chrome']
+};
+
 const globals = {
   '__DEV__': false,
   '__TEST__': false,
@@ -104,6 +108,7 @@ module.exports = {
 
   development,
   globals,
+  testing,
   ekko,
   proxies
 
