@@ -44,7 +44,6 @@ const config = {
         useBuiltIns: false
       }
     ],
-    // JSX, Flow
     require.resolve('babel-preset-stage-0')
   ],
   plugins: wfPlugins.concat([
