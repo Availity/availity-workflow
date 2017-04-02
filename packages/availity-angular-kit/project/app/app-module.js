@@ -13,7 +13,7 @@ const addModules = function(_modules) {
   }
 
   modules.forEach(module => {
-    const contains = app.requires.includes(module);
+    const contains = app.requires.indexOf(module);
     if (!contains) {
       app.requires.push(module);
     }
