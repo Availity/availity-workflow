@@ -115,7 +115,7 @@ module.exports = function(config) {
 
 
   config.set(Object.assign({
-    logLevel: config.LOG_WARN,
+    logLevel: config.LOG_DEBUG,
     browsers: Object.keys(customLaunchers),
     customLaunchers,
     sauceLabs
