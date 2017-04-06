@@ -39,6 +39,8 @@ const karmaConfig = {
 
   captureTimeout: 120000,
 
+  browserNoActivityTimeout: 60000, // 60 seconds
+
   reporters: ['spec', 'saucelabs'],
 
   port: 9876,
@@ -49,15 +51,12 @@ const karmaConfig = {
 
   singleRun: true,
 
-  browserNoActivityTimeout: 60000, // 60 seconds
-
   // List plugins explicitly, since auto-loading karma-webpack won't work here
   plugins: [
     require('karma-sauce-launcher'),
     require('karma-jasmine'),
     require('karma-spec-reporter'),
     require('karma-coverage'),
-    require('karma-spec-reporter'),
     require('karma-webpack'),
     require('karma-sourcemap-loader')
   ]
@@ -99,19 +98,11 @@ module.exports = function(config) {
   };
 
   const sauceLabs = {
-    startConnect: true,
+    startConnect: false,
     testName: 'availity-workflow-angular',
-    recordScreenshots: false,
-    transports: ['xhr-polling']
+    tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+    recordScreenshots: false
   };
-
-  if (process.env.TRAVIS_JOB_NUMBER) {
-    sauceLabs.build = `TRAVIS #${process.env.TRAVIS_BUILD_NUMBER} (${process.env.TRAVIS_BUILD_ID})`;
-    sauceLabs.tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
-    sauceLabs.tags = [process.env.TRAVIS_BRANCH, process.env.TRAVIS_PULL_REQUEST];
-  } else {
-    sauceLabs.startConnect = true;
-  }
 
   config.set(Object.assign({
     logLevel: config.LOG_DEBUG,
