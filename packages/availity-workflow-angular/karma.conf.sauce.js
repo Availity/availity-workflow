@@ -99,7 +99,7 @@ module.exports = function(config) {
   };
 
   const sauceLabs = {
-    startConnect: false,
+    startConnect: true,
     testName: 'availity-workflow-angular',
     recordScreenshots: false,
     transports: ['xhr-polling']
@@ -109,6 +109,8 @@ module.exports = function(config) {
     sauceLabs.build = `TRAVIS #${process.env.TRAVIS_BUILD_NUMBER} (${process.env.TRAVIS_BUILD_ID})`;
     sauceLabs.tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
     sauceLabs.tags = [process.env.TRAVIS_BRANCH, process.env.TRAVIS_PULL_REQUEST];
+  } else {
+    sauceLabs.startConnect = true;
   }
 
   config.set(Object.assign({
