@@ -9,6 +9,7 @@
     "av": "av",
     "test": "av test",
     "test:debug": "av test --watch",
+    "test:integration": "echo \"No test specified\" && exit 0",
     "about": "av about",
     "lint": "av lint",
     "help": "av help",

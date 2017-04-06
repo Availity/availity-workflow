@@ -7,7 +7,8 @@
     "av": "./index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "test:integration": "echo \"No test specified\" && exit 0"
   },
   "repository": {
     "type": "git",
