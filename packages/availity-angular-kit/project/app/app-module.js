@@ -12,9 +12,9 @@ const addModules = function(_modules) {
     modules = [modules];
   }
 
-  modules.forEach(module => {
-    const contains = app.requires.indexOf(module);
-    if (!contains) {
+  angular.forEach(modules, module => {
+    const index = app.requires.indexOf(module);
+    if (index === -1) {
       app.requires.push(module);
     }
   });
