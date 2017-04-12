@@ -23,21 +23,6 @@ if (settings.isProduction()) {
 
 - Investigate [unused-files-webpack-plugin](https://github.com/tomchentw/unused-files-webpack-plugin)
 
-- Add ability to devine environment variables
-
-```js
- // Useful for having development builds with debug logging or adding global constants
-new DefinePlugin({
-  'ENV': JSON.stringify(ENV),
-  'HMR': false,
-  'process.env': {
-    'ENV': JSON.stringify(ENV),
-    'API_URL': JSON.stringify(API_URL),
-    'NODE_ENV': JSON.stringify(ENV),
-    'HMR': false
-  }
-})
-```
 - Investigate [code splitting](// https://gist.github.com/sokra/27b24881210b56bbaff7#code-splitting-with-es6)
 
 ```js
