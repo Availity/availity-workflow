@@ -11,6 +11,7 @@ const defaults = require('./workflow.js');
 const project = process.cwd();
 const pkg = require(path.join(project, 'package.json'));
 const pkgWorkflow = (pkg && pkg.availityWorkflow) ? pkg.availityWorkflow : {}; // workflow object in package.json
+pkgWorkflow.argv = argv;
 
 function getOptions(opts, relativePath) {
   const output = {};
@@ -62,7 +63,7 @@ if (config) {
     _.merge(settings, configOptions);
   }
 }
-_.merge(settings, argv);
+
 let originalOptions = _.cloneDeep(settings.options);
 settings.setOptions = (env) => {
   settings.env = env || process.env.NODE_ENV || 'development';
