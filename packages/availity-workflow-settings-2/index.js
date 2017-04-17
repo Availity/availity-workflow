@@ -8,10 +8,10 @@ const argv = require('yargs').argv;
 
 const defaults = require('./workflow.js');
 
-const project = process.cwd();
-const pkg = require(path.join(project, 'package.json'));
+const pkg = require(path.join(process.cwd(), 'package.json'));
 const pkgWorkflow = (pkg && pkg.availityWorkflow) ? pkg.availityWorkflow : {}; // workflow object in package.json
 pkgWorkflow.argv = argv;
+pkgWorkflow.project = process.cwd();
 
 function getOptions(opts, relativePath) {
   const output = {};

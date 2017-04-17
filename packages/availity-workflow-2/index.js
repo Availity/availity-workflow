@@ -14,7 +14,7 @@ yargs
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
   .command(scripts.about)
   .command(cmdCheck(scripts.build))
-  .command(scripts.lint)
+  .command(cmdCheck(scripts.lint))
   .command(scripts.release)
   .command(cmdCheck(scripts.start))
   .command(cmdCheck(scripts.test))

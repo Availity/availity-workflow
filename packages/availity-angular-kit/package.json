@@ -34,15 +34,15 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "devDependencies": {
-    "availity-workflow": "^2.0.0-rc.5",
-    "availity-workflow-angular": "^2.0.0-rc.5",
+    "availity-workflow-2": "^2.0.0-rc.5",
+    "availity-workflow-eslint": "^2.0.0-rc.5",
     "babel-eslint": "^7.2.1",
     "cross-env": "^4.0.0",
     "eslint": "^3.18.0",
     "eslint-config-availity": "^2.1.0"
   },
   "availityWorkflow": {
-    "plugin": "availity-workflow-angular"
+    "use": "availity-workflow-eslint"
   },
   "dependencies": {
     "angular": "^1.6.3",
