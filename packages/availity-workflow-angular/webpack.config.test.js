@@ -176,7 +176,7 @@ const config = {
     }),
 
     // Ignore all the moment local files
-    new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
     new CaseSensitivePathsPlugin(),
 

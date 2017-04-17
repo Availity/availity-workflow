@@ -129,7 +129,7 @@ const config = {
     new HtmlWebpackPlugin(htmlConfig),
 
     // Ignore all the moment local files
-    new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
     new CaseSensitivePathsPlugin(),
 
