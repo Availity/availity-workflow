@@ -48,7 +48,7 @@ No minification is done on javascript assets
 ##### `--dry-run`
 
 ### `test`
-Run the tests for your project.  The behavior of the test are determined by the plugin used in the workflow engine.  The engine supports `availity-workflow-react` (Jest) and `availity-workflow-angular` (Karma and Phantomjs) plugins.
+Run the tests for your project.  The behavior of the test are determined by the plugin used in the workflow engine.  The engine supports `availity-workflow-react` (Jest) and `availity-workflow-angular` (Karma and Chrome|Firefox|IE) plugins.
 
 ### `about`
 Awesomeness.
