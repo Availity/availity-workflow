@@ -1,4 +1,4 @@
-const settings = require('availity-workflow-settings-2');
+const settings = require('availity-workflow-settings-2')();
 const yargs = require('yargs');
 const chalk = require('chalk');
 

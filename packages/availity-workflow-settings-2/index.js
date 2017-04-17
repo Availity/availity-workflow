@@ -6,13 +6,6 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const argv = require('yargs').argv;
 
-const defaults = require('./workflow.js');
-
-const pkg = require(path.join(process.cwd(), 'package.json'));
-const pkgWorkflow = (pkg && pkg.availityWorkflow) ? pkg.availityWorkflow : {}; // workflow object in package.json
-pkgWorkflow.argv = argv;
-pkgWorkflow.project = process.cwd();
-
 function getOptions(opts, relativePath) {
   const output = {};
   let options = _.cloneDeep(opts);
@@ -48,26 +41,44 @@ function getOptions(opts, relativePath) {
   return output;
 }
 
-const settings = getOptions(pkgWorkflow, process.cwd());
-_.defaultsDeep(settings, defaults);
-
-// check the config for last webpack config
-const config = path.resolve(_.get(settings, 'config'));
-if (config) {
-  const hasYml = exists(path.join(config, 'workflow.yml'));
-  const hasJs = exists(path.join(config, 'workflow.js'));
-  if (hasYml || hasJs) {
-    let fileName = 'workflow';
-    if (hasYml) fileName += '.yml';
-    let configOptions = getOptions(fileName, config);
-    _.merge(settings, configOptions);
+let hasBuilt = false;
+let settings = {};
+function build() {
+  if (hasBuilt) {
+    return;
   }
+  const defaults = require('./workflow.js');
+  const pkg = require(path.join(process.cwd(), 'package.json'));
+  const pkgWorkflow = (pkg && pkg.availityWorkflow) ? pkg.availityWorkflow : {}; // workflow object in package.json
+  pkgWorkflow.argv = argv;
+  pkgWorkflow.project = process.cwd();
+
+  settings = getOptions(pkgWorkflow, process.cwd());
+  _.defaultsDeep(settings, defaults);
+
+  // check the config for last webpack config
+  const config = path.resolve(_.get(settings, 'config'));
+  if (config) {
+    const hasYml = exists(path.join(config, 'workflow.yml'));
+    const hasJs = exists(path.join(config, 'workflow.js'));
+    if (hasYml || hasJs) {
+      let fileName = 'workflow';
+      if (hasYml) fileName += '.yml';
+      let configOptions = getOptions(fileName, config);
+      _.merge(settings, configOptions);
+    }
+  }
+
+  let originalOptions = _.cloneDeep(settings.options);
+  settings.setOptions = (env) => {
+    settings.env = env || process.env.NODE_ENV || 'development';
+    settings.options = _.merge({}, originalOptions, _.get(settings, settings.env, {}));
+  }
+  settings.setOptions();
+  hasBuilt = true;
 }
 
-let originalOptions = _.cloneDeep(settings.options);
-settings.setOptions = (env) => {
-  settings.env = env || process.env.NODE_ENV || 'development';
-  settings.options = _.merge({}, originalOptions, _.get(settings, settings.env, {}));
+module.exports = () => {
+  build();
+  return settings;
 }
-settings.setOptions();
-module.exports = settings;

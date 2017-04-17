@@ -2,7 +2,7 @@ const _ = require('lodash');
 const Promise = require('bluebird');
 const chalk = require('chalk');
 const Logger = require('availity-workflow-logger');
-const settings = require('availity-workflow-settings-2');
+const settings = require('availity-workflow-settings-2')();
 
 const buildCmd = _.get(settings, 'build', {});
 const build = {

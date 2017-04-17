@@ -6,12 +6,12 @@ const ora = require('ora');
 const chalk = require('chalk');
 const path = require('path');
 const Logger = require('availity-workflow-logger');
-let settings;
+const settings = require('availity-workflow-settings-2');
 
 function files(lintObj) {
-  const project = _.get(settings, 'project', process.cwd());
-  const context = _.get(settings, 'options.context', '');
-  const argsInclude = _.get(settings, 'argv.include');
+  const project = _.get(settings(), 'project', process.cwd());
+  const context = _.get(settings(), 'options.context', '');
+  const argsInclude = _.get(settings(), 'argv.include');
 
   let output = [];
   if (lintObj.lintInclude) {
@@ -27,9 +27,7 @@ function files(lintObj) {
 };
 
 function lint() {
-  settings = require('availity-workflow-settings-2');
-
-  let lintObj = _.get(settings, 'options.lint', {});
+  let lintObj = _.get(settings(), 'options.lint', {});
   if (_.isString(lintObj) || _.isArray(lintObj)) {
     lintObj = {
       lintInclude: _.castArray(lintObj)
@@ -61,7 +59,7 @@ function lint() {
       Logger.simple(`${formatter(report.results)}`);
 
       if (!lintObj.allowWarnings || report.errorCount) {
-        if (_.get(settings, 'argv.fail')) {
+        if (_.get(settings(), 'argv.fail')) {
           process.exit(1);
         }
         return false;
