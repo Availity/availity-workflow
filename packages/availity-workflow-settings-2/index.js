@@ -52,7 +52,7 @@ const settings = getOptions(pkgWorkflow, process.cwd());
 _.defaultsDeep(settings, defaults);
 
 // check the config for last webpack config
-const config = path.resolve(_.get(settings, 'options.config'));
+const config = path.resolve(_.get(settings, 'config'));
 if (config) {
   const hasYml = exists(path.join(config, 'workflow.yml'));
   const hasJs = exists(path.join(config, 'workflow.js'));
@@ -70,4 +70,4 @@ settings.setOptions = (env) => {
   settings.options = _.merge({}, originalOptions, _.get(settings, settings.env, {}));
 }
 settings.setOptions();
-module.exports = rawOptions;
+module.exports = settings;
