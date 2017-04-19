@@ -1,0 +1,34 @@
+{
+  "name": "availity-workflow-webpack",
+  "version": "2.0.0-rc.5",
+  "description": "availity-workflow webpack plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/availity-workflow.git"
+  },
+  "keywords": [
+    "availity",
+    "workflow"
+  ],
+  "author": "Robert McGuinness",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/availity/availity-workflow/issues"
+  },
+  "homepage": "https://github.com/availity/availity-workflow#readme",
+  "dependencies": {
+    "availity-workflow-logger": "^2.0.0-rc.2",
+    "availity-workflow-settings-2": "^2.0.0-rc.5",
+    "ora": "^1.2.0",
+    "webpack": "^2.4.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint-config-availity": "^2.0.2",
+    "eslint-plugin-react": "^6.9.0"
+  }
+}

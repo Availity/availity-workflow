@@ -17,7 +17,7 @@ function getOptions(opts, relativePath) {
   }
   // if options is a string, attempt to require it
   if (_.isString(options)) {
-    if (/\.yml/.test(options)) {
+    if (/\.yml$/.test(options)) {
       // is yml file
       const file = path.isAbsolute(options) ? options : path.join(relativePath, options);
       options = yaml.safeLoad(fs.readFileSync(file, 'utf8'));
@@ -69,10 +69,10 @@ function build() {
     }
   }
 
-  let originalOptions = _.cloneDeep(settings.options);
+  settings.originalOptions = _.cloneDeep(settings.options);
   settings.setOptions = (env) => {
     settings.env = env || process.env.NODE_ENV || 'development';
-    settings.options = _.merge({}, originalOptions, _.get(settings, settings.env, {}));
+    settings.options = _.merge({}, settings.originalOptions, _.get(settings, settings.env, {}));
   }
   settings.setOptions();
   hasBuilt = true;
