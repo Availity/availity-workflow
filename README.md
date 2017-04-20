@@ -130,7 +130,11 @@ targets: { browsers: ['last 2 Chrome versions'] }
 targets: { chrome: 57 }
 ```
 
-#### globals
+#### `testing.browsers`
+Arrya of browsers used when running Karma tests.  Default is `['Chrome']`;
+
+
+#### `globals`
 Create globals to be used for feature flags.  Globals must be defined in the workflow configuration file before they can be used as flags by a project.
 
 ```js
