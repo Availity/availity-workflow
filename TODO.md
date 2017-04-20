@@ -19,11 +19,15 @@ if (settings.isProduction()) {
 }
 ```
 
+- Invetigate [https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin](https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin)
+
 - Investigate [optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin)
 
 - Investigate [unused-files-webpack-plugin](https://github.com/tomchentw/unused-files-webpack-plugin)
 
-- Investigate [code splitting](// https://gist.github.com/sokra/27b24881210b56bbaff7#code-splitting-with-es6)
+- Investigate code splitting
+    - https://gist.github.com/sokra/27b24881210b56bbaff7#code-splitting-with-es6
+    - https://github.com/facebookincubator/create-react-app/pull/1801/files
 
 ```js
 function onClick() {
