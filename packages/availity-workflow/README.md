@@ -35,6 +35,18 @@ Include additional glob patterns for linting.
 - Bundles project assets into the `/dist` folder
 - Tags the version in Git
 
+#### NODE_ENV
+
+##### `production`
+Minfies the javascript assets.
+
+##### `staging`
+No minification is done on javascript assets
+
+#### options
+
+##### `--dry-run`
+
 ### `profile`
 Analyze Webpack bundles and find what is contributing their sizes.  This command generates an html graphical chart that automatically opens in the browser as well as a text summary report in the console.
 
@@ -62,17 +74,6 @@ css-loader: 2.14 KB (0.157%)
 <self>: 11.71 KB (0.859%)
 ```
 
-#### NODE_ENV
-
-##### `production`
-Minfies the javascript assets.
-
-##### `staging`
-No minification is done on javascript assets
-
-#### options
-
-##### `--dry-run`
 
 ### `test`
 Run the tests for your project.  The behavior of the test are determined by the plugin used in the workflow engine.  The engine supports `availity-workflow-react` (Jest) and `availity-workflow-angular` (Karma and Chrome|Firefox|IE) plugins.
