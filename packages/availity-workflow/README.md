@@ -35,6 +35,9 @@ Include additional glob patterns for linting.
 - Bundles project assets into the `/dist` folder
 - Tags the version in Git
 
+### `profile`
+Analyze Webpack bundles and find what is contributing their sizes.
+
 #### NODE_ENV
 
 ##### `production`
