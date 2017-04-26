@@ -52,7 +52,7 @@ npm install eslint eslint eslint-config-availity eslint-plugin-react babel-eslin
 
 ## Configuration
 
-`availity-workflow` can be configured using a javascript or yaml configuration file.
+`availity-workflow` can be configured using a javascript or yaml configuration file called `workflow.js` or `workflow.yml`
 
 **Example:**
 ```js
