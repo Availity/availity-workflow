@@ -19,7 +19,7 @@ if (settings.isProduction()) {
 }
 ```
 
-- Invetigate [https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin](https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin)
+- Investigate [https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin](https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin)
 
 - Investigate [optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin)
 
@@ -28,6 +28,8 @@ if (settings.isProduction()) {
 - Investigate code splitting
     - https://gist.github.com/sokra/27b24881210b56bbaff7#code-splitting-with-es6
     - https://github.com/facebookincubator/create-react-app/pull/1801/files
+
+- Investigate [https://github.com/novemberborn/babel-plugin-import-glob](https://github.com/novemberborn/babel-plugin-import-glob)
 
 ```js
 function onClick() {
