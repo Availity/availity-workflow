@@ -1,0 +1,27 @@
+<form class="form" name="requestForm" av-val-form="request">
+  <div class="card">
+    <div class="card-block">
+      <provider-section></provider-section>
+      <patient-section></patient-section>
+      <agreement-section></agreement-section>
+      <hr class="divider"/>
+      <div class="form-controls form-controls-card">
+        <button
+          type="submit"
+          class="btn btn-default"
+          ng-click="vm.request.onSubmit(requestForm)"
+          ng-disabled="requestForm.$invalid">
+          Authorize
+        </button>
+        <button
+          type="submit"
+          ng-click="vm.request.onSubmit(requestForm)"
+          class="btn btn-primary form-controls-right">
+          Authorize
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+

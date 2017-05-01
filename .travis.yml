@@ -1,0 +1,19 @@
+sudo: false
+language: node_js
+node_js:
+  - '6'
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+git:
+  depth: 1
+addons:
+  sauce_connect:
+    username: "robmcguinness_github"
+  jwt:
+    secure: "IDnBSlIXbRx9Du+cnusC6mAlGD0hblcnQzWtcbdHt+Ik0yakULrJDy0OeQ9NNVbJLj0TRsYiYqPPHHHhfpxcYR69whOfKHQhX7DfLlA2a9n6FTOwaEBGkAcFa5IaoRzp8kW9BiDznAc4/LV3zrWqmeM+OM4IXSPQUHlYs9lMw7Gg/pnk8qFswr6RcmHFxkstgbateqOGnoEs9fPVEwePXRF6GxEs0yiH7sl3Sfde6D7VypWZuYWzwQe9bz5Uqr8R1X8DwMj6UyWwXAUZhejSBuUy5pg7MeiSdXyJqv/Yw/H+xOfD/UoT9J3eDg3DACjWUdKt1RS1im80ZlKZsJZv4swAgnp5I/p53oKYUyr+/HdK737Y7uO1PPq8Y6PLc1vGYD0FbSkB2iwMmq7gv1M6zIl/Oo3TLbGM4RGsob/OMao8K168LhR5ykFlmTPt3MDAsAR6L5FomeNyxA+xyZgj98wmwqQMU/DeijKh8Vb5LhxC+57oa970rwzvQ70XtgFgjlmD9f96RknzbCw1Ktqf3+l5LPKAdmRs5oDIIKrHgb3ircCB7bnWzNrgCNOEuGZ0cFdNW9iNFungCMOP9/S+TFg+I9+4CnGv2uW7FZ2kyzGtFzN1xM4hmgmOw8Zk/arFZIL2MN9rXygxmNeFXjy2K4kSen5zHTkcEueJ9p436h0="
+before_script:
+  - lerna bootstrap
+script: npm run test

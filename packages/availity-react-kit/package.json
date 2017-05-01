@@ -1,0 +1,61 @@
+{
+  "name": "availity-react-kit",
+  "version": "2.0.0-rc.6",
+  "private": true,
+  "description": "Example React project using availity-workflow",
+  "main": "index.js",
+  "scripts": {
+    "start": "av start",
+    "av": "av",
+    "test": "av test",
+    "test:debug": "av test --watch",
+    "test:integration": "echo \"No test specified\" && exit 0",
+    "about": "av about",
+    "lint": "av lint",
+    "help": "av help",
+    "profile": "av profile",
+    "build": "av release",
+    "production": "cross-env NODE_ENV=production av release",
+    "staging": "cross-env NODE_ENV=staging av release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/availity-workflow.git"
+  },
+  "keywords": [
+    "react",
+    "availity"
+  ],
+  "author": "Robert McGuinness",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/availity/availity-workflow/issues"
+  },
+  "homepage": "https://github.com/availity/availity-workflow#readme",
+  "dependencies": {
+    "availity-reactstrap-validation": "^1.4.1",
+    "availity-uikit": "^3.0.0-beta.7",
+    "axios": "^0.16.1",
+    "cross-env": "^3.1.4",
+    "eslint-config-availity": "^2.0.2",
+    "mobx": "^3.1.9",
+    "mobx-react": "^4.1.8",
+    "react": "^15.5.4",
+    "react-addons-transition-group": "^15.5.2",
+    "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.1",
+    "react-select": "^1.0.0-rc.3"
+  },
+  "devDependencies": {
+    "availity-workflow": "^2.0.0-rc.6",
+    "availity-workflow-react": "^2.0.0-rc.6",
+    "babel-eslint": "^7.2.2",
+    "cross-env": "^4.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-availity": "^2.1.0",
+    "eslint-plugin-react": "^6.10.3"
+  },
+  "availityWorkflow": {
+    "plugin": "availity-workflow-react"
+  }
+}

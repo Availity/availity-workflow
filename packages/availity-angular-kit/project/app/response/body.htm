@@ -1,0 +1,48 @@
+<div class="card">
+
+    <div class="card-block">
+      <div class="card-header-secondary">
+        <small class="text-label text-label-inline">Transaction ID</small> <span class="label label-info">236316981</span>
+        <small class="text-label text-label-inline">Customer ID</small> <span class="label label-info">{{vm.response.customerId}}</span>
+      </div>
+    </div>
+
+    <div class="card-block">
+      <div class="row">
+        <div class="col-sm-3 col-ms-6">
+          <h5 class="text-label">Certification Number</h5>
+          <p>{{vm.response.certificationNumber}}</p>
+        </div>
+        <div class="col-sm-3 col-ms-6">
+          <h5 class="text-label">Patient Name</h5>
+          <p>{{vm.response.patient.firstName}} {{vm.response.patient.lastName}}</p>
+        </div>
+        <div class="col-sm-3 col-ms-6">
+          <h5 class="text-label">Patient Date of Birth</h5>
+          <p>{{vm.response.patient.birthDate}}</p>
+        </div>
+        <div class="col-sm-3 col-ms-6">
+          <h5 class="text-label">Member ID</h5>
+          <p>{{vm.response.subscriber.memberId}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 col-ms-6">
+          <h5 class="text-label">Status</h5>
+          <p>{{vm.response.status}}</p>
+        </div>
+        <div class="col-sm-3 col-ms-6">
+          <h5 class="text-label">Diagnosis Version</h5>
+          <p>{{vm.response.diagnoses[0].qualifier}}</p>
+        </div>
+        <div class="col-sm-3 col-ms-6">
+          <h5 class="text-label">Request Type</h5>
+          <p>{{vm.response.requestType}}</p>
+        </div>
+        <div class="col-sm-3 col-ms-6">
+          <h5 class="text-label">Payer</h5>
+          <p>{{vm.response.payer.name}}</p>
+        </div>
+      </div>
+    </div>
+    </div>
