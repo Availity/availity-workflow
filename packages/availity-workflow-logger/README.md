@@ -37,8 +37,8 @@ Prints an error message in `red` with a cross symbol and error label
 ✖ [ ERROR] Failed linting
 ```
 
-### `sucess`
-Prints a succes message in `green` with a checkbox symbol.
+### `successs`
+Prints a success message in `green` with a checkbox symbol.
 
 ```
 ✔︎ Finished linting
