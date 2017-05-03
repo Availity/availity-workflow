@@ -201,7 +201,7 @@ pathRewrite: {
 }
 ```
 
-- `contextRewrite`: _(Optional)_ Rewrites (using regex) the `Location` header before sending response back to client.  Only the location header is supported now but in the future other parts of the response will be rewritten as well like URLs in the JSON body. **Ex:**:
+- `contextRewrite`: _(Optional)_ Rewrites (using regex) the `Location` header before sending response back to client.  Only the `Locaton` header is supported for context rewrite but in the future releases other parts of the response will be rewritten as well (Ex: URLs in the JSON body). **Ex:**:
 
 ```js
 contextRewrite: {
