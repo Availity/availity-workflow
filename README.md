@@ -193,13 +193,22 @@ context: '/api'
 
 - `target`: Host and port number for proxy. 
 - `enabled`: Enables or disalbe a proxy configuration
-- `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.  **Ex:**:
+- `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.   **Ex:**:
 
 ```js
 pathRewrite: {
   '^/api': ''
 }
 ```
+
+- `contextRewrite`: _(Optional)_ Rewrites (using regex) the `Location` header before sending response back to client.  Only the `Locaton` header is supported for context rewrite but in the future releases other parts of the response will be rewritten as well (Ex: URLs in the JSON body). **Ex:**:
+
+```js
+contextRewrite: {
+  'http:\/\/localhost:9999': 'http://localhost:3000/api'
+}
+```
+
 - `headers`: _(Optional)_ Send default headers to the proxy destination. **Ex:**:
 ```js
 headers: {

@@ -54,8 +54,25 @@ function proxy() {
     config = [];
     // Iterate through each proxy configuration
     proxies.forEach(proxyConfiguration => {
+
+      const onProxyRes = function(proxyRes) {
+
+        if (proxyConfiguration.contextRewrite) {
+
+          Object.keys(proxyConfiguration.contextRewrite).forEach( regex => {
+            const value = proxyConfiguration.contextRewrite[regex];
+            const regexer = new RegExp(regex, 'g');
+            // Rewrite Locaion header else polling doesn't work
+            proxyRes.headers.location = proxyRes.headers.location.replace(regexer, value);
+            // TODO: rewrite JSON payload
+          });
+
+        }
+
+      };
+
       // Merge in defaults including custom Logger
-      const proxyConfig = merge({logLevel: 'debug'}, defaultProxy, proxyConfiguration);
+      const proxyConfig = merge({onProxyRes}, defaultProxy, proxyConfiguration);
       // Only create proxy if enabled
       if (proxyConfig.enabled) {
         config.push(proxyConfig);
