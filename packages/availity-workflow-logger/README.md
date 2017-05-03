@@ -7,6 +7,13 @@
 - [figures](https://www.npmjs.com/package/figures) for symbols
 - [boxen](https://www.npmjs.com/package/boxen) for terminal boxes
 
+## Usage
+
+```js
+const Logger = require('availity-workflow-logger);
+Logger.warn('Caution: Here be dragons.');
+```
+
 ## Static Methods
 
 ### `warn`
@@ -33,21 +40,21 @@ Prints an empty line in the terminal.
 ### `failed`
 Prints an error message in `red` with a cross symbol and error label
 
-```
+```bash
 ✖ [ ERROR] Failed linting
 ```
 
 ### `successs`
 Prints a success message in `green` with a checkbox symbol.
 
-```
+```bash
 ✔︎ Finished linting
 ```
 
 ### `box`
 Terminal message wrapped in a box.
 
-```
+```bash
 +--------------------------------------------------+
 |                                                  |
 |   The app is running at http://localhost:3000/   |
