@@ -180,10 +180,10 @@ Path to route configuration file used by Ekko to build Express routes.  Defaults
 Array of NPM module names that enhance Ekko with additional data and routes. @See https://github.com/Availity/availity-mock-data
 
 #### `ekko.pluginContext`
-Pass URL context information to mock responses passed a context so that HATEOS links traverse correctly. Defaults to `http://localhost:{development.port}/api`
+Pass URL context information to mock responses so that HATEOS links traverse correctly. Defaults to `http://localhost:{development.port}/api`
 
 #### `proxies`
-Arry of proxy configurations.  A default configuration is enabled to proxy request to the Ekko server.  Each proxy configuration can have the following attributes.  
+Array of proxy configurations.  A default configuration is enabled to proxy requests to the Ekko server.  Each proxy configuration can have the following attributes.  
 
 - `context`: URL context used to match the activation of the proxy per request. **Ex:**:
 
