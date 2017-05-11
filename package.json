@@ -4,6 +4,8 @@
     "lerna": "2.0.0-beta.38"
   },
   "scripts": {
+    "angular": "npm start --prefix packages/availity-angular-kit",
+    "react": "npm start --prefix packages/availity-react-kit",
     "test": "lerna run test:integration"
   }
 }
