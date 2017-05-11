@@ -92,7 +92,7 @@ const settings = {
 
   globals() {
 
-    const configGlobals = get(this.configuration, 'globals');
+    const configGlobals = get(this.configuration, 'globals', {});
 
     const env = this.environment();
 
