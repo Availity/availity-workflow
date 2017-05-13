@@ -94,6 +94,7 @@ function rest() {
       data: settings.config().ekko.data,
       routes: settings.config().ekko.routes,
       plugins: settings.config().ekko.plugins,
+      port: settings.config().ekko.port,
       pluginContext: settings.config().ekko.pluginContext,
       logProvider() {
         return {
