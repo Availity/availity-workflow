@@ -197,7 +197,7 @@ context: '/api'
 - `enabled`: Enables or disalbe a proxy configuration
 - `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.   
 
-**Ex:**:
+**Ex:**
 ```js
 pathRewrite: {
   '^/api': ''
@@ -205,9 +205,9 @@ pathRewrite: {
 ```
 
 - `contextRewrite`: _(Optional)_ If `true`:
-    - Rewrites the `Origin` and `Referer` headers to match the target proxy url on a request. 
-    - Rewrites the `Location` header to match the host on response
-    - Rewrites any urls in the body of a response that match the proxy target url to match the url of the host.
+    - Rewrites the `Origin` and `Referer` headers from host to match the the proxy target url.
+    - Rewrites the `Location` header from proxy to the host url.
+    - Rewrites any urls of the response body (json only) to match the url of the host.  Only urls that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host.
 
 - `headers`: _(Optional)_ Send default headers to the proxy destination. 
 
