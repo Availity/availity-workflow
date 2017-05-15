@@ -37,7 +37,7 @@ function onRequest(proxyConfig, proxyObject) {
 
   const regexer = new RegExp(escapeStringRegexp(local, 'g'));
 
-  ['referer'].forEach(header => {
+  ['referer', 'origin'].forEach(header => {
 
     const requestHeader = proxyObject.getHeader(header);
     if (requestHeader) {
