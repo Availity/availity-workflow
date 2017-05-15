@@ -194,7 +194,7 @@ context: '/api'
 ```
 
 - `target`: Host and port number for proxy. 
-- `enabled`: Enables or disalbe a proxy configuration
+- `enabled`: Enables or disables a proxy configuration
 - `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.   
 
 **Ex:**
