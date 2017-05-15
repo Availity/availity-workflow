@@ -144,8 +144,9 @@ globals: {
 }
 ```
 
-Once declared, override the default flag values from the command line .  **Example:**
+Once declared, override the default flag values from the command line .  
 
+**Ex:**
 ```bash
 EXPERIMENTAL_FEATURE=true npm run production
 ```
@@ -185,31 +186,32 @@ Pass URL context information to mock responses so that HATEOS links traverse cor
 #### `proxies`
 Array of proxy configurations.  A default configuration is enabled to proxy requests to the Ekko server.  Each proxy configuration can have the following attributes.  
 
-- `context`: URL context used to match the activation of the proxy per request. **Ex:**:
+- `context`: URL context used to match the activation of the proxy per request. 
 
+**Ex:**:
 ```js
 context: '/api'
 ```
 
 - `target`: Host and port number for proxy. 
 - `enabled`: Enables or disalbe a proxy configuration
-- `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.   **Ex:**:
+- `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.   
 
+**Ex:**:
 ```js
 pathRewrite: {
   '^/api': ''
 }
 ```
 
-- `contextRewrite`: _(Optional)_ Rewrites (using regex) the `Location` header before sending response back to client.  Only the `Locaton` header is supported for context rewrite but in the future releases other parts of the response will be rewritten as well (Ex: URLs in the JSON body). **Ex:**:
+- `contextRewrite`: _(Optional)_ If `true`:
+    - Rewrites the `Origin` and `Referer` headers to match the target proxy url on a request. 
+    - Rewrites the `Location` header to match the host on response
+    - Rewrites any urls in the body of a response that match the proxy target url to match the url of the host.
 
-```js
-contextRewrite: {
-  'http:\/\/localhost:9999': 'http://localhost:3000/api'
-}
-```
+- `headers`: _(Optional)_ Send default headers to the proxy destination. 
 
-- `headers`: _(Optional)_ Send default headers to the proxy destination. **Ex:**:
+**Ex:**:
 ```js
 headers: {
   RemoteUser: 'janedoe'
