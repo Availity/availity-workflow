@@ -47,7 +47,7 @@ function formatMessage(message) {
 }
 
 const startupMessage = once(() => {
-  const uri = `http://localhost:${settings.config().development.port}/`;
+  const uri = `http://${settings.config().development.host}:${settings.config().development.port}/`;
   Logger.box(`The app is running at ${chalk.green(uri)}`);
 });
 

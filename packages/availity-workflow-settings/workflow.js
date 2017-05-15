@@ -74,7 +74,7 @@ const ekko = {
   ],
 
   // Mock data can be passed a context so that HATEOS links traverse correctly
-  pluginContext: `http://localhost:${development.port}/api`
+  pluginContext: `http://${development.host}:${development.port}/api`
 };
 
 const proxies = [
@@ -84,7 +84,7 @@ const proxies = [
     context: '/api',
 
     // Host and port number for proxy
-    target: `http://localhost:${ekko.port}`,
+    target: `http://${development.host}:${ekko.port}`,
 
     // Enables or disalbe this proxy configuration
     enabled: true,
