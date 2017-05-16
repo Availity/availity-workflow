@@ -10,6 +10,7 @@ const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const WebpackDevSever = require('webpack-dev-server');
+const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 
 const proxy = require('./proxy');
 const notifier = require('./notifier');
@@ -22,29 +23,6 @@ let ekko;
 Promise.config({
   longStackTraces: true
 });
-
-const friendlySyntaxErrorLabel = 'Syntax error:';
-
-function isLikelyASyntaxError(message) {
-  return message.indexOf(friendlySyntaxErrorLabel) !== -1;
-}
-
-function formatMessage(message) {
-  return message
-    .replace(
-      'Module build failed: SyntaxError:',
-      friendlySyntaxErrorLabel
-    )
-    .replace(
-      /Module not found: Error: Cannot resolve 'file' or 'directory'/,
-      'Module not found:'
-    )
-    // Internal stacks are generally useless so we strip them
-    .replace(/^\s*at\s((?!webpack:).)*:\d+:\d+[\s\)]*(\n|$)/gm, '') // at ... ...:x:y
-    // Webpack loader names obscure CSS filenames
-    .replace('./~/css-loader!./~/postcss-loader!', '')
-    .replace(/\s@ multi .+/, '');
-}
 
 const startupMessage = once(() => {
   const uri = `http://${settings.config().development.host}:${settings.config().development.port}/`;
@@ -179,17 +157,11 @@ function web() {
           chunks: false,
           chunkModules: false,
           errorDetails: false
-        });
+        }, true);
 
-        let formattedErrors = json.errors.map(msg => {
-          return 'Error in ' + formatMessage(msg);
-        });
+        const messages = formatWebpackMessages(json);
 
-        if (formattedErrors.some(isLikelyASyntaxError)) {
-          formattedErrors = formattedErrors.filter(isLikelyASyntaxError);
-        }
-
-        formattedErrors.forEach(error => {
+        messages.errors.forEach(error => {
           Logger.empty();
           Logger.simple(`${chalk.red(error)}`);
           Logger.empty();
