@@ -33,27 +33,25 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "availity-reactstrap-validation": "^1.4.1",
-    "availity-uikit": "^3.0.0-beta.7",
+    "availity-uikit": "^3.0.0-beta.8",
     "axios": "^0.16.1",
-    "cross-env": "^3.1.4",
-    "eslint-config-availity": "^2.0.2",
     "mobx": "^3.1.9",
     "mobx-react": "^4.1.8",
-    "react": "^15.5.4",
-    "react-addons-transition-group": "^15.5.2",
-    "react-dom": "^15.5.4",
-    "react-router-dom": "^4.1.1",
-    "react-select": "^1.0.0-rc.3"
+    "react": "15.5.4",
+    "react-addons-css-transition-group": "15.5.2",
+    "react-addons-transition-group": "15.5.2",
+    "react-dom": "15.5.4",
+    "react-select": "^1.0.0-rc.3",
+    "reactstrap": "4.6.1"
   },
   "devDependencies": {
     "availity-workflow": "^2.1.0-beta.0",
     "availity-workflow-react": "^2.1.0-beta.0",
     "babel-eslint": "^7.2.2",
-    "cross-env": "^4.0.0",
+    "cross-env": "5.0.0",
     "eslint": "^3.19.0",
     "eslint-config-availity": "^2.1.0",
-    "eslint-plugin-react": "^6.10.3"
+    "eslint-plugin-react": "7.0.1"
   },
   "availityWorkflow": {
     "plugin": "availity-workflow-react"
