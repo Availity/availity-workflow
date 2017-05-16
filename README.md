@@ -1,6 +1,6 @@
 # availity-workflow
 
-> Upgradable workflow for Availity boilerplate projects
+> Upgradeable workflow for Availity boilerplate projects
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=license)](http://opensource.org/licenses/MIT)
 [![NPM](http://img.shields.io/npm/v/availity-workflow.svg?style=flat-square&label=npm)](https://npmjs.org/package/availity-workflow)
@@ -112,7 +112,7 @@ Enable hot module replacement for loaders like  style-loader and react-hot-loade
 Enable or disable react-hot-loader.  Default is `true` for `availity-workflow-react` plugin.
 
 #### `development.targets`
-Allows developers to override the `babel-preset-env` target to match their developer environment.  This is benefecial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6, therefore, not needing to Babelfy code completely.
+Allows developers to override the `babel-preset-env` target to match their developer environment.  This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6, therefore, not needing to Babelfy code completely.
 
 This setting is is only used for development and does not effect staging/production/testing builds which default to IE9. @See [https://github.com/babel/babel-preset-env](https://github.com/babel/babel-preset-env)
 
@@ -131,7 +131,7 @@ targets: { chrome: 57 }
 ```
 
 #### `testing.browsers`
-Arrya of browsers used when running Karma tests.  Default is `['Chrome']`;
+Array of browsers used when running Karma tests.  Default is `['Chrome']`;
 
 
 #### `globals`
