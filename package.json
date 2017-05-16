@@ -5,7 +5,9 @@
   },
   "scripts": {
     "angular": "npm start --prefix packages/availity-angular-kit",
+    "angular:test": "npm test --prefix packages/availity-angular-kit",
     "react": "npm start --prefix packages/availity-react-kit",
+    "react:test": "npm test --prefix packages/availity-react-kit",
     "test": "lerna run test:integration"
   }
 }
