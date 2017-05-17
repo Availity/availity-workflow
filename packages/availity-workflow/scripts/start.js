@@ -118,7 +118,7 @@ function web() {
 
       const percent = Math.round(percentage * 100);
 
-      if (previousPercent !== percent && percent % 10 === 0 && msg !== null && msg !== undefined && msg.trim() !== '') {
+      if (previousPercent !== percent && percent % 10 === 0) {
         Logger.info(`${chalk.dim('Webpack')} ${percent}% ${msg}`);
         previousPercent = percent;
       }
@@ -143,23 +143,37 @@ function web() {
       if (!hasErrors && !hasWarnings) {
         openBrowser();
         message(stats);
+        resolve(true);
+      }
+
+      // https://webpack.js.org/configuration/stats/
+      const json = stats.toJson({
+        assets: false,
+        colors: true,
+        version: false,
+        hash: false,
+        timings: false,
+        chunks: false,
+        chunkModules: false,
+        errorDetails: false
+      }, true);
+
+      const messages = formatWebpackMessages(json);
+
+      if (hasWarnings) {
+
+        messages.warnings.forEach(warning => {
+          Logger.empty();
+          Logger.simple(`${chalk.yellow(warning)}`);
+          Logger.empty();
+        });
+
+        Logger.failed('Compiled with warnings');
+        Logger.empty();
+
       }
 
       if (hasErrors) {
-
-        // https://webpack.js.org/configuration/stats/
-        const json = stats.toJson({
-          assets: false,
-          colors: true,
-          version: false,
-          hash: false,
-          timings: false,
-          chunks: false,
-          chunkModules: false,
-          errorDetails: false
-        }, true);
-
-        const messages = formatWebpackMessages(json);
 
         messages.errors.forEach(error => {
           Logger.empty();
@@ -170,7 +184,10 @@ function web() {
         Logger.failed('Failed compiling');
         Logger.empty();
         reject(json.errors);
+        return;
       }
+
+      resolve();
 
     });
 
