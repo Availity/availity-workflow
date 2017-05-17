@@ -94,7 +94,7 @@ const config = {
           use: [
             'css-loader',
             postCssLoader,
-            'sass-loader?sourceMap'
+            { loader: 'sass-loader', options: { sourceMap: true } }
           ],
           publicPath: '../'
         })
