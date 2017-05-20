@@ -41,7 +41,9 @@ function onRequest(proxyConfig, proxyObject) {
 
     const requestHeader = proxyObject.getHeader(header);
     if (requestHeader) {
-      proxyObject.setHeader(header, requestHeader.replace(regexer, target));
+      const replacedHeader = requestHeader.replace(regexer, target);
+      proxyObject.setHeader(header, replacedHeader);
+      Logger.info(`Rewriting ${header} header from ${requestHeader} to ${replacedHeader}`);
     }
 
   });
@@ -57,7 +59,7 @@ function onResponse(proxyConfig, proxyObject, req, res) {
   const port = settings.port();
   const host = settings.host();
 
-  const local = path.posix.join(`http://${host}:${port}`, proxyConfig.context);
+  const hostUrl = path.posix.join(`http://${host}:${port}`, proxyConfig.context);
   const target = proxyConfig.target;
   const regexer = new RegExp(escapeStringRegexp(target, 'g'));
 
@@ -65,7 +67,9 @@ function onResponse(proxyConfig, proxyObject, req, res) {
 
     const responseHeader = proxyObject.headers[header];
     if (responseHeader) {
-      proxyObject.headers[header] = responseHeader.replace(regexer, local);
+      const replacedHeader = responseHeader.replace(regexer, hostUrl);
+      Logger.info(`Rewriting ${header} header from ${chalk.blue(responseHeader)} to ${chalk.blue(replacedHeader)}`);
+      proxyObject.headers[header] = replacedHeader;
     }
 
   });
@@ -85,10 +89,11 @@ function onResponse(proxyConfig, proxyObject, req, res) {
 
     res.end = () => {
 
-      let text = buffer.toString('utf8');
-      text = text.replace(regexer, local);
+      const json = buffer.toString('utf8');
+      const replacedJson = json.replace(regexer, hostUrl);
+      Logger.info(`Rewriting response body urls to ${chalk.blue(hostUrl)} for request ${chalk.blue(req.url)}`);
 
-      const body = new Buffer(text);
+      const body = new Buffer(replacedJson);
 
       _write.call(res, body);
       _end.call(res);
@@ -99,13 +104,13 @@ function onResponse(proxyConfig, proxyObject, req, res) {
 
 }
 
-function onProxyError(err, req, res) {
+function onProxyError(proxyConfiguration, err, req, res) {
   const host = req.headers && req.headers.host;
-  Logger.error(`Proxy error: Could not proxy request ${chalk.cyan(req.url)} from ${chalk.cyan(host)} to ${chalk.cyan(proxy)}`);
+  Logger.error(`Proxy error: Could not proxy request ${chalk.cyan(req.url)} from ${chalk.cyan(host)} to ${chalk.cyan(proxyConfiguration.target)}`);
   if (res.writeHead && !res.headersSent) {
     res.writeHead(500);
   }
-  res.end(`Proxy error: Could not proxy request ${req.url} from ${host} to ${proxy}`);
+  res.end(`Proxy error: Could not proxy request ${req.url} from ${host} to ${proxyConfiguration.target}`);
 }
 
 // https://github.com/chimurai/http-proxy-middleware/tree/master/recipes
@@ -160,7 +165,7 @@ function proxy() {
       },
 
       onError: (err, req, res) => {
-        onProxyError(err, req, res);
+        onProxyError(proxyConfiguration, err, req, res);
       }
 
     });
