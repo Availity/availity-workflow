@@ -99,6 +99,15 @@ function onResponse(proxyConfig, proxyObject, req, res) {
 
 }
 
+function onProxyError(err, req, res) {
+  const host = req.headers && req.headers.host;
+  Logger.error(`Proxy error: Could not proxy request ${chalk.cyan(req.url)} from ${chalk.cyan(host)} to ${chalk.cyan(proxy)}`);
+  if (res.writeHead && !res.headersSent) {
+    res.writeHead(500);
+  }
+  res.end(`Proxy error: Could not proxy request ${req.url} from ${host} to ${proxy}`);
+}
+
 // https://github.com/chimurai/http-proxy-middleware/tree/master/recipes
 function proxy() {
 
@@ -140,7 +149,7 @@ function proxy() {
   proxies.forEach(proxyConfiguration => {
 
     // Merge in defaults including custom Logger and custom request/response function
-    const proxyConfig = merge(defaultProxy, proxyConfiguration, {
+    const proxyConfig = merge({}, defaultProxy, proxyConfiguration, {
 
       onProxyReq: (proxyReq, req) => {
         onRequest(proxyConfiguration, proxyReq, req);
@@ -148,6 +157,10 @@ function proxy() {
 
       onProxyRes: (proxyRes, req, res) => {
         onResponse(proxyConfiguration, proxyRes, req, res);
+      },
+
+      onError: (err, req, res) => {
+        onProxyError(err, req, res);
       }
 
     });
