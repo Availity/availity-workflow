@@ -1,7 +1,7 @@
 # CLI
 
 ## NPM
-> NPM requiries a `--` between the command and options
+> NPM requires `--` between the command and options
 ```bash
 npm run <command> -- <options>
 ```
@@ -38,7 +38,7 @@ Include additional glob patterns for linting.
 #### NODE_ENV
 
 ##### `production`
-Minfies the javascript assets.
+Minifies the javascript assets.
 
 ##### `staging`
 No minification is done on javascript assets
