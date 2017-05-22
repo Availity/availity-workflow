@@ -1,11 +1,13 @@
 {
   "private": true,
   "devDependencies": {
-    "lerna": "2.0.0-beta.38"
+    "lerna": "^2.0.0-rc.4"
   },
   "scripts": {
     "angular": "npm start --prefix packages/availity-angular-kit",
+    "angular:test": "npm test --prefix packages/availity-angular-kit",
     "react": "npm start --prefix packages/availity-react-kit",
+    "react:test": "npm test --prefix packages/availity-react-kit",
     "test": "lerna run test:integration"
   }
 }

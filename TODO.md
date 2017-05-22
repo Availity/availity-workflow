@@ -19,17 +19,17 @@ if (settings.isProduction()) {
 }
 ```
 
-- Investigate [https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin](https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin)
+- [https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin](https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin)
 
-- Investigate [optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin)
+- [optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin)
 
-- Investigate [unused-files-webpack-plugin](https://github.com/tomchentw/unused-files-webpack-plugin)
+- [unused-files-webpack-plugin](https://github.com/tomchentw/unused-files-webpack-plugin)
 
-- Investigate code splitting
+- Code splitting
     - https://gist.github.com/sokra/27b24881210b56bbaff7#code-splitting-with-es6
     - https://github.com/facebookincubator/create-react-app/pull/1801/files
 
-- Investigate [https://github.com/novemberborn/babel-plugin-import-glob](https://github.com/novemberborn/babel-plugin-import-glob)
+- [https://github.com/novemberborn/babel-plugin-import-glob](https://github.com/novemberborn/babel-plugin-import-glob)
 
 ```js
 function onClick() {
@@ -40,15 +40,27 @@ function onClick() {
     });
 }
 ```
-- Make Angular 3rd party libs optional
+
+- [https://github.com/luisrudge/postcss-flexbugs-fixes](https://github.com/luisrudge/postcss-flexbugs-fixes)
+
+```js
+{
+loader: require.resolve('postcss-loader'),
+options: {
+  ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+  plugins: () => [
+    require('postcss-flexbugs-fixes'),
+    autoprefixer({
+      browsers: [
+        '>1%',
+        'last 4 versions',
+        'Firefox ESR',
+        'not ie < 9', // React doesn't support IE8 anyway
+      ],
+      flexbox: 'no-2009',
+    }),
+  ],
+}
 ```
-// Optional 3rd party libraries.
-//
-// Comment or remove the entries below to reduce if you are not using
-// them in your application.  Reducing the bundle size of your application
-// reduces the perceived load time of your page.
-//
-// An error will be thrown if a module is used that requires one of the 3rd party
-// libraries below.
-```
+
 - Upgrade [less-loader v4](https://github.com/webpack-contrib/less-loader)

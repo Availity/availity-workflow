@@ -18,13 +18,13 @@ const babelrcExists = exists(babelrcPath);
 
 const indexHotLoader = [
   'react-hot-loader/patch', // Patches React.createElement in dev
-  `webpack-dev-server/client?http://localhost:${settings.port()}`, // Enables websocket
-  'webpack/hot/only-dev-server', // performs HMR in brwoser
+  `webpack-dev-server/client?http://${settings.host()}:${settings.port()}`, // Enables websocket for updates
+  'webpack/hot/only-dev-server', // performs HMR in browser
   './index.js'
 ];
 
 const indexHot = [
-  `webpack-dev-server/client?http://localhost:${settings.port()}`, // Enables websocket
+  `webpack-dev-server/client?http://${settings.host()}:${settings.port()}`, // Enables websocket for updates
   'webpack/hot/only-dev-server', // performs HMR in brwoser
   './index.js'
 ];

@@ -1,6 +1,6 @@
 # availity-workflow
 
-> Upgradable workflow for Availity boilerplate projects
+> Upgradeable workflow for Availity boilerplate projects
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=license)](http://opensource.org/licenses/MIT)
 [![NPM](http://img.shields.io/npm/v/availity-workflow.svg?style=flat-square&label=npm)](https://npmjs.org/package/availity-workflow)
@@ -112,7 +112,7 @@ Enable hot module replacement for loaders like  style-loader and react-hot-loade
 Enable or disable react-hot-loader.  Default is `true` for `availity-workflow-react` plugin.
 
 #### `development.targets`
-Allows developers to override the `babel-preset-env` target to match their developer environment.  This is benefecial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6, therefore, not needing to Babelfy code completely.
+Allows developers to override the `babel-preset-env` target to match their developer environment.  This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6, therefore, not needing to Babelfy code completely.
 
 This setting is is only used for development and does not effect staging/production/testing builds which default to IE9. @See [https://github.com/babel/babel-preset-env](https://github.com/babel/babel-preset-env)
 
@@ -131,7 +131,7 @@ targets: { chrome: 57 }
 ```
 
 #### `testing.browsers`
-Arrya of browsers used when running Karma tests.  Default is `['Chrome']`;
+Array of browsers used when running Karma tests.  Default is `['Chrome']`;
 
 
 #### `globals`
@@ -144,8 +144,9 @@ globals: {
 }
 ```
 
-Once declared, override the default flag values from the command line .  **Example:**
+Once declared, override the default flag values from the command line .  
 
+**Ex:**
 ```bash
 EXPERIMENTAL_FEATURE=true npm run production
 ```
@@ -185,31 +186,32 @@ Pass URL context information to mock responses so that HATEOS links traverse cor
 #### `proxies`
 Array of proxy configurations.  A default configuration is enabled to proxy requests to the Ekko server.  Each proxy configuration can have the following attributes.  
 
-- `context`: URL context used to match the activation of the proxy per request. **Ex:**:
+- `context`: URL context used to match the activation of the proxy per request. 
 
+**Ex:**:
 ```js
 context: '/api'
 ```
 
 - `target`: Host and port number for proxy. 
-- `enabled`: Enables or disalbe a proxy configuration
-- `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.   **Ex:**:
+- `enabled`: Enables or disables a proxy configuration
+- `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.   
 
+**Ex:**
 ```js
 pathRewrite: {
   '^/api': ''
 }
 ```
 
-- `contextRewrite`: _(Optional)_ Rewrites (using regex) the `Location` header before sending response back to client.  Only the `Locaton` header is supported for context rewrite but in the future releases other parts of the response will be rewritten as well (Ex: URLs in the JSON body). **Ex:**:
+- `contextRewrite`: _(Optional)_ Does not work with multiple proxy contexts.  When `true`:
+    - Rewrites the `Origin` and `Referer` headers from host to match the the proxy target url.
+    - Rewrites the `Location` header from proxy to the host url.
+    - Rewrites any urls of the response body (JSON only) to match the url of the host.  Only URLs that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host.  The proxy context is automatically appended to the host url if missing the a URL response.  
 
-```js
-contextRewrite: {
-  'http:\/\/localhost:9999': 'http://localhost:3000/api'
-}
-```
+- `headers`: _(Optional)_ Send default headers to the proxy destination. 
 
-- `headers`: _(Optional)_ Send default headers to the proxy destination. **Ex:**:
+**Ex:**:
 ```js
 headers: {
   RemoteUser: 'janedoe'

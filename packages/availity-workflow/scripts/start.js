@@ -10,6 +10,7 @@ const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const WebpackDevSever = require('webpack-dev-server');
+const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 
 const proxy = require('./proxy');
 const notifier = require('./notifier');
@@ -23,31 +24,8 @@ Promise.config({
   longStackTraces: true
 });
 
-const friendlySyntaxErrorLabel = 'Syntax error:';
-
-function isLikelyASyntaxError(message) {
-  return message.indexOf(friendlySyntaxErrorLabel) !== -1;
-}
-
-function formatMessage(message) {
-  return message
-    .replace(
-      'Module build failed: SyntaxError:',
-      friendlySyntaxErrorLabel
-    )
-    .replace(
-      /Module not found: Error: Cannot resolve 'file' or 'directory'/,
-      'Module not found:'
-    )
-    // Internal stacks are generally useless so we strip them
-    .replace(/^\s*at\s((?!webpack:).)*:\d+:\d+[\s\)]*(\n|$)/gm, '') // at ... ...:x:y
-    // Webpack loader names obscure CSS filenames
-    .replace('./~/css-loader!./~/postcss-loader!', '')
-    .replace(/\s@ multi .+/, '');
-}
-
 const startupMessage = once(() => {
-  const uri = `http://localhost:${settings.config().development.port}/`;
+  const uri = `http://${settings.config().development.host}:${settings.config().development.port}/`;
   Logger.box(`The app is running at ${chalk.green(uri)}`);
 });
 
@@ -94,6 +72,7 @@ function rest() {
       data: settings.config().ekko.data,
       routes: settings.config().ekko.routes,
       plugins: settings.config().ekko.plugins,
+      port: settings.config().ekko.port,
       pluginContext: settings.config().ekko.pluginContext,
       logProvider() {
         return {
@@ -139,7 +118,7 @@ function web() {
 
       const percent = Math.round(percentage * 100);
 
-      if (previousPercent !== percent && percent % 10 === 0 && msg !== null && msg !== undefined && msg.trim() !== '') {
+      if (previousPercent !== percent && percent % 10 === 0) {
         Logger.info(`${chalk.dim('Webpack')} ${percent}% ${msg}`);
         previousPercent = percent;
       }
@@ -164,31 +143,39 @@ function web() {
       if (!hasErrors && !hasWarnings) {
         openBrowser();
         message(stats);
+        resolve(true);
+      }
+
+      // https://webpack.js.org/configuration/stats/
+      const json = stats.toJson({
+        assets: false,
+        colors: true,
+        version: false,
+        hash: false,
+        timings: false,
+        chunks: false,
+        chunkModules: false,
+        errorDetails: false
+      }, true);
+
+      const messages = formatWebpackMessages(json);
+
+      if (hasWarnings) {
+
+        messages.warnings.forEach(warning => {
+          Logger.empty();
+          Logger.simple(`${chalk.yellow(warning)}`);
+          Logger.empty();
+        });
+
+        Logger.failed('Compiled with warnings');
+        Logger.empty();
+
       }
 
       if (hasErrors) {
 
-        // https://webpack.js.org/configuration/stats/
-        const json = stats.toJson({
-          assets: false,
-          colors: true,
-          version: false,
-          hash: false,
-          timings: false,
-          chunks: false,
-          chunkModules: false,
-          errorDetails: false
-        });
-
-        let formattedErrors = json.errors.map(msg => {
-          return 'Error in ' + formatMessage(msg);
-        });
-
-        if (formattedErrors.some(isLikelyASyntaxError)) {
-          formattedErrors = formattedErrors.filter(isLikelyASyntaxError);
-        }
-
-        formattedErrors.forEach(error => {
+        messages.errors.forEach(error => {
           Logger.empty();
           Logger.simple(`${chalk.red(error)}`);
           Logger.empty();
@@ -197,7 +184,10 @@ function web() {
         Logger.failed('Failed compiling');
         Logger.empty();
         reject(json.errors);
+        return;
       }
+
+      resolve();
 
     });
 
