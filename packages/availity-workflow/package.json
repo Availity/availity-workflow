@@ -55,6 +55,7 @@
     "shelljs": "^0.7.7",
     "type-is": "^1.6.15",
     "update-notifier": "^2.1.0",
+    "url-join": "^2.0.2",
     "webpack": "^2.5.1",
     "webpack-bundle-size-analyzer": "^2.6.0",
     "webpack-dev-server": "2.4.5",

@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const merge = require('lodash.merge');
 const typeIs = require('type-is');
-const path = require('path');
+const urlJoin = require('url-join');
 const get = require('lodash.get');
 const Logger = require('availity-workflow-logger');
 const escapeStringRegexp = require('escape-string-regexp');
@@ -59,15 +59,26 @@ function onResponse(proxyConfig, proxyObject, req, res) {
   const port = settings.port();
   const host = settings.host();
 
-  const hostUrl = path.posix.join(`http://${host}:${port}`, proxyConfig.context);
-  const target = proxyConfig.target;
-  const regexer = new RegExp(escapeStringRegexp(target, 'g'));
+
+  // http://localhost:3000
+  const hostUrl = `http://${host}:${port}`;
+  // http://localhost:3000/api
+  const hostUrlContext = urlJoin(`http://${host}:${port}`, proxyConfig.context);
+  // http://localhost:8080
+  const targetUrl = proxyConfig.target;
+  // http://localhost:8080/api
+  const targetUrlContext = urlJoin(proxyConfig.target, proxyConfig.context);
+
+  const regexer = new RegExp(escapeStringRegexp(targetUrl, 'g'));
+  const regexerContext = new RegExp(escapeStringRegexp(targetUrlContext, 'g'));
 
   ['location'].forEach(header => {
 
     const responseHeader = proxyObject.headers[header];
     if (responseHeader) {
-      const replacedHeader = responseHeader.replace(regexer, hostUrl);
+
+      const replacedUrl = regexerContext.test(responseHeader) ? hostUrl : hostUrlContext;
+      const replacedHeader = responseHeader.replace(regexer, replacedUrl);
       Logger.info(`Rewriting ${header} header from ${chalk.blue(responseHeader)} to ${chalk.blue(replacedHeader)}`);
       proxyObject.headers[header] = replacedHeader;
     }
@@ -90,8 +101,9 @@ function onResponse(proxyConfig, proxyObject, req, res) {
     res.end = () => {
 
       const json = buffer.toString('utf8');
-      const replacedJson = json.replace(regexer, hostUrl);
-      Logger.info(`Rewriting response body urls to ${chalk.blue(hostUrl)} for request ${chalk.blue(req.url)}`);
+      const replacedUrl = regexerContext.test(json) ? hostUrl : hostUrlContext;
+      const replacedJson = json.replace(regexer, replacedUrl);
+      Logger.info(`Rewriting response body urls to ${chalk.blue(replacedUrl)} for request ${chalk.blue(req.url)}`);
 
       const body = new Buffer(replacedJson);
 
