@@ -204,10 +204,10 @@ pathRewrite: {
 }
 ```
 
-- `contextRewrite`: _(Optional)_ If `true`:
+- `contextRewrite`: _(Optional)_ Does not work with multiple proxy contexts.  When `true`:
     - Rewrites the `Origin` and `Referer` headers from host to match the the proxy target url.
     - Rewrites the `Location` header from proxy to the host url.
-    - Rewrites any urls of the response body (json only) to match the url of the host.  Only urls that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host.
+    - Rewrites any urls of the response body (JSON only) to match the url of the host.  Only URLs that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host.  The proxy context is automatically appended to the host url if missing the a URL response.  
 
 - `headers`: _(Optional)_ Send default headers to the proxy destination. 
 
