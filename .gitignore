@@ -8,3 +8,5 @@ npm-debug.log
 /packages/availity-react-kit/dist
 /packages/availity-angular-kit/build
 /packages/availity-angular-kit/dist
+/packages/availity-angular-kit/project/config/workflow.js
+/packages/availity-react-kit/project/config/workflow.js
