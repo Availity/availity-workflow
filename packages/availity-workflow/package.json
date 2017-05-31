@@ -46,6 +46,7 @@
     "lodash.merge": "^4.6.0",
     "lodash.once": "^4.1.1",
     "moment": "^2.18.1",
+    "node-http-proxy-json": "^0.1.3",
     "opn": "5.0.0",
     "ora": "^1.2.0",
     "pretty-ms": "^2.1.0",

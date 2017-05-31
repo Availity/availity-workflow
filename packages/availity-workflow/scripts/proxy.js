@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const merge = require('lodash.merge');
+const proxyJson = require('node-http-proxy-json');
 const typeIs = require('type-is');
 const urlJoin = require('url-join');
 const get = require('lodash.get');
@@ -21,7 +22,6 @@ function proxyLogRewrite(daArgs) {
   });
 
 }
-
 
 function onRequest(proxyConfig, proxyObject) {
 
@@ -59,7 +59,6 @@ function onResponse(proxyConfig, proxyObject, req, res) {
   const port = settings.port();
   const host = settings.host();
 
-
   // http://localhost:3000
   const hostUrl = `http://${host}:${port}`;
   // http://localhost:3000/api
@@ -85,32 +84,23 @@ function onResponse(proxyConfig, proxyObject, req, res) {
 
   });
 
+
   const isJson = typeIs.is(proxyObject.headers['content-type'], ['json']) === 'json';
-  if (isJson) {
+  if (isJson && !proxyObject.statusCode === 304) {
 
-    delete proxyObject.headers['content-length'];
-    const buffer = [];
+    proxyJson(res, proxyObject.headers['content-encoding'], body => {
 
-    const _write = res.write;
-    const _end = res.end;
+      if (body) {
+        const json = JSON.stringify(body);
+        const replacedUrl = regexerContext.test(json) ? hostUrl : hostUrlContext;
+        const replacedJson = json.replace(regexer, replacedUrl);
+        Logger.info(`Rewriting response body urls to ${chalk.blue(replacedUrl)} for request ${chalk.blue(req.url)}`);
+        body = JSON.parse(replacedJson);
+      }
 
-    res.write = (chunk) => {
-      buffer.push(chunk);
-    };
+      return body;
 
-    res.end = () => {
-
-      const json = buffer.toString('utf8');
-      const replacedUrl = regexerContext.test(json) ? hostUrl : hostUrlContext;
-      const replacedJson = json.replace(regexer, replacedUrl);
-      Logger.info(`Rewriting response body urls to ${chalk.blue(replacedUrl)} for request ${chalk.blue(req.url)}`);
-
-      const body = new Buffer(replacedJson);
-
-      _write.call(res, body);
-      _end.call(res);
-
-    };
+    });
 
   }
 
