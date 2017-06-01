@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow-react",
-  "version": "2.1.0",
+  "version": "2.1.2-beta.0",
   "description": "React module for availity-workflow",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",

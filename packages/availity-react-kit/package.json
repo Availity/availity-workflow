@@ -1,6 +1,6 @@
 {
   "name": "availity-react-kit",
-  "version": "2.1.1",
+  "version": "2.1.2-beta.0",
   "private": true,
   "description": "Example React project using availity-workflow",
   "main": "index.js",
@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "availity-workflow": "^2.1.1",
-    "availity-workflow-react": "^2.1.0",
+    "availity-workflow-react": "^2.1.2-beta.0",
     "babel-eslint": "^7.2.2",
     "cross-env": "5.0.0",
     "eslint": "^3.19.0",
