@@ -1,5 +1,4 @@
 const autoprefixer = require('autoprefixer');
-const settings = require('availity-workflow-settings');
 
 const postCssLoader = {
   loader: 'postcss-loader',
