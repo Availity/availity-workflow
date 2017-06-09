@@ -10,12 +10,12 @@ const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const WebpackDevSever = require('webpack-dev-server');
-const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 
 const proxy = require('./proxy');
 const notifier = require('./notifier');
 const plugin = require('./plugin');
 const open = require('./open');
+const formatWebpackMessages = require('./format');
 
 let server;
 let ekko;
@@ -147,17 +147,7 @@ function web() {
       }
 
       // https://webpack.js.org/configuration/stats/
-      const json = stats.toJson({
-        assets: false,
-        colors: true,
-        version: false,
-        hash: false,
-        timings: false,
-        chunks: false,
-        chunkModules: false,
-        errorDetails: false
-      }, true);
-
+      const json = stats.toJson({}, true);
       const messages = formatWebpackMessages(json);
 
       if (hasWarnings) {

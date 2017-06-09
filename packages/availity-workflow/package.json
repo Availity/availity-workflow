@@ -50,7 +50,6 @@
     "opn": "5.0.0",
     "ora": "^1.2.0",
     "pretty-ms": "^2.1.0",
-    "react-dev-utils": "0.5.2",
     "require-relative": "^0.8.7",
     "semver": "^5.3.0",
     "shelljs": "^0.7.7",
