@@ -55,7 +55,7 @@
     "angular-velocity": "^0.3.1",
     "animate.css": "^3.5.2",
     "availity-angular": "^2.0.3",
-    "availity-uikit": "^2.0.2",
+    "availity-uikit": "^2.1.0",
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
     "lodash.merge": "^4.6.0",
