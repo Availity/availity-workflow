@@ -129,7 +129,10 @@ const config = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: { sourceMap: true, importLoaders: 1 }
+            },
             postCssLoader
           ],
           publicPath: '../'

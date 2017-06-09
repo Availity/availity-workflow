@@ -1,13 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 const settings = require('availity-workflow-settings');
 const exists = require('exists-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const NpmImportPlugin = require('less-plugin-npm-import');
 const requireRelative = require('require-relative');
 
 const htmlConfig = require('./html');
@@ -127,26 +125,57 @@ const config = {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader',
-          postcss
+          postcss,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 1,
+              name: 'images/[name].[ext]'
+            }
+          }
         ]
       },
       {
         test: /\.less$/,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 1,
+              name: 'images/[name].[ext]'
+            }
+          },
           postcss,
-          'less-loader'
+          {
+            loader: 'less-loader',
+            options: {
+              sourceMap: true
+            }
+          }
         ]
       },
       {
         test: /\.scss$/,
         use: [
           'style-loader',
-          'css-loader?name=images/[name].[ext]',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 1,
+              name: 'images/[name].[ext]'
+            }
+          },
           postcss,
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
         ]
       },
       {
@@ -191,25 +220,6 @@ const config = {
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
     new CaseSensitivePathsPlugin(),
-
-    new webpack.LoaderOptionsPlugin(
-      {
-        test: /\.less$/,
-        debug: true,
-        options: {
-          postcss: [
-            autoprefixer({ browsers: ['last 5 versions'] })
-          ],
-          lessPlugins: [
-            new NpmImportPlugin({
-              prefix: '~'
-            })
-          ],
-          context: settings.app(),
-          output: { path: settings.output() }
-        }
-      }
-    ),
 
     new CopyWebpackPlugin([
       {
