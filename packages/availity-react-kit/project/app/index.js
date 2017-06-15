@@ -20,6 +20,6 @@ if (__DEV__ && module.hot) {
   module.hot.accept('./App', () => render(App));
 }
 
-if(!__TEST__) {
+if (!__TEST__) {
   render(App);
 }
