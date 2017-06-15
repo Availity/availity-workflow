@@ -19,28 +19,6 @@ if (settings.isProduction()) {
 }
 ```
 
-- [https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin](https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin)
-
-- [optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin)
-
-- [unused-files-webpack-plugin](https://github.com/tomchentw/unused-files-webpack-plugin)
-
-- Code splitting
-    - https://gist.github.com/sokra/27b24881210b56bbaff7#code-splitting-with-es6
-    - https://github.com/facebookincubator/create-react-app/pull/1801/files
-
-- [https://github.com/novemberborn/babel-plugin-import-glob](https://github.com/novemberborn/babel-plugin-import-glob)
-
-```js
-function onClick() {
-    System.import("./module").then(module => {
-        module.default;
-    }).catch(err => {
-        console.log("Chunk loading failed");
-    });
-}
-```
-
 - [https://github.com/luisrudge/postcss-flexbugs-fixes](https://github.com/luisrudge/postcss-flexbugs-fixes)
 
 ```js
@@ -62,5 +40,3 @@ options: {
   ],
 }
 ```
-
-- Upgrade [less-loader v4](https://github.com/webpack-contrib/less-loader)
