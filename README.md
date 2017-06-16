@@ -66,7 +66,7 @@ module.exports = {
         hot: true
     },
     app: {
-        title: 'My Awesome App`
+        title: 'My Awesome App'
     }
     ekko: {
         latency: 300,
