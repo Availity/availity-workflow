@@ -47,8 +47,12 @@ npm install availity-workflow-angular --save-dev
 - Install developer tools
 
 ```
-npm install eslint eslint eslint-config-availity eslint-plugin-react babel-eslint ---save-dev
+npm install eslint eslint eslint-config-availity eslint-plugin-react eslint-plugin-import eslint-plugin-jsx-a11y babel-eslint ---save-dev
 ```
+
+## Features
+
+- Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
 
 ## Configuration
 
@@ -61,6 +65,9 @@ module.exports = {
         notification: true
         hot: true
     },
+    app: {
+        title: 'My Awesome App`
+    }
     ekko: {
         latency: 300,
         port: 9999
@@ -128,6 +135,17 @@ targets: { browsers: ['last 2 Chrome versions'] }
 
 ```js
 targets: { chrome: 57 }
+```
+
+#### `app.title`
+Page title to use for the generated HTML document. Default is `Availity`.
+
+```html
+<html>
+    <head>
+        <title>Availity</title>
+    </head>
+</html>
 ```
 
 #### `testing.browsers`

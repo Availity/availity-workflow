@@ -40,6 +40,10 @@ const development = {
 
 };
 
+const app = {
+  title: 'Availity'
+};
+
 const testing = {
   browsers: ['Chrome']
 };
@@ -107,6 +111,7 @@ const proxies = [
 module.exports = {
 
   development,
+  app,
   globals,
   testing,
   ekko,

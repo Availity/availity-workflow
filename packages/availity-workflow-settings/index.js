@@ -129,6 +129,10 @@ const settings = {
     return this.configuration.testing.browsers;
   },
 
+  title() {
+    return get(this.configuration, 'app.title', 'Availity');
+  },
+
   log() {
 
     // Log the mode
@@ -171,7 +175,7 @@ const settings = {
     if (typeof developerConfig === 'function') {
       this.configuration = developerConfig(this.configuration);
     } else {
-      merge(this.configuration, developerConfig);
+      merge(this.configuration, this.pkg().availityWorkflow, developerConfig);
     }
 
     // Merge in CLI overrides.  The command line args can pass nested properties like:
