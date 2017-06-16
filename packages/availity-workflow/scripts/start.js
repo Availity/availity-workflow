@@ -26,7 +26,7 @@ Promise.config({
 
 const startupMessage = once(() => {
   const uri = `http://${settings.config().development.host}:${settings.config().development.port}/`;
-  Logger.box(`The app is running at ${chalk.green(uri)}`);
+  Logger.box(`The app ${chalk.yellow(settings.pkg().name)} is running at ${chalk.green(uri)}`);
 });
 
 // development.logLevel=custom
