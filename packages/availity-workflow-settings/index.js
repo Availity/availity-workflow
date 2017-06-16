@@ -153,7 +153,7 @@ const settings = {
     this.configuration = require('./workflow');
     let developerConfig = {};
 
-    const defaultWorkflowConfig = path.join(settings.project(), 'project/config/workflow.yml');
+    const defaultWorkflowConfig = path.join(__dirname, 'workflow.js');
     const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
     const ymlWorkflowConfig = path.join(settings.project(), 'project/config/workflow.yml');
 
@@ -163,7 +163,7 @@ const settings = {
     } else if (exists(ymlWorkflowConfig)) { // Try workflow.yml
       this.workflowConfigPath = ymlWorkflowConfig;
       developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));
-    } else {  // fall back to default workflow.js
+    } else {  // fall back to default ./workflow.js
       this.workflowConfigPath = defaultWorkflowConfig;
     }
 
