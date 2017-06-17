@@ -45,6 +45,7 @@
     "plugin": "availity-workflow-angular"
   },
   "dependencies": {
+    "@uirouter/angularjs": "^1.0.4",
     "angular": "^1.6.4",
     "angular-animate": "^1.6.4",
     "angular-mocks": "^1.6.4",
