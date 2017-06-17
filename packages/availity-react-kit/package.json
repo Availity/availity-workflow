@@ -9,7 +9,7 @@
     "av": "av",
     "test": "av test",
     "test:debug": "av test --watch",
-    "test:integration": "echo \"No test specified\" && exit 0",
+    "test:integration": "cross-env CI=true av test",
     "about": "av about",
     "lint": "av lint",
     "help": "av help",
