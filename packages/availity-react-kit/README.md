@@ -1,3 +1,3 @@
-# availity-workflow-react
+# availity-react-kit
 
-> Example React application using availity-workflow and availity-worflow-react
+> Example React application using availity-workflow and availity-workflow-react
