@@ -20,4 +20,5 @@ branches:
   - master
 before_script:
   - lerna bootstrap
-script: lerna run test:integration
+script:
+  - lerna run test:integration
