@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const settings = require('availity-workflow-settings');
 const exists = require('exists-sync');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const NpmImportPlugin = require('less-plugin-npm-import');
 const requireRelative = require('require-relative');
 
 process.noDeprecation = true;
@@ -150,13 +149,13 @@ const config = {
         //
         test: /\.(otf|ttf|woff2?|eot|svg)(\?.*)?$/,
         use: [
-          'file-loader?name=fonts/[name].[ext]'
+          'null-loader'
         ]
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
-          'url-loader?name=images/[name].[ext]&limit=10000'
+          'null-loader'
         ]
       }
     ]
@@ -178,23 +177,7 @@ const config = {
     // Ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
-    new CaseSensitivePathsPlugin(),
-
-    new webpack.LoaderOptionsPlugin(
-      {
-        test: /\.less$/,
-        debug: true,
-        options: {
-          lessPlugins: [
-            new NpmImportPlugin({
-              prefix: '~'
-            })
-          ],
-          context: settings.app(),
-          output: { path: settings.output() }
-        }
-      }
-    )
+    new CaseSensitivePathsPlugin()
 
   ]
 };
