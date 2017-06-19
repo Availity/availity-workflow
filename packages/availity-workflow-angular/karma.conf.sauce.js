@@ -80,29 +80,25 @@ module.exports = function(config) {
       browserName: 'Internet Explorer',
       platform: 'Windows 8.1',
       version: '11'
-    },
-
-    sl_ie_10: {
-      base: 'SauceLabs',
-      browserName: 'Internet Explorer',
-      platform: 'Windows 8',
-      version: '10'
-    },
-
-    sl_ie_9: {
-      base: 'SauceLabs',
-      browserName: 'internet explorer',
-      platform: 'Windows 7',
-      version: '9'
     }
+
   };
 
   const sauceLabs = {
-    startConnect: false,
     testName: 'availity-workflow-angular',
-    tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
-    recordScreenshots: false
+    startConnect: true,
+    recordScreenshots: false,
+    singleRun: true,
+    recordVideo: false,
+    transports: ['xhr-polling']
   };
+
+  if (process.env.TRAVIS_JOB_NUMBER) {
+    sauceLabs.startConnect = false;
+    sauceLabs.build = `TRAVIS #${process.env.TRAVIS_BUILD_NUMBER} (${process.env.TRAVIS_BUILD_ID})`;
+    sauceLabs.tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
+    sauceLabs.tags = [process.env.TRAVIS_BRANCH, process.env.TRAVIS_PULL_REQUEST];
+  }
 
   config.set(Object.assign({
     logLevel: config.LOG_DEBUG,
