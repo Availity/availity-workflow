@@ -211,6 +211,8 @@ const config = {
 
     new CaseSensitivePathsPlugin(),
 
+    new webpack.optimize.ModuleConcatenationPlugin(),
+
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks(module) {

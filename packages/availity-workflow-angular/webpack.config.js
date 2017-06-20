@@ -221,6 +221,8 @@ const config = {
 
     new CaseSensitivePathsPlugin(),
 
+    new webpack.optimize.ModuleConcatenationPlugin(),
+
     new CopyWebpackPlugin([
       {
         context: `${settings.project()}/project/static`, // copy from this directory

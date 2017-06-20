@@ -2,7 +2,7 @@
 
 > Plugin for Angular based availity-workflow boilerplate projects
 
-- Webpack 2 [https://webpack.js.org/](https://webpack.js.org/)
+- Webpack 3 [https://webpack.js.org/](https://webpack.js.org/)
 - Babel [https://babeljs.io/](https://babeljs.io/)
 - Karma [https://karma-runner.github.io](https://karma-runner.github.io)
     - Karma Chrome Plugin

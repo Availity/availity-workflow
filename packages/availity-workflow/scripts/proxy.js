@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+const debug = require('debug')('workflow:proxy');
 const merge = require('lodash.merge');
 const proxyJson = require('node-http-proxy-json');
 const typeIs = require('type-is');
@@ -43,7 +44,7 @@ function onRequest(proxyConfig, proxyObject) {
     if (requestHeader) {
       const replacedHeader = requestHeader.replace(regexer, target);
       proxyObject.setHeader(header, replacedHeader);
-      Logger.info(`Rewriting ${header} header from ${requestHeader} to ${replacedHeader}`);
+      debug(`Rewriting ${header} header from ${requestHeader} to ${replacedHeader}`);
     }
 
   });
@@ -78,7 +79,7 @@ function onResponse(proxyConfig, proxyObject, req, res) {
 
       const replacedUrl = regexerContext.test(responseHeader) ? hostUrl : hostUrlContext;
       const replacedHeader = responseHeader.replace(regexer, replacedUrl);
-      Logger.info(`Rewriting ${header} header from ${chalk.blue(responseHeader)} to ${chalk.blue(replacedHeader)}`);
+      debug(`Rewriting ${header} header from ${chalk.blue(responseHeader)} to ${chalk.blue(replacedHeader)}`);
       proxyObject.headers[header] = replacedHeader;
     }
 
@@ -94,7 +95,7 @@ function onResponse(proxyConfig, proxyObject, req, res) {
         const json = JSON.stringify(body);
         const replacedUrl = regexerContext.test(json) ? hostUrl : hostUrlContext;
         const replacedJson = json.replace(regexer, replacedUrl);
-        Logger.info(`Rewriting response body urls to ${chalk.blue(replacedUrl)} for request ${chalk.blue(req.url)}`);
+        debug(`Rewriting response body urls to ${chalk.blue(replacedUrl)} for request ${chalk.blue(req.url)}`);
         body = JSON.parse(replacedJson);
       }
 
