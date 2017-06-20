@@ -211,7 +211,7 @@ function web() {
 
     server = new WebpackDevSever(compiler, webpackOptions);
 
-    server.listen(settings.config().development.port, (err) => {
+    server.listen(settings.config().development.port, settings.config().development.host, (err) => {
 
       if (err) {
         Logger.failed(err);
