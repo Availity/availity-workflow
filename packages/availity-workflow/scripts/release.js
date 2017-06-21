@@ -9,10 +9,6 @@ const build = require('./build');
 
 function release() {
 
-  if (!settings.isDryRun()) {
-    del.sync([settings.output()]);
-  }
-
   return version.prompt()
     .then(() =>{
       Logger.info('Started releasing');

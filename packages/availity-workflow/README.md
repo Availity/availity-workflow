@@ -29,6 +29,10 @@ Lint project files using EsLint.
 ##### `--include`
 Include additional glob patterns for linting.
 
+### `build`
+- Cleans up `/dist` folder
+- Bundles project assets into the `/dist` folder
+
 ### `release`
 - Prompts the user for a version
 - Cleans up `/dist` folder
