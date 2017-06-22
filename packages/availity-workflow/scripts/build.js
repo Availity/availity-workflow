@@ -1,8 +1,10 @@
 const Promise = require('bluebird');
+const del = require('del');
 const webpack = require('webpack');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const ora = require('ora');
 const chalk = require('chalk');
+const settings = require('availity-workflow-settings');
 const Logger = require('availity-workflow-logger');
 const sizeTree = require('webpack-bundle-size-analyzer/build/src/size_tree');
 const argv = require('yargs').argv;
@@ -12,6 +14,10 @@ const plugin = require('./plugin');
 function bundle(config) {
 
   return new Promise( (resolve, reject) => {
+
+    if (!settings.isDryRun()) {
+      del.sync([settings.output()]);
+    }
 
     // Check arguement or CLI arg or default to false
     const shouldProfile = (config && config.profile) || argv.profile || false;
