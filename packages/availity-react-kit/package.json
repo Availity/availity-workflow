@@ -8,13 +8,16 @@
     "start": "av start",
     "av": "av",
     "test": "av test",
-    "test:debug": "av test --watch",
-    "test:integration": "cross-env CI=true av test",
+    "test:watch": "av test --watch",
+    "test:integration": "av test --integration",
     "about": "av about",
     "lint": "av lint",
     "help": "av help",
     "profile": "av profile",
-    "build": "av release",
+    "build": "av build",
+    "build:production": "cross-env NODE_ENV=production av build",
+    "build:staging": "cross-env NODE_ENV=staging av build",
+    "release": "av release",
     "production": "cross-env NODE_ENV=production av release",
     "staging": "cross-env NODE_ENV=staging av release"
   },
@@ -24,7 +27,8 @@
   },
   "keywords": [
     "react",
-    "availity"
+    "availity",
+    "workflow"
   ],
   "author": "Robert McGuinness",
   "license": "MIT",

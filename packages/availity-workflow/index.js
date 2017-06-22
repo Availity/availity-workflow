@@ -9,6 +9,7 @@ const start = require('./scripts/start');
 const test = require('./scripts/test');
 const lint = require('./scripts/lint');
 const about = require('./scripts/about');
+const build = require('./scripts/build');
 const release = require('./scripts/release');
 const profile = require('./scripts/profile');
 
@@ -46,7 +47,9 @@ yargs
 
   .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their sizes')}`, () => { profile() })
 
-  .command('release', `${chalk.dim('Bundle project for distribution (production or stagingå)')}`, () => { release() })
+  .command('build', `${chalk.dim('Bundle project for distribution (production or stagingå)')}`, () => { build() })
+
+  .command('release', `${chalk.dim('Bundle project for distribution (production or stagingå) and create a git tag')}`, () => { release() })
 
   .command('about', `${chalk.dim('About availity-workflow')}`, () => { about() })
 

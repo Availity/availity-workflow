@@ -1,7 +1,7 @@
 {
   "name": "availity-angular-kit",
-  "private": true,
   "version": "2.3.0",
+  "private": true,
   "description": "Example Angular project using availity-workflow",
   "main": "index.js",
   "scripts": {
@@ -13,8 +13,11 @@
     "about": "av about",
     "lint": "av lint",
     "help": "av help",
-    "build": "av release",
     "profile": "av profile",
+    "build": "av build",
+    "build:production": "cross-env NODE_ENV=production av build",
+    "build:staging": "cross-env NODE_ENV=staging av build",
+    "release": "av release",
     "production": "cross-env NODE_ENV=production av release",
     "staging": "cross-env NODE_ENV=staging av release"
   },
@@ -33,17 +36,6 @@
     "url": "https://github.com/availity/availity-workflow/issues"
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
-  "devDependencies": {
-    "availity-workflow": "^2.3.0",
-    "availity-workflow-angular": "^2.3.0",
-    "babel-eslint": "^7.2.2",
-    "cross-env": "^4.0.0",
-    "eslint": "^3.19.0",
-    "eslint-config-availity": "^2.1.0"
-  },
-  "availityWorkflow": {
-    "plugin": "availity-workflow-angular"
-  },
   "dependencies": {
     "@uirouter/angularjs": "^1.0.4",
     "angular": "^1.6.4",
@@ -64,5 +56,16 @@
     "select2": "^3.5.2-browserify",
     "tracekit": "^0.4.4",
     "velocity-animate": "^1.5.0"
+  },
+  "devDependencies": {
+    "availity-workflow": "^2.3.0",
+    "availity-workflow-angular": "^2.3.0",
+    "babel-eslint": "^7.2.2",
+    "cross-env": "^4.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-availity": "^2.1.0"
+  },
+  "availityWorkflow": {
+    "plugin": "availity-workflow-angular"
   }
 }
