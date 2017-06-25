@@ -253,6 +253,13 @@ headers: {
 }
 ```
 
+## Contribute
+
+- Install `lerna` using `npm install -g lerna`
+- Run `lerna bootstrap` at project root
+- Use `npm run angular` to start the Angular sample application
+- Use `npm run react` to use the React sample application
+
 ## Disclaimer
 
 Open source software components distributed or made available in the Availity Materials are licensed to Company under the terms of the applicable open source license agreements, which may be found in text files included in the Availity Materials.
