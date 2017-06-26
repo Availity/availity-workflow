@@ -5,12 +5,12 @@ const exists = require('exists-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+// const postcss = require('availity-workflow-settings/webpack/loader-postcss');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const requireRelative = require('require-relative');
 
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
-const postcss = require('./postcss');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
@@ -125,7 +125,7 @@ const config = {
         test: /\.css$/,
         use: [
           'style-loader',
-          postcss,
+          // postcss,
           {
             loader: 'css-loader',
             options: {
@@ -148,7 +148,7 @@ const config = {
               name: 'images/[name].[ext]'
             }
           },
-          postcss,
+          // postcss,
           {
             loader: 'less-loader',
             options: {
@@ -169,7 +169,7 @@ const config = {
               name: 'images/[name].[ext]'
             }
           },
-          postcss,
+          // postcss,
           {
             loader: 'sass-loader',
             options: {

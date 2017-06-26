@@ -1,10 +1,10 @@
 sudo: false
 language: node_js
 node_js:
-- '8'
+  - '8'
 cache:
   directories:
-  - node_modules
+    - node_modules
 notifications:
   email: false
 git:
@@ -14,11 +14,11 @@ addons:
   sauce_connect: true
 branches:
   only:
-  - feature/travis-integration
+  - master
 before_script:
-- lerna bootstrap
+  - lerna bootstrap
 script:
-- lerna run test:integration
+  - lerna run test:integration
 env:
   global:
   - secure: o4sHxQunXOsRRyxVjXrV4cAKt5nN5aqn1Il/Tb6/KEaex2lK2tgjwRMF9F4mIXajIHHD9/OtttgX+QZY+ZPRrvBXBnsIpiwzh7w4U8BZ75OK1HHFgzujyvre0qb4pzEBLTAe3ZvZWQZ9WQg29Ml9X8CVxY1OPunsrlu3WvY9mBkZScA/uOEFYn9XsXwS+z6mqDEroiMVEW5JkE4FGv3CaGDEaXAUWdNXqoAhISrrqliDQeR0LRoLTm9Idc0lXcbQXspY2xaU8ttMIgqfFu8/msRU7sOKtVmOpzaeDZ59nlGASlbG/xxZ0OhRMjF0sSa9t4MYPie0E9agQBVwsx3HCAO6BzkYIWIr1Q2GzYAow1zWonGCuw8V4zqIfNJ/iUXHQKMPvQosfS3ZzEG8AVCR7vg0dy45qZCvKcYGGid7ycvBpomYW/B50qgWkKunWdXW/iLTyY0h1iKMSTZbvdyqMGBK5JIsrlO9qyBJxAIaDd4zAYzezPYETk30Aj3NLBeK3Y1u0sMfAXNivHd4OccR4zQW+hvqqyBdYwk7PSmVh/EEKR9OtqHhlb2ZzIbLatn4LpJyRfWNAe2R34nwoil/oW2TQCx7EJgmi3Jbjmv1BNvy4rDcYfZ1YBYJ54I3Gdq6HzyWktxIHrhFckWPT8vdGVjR15aakQfsyKR+u0VQIS8=

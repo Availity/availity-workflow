@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const settings = require('availity-workflow-settings');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const postcss = require('availity-workflow-settings/webpack/loader-postcss');
 const exists = require('exists-sync');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -12,7 +13,7 @@ process.noDeprecation = true;
 
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
-const postCssLoader = require('./postcss');
+
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
 

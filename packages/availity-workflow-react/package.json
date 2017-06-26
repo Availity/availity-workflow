@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "autoprefixer": "^7.0.1",
     "availity-workflow-babel-preset": "^2.3.0",
     "availity-workflow-settings": "^2.3.0",
     "babel-core": "^6.25.0",

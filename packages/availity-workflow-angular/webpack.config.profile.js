@@ -11,7 +11,7 @@ const requireRelative = require('require-relative');
 process.noDeprecation = true;
 
 const VersionPlugin = require('./version');
-const postCssLoader = require('./postcss');
+const postcss = require('availity-workflow-settings/webpack/loader-postcss');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
@@ -127,7 +127,7 @@ const config = {
           fallback: 'style-loader',
           use: [
             'css-loader',
-            postCssLoader
+            postcss
           ],
           publicPath: '../'
         })
@@ -138,7 +138,7 @@ const config = {
           fallback: 'style-loader',
           use: [
             'css-loader',
-            postCssLoader,
+            postcss,
             'less-loader'
           ],
           publicPath: '../'
@@ -150,7 +150,7 @@ const config = {
           fallback: 'style-loader',
           use: [
             'css-loader',
-            postCssLoader,
+            postcss,
             'sass-loader'
           ],
           publicPath: '../'

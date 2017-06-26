@@ -6,12 +6,13 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const exists = require('exists-sync');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const postcss = require('availity-workflow-settings/webpack/loader-postcss');
 
 process.noDeprecation = true;
 
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
-const postCssLoader = require('./postcss');
+
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
@@ -82,7 +83,7 @@ const config = {
           fallback: 'style-loader',
           use: [
             'css-loader',
-            postCssLoader
+            postcss
           ],
           publicPath: '../'
         })
@@ -93,7 +94,7 @@ const config = {
           fallback: 'style-loader',
           use: [
             'css-loader',
-            postCssLoader,
+            postcss,
             { loader: 'sass-loader', options: { sourceMap: true } }
           ],
           publicPath: '../'
