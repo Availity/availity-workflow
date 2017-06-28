@@ -8,6 +8,11 @@
     "angular:test": "npm test --prefix packages/availity-angular-kit",
     "react": "npm start --prefix packages/availity-react-kit",
     "react:test": "npm test --prefix packages/availity-react-kit",
-    "test": "lerna run test:integration"
+    "lint": "eslint .",
+    "publish": "lerna publish -force-publish=*",
+    "bootstrap": "lerna bootstrap",
+    "test": "lerna run --concurrency test",
+    "test:integration": "lerna run --concurrency 1 integration",
+    "clean": "lerna clean"
   }
 }
