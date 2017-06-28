@@ -62,11 +62,6 @@
     "webpack-dev-server": "2.4.5",
     "yargs": "^8.0.2"
   },
-  "devDependencies": {
-    "babel-eslint": "^7.2.3",
-    "eslint-config-availity": "^2.1.0",
-    "eslint-plugin-react": "^7.1.0"
-  },
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 4.0.0"

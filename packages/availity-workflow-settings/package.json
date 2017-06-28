@@ -32,10 +32,5 @@
     "postcss-focus": "^2.0.0",
     "postcss-reporter": "^4.0.0",
     "yargs": "^8.0.1"
-  },
-  "devDependencies": {
-    "babel-eslint": "^7.2.3",
-    "eslint": "^3.19.0",
-    "eslint-config-availity": "^2.1.0"
   }
 }

@@ -1,5 +1,2 @@
 ---
 extends: eslint-config-availity
-rules:
-  strict: 0
-
