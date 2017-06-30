@@ -5,7 +5,8 @@ const exists = require('exists-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-// const postcss = require('availity-workflow-settings/webpack/loader-postcss');
+const ruleFonts = require('availity-workflow-settings/webpack/rule-fonts');
+const loaderPostcss = require('availity-workflow-settings/webpack/loader-postcss');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const requireRelative = require('require-relative');
 
@@ -125,7 +126,7 @@ const config = {
         test: /\.css$/,
         use: [
           'style-loader',
-          // postcss,
+          loaderPostcss,
           {
             loader: 'css-loader',
             options: {
@@ -148,7 +149,6 @@ const config = {
               name: 'images/[name].[ext]'
             }
           },
-          // postcss,
           {
             loader: 'less-loader',
             options: {
@@ -169,7 +169,7 @@ const config = {
               name: 'images/[name].[ext]'
             }
           },
-          // postcss,
+          loaderPostcss,
           {
             loader: 'sass-loader',
             options: {
@@ -178,17 +178,7 @@ const config = {
           }
         ]
       },
-      {
-        // test should match the following:
-        //
-        //  '../fonts/availity-font.eot?18704236'
-        //  '../fonts/availity-font.eot'
-        //
-        test: /\.(otf|ttf|woff2?|eot|svg)(\?.*)?$/,
-        use: [
-          'file-loader?name=fonts/[name].[ext]'
-        ]
-      },
+      ruleFonts,
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [

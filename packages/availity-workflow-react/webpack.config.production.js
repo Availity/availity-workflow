@@ -7,6 +7,7 @@ const exists = require('exists-sync');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const postcss = require('availity-workflow-settings/webpack/loader-postcss');
+const ruleFonts = require('availity-workflow-settings/webpack/rule-fonts');
 
 process.noDeprecation = true;
 
@@ -100,17 +101,7 @@ const config = {
           publicPath: '../'
         })
       },
-      {
-        // test should match the following:
-        //
-        //  '../fonts/availity-font.eot?18704236'
-        //  '../fonts/availity-font.eot'
-        //
-        test: /\.(otf|ttf|woff2?|eot|svg)(\?.*)?$/,
-        use: [
-          'file-loader?name=fonts/[name].[ext]'
-        ]
-      },
+      ruleFonts,
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
