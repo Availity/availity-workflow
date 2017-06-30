@@ -1,6 +1,6 @@
 # availity-workflow
 
-> Upgradeable workflow for Availity boilerplate projects
+> Upgradeable workflow engine for Availity boilerplate projects
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=license)](http://opensource.org/licenses/MIT)
 [![NPM](http://img.shields.io/npm/v/availity-workflow.svg?style=flat-square&label=npm)](https://npmjs.org/package/availity-workflow)
