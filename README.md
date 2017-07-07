@@ -108,7 +108,7 @@ module.exports = {
 }
 ```
 
-If `workflow.js` exports a function that can be used to override properties from the default configuration. The function must return a configuration.
+If `workflow.js` exports a function it can be used to override properties from the default configuration. The function must return a configuration.
 
 ```js
 function merge(config) {
