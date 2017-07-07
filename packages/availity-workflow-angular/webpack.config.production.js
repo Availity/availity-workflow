@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const settings = require('availity-workflow-settings');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const ruleFonts = require('availity-workflow-settings/webpack/rule-fonts');
+const loaderPostcss = require('availity-workflow-settings/webpack/loader-postcss');
 const exists = require('exists-sync');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -12,7 +14,7 @@ process.noDeprecation = true;
 
 const htmlConfig = require('./html');
 const VersionPlugin = require('./version');
-const postCssLoader = require('./postcss');
+
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
 
@@ -133,7 +135,7 @@ const config = {
               loader: 'css-loader',
               options: { sourceMap: true, importLoaders: 1 }
             },
-            postCssLoader
+            loaderPostcss
           ],
           publicPath: '../'
         })
@@ -147,7 +149,7 @@ const config = {
               loader: 'css-loader',
               options: { sourceMap: true, importLoaders: 1 }
             },
-            postCssLoader,
+            loaderPostcss,
             {
               loader: 'less-loader',
               options: { sourceMap: true }
@@ -165,23 +167,13 @@ const config = {
               loader: 'css-loader',
               options: { sourceMap: true, importLoaders: 1 }
             },
-            postCssLoader,
+            loaderPostcss,
             'sass-loader?sourceMap'
           ],
           publicPath: '../'
         })
       },
-      {
-        // test should match the following:
-        //
-        //  '../fonts/availity-font.eot?18704236'
-        //  '../fonts/availity-font.eot'
-        //
-        test: /\.(otf|ttf|woff2?|eot|svg)(\?.*)?$/,
-        use: [
-          'file-loader?name=fonts/[name].[ext]'
-        ]
-      },
+      ruleFonts,
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [

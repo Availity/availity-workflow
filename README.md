@@ -1,6 +1,6 @@
 # availity-workflow
 
-> Upgradeable workflow for Availity boilerplate projects
+> Upgradeable workflow engine for Availity boilerplate projects
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=license)](http://opensource.org/licenses/MIT)
 [![NPM](http://img.shields.io/npm/v/availity-workflow.svg?style=flat-square&label=npm)](https://npmjs.org/package/availity-workflow)
@@ -53,6 +53,7 @@ npm install eslint eslint eslint-config-availity eslint-plugin-react eslint-plug
 ## Features
 
 - Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
+- A global variable `APP_VERSION` is written to javascript bundle that can be used to determine the version of the application that was deployed. Open up the browser debugger and type `APP_VERSION`.
 
 ## Configuration
 
@@ -105,6 +106,17 @@ module.exports = {
         "plugin": "availity-workflow-react"
     }
 }
+```
+
+If `workflow.js` exports a function that can be used to override properties from the default configuration. The function must return a configuration.
+
+```js
+function merge(config) {
+  config.development.open = '#/foo';
+  return config;
+}
+
+module.exports = merge;
 ```
 
 ### Options

@@ -6,11 +6,12 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ruleFonts = require('availity-workflow-settings/webpack/rule-fonts');
+const loaderPostcss = require('availity-workflow-settings/webpack/loader-postcss');
 
 process.noDeprecation = true;
 
 const VersionPlugin = require('./version');
-const postCssLoader = require('./postcss');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
@@ -84,7 +85,7 @@ const config = {
               loader: 'css-loader',
               options: { sourceMap: true }
             },
-            postCssLoader
+            loaderPostcss
           ],
           publicPath: '../'
         })
@@ -98,23 +99,13 @@ const config = {
               loader: 'css-loader',
               options: { sourceMap: true }
             },
-            postCssLoader,
+            loaderPostcss,
             'sass-loader?sourceMap'
           ],
           publicPath: '../'
         })
       },
-      {
-        // test should match the following:
-        //
-        //  '../fonts/availity-font.eot?18704236'
-        //  '../fonts/availity-font.eot'
-        //
-        test: /\.(otf|ttf|woff2?|eot|svg)(\?.*)?$/,
-        use: [
-          'file-loader?name=fonts/[name].[ext]'
-        ]
-      },
+      ruleFonts,
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [

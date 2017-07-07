@@ -1,6 +1,6 @@
 {
   "name": "availity-react-kit",
-  "version": "2.4.1",
+  "version": "2.4.2-beta.1",
   "private": true,
   "description": "Example React project using availity-workflow",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "av": "av",
     "test": "av test",
     "test:watch": "av test --watch",
-    "test:integration": "av test --integration",
+    "test:integration": "av test",
     "about": "av about",
     "lint": "av lint",
     "help": "av help",
@@ -48,8 +48,8 @@
     "reactstrap": "^4.6.2"
   },
   "devDependencies": {
-    "availity-workflow": "^2.4.0",
-    "availity-workflow-react": "^2.4.1",
+    "availity-workflow": "^2.4.2-beta.1",
+    "availity-workflow-react": "^2.4.2-beta.1",
     "babel-eslint": "^7.2.2",
     "cross-env": "^5.0.1",
     "eslint": "^3.19.0",
