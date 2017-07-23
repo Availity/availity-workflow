@@ -57,7 +57,7 @@ npm install eslint eslint eslint-config-availity eslint-plugin-react eslint-plug
 
 ## Configuration
 
-`availity-workflow` can be configured using a javascript or yaml configuration file called `workflow.js` or `workflow.yml`. 
+`availity-workflow` can be configured using a javascript or yaml configuration file called `workflow.js` or `workflow.yml`.
 
 **Example:**
 ```js
@@ -191,7 +191,7 @@ globals: {
 }
 ```
 
-Once declared, override the default flag values from the command line .  
+Once declared, override the default flag values from the command line .
 
 **Ex:**
 ```bash
@@ -201,13 +201,13 @@ EXPERIMENTAL_FEATURE=true npm run production
 
 By default, the following feature flags are enabled:
 
-- `__DEV__`: **true** when `process.env.NODE_ENV` is **development** 
+- `__DEV__`: **true** when `process.env.NODE_ENV` is **development**
 - `__TEST__`: **true** when `process.env.NODE_ENV`  is **test**
 - `__PROD__`: **true** when `process.env.NODE_ENV` is **production**
 - `__STAGING__`: **true** when `process.env.NODE_ENV` is **staging**
-- `process.env.NODE_ENV`: is `development`, `test`, `staging` or `production` accordingly.  
+- `process.env.NODE_ENV`: is `development`, `test`, `staging` or `production` accordingly.
 
-> `eslint-config-availity@2.1.0` or higher is needed for the default feature toggles to be recognized as valid globals by **eslint**.  
+> `eslint-config-availity@2.1.0` or higher is needed for the default feature toggles to be recognized as valid globals by **eslint**.
 
 #### `ekko.enabled`
 Enables or disables Ekko.  Default is `true`.
@@ -231,18 +231,18 @@ Array of NPM module names that enhance Ekko with additional data and routes. @Se
 Pass URL context information to mock responses so that HATEOS links traverse correctly. Defaults to `http://localhost:{development.port}/api`
 
 #### `proxies`
-Array of proxy configurations.  A default configuration is enabled to proxy requests to the Ekko server.  Each proxy configuration can have the following attributes.  
+Array of proxy configurations.  A default configuration is enabled to proxy requests to the Ekko server.  Each proxy configuration can have the following attributes.
 
-- `context`: URL context used to match the activation of the proxy per request. 
+- `context`: URL context used to match the activation of the proxy per request.
 
 **Ex:**:
 ```js
 context: '/api'
 ```
 
-- `target`: Host and port number for proxy. 
+- `target`: Host and port number for proxy.
 - `enabled`: Enables or disables a proxy configuration
-- `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.   
+- `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.
 
 **Ex:**
 ```js
@@ -254,9 +254,9 @@ pathRewrite: {
 - `contextRewrite`: _(Optional)_ Does not work with multiple proxy contexts.  When `true`:
     - Rewrites the `Origin` and `Referer` headers from host to match the the proxy target url.
     - Rewrites the `Location` header from proxy to the host url.
-    - Rewrites any urls of the response body (JSON only) to match the url of the host.  Only URLs that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host.  The proxy context is automatically appended to the host url if missing the a URL response.  
+    - Rewrites any urls of the response body (JSON only) to match the url of the host.  Only URLs that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host.  The proxy context is automatically appended to the host url if missing the a URL response.
 
-- `headers`: _(Optional)_ Send default headers to the proxy destination. 
+- `headers`: _(Optional)_ Send default headers to the proxy destination.
 
 **Ex:**:
 ```js
@@ -267,8 +267,8 @@ headers: {
 
 ## Contribute
 
-- Install `lerna` using `npm install -g lerna`
-- Run `lerna bootstrap` at project root
+- Run `npm install`
+- Run `npm run bootstrap` at project root
 - Use `npm run angular` to start the Angular sample application
 - Use `npm run react` to use the React sample application
 
