@@ -17,8 +17,8 @@ function proxyLogRewrite(daArgs) {
   return args.map(arg => {
     if (typeof arg === 'string') {
       return arg
-      .replace(/\[HPM\] /g, '')
-      .replace(/  /g, ' ');
+        .replace(/\[HPM\] /g, '')
+        .replace(/  /g, ' ');
     }
   });
 

@@ -56,8 +56,8 @@ const settings = {
   // the contents don't change the file could potentially be cached in the browser.
   fileName() {
     return this.isDistribution() ?
-    '[name]-[chunkhash].js' :
-    '[name].js';
+      '[name]-[chunkhash].js' :
+      '[name].js';
   },
 
   output() {
@@ -167,7 +167,7 @@ const settings = {
     } else if (exists(ymlWorkflowConfig)) { // Try workflow.yml
       this.workflowConfigPath = ymlWorkflowConfig;
       developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));
-    } else {  // fall back to default ./workflow.js
+    } else { // fall back to default ./workflow.js
       this.workflowConfigPath = defaultWorkflowConfig;
     }
 

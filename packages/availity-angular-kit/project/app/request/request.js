@@ -28,14 +28,15 @@ class Request {
 
     const self = this;
 
-    return this.di.
-      avUsersResource
-        .me()
-        .then(user => {
-          // cache user
-          self.user = user;
-          return user;
-        });
+    return this
+      .di
+      .avUsersResource
+      .me()
+      .then(user => {
+        // cache user
+        self.user = user;
+        return user;
+      });
   }
 
   onSelectedOrganization(organization) {
