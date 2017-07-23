@@ -33,7 +33,6 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.1",
     "duplicate-package-checker-webpack-plugin": "^1.2.4",
-    "eslint": "^3.15.0",
     "exists-sync": "0.0.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
