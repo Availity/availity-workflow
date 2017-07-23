@@ -1,5 +1,3 @@
-const del = require('del');
-const settings = require('availity-workflow-settings');
 const Logger = require('availity-workflow-logger');
 
 const version = require('./version');
