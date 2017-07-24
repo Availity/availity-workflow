@@ -50,11 +50,11 @@
   "devDependencies": {
     "availity-workflow": "^2.4.3",
     "availity-workflow-react": "^2.4.3",
-    "babel-eslint": "^7.2.2",
+    "babel-eslint": "^7.2.3",
     "cross-env": "^5.0.1",
-    "eslint": "4.3.0",
-    "eslint-config-availity": "^2.2.0-beta.1",
-    "eslint-plugin-import": "^2.3.0",
+    "eslint": "^4.3.0",
+    "eslint-config-availity": "^2.2.0",
+    "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0"
   },

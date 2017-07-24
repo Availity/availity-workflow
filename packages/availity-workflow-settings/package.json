@@ -31,6 +31,6 @@
     "postcss-cssnext": "^3.0.2",
     "postcss-focus": "^2.0.0",
     "postcss-reporter": "^4.0.0",
-    "yargs": "^8.0.1"
+    "yargs": "^8.0.2"
   }
 }

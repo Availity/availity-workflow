@@ -2,7 +2,7 @@
   "private": true,
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "eslint": "^4.1.1",
+    "eslint": "^4.3.0",
     "eslint-config-availity": "^2.2.0",
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
@@ -21,6 +21,7 @@
     "bootstrap": "lerna bootstrap",
     "test": "lerna run --concurrency test",
     "test:integration": "lerna run --concurrency 1 integration",
-    "clean": "lerna clean"
+    "clean": "lerna clean",
+    "postinstall": "lerna bootstrap --hoist"
   }
 }

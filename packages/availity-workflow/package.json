@@ -37,7 +37,7 @@
     "debug": "^2.6.8",
     "del": "^3.0.0",
     "escape-string-regexp": "^1.0.5",
-    "eslint": "4.3.0",
+    "eslint": "^4.3.0",
     "figures": "^2.0.0",
     "globby": "^6.1.0",
     "inquirer": "^3.2.0",
