@@ -2,16 +2,17 @@
   "private": true,
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "eslint": "^4.3.0",
+    "eslint": "^4.4.1",
     "eslint-config-availity": "^2.2.0",
-    "eslint-plugin-import": "^2.6.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.1.0",
     "lerna": "2.0.0"
   },
   "scripts": {
     "angular": "npm start --prefix packages/availity-angular-kit",
     "angular:test": "npm test --prefix packages/availity-angular-kit",
+    "angular:coverage": "npm test --prefix packages/availity-angular-kit -- --coverage",
     "angular:profile": "npm run profile --prefix packages/availity-angular-kit",
     "react": "npm start --prefix packages/availity-react-kit",
     "react:test": "npm test --prefix packages/availity-react-kit",
