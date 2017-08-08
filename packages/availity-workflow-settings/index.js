@@ -31,7 +31,7 @@ const settings = {
   },
 
   coverage() {
-    return path.join(this.project(), 'coverage');
+    return get(this.configuration, 'development.coverage', path.join(this.project(), 'coverage'));
   },
 
   css() {

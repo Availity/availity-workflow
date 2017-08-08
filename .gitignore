@@ -9,3 +9,4 @@ build/
 dist/
 /packages/availity-angular-kit/project/config/workflow.js
 /packages/availity-react-kit/project/config/workflow.js
+/packages/availity-angular-kit/coverage

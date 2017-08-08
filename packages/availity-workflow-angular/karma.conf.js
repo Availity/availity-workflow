@@ -72,6 +72,12 @@ const karmaConfig = {
 // Add coverage statistics if arg --coverage is added from CLI
 if (settings.isCoverage()) {
 
+  karmaConfig.reporters = ['progress', 'coverage'];
+
+  karmaConfig.preprocessors = {
+    'specs-bundle.js': ['webpack', 'sourcemap', 'coverage']
+  };
+
   Object.assign(karmaConfig, {
     coverageReporter: {
       includeAllSources: true,
@@ -80,10 +86,6 @@ if (settings.isCoverage()) {
         return browser.toLowerCase().split(/[ /-]/)[0];
       },
       reporters: [
-        {
-          type: 'text',
-          file: 'text.txt'
-        },
         {
           type: 'text-summary'
         },
