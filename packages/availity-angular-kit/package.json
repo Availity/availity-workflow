@@ -9,6 +9,7 @@
     "av": "av",
     "test": "av test",
     "test:watch": "av test --watch",
+    "test:coverage": "av test --coverage",
     "test:integration": "av test --integration",
     "about": "av about",
     "lint": "av lint",
@@ -61,8 +62,8 @@
     "availity-workflow": "^2.4.4",
     "availity-workflow-angular": "^2.4.4",
     "babel-eslint": "^7.2.3",
-    "cross-env": "^5.0.1",
-    "eslint": "^4.3.0",
+    "cross-env": "^5.0.4",
+    "eslint": "^4.4.1",
     "eslint-config-availity": "^2.2.0"
   },
   "availityWorkflow": {
