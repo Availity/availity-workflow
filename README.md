@@ -34,7 +34,7 @@ npm install availity-workflow-react --save-dev
 npm install availity-workflow-angular --save-dev
 ```
 
-- Update `packge.json` with plugin reference
+- Update `package.json` with plugin reference
 
 ```json
 {
