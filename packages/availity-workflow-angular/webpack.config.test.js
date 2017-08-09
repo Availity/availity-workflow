@@ -34,6 +34,10 @@ const config = {
 
   devtool: 'inline-source-map',
 
+  performance: {
+    hints: false
+  },
+
   resolve: {
     // Tell webpack what directories should be searched when resolving modules
     modules: [
@@ -65,6 +69,7 @@ const config = {
       {
         test: /\.js$/,
         include: settings.app(),
+        enforce: 'pre',
         use: [
           {
             loader: 'babel-loader',

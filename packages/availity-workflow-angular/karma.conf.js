@@ -3,13 +3,28 @@ const settings = require('availity-workflow-settings');
 
 const webpackConfig = require('./webpack.config.test');
 
+if (settings.isCoverage()) {
+  webpackConfig.module.rules.push(
+    {
+      test: /\.js$/,
+      include: settings.app(),
+      exclude: [
+        /node_modules/,
+        /[-|\.]spec\.js$/,
+        /specs\-bundle\.js/
+      ],
+      enforce: 'post',
+      loader: 'istanbul-instrumenter-loader',
+      options: { esModules: true }
+    }
+  );
+}
+
 const karmaConfig = {
 
   basePath: settings.app(),
 
   frameworks: ['jasmine'],
-
-  // failOnEmptyTestSuite: false,
 
   files: [
     { pattern: 'specs-bundle.js', watched: false }
@@ -58,7 +73,7 @@ const karmaConfig = {
   plugins: [
     require('karma-jasmine'),
     require('karma-spec-reporter'),
-    require('karma-coverage'),
+    require('karma-coverage-istanbul-reporter'),
     require('karma-chrome-launcher'),
     require('karma-firefox-launcher'),
     require('karma-ie-launcher'),
@@ -72,27 +87,16 @@ const karmaConfig = {
 // Add coverage statistics if arg --coverage is added from CLI
 if (settings.isCoverage()) {
 
-  karmaConfig.reporters = ['progress', 'coverage'];
-
-  karmaConfig.preprocessors = {
-    'specs-bundle.js': ['webpack', 'sourcemap', 'coverage']
-  };
+  karmaConfig.reporters.push('coverage-istanbul');
 
   Object.assign(karmaConfig, {
-    coverageReporter: {
-      includeAllSources: true,
+    coverageIstanbulReporter: {
+      fixWebpackSourcePaths: true,
       dir: settings.coverage(),
       subdir(browser) {
         return browser.toLowerCase().split(/[ /-]/)[0];
       },
-      reporters: [
-        {
-          type: 'text-summary'
-        },
-        {
-          type: 'html'
-        }
-      ]
+      reports: ['html', 'text-summary']
     }
   });
 
@@ -101,7 +105,7 @@ if (settings.isCoverage()) {
 module.exports = function(config) {
 
   config.set(Object.assign({
-    logLevel: config.LOG_WARN
+    logLevel: config.LOG_INFO
   }, karmaConfig));
 
 };
