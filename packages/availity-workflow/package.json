@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow",
-  "version": "2.4.5",
+  "version": "2.4.6",
   "description": "Upgradable workflow for Availity boilerplate projects",
   "main": "index.js",
   "bin": {
@@ -30,8 +30,8 @@
   "dependencies": {
     "availity-ekko": "^2.2.0",
     "availity-mock-data": "^1.2.0",
-    "availity-workflow-logger": "^2.4.5",
-    "availity-workflow-settings": "^2.4.5",
+    "availity-workflow-logger": "^2.4.6",
+    "availity-workflow-settings": "^2.4.6",
     "bluebird": "^3.5.0",
     "chalk": "^2.1.0",
     "debug": "^2.6.8",
