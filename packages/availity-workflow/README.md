@@ -1,5 +1,16 @@
 # CLI
 
+## Table of Contents
+* [NPM](#npm)
+* [Commands](#commands)
+    * [help](#help)
+    * [start](#start)
+    * [lint](#lint)
+    * [build](#build)
+    * [release](#release)
+    * [profile](#profile)
+    * [test](#test)
+
 ## NPM
 > NPM requires `--` between the command and options
 ```bash
