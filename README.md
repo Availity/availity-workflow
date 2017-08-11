@@ -10,8 +10,9 @@
 
 ## Table of Contents
 * [Getting Started](#getting-started)
+* [Features](#features)
+* [CLI](#cli)
 * [Configuration](#configuration)
-* [CLI](packages/availity-workflow/README.md)
 * [License](#license)
 
 ## Getting Started
@@ -54,6 +55,10 @@ npm install eslint eslint eslint-config-availity eslint-plugin-react eslint-plug
 
 - Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
 - A global variable `APP_VERSION` is written to javascript bundle that can be used to determine the version of the application that was deployed. Open up the browser debugger and type `APP_VERSION`.
+
+## CLI
+
+CLI options are documented in it's [README](./packages/availity-workflow/README.md)
 
 ## Configuration
 
