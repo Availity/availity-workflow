@@ -50,6 +50,8 @@ No minification is done on javascript assets
 #### options
 
 ##### `--dry-run`
+- Disables committing files to git
+- Disables creating a git tag
 
 ### `profile`
 Analyze Webpack bundles and find what is contributing their sizes.  This command generates an html graphical chart that automatically opens in the browser as well as a text summary report in the console.
@@ -81,6 +83,24 @@ css-loader: 2.14 KB (0.157%)
 
 ### `test`
 Run the tests for your project.  The behavior of the test are determined by the plugin used in the workflow engine.  The engine supports `availity-workflow-react` (Jest) and `availity-workflow-angular` (Karma and Chrome|Firefox|IE) plugins.
+
+#### options
+
+##### `--coverage`
+Indicates that test coverage information should be collected and reported in the output. React project leverage the `--coverage` option from Jest. Angular projects use Instanbul to collect coverage metrics. Angular projects output coverage statistics to the console as well as html files in the  `{workspaces}/coverage` folder.
+
+```bash
+› Started testing
+Chrome 59.0.3071 (Mac OS X 10.12.5): Executed 3 of 3 SUCCESS (0.706 secs / 0.082 secs)
+
+=============================== Coverage summary ===============================
+Statements   : 27.69% ( 8620/31134 )
+Branches     : 9.81% ( 1980/20189 )
+Functions    : 22.15% ( 1381/6235 )
+Lines        : 27.23% ( 7955/29217 )
+================================================================================
+✔ Finished testing
+```
 
 ### `about`
 Awesomeness.
