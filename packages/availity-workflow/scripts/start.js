@@ -37,6 +37,9 @@ function customStats(stats) {
     reasons: false,
     source: false,
     chunks: false,
+    modules: false,
+    chunkModules: false,
+    chunkOrigins: false,
     children: false,
     errorDetails: true
   });
