@@ -56,7 +56,7 @@ const karmaConfig = {
     require('karma-sauce-launcher'),
     require('karma-jasmine'),
     require('karma-spec-reporter'),
-    require('karma-coverage'),
+    require('karma-coverage-istanbul-reporter'),
     require('karma-webpack'),
     require('karma-sourcemap-loader')
   ]
