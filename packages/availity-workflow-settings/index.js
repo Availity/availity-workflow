@@ -8,6 +8,18 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const get = require('lodash.get');
 const argv = require('yargs').argv;
+const _ = require('lodash');
+
+function stringify(obj) {
+  _.each(obj, (value, key) => {
+    if (_.isString(value)) {
+      obj[key] = JSON.stringify(value);
+    } else if (_.isObject(value) && !_.isFunction(value)) {
+      stringify(value);
+    }
+  });
+  return obj;
+}
 
 const settings = {
 
@@ -92,7 +104,7 @@ const settings = {
 
   globals() {
 
-    const configGlobals = get(this.configuration, 'globals', {});
+    const configGlobals = stringify(get(this.configuration, 'globals', {}));
 
     const env = this.environment();
 
