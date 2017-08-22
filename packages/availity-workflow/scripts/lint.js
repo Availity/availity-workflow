@@ -8,7 +8,7 @@ const settings = require('availity-workflow-settings');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
-function lint() {
+function lint(argv = {}) {
 
   let engine;
 
@@ -36,15 +36,17 @@ function lint() {
 
     // files tracked by git
     let gitTrackedFiles;
-    const gitRootCmd = spawnSync('git', ['rev-parse', '--show-toplevel']);
-    if (gitRootCmd.status) {
-      // non-zero exit code; assume git repository absent
-      gitTrackedFiles = null;
-    } else {
-      const gitLsFiles = spawnSync('git', ['ls-files']);
-      gitTrackedFiles = gitLsFiles.stdout.toString().trim().split('\n');
-      const gitRoot = gitRootCmd.stdout.toString().trim();
-      gitTrackedFiles = gitTrackedFiles.map((f) => path.join(gitRoot, f));
+    if (argv.ignoreGitUntracked) {
+      const gitRootCmd = spawnSync('git', ['rev-parse', '--show-toplevel']);
+      if (gitRootCmd.status) {
+        // non-zero exit code; assume git repository absent
+        gitTrackedFiles = null;
+      } else {
+        const gitLsFiles = spawnSync('git', ['ls-files']);
+        gitTrackedFiles = gitLsFiles.stdout.toString().trim().split('\n');
+        const gitRoot = gitRootCmd.stdout.toString().trim();
+        gitTrackedFiles = gitTrackedFiles.map((f) => path.join(gitRoot, f));
+      }
     }
 
     // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
