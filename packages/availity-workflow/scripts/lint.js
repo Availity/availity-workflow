@@ -5,6 +5,8 @@ const ora = require('ora');
 const chalk = require('chalk');
 const Logger = require('availity-workflow-logger');
 const settings = require('availity-workflow-settings');
+const path = require('path');
+const { spawnSync } = require('child_process');
 
 function lint() {
 
@@ -32,14 +34,29 @@ function lint() {
     spinner.color = 'yellow';
     spinner.start();
 
-    const files = settings.js();
+    // files tracked by git
+    let gitTrackedFiles;
+    const gitRootCmd = spawnSync('git', ['rev-parse', '--show-toplevel']);
+    if (gitRootCmd.status) {
+      // non-zero exit code; assume git repository absent
+      gitTrackedFiles = null;
+    } else {
+      const gitLsFiles = spawnSync('git', ['ls-files']);
+      gitTrackedFiles = gitLsFiles.stdout.toString().trim().split('\n');
+      const gitRoot = gitRootCmd.stdout.toString().trim();
+      gitTrackedFiles = gitTrackedFiles.map((f) => path.join(gitRoot, f));
+    }
 
     // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
-    globby(files).then(paths => {
+    globby(settings.js()).then(paths => {
 
       spinner.stop();
+      const filesToLint = gitTrackedFiles ?
+        // git repository present
+        paths.filter((f) => ~gitTrackedFiles.indexOf(f)) :
+        paths;
 
-      const report = engine.executeOnFiles(paths);
+      const report = engine.executeOnFiles(filesToLint);
 
       if (report.errorCount || report.warningCount) {
 
