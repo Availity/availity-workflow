@@ -39,7 +39,7 @@ yargs
         alias: 'u',
         describe: 'Ignore files that are not indexed by git'
       });
-  }, (yyargs) => { lint(yyargs).catch(() => { /* noop */}) })
+  }, () => { lint().catch(() => { /* noop */}) })
 
   .command('test', `${chalk.dim(test.description)}`, yyargs => {
     return yyargs

@@ -281,6 +281,10 @@ const settings = {
     return this.environment() === 'test';
   },
 
+  isIgnoreUntracked() {
+    return argv.ignoreGitUntracked !== undefined;
+  },
+
   isWatch() {
     return argv.watch !== undefined;
   },

@@ -8,7 +8,7 @@ const settings = require('availity-workflow-settings');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
-function lint(argv = {}) {
+function lint() {
 
   let engine;
 
@@ -36,7 +36,7 @@ function lint(argv = {}) {
 
     // files tracked by git
     let gitTrackedFiles;
-    if (argv.ignoreGitUntracked) {
+    if (settings.isIgnoreUntracked()) {
       const gitRootCmd = spawnSync('git', ['rev-parse', '--show-toplevel']);
       if (gitRootCmd.status) {
         // non-zero exit code; assume git repository absent
