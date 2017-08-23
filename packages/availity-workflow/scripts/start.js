@@ -16,6 +16,7 @@ const notifier = require('./notifier');
 const plugin = require('./plugin');
 const open = require('./open');
 const formatWebpackMessages = require('./format');
+const merge = require('lodash.merge');
 
 let server;
 let ekko;
@@ -184,7 +185,7 @@ function web() {
 
     });
 
-    const webpackOptions = {
+    let webpackOptions = {
 
       contentBase: settings.output(),
       // display no info to console (only warnings and errors)
@@ -206,6 +207,7 @@ function web() {
 
     };
 
+    webpackOptions = merge(webpackOptions, settings.config().development.webpackOptions);
     const proxyConfig = proxy();
 
     if (proxyConfig) {
