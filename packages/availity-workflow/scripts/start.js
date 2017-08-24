@@ -207,7 +207,7 @@ function web() {
 
     };
 
-    webpackOptions = merge(webpackOptions, settings.config().development.webpackOptions);
+    webpackOptions = merge(webpackOptions, settings.config().development.webpackDevServer);
     const proxyConfig = proxy();
 
     if (proxyConfig) {
