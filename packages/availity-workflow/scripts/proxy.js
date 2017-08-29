@@ -161,14 +161,24 @@ function proxy() {
 
       onProxyReq: (proxyReq, req) => {
         onRequest(proxyConfiguration, proxyReq, req);
+        if (typeof proxyConfiguration.onProxyReq === 'function') {
+          proxyConfiguration.onProxyReq(proxyReq, req);
+        }
       },
 
       onProxyRes: (proxyRes, req, res) => {
         onResponse(proxyConfiguration, proxyRes, req, res);
+        if (typeof proxyConfiguration.onProxyRes === 'function') {
+          proxyConfiguration.onProxyRes(proxyRes, req, res);
+        }
       },
 
       onError: (err, req, res) => {
         onProxyError(proxyConfiguration, err, req, res);
+        if (typeof proxyConfiguration.onError === 'function') {
+          proxyConfiguration.onError(err, req, res);
+        }
+        
       }
 
     });

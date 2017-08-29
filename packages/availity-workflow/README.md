@@ -40,6 +40,9 @@ Lint project files using EsLint.
 ##### `--include`
 Include additional glob patterns for linting.
 
+##### `--ignore-git-untracked`
+Ignore files that are not indexed by git.
+
 ### `build`
 - Cleans up `/dist` folder
 - Bundles project assets into the `/dist` folder

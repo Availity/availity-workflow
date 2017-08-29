@@ -16,6 +16,7 @@ const notifier = require('./notifier');
 const plugin = require('./plugin');
 const open = require('./open');
 const formatWebpackMessages = require('./format');
+const merge = require('lodash.merge');
 
 let server;
 let ekko;
@@ -37,6 +38,9 @@ function customStats(stats) {
     reasons: false,
     source: false,
     chunks: false,
+    modules: false,
+    chunkModules: false,
+    chunkOrigins: false,
     children: false,
     errorDetails: true
   });
@@ -181,7 +185,7 @@ function web() {
 
     });
 
-    const webpackOptions = {
+    let webpackOptions = {
 
       contentBase: settings.output(),
       // display no info to console (only warnings and errors)
@@ -203,6 +207,7 @@ function web() {
 
     };
 
+    webpackOptions = merge(webpackOptions, settings.config().development.webpackDevServer);
     const proxyConfig = proxy();
 
     if (proxyConfig) {

@@ -34,6 +34,10 @@ yargs
       .option('fail', {
         alias: 'f',
         describe: 'Force linter to fail and exit'
+      })
+      .option('ignore-git-untracked', {
+        alias: 'u',
+        describe: 'Ignore files that are not indexed by git'
       });
   }, () => { lint().catch(() => { /* noop */}) })
 

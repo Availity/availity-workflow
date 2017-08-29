@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow-react",
-  "version": "2.4.6",
+  "version": "2.6.0",
   "description": "React module for availity-workflow",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
@@ -22,16 +22,16 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "availity-workflow-babel-preset": "^2.4.6",
-    "availity-workflow-settings": "^2.4.6",
-    "babel-core": "^6.25.0",
+    "availity-workflow-babel-preset": "^2.6.0",
+    "availity-workflow-settings": "^2.6.0",
+    "babel-core": "^6.26.0",
     "babel-jest": "^20.0.0",
-    "babel-loader": "^7.1.1",
-    "babel-runtime": "^6.25.0",
+    "babel-loader": "^7.1.2",
+    "babel-runtime": "^6.26.0",
     "bluebird": "^3.5.0",
     "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.28.1",
+    "css-loader": "^0.28.5",
     "duplicate-package-checker-webpack-plugin": "^1.2.4",
     "exists-sync": "0.0.4",
     "extract-text-webpack-plugin": "^3.0.0",
@@ -45,9 +45,9 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
-    "webpack": "^3.4.1",
+    "webpack": "^3.5.5",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "2.6.1",
+    "webpack-dev-server": "^2.7.1",
     "webpack-notifier": "^1.5.0"
   },
   "engines": {

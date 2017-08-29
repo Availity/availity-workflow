@@ -32,8 +32,7 @@ const wfPlugins = [
     helpers: false,
     polyfill: false,
     regenerator: true,
-    // Resolve the Babel runtime relative to the config.
-    // You can safely remove this after ejecting:
+    // Resolve the Babel runtime relative to the config
     moduleName: path.dirname(require.resolve('babel-runtime/package'))
   }]
 ];

@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow-settings",
-  "version": "2.4.6",
+  "version": "2.6.0",
   "description": "Configuration for availity-workflow",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "availity-workflow-logger": "^2.4.6",
+    "availity-workflow-logger": "^2.6.0",
     "chalk": "^2.0.1",
     "exists-sync": "0.0.4",
     "js-yaml": "^3.9.0",
@@ -30,7 +30,7 @@
     "lodash.trimstart": "^4.5.1",
     "postcss-cssnext": "^3.0.2",
     "postcss-focus": "^2.0.0",
-    "postcss-reporter": "^4.0.0",
+    "postcss-reporter": "^5.0.0",
     "yargs": "^8.0.2"
   }
 }

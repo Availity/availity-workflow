@@ -44,7 +44,7 @@ Prints an error message in `red` with a cross symbol and error label
 ✖ [ ERROR] Failed linting
 ```
 
-### `successs`
+### `success`
 Prints a success message in `green` with a checkbox symbol.
 
 ```bash
