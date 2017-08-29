@@ -1,11 +1,10 @@
 import { spy } from 'sinon';
-import chai from 'chai';
+import chai, { expect } from 'chai';
 import sinonChai from 'sinon-chai';
 import moxios from 'moxios';
 import { USER_OPTS, getUser } from './requestApi';
 
 chai.use(sinonChai);
-const should = chai.should();
 
 beforeEach(() => {
   moxios.install();
@@ -19,7 +18,7 @@ describe('Request API', () => {
 
   describe('getUser', () => {
     it('exists', () => {
-      should.exist(getUser);
+      expect(getUser).to.exist;
     });
 
     it('GETs users api', () => {
@@ -38,7 +37,7 @@ describe('Request API', () => {
       getUser().then(onFulfilled);
 
       moxios.wait(() => {
-        onFulfilled.should.have.been.called;
+        expect(onFulfilled).to.have.been.called;
       });
     });
   });

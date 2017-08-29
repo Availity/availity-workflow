@@ -1,28 +1,27 @@
-import chai from 'chai';
+import { expect } from 'chai';
 import { RequestStore } from './requestStore';
 const requestStore = new RequestStore();
-const should = chai.should();
 
 describe('RequestStore', () => {
   describe('toggleAcceptedAgreement', () => {
     it('toggles accepted agreement', () => {
-      should.exist(requestStore);
+      expect(requestStore).to.exist;
 
       requestStore.toggleAcceptedAgreement();
 
-      requestStore.acceptedAgreement
-        .should.be.true;
+      expect(requestStore.acceptedAgreement)
+        .to.be.true;
     });
   });
 
   describe('updateMemberId', () => {
     it('updates the member id', () => {
       const id = '12345';
-      should.exist(requestStore);
+      expect(requestStore).to.exist;
       requestStore.updateMemberId(id);
 
-      requestStore.memberId
-        .should.equal(id);
+      expect(requestStore.memberId)
+        .to.equal(id);
     });
   });
 });

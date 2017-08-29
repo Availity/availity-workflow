@@ -1,11 +1,9 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import chai from 'chai';
+import { expect } from 'chai';
 import { Agreement, Patient, Provider } from './components';
 
 import AuthorizationsRequest from './index';
-
-const should = chai.should();
 
 let request;
 beforeEach(() => {
@@ -14,19 +12,18 @@ beforeEach(() => {
 
 describe('AuthorizationsRequest', () => {
   it('renders', () => {
-    should.exist(request);
-    request.should.have.lengthOf(1);
+    expect(request).to.exist;
+    expect(request).to.have.lengthOf(1);
   });
 
   it('renders request components', () => {
-    should.exist(request);
+    expect(request).to.exist;
 
-    request.find(Patient)
-      .should.have.lengthOf(1);
-    request.find(Provider)
-      .should.have.lengthOf(1);
-    request.find(Agreement)
-      .should.have.lengthOf(1);
+    expect(request.find(Patient))
+      .to.have.lengthOf(1);
+    expect(request.find(Provider))
+      .to.have.lengthOf(1);
+    expect(request.find(Agreement))
+      .to.have.lengthOf(1);
   });
 });
-
