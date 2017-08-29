@@ -7,13 +7,7 @@ import { RequestStore } from '../stores/requestStore';
 
 @observer
 export default class Patient extends Component {
-  constructor(props) {
-    super(props);
-
-    this.updateMemberId = ::this.updateMemberId;
-  }
-
-  updateMemberId(event) {
+  updateMemberId = (event) => {
     const { requestStore } = this.props;
     const { value } = event.target;
 

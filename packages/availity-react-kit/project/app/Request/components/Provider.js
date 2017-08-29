@@ -7,29 +7,21 @@ import { AvField } from '../../components';
 
 @observer
 export default class Provider extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onSelectedOrganization = ::this.onSelectedOrganization;
-    this.onSelectedProvider = ::this.onSelectedProvider;
-    this.updateNPI = ::this.updateNPI;
-  }
-
-  onSelectedOrganization(event) {
+  onSelectedOrganization = (event) => {
     const { requestStore } = this.props;
     const { value } = event.target;
 
     requestStore.onSelectedOrganization(value);
   }
 
-  onSelectedProvider(event) {
+  onSelectedProvider = (event) => {
     const { requestStore } = this.props;
     const { value } = event.target;
 
     requestStore.onSelectedProvider(value);
   }
 
-  updateNPI(event) {
+  updateNPI = (event) => {
     const { requestStore } = this.props;
     const { value } = event.target;
 

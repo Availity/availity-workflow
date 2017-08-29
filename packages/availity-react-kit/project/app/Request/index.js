@@ -11,17 +11,11 @@ import { Footer, Header } from '../components';
 
 @observer
 export default class AuthorizationsRequest extends Component {
-  constructor(props) {
-    super(props);
-
-    this.submit = ::this.submit;
-  }
-
   componentWillMount() {
     requestStore.getUser();
   }
 
-  submit() {
+  submit = () => {
     const params = {
       dob: requestStore.dob,
       memberId: requestStore.memberId,
