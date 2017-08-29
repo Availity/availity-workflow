@@ -7,12 +7,10 @@ export class Organization {
   @observable name
   @observable customerId
 
-  constructor(json) {
-    const _json = json || {};
-
-    this.id = _json.id || '';
-    this.name = _json.name || '';
-    this.customerId = _json.customerId || '';
+  constructor({ id = '', name = '', customerId = '' } = {}) {
+    this.id = id;
+    this.name = name;
+    this.customerId = customerId;
   }
 }
 
@@ -23,14 +21,12 @@ export class Provider {
   @observable firstName
   @observable npi
 
-  constructor(json) {
-    const _json = json || {};
-
-    this.id = _json.id || '';
-    this.businessName = _json.businessName || '';
-    this.lastName = _json.lastName || '';
-    this.firstName = _json.firstName || '';
-    this.npi = _json.npi || '';
+  constructor({ id = '', businessName = '', lastName = '', firstName = '', npi = '' } = {}) {
+    this.id = id;
+    this.businessName = businessName;
+    this.lastName = lastName;
+    this.firstName = firstName;
+    this.npi = npi;
   }
 }
 

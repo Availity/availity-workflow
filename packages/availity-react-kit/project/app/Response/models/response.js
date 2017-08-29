@@ -4,10 +4,8 @@ import map from 'lodash.map';
 export class Diagnosis {
   @observable qualifier
 
-  constructor(json) {
-    const _json = json || {};
-
-    this.qualifier = _json.qualifier || '';
+  constructor({ qualifier = '' } = {}) {
+    this.qualifier = qualifier;
   }
 }
 
@@ -16,12 +14,10 @@ export class Patient {
   @observable lastName
   @observable birthDate
 
-  constructor(json) {
-    const _json = json || {};
-
-    this.firstName = _json.firstName || '';
-    this.lastName = _json.lastName || '';
-    this.birthDate = _json.birthdate || '';
+  constructor({ firstName = '', lastName = '', birthDate = '' } = {}) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthDate = birthDate;
   }
 }
 
@@ -29,21 +25,17 @@ export class Payer {
   @observable id
   @observable name
 
-  constructor(json) {
-    const _json = json || {};
-
-    this.id = _json.id || '';
-    this.name = _json.name || '';
+  constructor({ id = '', name = '' } = {}) {
+    this.id = id;
+    this.name = name;
   }
 }
 
 export class Subscriber {
   @observable memberId
 
-  constructor(json) {
-    const _json = json || {};
-
-    this.memberId = _json.memberId || '';
+  constructor({ memberId = '' } = {}) {
+    this.memberId = memberId;
   }
 }
 
