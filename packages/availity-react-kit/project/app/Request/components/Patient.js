@@ -32,7 +32,7 @@ export default class Patient extends Component {
         </UncontrolledTooltip>
 
         <AvField
-          type="text"
+          type="number"
           id="memberID"
           name="memberID"
           value={memberId}
@@ -43,7 +43,7 @@ export default class Patient extends Component {
         />
 
         <AvField
-          type="text"
+          type="date"
           id="dob"
           name="dob"
           value={dob}
