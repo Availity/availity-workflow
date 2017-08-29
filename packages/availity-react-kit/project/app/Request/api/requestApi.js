@@ -6,9 +6,7 @@ const PROVIDERS_OPTS = 'api/internal/v1/providers';
 const USER_OPTS = 'api/sdk/platform/v1/users/me';
 const AUTHORIZATIONS_OPTS = 'api/v1/proxy/healthplan/v1/authorizations';
 
-export const getUser = () => {
-  return get(USER_OPTS);
-};
+export const getUser = () => get(USER_OPTS);
 
 export const getOrganizations = (userId) => {
   return get(ORGANIZATIONS_OPTS, {
