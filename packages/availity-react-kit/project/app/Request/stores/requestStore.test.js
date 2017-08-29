@@ -6,6 +6,7 @@ const should = chai.should();
 describe('RequestStore', () => {
   describe('toggleAcceptedAgreement', () => {
     it('toggles accepted agreement', () => {
+      should.exist(requestStore);
 
       requestStore.toggleAcceptedAgreement();
 
@@ -17,6 +18,7 @@ describe('RequestStore', () => {
   describe('updateMemberId', () => {
     it('updates the member id', () => {
       const id = '12345';
+      should.exist(requestStore);
       requestStore.updateMemberId(id);
 
       requestStore.memberId
