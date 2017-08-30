@@ -1,6 +1,25 @@
-import React from 'react';
-import Request from './request/Request';
+import React, { Component } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import AuthorizationsRequest from './Request';
+import AuthorizationsResponse from './Response';
 
-const App = () => <Request />;
+class App extends Component {
+  renderRootPath = () => {
+    return (
+      <div>
+        <Route path="/request" component={AuthorizationsRequest} />
+        <Route path="/response" component={AuthorizationsResponse} />
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <BrowserRouter basename="/">
+        <Route path="/" render={this.renderRootPath} />
+      </BrowserRouter>
+    );
+  }
+}
 
 export default App;
