@@ -4,7 +4,7 @@ import requestStore from './stores/requestStore';
 import { getAuthorization } from './api/requestApi';
 import uiStore from '../stores/uiStore';
 import { Agreement, Patient, Provider } from './components';
-import { AvForm } from '../components';
+import { AvForm } from 'availity-mobx-reactstrap-validation';
 import { Button, Card, CardBlock } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 import { Footer, Header } from '../components';
