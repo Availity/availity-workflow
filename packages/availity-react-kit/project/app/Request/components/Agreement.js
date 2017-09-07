@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { AvFeedback, AvInput, AvGroup } from '../../components';
+import { AvFeedback, AvInput, AvGroup } from 'availity-mobx-reactstrap-validation';
 import { Label } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { RequestStore } from '../stores/requestStore';

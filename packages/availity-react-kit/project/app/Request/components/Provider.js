@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { RequestStore } from '../stores/requestStore';
 import { Label, UncontrolledTooltip } from 'reactstrap';
-import { AvField } from '../../components';
+import { AvField } from 'availity-mobx-reactstrap-validation';
 
 @observer
 export default class Provider extends Component {
