@@ -8,6 +8,9 @@ import './index.scss';
 
 import App from './App';
 
+// ES6 Promise Polyfill for IE11
+require('es6-promise').polyfill();
+
 const render = Component => ReactDOM.render(
   <AppContainer>
     <Component />
