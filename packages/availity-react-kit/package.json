@@ -37,10 +37,11 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "availity-reactstrap-validation": "^1.4.1",
     "availity-mobx-reactstrap-validation": "^0.0.6",
+    "availity-reactstrap-validation": "^1.4.1",
     "availity-uikit": "^3.0.0-beta.13",
     "axios": "^0.16.1",
+    "es6-promise": "^4.1.1",
     "lodash.get": "4.4.2",
     "lodash.map": "4.6.0",
     "mobx": "^3.1.15",
