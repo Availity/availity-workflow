@@ -48,7 +48,7 @@ const settings = {
 
   css() {
     return this.isDistribution() ?
-      '[name]-[chunkhash].css' :
+      '[name]-[hash].css' :
       '[name].css';
   },
 
@@ -68,7 +68,7 @@ const settings = {
   // the contents don't change the file could potentially be cached in the browser.
   fileName() {
     return this.isDistribution() ?
-      '[name]-[chunkhash].js' :
+      '[name]-[hash].js' :
       '[name].js';
   },
 
