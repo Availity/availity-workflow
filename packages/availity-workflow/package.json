@@ -37,10 +37,10 @@
     "debug": "^3.0.0",
     "del": "^3.0.0",
     "escape-string-regexp": "^1.0.5",
-    "eslint": "^4.5.0",
+    "eslint": "^4.7.1",
     "figures": "^2.0.0",
     "globby": "^6.1.0",
-    "inquirer": "^3.2.2",
+    "inquirer": "^3.3.0",
     "lodash": "^4.17.4",
     "lodash.debounce": "^4.0.8",
     "lodash.get": "^4.4.2",
@@ -57,10 +57,10 @@
     "type-is": "^1.6.15",
     "update-notifier": "^2.1.0",
     "url-join": "^2.0.2",
-    "webpack": "^3.5.5",
+    "webpack": "^3.6.0",
     "webpack-bundle-size-analyzer": "^2.6.0",
-    "webpack-dev-server": "^2.7.1",
-    "yargs": "^8.0.2"
+    "webpack-dev-server": "^2.8.2",
+    "yargs": "^9.0.1"
   },
   "engines": {
     "node": ">= 6.0.0",
