@@ -13,6 +13,10 @@ function create() {
   // in Jest configs. We need help from somebody with Windows to determine this.
   const config = {
     collectCoverageFrom: ['**/*.{js,jsx}'],
+    coveragePathIgnorePatterns: [
+      '/node_modules/',
+      '/coverage/'
+    ],
     testEnvironment: 'node',
     testURL: 'http://localhost',
     transform: {

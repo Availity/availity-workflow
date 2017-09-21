@@ -17,6 +17,7 @@
     "angular:lint": "npm run lint --prefix packages/availity-angular-kit",
     "react": "npm start --prefix packages/availity-react-kit",
     "react:test": "npm test --prefix packages/availity-react-kit",
+    "react:coverage": "npm test --prefix packages/availity-react-kit -- --coverage",
     "react:profile": "npm run profile --prefix packages/availity-react-kit",
     "react:lint": "npm run lint --prefix packages/availity-react-kit",
     "lint": "eslint .",
@@ -25,6 +26,6 @@
     "test": "lerna run --concurrency test",
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean",
-    "postinstall": "lerna bootstrap --hoist"
+    "postinstall": "lerna bootstrap"
   }
 }
