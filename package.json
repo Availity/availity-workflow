@@ -2,12 +2,12 @@
   "private": true,
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "eslint": "^4.5.0",
+    "eslint": "^4.7.2",
     "eslint-config-availity": "^2.2.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.2.1",
-    "lerna": "2.0.0"
+    "lerna": "^2.2.0"
   },
   "scripts": {
     "angular": "npm start --prefix packages/availity-angular-kit",
