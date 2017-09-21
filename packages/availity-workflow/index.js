@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 
 const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
