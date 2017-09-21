@@ -60,7 +60,7 @@
     "webpack": "^3.6.0",
     "webpack-bundle-size-analyzer": "^2.6.0",
     "webpack-dev-server": "^2.8.2",
-    "yargs": "^9.0.1"
+    "yargs": "^8.0.2"
   },
   "engines": {
     "node": ">= 6.0.0",

@@ -20,6 +20,7 @@
     "react:coverage": "npm test --prefix packages/availity-react-kit -- --coverage",
     "react:profile": "npm run profile --prefix packages/availity-react-kit",
     "react:lint": "npm run lint --prefix packages/availity-react-kit",
+    "react:help": "npm run help --prefix packages/availity-react-kit",
     "lint": "eslint .",
     "publish": "lerna publish --force-publish=*",
     "bootstrap": "lerna bootstrap",

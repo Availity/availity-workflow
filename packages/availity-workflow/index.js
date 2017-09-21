@@ -51,19 +51,22 @@ yargs
 
   .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their sizes')}`, () => { profile() })
 
-  .command('build', `${chalk.dim('Bundle project for distribution (production or stagingå)')}`, () => { build() })
+  .command('build', `${chalk.dim('Bundle project for distribution (production or staging)')}`, () => { build() })
 
-  .command('release', `${chalk.dim('Bundle project for distribution (production or stagingå) and create a git tag')}`, () => { release() })
+  .command('release', `${chalk.dim('Bundle project for distribution (production or staging) and create a git tag')}`, () => { release() })
 
   .command('about', `${chalk.dim('About availity-workflow')}`, () => { about() })
 
   .demand(1, chalk.red('Must provide a valid cli command'))
 
-  .help('help')
-  .alias('h', 'help')
   .showHelpOnFail(false, 'Specify --help for available options')
 
+  .help('help').alias('help', 'h')
+
+  .version(require('./package.json').version, 'version').alias('version', 'V')
+
   .example(chalk.yellow('av start'))
+
   .example(chalk.yellow('av lint'))
 
   .argv;
