@@ -1,6 +1,6 @@
 {
   "name": "availity-react-kit",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "private": true,
   "description": "Example React project using availity-workflow",
   "main": "index.js",
@@ -55,22 +55,22 @@
     "reactstrap": "^4.6.2"
   },
   "devDependencies": {
-    "availity-workflow": "^2.6.0",
-    "availity-workflow-react": "^2.6.0",
+    "availity-workflow": "^2.6.1",
+    "availity-workflow-react": "^2.6.1",
     "babel-eslint": "^7.2.3",
     "chai": "^3.5.0",
-    "enzyme": "^2.7.1",
-    "moxios": "^0.4.0",
-    "react-dom": "^15.6.1",
-    "react-test-renderer": "^15.6.1",
-    "sinon": "^3.2.1",
-    "sinon-chai": "^2.13.0",
     "cross-env": "^5.0.5",
+    "enzyme": "^2.7.1",
     "eslint": "^4.5.0",
     "eslint-config-availity": "^2.2.0",
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.2.1"
+    "eslint-plugin-react": "^7.2.1",
+    "moxios": "^0.4.0",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1",
+    "sinon": "^3.2.1",
+    "sinon-chai": "^2.13.0"
   },
   "availityWorkflow": {
     "plugin": "availity-workflow-react"
