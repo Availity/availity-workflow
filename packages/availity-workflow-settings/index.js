@@ -13,7 +13,12 @@ const _ = require('lodash');
 function stringify(obj) {
   _.each(obj, (value, key) => {
     if (_.isString(value)) {
-      obj[key] = JSON.stringify(value);
+      try {
+        JSON.parse(value);
+        obj[key] = value;
+      } catch (e) {
+        obj[key] = JSON.stringify(value);
+      }
     } else if (_.isObject(value) && !_.isFunction(value)) {
       stringify(value);
     }
