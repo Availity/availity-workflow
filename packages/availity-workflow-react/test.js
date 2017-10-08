@@ -40,8 +40,8 @@ function create() {
       //   - ignore tests in dependencies
       // scripts
       //   - directory generated upon eject
-      '<rootDir>/!(build|docs|node_modules|scripts)/**/__tests__/**/*.js?(x)',
-      '<rootDir>/!(build|docs|node_modules|scripts)/**/?(*.)(spec|test).js?(x)'
+      '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/__tests__/**/*.js?(x)',
+      '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/?(*.)(spec|test).js?(x)'
     ],
     globals: settings.globals()
   };
