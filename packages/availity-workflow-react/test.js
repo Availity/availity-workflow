@@ -3,19 +3,16 @@ const jest = require('jest');
 const settings = require('availity-workflow-settings');
 const Promise = require('bluebird');
 
-// Generates a configuration file for jest to consume from the CLI command.
-// The configuration file stubs out
 function create() {
 
   const rootDir = settings.project();
 
-  // TODO: I don't know if it's safe or not to just use / as path separator
-  // in Jest configs. We need help from somebody with Windows to determine this.
   const config = {
-    collectCoverageFrom: ['**/*.{js,jsx}'],
+    collectCoverageFrom: ['project/app/**/*.{js,jsx}'],
     coveragePathIgnorePatterns: [
       '/node_modules/',
-      '/coverage/'
+      '/coverage/',
+      '/dist/'
     ],
     testEnvironment: 'node',
     testURL: 'http://localhost',
@@ -38,8 +35,8 @@ function create() {
       //   - often used to publish to Github Pages
       // node_modules
       //   - ignore tests in dependencies
-      // scripts
-      //   - directory generated upon eject
+      // dist
+      //   - the dist output directory
       '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/__tests__/**/*.js?(x)',
       '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/?(*.)(spec|test).js?(x)'
     ],
