@@ -41,7 +41,14 @@ Prints an empty line in the terminal.
 Prints an error message in `red` with a cross symbol and error label
 
 ```bash
-✖ [ ERROR] Failed linting
+✖ [ ERROR ] Failed linting
+```
+
+### `message`
+Prints info message with custom label or **INFO** if not label is provided
+
+```bash
+ℹ [ Dry Run ] Skipping version bump
 ```
 
 ### `success`

@@ -67,6 +67,11 @@ No minification is done on javascript assets
 - Disables committing files to git
 - Disables creating a git tag
 
+Skipped tasks will print a message in the console
+```bash
+ℹ [ Dry Run ] Skipping version bump
+```
+
 ### `profile`
 Analyze Webpack bundles and find what is contributing their sizes.  This command generates an html graphical chart that automatically opens in the browser as well as a text summary report in the console.
 
