@@ -19,6 +19,7 @@
     "react:test": "npm test --prefix packages/availity-react-kit",
     "react:coverage": "npm test --prefix packages/availity-react-kit -- --coverage",
     "react:profile": "npm run profile --prefix packages/availity-react-kit",
+    "react:staging": "npm run staging --prefix packages/availity-react-kit",
     "react:lint": "npm run lint --prefix packages/availity-react-kit",
     "react:help": "npm run help --prefix packages/availity-react-kit",
     "lint": "eslint .",
