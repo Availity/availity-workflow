@@ -23,6 +23,8 @@ function tag() {
       shell.exec('git add --all');
       shell.exec(`git commit -m "v${settings.version}"`);
       shell.exec(`git tag -a v${settings.version} -m "v${settings.version}"`);
+    } else {
+      Logger.info('Skipping git commands', 'Dry Run');
     }
 
     resolve();
@@ -53,9 +55,10 @@ function bump() {
     // update package.pkg
     if (settings.isDistribution() && !settings.isDryRun()) {
       fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
+      Logger.success('Finished version bump');
+    } else {
+      Logger.info('Skipping version bump', 'Dry Run');
     }
-
-    Logger.success('Finished version bump');
 
     resolve();
 
