@@ -16,7 +16,7 @@ function bundle(config) {
   return new Promise( (resolve, reject) => {
 
     if (!settings.isDryRun()) {
-      Logger.info(`Skipping cleaning ${settings.output()} directories`, 'Dry Run');
+      Logger.message(`Skipping cleaning directories ${settings.output()}`, 'Dry Run');
       del.sync([settings.output()]);
     }
 

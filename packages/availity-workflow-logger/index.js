@@ -58,9 +58,10 @@ class Logger {
     console.log(`${prefix} ${chalk.bgRed(label)} ${chalk.red(entry)}`);
   }
 
-  static info(entry, entryLabel) {
-    const prefix = chalk.blue(figures.cross);
-    const label = chalk.white.bold(` ${entryLabel ? entryLabel : 'entryLabel'} `);
+  static message(entry, entryLabel) {
+    const prefix = chalk.blue(figures.info);
+    entryLabel = entryLabel ? entryLabel : 'INFO';
+    const label = chalk.white.bold(` ${entryLabel} `);
     console.log(`${prefix} ${chalk.bgBlue(label)} ${chalk.blue(entry)}`);
   }
 
