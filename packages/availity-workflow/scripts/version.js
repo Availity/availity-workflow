@@ -54,7 +54,7 @@ function bump() {
 
     // update package.pkg
     if (settings.isDistribution() && !settings.isDryRun()) {
-      // fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
+      fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
       Logger.success('Finished version bump');
     } else {
       Logger.message('Skipping version bump', 'Dry Run');
