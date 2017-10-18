@@ -6,6 +6,7 @@ var inquirer = require('inquirer');
 var _ = require('lodash');
 var moment = require('moment');
 var Promise = require('bluebird');
+var argv = require('yargs').argv;
 
 var context = require('../context');
 var logger = require('../logger');
@@ -36,8 +37,9 @@ function tag() {
 
   return new Promise(function(resolve) {
 
+    var message = argv.message ? argv.message + ' ' : '';
     shell.exec('git add .');
-    shell.exec('git commit -m "v' + context.meta.version + '"');
+    shell.exec('git commit -m "' + message + 'v' + context.meta.version + '"');
     shell.exec('git tag -a v' + context.meta.version + ' -m "v' + context.meta.version + '"');
 
     resolve();
