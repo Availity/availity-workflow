@@ -37,9 +37,9 @@ function tag() {
 
   return new Promise(function(resolve) {
 
-    var message = argv.message ? argv.message + ' ' : '';
+    var message = argv.message ? argv.message : 'v' + context.meta.version;
     shell.exec('git add .');
-    shell.exec('git commit -m "' + message + 'v' + context.meta.version + '"');
+    shell.exec('git commit -m "' + message + '"');
     shell.exec('git tag -a v' + context.meta.version + ' -m "v' + context.meta.version + '"');
 
     resolve();
