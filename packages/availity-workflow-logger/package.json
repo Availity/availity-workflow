@@ -24,7 +24,7 @@
   "dependencies": {
     "boxen": "^1.1.0",
     "chalk": "^2.0.1",
-    "dateformat": "^2.0.0",
+    "dateformat": "^3.0.2",
     "figures": "^2.0.0"
   }
 }
