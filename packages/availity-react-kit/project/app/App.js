@@ -11,7 +11,7 @@ class App extends Component {
         <Route path="/response" component={AuthorizationsResponse} />
       </div>
     );
-  }
+  };
 
   render() {
     return (

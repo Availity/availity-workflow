@@ -9,7 +9,6 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 
 function lint() {
-
   let engine;
 
   if (!settings.isLinting()) {
@@ -21,14 +20,13 @@ function lint() {
 
   try {
     engine = new eslint.CLIEngine({
-      useEslintrc: true
+      useEslintrc: true,
     });
   } catch (err) {
     future = Promise.reject('ESLint configuration error in availity-workflow');
   }
 
   future = new Promise((resolve, reject) => {
-
     Logger.info('Started linting');
     const spinner = ora('running linter rules');
     spinner.color = 'yellow';
@@ -43,25 +41,26 @@ function lint() {
         gitTrackedFiles = null;
       } else {
         const gitLsFiles = spawnSync('git', ['ls-files']);
-        gitTrackedFiles = gitLsFiles.stdout.toString().trim().split('\n');
+        gitTrackedFiles = gitLsFiles.stdout
+          .toString()
+          .trim()
+          .split('\n');
         const gitRoot = gitRootCmd.stdout.toString().trim();
-        gitTrackedFiles = gitTrackedFiles.map((f) => path.join(gitRoot, f));
+        gitTrackedFiles = gitTrackedFiles.map(f => path.join(gitRoot, f));
       }
     }
 
     // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
     globby(settings.js()).then(paths => {
-
       spinner.stop();
-      const filesToLint = gitTrackedFiles ?
-        // git repository present
-        paths.filter((f) => ~gitTrackedFiles.indexOf(f)) :
-        paths;
+      const filesToLint = gitTrackedFiles
+        ? // git repository present
+          paths.filter(f => ~gitTrackedFiles.indexOf(f))
+        : paths;
 
       const report = engine.executeOnFiles(filesToLint);
 
       if (report.errorCount || report.warningCount) {
-
         const formatter = engine.getFormatter();
         Logger.simple(`${formatter(report.results)}`);
         Logger.failed('Failed linting');
@@ -70,21 +69,16 @@ function lint() {
           /* eslint no-process-exit:0 */
           process.exit(1);
         }
-
-
       } else {
-
-        Logger.success(`Finished linting ${chalk.magenta(paths.length)} file(s)`);
+        Logger.success(
+          `Finished linting ${chalk.magenta(paths.length)} file(s)`
+        );
         resolve('Finished linting');
-
       }
-
     });
-
   });
 
   return future;
-
 }
 
 module.exports = lint;

@@ -6,11 +6,8 @@ const settings = require('availity-workflow-settings');
 const Logger = require('availity-workflow-logger');
 
 function open() {
-
   if (settings.open()) {
-
     try {
-
       const port = settings.port();
       const url = settings.open() || '';
       const host = settings.host();
@@ -18,11 +15,9 @@ function open() {
       const uri = urlJoin(`http://${host}:${port}/`, url);
       opn(uri);
       Logger.info(`Opening browser at ${chalk.green(uri)}`);
-
     } catch (err) {
       // Ignore errors.
     }
-
   }
 
   return Promise.resolve(true);

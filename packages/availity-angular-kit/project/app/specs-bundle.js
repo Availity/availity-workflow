@@ -20,4 +20,3 @@ tests.keys().forEach(function(path) {
 
 const components = require.context(__dirname, true, /index\.js$/);
 components.keys().forEach(components);
-

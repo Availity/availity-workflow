@@ -19,11 +19,8 @@ describe('AuthorizationsRequest', () => {
   it('renders request components', () => {
     expect(request).to.exist;
 
-    expect(request.find(Patient))
-      .to.have.lengthOf(1);
-    expect(request.find(Provider))
-      .to.have.lengthOf(1);
-    expect(request.find(Agreement))
-      .to.have.lengthOf(1);
+    expect(request.find(Patient)).to.have.lengthOf(1);
+    expect(request.find(Provider)).to.have.lengthOf(1);
+    expect(request.find(Agreement)).to.have.lengthOf(1);
   });
 });

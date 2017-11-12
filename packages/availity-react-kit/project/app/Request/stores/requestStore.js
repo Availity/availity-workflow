@@ -3,9 +3,9 @@ import { getProviders, getOrganizations, getUser } from '../api/requestApi';
 import map from 'lodash.map';
 
 export class Organization {
-  @observable id
-  @observable name
-  @observable customerId
+  @observable id;
+  @observable name;
+  @observable customerId;
 
   constructor({ id = '', name = '', customerId = '' } = {}) {
     this.id = id;
@@ -15,13 +15,15 @@ export class Organization {
 }
 
 export class Provider {
-  @observable id
-  @observable businessName
-  @observable lastName
-  @observable firstName
-  @observable npi
+  @observable id;
+  @observable businessName;
+  @observable lastName;
+  @observable firstName;
+  @observable npi;
 
-  constructor({ id = '', businessName = '', lastName = '', firstName = '', npi = '' } = {}) {
+  constructor(
+    { id = '', businessName = '', lastName = '', firstName = '', npi = '' } = {}
+  ) {
     this.id = id;
     this.businessName = businessName;
     this.lastName = lastName;
@@ -42,42 +44,44 @@ export class RequestStore {
   @observable relationshipToSubscriber = '';
   @observable acceptedAgreement = false;
 
-  @action getUser() {
+  @action
+  getUser() {
     const self = this;
-    return getUser()
-      .then(resp => {
-        self.userId = resp.data.id;
-        getOrganizations(self.userId)
-          .then(_resp => {
-            const { organizations } = _resp.data;
-            self.organizations = map(organizations, org => new Organization(org));
-          });
+    return getUser().then(resp => {
+      self.userId = resp.data.id;
+      getOrganizations(self.userId).then(_resp => {
+        const { organizations } = _resp.data;
+        self.organizations = map(organizations, org => new Organization(org));
       });
+    });
   }
 
-  @action toggleAcceptedAgreement() {
+  @action
+  toggleAcceptedAgreement() {
     this.acceptedAgreement = !this.acceptedAgreement;
   }
 
-  @action updateMemberId(id) {
+  @action
+  updateMemberId(id) {
     this.memberId = id;
   }
 
-  @action onSelectedOrganization(orgId) {
+  @action
+  onSelectedOrganization(orgId) {
     this.organizations.forEach(org => {
       if (org.id === orgId) {
         this.selectedOrganization = org;
       }
     });
 
-    getProviders(this.selectedOrganization.customerId)
-      .then(resp => {
-        const { providers } = resp.data;
-        this.providers = map(providers, provider => new Provider(provider));
-      });
+    getProviders(this.selectedOrganization.customerId).then(resp => {
+      const { providers } = resp.data;
+      this.providers = map(providers, provider => new Provider(provider));
+    });
   }
 
-  @action onSelectedProvider(providerId) {
+  @action
+  onSelectedProvider(providerId) {
     this.providers.forEach(provider => {
       if (provider.id === providerId) {
         this.selectedProvider = provider;
@@ -86,11 +90,13 @@ export class RequestStore {
     });
   }
 
-  @action updateNPI(npi) {
+  @action
+  updateNPI(npi) {
     this.npi = npi;
   }
 
-  @computed get isProviderDisabled() {
+  @computed
+  get isProviderDisabled() {
     return this.selectedOrganization === null;
   }
 }

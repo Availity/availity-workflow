@@ -10,16 +10,11 @@ module.exports = {
       postcssFocus(),
       cssnext({
         // React doesn't support IE8 anyway
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
-          'not ie < 9'
-        ]
+        browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9'],
       }),
       postcssReporter({
-        clearMessages: true
-      })
-    ]
-  }
+        clearMessages: true,
+      }),
+    ],
+  },
 };

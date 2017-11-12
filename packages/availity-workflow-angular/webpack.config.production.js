@@ -23,18 +23,15 @@ function getVersion() {
 }
 
 const config = {
-
   context: settings.app(),
 
   entry: {
-    'index': [
-      './index.js'
-    ]
+    index: ['./index.js'],
   },
 
   output: {
     path: settings.output(),
-    filename: settings.fileName()
+    filename: settings.fileName(),
   },
 
   devtool: settings.sourceMap(),
@@ -44,13 +41,13 @@ const config = {
     modules: [
       settings.app(),
       path.join(settings.project(), 'node_modules'),
-      path.join(__dirname, 'node_modules')
+      path.join(__dirname, 'node_modules'),
     ],
     alias: {
-      app: path.resolve(settings.app(), 'app-module')
+      app: path.resolve(settings.app(), 'app-module'),
     },
     symlinks: true,
-    extensions: ['.js', '.jsx', '.json', '.css', 'less', 'scss']
+    extensions: ['.js', '.jsx', '.json', '.css', 'less', 'scss'],
   },
 
   // This set of options is identical to the resolve property set above,
@@ -58,9 +55,9 @@ const config = {
   resolveLoader: {
     modules: [
       path.join(settings.project(), 'node_modules'),
-      path.join(__dirname, 'node_modules')
+      path.join(__dirname, 'node_modules'),
     ],
-    symlinks: true
+    symlinks: true,
   },
 
   module: {
@@ -73,39 +70,29 @@ const config = {
             loader: 'babel-loader',
             options: {
               presets: [
-                require.resolve('availity-workflow-babel-preset-angular')
+                require.resolve('availity-workflow-babel-preset-angular'),
               ],
               cacheDirectory: settings.isDevelopment(),
-              babelrc: babelrcExists
-            }
-          }
-        ]
+              babelrc: babelrcExists,
+            },
+          },
+        ],
       },
       {
         test: requireRelative.resolve('angular', settings.project()),
-        use: [
-          'expose-loader?angular',
-          'exports-loader?angular'
-        ]
+        use: ['expose-loader?angular', 'exports-loader?angular'],
       },
       {
         test: requireRelative.resolve('jquery', settings.project()),
-        use: [
-          'expose-loader?$',
-          'expose-loader?jQuery'
-        ]
+        use: ['expose-loader?$', 'expose-loader?jQuery'],
       },
       {
         test: requireRelative.resolve('lodash', settings.project()),
-        use: [
-          'expose-loader?_'
-        ]
+        use: ['expose-loader?_'],
       },
       {
         test: requireRelative.resolve('moment', settings.project()),
-        use: [
-          'expose-loader?moment'
-        ]
+        use: ['expose-loader?moment'],
       },
       {
         test: /\.htm$/,
@@ -113,18 +100,15 @@ const config = {
         // Ignore following templates else errors like:
         //    - "window is not defined" error from the html-webpack-plugin
         //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
-        exclude: /index\.html/
+        exclude: /index\.html/,
       },
       {
         test: /\.html$/,
-        use: [
-          `ngtemplate-loader?relativeTo=${process.cwd()}/`,
-          'html-loader'
-        ],
+        use: [`ngtemplate-loader?relativeTo=${process.cwd()}/`, 'html-loader'],
         // Ignore following templates else errors like:
         //    - "window is not defined" error from the html-webpack-plugin
         //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
-        exclude: /index\.html/
+        exclude: /index\.html/,
       },
       {
         test: /\.css$/,
@@ -133,12 +117,12 @@ const config = {
           use: [
             {
               loader: 'css-loader',
-              options: { sourceMap: true, importLoaders: 1 }
+              options: { sourceMap: true, importLoaders: 1 },
             },
-            loaderPostcss
+            loaderPostcss,
           ],
-          publicPath: '../'
-        })
+          publicPath: '../',
+        }),
       },
       {
         test: /\.less$/,
@@ -147,16 +131,16 @@ const config = {
           use: [
             {
               loader: 'css-loader',
-              options: { sourceMap: true, importLoaders: 1 }
+              options: { sourceMap: true, importLoaders: 1 },
             },
             loaderPostcss,
             {
               loader: 'less-loader',
-              options: { sourceMap: true }
-            }
+              options: { sourceMap: true },
+            },
           ],
-          publicPath: '../'
-        })
+          publicPath: '../',
+        }),
       },
       {
         test: /\.scss$/,
@@ -165,35 +149,32 @@ const config = {
           use: [
             {
               loader: 'css-loader',
-              options: { sourceMap: true, importLoaders: 1 }
+              options: { sourceMap: true, importLoaders: 1 },
             },
             loaderPostcss,
-            'sass-loader?sourceMap'
+            'sass-loader?sourceMap',
           ],
-          publicPath: '../'
-        })
+          publicPath: '../',
+        }),
       },
       ruleFonts,
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        use: [
-          'url-loader?name=images/[name].[ext]&limit=10000'
-        ]
-      }
-    ]
+        use: ['url-loader?name=images/[name].[ext]&limit=10000'],
+      },
+    ],
   },
   plugins: [
-
     new webpack.DefinePlugin(settings.globals()),
 
     new webpack.ProvidePlugin({
       'window.jQuery': 'jquery',
-      '$': 'jquery',
-      'jQuery': 'jquery'
+      $: 'jquery',
+      jQuery: 'jquery',
     }),
 
     new VersionPlugin({
-      version: JSON.stringify(getVersion())
+      version: JSON.stringify(getVersion()),
     }),
 
     new HtmlWebpackPlugin(htmlConfig),
@@ -210,43 +191,42 @@ const config = {
       minChunks(module) {
         // this assumes your vendor imports exist in the node_modules directory
         return module.context && module.context.indexOf('node_modules') !== -1;
-      }
+      },
     }),
 
     new ExtractTextPlugin(`css/${settings.css()}`),
 
-    new CopyWebpackPlugin([
+    new CopyWebpackPlugin(
+      [
+        {
+          context: `${settings.project()}/project/static`, // copy from this directory
+          from: '**/*', // copy all files
+          to: 'static', // copy into {output}/static folder
+        },
+      ],
       {
-        context: `${settings.project()}/project/static`, // copy from this directory
-        from: '**/*', // copy all files
-        to: 'static' // copy into {output}/static folder
+        debug: 'warning',
       }
-    ], {
-      debug: 'warning'
-    })
-
-  ]
+    ),
+  ],
 };
 
 if (settings.isProduction()) {
-
   config.plugins.push(
-
     // Minify the code scripts and css
     new webpack.optimize.UglifyJsPlugin({
       mangle: false,
       compress: {
         screw_ie8: true, // IE8 not supported by Availity
-        drop_console: true
+        drop_console: true,
       },
       output: {
         comments: false,
         screw_ie8: true,
-        max_line_len: 1000
-      }
+        max_line_len: 1000,
+      },
     })
   );
-
 }
 
 module.exports = config;

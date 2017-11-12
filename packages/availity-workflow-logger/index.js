@@ -4,7 +4,6 @@ const figures = require('figures');
 const boxen = require('boxen');
 
 class Logger {
-
   constructor(options) {
     this.options = options;
   }
@@ -31,7 +30,6 @@ class Logger {
 
   // › Started dev server
   static record(entry, color) {
-
     const defaultColor = entry instanceof Error ? 'red' : 'gray';
     const crayoloa = color || defaultColor;
 
@@ -39,8 +37,7 @@ class Logger {
     let delimeter = chalk.bold[crayoloa](figures.pointerSmall);
     delimeter = `${delimeter}`;
 
-    console.log(`${delimeter} ${chalk[crayoloa](entry) }` );
-
+    console.log(`${delimeter} ${chalk[crayoloa](entry)}`);
   }
 
   static simple(entry) {
@@ -67,16 +64,20 @@ class Logger {
 
   // ✔︎ Finished linting
   static success(entry) {
-
     const prefix = chalk.green.bold(figures.tick);
-    console.log(`${prefix} ${chalk.gray(entry)}` );
-
+    console.log(`${prefix} ${chalk.gray(entry)}`);
   }
 
   static box(entry) {
-    console.log(boxen(`${chalk.gray(entry)}`, {padding: 1, borderColor: 'yellow', borderStyle: 'classic', dimBorder: true}));
+    console.log(
+      boxen(`${chalk.gray(entry)}`, {
+        padding: 1,
+        borderColor: 'yellow',
+        borderStyle: 'classic',
+        dimBorder: true,
+      })
+    );
   }
-
 }
 
 module.exports = Logger;

@@ -2,3 +2,4 @@
 extends: eslint-config-availity
 rules:
   strict: 0
+  indent: 0

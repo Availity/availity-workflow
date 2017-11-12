@@ -16,7 +16,8 @@ function AuthorizationsResponse() {
       status,
       diagnoses,
       requestType,
-      payer } = uiStore.currentResponse;
+      payer,
+    } = uiStore.currentResponse;
 
     return (
       <div className="container-sm">
@@ -24,9 +25,13 @@ function AuthorizationsResponse() {
         <Card>
           <CardBlock>
             <div className="card-header-secondary">
-              <small className="text-label text-label-inline">Transaction ID</small>&nbsp;
+              <small className="text-label text-label-inline">
+                Transaction ID
+              </small>&nbsp;
               <Badge color="info">236316981</Badge>&nbsp;
-              <small className="text-label text-label-inline">Customer ID</small>&nbsp;
+              <small className="text-label text-label-inline">
+                Customer ID
+              </small>&nbsp;
               <Badge color="info">{customerId}</Badge>
             </div>
           </CardBlock>
@@ -39,7 +44,9 @@ function AuthorizationsResponse() {
               </Col>
               <Col sm="3">
                 <h5 className="text-label">Patient Name</h5>
-                <p>{patient.firstName} {patient.lastName}</p>
+                <p>
+                  {patient.firstName} {patient.lastName}
+                </p>
               </Col>
               <Col sm="3">
                 <h5 className="text-label">Patient Date of Birth</h5>

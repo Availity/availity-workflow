@@ -1,7 +1,6 @@
 const path = require('path');
 
 const development = {
-
   // Opens the url in the default browser
   open: '',
 
@@ -24,7 +23,7 @@ const development = {
   hot: true,
 
   // Enable or disable react-hot-loader
-  hotLoader: true
+  hotLoader: true,
 
   // Allows developers to override the babel-preset-env target to match their developer environment.  This is benefecial if
   // a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot
@@ -37,26 +36,24 @@ const development = {
   //
   // targets: { ie: 9 }
   // targets: { browsers: ['last 2 Chrome versions'] }
-
 };
 
 const app = {
-  title: 'Availity'
+  title: 'Availity',
 };
 
 const testing = {
-  browsers: ['Chrome']
+  browsers: ['Chrome'],
 };
 
 const globals = {
-  '__DEV__': false,
-  '__TEST__': false,
-  '__PROD__': false,
-  '__STAGING__': false
+  __DEV__: false,
+  __TEST__: false,
+  __PROD__: false,
+  __STAGING__: false,
 };
 
 const ekko = {
-
   // Enables or disables Ekko
   enabled: true,
 
@@ -73,17 +70,14 @@ const ekko = {
 
   // Array of NPM module names that enhance Ekko with additional data and routes.
   // @See https://github.com/Availity/availity-mock-data
-  plugins: [
-    'availity-mock-data'
-  ],
+  plugins: ['availity-mock-data'],
 
   // Mock data can be passed a context so that HATEOS links traverse correctly
-  pluginContext: `http://${development.host}:${development.port}/api`
+  pluginContext: `http://${development.host}:${development.port}/api`,
 };
 
 const proxies = [
   {
-
     // URL context used to match the activation of the proxy per request
     context: '/api',
 
@@ -97,24 +91,21 @@ const proxies = [
 
     // Optional.  Rewrites (using regex) the a path before sending request to proxy target.
     pathRewrite: {
-      '^/api': ''
+      '^/api': '',
     },
 
     // Optional.  Send default headers to the proxy destination.
     headers: {
-      RemoteUser: 'janedoe'
-    }
-  }
-
+      RemoteUser: 'janedoe',
+    },
+  },
 ];
 
 module.exports = {
-
   development,
   app,
   globals,
   testing,
   ekko,
-  proxies
-
+  proxies,
 };

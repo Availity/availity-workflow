@@ -7,19 +7,25 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.2.1",
-    "lerna": "^2.2.0"
+    "husky": "^0.14.3",
+    "lerna": "^2.2.0",
+    "lint-staged": "^5.0.0",
+    "prettier": "^1.8.2"
   },
   "scripts": {
     "angular": "npm start --prefix packages/availity-angular-kit",
     "angular:test": "npm test --prefix packages/availity-angular-kit",
-    "angular:coverage": "npm test --prefix packages/availity-angular-kit -- --coverage",
+    "angular:coverage":
+      "npm test --prefix packages/availity-angular-kit -- --coverage",
     "angular:profile": "npm run profile --prefix packages/availity-angular-kit",
     "angular:lint": "npm run lint --prefix packages/availity-angular-kit",
     "react": "npm start --prefix packages/availity-react-kit",
     "react:test": "npm test --prefix packages/availity-react-kit",
-    "react:coverage": "npm test --prefix packages/availity-react-kit -- --coverage",
+    "react:coverage":
+      "npm test --prefix packages/availity-react-kit -- --coverage",
     "react:profile": "npm run profile --prefix packages/availity-react-kit",
-    "react:staging": "npm run staging --prefix packages/availity-react-kit -- --dry-run",
+    "react:staging":
+      "npm run staging --prefix packages/availity-react-kit -- --dry-run",
     "react:lint": "npm run lint --prefix packages/availity-react-kit",
     "react:help": "npm run help --prefix packages/availity-react-kit",
     "lint": "eslint .",
@@ -28,6 +34,12 @@
     "test": "lerna run --concurrency test",
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean",
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap",
+    "format":
+      "prettier --single-quote --print-width 120 --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": ["prettier --trailing-comma es5 --single-quote --write", "git add"]
   }
 }

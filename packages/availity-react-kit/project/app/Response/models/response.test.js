@@ -1,9 +1,5 @@
 import { expect } from 'chai';
-import Response, {
-  Diagnosis,
-  Patient,
-  Payer,
-  Subscriber } from './response';
+import Response, { Diagnosis, Patient, Payer, Subscriber } from './response';
 
 describe('Response', () => {
   it('can construct with no arguments', () => {
@@ -16,7 +12,7 @@ describe('Response', () => {
       certificationNumber: 'certificationNumber',
       customerId: 'customerId',
       status: 'status',
-      requestType: 'requestType'
+      requestType: 'requestType',
     };
 
     const response = new Response(json);
@@ -28,7 +24,7 @@ describe('Response', () => {
       patient: {},
       subscriber: {},
       diagnoses: [{}],
-      payer: {}
+      payer: {},
     };
 
     const response = new Response(json);

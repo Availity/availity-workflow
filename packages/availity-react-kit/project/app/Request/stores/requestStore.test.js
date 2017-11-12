@@ -9,8 +9,7 @@ describe('RequestStore', () => {
 
       requestStore.toggleAcceptedAgreement();
 
-      expect(requestStore.acceptedAgreement)
-        .to.be.true;
+      expect(requestStore.acceptedAgreement).to.be.true;
     });
   });
 
@@ -20,8 +19,7 @@ describe('RequestStore', () => {
       expect(requestStore).to.exist;
       requestStore.updateMemberId(id);
 
-      expect(requestStore.memberId)
-        .to.equal(id);
+      expect(requestStore.memberId).to.equal(id);
     });
   });
 });

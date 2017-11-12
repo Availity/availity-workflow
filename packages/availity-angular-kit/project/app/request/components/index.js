@@ -10,4 +10,3 @@ app
   .directive('agreementSection', agreement);
 
 export default app;
-

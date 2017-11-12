@@ -27,7 +27,6 @@ function stringify(obj) {
 }
 
 const settings = {
-
   // Cache these values
   configuration: null,
   workflowConfigPath: null,
@@ -38,29 +37,31 @@ const settings = {
 
   // https://webpack.js.org/configuration/devtool/
   sourceMap() {
-
     // Get sourcemap from command line or developer config else "source-map"
-    const sourceMap = get(this.configuration, 'development.sourceMap', 'source-map');
+    const sourceMap = get(
+      this.configuration,
+      'development.sourceMap',
+      'source-map'
+    );
 
-    return this.isDistribution() || this.isDryRun() ?
-      'source-map' :
-      sourceMap;
+    return this.isDistribution() || this.isDryRun() ? 'source-map' : sourceMap;
   },
 
   coverage() {
-    return get(this.configuration, 'development.coverage', path.join(this.project(), 'coverage'));
+    return get(
+      this.configuration,
+      'development.coverage',
+      path.join(this.project(), 'coverage')
+    );
   },
 
   css() {
-    return this.isDistribution() ?
-      '[name]-[chunkhash].css' :
-      '[name].css';
+    return this.isDistribution() ? '[name]-[chunkhash].css' : '[name].css';
   },
 
   // Returns the JSON object from contents or the JSON object from
   // the project root
   pkg(contents) {
-
     if (contents) {
       return JSON.parse(contents || this.raw());
     }
@@ -72,15 +73,13 @@ const settings = {
   // In production, [chunkhash] generate hashes depending on the file contents this if
   // the contents don't change the file could potentially be cached in the browser.
   fileName() {
-    return this.isDistribution() ?
-      '[name]-[chunkhash].js' :
-      '[name].js';
+    return this.isDistribution() ? '[name]-[chunkhash].js' : '[name].js';
   },
 
   output() {
-    return this.isDistribution() ?
-      path.join(this.project(), 'dist') :
-      path.join(this.project(), 'build');
+    return this.isDistribution()
+      ? path.join(this.project(), 'dist')
+      : path.join(this.project(), 'build');
   },
 
   port() {
@@ -96,19 +95,21 @@ const settings = {
   },
 
   targets() {
-
     const defaultTargets = {
       ie: 9,
-      uglify: true
+      uglify: true,
     };
 
-    const developmentTarget = get(this.configuration, 'development.targets', defaultTargets);
+    const developmentTarget = get(
+      this.configuration,
+      'development.targets',
+      defaultTargets
+    );
 
     return this.isDevelopment() ? developmentTarget : defaultTargets;
   },
 
   globals() {
-
     const configGlobals = stringify(get(this.configuration, 'globals', {}));
 
     const env = this.environment();
@@ -120,16 +121,21 @@ const settings = {
     //   capabilities
     const parsedGlobals = Object.keys(process.env)
       .filter(key => key in configGlobals)
-      .reduce( (result, key) => {
-        result[key] = JSON.stringify(process.env[key]);
-        return result;
-      }, {
-        'process.env.NODE_ENV': JSON.stringify(env === 'staging' ? 'production' : env),
-        '__TEST__': env === 'test',
-        '__DEV__': env === 'development',
-        '__PROD__': env === 'production',
-        '__STAGING__': env === 'staging'
-      });
+      .reduce(
+        (result, key) => {
+          result[key] = JSON.stringify(process.env[key]);
+          return result;
+        },
+        {
+          'process.env.NODE_ENV': JSON.stringify(
+            env === 'staging' ? 'production' : env
+          ),
+          __TEST__: env === 'test',
+          __DEV__: env === 'development',
+          __PROD__: env === 'production',
+          __STAGING__: env === 'staging',
+        }
+      );
 
     return merge(configGlobals, parsedGlobals);
   },
@@ -151,16 +157,19 @@ const settings = {
   },
 
   log() {
-
     // Log the mode
-    let message = `${this.pkg().availityWorkflow.plugin.split('availity-workflow-')[1].toUpperCase()} MODE`;
+    let message = `${this.pkg()
+      .availityWorkflow.plugin.split('availity-workflow-')[1]
+      .toUpperCase()} MODE`;
     Logger.warn(chalk.bold.yellow(message));
 
     if (!this.isTesting()) {
-      message = trimStart(path.relative(process.cwd(), this.workflowConfigPath), 'node_modules/');
+      message = trimStart(
+        path.relative(process.cwd(), this.workflowConfigPath),
+        'node_modules/'
+      );
       Logger.info(`Using ${chalk.blue(message)}`);
     }
-
   },
 
   logLevel() {
@@ -168,23 +177,32 @@ const settings = {
     return get(argv, 'development.logLevel', level);
   },
 
-
   init() {
-
     this.configuration = require('./workflow');
     let developerConfig = {};
 
     const defaultWorkflowConfig = path.join(__dirname, 'workflow.js');
-    const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
-    const ymlWorkflowConfig = path.join(settings.project(), 'project/config/workflow.yml');
+    const jsWorkflowConfig = path.join(
+      settings.project(),
+      'project/config/workflow.js'
+    );
+    const ymlWorkflowConfig = path.join(
+      settings.project(),
+      'project/config/workflow.yml'
+    );
 
-    if (exists(jsWorkflowConfig)) { // Try workflow.js
+    if (exists(jsWorkflowConfig)) {
+      // Try workflow.js
       this.workflowConfigPath = jsWorkflowConfig;
       developerConfig = require(this.workflowConfigPath);
-    } else if (exists(ymlWorkflowConfig)) { // Try workflow.yml
+    } else if (exists(ymlWorkflowConfig)) {
+      // Try workflow.yml
       this.workflowConfigPath = ymlWorkflowConfig;
-      developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));
-    } else { // fall back to default ./workflow.js
+      developerConfig = yaml.safeLoad(
+        fs.readFileSync(this.workflowConfigPath, 'utf8')
+      );
+    } else {
+      // fall back to default ./workflow.js
       this.workflowConfigPath = defaultWorkflowConfig;
     }
 
@@ -205,36 +223,37 @@ const settings = {
     merge(this.configuration, {
       development: argv.development,
       ekko: argv.ekko,
-      globals: argv.globals
+      globals: argv.globals,
     });
 
     this.targets();
     this.globals();
-
   },
 
   raw() {
-
     if (!this.raw) {
-      this.raw = fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8');
+      this.raw = fs.readFileSync(
+        path.join(process.cwd(), 'package.json'),
+        'utf8'
+      );
     }
 
     return this.raw;
-
   },
 
   asset(workflowFilePath, projectFilePath) {
-
     const hasProjectFile = exists(projectFilePath);
     const filePath = hasProjectFile ? projectFilePath : workflowFilePath;
 
     if (!this.isTesting()) {
-      const message = trimStart(path.relative(process.cwd(), filePath), 'node_modules/');
+      const message = trimStart(
+        path.relative(process.cwd(), filePath),
+        'node_modules/'
+      );
       Logger.info(`Using ${chalk.blue(message)}`);
     }
 
     return path.relative(this.app(), filePath);
-
   },
 
   config() {
@@ -247,15 +266,15 @@ const settings = {
 
   // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
   js() {
-
     let includeGlobs = argv.include;
 
-    const defaultInclude = [
-      `${this.app()}/**/*.js`,
-      `${this.app()}/**/*.jsx`
-    ];
+    const defaultInclude = [`${this.app()}/**/*.js`, `${this.app()}/**/*.jsx`];
 
-    if (!includeGlobs || !Array.isArray(includeGlobs) || includeGlobs.length === 0) {
+    if (
+      !includeGlobs ||
+      !Array.isArray(includeGlobs) ||
+      includeGlobs.length === 0
+    ) {
       includeGlobs = defaultInclude;
     }
 
@@ -332,8 +351,7 @@ const settings = {
 
   isEkko() {
     return get(this.configuration, 'ekko.enabled', true);
-  }
-
+  },
 };
 
 module.exports = settings;

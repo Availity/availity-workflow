@@ -19,14 +19,13 @@ export default class AuthorizationsRequest extends Component {
     const params = {
       dob: requestStore.dob,
       memberId: requestStore.memberId,
-      npi: requestStore.npi
+      npi: requestStore.npi,
     };
 
-    getAuthorization(params)
-      .then(resp => {
-        uiStore.setCurrentResponse(resp.data.response);
-      });
-  }
+    getAuthorization(params).then(resp => {
+      uiStore.setCurrentResponse(resp.data.response);
+    });
+  };
 
   render() {
     const { currentResponse } = uiStore;
@@ -46,10 +45,8 @@ export default class AuthorizationsRequest extends Component {
               <Agreement requestStore={requestStore} />
               <hr className="divider" />
               <div className="form-controls form-controls-card">
-                <Button
-                  type="submit"
-                  className="btn btn-default"
-                >Authorize
+                <Button type="submit" className="btn btn-default">
+                  Authorize
                 </Button>
               </div>
             </CardBlock>

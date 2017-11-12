@@ -6,7 +6,6 @@ const app = angular.module('app', []);
 
 // Lazy loading hotness
 const addModules = function(_modules) {
-
   let modules = _modules;
   if (!Array.isArray(modules)) {
     modules = [modules];
@@ -20,7 +19,6 @@ const addModules = function(_modules) {
   });
 
   return app;
-
 };
 
 app.addModule = addModules;

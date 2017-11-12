@@ -15,7 +15,6 @@ afterEach(() => {
 });
 
 describe('Request API', () => {
-
   describe('getUser', () => {
     it('exists', () => {
       expect(getUser).to.exist;
@@ -24,13 +23,12 @@ describe('Request API', () => {
     it('GETs users api', () => {
       moxios.stubRequest(USER_OPTS, {
         status: 200,
-        response:
-        {
+        response: {
           id: 'aka123456789',
           lastName: 'Smith',
           firstName: 'Jane',
-          email: 'jane.smith@example.com'
-        }
+          email: 'jane.smith@example.com',
+        },
       });
 
       const onFulfilled = spy();

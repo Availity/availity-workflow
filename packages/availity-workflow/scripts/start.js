@@ -22,12 +22,18 @@ let server;
 let ekko;
 
 Promise.config({
-  longStackTraces: true
+  longStackTraces: true,
 });
 
 const startupMessage = once(() => {
-  const uri = `http://${settings.config().development.host}:${settings.config().development.port}/`;
-  Logger.box(`The app ${chalk.yellow(settings.pkg().name)} is running at ${chalk.green(uri)}`);
+  const uri = `http://${settings.config().development.host}:${
+    settings.config().development.port
+  }/`;
+  Logger.box(
+    `The app ${chalk.yellow(settings.pkg().name)} is running at ${chalk.green(
+      uri
+    )}`
+  );
 });
 
 // development.logLevel=custom
@@ -42,12 +48,11 @@ function customStats(stats) {
     chunkModules: false,
     chunkOrigins: false,
     children: false,
-    errorDetails: true
+    errorDetails: true,
   });
 }
 
 function compileMessage(stats) {
-
   // Get the time
   const statistics = stats.toJson();
   const level = settings.logLevel();
@@ -57,7 +62,9 @@ function compileMessage(stats) {
 
 ${statz}
 `);
-  Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(pretty(statistics.time))}
+  Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(
+    pretty(statistics.time)
+  )}
   `);
 
   startupMessage();
@@ -69,9 +76,7 @@ function init() {
 }
 
 function rest() {
-
   if (settings.isEkko()) {
-
     const ekkoOptions = {
       data: settings.config().ekko.data,
       routes: settings.config().ekko.routes,
@@ -94,40 +99,39 @@ function rest() {
           },
           error() {
             Logger.error(...arguments);
-          }
+          },
         };
-      }
+      },
     };
 
     ekko = new Ekko();
 
     return ekko.start(ekkoOptions);
-
   }
 
   return Promise.resolve();
-
 }
 
 function web() {
-
   return new Promise((resolve, reject) => {
-
     let previousPercent;
 
     // Allow production version to run in development
-    const webpackConfig = settings.isDryRun() && settings.isDevelopment() ? plugin('webpack.config.production') : plugin('webpack.config');
+    const webpackConfig =
+      settings.isDryRun() && settings.isDevelopment()
+        ? plugin('webpack.config.production')
+        : plugin('webpack.config');
 
-    webpackConfig.plugins.push(new ProgressPlugin( (percentage, msg) => {
+    webpackConfig.plugins.push(
+      new ProgressPlugin((percentage, msg) => {
+        const percent = Math.round(percentage * 100);
 
-      const percent = Math.round(percentage * 100);
-
-      if (previousPercent !== percent && percent % 10 === 0) {
-        Logger.info(`${chalk.dim('Webpack')} ${percent}% ${msg}`);
-        previousPercent = percent;
-      }
-
-    }));
+        if (previousPercent !== percent && percent % 10 === 0) {
+          Logger.info(`${chalk.dim('Webpack')} ${percent}% ${msg}`);
+          previousPercent = percent;
+        }
+      })
+    );
 
     const compiler = webpack(webpackConfig);
 
@@ -140,7 +144,6 @@ function web() {
     const message = debounce(compileMessage, 500);
 
     compiler.plugin('done', stats => {
-
       const hasErrors = stats.hasErrors();
       const hasWarnings = stats.hasWarnings();
 
@@ -155,7 +158,6 @@ function web() {
       const messages = formatWebpackMessages(json);
 
       if (hasWarnings) {
-
         messages.warnings.forEach(warning => {
           Logger.empty();
           Logger.simple(`${chalk.yellow(warning)}`);
@@ -164,11 +166,9 @@ function web() {
 
         Logger.failed('Compiled with warnings');
         Logger.empty();
-
       }
 
       if (hasErrors) {
-
         messages.errors.forEach(error => {
           Logger.empty();
           Logger.simple(`${chalk.red(error)}`);
@@ -182,11 +182,9 @@ function web() {
       }
 
       resolve();
-
     });
 
     let webpackOptions = {
-
       contentBase: settings.output(),
       // display no info to console (only warnings and errors)
       noInfo: true,
@@ -202,12 +200,14 @@ function web() {
       // Reportedly, this avoids CPU overload on some systems.
       // https://github.com/facebookincubator/create-react-app/issues/293
       watchOptions: {
-        ignored: /node_modules/
-      }
-
+        ignored: /node_modules/,
+      },
     };
 
-    webpackOptions = merge(webpackOptions, settings.config().development.webpackDevServer);
+    webpackOptions = merge(
+      webpackOptions,
+      settings.config().development.webpackDevServer
+    );
     const proxyConfig = proxy();
 
     if (proxyConfig) {
@@ -216,31 +216,28 @@ function web() {
 
     server = new WebpackDevSever(compiler, webpackOptions);
 
-    server.listen(settings.config().development.port, settings.config().development.host, (err) => {
+    server.listen(
+      settings.config().development.port,
+      settings.config().development.host,
+      err => {
+        if (err) {
+          Logger.failed(err);
+          reject(err);
+        }
 
-      if (err) {
-        Logger.failed(err);
-        reject(err);
+        Logger.info('Started development server');
+        resolve();
       }
-
-      Logger.info('Started development server');
-      resolve();
-
-    });
-
+    );
   });
-
 }
 
 function start() {
-
-  process.on('unhandledRejection', (reason) => {
-
+  process.on('unhandledRejection', reason => {
     if (reason && reason.stack) {
       Logger.error(reason.stack);
       Logger.empty();
     }
-
   });
 
   return init()

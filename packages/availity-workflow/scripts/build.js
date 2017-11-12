@@ -12,18 +12,21 @@ const argv = require('yargs').argv;
 const plugin = require('./plugin');
 
 function bundle(config) {
-
-  return new Promise( (resolve, reject) => {
-
+  return new Promise((resolve, reject) => {
     if (!settings.isDryRun()) {
-      Logger.message(`Skipping cleaning directories ${settings.output()}`, 'Dry Run');
+      Logger.message(
+        `Skipping cleaning directories ${settings.output()}`,
+        'Dry Run'
+      );
       del.sync([settings.output()]);
     }
 
     // Check arguement or CLI arg or default to false
     const shouldProfile = (config && config.profile) || argv.profile || false;
 
-    const webpackConfig = shouldProfile ? plugin('webpack.config.profile') : plugin('webpack.config.production');
+    const webpackConfig = shouldProfile
+      ? plugin('webpack.config.profile')
+      : plugin('webpack.config.production');
 
     Logger.info('Started compiling');
     const spinner = ora('Running webpack');
@@ -32,23 +35,27 @@ function bundle(config) {
 
     let previousPercent;
 
-    webpackConfig.plugins.push(new ProgressPlugin( (percentage, msg) => {
+    webpackConfig.plugins.push(
+      new ProgressPlugin((percentage, msg) => {
+        const percent = Math.round(percentage * 100);
 
-      const percent = Math.round(percentage * 100);
+        if (previousPercent === percent) {
+          return;
+        }
+        previousPercent = percent;
 
-      if (previousPercent === percent) {
-        return;
-      }
-      previousPercent = percent;
-
-      if (percent % 10 === 0 && msg !== null && msg !== undefined && msg.trim() !== '') {
-        spinner.text = `Webpack ${percent}%`;
-      }
-
-    }));
+        if (
+          percent % 10 === 0 &&
+          msg !== null &&
+          msg !== undefined &&
+          msg.trim() !== ''
+        ) {
+          spinner.text = `Webpack ${percent}%`;
+        }
+      })
+    );
 
     webpack(webpackConfig).run((err, stats) => {
-
       spinner.stop();
 
       if (err) {
@@ -65,7 +72,7 @@ function bundle(config) {
         chunks: false,
         children: false,
         errorDetails: shouldProfile,
-        warnings: shouldProfile
+        warnings: shouldProfile,
       });
 
       if (shouldProfile) {
@@ -75,7 +82,9 @@ function bundle(config) {
         const parsedStats = JSON.parse(statz);
         const trees = sizeTree.dependencySizeTree(parsedStats);
         trees.forEach(tree => {
-          sizeTree.printDependencySizeTree(tree, true, 2, (output) => { Logger.simple(output) });
+          sizeTree.printDependencySizeTree(tree, true, 2, output => {
+            Logger.simple(output);
+          });
         });
         Logger.empty();
       }
@@ -86,11 +95,8 @@ ${statistics}
 `);
       Logger.success('Finished compiling');
       resolve();
-
     });
-
   });
-
 }
 
 module.exports = bundle;

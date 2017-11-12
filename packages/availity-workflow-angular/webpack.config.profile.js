@@ -5,7 +5,8 @@ const exists = require('exists-sync');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 const requireRelative = require('require-relative');
 const ruleFonts = require('availity-workflow-settings/webpack/rule-fonts');
 const loaderPostcss = require('availity-workflow-settings/webpack/loader-postcss');
@@ -22,18 +23,15 @@ function getVersion() {
 }
 
 const config = {
-
   context: settings.app(),
 
   entry: {
-    'index': [
-      './index.js'
-    ]
+    index: ['./index.js'],
   },
 
   output: {
     path: settings.output(),
-    filename: settings.fileName()
+    filename: settings.fileName(),
   },
 
   devtool: 'cheap-module-source-map',
@@ -43,10 +41,10 @@ const config = {
     modules: [
       settings.app(),
       path.join(settings.project(), 'node_modules'),
-      path.join(__dirname, 'node_modules')
+      path.join(__dirname, 'node_modules'),
     ],
     symlinks: true,
-    extensions: ['.js', '.jsx', '.json', '.css', 'scss']
+    extensions: ['.js', '.jsx', '.json', '.css', 'scss'],
   },
 
   // This set of options is identical to the resolve property set above,
@@ -54,9 +52,9 @@ const config = {
   resolveLoader: {
     modules: [
       path.join(settings.project(), 'node_modules'),
-      path.join(__dirname, 'node_modules')
+      path.join(__dirname, 'node_modules'),
     ],
-    symlinks: true
+    symlinks: true,
   },
 
   module: {
@@ -69,13 +67,13 @@ const config = {
             loader: 'babel-loader',
             options: {
               presets: [
-                require.resolve('availity-workflow-babel-preset-angular')
+                require.resolve('availity-workflow-babel-preset-angular'),
               ],
               cacheDirectory: settings.isDevelopment(),
-              babelrc: babelrcExists
-            }
-          }
-        ]
+              babelrc: babelrcExists,
+            },
+          },
+        ],
       },
       {
         test: /\.htm$/,
@@ -83,106 +81,79 @@ const config = {
         // Ignore following templates else errors like:
         //    - "window is not defined" error from the html-webpack-plugin
         //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
-        exclude: /index\.html/
+        exclude: /index\.html/,
       },
       {
         test: /\.html$/,
-        use: [
-          `ngtemplate-loader?relativeTo=${process.cwd()}/`,
-          'html-loader'
-        ],
+        use: [`ngtemplate-loader?relativeTo=${process.cwd()}/`, 'html-loader'],
         // Ignore following templates else errors like:
         //    - "window is not defined" error from the html-webpack-plugin
         //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
-        exclude: /index\.html/
+        exclude: /index\.html/,
       },
       {
         test: requireRelative.resolve('angular', settings.project()),
-        use: [
-          'expose-loader?angular',
-          'exports-loader?angular'
-        ]
+        use: ['expose-loader?angular', 'exports-loader?angular'],
       },
       {
         test: requireRelative.resolve('jquery', settings.project()),
-        use: [
-          'expose-loader?$',
-          'expose-loader?jQuery'
-        ]
+        use: ['expose-loader?$', 'expose-loader?jQuery'],
       },
       {
         test: requireRelative.resolve('lodash', settings.project()),
-        use: [
-          'expose-loader?_'
-        ]
+        use: ['expose-loader?_'],
       },
       {
         test: requireRelative.resolve('moment', settings.project()),
-        use: [
-          'expose-loader?moment'
-        ]
+        use: ['expose-loader?moment'],
       },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [
-            'css-loader',
-            loaderPostcss
-          ],
-          publicPath: '../'
-        })
+          use: ['css-loader', loaderPostcss],
+          publicPath: '../',
+        }),
       },
       {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [
-            'css-loader',
-            loaderPostcss,
-            'less-loader'
-          ],
-          publicPath: '../'
-        })
+          use: ['css-loader', loaderPostcss, 'less-loader'],
+          publicPath: '../',
+        }),
       },
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [
-            'css-loader',
-            loaderPostcss,
-            'sass-loader'
-          ],
-          publicPath: '../'
-        })
+          use: ['css-loader', loaderPostcss, 'sass-loader'],
+          publicPath: '../',
+        }),
       },
       ruleFonts,
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        use: [
-          'url-loader?name=images/[name].[ext]&limit=10000'
-        ]
-      }
-    ]
+        use: ['url-loader?name=images/[name].[ext]&limit=10000'],
+      },
+    ],
   },
   plugins: [
-
     new webpack.DefinePlugin(settings.globals()),
 
     new VersionPlugin({
-      version: JSON.stringify(getVersion())
+      version: JSON.stringify(getVersion()),
     }),
 
     new webpack.ProvidePlugin({
       'window.jQuery': 'jquery',
-      '$': 'jquery',
-      'jQuery': 'jquery'
+      $: 'jquery',
+      jQuery: 'jquery',
     }),
 
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
-      reportFilename: 'profile.html'
+      reportFilename: 'profile.html',
     }),
 
     new webpack.optimize.CommonsChunkPlugin({
@@ -190,7 +161,7 @@ const config = {
       minChunks(module) {
         // this assumes your vendor imports exist in the node_modules directory
         return module.context && module.context.indexOf('node_modules') !== -1;
-      }
+      },
     }),
 
     new ExtractTextPlugin(`css/${settings.css()}`),
@@ -200,10 +171,8 @@ const config = {
     // Ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
-    new CaseSensitivePathsPlugin()
-
-  ]
+    new CaseSensitivePathsPlugin(),
+  ],
 };
 
 module.exports = config;
-

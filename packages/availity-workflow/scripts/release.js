@@ -4,11 +4,10 @@ const version = require('./version');
 const lint = require('./lint');
 const build = require('./build');
 
-
 function release() {
-
-  return version.prompt()
-    .then(() =>{
+  return version
+    .prompt()
+    .then(() => {
       Logger.info('Started releasing');
     })
     .then(lint)
@@ -23,8 +22,6 @@ function release() {
 ${err}
 `);
     });
-
 }
 
 module.exports = release;
-

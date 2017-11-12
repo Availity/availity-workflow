@@ -13,12 +13,13 @@ import App from './App';
 // ES6 Promise Polyfill for IE11
 require('es6-promise').polyfill();
 
-const render = Component => ReactDOM.render(
-  <AppContainer>
-    <Component />
-  </AppContainer>,
-  document.getElementById('root')
-);
+const render = Component =>
+  ReactDOM.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    document.getElementById('root')
+  );
 
 // Hot Module Replacement API
 if (__DEV__ && module.hot) {

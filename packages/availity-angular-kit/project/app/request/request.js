@@ -3,10 +3,18 @@ import { availity } from 'availity-angular';
 import uiRouter from 'angular-ui-router';
 
 class Request {
-
-  constructor(avOrganizationsResource, avUsersResource, avProvidersResource, $state) {
-
-    this.di = { avOrganizationsResource, avUsersResource, avProvidersResource, $state };
+  constructor(
+    avOrganizationsResource,
+    avUsersResource,
+    avProvidersResource,
+    $state
+  ) {
+    this.di = {
+      avOrganizationsResource,
+      avUsersResource,
+      avProvidersResource,
+      $state,
+    };
 
     this.memberId = null;
     this.selectedOrganization = null;
@@ -17,7 +25,6 @@ class Request {
     this.dob = null;
     this.relationshipToSubscriber = null;
     this.acceptedAgreement = false;
-
   }
 
   init() {
@@ -25,18 +32,13 @@ class Request {
   }
 
   getUser() {
-
     const self = this;
 
-    return this
-      .di
-      .avUsersResource
-      .me()
-      .then(user => {
-        // cache user
-        self.user = user;
-        return user;
-      });
+    return this.di.avUsersResource.me().then(user => {
+      // cache user
+      self.user = user;
+      return user;
+    });
   }
 
   onSelectedOrganization(organization) {
@@ -53,7 +55,6 @@ class Request {
   }
 
   queryOrganizations() {
-
     const self = this;
 
     return this.di.avOrganizationsResource
@@ -63,58 +64,42 @@ class Request {
         self.organizations = organizations;
         return organizations;
       });
-
   }
 
   getOrganizations() {
-
     // The :: syntax below is proposed for ES7.  It is equivalent to the following code:
     //
     //    this.getUser().then(this.queryOrganizations.bind(this));
     //
     // Feel free to use either version that suits your coding style.
     //
-    return this.getUser()
-      .then(::this.queryOrganizations);
-
+    return this.getUser().then(::this.queryOrganizations);
   }
 
   queryProviders(organization) {
-
-    return this.di.avProvidersResource
-      .getProviders(organization.customerId);
-
+    return this.di.avProvidersResource.getProviders(organization.customerId);
   }
 
   getProviders(organization) {
-
     const self = this;
 
-    return this.queryProviders(organization)
-      .then(providers => {
-        self.providers = providers;
-        return providers;
-      });
+    return this.queryProviders(organization).then(providers => {
+      self.providers = providers;
+      return providers;
+    });
   }
 
   onSubmit(form) {
-
     if (form.$invalid) {
       return;
     }
 
     return this.di.$state.go('app.response', {
-      accepted: this.acceptedAgreement
+      accepted: this.acceptedAgreement,
     });
   }
-
 }
 
-app
-  .addModules([
-    availity,
-    uiRouter
-  ])
-  .service('request', Request);
+app.addModules([availity, uiRouter]).service('request', Request);
 
 export default app;

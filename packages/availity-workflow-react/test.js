@@ -4,27 +4,19 @@ const settings = require('availity-workflow-settings');
 const Promise = require('bluebird');
 
 function create() {
-
   const rootDir = settings.project();
 
   const config = {
     collectCoverageFrom: ['project/app/**/*.{js,jsx}'],
-    coveragePathIgnorePatterns: [
-      '/node_modules/',
-      '/coverage/',
-      '/dist/'
-    ],
+    coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/'],
     testEnvironment: 'node',
     testURL: 'http://localhost',
     transform: {
       '^.+\\.(js|jsx)$': `${require.resolve('./jest/babel.js')}`,
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
-      '^(?!.*\\.(js|jsx|css|json)$)': `${require.resolve('./jest/file.js')}`
-
+      '^(?!.*\\.(js|jsx|css|json)$)': `${require.resolve('./jest/file.js')}`,
     },
-    transformIgnorePatterns: [
-      '[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'
-    ],
+    transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
     testMatch: [
       // Ignore the following directories:
       // build
@@ -38,9 +30,9 @@ function create() {
       // dist
       //   - the dist output directory
       '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/__tests__/**/*.js?(x)',
-      '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/?(*.)(spec|test).js?(x)'
+      '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/?(*.)(spec|test).js?(x)',
     ],
-    globals: settings.globals()
+    globals: settings.globals(),
   };
 
   if (rootDir) {
@@ -48,11 +40,9 @@ function create() {
   }
 
   return config;
-
 }
 
 function unit() {
-
   const argv = process.argv.slice(2);
   const jestConfig = JSON.stringify(create());
   argv.push(`--config=${jestConfig}`);
@@ -61,11 +51,9 @@ function unit() {
   jest.run(argv);
 
   return Promise.resolve();
-
 }
 
 module.exports = {
   run: unit,
-  description: 'Run your tests using Jest'
+  description: 'Run your tests using Jest',
 };
-
