@@ -31,6 +31,7 @@
     "lint": "eslint .",
     "publish": "lerna publish --force-publish=*",
     "bootstrap": "lerna bootstrap",
+    "link": "lerna link",
     "test": "lerna run --concurrency test",
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean",
@@ -40,10 +41,7 @@
     "release": "npm run lint && sh ./scripts/release.sh"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier",
-      "git add"
-    ]
+    "*.js": ["prettier", "git add"]
   },
   "prettier": {
     "printWidth": 120,
