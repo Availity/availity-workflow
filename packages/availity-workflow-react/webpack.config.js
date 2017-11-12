@@ -21,13 +21,13 @@ const indexHotLoader = [
   'react-hot-loader/patch', // Patches React.createElement in dev
   `webpack-dev-server/client?http://${settings.host()}:${settings.port()}`, // Enables websocket for updates
   'webpack/hot/only-dev-server', // performs HMR in browser
-  './index.js',
+  './index.js'
 ];
 
 const indexHot = [
   `webpack-dev-server/client?http://${settings.host()}:${settings.port()}`, // Enables websocket for updates
   'webpack/hot/only-dev-server', // performs HMR in brwoser
-  './index.js',
+  './index.js'
 ];
 
 const index = settings.isHotLoader() ? indexHotLoader : indexHot;
@@ -36,35 +36,28 @@ const config = {
   context: settings.app(),
 
   entry: {
-    index,
+    index
   },
 
   output: {
     path: settings.output(),
-    filename: settings.fileName(),
+    filename: settings.fileName()
   },
 
   devtool: settings.sourceMap(),
 
   resolve: {
     // Tell webpack what directories should be searched when resolving modules
-    modules: [
-      settings.app(),
-      path.join(settings.project(), 'node_modules'),
-      path.join(__dirname, 'node_modules'),
-    ],
+    modules: [settings.app(), path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
     symlinks: true,
-    extensions: ['.js', '.jsx', '.json', '.css', 'scss'],
+    extensions: ['.js', '.jsx', '.json', '.css', 'scss']
   },
 
   // This set of options is identical to the resolve property set above,
   // but is used only to resolve webpack's loader packages.
   resolveLoader: {
-    modules: [
-      path.join(settings.project(), 'node_modules'),
-      path.join(__dirname, 'node_modules'),
-    ],
-    symlinks: true,
+    modules: [path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
+    symlinks: true
   },
 
   module: {
@@ -79,14 +72,10 @@ const config = {
               presets: [require.resolve('availity-workflow-babel-preset')],
               cacheDirectory: settings.isDevelopment(),
               babelrc: babelrcExists,
-              plugins: [
-                babelrcExists
-                  ? null
-                  : require.resolve('react-hot-loader/babel'),
-              ],
-            },
-          },
-        ],
+              plugins: [babelrcExists ? null : require.resolve('react-hot-loader/babel')]
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
@@ -94,10 +83,10 @@ const config = {
           'style-loader',
           {
             loader: 'css-loader',
-            options: { sourceMap: true },
+            options: { sourceMap: true }
           },
-          loaderPostcss,
-        ],
+          loaderPostcss
+        ]
       },
       {
         test: /\.scss$/,
@@ -106,30 +95,30 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
-            },
+              sourceMap: true
+            }
           },
           loaderPostcss,
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
-            },
-          },
-        ],
+              sourceMap: true
+            }
+          }
+        ]
       },
       ruleFonts,
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        use: ['url-loader?name=images/[name].[ext]&limit=10000'],
-      },
-    ],
+        use: ['url-loader?name=images/[name].[ext]&limit=10000']
+      }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin(settings.globals()),
 
     new VersionPlugin({
-      version: JSON.stringify(settings.version()),
+      version: JSON.stringify(settings.version())
     }),
 
     // Converts:
@@ -155,21 +144,21 @@ const config = {
         {
           context: `${settings.project()}/project/static`, // copy from this directory
           from: '**/*', // copy all files
-          to: 'static', // copy into {output}/static folder
-        },
+          to: 'static' // copy into {output}/static folder
+        }
       ],
       {
-        debug: 'warning',
+        debug: 'warning'
       }
-    ),
-  ],
+    )
+  ]
 };
 
 if (settings.isNotifications()) {
   config.plugins.push(
     new WebpackNotifierPlugin({
       contentImage: path.join(__dirname, 'availity.png'),
-      excludeWarnings: true,
+      excludeWarnings: true
     })
   );
 }

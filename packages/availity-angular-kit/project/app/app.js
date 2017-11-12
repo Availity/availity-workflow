@@ -7,14 +7,12 @@ import './app-component';
 import './request';
 import './response';
 
-app
-  .addModules([availity, availityUi, availityConfig, uiRouter, shims])
-  .config(($urlRouterProvider, $stateProvider) => {
-    $stateProvider.state('app', {
-      template: '<app></app>',
-    });
-
-    $urlRouterProvider.otherwise('/request');
+app.addModules([availity, availityUi, availityConfig, uiRouter, shims]).config(($urlRouterProvider, $stateProvider) => {
+  $stateProvider.state('app', {
+    template: '<app></app>'
   });
+
+  $urlRouterProvider.otherwise('/request');
+});
 
 export default app;

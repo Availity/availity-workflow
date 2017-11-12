@@ -21,9 +21,7 @@ export class Provider {
   @observable firstName;
   @observable npi;
 
-  constructor(
-    { id = '', businessName = '', lastName = '', firstName = '', npi = '' } = {}
-  ) {
+  constructor({ id = '', businessName = '', lastName = '', firstName = '', npi = '' } = {}) {
     this.id = id;
     this.businessName = businessName;
     this.lastName = lastName;

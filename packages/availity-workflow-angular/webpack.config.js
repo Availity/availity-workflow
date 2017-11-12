@@ -20,40 +20,33 @@ const config = {
   context: settings.app(),
 
   entry: {
-    index: ['./index.js'],
+    index: ['./index.js']
   },
 
   output: {
     path: settings.output(),
-    filename: settings.fileName(),
+    filename: settings.fileName()
   },
 
   devtool: settings.sourceMap(),
 
   resolve: {
     // Tell webpack what directories should be searched when resolving modules
-    modules: [
-      settings.app(),
-      path.join(settings.project(), 'node_modules'),
-      path.join(__dirname, 'node_modules'),
-    ],
+    modules: [settings.app(), path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
 
     alias: {
-      app: path.resolve(settings.app(), 'app-module'),
+      app: path.resolve(settings.app(), 'app-module')
     },
 
     symlinks: true,
-    extensions: ['.js', '.jsx', '.json', '.css', 'less', 'scss'],
+    extensions: ['.js', '.jsx', '.json', '.css', 'less', 'scss']
   },
 
   // This set of options is identical to the resolve property set above,
   // but is used only to resolve webpack's loader packages.
   resolveLoader: {
-    modules: [
-      path.join(settings.project(), 'node_modules'),
-      path.join(__dirname, 'node_modules'),
-    ],
-    symlinks: true,
+    modules: [path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
+    symlinks: true
   },
 
   module: {
@@ -65,14 +58,12 @@ const config = {
           {
             loader: 'babel-loader',
             options: {
-              presets: [
-                require.resolve('availity-workflow-babel-preset-angular'),
-              ],
+              presets: [require.resolve('availity-workflow-babel-preset-angular')],
               cacheDirectory: settings.isDevelopment(),
-              babelrc: babelrcExists,
-            },
-          },
-        ],
+              babelrc: babelrcExists
+            }
+          }
+        ]
       },
       {
         test: /\.htm$/,
@@ -80,7 +71,7 @@ const config = {
         // Ignore following templates else errors like:
         //    - "window is not defined" error from the html-webpack-plugin
         //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
-        exclude: /index\.html/,
+        exclude: /index\.html/
       },
       {
         test: /\.html$/,
@@ -88,23 +79,23 @@ const config = {
         // Ignore following templates else errors like:
         //    - "window is not defined" error from the html-webpack-plugin
         //    - "The path for file doesn't contains relativeTo param"  from ngtemplate-loader
-        exclude: /index\.html/,
+        exclude: /index\.html/
       },
       {
         test: requireRelative.resolve('angular', settings.project()),
-        use: ['expose-loader?angular', 'exports-loader?angular'],
+        use: ['expose-loader?angular', 'exports-loader?angular']
       },
       {
         test: requireRelative.resolve('jquery', settings.project()),
-        use: ['expose-loader?$', 'expose-loader?jQuery'],
+        use: ['expose-loader?$', 'expose-loader?jQuery']
       },
       {
         test: requireRelative.resolve('lodash', settings.project()),
-        use: ['expose-loader?_'],
+        use: ['expose-loader?_']
       },
       {
         test: requireRelative.resolve('moment', settings.project()),
-        use: ['expose-loader?moment'],
+        use: ['expose-loader?moment']
       },
       {
         test: /\.css$/,
@@ -116,10 +107,10 @@ const config = {
             options: {
               sourceMap: true,
               importLoaders: 1,
-              name: 'images/[name].[ext]',
-            },
-          },
-        ],
+              name: 'images/[name].[ext]'
+            }
+          }
+        ]
       },
       {
         test: /\.less$/,
@@ -130,16 +121,16 @@ const config = {
             options: {
               sourceMap: true,
               importLoaders: 1,
-              name: 'images/[name].[ext]',
-            },
+              name: 'images/[name].[ext]'
+            }
           },
           {
             loader: 'less-loader',
             options: {
-              sourceMap: true,
-            },
-          },
-        ],
+              sourceMap: true
+            }
+          }
+        ]
       },
       {
         test: /\.scss$/,
@@ -150,24 +141,24 @@ const config = {
             options: {
               sourceMap: true,
               importLoaders: 1,
-              name: 'images/[name].[ext]',
-            },
+              name: 'images/[name].[ext]'
+            }
           },
           loaderPostcss,
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
-            },
-          },
-        ],
+              sourceMap: true
+            }
+          }
+        ]
       },
       ruleFonts,
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        use: ['url-loader?name=images/[name].[ext]&limit=10000'],
-      },
-    ],
+        use: ['url-loader?name=images/[name].[ext]&limit=10000']
+      }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin(settings.globals()),
@@ -175,11 +166,11 @@ const config = {
     new webpack.ProvidePlugin({
       'window.jQuery': 'jquery',
       $: 'jquery',
-      jQuery: 'jquery',
+      jQuery: 'jquery'
     }),
 
     new VersionPlugin({
-      version: JSON.stringify(settings.version()),
+      version: JSON.stringify(settings.version())
     }),
 
     // Generate hot module chunks
@@ -197,21 +188,21 @@ const config = {
         {
           context: `${settings.project()}/project/static`, // copy from this directory
           from: '**/*', // copy all files
-          to: 'static', // copy into {output}/static folder
-        },
+          to: 'static' // copy into {output}/static folder
+        }
       ],
       {
-        debug: 'warning',
+        debug: 'warning'
       }
-    ),
-  ],
+    )
+  ]
 };
 
 if (settings.isNotifications()) {
   config.plugins.push(
     new WebpackNotifierPlugin({
       contentImage: path.join(__dirname, 'availity.png'),
-      excludeWarnings: true,
+      excludeWarnings: true
     })
   );
 }

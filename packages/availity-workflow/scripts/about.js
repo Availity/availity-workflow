@@ -41,9 +41,7 @@ const message = `
 
  - Documentation: ${chalk.gray('https://github.com/availity/availity-workflow')}
  - Issues: ${chalk.gray('https://github.com/availity/availity-workflow/issues')}
- - Release Notes: ${chalk.gray(
-   'https://github.com/Availity/availity-workflow/releases'
- )}
+ - Release Notes: ${chalk.gray('https://github.com/Availity/availity-workflow/releases')}
 
  ${chalk.yellow(logo)}
  `;

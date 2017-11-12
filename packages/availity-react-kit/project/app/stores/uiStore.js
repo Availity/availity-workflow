@@ -12,9 +12,7 @@ export class UiStore {
 
   @computed
   get title() {
-    return this.currentResponse
-      ? 'Authorization Response'
-      : 'Authorization Request';
+    return this.currentResponse ? 'Authorization Response' : 'Authorization Request';
   }
 }
 

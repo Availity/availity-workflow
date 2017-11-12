@@ -11,26 +11,26 @@ export const getUser = () => get(USER_OPTS);
 export const getOrganizations = userId => {
   return get(ORGANIZATIONS_OPTS, {
     params: {
-      userId,
+      userId
     },
     transformResponse: defaults.transformResponse.concat(data => {
       const organizations = map(data.organizations, org => {
         return {
           id: org.id,
           name: org.name,
-          customerId: org.customerId,
+          customerId: org.customerId
         };
       });
 
       return { organizations };
-    }),
+    })
   });
 };
 
 export const getProviders = customerId => {
   return get(PROVIDERS_OPTS, {
     params: {
-      customerId,
+      customerId
     },
     transformResponse: defaults.transformResponse.concat(data => {
       const providers = map(data.providers, provider => {
@@ -39,12 +39,12 @@ export const getProviders = customerId => {
           businessName: provider.businessName,
           lastName: provider.lastName,
           firstName: provider.firstName,
-          npi: provider.npi,
+          npi: provider.npi
         };
       });
 
       return { providers };
-    }),
+    })
   });
 };
 
@@ -60,10 +60,10 @@ export const getAuthorization = params => {
         status: data.status,
         diagnoses: data.diagnoses,
         requestType: data.requestType,
-        payer: data.payer,
+        payer: data.payer
       };
 
       return { response };
-    }),
+    })
   });
 };

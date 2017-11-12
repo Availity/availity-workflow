@@ -74,7 +74,7 @@ class Logger {
         padding: 1,
         borderColor: 'yellow',
         borderStyle: 'classic',
-        dimBorder: true,
+        dimBorder: true
       })
     );
   }

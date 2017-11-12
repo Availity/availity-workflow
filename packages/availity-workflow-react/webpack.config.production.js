@@ -25,35 +25,28 @@ const config = {
   context: settings.app(),
 
   entry: {
-    index: ['./index.js'],
+    index: ['./index.js']
   },
 
   output: {
     path: settings.output(),
-    filename: settings.fileName(),
+    filename: settings.fileName()
   },
 
   devtool: settings.sourceMap(),
 
   resolve: {
     // Tell webpack what directories should be searched when resolving modules
-    modules: [
-      settings.app(),
-      path.join(settings.project(), 'node_modules'),
-      path.join(__dirname, 'node_modules'),
-    ],
+    modules: [settings.app(), path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
     symlinks: true,
-    extensions: ['.js', '.jsx', '.json', '.css', 'scss'],
+    extensions: ['.js', '.jsx', '.json', '.css', 'scss']
   },
 
   // This set of options is identical to the resolve property set above,
   // but is used only to resolve webpack's loader packages.
   resolveLoader: {
-    modules: [
-      path.join(settings.project(), 'node_modules'),
-      path.join(__dirname, 'node_modules'),
-    ],
-    symlinks: true,
+    modules: [path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
+    symlinks: true
   },
 
   module: {
@@ -67,43 +60,39 @@ const config = {
             options: {
               presets: [require.resolve('availity-workflow-babel-preset')],
               cacheDirectory: settings.isDevelopment(),
-              babelrc: babelrcExists,
-            },
-          },
-        ],
+              babelrc: babelrcExists
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', postcss],
-          publicPath: '../',
-        }),
+          publicPath: '../'
+        })
       },
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [
-            'css-loader',
-            postcss,
-            { loader: 'sass-loader', options: { sourceMap: true } },
-          ],
-          publicPath: '../',
-        }),
+          use: ['css-loader', postcss, { loader: 'sass-loader', options: { sourceMap: true } }],
+          publicPath: '../'
+        })
       },
       ruleFonts,
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        use: ['url-loader?name=images/[name].[ext]&limit=10000'],
-      },
-    ],
+        use: ['url-loader?name=images/[name].[ext]&limit=10000']
+      }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin(settings.globals()),
 
     new VersionPlugin({
-      version: JSON.stringify(getVersion()),
+      version: JSON.stringify(getVersion())
     }),
 
     new HtmlWebpackPlugin(htmlConfig),
@@ -120,7 +109,7 @@ const config = {
       minChunks(module) {
         // this assumes your vendor imports exist in the node_modules directory
         return module.context && module.context.indexOf('node_modules') !== -1;
-      },
+      }
     }),
 
     new ExtractTextPlugin(`css/${settings.css()}`),
@@ -130,14 +119,14 @@ const config = {
         {
           context: `${settings.project()}/project/static`, // copy from this directory
           from: '**/*', // copy all files
-          to: 'static', // copy into {output}/static folder
-        },
+          to: 'static' // copy into {output}/static folder
+        }
       ],
       {
-        debug: 'warning',
+        debug: 'warning'
       }
-    ),
-  ],
+    )
+  ]
 };
 
 if (settings.isProduction()) {
@@ -147,13 +136,13 @@ if (settings.isProduction()) {
       mangle: false,
       compress: {
         screw_ie8: true, // IE8 not supported by Availity
-        drop_console: true,
+        drop_console: true
       },
       output: {
         comments: false,
         screw_ie8: true,
-        max_line_len: 1000,
-      },
+        max_line_len: 1000
+      }
     })
   );
 }

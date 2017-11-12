@@ -15,15 +15,15 @@ const wfPlugins = [
   [
     require.resolve('babel-plugin-transform-object-rest-spread'),
     {
-      useBuiltIns: true,
-    },
+      useBuiltIns: true
+    }
   ],
   // Transforms JSX
   [
     require.resolve('babel-plugin-transform-react-jsx'),
     {
-      useBuiltIns: true,
-    },
+      useBuiltIns: true
+    }
   ],
 
   // Polyfills the runtime needed for async/await and generators
@@ -34,9 +34,9 @@ const wfPlugins = [
       polyfill: false,
       regenerator: true,
       // Resolve the Babel runtime relative to the config
-      moduleName: path.dirname(require.resolve('babel-runtime/package')),
-    },
-  ],
+      moduleName: path.dirname(require.resolve('babel-runtime/package'))
+    }
+  ]
 ];
 
 if (settings.isDevelopment() || settings.isTesting()) {
@@ -50,7 +50,7 @@ if (settings.isDevelopment() || settings.isTesting()) {
     // Adds component stack to warning messages
     require.resolve('babel-plugin-transform-react-jsx-source'),
     // Adds __self attribute to JSX which React will use for some warnings
-    require.resolve('babel-plugin-transform-react-jsx-self'),
+    require.resolve('babel-plugin-transform-react-jsx-self')
   ]);
 }
 
@@ -65,18 +65,18 @@ if (settings.isTesting()) {
         require('babel-preset-env').default,
         {
           targets: {
-            node: 'current',
-          },
-        },
+            node: 'current'
+          }
+        }
       ],
       // JSX, Flow
       require.resolve('babel-preset-react'),
-      require.resolve('babel-preset-stage-0'),
+      require.resolve('babel-preset-stage-0')
     ],
     plugins: wfPlugins.concat([
       // Compiles import() to a deferred require()
-      require.resolve('babel-plugin-dynamic-import-node'),
-    ]),
+      require.resolve('babel-plugin-dynamic-import-node')
+    ])
   };
 } else {
   config = {
@@ -89,12 +89,12 @@ if (settings.isTesting()) {
           // Tells the es2015 preset to avoid compiling import statements into CommonJS. That lets Webpack do tree shaking on your code.
           modules: false,
           // Disable polyfill transforms
-          useBuiltIns: false,
-        },
+          useBuiltIns: false
+        }
       ],
       // JSX, Flow
       require.resolve('babel-preset-react'),
-      require.resolve('babel-preset-stage-0'),
+      require.resolve('babel-preset-stage-0')
     ],
     plugins: wfPlugins.concat([
       // function* () { yield 42; yield 43; }
@@ -102,14 +102,14 @@ if (settings.isTesting()) {
         require.resolve('babel-plugin-transform-regenerator'),
         {
           // Async functions are converted to generators by babel-preset-env
-          async: false,
-        },
+          async: false
+        }
       ],
       // Adds syntax support for import()
       require.resolve('babel-plugin-syntax-dynamic-import'),
       // Angular bombs
-      require.resolve('babel-plugin-transform-es2015-shorthand-properties'),
-    ]),
+      require.resolve('babel-plugin-transform-es2015-shorthand-properties')
+    ])
   };
 }
 module.exports = config;

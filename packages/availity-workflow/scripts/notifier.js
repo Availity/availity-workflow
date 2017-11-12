@@ -14,14 +14,12 @@ const options = {
     if (update.type !== 'latest') {
       const message = chalk.bold.black('UPDATE AVAILABLE');
       Logger.warn(
-        `${chalk.bold.bgYellow(message)} ${chalk.bold.green(
-          update.latest
-        )} (current: ${update.current}). Run ${chalk.blue(
-          'npm install availity-workflow@latest -D'
-        )}.`
+        `${chalk.bold.bgYellow(message)} ${chalk.bold.green(update.latest)} (current: ${
+          update.current
+        }). Run ${chalk.blue('npm install availity-workflow@latest -D')}.`
       );
     }
-  },
+  }
 };
 
 module.exports = function notifier() {

@@ -38,21 +38,13 @@ const settings = {
   // https://webpack.js.org/configuration/devtool/
   sourceMap() {
     // Get sourcemap from command line or developer config else "source-map"
-    const sourceMap = get(
-      this.configuration,
-      'development.sourceMap',
-      'source-map'
-    );
+    const sourceMap = get(this.configuration, 'development.sourceMap', 'source-map');
 
     return this.isDistribution() || this.isDryRun() ? 'source-map' : sourceMap;
   },
 
   coverage() {
-    return get(
-      this.configuration,
-      'development.coverage',
-      path.join(this.project(), 'coverage')
-    );
+    return get(this.configuration, 'development.coverage', path.join(this.project(), 'coverage'));
   },
 
   css() {
@@ -77,9 +69,7 @@ const settings = {
   },
 
   output() {
-    return this.isDistribution()
-      ? path.join(this.project(), 'dist')
-      : path.join(this.project(), 'build');
+    return this.isDistribution() ? path.join(this.project(), 'dist') : path.join(this.project(), 'build');
   },
 
   port() {
@@ -97,14 +87,10 @@ const settings = {
   targets() {
     const defaultTargets = {
       ie: 9,
-      uglify: true,
+      uglify: true
     };
 
-    const developmentTarget = get(
-      this.configuration,
-      'development.targets',
-      defaultTargets
-    );
+    const developmentTarget = get(this.configuration, 'development.targets', defaultTargets);
 
     return this.isDevelopment() ? developmentTarget : defaultTargets;
   },
@@ -127,13 +113,11 @@ const settings = {
           return result;
         },
         {
-          'process.env.NODE_ENV': JSON.stringify(
-            env === 'staging' ? 'production' : env
-          ),
+          'process.env.NODE_ENV': JSON.stringify(env === 'staging' ? 'production' : env),
           __TEST__: env === 'test',
           __DEV__: env === 'development',
           __PROD__: env === 'production',
-          __STAGING__: env === 'staging',
+          __STAGING__: env === 'staging'
         }
       );
 
@@ -164,10 +148,7 @@ const settings = {
     Logger.warn(chalk.bold.yellow(message));
 
     if (!this.isTesting()) {
-      message = trimStart(
-        path.relative(process.cwd(), this.workflowConfigPath),
-        'node_modules/'
-      );
+      message = trimStart(path.relative(process.cwd(), this.workflowConfigPath), 'node_modules/');
       Logger.info(`Using ${chalk.blue(message)}`);
     }
   },
@@ -182,14 +163,8 @@ const settings = {
     let developerConfig = {};
 
     const defaultWorkflowConfig = path.join(__dirname, 'workflow.js');
-    const jsWorkflowConfig = path.join(
-      settings.project(),
-      'project/config/workflow.js'
-    );
-    const ymlWorkflowConfig = path.join(
-      settings.project(),
-      'project/config/workflow.yml'
-    );
+    const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
+    const ymlWorkflowConfig = path.join(settings.project(), 'project/config/workflow.yml');
 
     if (exists(jsWorkflowConfig)) {
       // Try workflow.js
@@ -198,9 +173,7 @@ const settings = {
     } else if (exists(ymlWorkflowConfig)) {
       // Try workflow.yml
       this.workflowConfigPath = ymlWorkflowConfig;
-      developerConfig = yaml.safeLoad(
-        fs.readFileSync(this.workflowConfigPath, 'utf8')
-      );
+      developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));
     } else {
       // fall back to default ./workflow.js
       this.workflowConfigPath = defaultWorkflowConfig;
@@ -223,7 +196,7 @@ const settings = {
     merge(this.configuration, {
       development: argv.development,
       ekko: argv.ekko,
-      globals: argv.globals,
+      globals: argv.globals
     });
 
     this.targets();
@@ -232,10 +205,7 @@ const settings = {
 
   raw() {
     if (!this.raw) {
-      this.raw = fs.readFileSync(
-        path.join(process.cwd(), 'package.json'),
-        'utf8'
-      );
+      this.raw = fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8');
     }
 
     return this.raw;
@@ -246,10 +216,7 @@ const settings = {
     const filePath = hasProjectFile ? projectFilePath : workflowFilePath;
 
     if (!this.isTesting()) {
-      const message = trimStart(
-        path.relative(process.cwd(), filePath),
-        'node_modules/'
-      );
+      const message = trimStart(path.relative(process.cwd(), filePath), 'node_modules/');
       Logger.info(`Using ${chalk.blue(message)}`);
     }
 
@@ -270,11 +237,7 @@ const settings = {
 
     const defaultInclude = [`${this.app()}/**/*.js`, `${this.app()}/**/*.jsx`];
 
-    if (
-      !includeGlobs ||
-      !Array.isArray(includeGlobs) ||
-      includeGlobs.length === 0
-    ) {
+    if (!includeGlobs || !Array.isArray(includeGlobs) || includeGlobs.length === 0) {
       includeGlobs = defaultInclude;
     }
 
@@ -351,7 +314,7 @@ const settings = {
 
   isEkko() {
     return get(this.configuration, 'ekko.enabled', true);
-  },
+  }
 };
 
 module.exports = settings;

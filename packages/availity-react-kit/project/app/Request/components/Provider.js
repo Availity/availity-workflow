@@ -35,7 +35,7 @@ export default class Provider extends Component {
       selectedProvider,
       providers,
       isProviderDisabled,
-      npi,
+      npi
     } = this.props.requestStore;
 
     return (
@@ -79,8 +79,7 @@ export default class Provider extends Component {
           </option>
           {providers.map(provider => (
             <option value={provider.id} key={provider.id}>
-              {provider.businessName ||
-                provider.firstName + ' ' + provider.lastName}
+              {provider.businessName || provider.firstName + ' ' + provider.lastName}
             </option>
           ))}
         </AvField>
@@ -101,7 +100,7 @@ export default class Provider extends Component {
           onChange={this.updateNPI}
           validate={{
             npi: { value: true, errorMessage: 'NPI must be a valid format' },
-            required: { value: true, errorMessage: 'NPI is required' },
+            required: { value: true, errorMessage: 'NPI is required' }
           }}
         />
       </fieldset>
@@ -110,5 +109,5 @@ export default class Provider extends Component {
 }
 
 Provider.propTypes = {
-  requestStore: PropTypes.instanceOf(RequestStore).isRequired,
+  requestStore: PropTypes.instanceOf(RequestStore).isRequired
 };

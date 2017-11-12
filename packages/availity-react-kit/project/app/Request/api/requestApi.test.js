@@ -27,8 +27,8 @@ describe('Request API', () => {
           id: 'aka123456789',
           lastName: 'Smith',
           firstName: 'Jane',
-          email: 'jane.smith@example.com',
-        },
+          email: 'jane.smith@example.com'
+        }
       });
 
       const onFulfilled = spy();

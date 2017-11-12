@@ -9,7 +9,7 @@ if (settings.isCoverage()) {
     exclude: [/node_modules/, /[-|\.]spec\.js$/, /specs\-bundle\.js/],
     enforce: 'post',
     loader: 'istanbul-instrumenter-loader',
-    options: { esModules: true },
+    options: { esModules: true }
   });
 }
 
@@ -23,21 +23,21 @@ const karmaConfig = {
   reportSlowerThan: 500,
 
   preprocessors: {
-    'specs-bundle.js': ['webpack', 'sourcemap'],
+    'specs-bundle.js': ['webpack', 'sourcemap']
   },
 
   webpack: webpackConfig,
 
   webpackMiddleware: {
     stats: 'errors-only',
-    quiet: true,
+    quiet: true
   },
 
   exclude: ['*.scss', '*.css', '*.less'],
 
   client: {
     // log console output in our test console
-    captureConsole: true,
+    captureConsole: true
   },
 
   reporters: ['spec'],
@@ -64,8 +64,8 @@ const karmaConfig = {
     require('karma-ie-launcher'),
     require('karma-spec-reporter'),
     require('karma-webpack'),
-    require('karma-sourcemap-loader'),
-  ],
+    require('karma-sourcemap-loader')
+  ]
 };
 
 // Add coverage statistics if arg --coverage is added from CLI
@@ -79,8 +79,8 @@ if (settings.isCoverage()) {
       subdir(browser) {
         return browser.toLowerCase().split(/[ /-]/)[0];
       },
-      reports: ['html', 'text-summary'],
-    },
+      reports: ['html', 'text-summary']
+    }
   });
 }
 
@@ -88,7 +88,7 @@ module.exports = function(config) {
   config.set(
     Object.assign(
       {
-        logLevel: config.LOG_INFO,
+        logLevel: config.LOG_INFO
       },
       karmaConfig
     )

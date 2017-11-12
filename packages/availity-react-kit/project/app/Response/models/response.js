@@ -57,10 +57,7 @@ export default class Response {
     this.patient = new Patient(_json.patient);
     this.subscriber = new Subscriber(_json.subscriber);
     this.status = _json.status || '';
-    this.diagnoses = map(
-      _json.diagnoses,
-      diagnosis => new Diagnosis(diagnosis)
-    );
+    this.diagnoses = map(_json.diagnoses, diagnosis => new Diagnosis(diagnosis));
     this.requestType = _json.requestType || '';
     this.payer = new Payer(_json.payer);
   }

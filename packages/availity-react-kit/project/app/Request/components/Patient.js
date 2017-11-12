@@ -36,7 +36,7 @@ export default class Patient extends Component {
           value={memberId}
           validate={{
             number: { value: true, errorMessage: 'Must be a number' },
-            minLength: { value: 5, errorMessage: '5 Character Minimum' },
+            minLength: { value: 5, errorMessage: '5 Character Minimum' }
           }}
         />
 
@@ -55,5 +55,5 @@ export default class Patient extends Component {
 }
 
 Patient.propTypes = {
-  requestStore: PropTypes.instanceOf(RequestStore).isRequired,
+  requestStore: PropTypes.instanceOf(RequestStore).isRequired
 };

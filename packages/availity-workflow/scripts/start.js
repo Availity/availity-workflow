@@ -22,18 +22,12 @@ let server;
 let ekko;
 
 Promise.config({
-  longStackTraces: true,
+  longStackTraces: true
 });
 
 const startupMessage = once(() => {
-  const uri = `http://${settings.config().development.host}:${
-    settings.config().development.port
-  }/`;
-  Logger.box(
-    `The app ${chalk.yellow(settings.pkg().name)} is running at ${chalk.green(
-      uri
-    )}`
-  );
+  const uri = `http://${settings.config().development.host}:${settings.config().development.port}/`;
+  Logger.box(`The app ${chalk.yellow(settings.pkg().name)} is running at ${chalk.green(uri)}`);
 });
 
 // development.logLevel=custom
@@ -48,7 +42,7 @@ function customStats(stats) {
     chunkModules: false,
     chunkOrigins: false,
     children: false,
-    errorDetails: true,
+    errorDetails: true
   });
 }
 
@@ -62,9 +56,7 @@ function compileMessage(stats) {
 
 ${statz}
 `);
-  Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(
-    pretty(statistics.time)
-  )}
+  Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(pretty(statistics.time))}
   `);
 
   startupMessage();
@@ -99,9 +91,9 @@ function rest() {
           },
           error() {
             Logger.error(...arguments);
-          },
+          }
         };
-      },
+      }
     };
 
     ekko = new Ekko();
@@ -118,9 +110,7 @@ function web() {
 
     // Allow production version to run in development
     const webpackConfig =
-      settings.isDryRun() && settings.isDevelopment()
-        ? plugin('webpack.config.production')
-        : plugin('webpack.config');
+      settings.isDryRun() && settings.isDevelopment() ? plugin('webpack.config.production') : plugin('webpack.config');
 
     webpackConfig.plugins.push(
       new ProgressPlugin((percentage, msg) => {
@@ -200,14 +190,11 @@ function web() {
       // Reportedly, this avoids CPU overload on some systems.
       // https://github.com/facebookincubator/create-react-app/issues/293
       watchOptions: {
-        ignored: /node_modules/,
-      },
+        ignored: /node_modules/
+      }
     };
 
-    webpackOptions = merge(
-      webpackOptions,
-      settings.config().development.webpackDevServer
-    );
+    webpackOptions = merge(webpackOptions, settings.config().development.webpackDevServer);
     const proxyConfig = proxy();
 
     if (proxyConfig) {
@@ -216,19 +203,15 @@ function web() {
 
     server = new WebpackDevSever(compiler, webpackOptions);
 
-    server.listen(
-      settings.config().development.port,
-      settings.config().development.host,
-      err => {
-        if (err) {
-          Logger.failed(err);
-          reject(err);
-        }
-
-        Logger.info('Started development server');
-        resolve();
+    server.listen(settings.config().development.port, settings.config().development.host, err => {
+      if (err) {
+        Logger.failed(err);
+        reject(err);
       }
-    );
+
+      Logger.info('Started development server');
+      resolve();
+    });
   });
 }
 

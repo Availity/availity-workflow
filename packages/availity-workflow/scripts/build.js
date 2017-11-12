@@ -14,19 +14,14 @@ const plugin = require('./plugin');
 function bundle(config) {
   return new Promise((resolve, reject) => {
     if (!settings.isDryRun()) {
-      Logger.message(
-        `Skipping cleaning directories ${settings.output()}`,
-        'Dry Run'
-      );
+      Logger.message(`Skipping cleaning directories ${settings.output()}`, 'Dry Run');
       del.sync([settings.output()]);
     }
 
     // Check arguement or CLI arg or default to false
     const shouldProfile = (config && config.profile) || argv.profile || false;
 
-    const webpackConfig = shouldProfile
-      ? plugin('webpack.config.profile')
-      : plugin('webpack.config.production');
+    const webpackConfig = shouldProfile ? plugin('webpack.config.profile') : plugin('webpack.config.production');
 
     Logger.info('Started compiling');
     const spinner = ora('Running webpack');
@@ -44,12 +39,7 @@ function bundle(config) {
         }
         previousPercent = percent;
 
-        if (
-          percent % 10 === 0 &&
-          msg !== null &&
-          msg !== undefined &&
-          msg.trim() !== ''
-        ) {
+        if (percent % 10 === 0 && msg !== null && msg !== undefined && msg.trim() !== '') {
           spinner.text = `Webpack ${percent}%`;
         }
       })
@@ -72,7 +62,7 @@ function bundle(config) {
         chunks: false,
         children: false,
         errorDetails: shouldProfile,
-        warnings: shouldProfile,
+        warnings: shouldProfile
       });
 
       if (shouldProfile) {

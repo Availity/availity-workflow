@@ -19,7 +19,7 @@ export default class AuthorizationsRequest extends Component {
     const params = {
       dob: requestStore.dob,
       memberId: requestStore.memberId,
-      npi: requestStore.npi,
+      npi: requestStore.npi
     };
 
     getAuthorization(params).then(resp => {

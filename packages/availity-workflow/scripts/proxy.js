@@ -38,9 +38,7 @@ function onRequest(proxyConfig, proxyObject) {
     if (requestHeader) {
       const replacedHeader = requestHeader.replace(regexer, target);
       proxyObject.setHeader(header, replacedHeader);
-      debug(
-        `Rewriting ${header} header from ${requestHeader} to ${replacedHeader}`
-      );
+      debug(`Rewriting ${header} header from ${requestHeader} to ${replacedHeader}`);
     }
   });
 }
@@ -68,34 +66,21 @@ function onResponse(proxyConfig, proxyObject, req, res) {
   ['location'].forEach(header => {
     const responseHeader = proxyObject.headers[header];
     if (responseHeader) {
-      const replacedUrl = regexerContext.test(responseHeader)
-        ? hostUrl
-        : hostUrlContext;
+      const replacedUrl = regexerContext.test(responseHeader) ? hostUrl : hostUrlContext;
       const replacedHeader = responseHeader.replace(regexer, replacedUrl);
-      debug(
-        `Rewriting ${header} header from ${chalk.blue(
-          responseHeader
-        )} to ${chalk.blue(replacedHeader)}`
-      );
+      debug(`Rewriting ${header} header from ${chalk.blue(responseHeader)} to ${chalk.blue(replacedHeader)}`);
       proxyObject.headers[header] = replacedHeader;
     }
   });
 
-  const isJson =
-    typeIs.is(proxyObject.headers['content-type'], ['json']) === 'json';
+  const isJson = typeIs.is(proxyObject.headers['content-type'], ['json']) === 'json';
   if (isJson && !proxyObject.statusCode === 304) {
     proxyJson(res, proxyObject.headers['content-encoding'], body => {
       if (body) {
         const json = JSON.stringify(body);
-        const replacedUrl = regexerContext.test(json)
-          ? hostUrl
-          : hostUrlContext;
+        const replacedUrl = regexerContext.test(json) ? hostUrl : hostUrlContext;
         const replacedJson = json.replace(regexer, replacedUrl);
-        debug(
-          `Rewriting response body urls to ${chalk.blue(
-            replacedUrl
-          )} for request ${chalk.blue(req.url)}`
-        );
+        debug(`Rewriting response body urls to ${chalk.blue(replacedUrl)} for request ${chalk.blue(req.url)}`);
         body = JSON.parse(replacedJson);
       }
 
@@ -107,18 +92,14 @@ function onResponse(proxyConfig, proxyObject, req, res) {
 function onProxyError(proxyConfiguration, err, req, res) {
   const host = req.headers && req.headers.host;
   Logger.error(
-    `Proxy error: Could not proxy request ${chalk.cyan(
-      req.url
-    )} from ${chalk.cyan(host)} to ${chalk.cyan(proxyConfiguration.target)}`
+    `Proxy error: Could not proxy request ${chalk.cyan(req.url)} from ${chalk.cyan(host)} to ${chalk.cyan(
+      proxyConfiguration.target
+    )}`
   );
   if (res.writeHead && !res.headersSent) {
     res.writeHead(500);
   }
-  res.end(
-    `Proxy error: Could not proxy request ${req.url} from ${host} to ${
-      proxyConfiguration.target
-    }`
-  );
+  res.end(`Proxy error: Could not proxy request ${req.url} from ${host} to ${proxyConfiguration.target}`);
 }
 
 // https://github.com/chimurai/http-proxy-middleware/tree/master/recipes
@@ -144,9 +125,9 @@ function proxy() {
         },
         error() {
           Logger.error(proxyLogRewrite(arguments));
-        },
+        }
       };
-    },
+    }
   };
 
   const proxies = settings.configuration.proxies;
@@ -180,7 +161,7 @@ function proxy() {
         if (typeof proxyConfiguration.onError === 'function') {
           proxyConfiguration.onError(err, req, res);
         }
-      },
+      }
     });
 
     // Only create proxy if enabled
@@ -188,11 +169,9 @@ function proxy() {
       config.push(proxyConfig);
     } else {
       Logger.info(
-        `Proxy with context: ${chalk.dim(
-          proxyConfig.context
-        )} and target: ${chalk.dim(proxyConfig.target)} is ${chalk.magenta(
-          'DISABLED'
-        )}`
+        `Proxy with context: ${chalk.dim(proxyConfig.context)} and target: ${chalk.dim(
+          proxyConfig.target
+        )} is ${chalk.magenta('DISABLED')}`
       );
     }
   });

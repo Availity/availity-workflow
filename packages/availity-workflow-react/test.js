@@ -14,7 +14,7 @@ function create() {
     transform: {
       '^.+\\.(js|jsx)$': `${require.resolve('./jest/babel.js')}`,
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
-      '^(?!.*\\.(js|jsx|css|json)$)': `${require.resolve('./jest/file.js')}`,
+      '^(?!.*\\.(js|jsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
     transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
     testMatch: [
@@ -30,9 +30,9 @@ function create() {
       // dist
       //   - the dist output directory
       '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/__tests__/**/*.js?(x)',
-      '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/?(*.)(spec|test).js?(x)',
+      '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/?(*.)(spec|test).js?(x)'
     ],
-    globals: settings.globals(),
+    globals: settings.globals()
   };
 
   if (rootDir) {
@@ -55,5 +55,5 @@ function unit() {
 
 module.exports = {
   run: unit,
-  description: 'Run your tests using Jest',
+  description: 'Run your tests using Jest'
 };

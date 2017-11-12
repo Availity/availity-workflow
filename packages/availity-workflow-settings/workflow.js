@@ -23,7 +23,7 @@ const development = {
   hot: true,
 
   // Enable or disable react-hot-loader
-  hotLoader: true,
+  hotLoader: true
 
   // Allows developers to override the babel-preset-env target to match their developer environment.  This is benefecial if
   // a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot
@@ -39,18 +39,18 @@ const development = {
 };
 
 const app = {
-  title: 'Availity',
+  title: 'Availity'
 };
 
 const testing = {
-  browsers: ['Chrome'],
+  browsers: ['Chrome']
 };
 
 const globals = {
   __DEV__: false,
   __TEST__: false,
   __PROD__: false,
-  __STAGING__: false,
+  __STAGING__: false
 };
 
 const ekko = {
@@ -73,7 +73,7 @@ const ekko = {
   plugins: ['availity-mock-data'],
 
   // Mock data can be passed a context so that HATEOS links traverse correctly
-  pluginContext: `http://${development.host}:${development.port}/api`,
+  pluginContext: `http://${development.host}:${development.port}/api`
 };
 
 const proxies = [
@@ -91,14 +91,14 @@ const proxies = [
 
     // Optional.  Rewrites (using regex) the a path before sending request to proxy target.
     pathRewrite: {
-      '^/api': '',
+      '^/api': ''
     },
 
     // Optional.  Send default headers to the proxy destination.
     headers: {
-      RemoteUser: 'janedoe',
-    },
-  },
+      RemoteUser: 'janedoe'
+    }
+  }
 ];
 
 module.exports = {
@@ -107,5 +107,5 @@ module.exports = {
   globals,
   testing,
   ekko,
-  proxies,
+  proxies
 };

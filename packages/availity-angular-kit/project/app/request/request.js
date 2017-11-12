@@ -3,17 +3,12 @@ import { availity } from 'availity-angular';
 import uiRouter from 'angular-ui-router';
 
 class Request {
-  constructor(
-    avOrganizationsResource,
-    avUsersResource,
-    avProvidersResource,
-    $state
-  ) {
+  constructor(avOrganizationsResource, avUsersResource, avProvidersResource, $state) {
     this.di = {
       avOrganizationsResource,
       avUsersResource,
       avProvidersResource,
-      $state,
+      $state
     };
 
     this.memberId = null;
@@ -57,13 +52,11 @@ class Request {
   queryOrganizations() {
     const self = this;
 
-    return this.di.avOrganizationsResource
-      .getOrganizations()
-      .then(organizations => {
-        // cache organizations
-        self.organizations = organizations;
-        return organizations;
-      });
+    return this.di.avOrganizationsResource.getOrganizations().then(organizations => {
+      // cache organizations
+      self.organizations = organizations;
+      return organizations;
+    });
   }
 
   getOrganizations() {
@@ -95,7 +88,7 @@ class Request {
     }
 
     return this.di.$state.go('app.response', {
-      accepted: this.acceptedAgreement,
+      accepted: this.acceptedAgreement
     });
   }
 }

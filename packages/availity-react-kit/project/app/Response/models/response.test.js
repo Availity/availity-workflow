@@ -12,7 +12,7 @@ describe('Response', () => {
       certificationNumber: 'certificationNumber',
       customerId: 'customerId',
       status: 'status',
-      requestType: 'requestType',
+      requestType: 'requestType'
     };
 
     const response = new Response(json);
@@ -24,7 +24,7 @@ describe('Response', () => {
       patient: {},
       subscriber: {},
       diagnoses: [{}],
-      payer: {},
+      payer: {}
     };
 
     const response = new Response(json);

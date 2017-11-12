@@ -49,11 +49,7 @@ function bump() {
 
     // update package.pkg
     if (settings.isDistribution() && !settings.isDryRun()) {
-      fs.writeFileSync(
-        path.join(process.cwd(), 'package.json'),
-        contents,
-        'utf8'
-      );
+      fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
       Logger.success('Finished version bump');
     } else {
       Logger.message('Skipping version bump', 'Dry Run');
@@ -77,37 +73,33 @@ function prompt() {
   let choices = [
     {
       name: `patch ( ${version} => ${semver.inc(simpleVersion, 'patch')} )`,
-      value: semver.inc(simpleVersion, 'patch'),
+      value: semver.inc(simpleVersion, 'patch')
     },
     {
       name: `minor ( ${version} => ${semver.inc(simpleVersion, 'minor')} )`,
-      value: semver.inc(simpleVersion, 'minor'),
+      value: semver.inc(simpleVersion, 'minor')
     },
     {
       name: `major ( ${version} => ${semver.inc(simpleVersion, 'major')} )`,
-      value: semver.inc(simpleVersion, 'major'),
+      value: semver.inc(simpleVersion, 'major')
     },
     new inquirer.Separator(),
-    { name: 'other', value: 'other' },
+    { name: 'other', value: 'other' }
   ];
 
   // pre-release
   if (parsed.prerelease && parsed.prerelease.length) {
     choices = [
       {
-        name: `prerelease ( ${version} => ${semver.inc(
-          version,
-          'prerelease',
-          parsed[0]
-        )} )`,
-        value: semver.inc(version, 'prerelease', parsed[0]),
+        name: `prerelease ( ${version} => ${semver.inc(version, 'prerelease', parsed[0])} )`,
+        value: semver.inc(version, 'prerelease', parsed[0])
       },
       {
         name: `release ( ${version} => ${simpleVersion} )`,
-        value: simpleVersion,
+        value: simpleVersion
       },
       new inquirer.Separator(),
-      { name: 'other', value: 'other' },
+      { name: 'other', value: 'other' }
     ];
   }
 
@@ -116,7 +108,7 @@ function prompt() {
       type: 'rawlist',
       name: 'bump',
       message: 'What type of version bump would you like to do?',
-      choices,
+      choices
     },
     {
       type: 'input',
@@ -136,18 +128,17 @@ function prompt() {
         }
 
         return 'Enter valid semver version. See https://docs.npmjs.com/misc/semver for more details.';
-      },
-    },
+      }
+    }
   ];
 
   return inquirer.prompt(questions).then(answers => {
-    settings.version =
-      answers.bump !== 'other' ? answers.bump : answers.version;
+    settings.version = answers.bump !== 'other' ? answers.bump : answers.version;
   });
 }
 
 module.exports = {
   tag,
   prompt,
-  bump,
+  bump
 };

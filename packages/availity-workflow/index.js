@@ -14,18 +14,14 @@ const release = require('./scripts/release');
 const profile = require('./scripts/profile');
 
 Promise.config({
-  longStackTraces: true,
+  longStackTraces: true
 });
 
 settings.init();
 
 yargs
 
-  .usage(
-    `\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta(
-      '[options]'
-    )}`
-  )
+  .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
 
   .command('start', `${chalk.dim('Start the development server')}`, () => {
     start();
@@ -38,15 +34,15 @@ yargs
       return yyargs
         .option('include', {
           alias: 'i',
-          describe: 'Glob patterns to INCLUDE for ESLint scanning',
+          describe: 'Glob patterns to INCLUDE for ESLint scanning'
         })
         .option('fail', {
           alias: 'f',
-          describe: 'Force linter to fail and exit',
+          describe: 'Force linter to fail and exit'
         })
         .option('ignore-git-untracked', {
           alias: 'u',
-          describe: 'Ignore files that are not indexed by git',
+          describe: 'Ignore files that are not indexed by git'
         });
     },
     () => {
@@ -62,8 +58,7 @@ yargs
     yyargs => {
       return yyargs.option('watch', {
         alias: 'w',
-        describe:
-          'Watch files for changes and rerun tests related to changed files.',
+        describe: 'Watch files for changes and rerun tests related to changed files.'
       });
     },
     () => {
@@ -73,29 +68,17 @@ yargs
     }
   )
 
-  .command(
-    'profile',
-    `${chalk.dim(
-      'Analyze Webpack bundles and find what is contributing their sizes'
-    )}`,
-    () => {
-      profile();
-    }
-  )
+  .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their sizes')}`, () => {
+    profile();
+  })
 
-  .command(
-    'build',
-    `${chalk.dim('Bundle project for distribution (production or staging)')}`,
-    () => {
-      build();
-    }
-  )
+  .command('build', `${chalk.dim('Bundle project for distribution (production or staging)')}`, () => {
+    build();
+  })
 
   .command(
     'release',
-    `${chalk.dim(
-      'Bundle project for distribution (production or staging) and create a git tag'
-    )}`,
+    `${chalk.dim('Bundle project for distribution (production or staging) and create a git tag')}`,
     () => {
       release();
     }

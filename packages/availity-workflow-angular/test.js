@@ -8,9 +8,7 @@ function validate() {
   const specExists = exists(path.join(settings.app(), 'specs-bundle.js'));
 
   if (!specExists) {
-    Logger.failed(
-      'Missing specs-bundle.js that is required by Karma to run the unit tests.'
-    );
+    Logger.failed('Missing specs-bundle.js that is required by Karma to run the unit tests.');
     throw Error();
   }
 
@@ -25,7 +23,7 @@ function integration() {
       {
         configFile: path.join(__dirname, './karma.conf.sauce.js'),
         autoWatch: false,
-        singleRun: true,
+        singleRun: true
       },
       function(exitStatus) {
         if (exitStatus) {
@@ -50,7 +48,7 @@ function unit() {
       {
         configFile: path.join(__dirname, './karma.conf.js'),
         autoWatch: false,
-        singleRun: true,
+        singleRun: true
       },
       function(exitStatus) {
         if (exitStatus) {
@@ -73,7 +71,7 @@ function watch() {
       configFile: path.join(__dirname, './karma.conf.js'),
       browsers: ['Chrome'],
       autoWatch: true,
-      singleRun: false,
+      singleRun: false
     };
 
     const server = new karma.Server(config, exitStatus => {
@@ -101,5 +99,5 @@ module.exports = {
     return validate().then(unit);
   },
 
-  description: 'Run your tests using Karma and Chrome, IE or Firefox.  ',
+  description: 'Run your tests using Karma and Chrome, IE or Firefox.  '
 };

@@ -14,7 +14,7 @@ window.APP_VERSION=${version};
 const defaultOptions = {
   entryOnly: true,
   test: /\.js($|\?)/i,
-  version: moment().format(),
+  version: moment().format()
 };
 
 class VersionPlugin {
@@ -36,15 +36,9 @@ class VersionPlugin {
             return;
           }
 
-          chunk.files
-            .filter(ModuleFilenameHelpers.matchObject.bind(undefined, options))
-            .forEach(file => {
-              compilation.assets[file] = new ConcatSource(
-                version,
-                '\n',
-                compilation.assets[file]
-              );
-            });
+          chunk.files.filter(ModuleFilenameHelpers.matchObject.bind(undefined, options)).forEach(file => {
+            compilation.assets[file] = new ConcatSource(version, '\n', compilation.assets[file]);
+          });
         });
 
         callback();

@@ -12,7 +12,7 @@ const config = function($stateProvider, avValProvider) {
   $stateProvider.state('app.request', {
     url: '^/request',
     data: {
-      title: 'Authorization Request',
+      title: 'Authorization Request'
     },
     views: {
       header: {
@@ -20,21 +20,21 @@ const config = function($stateProvider, avValProvider) {
         controller($state) {
           this.title = $state.current.data.title;
         },
-        controllerAs: 'vm',
+        controllerAs: 'vm'
       },
       body: {
         template: body,
         controller: RequestController,
-        controllerAs: 'vm',
+        controllerAs: 'vm'
       },
       footer: {
-        template: footer,
-      },
-    },
+        template: footer
+      }
+    }
   });
 
   avValProvider.addRules({
-    request,
+    request
   });
 };
 

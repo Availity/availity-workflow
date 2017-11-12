@@ -20,7 +20,7 @@ function lint() {
 
   try {
     engine = new eslint.CLIEngine({
-      useEslintrc: true,
+      useEslintrc: true
     });
   } catch (err) {
     future = Promise.reject('ESLint configuration error in availity-workflow');
@@ -70,9 +70,7 @@ function lint() {
           process.exit(1);
         }
       } else {
-        Logger.success(
-          `Finished linting ${chalk.magenta(paths.length)} file(s)`
-        );
+        Logger.success(`Finished linting ${chalk.magenta(paths.length)} file(s)`);
         resolve('Finished linting');
       }
     });

@@ -6,7 +6,7 @@ const authorizationResourceFactory = function(AvProxyResource) {
     constructor() {
       super({
         tenant: 'healthplan',
-        name: 'v1/authorizations',
+        name: 'v1/authorizations'
       });
     }
   }
@@ -14,8 +14,6 @@ const authorizationResourceFactory = function(AvProxyResource) {
   return new AuthorizationResource();
 };
 
-app
-  .addModule(availity)
-  .factory('authorizationsResource', authorizationResourceFactory);
+app.addModule(availity).factory('authorizationsResource', authorizationResourceFactory);
 
 export default app;

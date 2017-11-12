@@ -15,17 +15,14 @@
   "scripts": {
     "angular": "npm start --prefix packages/availity-angular-kit",
     "angular:test": "npm test --prefix packages/availity-angular-kit",
-    "angular:coverage":
-      "npm test --prefix packages/availity-angular-kit -- --coverage",
+    "angular:coverage": "npm test --prefix packages/availity-angular-kit -- --coverage",
     "angular:profile": "npm run profile --prefix packages/availity-angular-kit",
     "angular:lint": "npm run lint --prefix packages/availity-angular-kit",
     "react": "npm start --prefix packages/availity-react-kit",
     "react:test": "npm test --prefix packages/availity-react-kit",
-    "react:coverage":
-      "npm test --prefix packages/availity-react-kit -- --coverage",
+    "react:coverage": "npm test --prefix packages/availity-react-kit -- --coverage",
     "react:profile": "npm run profile --prefix packages/availity-react-kit",
-    "react:staging":
-      "npm run staging --prefix packages/availity-react-kit -- --dry-run",
+    "react:staging": "npm run staging --prefix packages/availity-react-kit -- --dry-run",
     "react:lint": "npm run lint --prefix packages/availity-react-kit",
     "react:help": "npm run help --prefix packages/availity-react-kit",
     "lint": "eslint .",
@@ -35,11 +32,15 @@
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean",
     "postinstall": "lerna bootstrap",
-    "format":
-      "prettier --single-quote --print-width 120 --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
+    "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": ["prettier --trailing-comma es5 --single-quote --write", "git add"]
+    "*.js": ["prettier", "git add"]
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "none"
   }
 }
