@@ -10,11 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/availity/availity-workflow.git"
   },
-  "keywords": [
-    "angular",
-    "workflow",
-    "availity"
-  ],
+  "keywords": ["angular", "workflow", "availity"],
   "author": "Robert McGuinness",
   "license": "MIT",
   "bugs": {
@@ -53,7 +49,7 @@
     "karma-webpack": "^2.0.4",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
-    "moment": "^2.18.1",
+    "moment": "^2.19.2",
     "ngtemplate-loader": "^2.0.0",
     "node-sass": "^4.5.2",
     "null-loader": "^0.1.1",
