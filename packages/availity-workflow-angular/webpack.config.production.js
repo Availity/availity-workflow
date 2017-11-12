@@ -104,7 +104,12 @@ const config = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+          fallback: {
+            loader: require.resolve('style-loader'),
+            options: {
+              hmr: false
+            }
+          },
           use: [
             {
               loader: 'css-loader',
@@ -118,7 +123,12 @@ const config = {
       {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+          fallback: {
+            loader: require.resolve('style-loader'),
+            options: {
+              hmr: false
+            }
+          },
           use: [
             {
               loader: 'css-loader',
@@ -136,7 +146,12 @@ const config = {
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+          fallback: {
+            loader: require.resolve('style-loader'),
+            options: {
+              hmr: false
+            }
+          },
           use: [
             {
               loader: 'css-loader',

@@ -68,7 +68,12 @@ const config = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+          fallback: {
+            loader: require.resolve('style-loader'),
+            options: {
+              hmr: false
+            }
+          },
           use: ['css-loader', postcss],
           publicPath: '../'
         })
@@ -76,7 +81,12 @@ const config = {
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+          fallback: {
+            loader: require.resolve('style-loader'),
+            options: {
+              hmr: false
+            }
+          },
           use: ['css-loader', postcss, { loader: 'sass-loader', options: { sourceMap: true } }],
           publicPath: '../'
         })
