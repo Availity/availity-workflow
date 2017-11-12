@@ -34,7 +34,7 @@
     "publish": "lerna publish --force-publish=*",
     "bootstrap": "lerna bootstrap",
     "link": "lerna link",
-    "test": "lerna run --concurrency test",
+    "test": "lerna run --concurrency 1 test",
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean",
     "postinstall": "lerna bootstrap",
