@@ -1,10 +1,10 @@
 const globby = require('globby');
 const Promise = require('bluebird');
-const eslint = require('eslint');
 const ora = require('ora');
 const chalk = require('chalk');
 const Logger = require('availity-workflow-logger');
 const settings = require('availity-workflow-settings');
+const requireRelative = require('require-relative');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
@@ -16,6 +16,17 @@ function lint() {
     return Promise.resolve(true);
   }
 
+  let eslint;
+  try {
+    eslint = requireRelative('eslint', settings.project());
+  } catch (err) {
+    // no op
+  }
+
+  if (!eslint) {
+    eslint = require('eslint');
+  }
+
   let future;
 
   try {
@@ -24,6 +35,10 @@ function lint() {
     });
   } catch (err) {
     future = Promise.reject('ESLint configuration error in availity-workflow');
+  }
+
+  if (future) {
+    return future;
   }
 
   future = new Promise((resolve, reject) => {
