@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow-settings",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "description": "Configuration for availity-workflow",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "availity-workflow-logger": "^2.6.3",
+    "availity-workflow-logger": "^2.6.4",
     "chalk": "^2.0.1",
     "exists-sync": "0.0.4",
     "js-yaml": "^3.9.0",

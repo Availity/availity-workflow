@@ -1,6 +1,6 @@
 {
   "name": "availity-angular-kit",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "private": true,
   "description": "Example Angular project using availity-workflow",
   "main": "index.js",
@@ -26,7 +26,11 @@
     "type": "git",
     "url": "git+https://github.com/availity/availity-workflow.git"
   },
-  "keywords": ["angular", "availity", "workflow"],
+  "keywords": [
+    "angular",
+    "availity",
+    "workflow"
+  ],
   "author": "Robert McGuinness",
   "license": "MIT",
   "bugs": {
@@ -55,8 +59,8 @@
     "velocity-animate": "^1.5.0"
   },
   "devDependencies": {
-    "availity-workflow": "^2.6.3",
-    "availity-workflow-angular": "^2.6.3",
+    "availity-workflow": "^2.6.4",
+    "availity-workflow-angular": "^2.6.4",
     "babel-eslint": "^7.2.3",
     "cross-env": "^5.0.4",
     "eslint": "^4.4.1",
