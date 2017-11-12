@@ -1,7 +1,10 @@
 {
   "private": true,
+  "version": "2.6.7",
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "conventional-changelog": "^1.1.6",
+    "conventional-recommended-bump": "^1.0.2",
     "eslint": "^4.7.2",
     "eslint-config-availity": "^2.2.0",
     "eslint-plugin-import": "^2.7.0",
@@ -33,10 +36,14 @@
     "clean": "lerna clean",
     "postinstall": "lerna bootstrap",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "release": "npm run lint && sh ./scripts/release.sh"
   },
   "lint-staged": {
-    "*.js": ["prettier", "git add"]
+    "*.js": [
+      "prettier",
+      "git add"
+    ]
   },
   "prettier": {
     "printWidth": 120,
