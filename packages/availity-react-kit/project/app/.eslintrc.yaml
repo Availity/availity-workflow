@@ -1,8 +1,4 @@
 ---
-extends: eslint-config-availity/react
-
-globals:
-  afterEach: true
-  beforeEach: true
-  describe: true
-  it: true
+extends: availity/browser
+env:
+  jest: true
