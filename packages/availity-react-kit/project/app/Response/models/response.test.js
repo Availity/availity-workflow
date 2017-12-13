@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import Response, { Diagnosis, Patient, Payer, Subscriber } from './response';
 
 describe('Response', () => {

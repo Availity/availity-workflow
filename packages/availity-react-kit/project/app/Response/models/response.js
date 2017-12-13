@@ -49,16 +49,14 @@ export default class Response {
   @observable requestType;
   @observable payer;
 
-  constructor(json) {
-    const _json = json || {};
-
-    this.certificationNumber = _json.certificationNumber || '';
-    this.customerId = _json.customerId || '';
-    this.patient = new Patient(_json.patient);
-    this.subscriber = new Subscriber(_json.subscriber);
-    this.status = _json.status || '';
-    this.diagnoses = map(_json.diagnoses, diagnosis => new Diagnosis(diagnosis));
-    this.requestType = _json.requestType || '';
-    this.payer = new Payer(_json.payer);
+  constructor(json = {}) {
+    this.certificationNumber = json.certificationNumber || '';
+    this.customerId = json.customerId || '';
+    this.patient = new Patient(json.patient);
+    this.subscriber = new Subscriber(json.subscriber);
+    this.status = json.status || '';
+    this.diagnoses = map(json.diagnoses, diagnosis => new Diagnosis(diagnosis));
+    this.requestType = json.requestType || '';
+    this.payer = new Payer(json.payer);
   }
 }

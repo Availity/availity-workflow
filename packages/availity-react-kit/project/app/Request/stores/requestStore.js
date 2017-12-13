@@ -1,6 +1,7 @@
 import { action, computed, observable } from 'mobx';
-import { getProviders, getOrganizations, getUser } from '../api/requestApi';
 import map from 'lodash.map';
+
+import { getProviders, getOrganizations, getUser } from '../api/requestApi';
 
 export class Organization {
   @observable id;

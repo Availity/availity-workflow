@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
+import { AvForm } from 'availity-mobx-reactstrap-validation';
+import { Button, Card, CardBody } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
+
 import requestStore from './stores/requestStore';
 import { getAuthorization } from './api/requestApi';
 import uiStore from '../stores/uiStore';
 import { Agreement, Patient, Provider } from './components';
-import { AvForm } from 'availity-mobx-reactstrap-validation';
-import { Button, Card, CardBlock } from 'reactstrap';
-import { Redirect } from 'react-router-dom';
+
 import { Footer, Header } from '../components';
 
 @observer
@@ -39,7 +41,7 @@ export default class AuthorizationsRequest extends Component {
         <Header />
         <AvForm onValidSubmit={this.submit}>
           <Card>
-            <CardBlock>
+            <CardBody>
               <Provider requestStore={requestStore} />
               <Patient requestStore={requestStore} />
               <Agreement requestStore={requestStore} />
@@ -49,7 +51,7 @@ export default class AuthorizationsRequest extends Component {
                   Authorize
                 </Button>
               </div>
-            </CardBlock>
+            </CardBody>
           </Card>
         </AvForm>
         <Footer />

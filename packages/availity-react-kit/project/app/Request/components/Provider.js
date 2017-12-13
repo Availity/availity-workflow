@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { RequestStore } from '../stores/requestStore';
 import { Label, UncontrolledTooltip } from 'reactstrap';
 import { AvField } from 'availity-mobx-reactstrap-validation';
+import { RequestStore } from '../stores/requestStore';
 
 @observer
 export default class Provider extends Component {
