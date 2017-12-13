@@ -1,7 +1,6 @@
 ---
-extends: eslint-config-availity
+extends: availity
 rules:
-  strict: 0
   indent: 0
   linebreak-style:
     - error
