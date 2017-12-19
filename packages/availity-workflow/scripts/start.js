@@ -77,20 +77,20 @@ function rest() {
       pluginContext: settings.config().ekko.pluginContext,
       logProvider() {
         return {
-          log() {
-            Logger.log(...arguments);
+          log(...args) {
+            Logger.log(args);
           },
-          debug() {
-            Logger.debug(...arguments);
+          debug(...args) {
+            Logger.debug(args);
           },
-          info() {
-            Logger.info(...arguments);
+          info(...args) {
+            Logger.info(args);
           },
-          warn() {
-            Logger.warn(...arguments);
+          warn(...args) {
+            Logger.warn(args);
           },
-          error() {
-            Logger.error(...arguments);
+          error(...args) {
+            Logger.error(args);
           }
         };
       }

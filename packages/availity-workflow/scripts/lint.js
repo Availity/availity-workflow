@@ -24,7 +24,7 @@ function lint() {
   }
 
   if (!eslint) {
-    eslint = require('eslint');
+    eslint = require('eslint'); // eslint-disable-line
   }
 
   let future;
@@ -34,7 +34,7 @@ function lint() {
       useEslintrc: true
     });
   } catch (err) {
-    future = Promise.reject('ESLint configuration error in availity-workflow');
+    future = Promise.reject(new Error('ESLint configuration error in availity-workflow'));
   }
 
   if (future) {
@@ -66,15 +66,18 @@ function lint() {
     }
 
     // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
+    /* eslint-disable promise/catch-or-return */
+
     globby(settings.js()).then(paths => {
       spinner.stop();
       const filesToLint = gitTrackedFiles
         ? // git repository present
-          paths.filter(f => ~gitTrackedFiles.indexOf(f))
+          paths.filter(f => gitTrackedFiles.indexOf(f) > 0)
         : paths;
 
       const report = engine.executeOnFiles(filesToLint);
 
+      /* eslint-disable promise/always-return */
       if (report.errorCount || report.warningCount) {
         const formatter = engine.getFormatter();
         Logger.simple(`${formatter(report.results)}`);

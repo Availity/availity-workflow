@@ -25,7 +25,7 @@ function integration() {
         autoWatch: false,
         singleRun: true
       },
-      function(exitStatus) {
+      exitStatus => {
         if (exitStatus) {
           Logger.failed('Failed testing');
           reject(exitStatus);
@@ -50,7 +50,7 @@ function unit() {
         autoWatch: false,
         singleRun: true
       },
-      function(exitStatus) {
+      exitStatus => {
         if (exitStatus) {
           Logger.failed('Failed testing');
           reject(exitStatus);

@@ -16,47 +16,43 @@ function newLine(contents) {
 }
 
 function tag() {
-  return new Promise(resolve => {
-    if (settings.isDistribution() && !settings.isDryRun()) {
-      shell.exec('git add --all');
-      shell.exec(`git commit -m "v${settings.version}"`);
-      shell.exec(`git tag -a v${settings.version} -m "v${settings.version}"`);
-    } else {
-      Logger.message('Skipping git commands', 'Dry Run');
-    }
+  if (settings.isDistribution() && !settings.isDryRun()) {
+    shell.exec('git add --all');
+    shell.exec(`git commit -m "v${settings.version}"`);
+    shell.exec(`git tag -a v${settings.version} -m "v${settings.version}"`);
+  } else {
+    Logger.message('Skipping git commands', 'Dry Run');
+  }
 
-    resolve();
-  });
+  return Promise.resolve(true);
 }
 
 function bump() {
-  return new Promise((resolve, reject) => {
-    Logger.info('Starting version bump');
+  Logger.info('Starting version bump');
 
-    if (!settings.isDistribution()) {
-      settings.version = moment().format();
-    }
+  if (!settings.isDistribution()) {
+    settings.version = moment().format();
+  }
 
-    if (!settings.version) {
-      return reject('version is undefined');
-    }
+  if (!settings.version) {
+    return Promise.reject(new Error('version is undefined'));
+  }
 
-    const pkg = settings.pkg();
-    _.merge(pkg, { version: settings.version });
+  const pkg = settings.pkg();
+  _.merge(pkg, { version: settings.version });
 
-    let contents = JSON.stringify(pkg, null, 2);
-    contents = newLine(contents);
+  let contents = JSON.stringify(pkg, null, 2);
+  contents = newLine(contents);
 
-    // update package.pkg
-    if (settings.isDistribution() && !settings.isDryRun()) {
-      fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
-      Logger.success('Finished version bump');
-    } else {
-      Logger.message('Skipping version bump', 'Dry Run');
-    }
+  // update package.pkg
+  if (settings.isDistribution() && !settings.isDryRun()) {
+    fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
+    Logger.success('Finished version bump');
+  } else {
+    Logger.message('Skipping version bump', 'Dry Run');
+  }
 
-    resolve();
-  });
+  return Promise.resolve(true);
 }
 
 function prompt() {
@@ -64,7 +60,7 @@ function prompt() {
     return Promise.resolve(true);
   }
 
-  const version = settings.pkg().version;
+  const { version } = settings.pkg();
   const parsed = semver.parse(version);
 
   // regular release
@@ -134,6 +130,7 @@ function prompt() {
 
   return inquirer.prompt(questions).then(answers => {
     settings.version = answers.bump !== 'other' ? answers.bump : answers.version;
+    return settings.version;
   });
 }
 

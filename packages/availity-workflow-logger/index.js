@@ -57,7 +57,7 @@ class Logger {
 
   static message(entry, entryLabel) {
     const prefix = chalk.blue(figures.info);
-    entryLabel = entryLabel ? entryLabel : 'INFO';
+    entryLabel = entryLabel || 'INFO';
     const label = chalk.white.bold(` ${entryLabel} `);
     console.log(`${prefix} ${chalk.bgBlue(label)} ${chalk.blue(entry)}`);
   }

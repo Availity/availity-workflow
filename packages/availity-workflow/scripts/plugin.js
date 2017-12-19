@@ -26,9 +26,12 @@ ${figures.pointer}
   let file;
 
   try {
-    file = require(`${settings.pkg().availityWorkflow.plugin}/${path}`);
+    const filePath = `${settings.pkg().availityWorkflow.plugin}/${path}`;
+    // eslint-disable-next-line
+    file = require(filePath);
   } catch (err) {
     // Workaround when Lerna linked modules
+    // eslint-disable-next-line global-require
     const relative = require('require-relative');
     file = relative(`${settings.pkg().availityWorkflow.plugin}/${path}`, settings.project());
   }

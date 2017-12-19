@@ -79,14 +79,14 @@ export default class Provider extends Component {
           </option>
           {providers.map(provider => (
             <option value={provider.id} key={provider.id}>
-              {provider.businessName || provider.firstName + ' ' + provider.lastName}
+              {provider.businessName || `${provider.firstName} ${provider.lastName}}`}
             </option>
           ))}
         </AvField>
 
         <Label id="npi-help" for="npi">
           NPI
-          <span className="inline-help">What's this?</span>
+          <span className="inline-help">What&apos;s this?</span>
         </Label>
         <UncontrolledTooltip target="npi-help" placement="top">
           National Provider Index

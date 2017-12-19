@@ -6,7 +6,7 @@ if (settings.isCoverage()) {
   webpackConfig.module.rules.push({
     test: /\.js$/,
     include: settings.app(),
-    exclude: [/node_modules/, /[-|\.]spec\.js$/, /specs\-bundle\.js/],
+    exclude: [/node_modules/, /[-|.]spec\.js$/, /specs-bundle\.js/],
     enforce: 'post',
     loader: 'istanbul-instrumenter-loader',
     options: { esModules: true }
@@ -84,7 +84,7 @@ if (settings.isCoverage()) {
   });
 }
 
-module.exports = function(config) {
+module.exports = config => {
   config.set(
     Object.assign(
       {

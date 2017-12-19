@@ -64,7 +64,8 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.5.5",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-notifier": "^1.5.0"
+    "webpack-notifier": "^1.5.0",
+    "webpack-sources": "^1.1.0"
   },
   "devDependencies": {
     "karma-sauce-launcher": "^1.1.0"

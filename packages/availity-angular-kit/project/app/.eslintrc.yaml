@@ -12,6 +12,10 @@
 #
 
 # https://github.com/Availity/eslint-config-availity/browser
-extends: eslint-config-availity/browser
+extends: availity/browser
+rules:
+  import/no-unresolved: 0
+  import/no-extraneous-dependencies: 0
+  import/extensions: 0
 globals:
-  APP_VERSION: true
+  app-module: false

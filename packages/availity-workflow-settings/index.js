@@ -1,3 +1,4 @@
+/* eslint global-require:0 import/no-dynamic-require: 0 */
 const path = require('path');
 const Logger = require('availity-workflow-logger');
 const exists = require('exists-sync');
@@ -7,19 +8,22 @@ const merge = require('lodash.merge');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const get = require('lodash.get');
-const argv = require('yargs').argv;
-const _ = require('lodash');
+const { argv } = require('yargs');
+const each = require('lodash.foreach');
+const isString = require('lodash.isstring');
+const isFunction = require('lodash.isfunction');
+const isObject = require('lodash.isobject');
 
 function stringify(obj) {
-  _.each(obj, (value, key) => {
-    if (_.isString(value)) {
+  each(obj, (value, key) => {
+    if (isString(value)) {
       try {
         JSON.parse(value);
         obj[key] = value;
       } catch (e) {
         obj[key] = JSON.stringify(value);
       }
-    } else if (_.isObject(value) && !_.isFunction(value)) {
+    } else if (isObject(value) && !isFunction(value)) {
       stringify(value);
     }
   });

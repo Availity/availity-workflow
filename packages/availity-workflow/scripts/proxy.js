@@ -15,8 +15,10 @@ function proxyLogRewrite(daArgs) {
 
   return args.map(arg => {
     if (typeof arg === 'string') {
-      return arg.replace(/\[HPM\] /g, '').replace(/  /g, ' ');
+      return arg.replace(/\[HPM\] /g, '').replace(/ {2}/g, ' ');
     }
+
+    return arg;
   });
 }
 
@@ -29,7 +31,7 @@ function onRequest(proxyConfig, proxyObject) {
   const host = settings.host();
 
   const local = `http://${host}:${port}`;
-  const target = proxyConfig.target;
+  const { target } = proxyConfig;
 
   const regexer = new RegExp(escapeStringRegexp(local, 'g'));
 
@@ -111,26 +113,26 @@ function proxy() {
     xfwd: true,
     logProvider() {
       return {
-        log() {
-          Logger.log(proxyLogRewrite(arguments));
+        log(...args) {
+          Logger.log(proxyLogRewrite(args));
         },
-        debug() {
-          Logger.debug(proxyLogRewrite(arguments));
+        debug(...args) {
+          Logger.debug(proxyLogRewrite(args));
         },
-        info() {
-          Logger.info(proxyLogRewrite(arguments));
+        info(...args) {
+          Logger.info(proxyLogRewrite(args));
         },
-        warn() {
-          Logger.warn(proxyLogRewrite(arguments));
+        warn(...args) {
+          Logger.warn(proxyLogRewrite(args));
         },
-        error() {
-          Logger.error(proxyLogRewrite(arguments));
+        error(...args) {
+          Logger.error(proxyLogRewrite(args));
         }
       };
     }
   };
 
-  const proxies = settings.configuration.proxies;
+  const { proxies } = settings.configuration;
 
   if (!proxies) {
     return null;

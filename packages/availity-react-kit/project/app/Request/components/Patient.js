@@ -23,7 +23,7 @@ export default class Patient extends Component {
 
         <Label id="memberid-help" for="memberID">
           Member ID
-          <span className="inline-help">What's this?</span>
+          <span className="inline-help">What&apos;s this?</span>
         </Label>
         <UncontrolledTooltip target="memberid-help" placement="top">
           Also known as subscriber ID or member number

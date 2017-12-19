@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { AvForm } from 'availity-mobx-reactstrap-validation';
 import { Button, Card, CardBody } from 'reactstrap';
-import { Redirect } from 'react-router-dom';
 
 import requestStore from './stores/requestStore';
 import { getAuthorization } from './api/requestApi';
@@ -17,25 +16,18 @@ export default class AuthorizationsRequest extends Component {
     requestStore.getUser();
   }
 
-  submit = () => {
+  submit = async () => {
     const params = {
       dob: requestStore.dob,
       memberId: requestStore.memberId,
       npi: requestStore.npi
     };
 
-    getAuthorization(params).then(resp => {
-      uiStore.setCurrentResponse(resp.data.response);
-    });
+    const response = await getAuthorization(params);
+    uiStore.setCurrentResponse(response);
   };
 
   render() {
-    const { currentResponse } = uiStore;
-
-    if (currentResponse) {
-      return <Redirect to="/response" />;
-    }
-
     return (
       <div className="container-sm">
         <Header />

@@ -47,12 +47,16 @@ export class RequestStore {
   getUser() {
     const self = this;
     return getUser().then(resp => {
-      self.userId = resp.data.id;
-      getOrganizations(self.userId).then(_resp => {
-        const { organizations } = _resp.data;
-        self.organizations = map(organizations, org => new Organization(org));
-      });
+      const { user } = resp;
+      self.userId = user.id;
+      return user;
     });
+  }
+
+  @action
+  async getOrganizations() {
+    const organizations = await getOrganizations();
+    this.organizations = map(organizations, org => new Organization(org));
   }
 
   @action
@@ -66,17 +70,16 @@ export class RequestStore {
   }
 
   @action
-  onSelectedOrganization(orgId) {
+  async onSelectedOrganization(orgId) {
     this.organizations.forEach(org => {
       if (org.id === orgId) {
         this.selectedOrganization = org;
       }
     });
 
-    getProviders(this.selectedOrganization.customerId).then(resp => {
-      const { providers } = resp.data;
-      this.providers = map(providers, provider => new Provider(provider));
-    });
+    const response = await getProviders(this.selectedOrganization.customerId);
+    const { providers } = response.data;
+    this.providers = map(providers, provider => new Provider(provider));
   }
 
   @action

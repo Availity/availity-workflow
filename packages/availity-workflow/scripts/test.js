@@ -1,4 +1,5 @@
 const plugin = require('./plugin');
+
 const tester = plugin('test');
 
 module.exports = {
@@ -10,6 +11,7 @@ module.exports = {
         /* eslint no-process-exit:0 */
         process.exit(exitCode);
       }
+      return exitCode;
     });
   }
 };

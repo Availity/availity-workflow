@@ -3,12 +3,12 @@ import { availity } from 'availity-angular';
 import uiRouter from 'angular-ui-router';
 
 class Request {
-  constructor(avOrganizationsResource, avUsersResource, avProvidersResource, $state) {
+  constructor(avOrganizationsApi, avUsersApi, avProvidersResource, $state) {
     this.di = {
-      avOrganizationsResource,
-      avUsersResource,
+      avOrganizationsApi,
+      avUsersApi,
       avProvidersResource,
-      $state
+      $state,
     };
 
     this.memberId = null;
@@ -29,8 +29,7 @@ class Request {
   getUser() {
     const self = this;
 
-    return this.di.avUsersResource.me().then(user => {
-      // cache user
+    return this.di.avUsersApi.me().then(user => {
       self.user = user;
       return user;
     });
@@ -52,21 +51,15 @@ class Request {
   queryOrganizations() {
     const self = this;
 
-    return this.di.avOrganizationsResource.getOrganizations().then(organizations => {
-      // cache organizations
+    return this.di.avOrganizationsApi.getOrganizations().then(response => {
+      const { organizations = [] } = response.data;
       self.organizations = organizations;
       return organizations;
     });
   }
 
   getOrganizations() {
-    // The :: syntax below is proposed for ES7.  It is equivalent to the following code:
-    //
-    //    this.getUser().then(this.queryOrganizations.bind(this));
-    //
-    // Feel free to use either version that suits your coding style.
-    //
-    return this.getUser().then(::this.queryOrganizations);
+    return this.getUser().then(() => this.queryOrganizations);
   }
 
   queryProviders(organization) {
@@ -76,7 +69,8 @@ class Request {
   getProviders(organization) {
     const self = this;
 
-    return this.queryProviders(organization).then(providers => {
+    return this.queryProviders(organization).then(response => {
+      const { providers = [] } = response.data;
       self.providers = providers;
       return providers;
     });
@@ -88,7 +82,7 @@ class Request {
     }
 
     return this.di.$state.go('app.response', {
-      accepted: this.acceptedAgreement
+      accepted: this.acceptedAgreement,
     });
   }
 }

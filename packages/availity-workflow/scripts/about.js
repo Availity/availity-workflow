@@ -3,6 +3,7 @@ const chalk = require('chalk');
 
 const notifier = require('./notifier');
 const pkg = require('../package.json');
+
 const version = chalk.bold.yellow(`v${pkg.version}`);
 
 const logo = `

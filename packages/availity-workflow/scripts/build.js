@@ -7,7 +7,7 @@ const chalk = require('chalk');
 const settings = require('availity-workflow-settings');
 const Logger = require('availity-workflow-logger');
 const sizeTree = require('webpack-bundle-size-analyzer/build/src/size_tree');
-const argv = require('yargs').argv;
+const { argv } = require('yargs');
 
 const plugin = require('./plugin');
 

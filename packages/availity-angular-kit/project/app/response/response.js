@@ -13,11 +13,12 @@ class Response {
         params: {
           npi: this.di.request.npi,
           memberId: this.di.request.memberId,
-          dob: this.di.request.dob
-        }
+          dob: this.di.request.dob,
+        },
       })
       .then(response => {
         this.auth = response.data;
+        return response.data;
       });
   }
 }

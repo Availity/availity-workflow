@@ -9,6 +9,7 @@ function release() {
     .prompt()
     .then(() => {
       Logger.info('Started releasing');
+      return true;
     })
     .then(lint)
     .then(version.bump)
@@ -16,6 +17,7 @@ function release() {
     .then(version.tag)
     .then(() => {
       Logger.success('Finished releasing');
+      return true;
     })
     .catch(err => {
       Logger.failed(`Failed releasing:

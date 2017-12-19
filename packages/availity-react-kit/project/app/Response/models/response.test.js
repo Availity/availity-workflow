@@ -3,7 +3,7 @@ import Response, { Diagnosis, Patient, Payer, Subscriber } from './response';
 describe('Response', () => {
   it('can construct with no arguments', () => {
     const response = new Response();
-    expect(response).to.exist;
+    expect(response).toBeTruthy();
   });
 
   it('merges simple props', () => {
@@ -15,7 +15,7 @@ describe('Response', () => {
     };
 
     const response = new Response(json);
-    expect(response).to.contain(json);
+    expect(response).toContain(json);
   });
 
   it('merges composite json properties', () => {
@@ -28,12 +28,12 @@ describe('Response', () => {
 
     const response = new Response(json);
 
-    expect(response.patient).to.be.an.instanceOf(Patient);
-    expect(response.subscriber).to.be.an.instanceOf(Subscriber);
-    expect(response.payer).to.be.an.instanceOf(Payer);
+    expect(response.patient).toBeInstanceOf(Patient);
+    expect(response.subscriber).toBeInstanceOf(Subscriber);
+    expect(response.payer).toBeInstanceOf(Payer);
 
     response.diagnoses.forEach(diagnosis => {
-      expect(diagnosis).to.be.an.instanceOf(Diagnosis);
+      expect(diagnosis).toBeInstanceOf(Diagnosis);
     });
   });
 });

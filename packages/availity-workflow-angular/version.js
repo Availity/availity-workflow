@@ -1,6 +1,4 @@
-'use strict';
-
-const ConcatSource = require('webpack-sources').ConcatSource;
+const { ConcatSource } = require('webpack-sources');
 const ModuleFilenameHelpers = require('webpack/lib/ModuleFilenameHelpers');
 const moment = require('moment');
 
@@ -23,7 +21,7 @@ class VersionPlugin {
   }
 
   apply(compiler) {
-    const options = this.options;
+    const { options } = this;
     const version = wrapVersion(options.version);
 
     compiler.plugin('compilation', compilation => {

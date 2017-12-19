@@ -1,25 +1,25 @@
-import { expect } from 'chai';
 import { RequestStore } from './requestStore';
+
 const requestStore = new RequestStore();
 
 describe('RequestStore', () => {
   describe('toggleAcceptedAgreement', () => {
     it('toggles accepted agreement', () => {
-      expect(requestStore).to.exist;
+      expect(requestStore).toBeDefined();
 
       requestStore.toggleAcceptedAgreement();
 
-      expect(requestStore.acceptedAgreement).to.be.true;
+      expect(requestStore.acceptedAgreement).toBeTruthy();
     });
   });
 
   describe('updateMemberId', () => {
     it('updates the member id', () => {
       const id = '12345';
-      expect(requestStore).to.exist;
+      expect(requestStore).toBeDefined();
       requestStore.updateMemberId(id);
 
-      expect(requestStore.memberId).to.equal(id);
+      expect(requestStore.memberId).toBe(id);
     });
   });
 });

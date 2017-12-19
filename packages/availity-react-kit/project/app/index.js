@@ -14,6 +14,7 @@ import App from './App';
 require('es6-promise').polyfill();
 
 const render = Component =>
+  // eslint-disable-next-line react/no-render-return-value
   ReactDOM.render(
     <AppContainer>
       <Component />

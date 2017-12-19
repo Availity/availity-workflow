@@ -5,7 +5,7 @@ const exists = require('exists-sync');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ruleFonts = require('availity-workflow-settings/webpack/rule-fonts');
 const loaderPostcss = require('availity-workflow-settings/webpack/loader-postcss');
 

@@ -5,7 +5,7 @@ import angular from 'angular';
 const app = angular.module('app', []);
 
 // Lazy loading hotness
-const addModules = function(_modules) {
+const addModules = function addModules(_modules) {
   let modules = _modules;
   if (!Array.isArray(modules)) {
     modules = [modules];

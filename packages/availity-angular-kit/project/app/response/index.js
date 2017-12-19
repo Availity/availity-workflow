@@ -11,7 +11,7 @@ app.addModule(uiRouter).config($stateProvider => {
   $stateProvider.state('app.response', {
     url: '^/response?accepted',
     data: {
-      title: 'Authorization Response'
+      title: 'Authorization Response',
     },
     views: {
       header: {
@@ -19,17 +19,17 @@ app.addModule(uiRouter).config($stateProvider => {
         controller($state) {
           this.title = $state.current.data.title;
         },
-        controllerAs: 'vm'
+        controllerAs: 'vm',
       },
       body: {
         template: body,
         controller: ResponseController,
-        controllerAs: 'vm'
+        controllerAs: 'vm',
       },
       footer: {
-        template: footer
-      }
-    }
+        template: footer,
+      },
+    },
   });
 });
 

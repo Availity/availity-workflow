@@ -1,12 +1,12 @@
 import app from 'app-module';
 import { availity } from 'availity-angular';
 
-const authorizationResourceFactory = function(AvProxyResource) {
+const authorizationResourceFactory = AvProxyResource => {
   class AuthorizationResource extends AvProxyResource {
     constructor() {
       super({
         tenant: 'healthplan',
-        name: 'v1/authorizations'
+        name: 'v1/authorizations',
       });
     }
   }
@@ -14,6 +14,9 @@ const authorizationResourceFactory = function(AvProxyResource) {
   return new AuthorizationResource();
 };
 
-app.addModule(availity).factory('authorizationsResource', authorizationResourceFactory);
+app
+  .addModule(availity)
+
+  .factory('authorizationsResource', authorizationResourceFactory);
 
 export default app;

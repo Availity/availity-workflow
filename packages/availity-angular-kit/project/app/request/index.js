@@ -1,18 +1,19 @@
 import uiRouter from 'angular-ui-router';
 import { availity } from 'availity-angular';
+import availityApi from '@availity/api-angular';
 import app from 'app-module';
 
 import RequestController from './controller';
-import { request } from '../validation';
+import requestRules from '../validation';
 import body from './body.htm';
 import './components';
 import { footer, header } from '../common';
 
-const config = function($stateProvider, avValProvider) {
+const config = ($stateProvider, avValProvider) => {
   $stateProvider.state('app.request', {
     url: '^/request',
     data: {
-      title: 'Authorization Request'
+      title: 'Authorization Request',
     },
     views: {
       header: {
@@ -20,24 +21,24 @@ const config = function($stateProvider, avValProvider) {
         controller($state) {
           this.title = $state.current.data.title;
         },
-        controllerAs: 'vm'
+        controllerAs: 'vm',
       },
       body: {
         template: body,
         controller: RequestController,
-        controllerAs: 'vm'
+        controllerAs: 'vm',
       },
       footer: {
-        template: footer
-      }
-    }
+        template: footer,
+      },
+    },
   });
 
   avValProvider.addRules({
-    request
+    requestRules,
   });
 };
 
-app.addModules([uiRouter, availity]).config(config);
+app.addModules([uiRouter, availity, availityApi]).config(config);
 
 export default app;

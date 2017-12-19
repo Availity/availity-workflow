@@ -6,7 +6,7 @@ Error.stackTraceLimit = Infinity;
 
 // DO NOT DELETE OR MODIFY THIS FILE ;)
 
-/* eslint no-var:0 */
+/* eslint-disable */
 var tests = require.context(__dirname, true, /[-|\.]spec\.js$/);
 tests.keys().forEach(function(path) {
   try {

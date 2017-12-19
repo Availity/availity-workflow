@@ -19,6 +19,7 @@ Promise.config({
 
 settings.init();
 
+/* eslint-disable no-unused-expressions */
 yargs
 
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
@@ -31,7 +32,7 @@ yargs
     'lint',
     `${chalk.dim('Lint source files using ESLint')}`,
     yyargs => {
-      return yyargs
+      yyargs
         .option('include', {
           alias: 'i',
           describe: 'Glob patterns to INCLUDE for ESLint scanning'
@@ -55,12 +56,11 @@ yargs
   .command(
     'test',
     `${chalk.dim(test.description)}`,
-    yyargs => {
-      return yyargs.option('watch', {
+    yyargs =>
+      yyargs.option('watch', {
         alias: 'w',
         describe: 'Watch files for changes and rerun tests related to changed files.'
-      });
-    },
+      }),
     () => {
       test.run().catch(() => {
         /* noop */

@@ -1,7 +1,8 @@
 ---
 extends: availity
 rules:
-  indent: 0
   linebreak-style:
     - error
     - unix
+  promise/avoid-new: 0
+  global-require: 0

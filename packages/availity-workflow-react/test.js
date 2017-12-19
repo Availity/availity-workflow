@@ -16,7 +16,8 @@ function create() {
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
       '^(?!.*\\.(js|jsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
-    transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
+
+    transformIgnorePatterns: ['<rootDir>.*(node_modules)(?!.*@availity.*)(?!.*availity-.*)..*$'],
     testMatch: [
       // Ignore the following directories:
       // build

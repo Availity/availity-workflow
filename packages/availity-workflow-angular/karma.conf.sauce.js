@@ -45,6 +45,7 @@ const karmaConfig = {
 
   // List plugins explicitly, since auto-loading karma-webpack won't work here
   plugins: [
+    // eslint-disable-next-line import/no-extraneous-dependencies
     require('karma-sauce-launcher'),
     require('karma-jasmine'),
     require('karma-spec-reporter'),
@@ -54,7 +55,7 @@ const karmaConfig = {
   ]
 };
 
-module.exports = function(config) {
+module.exports = config => {
   if (!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY) {
     /* eslint no-console: 0 */
     console.log('Make sure the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables are set.');

@@ -2,7 +2,7 @@ import template from './patient.htm';
 
 const patient = {
   replace: true,
-  template
+  template,
 };
 
 export default function() {

@@ -2,7 +2,7 @@ import template from './provider.htm';
 
 const provider = {
   replace: true,
-  template
+  template,
 };
 
 export default function() {
