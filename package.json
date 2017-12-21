@@ -2,6 +2,9 @@
   "private": true,
   "version": "2.6.4",
   "devDependencies": {
+    "@commitlint/cli": "^5.2.5",
+    "@commitlint/config-conventional": "^5.2.3",
+    "@commitlint/config-lerna-scopes": "^5.2.0",
     "babel-eslint": "^8.0.3",
     "conventional-changelog": "^1.1.6",
     "conventional-recommended-bump": "^1.0.2",
@@ -44,12 +47,19 @@
     "postinstall": "lerna bootstrap",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
     "precommit": "lint-staged",
-    "release": "npm run lint && npm run test && sh ./scripts/release.sh"
+    "release": "npm run lint && npm run test && sh ./scripts/release.sh",
+    "commitmsg": "commitlint -e $GIT_PARAMS"
   },
   "lint-staged": {
     "*.js": [
       "prettier",
       "git add"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional",
+      "@commitlint/config-lerna-scopes"
     ]
   },
   "prettier": {
