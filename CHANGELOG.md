@@ -1,3 +1,16 @@
+<a name="2.6.5"></a>
+## [2.6.5](https://github.com/Availity/availity-workflow/compare/v2.6.4...v2.6.5) (2017-12-21)
+
+
+### Bug Fixes
+
+* **availity-react-kit:** fix named export for api examples ([39cf50a](https://github.com/Availity/availity-workflow/commit/39cf50a))
+* **availity-workflow-angular:** allow babel  for [@availity](https://github.com/availity) packages ([bb43e2a](https://github.com/Availity/availity-workflow/commit/bb43e2a))
+* **availity-workflow-react:** allow babel  for [@availity](https://github.com/availity) packages ([5896bf2](https://github.com/Availity/availity-workflow/commit/5896bf2))
+* **workflow-react:** fix jest transform pattern ([8072230](https://github.com/Availity/availity-workflow/commit/8072230))
+
+
+
 <a name="2.6.4"></a>
 ## [2.6.4](https://github.com/Availity/availity-workflow/compare/v2.6.3...v2.6.4) (2017-11-12)
 
