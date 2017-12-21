@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx';
 import map from 'lodash.map';
 
-import { getProviders, getOrganizations, getUser } from '../api/requestApi';
+import { getProvidersApi, getOrganizationsApi, getUserApi } from '../api/requestApi';
 
 export class Organization {
   @observable id;
@@ -44,18 +44,16 @@ export class RequestStore {
   @observable acceptedAgreement = false;
 
   @action
-  getUser() {
+  async getUser() {
     const self = this;
-    return getUser().then(resp => {
-      const { user } = resp;
-      self.userId = user.id;
-      return user;
-    });
+    const user = await getUserApi();
+    self.userId = user.id;
+    return user;
   }
 
   @action
   async getOrganizations() {
-    const organizations = await getOrganizations();
+    const organizations = await getOrganizationsApi();
     this.organizations = map(organizations, org => new Organization(org));
   }
 
@@ -77,7 +75,7 @@ export class RequestStore {
       }
     });
 
-    const response = await getProviders(this.selectedOrganization.customerId);
+    const response = await getProvidersApi(this.selectedOrganization.customerId);
     const { providers } = response.data;
     this.providers = map(providers, provider => new Provider(provider));
   }

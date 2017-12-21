@@ -4,7 +4,7 @@ import { AvForm } from 'availity-mobx-reactstrap-validation';
 import { Button, Card, CardBody } from 'reactstrap';
 
 import requestStore from './stores/requestStore';
-import { getAuthorization } from './api/requestApi';
+import { getAuthorizationApi } from './api/requestApi';
 import uiStore from '../stores/uiStore';
 import { Agreement, Patient, Provider } from './components';
 
@@ -23,7 +23,7 @@ export default class AuthorizationsRequest extends Component {
       npi: requestStore.npi
     };
 
-    const response = await getAuthorization(params);
+    const response = await getAuthorizationApi(params);
     uiStore.setCurrentResponse(response);
   };
 

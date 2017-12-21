@@ -1,9 +1,9 @@
 import { userApi, organizationsApi, providersApi, ProxyApi } from '@availity/api-axios';
 import map from 'lodash.map';
 
-const getUser = () => userApi.me();
+const getUserApi = () => userApi.me();
 
-const getOrganizations = async () => {
+const getOrganizationsApi = async () => {
   const response = await organizationsApi.getOrganizations();
   const organizations = map(response.data.organizations, org => ({
     id: org.id,
@@ -13,7 +13,7 @@ const getOrganizations = async () => {
   return organizations;
 };
 
-export const getProviders = async customerId => {
+const getProvidersApi = async customerId => {
   const response = await providersApi.getProviders(customerId);
   const providers = map(response.data.providers, provider => ({
     id: provider.id,
@@ -31,7 +31,7 @@ const healthPlanAuthorizations = new ProxyApi({
   name: 'authorizations'
 });
 
-export const getAuthorization = async () => {
+const getAuthorizationApi = async () => {
   const response = await healthPlanAuthorizations.query();
 
   const authorizations = map(response.data, provider => ({
@@ -48,9 +48,4 @@ export const getAuthorization = async () => {
   return authorizations;
 };
 
-module.exports = {
-  getAuthorization,
-  getUser,
-  getOrganizations,
-  getProviders
-};
+export { getAuthorizationApi, getUserApi, getOrganizationsApi, getProvidersApi };
