@@ -47,7 +47,7 @@
     "postinstall": "lerna bootstrap",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
     "precommit": "lint-staged",
-    "release": "npm run lint && npm run test && sh ./scripts/release.sh",
+    "release": "npm run lint && sh ./scripts/release.sh",
     "commitmsg": "commitlint -e $GIT_PARAMS"
   },
   "lint-staged": {

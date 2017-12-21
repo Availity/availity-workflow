@@ -3,8 +3,8 @@
   "version": "2.6.4",
   "description": "Angular 1.x  module for availity-workflow",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
-    "test:integration": "echo \"Error: no test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "test:integration": "echo \"No test specified\" && exit 0"
   },
   "repository": {
     "type": "git",
