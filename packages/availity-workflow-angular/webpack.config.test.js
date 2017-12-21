@@ -58,7 +58,7 @@ const config = {
     rules: [
       {
         test: /\.js$/,
-        include: settings.app(),
+        include: [settings.app(), /node_modules(\/|\\)(?=@availity.*).*/],
         enforce: 'pre',
         use: [
           {
