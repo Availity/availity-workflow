@@ -6,7 +6,7 @@ const Header = () => {
   const { title } = uiStore;
   return (
     <div>
-      <Breadscrumbs spaceId="1" />
+      <Breadscrumbs pageName="My Healthcare App" />
       <h2 className="page-header mt-3">
         <div className="page-header-title">
           <span className="app-icon app-icon-blue">ar</span> {title}
