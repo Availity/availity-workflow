@@ -1,5 +1,5 @@
 import { action, computed, observable } from 'mobx';
-import Response from '../Response/models/response';
+import Response from '../response/models/response';
 
 export class UiStore {
   @observable year = new Date(Date.now()).getFullYear();
