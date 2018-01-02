@@ -1,0 +1,245 @@
+{
+
+  "v1/route1": {
+    "file": "dummy-response-1.json"
+  },
+
+  "internal/v2/route2": {
+    "file": "dummy-response-2.json",
+    "latency": 250,
+    "get": [
+      {
+        "file": "dummy-response-1.json",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    ],
+    "post": "dummy-response-3.json"
+  },
+
+  "v1/route3": {
+    "file": "dummy-response-4.json",
+    "get": [
+      {
+        "file": "dummy-response-3.json",
+        "params": {
+          "param1": "1",
+          "param2": "2",
+          "param3": "3"
+        }
+      },
+      {
+        "file": "dummy-response-1.json",
+        "params": {
+          "param1": "1",
+          "param2": "3"
+        }
+      },
+      {
+        "file": "dummy-response-2.json",
+        "params": {
+          "param1": "1",
+          "param2": "2"
+        }
+      },
+      {
+        "file": "dummy-response-3.json",
+        "params":{
+          "param1.2" : "abc"
+        }
+      }
+    ]
+  },
+
+  "v1/route4": {
+    "file": "dummy-response-1.json",
+    "get": [
+      {
+        "file": "dummy-response-2.json",
+        "params": {
+          "param1": "a",
+          "param2": ["c", "d"]
+        }
+      },
+      {
+        "file": "dummy-response-3.json",
+        "params": {
+          "param1": ["a","b"],
+          "param2": ["c", "d"]
+        }
+      },
+      {
+        "file": "dummy-response-4.json",
+        "params": {
+          "param2": ["c", "d"]
+        }
+      }
+    ],
+    "post": [
+      {
+        "file": "dummy-response-1.json"
+      },
+      {
+        "file": "dummy-response-2.json",
+        "params": {
+          "a.b": "b"
+        }
+      }
+    ]
+  },
+
+  "v1/route5": {
+    "file": "dummy-response-1.json",
+    "post": [
+      {
+        "file": "dummy-response-1.json"
+      },
+      {
+        "file": "dummy-response-2.json",
+        "params": {
+          "attachment": "dummy-response-2.json",
+          "a": "1"
+        }
+      },
+      {
+        "file": "dummy-response-3.json",
+        "params": {
+          "attachment": "dummy-response-3.json",
+          "a": "1",
+          "b": "2"
+        }
+      },
+      {
+        "file": "dummy-response-4.json",
+        "params": {
+          "attachment": "dummy-response-4.json"
+        }
+      }
+    ]
+  },
+
+  "v1/route6": {
+    "file": "dummy-response-1.json",
+    "get": [
+      {
+        "file": "dummy-response-2.json",
+        "response": [
+          {
+            "status": 202,
+            "file": "dummy-response-3.json"
+          },
+          {
+            "status": 201,
+            "file": "dummy-response-4.json"
+          }
+        ]
+      }
+    ]
+  },
+
+  "v1/route7": {
+    "file": "dummy-response-1.json",
+    "get": [
+      {
+        "response": [
+          {
+            "file": "dummy-response-2.json",
+            "headers": {
+              "ping": "pong"
+            }
+          }
+        ]
+      }
+    ]
+  },
+
+  "v1/route8": {
+    "file": "dummy-response-1.json",
+    "get": [
+      {
+        "file": "dummy-response-1.json",
+        "response": [
+          {
+            "status": 202,
+            "file": "dummy-response-1.json",
+            "repeat": 3
+          },
+          {
+            "status": 202,
+            "file": "dummy-response-2.json",
+            "repeat": 0
+          },
+          {
+            "status": 201,
+            "file": "dummy-response-3.json"
+          }
+        ]
+      }
+    ]
+  },
+
+  "v1/route9": {
+    "get" : [
+      {
+        "latency": 1000,
+        "status": 201,
+        "file": "dummy-response-1.json"
+      }
+    ],
+    "post": [
+      {
+        "status": 203,
+        "latency": 500,
+        "file" : "dummy-response-2.json"
+      }
+    ]
+  },
+
+  "v1/route10": {
+    "get" : [
+      {
+        "file": "dummy-response-1.json",
+        "headers": {
+          "a": "1"
+        }
+      },
+      {
+        "file": "dummy-response-2.json",
+        "headers": {
+          "b": "2"
+        }
+      }
+    ]
+  },
+
+  "v1/route10": {
+    "file": "dummy-response-1.json",
+    "latency": 250,
+    "get": [
+      {
+        "file": "dummy-response-2.json",
+        "params": {
+          "a": {
+            "pattern": "1|2|3",
+            "flags": "i"
+          }
+        }
+      }
+    ]
+  },
+
+  "no/params": {
+    "file": "dummy-response-4.json"
+  },
+
+  "bad/file": {
+    "file": "this-file-does-not.exits.json"
+  },
+
+  "v1/external/route1": {
+    "file": "dummy-response-1.json"
+  }
+
+}
