@@ -70,15 +70,8 @@ const routes = {
     _.forEach(plugins, plugin => {
       let pluginConfig = null;
 
-      try {
-        pluginConfig = require(plugin);
-        logger.info(`Loading plugin ${chalk.blue(plugin)}`);
-      } catch (err) {
-        // workaround when `npm link`'ed for development
-        const parentRequire = require('parent-require');
-        pluginConfig = parentRequire(plugin);
-      }
-
+      pluginConfig = require(plugin);
+      logger.info(`Loading plugin ${chalk.blue(plugin)}`);
       this.routes(pluginConfig.routes, pluginConfig.data);
     });
   },
@@ -92,7 +85,7 @@ const routes = {
    */
   add(route) {
     // cache the route configuration
-    config.routes[route.id] = route;
+    config.cache[route.id] = route;
 
     const methods = _.keys(route.methods);
     const { router } = config;
@@ -101,7 +94,7 @@ const routes = {
       // builds get|post|put|delete routes like /v1/payers
       router[method](route.url, (req, res, next) => {
         // get from cache and attach to request local
-        res.locals.route = config.routes[route.id];
+        res.locals.route = config.cache[route.id];
         response.send(req, res, next);
       });
     });

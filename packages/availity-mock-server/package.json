@@ -27,8 +27,7 @@
     "express": "^4.15.5",
     "lodash": "^4.17.4",
     "method-override": "^2.3.9",
-    "on-finished": "^2.3.0",
-    "parent-require": "1.0.0"
+    "on-finished": "^2.3.0"
   },
   "devDependencies": {
     "availity-mock-data": "^2.6.5",

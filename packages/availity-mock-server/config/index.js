@@ -8,6 +8,7 @@ class Configuration {
     this.app = null;
     this.router = null;
     this.routes = [];
+    this.cache = [];
     this.events = null;
     this.path = null;
     this.addressInUse = null;
