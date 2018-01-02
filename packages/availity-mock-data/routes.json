@@ -1,0 +1,67 @@
+{
+  "v1/log-messages": {
+    "file": "empty.json"
+  },
+  "internal/v1/providers": {
+    "get": [
+      {
+        "file": "providers.json",
+        "params": {
+          "customerId": "2222"
+        }
+      }
+    ]
+  },
+  "sdk/platform/v1/users/me": {
+    "file": "me.json"
+  },
+  "sdk/platform/v1/users/aka123456789": {
+    "file": "me.json"
+  },
+  "sdk/platform/v1/users/aka987654321": {
+    "file": "admin.json"
+  },
+  "sdk/platform/v1/permissions": {
+    "get": [
+      {
+        "file": "permissions.json",
+        "params": {
+          "userId": "aka123456789"
+        }
+      }
+    ]
+  },
+  "sdk/platform/v1/organizations/1111": {
+    "file": "organization.json"
+  },
+  "sdk/platform/v1/organizations": {
+    "file": "organizations.json",
+    "get": [
+      {
+        "file": "organizations.json",
+        "params": {
+          "userId": "aka123456789"
+        }
+      }
+    ]
+  },
+  "sdk/platform/v1/regions": {
+    "get": [
+      {
+        "file": "regions.json",
+        "params": {
+          "userId": "aka123456789"
+        }
+      },
+      {
+        "file": "currentRegion.json",
+        "params": {
+          "currentlySelected": "true"
+        }
+      }
+    ]
+  },
+  "sdk/platform/v1/spaces": {
+    "file": "space.json"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "links": {
+    "regions": {
+      "href": "${context}/sdk/platform/v1/regions?userId=aka987654321"
+    },
+    "organizations": {
+      "href": "${context}/sdk/platform/v1/organizations?userId=aka987654321"
+    },
+    "self": {
+      "href": "${context}/sdk/platform/v1/users/aka987654321"
+    }
+  },
+  "id": "aka987654321",
+  "lastName": "Lincoln",
+  "firstName": "Abraham",
+  "email": "abraham.lincoln@availity.com"
+}

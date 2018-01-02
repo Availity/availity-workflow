@@ -1,0 +1,157 @@
+{
+  "totalCount": 1077,
+  "count": 50,
+  "offset": 0,
+  "limit": 50,
+  "links": {
+    "next": {
+      "href": "${context}/internal/v1/providers?customerId=2222&offset=50&limit=50"
+    },
+    "last": {
+      "href": "${context}/internal/v1/providers?customerId=2222&offset=1050&limit=50"
+    },
+    "self": {
+      "href": "${context}/internal/v1/providers?customerId=2222"
+    }
+  },
+  "providers": [
+    {
+      "id": "999999-9999-999999",
+      "businessName": "Acme Provider LLC",
+      "atypical": false,
+      "npi": "1234567893",
+      "customerIds": [
+        "2222"
+      ],
+      "roles": [
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "&#x2b;1",
+        "areaCode": "555",
+        "phoneNumber": "555-5555"
+      },
+      "primaryAddress": {
+        "line1": "10752 Deerwood Pk. Blvd. S.",
+        "city": "Jacksonville",
+        "state": "Florida",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256",
+          "addon": "3342"
+        }
+      },
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "AGPMEDICAID",
+          "identifier": "1234K"
+        }
+      ]
+    },
+    {
+      "id": "272761-5555-251185",
+      "lastName": "ABRAM",
+      "firstName": "ABIGAIL",
+      "middleName": "L",
+      "atypical": false,
+      "npi": "1770889999",
+      "customerIds": [
+        "2222"
+      ],
+      "roles": [
+        {
+          "code": "BILL",
+          "value": "Billing"
+        },
+        {
+          "code": "OPRG",
+          "value": "Operating Physician"
+        },
+        {
+          "code": "PAY",
+          "value": "Pay to Provider"
+        },
+        {
+          "code": "RFAC",
+          "value": "Referred to Facility"
+        },
+        {
+          "code": "RFRD",
+          "value": "Referred to Provider"
+        },
+        {
+          "code": "RFRG",
+          "value": "Referring Provider"
+        },
+        {
+          "code": "RNDG",
+          "value": "Rendering Provider"
+        },
+        {
+          "code": "RQST",
+          "value": "Requesting Provider"
+        },
+        {
+          "code": "SFAC",
+          "value": "Service Facility"
+        }
+      ],
+      "primaryPhone": {
+        "internationalCellularCode": "&#x2b;1",
+        "areaCode": "555",
+        "phoneNumber": "555-5555"
+      },
+      "primaryAddress": {
+        "line1": "10752 Deerwood Pk. Blvd. S.",
+        "city": "Jacksonville",
+        "state": "Florida",
+        "stateCode": "FL",
+        "zip": {
+          "code": "32256",
+          "addon": "3342"
+        }
+      },
+      "payerAssignedIdentifiers": [
+        {
+          "payerId": "AGPMEDICAID",
+          "identifier": "1234K"
+        }
+      ]
+    }
+  ]
+}

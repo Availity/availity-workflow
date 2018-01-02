@@ -1,0 +1,31 @@
+{
+  "totalCount" : 1,
+  "count" : 1,
+  "offset" : 0,
+  "limit" : 50,
+  "regionAggregations" : [ {
+    "type" : "hits",
+    "hits" : [ {
+      "key" : "userRegionCount",
+      "count" : 56
+    } ]
+  } ],
+  "links" : {
+    "self" : {
+      "href" : "${context}/sdk/platform/v1/regions?currentlySelected=true"
+    },
+    "user" : {
+      "href" : "${context}/sdk/platform/v1/users/aka123456789"
+    }
+  },
+  "regions" : [ {
+    "links": {
+      "self": {
+        "href": "${context}/sdk/platform/v1/regions/FL"
+      }
+    },
+    "id": "FL",
+    "value": "Florida",
+    "currentlySelected": true
+  } ]
+}
