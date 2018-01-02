@@ -96,7 +96,7 @@ const proxies = [
 
     // Optional.  Send default headers to the proxy destination.
     headers: {
-      RemoteUser: 'janedoe'
+      RemoteUser: 'jsmith'
     }
   }
 ];
