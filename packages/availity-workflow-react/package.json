@@ -28,7 +28,6 @@
     "babel-jest": "^21.0.2",
     "babel-loader": "^7.1.2",
     "babel-runtime": "^6.26.0",
-    "bluebird": "^3.5.0",
     "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.5",
