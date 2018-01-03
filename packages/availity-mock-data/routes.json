@@ -61,7 +61,17 @@
       }
     ]
   },
-  "sdk/platform/v1/spaces": {
+  "sdk/platform/v1/spaces/48C607A70B5A46A3864A34E2BDDDEA04": {
     "file": "space.json"
+  },
+  "sdk/platform/v1/spaces": {
+    "get": [
+      {
+        "file": "spaces.json",
+        "params": {
+          "id": "48C607A70B5A46A3864A34E2BDDDEA04"
+        }
+      }
+    ]
   }
 }

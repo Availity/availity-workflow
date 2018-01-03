@@ -1,0 +1,22 @@
+{
+  "totalCount": 1,
+  "count": 1,
+  "offset": 0,
+  "limit": 50,
+  "links": {
+    "self": {
+      "href": "${context}/api/sdk/platform/v1/spaces?id=48C607A70B5A46A3864A34E2BDDDEA04"
+    }
+  },
+  "spaces": [
+    {
+      "id": "48C607A70B5A46A3864A34E2BDDDEA04",
+      "name": "My Health Plan",
+      "link": {
+        "text": "My Health Plan",
+        "url": "/public/apps/spaces/#/48C607A70B5A46A3864A34E2BDDDEA04",
+      },
+      "type": "space"
+    }
+  ]
+}
