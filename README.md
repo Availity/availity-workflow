@@ -13,6 +13,7 @@
 * [Features](#features)
 * [CLI](#cli)
 * [Configuration](#configuration)
+* [FAQ](#faq)
 * [License](#license)
 
 ## Getting Started
@@ -277,6 +278,42 @@ headers: {
   RemoteUser: 'janedoe'
 }
 ```
+## FAQ
+
+### How to setup development environment to match deployment environment?
+
+Update `workflow.js` using the configuration below:
+```js
+module.exports = config => {
+  config.proxies = [
+    {
+      context: '/api/v1/proxy/healthplan',
+      target: 'http://localhost:5555',
+      enabled: true,
+      logLevel: 'debug',
+      pathRewrite: {
+        '^/api/v1/proxy/healthplan/': '',
+      },
+    },
+    {
+      context: ['/api/**', '!/api/v1/proxy/healthplan/**'],
+      target: 'http://localhost:9999',
+      enabled: true,
+      logLevel: 'debug',
+      pathRewrite: {
+        '^/api': '',
+      },
+    },
+  ];
+  return config;
+};
+```
+
+The configuration above does the following:
+
+- All requests going to `http://localhost:3000/api/v1/proxy/healthplan` will be proxied to `http://localhost:5555`. Notice the URL is being rewritten. Change the rewrite path to match your local path as needed.
+- All requests not going to `http://localhost:3000/api/v1/proxy/healthplan` will be proxied to mock server provided by `availtiy-workflow`.
+
 
 ## Contribute
 
