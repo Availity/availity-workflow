@@ -3,11 +3,11 @@ import { availity } from 'availity-angular';
 import uiRouter from 'angular-ui-router';
 
 class Request {
-  constructor(avOrganizationsApi, avUsersApi, avProvidersResource, $state) {
+  constructor(avOrganizationsApi, avUsersApi, avProvidersApi, $state) {
     this.di = {
       avOrganizationsApi,
       avUsersApi,
-      avProvidersResource,
+      avProvidersApi,
       $state,
     };
 
@@ -23,7 +23,7 @@ class Request {
   }
 
   init() {
-    return this.getOrganizations().then(() => this);
+    return this.getOrganizations();
   }
 
   getUser() {
@@ -48,32 +48,24 @@ class Request {
     return this.selectedOrganization === null;
   }
 
-  queryOrganizations() {
-    const self = this;
-
+  getOrganizations() {
     return this.di.avOrganizationsApi.getOrganizations().then(response => {
       const { organizations = [] } = response.data;
-      self.organizations = organizations;
+      this.organizations = organizations;
       return organizations;
     });
-  }
-
-  getOrganizations() {
-    return this.getUser().then(() => this.queryOrganizations);
-  }
-
-  queryProviders(organization) {
-    return this.di.avProvidersResource.getProviders(organization.customerId);
   }
 
   getProviders(organization) {
     const self = this;
 
-    return this.queryProviders(organization).then(response => {
-      const { providers = [] } = response.data;
-      self.providers = providers;
-      return providers;
-    });
+    return this.di.avProvidersApi
+      .getProviders(organization.customerId)
+      .then(response => {
+        const { providers = [] } = response.data;
+        self.providers = providers;
+        return providers;
+      });
   }
 
   onSubmit(form) {
