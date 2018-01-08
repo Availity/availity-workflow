@@ -18,7 +18,7 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.5.1",
     "husky": "^0.14.3",
-    "jest": "^22.0.4",
+    "jest": "^21.0.0",
     "lerna": "^2.2.0",
     "lint-staged": "^5.0.0",
     "prettier": "^1.8.2"
@@ -42,7 +42,7 @@
     "publish": "lerna publish --force-publish=*",
     "bootstrap": "lerna bootstrap",
     "link": "lerna link",
-    "test": "jest",
+    "test": "jest --silent",
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean",
     "postinstall": "lerna bootstrap",
@@ -70,7 +70,7 @@
   },
   "jest": {
     "transformIgnorePatterns": [
-      "<rootDir>.*(node_modules)(?!.*@availity.*).*$"
+      "[/\\\\]node_modules[/\\\\](?!@availity).+\\.(js|jsx)$"
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
