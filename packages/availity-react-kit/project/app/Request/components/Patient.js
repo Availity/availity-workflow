@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { AvField } from 'availity-mobx-reactstrap-validation';
 import { Label, UncontrolledTooltip } from 'reactstrap';
-import PropTypes from 'prop-types';
-import { RequestStore } from '../stores/requestStore';
+import propTypes from './props';
 
+@inject('stateStore', 'appStore')
 @observer
 export default class Patient extends Component {
-  updateMemberId = event => {
-    const { requestStore } = this.props;
-    const { value } = event.target;
+  static propTypes = propTypes;
 
-    requestStore.updateMemberId(value);
+  onMemberId = event => {
+    const { value } = event.target;
+    const { appStore } = this.props;
+    appStore.setMemberId(value);
   };
 
   render() {
-    const { dob, memberId } = this.props.requestStore;
-
+    const { memberId } = this.props.stateStore.form;
     return (
       <fieldset>
         <legend>Member</legend>
@@ -34,6 +34,7 @@ export default class Patient extends Component {
           id="memberID"
           name="memberID"
           value={memberId}
+          onChange={this.onMemberId}
           validate={{
             number: { value: true, errorMessage: 'Must be a number' },
             minLength: { value: 5, errorMessage: '5 Character Minimum' }
@@ -44,7 +45,6 @@ export default class Patient extends Component {
           type="date"
           id="dob"
           name="dob"
-          value={dob}
           label="Date of Birth"
           validate={{ date: { format: 'MM/DD/YYYY' } }}
           errorMessage="Date of birth format should be MM/DD/YYYY"
@@ -53,7 +53,3 @@ export default class Patient extends Component {
     );
   }
 }
-
-Patient.propTypes = {
-  requestStore: PropTypes.instanceOf(RequestStore).isRequired
-};

@@ -1,42 +1,33 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import get from 'lodash.get';
 import { Label, UncontrolledTooltip } from 'reactstrap';
 import { AvField } from 'availity-mobx-reactstrap-validation';
-import { RequestStore } from '../stores/requestStore';
+import propTypes from './props';
 
+@inject('stateStore', 'appStore')
 @observer
 export default class Provider extends Component {
-  onSelectedOrganization = event => {
-    const { requestStore } = this.props;
-    const { value } = event.target;
+  static propTypes = propTypes;
 
-    requestStore.onSelectedOrganization(value);
+  onSelectedOrganization = event => {
+    const { value } = event.target;
+    const { appStore } = this.props;
+    appStore.onSelectedOrganization(value);
   };
 
   onSelectedProvider = event => {
-    const { requestStore } = this.props;
     const { value } = event.target;
-
-    requestStore.onSelectedProvider(value);
+    const { appStore } = this.props;
+    appStore.onSelectedProvider(value);
   };
 
-  updateNPI = event => {
-    const { requestStore } = this.props;
-    const { value } = event.target;
-
-    requestStore.updateNPI(value);
-  };
+  onNpiChange = () => {};
 
   render() {
-    const {
-      selectedOrganization,
-      organizations,
-      selectedProvider,
-      providers,
-      isProviderDisabled,
-      npi
-    } = this.props.requestStore;
+    const { organizations, providers, selectedProvider } = this.props.stateStore.form;
+
+    const { isProviderDisabled } = this.props.appStore;
 
     return (
       <fieldset>
@@ -47,7 +38,6 @@ export default class Provider extends Component {
           id="organizations"
           name="organizations"
           label="Organization"
-          value={selectedOrganization.id}
           onChange={this.onSelectedOrganization}
           required
           errorMessage="Please select an organization"
@@ -67,9 +57,8 @@ export default class Provider extends Component {
           id="providers"
           name="providers"
           label="Provider"
-          value={selectedProvider.id}
-          disabled={isProviderDisabled}
           onChange={this.onSelectedProvider}
+          disabled={isProviderDisabled}
           required
           errorMessage="Please select a provider"
           placeholder="Select a provider"
@@ -79,7 +68,7 @@ export default class Provider extends Component {
           </option>
           {providers.map(provider => (
             <option value={provider.id} key={provider.id}>
-              {provider.businessName || `${provider.firstName} ${provider.lastName}}`}
+              {provider.name}
             </option>
           ))}
         </AvField>
@@ -96,8 +85,7 @@ export default class Provider extends Component {
           type="text"
           id="npi"
           name="npi"
-          value={npi}
-          onChange={this.updateNPI}
+          value={get('selectedProvider.npi')}
           validate={{
             npi: { value: true, errorMessage: 'NPI must be a valid format' },
             required: { value: true, errorMessage: 'NPI is required' }
@@ -107,7 +95,3 @@ export default class Provider extends Component {
     );
   }
 }
-
-Provider.propTypes = {
-  requestStore: PropTypes.instanceOf(RequestStore).isRequired
-};

@@ -1,31 +1,28 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
+import { observer, inject } from 'mobx-react';
 import { AvForm } from 'availity-mobx-reactstrap-validation';
 import { Button, Card, CardBody } from 'reactstrap';
+// import BlockUi from 'react-block-ui';
 
-import requestStore from './stores/requestStore';
-import { getAuthorizationApi } from './api/requestApi';
-import uiStore from '../stores/uiStore';
 import { Agreement, Patient, Provider } from './components';
-
 import { Footer, Header } from '../components';
 
+@inject('appStore')
 @observer
 export default class AuthorizationsRequest extends Component {
-  componentWillMount() {
-    requestStore.getUser();
+  static propTypes = {
+    appStore: PropTypes.shape({
+      state: PropTypes.any
+    })
+  };
+
+  componentDidMount() {
+    const { appStore } = this.props;
+    appStore.getOrganizations();
   }
 
-  submit = async () => {
-    const params = {
-      dob: requestStore.dob,
-      memberId: requestStore.memberId,
-      npi: requestStore.npi
-    };
-
-    const response = await getAuthorizationApi(params);
-    uiStore.setCurrentResponse(response);
-  };
+  submit = async () => {};
 
   render() {
     return (
@@ -34,9 +31,9 @@ export default class AuthorizationsRequest extends Component {
         <AvForm onValidSubmit={this.submit}>
           <Card>
             <CardBody>
-              <Provider requestStore={requestStore} />
-              <Patient requestStore={requestStore} />
-              <Agreement requestStore={requestStore} />
+              <Provider />
+              <Patient />
+              <Agreement />
               <hr className="divider" />
               <div className="form-controls form-controls-card">
                 <Button type="submit" className="btn btn-default">

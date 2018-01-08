@@ -1,23 +1,26 @@
 // ES6 Symbol Polyfill for IE11
 import 'es6-symbol/implement';
+import 'es6-promise/auto';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-
-// Styles
+import { useStrict } from 'mobx';
+import { Provider } from 'mobx-react';
 import 'availity-uikit/scss/_bootstrap.scss';
 import './index.scss';
-
 import App from './App';
+import { appStore, stateStore } from './stores';
 
-// ES6 Promise Polyfill for IE11
-require('es6-promise').polyfill();
+const stores = { appStore, stateStore };
+useStrict(true);
 
 const render = Component =>
   // eslint-disable-next-line react/no-render-return-value
   ReactDOM.render(
     <AppContainer>
-      <Component />
+      <Provider {...stores}>
+        <Component />
+      </Provider>
     </AppContainer>,
     document.getElementById('root')
   );

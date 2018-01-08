@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import AuthorizationsRequest from './request';
-import AuthorizationsResponse from './response';
+import AuthorizationRequest from './request';
+import AuthorizationResponse from './response';
 
 const App = () => (
   <BrowserRouter basename="/">
     <div>
-      <Route exact path="/" component={AuthorizationsRequest} />
-      <Route path="/response" component={AuthorizationsResponse} />
+      <Route exact path="/" component={AuthorizationRequest} />
+      <Route path="/response" component={AuthorizationResponse} />
     </div>
   </BrowserRouter>
 );
