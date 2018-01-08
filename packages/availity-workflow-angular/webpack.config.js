@@ -53,7 +53,7 @@ const config = {
     rules: [
       {
         test: /\.js$/,
-        include: [settings.app(), /node_modules(\/|\\)(?=@availity.*).*/],
+        include: settings.include(),
         use: [
           {
             loader: 'babel-loader',

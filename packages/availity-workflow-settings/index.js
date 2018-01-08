@@ -39,6 +39,10 @@ const settings = {
     return path.join(this.project(), 'project/app');
   },
 
+  include() {
+    return [this.app(), /node_modules(\/|\\)(?=@availity.*).*/];
+  },
+
   // https://webpack.js.org/configuration/devtool/
   sourceMap() {
     // Get sourcemap from command line or developer config else "source-map"
