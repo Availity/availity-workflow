@@ -40,7 +40,7 @@ const settings = {
   },
 
   include() {
-    return [this.app(), /node_modules(\/|\\)(?=@availity.*).*/];
+    return [this.app(), /node_modules[\\/](?=@availity).*/];
   },
 
   // https://webpack.js.org/configuration/devtool/
