@@ -25,7 +25,7 @@ export default class Provider extends Component {
   onNpiChange = () => {};
 
   render() {
-    const { organizations, providers, selectedProvider } = this.props.stateStore.form;
+    const { organizations, providers } = this.props.stateStore.form;
 
     const { isProviderDisabled } = this.props.appStore;
 
