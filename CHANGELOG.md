@@ -1,3 +1,24 @@
+<a name="2.7.0"></a>
+# [2.7.0](https://github.com/Availity/availity-workflow/compare/v2.6.5...v2.7.0) (2018-01-08)
+
+
+### Bug Fixes
+
+* **availity-mock-data:** spaces collection in wrong folder ([3ce0a66](https://github.com/Availity/availity-workflow/commit/3ce0a66))
+* **availity-react-kit:** add pageName to breadcrumbs example ([0683816](https://github.com/Availity/availity-workflow/commit/0683816))
+* **availity-worfklow-react:** fix negative lookahead in regex. Closes [#130](https://github.com/Availity/availity-workflow/issues/130) ([f9c32db](https://github.com/Availity/availity-workflow/commit/f9c32db))
+* **availity-workflow-react:** add raf polyfill. Closes [#125](https://github.com/Availity/availity-workflow/issues/125) ([65488de](https://github.com/Availity/availity-workflow/commit/65488de))
+* **availity-workflow-react:** transformIgnorePatterns ([d9e0e85](https://github.com/Availity/availity-workflow/commit/d9e0e85))
+
+
+### Features
+
+* **availit-mock-data:**  integrate mock data. Closes [#128](https://github.com/Availity/availity-workflow/issues/128) ([bbc9043](https://github.com/Availity/availity-workflow/commit/bbc9043))
+* **availity-mock-data:** add spaces collection query ([84f1750](https://github.com/Availity/availity-workflow/commit/84f1750))
+* **availity-mock-server:** integrate mock server. Closes [#127](https://github.com/Availity/availity-workflow/issues/127) ([79b156c](https://github.com/Availity/availity-workflow/commit/79b156c))
+
+
+
 <a name="2.6.5"></a>
 ## [2.6.5](https://github.com/Availity/availity-workflow/compare/v2.6.4...v2.6.5) (2017-12-21)
 
