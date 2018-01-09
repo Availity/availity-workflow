@@ -17,8 +17,6 @@ settings.init();
 /* eslint-disable no-unused-expressions */
 yargs
 
-  .epilogue('For more information, find our manual at https://github.com/availity/availity-workflow')
-
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
 
   .command('start', `${chalk.dim('Start the development server')}`, () => {
@@ -96,4 +94,6 @@ yargs
 
   .example(chalk.yellow('av start'))
 
-  .example(chalk.yellow('av lint')).argv;
+  .example(chalk.yellow('av lint'))
+
+  .epilog(`View documentation at ${chalk.blue('https://github.com/availity/availity-workflow')}`).argv;
