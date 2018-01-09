@@ -10,3 +10,5 @@ coverage/
 reports/
 dist/
 build/
+packages/availity-angular-kit/project/app/config/workflow.js
+packages/availity-react-kit/project/app/config/workflow.js
