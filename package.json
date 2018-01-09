@@ -63,7 +63,11 @@
       "@commitlint/config-lerna-scopes"
     ],
     "rules": {
-      "header-max-length": [0, "always", 85]
+      "header-max-length": [
+        0,
+        "always",
+        85
+      ]
     }
   },
   "prettier": {
