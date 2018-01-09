@@ -35,6 +35,7 @@
     "chalk": "^2.1.0",
     "debug": "^3.0.0",
     "del": "^3.0.0",
+    "envinfo": "^3.10.0",
     "escape-string-regexp": "^1.0.5",
     "eslint": "^4.7.1",
     "figures": "^2.0.0",

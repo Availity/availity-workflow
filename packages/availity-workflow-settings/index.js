@@ -149,10 +149,8 @@ const settings = {
   },
 
   log() {
-    // Log the mode
-    let message = `${this.pkg()
-      .availityWorkflow.plugin.split('availity-workflow-')[1]
-      .toUpperCase()} MODE`;
+    let message = `${this.pluginName().toUpperCase()} MODE`;
+
     Logger.warn(chalk.bold.yellow(message));
 
     if (!this.isTesting()) {
@@ -164,6 +162,12 @@ const settings = {
   logLevel() {
     const level = get(this.configuration, 'development.logLevel', 'none');
     return get(argv, 'development.logLevel', level);
+  },
+
+  pluginName() {
+    return this.pkg()
+      .availityWorkflow.plugin.split('availity-workflow-')[1]
+      .toLowerCase();
   },
 
   init() {
