@@ -85,9 +85,12 @@ yargs
     about();
   })
 
-  // .demand(1, chalk.red('Must provide a valid cli command'))
+  .demand(1, chalk.red('Must provide a valid cli command'))
 
-  // .showHelpOnFail(false, 'Specify --help for available options')
+  .showHelpOnFail(false, 'Specify --help for available options')
+
+  .help('help')
+  .alias('help', 'h')
 
   .version(require('./package.json').version)
 
