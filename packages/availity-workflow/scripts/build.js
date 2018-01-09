@@ -1,4 +1,3 @@
-const Promise = require('bluebird');
 const del = require('del');
 const webpack = require('webpack');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');

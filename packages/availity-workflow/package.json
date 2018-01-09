@@ -32,7 +32,6 @@
     "availity-mock-server": "^2.7.0",
     "availity-workflow-logger": "^2.6.5",
     "availity-workflow-settings": "^2.7.0",
-    "bluebird": "^3.5.0",
     "chalk": "^2.1.0",
     "debug": "^3.0.0",
     "del": "^3.0.0",

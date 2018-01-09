@@ -5,7 +5,6 @@ const semver = require('semver');
 const inquirer = require('inquirer');
 const _ = require('lodash');
 const moment = require('moment');
-const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
 const Logger = require('availity-workflow-logger');
 

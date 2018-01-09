@@ -1,5 +1,4 @@
 const globby = require('globby');
-const Promise = require('bluebird');
 const ora = require('ora');
 const chalk = require('chalk');
 const Logger = require('availity-workflow-logger');

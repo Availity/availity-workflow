@@ -6,7 +6,6 @@ const once = require('lodash.once');
 const pretty = require('pretty-ms');
 const debounce = require('lodash.debounce');
 const Ekko = require('availity-mock-server');
-const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const WebpackDevSever = require('webpack-dev-server');
@@ -20,10 +19,6 @@ const merge = require('lodash.merge');
 
 let server;
 let ekko;
-
-Promise.config({
-  longStackTraces: true
-});
 
 const startupMessage = once(() => {
   const uri = `http://${settings.config().development.host}:${settings.config().development.port}/`;

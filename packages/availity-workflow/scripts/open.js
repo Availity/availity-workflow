@@ -1,5 +1,4 @@
 const opn = require('opn');
-const Promise = require('bluebird');
 const chalk = require('chalk');
 const urlJoin = require('url-join');
 const settings = require('availity-workflow-settings');

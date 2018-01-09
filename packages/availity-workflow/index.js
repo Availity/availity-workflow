@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const Promise = require('bluebird');
 const settings = require('availity-workflow-settings');
 
 const yargs = require('yargs');
@@ -13,14 +12,12 @@ const build = require('./scripts/build');
 const release = require('./scripts/release');
 const profile = require('./scripts/profile');
 
-Promise.config({
-  longStackTraces: true
-});
-
 settings.init();
 
 /* eslint-disable no-unused-expressions */
 yargs
+
+  .epilogue('For more information, find our manual at https://github.com/availity/availity-workflow')
 
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
 
@@ -88,15 +85,11 @@ yargs
     about();
   })
 
-  .demand(1, chalk.red('Must provide a valid cli command'))
+  // .demand(1, chalk.red('Must provide a valid cli command'))
 
-  .showHelpOnFail(false, 'Specify --help for available options')
+  // .showHelpOnFail(false, 'Specify --help for available options')
 
-  .help('help')
-  .alias('help', 'h')
-
-  .version(require('./package.json').version, 'version')
-  .alias('version', 'V')
+  .version(require('./package.json').version)
 
   .example(chalk.yellow('av start'))
 
