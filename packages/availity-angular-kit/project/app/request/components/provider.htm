@@ -14,6 +14,7 @@
       ng-change="vm.request.onSelectedOrganization(vm.request.selectedOrganization)"
       av-val-field="organization"
       >
+      <option></option>
     </select>
     <p av-val-container></p>
   </div>
@@ -26,10 +27,11 @@
       av-dropdown
       ng-model="vm.request.selectedProvider"
       ng-disabled="vm.request.isProviderDisabled"
-      ng-options="provider.businessName for provider in vm.request.providers"
+      ng-options="provider.name for provider in vm.request.providers"
       options="{ allowClear: false, placeholder: 'Select a provider'}"
       ng-change="vm.request.onSelectedProvider(vm.request.selectedProvider)"
       >
+      <option></option>
     </select>
     <p av-val-container></p>
   </div>

@@ -39,10 +39,11 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/api-angular": "^1.0.0-alpha.11",
-    "@availity/api-core": "^1.0.0-alpha.11",
-    "@availity/localstorage-core": "^1.0.0-alpha.11",
-    "@uirouter/angularjs": "^1.0.11",
+    "@availity/api-angular": "^1.0.0-alpha.15",
+    "@availity/api-core": "^1.0.0-alpha.15",
+    "@availity/localstorage-core": "^1.0.0-alpha.15",
+    "@availity/upload-core": "^1.0.0-alpha.15",
+    "@uirouter/angularjs": "^1.0.13",
     "angular": "^1.6.7",
     "angular-animate": "^1.6.7",
     "angular-mocks": "^1.6.7",
@@ -52,7 +53,7 @@
     "angular-ui-router": "1.0.3",
     "angular-velocity": "^0.3.1",
     "animate.css": "^3.5.2",
-    "availity-angular": "^2.0.3",
+    "availity-angular": "^2.1.1",
     "availity-uikit": "^2.1.0",
     "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.7.1",
@@ -61,6 +62,7 @@
     "moment": "^2.20.1",
     "select2": "^3.5.2-browserify",
     "tracekit": "^0.4.4",
+    "tus-js-client": "^1.4.5",
     "velocity-animate": "^1.5.0"
   },
   "devDependencies": {
@@ -80,7 +82,7 @@
     "husky": "^0.14.3",
     "lerna": "^2.5.1",
     "lint-staged": "^6.0.0",
-    "prettier": "^1.9.2"
+    "prettier": "^1.10.2"
   },
   "availityWorkflow": {
     "plugin": "availity-workflow-angular"

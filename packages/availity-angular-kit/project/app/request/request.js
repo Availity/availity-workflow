@@ -1,6 +1,7 @@
 import app from 'app-module';
 import { availity } from 'availity-angular';
 import uiRouter from 'angular-ui-router';
+import Upload from '@availity/upload-core';
 
 class Request {
   constructor(avOrganizationsApi, avUsersApi, avProvidersApi, $state) {
@@ -20,6 +21,7 @@ class Request {
     this.dob = null;
     this.relationshipToSubscriber = null;
     this.acceptedAgreement = false;
+    this.uploads = [];
   }
 
   init() {
@@ -59,14 +61,32 @@ class Request {
   getProviders(organization) {
     const self = this;
 
+    const { normalize } = this.di.avProvidersApi;
+
     return this.di.avProvidersApi
       .getProviders(organization.customerId)
       .then(response => {
         const { providers = [] } = response.data;
-        self.providers = providers;
+        self.providers = normalize(providers);
+
         return providers;
       });
   }
+
+  isAttachmentsDisabled() {
+    return this.selectedOrganization === null;
+  }
+
+  onAddAttachment = (scope, el) => {
+    const { files } = el;
+    const upload = new Upload(files[0], {
+      bucketId: 'nYrlabBv',
+      customerId: this.selectedOrganization.customerId,
+      clientId: '2104aaaa-d42b-450c-b1bd-3f271dcccccc',
+    });
+    this.uploads.push(upload);
+    upload.start();
+  };
 
   onSubmit(form) {
     if (form.$invalid) {
