@@ -79,7 +79,7 @@ const ekko = {
 const proxies = [
   {
     // URL context used to match the activation of the proxy per request
-    context: '/api',
+    context: ['/api', '/ms'],
 
     // Host and port number for proxy
     target: `http://${development.host}:${ekko.port}`,
