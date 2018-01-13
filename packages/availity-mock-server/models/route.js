@@ -56,6 +56,17 @@ class Route {
       response.file = endpoint[method];
     }
 
+    // "v1/route4": {
+    //   "get": {"file": "example1.json"}
+    //   "put": {"file": "example2.json", "status": 202}
+    //   "post": "example3.json",
+    //   "delete": "example4.json"
+    // }
+    if (_.isPlainObject(endpoint[method])) {
+      const config = endpoint[method];
+      endpoint[method] = [config];
+    }
+
     let request = new Request();
     request.addResponse(response);
     this.methods[method].push(request);

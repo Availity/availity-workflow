@@ -148,6 +148,25 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 }
 ```
 
+###### CRUD using objects
+
+```javascript
+"v1/route4": {
+  "get": {// all GET requests
+      "status": 204,
+      "responseHeader": {
+          "a": "1",
+          "b": "2"
+      }
+  }, 
+  "put": {// all PUT requests      
+      "file": "example1.json,
+  },  
+  "post": "example3.json", // all POST requests
+  "delete": "example4.json" // all DELETE requests
+}
+```
+
 ###### Query Params with Arrays and Regexes
 
 ```javascript

@@ -81,17 +81,27 @@ const result = {
       const filePath = path.join(dataPath, response.file);
       const status = response.status || 200;
 
-      if (response.headers) {
-        res.set(response.headers);
+      if (response.responseHeaders) {
+        res.set(response.responseHeaders);
       }
 
       /* eslint-disable promise/always-return */
       if (path.extname(filePath) === '.json') {
         this.sendJson(req, res, status, response, filePath);
+      } else if (path.extname(filePath) === '.js') {
+        this.sendFunction(req, res, status, response, filePath);
       } else {
         this.sendFile(req, res, status, response, filePath);
       }
     });
+  },
+
+  noContent(req, res, response) {
+    if (response.responseHeaders) {
+      res.set(response.responseHeaders);
+    }
+
+    res.status(response.status).send();
   },
 
   url(req, res, response) {
@@ -144,6 +154,11 @@ const result = {
 
     if (response.file) {
       this.file(req, res, response, route.dataPath);
+      return;
+    }
+
+    if (response.status && !response.file && !response.url) {
+      this.noContent(req, res, response);
       return;
     }
 

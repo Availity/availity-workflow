@@ -20,6 +20,7 @@ class Response {
     this.headers = response.headers || this.headers;
     this.file = response.file || this.file;
     this.url = response.url || this.url;
+    this.responseHeaders = response.responseHeaders || this.responseHeaders;
     this.latency = response.latency || this.latency;
     this.status = response.status || this.status;
     this.repeat = response.repeat || this.repeat;

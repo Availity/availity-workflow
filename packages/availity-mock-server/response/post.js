@@ -15,7 +15,7 @@ const post = {
 
       req.busboy.on('file', (fieldname, file, filename) => {
         file.on('error', error => {
-          logger.error('{red:Something went wrong uploading the file', error);
+          logger.error('Something went wrong uploading the file', error);
         });
         file.on('end', () => {
           // Treat the file name as a field so we can match and score

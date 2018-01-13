@@ -54,7 +54,7 @@
         }
       },
       {
-        "file": "currentRegion.json",
+        "file": "current-region.json",
         "params": {
           "currentlySelected": "true"
         }
@@ -73,5 +73,27 @@
         }
       }
     ]
+  },
+  "/ms/api/availity/internal/core/vault/upload/v1/resumable/nYrlabBv/": {
+    "post": {
+      "status": 201,
+      "responseHeaders": {
+        "tus-resumable": "1.0.0",
+        "upload-expires": "Fri, 12 Jan 2030 15:54:39 GMT",
+        "transfer-encoding": "chunked",
+        "location": "4611142db7c049bbbe37376583a3f46b"
+      }
+    }
+  },
+  "/ms/api/availity/internal/core/vault/upload/v1/resumable/nYrlabBv/4611142db7c049bbbe37376583a3f46b": {
+    "patch": {
+      "status": 204,
+      "responseHeaders": {
+        "tus-resumable": "1.0.0",
+        "upload-expires": "Fri, 12 Jan 2030 15:54:39 GMT",
+        "transfer-encoding": "chunked",
+        "references": "[\"/files/105265/9ee77f6d-9779-4b96-a995-0df47657e504\"]"
+      }
+    }
   }
 }

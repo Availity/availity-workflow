@@ -1,5 +1,6 @@
 const get = require('./get');
 const post = require('./post');
+const patch = require('./patch');
 
 const response = {
   get: get.send,
@@ -7,6 +8,8 @@ const response = {
   delete: get.send,
 
   post: post.send,
+
+  patch: patch.send,
 
   put: post.send,
 
