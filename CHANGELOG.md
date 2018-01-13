@@ -1,3 +1,31 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/Availity/availity-workflow/compare/v2.7.0...v3.0.0) (2018-01-13)
+
+
+### Bug Fixes
+
+* **availity-mock-server:** set response headers and unit test ([d7ab013](https://github.com/Availity/availity-workflow/commit/d7ab013))
+* **availity-workflow:** add back commands accidently removed ([d5b0ad7](https://github.com/Availity/availity-workflow/commit/d5b0ad7))
+
+
+### Chores
+
+* **availity-worfklow:** enforce Node v8.0 ([a20e1c1](https://github.com/Availity/availity-workflow/commit/a20e1c1))
+
+
+### Features
+
+* **availity-mock-server:** add patch support for tus ([4945642](https://github.com/Availity/availity-workflow/commit/4945642))
+* **availity-workflow:** add env info in about messages ([3866998](https://github.com/Availity/availity-workflow/commit/3866998))
+* **availity-workflow-settings:** proxy /ms path ([dd78d7e](https://github.com/Availity/availity-workflow/commit/dd78d7e))
+
+
+### BREAKING CHANGES
+
+* **availity-worfklow:** Minimum requirement to run workflow is now Node 8. There are no API changes.
+
+
+
 <a name="2.7.0"></a>
 # [2.7.0](https://github.com/Availity/availity-workflow/compare/v2.6.5...v2.7.0) (2018-01-08)
 
