@@ -40,30 +40,30 @@ ${chalk.yellow(logo)}
 ${chalk.bold('availity-workflow')} ${version}
  `;
 
-const plugins = {
-  react: [
-    'availity-workflow',
-    'availity-workflow-react',
-    'availity-uikit',
-    'availity-reactstrap-validation',
-    'eslint-config-availity',
-    'react',
-    'react-dom',
-    'reactstrap',
-    'mobx'
-  ],
-  angular: [
-    'availity-workflow',
-    'availity-workflow-angular',
-    'availity-uikit',
-    'angular',
-    'eslint-config-availity',
-    'react',
-    'react-dom',
-    'reactstrap',
-    'mobx'
-  ]
-};
+// const plugins = {
+//   react: [
+//     'availity-workflow',
+//     'availity-workflow-react',
+//     'eslint-config-availity',
+//     'availity-uikit',
+//     'availity-reactstrap-validation',
+//     'react',
+//     'react-dom',
+//     'reactstrap',
+//     'mobx'
+//   ],
+//   angular: [
+//     'availity-workflow',
+//     'availity-workflow-angular',
+//     'eslint-config-availity',
+//     'availity-uikit',
+//     'angular',
+//     'react',
+//     'react-dom',
+//     'reactstrap',
+//     'mobx'
+//   ]
+// };
 
 function about() {
   notifier();
