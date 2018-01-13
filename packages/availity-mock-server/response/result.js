@@ -81,9 +81,10 @@ const result = {
       const filePath = path.join(dataPath, response.file);
       const status = response.status || 200;
 
-      if (response.responseHeaders) {
-        res.set(response.responseHeaders);
-      }
+      const headers = response.responseHeaders || {};
+      Object.keys(headers).forEach(key => {
+        res.set(key, response.responseHeaders[key]);
+      });
 
       /* eslint-disable promise/always-return */
       if (path.extname(filePath) === '.json') {

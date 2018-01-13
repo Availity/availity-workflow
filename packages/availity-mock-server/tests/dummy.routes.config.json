@@ -146,7 +146,7 @@
         "response": [
           {
             "file": "dummy-response-2.json",
-            "headers": {
+            "responseHeaders": {
               "ping": "pong"
             }
           }
