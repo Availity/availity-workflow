@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const settings = require('availity-workflow-settings');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ruleFonts = require('availity-workflow-settings/webpack/rule-fonts');
 const loaderPostcss = require('availity-workflow-settings/webpack/loader-postcss');
 const exists = require('exists-sync');
@@ -220,16 +221,15 @@ const config = {
 if (settings.isProduction()) {
   config.plugins.push(
     // Minify the code scripts and css
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: false,
-      compress: {
-        screw_ie8: true, // IE8 not supported by Availity
-        drop_console: true
-      },
-      output: {
-        comments: false,
-        screw_ie8: true,
-        max_line_len: 1000
+    new UglifyJsPlugin({
+      parallel: true,
+      uglifyOptions: {
+        ie8: false,
+        mangle: false,
+        warnings: false,
+        output: {
+          comments: false
+        }
       }
     })
   );
