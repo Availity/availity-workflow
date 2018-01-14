@@ -9,6 +9,7 @@ const sizeTree = require('webpack-bundle-size-analyzer/build/src/size_tree');
 const { argv } = require('yargs');
 
 const plugin = require('./plugin');
+const customStats = require('./stats');
 
 function bundle(config) {
   return new Promise((resolve, reject) => {
@@ -53,16 +54,7 @@ function bundle(config) {
         return;
       }
 
-      const statistics = stats.toString({
-        colors: true,
-        cached: true,
-        reasons: false,
-        source: false,
-        chunks: false,
-        children: false,
-        errorDetails: shouldProfile,
-        warnings: shouldProfile
-      });
+      const statistics = customStats(stats, { errorDetails: shouldProfile, warnings: shouldProfile });
 
       if (shouldProfile) {
         Logger.info(`${chalk.dim('Webpack profile:')}

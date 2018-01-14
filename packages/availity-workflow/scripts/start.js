@@ -12,6 +12,7 @@ const WebpackDevSever = require('webpack-dev-server');
 const proxy = require('./proxy');
 const notifier = require('./notifier');
 const plugin = require('./plugin');
+const customStats = require('./stats');
 const open = require('./open');
 const formatWebpackMessages = require('./format');
 const merge = require('lodash.merge');
@@ -23,22 +24,6 @@ const startupMessage = once(() => {
   const uri = `http://${settings.config().development.host}:${settings.config().development.port}/`;
   Logger.box(`The app ${chalk.yellow(settings.pkg().name)} is running at ${chalk.green(uri)}`);
 });
-
-// development.logLevel=custom
-function customStats(stats) {
-  return stats.toString({
-    colors: true,
-    cached: true,
-    reasons: false,
-    source: false,
-    chunks: false,
-    modules: false,
-    chunkModules: false,
-    chunkOrigins: false,
-    children: false,
-    errorDetails: true
-  });
-}
 
 function compileMessage(stats) {
   // Get the time
@@ -105,7 +90,7 @@ function web() {
     let webpackConfig;
     // Allow production version to run in development
     if (settings.isDryRun() && settings.isDevelopment()) {
-      Logger.message('Use production webpack settings', 'Dry Run');
+      Logger.message('Using production webpack settings', 'Dry Run');
       webpackConfig = plugin('webpack.config.production');
     } else {
       webpackConfig = plugin('webpack.config');
