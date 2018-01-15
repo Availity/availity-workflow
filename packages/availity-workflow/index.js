@@ -39,6 +39,9 @@ yargs
         .option('ignore-git-untracked', {
           alias: 'u',
           describe: 'Ignore files that are not indexed by git'
+        })
+        .option('disable-linter', {
+          describe: 'Allow linter to be when building bundles for production or staging'
         });
     },
     () => {
