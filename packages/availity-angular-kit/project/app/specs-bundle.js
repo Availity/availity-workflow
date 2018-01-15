@@ -13,7 +13,7 @@ tests.keys().forEach(function(path) {
     tests(path);
   } catch (err) {
     /* eslint no-console:0 */
-    console.error('Error in ' + path);
+    console.error(err.toString());
     console.error(err);
   }
 });
