@@ -10,7 +10,7 @@ const { spawnSync } = require('child_process');
 function lint() {
   let engine;
 
-  if (!settings.isLinting()) {
+  if (settings.isLinterDisabled()) {
     Logger.warn('Linting is disabled');
     return Promise.resolve(true);
   }
@@ -66,7 +66,6 @@ function lint() {
 
     // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
     /* eslint-disable promise/catch-or-return */
-
     globby(settings.js()).then(paths => {
       spinner.stop();
       const filesToLint = gitTrackedFiles

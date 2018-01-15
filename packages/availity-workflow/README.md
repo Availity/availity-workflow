@@ -43,6 +43,9 @@ Include additional glob patterns for linting.
 ##### `--ignore-git-untracked`
 Ignore files that are not indexed by git.
 
+##### `--disable-linter`
+Disable linter when creating bundles for production or staging.
+
 ### `build`
 - Cleans up `/dist` folder
 - Bundles project assets into the `/dist` folder
