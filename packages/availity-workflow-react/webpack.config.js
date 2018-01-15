@@ -5,6 +5,7 @@ const exists = require('exists-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const loaderPostcss = require('availity-workflow-settings/webpack/loader-postcss');
 const ruleFonts = require('availity-workflow-settings/webpack/rule-fonts');
@@ -133,6 +134,10 @@ const config = {
     new webpack.HotModuleReplacementPlugin(),
 
     new HtmlWebpackPlugin(htmlConfig),
+
+    new DuplicatePackageCheckerPlugin({
+      verbose: true
+    }),
 
     // Ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
