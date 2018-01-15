@@ -1,18 +1,3 @@
-function customStats(stats) {
-  return stats.toString({
-    colors: true,
-    cached: true,
-    reasons: false,
-    source: false,
-    chunks: false,
-    modules: false,
-    chunkModules: false,
-    chunkOrigins: false,
-    children: false,
-    errorDetails: true
-  });
-}
-
 module.exports = (stats, options = {}) => {
   const { errorDetails = true, warnings = true } = options;
 
