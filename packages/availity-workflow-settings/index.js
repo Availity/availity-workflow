@@ -316,8 +316,8 @@ const settings = {
     return get(this.configuration, 'development.historyFallback', true);
   },
 
-  isLinting() {
-    return true;
+  isLinterDisabled() {
+    return argv.disableLinter !== undefined;
   },
 
   isHotLoader() {
