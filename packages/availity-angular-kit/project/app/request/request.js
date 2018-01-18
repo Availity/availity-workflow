@@ -79,6 +79,11 @@ class Request {
 
   onAddAttachment = (scope, el) => {
     const { files } = el;
+
+    if (!files[0]) {
+      return;
+    }
+
     const upload = new Upload(files[0], {
       bucketId: 'nYrlabBv',
       customerId: this.selectedOrganization.customerId,
@@ -86,6 +91,13 @@ class Request {
     });
     this.uploads.push(upload);
     upload.start();
+  };
+
+  onRemoveAttachment = selectedUpload => {
+    selectedUpload.abort();
+    this.uploads = this.uploads.filter(
+      upload => upload.id !== selectedUpload.id
+    );
   };
 
   onSubmit(form) {

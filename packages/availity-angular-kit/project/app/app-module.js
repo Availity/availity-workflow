@@ -11,10 +11,10 @@ const addModules = function addModules(_modules) {
     modules = [modules];
   }
 
-  angular.forEach(modules, module => {
-    const index = app.requires.indexOf(module);
+  angular.forEach(modules, m => {
+    const index = app.requires.indexOf(m);
     if (index === -1) {
-      app.requires.push(module);
+      app.requires.push(m);
     }
   });
 
