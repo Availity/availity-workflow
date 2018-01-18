@@ -1,3 +1,26 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/Availity/availity-workflow/compare/v3.0.0...v3.1.0) (2018-01-18)
+
+
+### Bug Fixes
+
+* **availity-angular-kit:** stringify the error from karma ([31e75e3](https://github.com/Availity/availity-workflow/commit/31e75e3))
+* **availity-mock-server:** return correct status for resumable upload route ([0563d49](https://github.com/Availity/availity-workflow/commit/0563d49))
+* **availity-workflow:** sync webpack start and build stat messages ([0d04f64](https://github.com/Availity/availity-workflow/commit/0d04f64))
+* **availity-workflow-settings:** allow option to disable linter. Closes [#126](https://github.com/Availity/availity-workflow/issues/126). ([6eab351](https://github.com/Availity/availity-workflow/commit/6eab351))
+* **fontRule:** filename no longer needs hyphen ([cbc0b3c](https://github.com/Availity/availity-workflow/commit/cbc0b3c)), closes [#137](https://github.com/Availity/availity-workflow/issues/137)
+
+
+### Features
+
+* **availity-workflow:** add option to disable linter ([572dee0](https://github.com/Availity/availity-workflow/commit/572dee0))
+* **availity-workflow-angular:** add webpack DuplicatePackageCheckerPlugin to development ([27b2f2e](https://github.com/Availity/availity-workflow/commit/27b2f2e))
+* **availity-workflow-angular:** upgrade uglifyjs. Closes [#131](https://github.com/Availity/availity-workflow/issues/131). ([5a788d2](https://github.com/Availity/availity-workflow/commit/5a788d2))
+* **availity-workflow-react:** add webpack DuplicatePackageCheckerPlugin to development ([1c36d8e](https://github.com/Availity/availity-workflow/commit/1c36d8e))
+* **availity-workflow-react:** upgrade uglifyjs. Closes [#131](https://github.com/Availity/availity-workflow/issues/131). ([531bdb5](https://github.com/Availity/availity-workflow/commit/531bdb5))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/Availity/availity-workflow/compare/v2.7.0...v3.0.0) (2018-01-13)
 
