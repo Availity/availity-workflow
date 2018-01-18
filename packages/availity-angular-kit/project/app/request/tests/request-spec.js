@@ -2,7 +2,7 @@
 import angular from 'angular';
 
 import { availity } from 'availity-angular';
-import uiRouter from 'angular-ui-router';
+import uiRouter from '@uirouter/angularjs';
 import app from 'app-module';
 
 import '../request';

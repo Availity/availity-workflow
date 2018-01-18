@@ -1,6 +1,6 @@
 import app from 'app-module';
 import { availity } from 'availity-angular';
-import uiRouter from 'angular-ui-router';
+import uiRouter from '@uirouter/angularjs';
 import Upload from '@availity/upload-core';
 
 class Request {

@@ -1,5 +1,5 @@
 import { availity, availityUi, availityConfig } from 'availity-angular';
-import uiRouter from 'angular-ui-router';
+import uiRouter from '@uirouter/angularjs';
 import shims from 'angular-shims-placeholder';
 import app from 'app-module';
 
