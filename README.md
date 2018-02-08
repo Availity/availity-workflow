@@ -287,23 +287,38 @@ Update `workflow.js` using the configuration below:
 module.exports = config => {
   config.proxies = [
     {
-      context: '/api/v1/proxy/healthplan',
-      target: 'http://localhost:5555',
-      enabled: true,
-      logLevel: 'debug',
-      pathRewrite: {
-        '^/api/v1/proxy/healthplan/': '',
-      },
-    },
-    {
-      context: ['/api/**', '!/api/v1/proxy/healthplan/**'],
+      context: [
+        '/api/**',
+        '/ms/**',
+        '!/api/v1/proxy/healthplan/**'
+      ],
       target: 'http://localhost:9999',
       enabled: true,
       logLevel: 'debug',
       pathRewrite: {
-        '^/api': '',
-      },
+        '^/api': ''
+      }
     },
+    {
+      context: ['/api/v1/proxy/healthplan/some/mock/path'],
+      target: 'http://localhost:9999',
+      enabled: true,
+      logLevel: 'debug',
+      pathRewrite: {
+        '^/api': ''
+      }
+    },
+    {
+      context: [
+        '/api/v1/proxy/healthplan/**'
+      ],
+      target: 'http://localhost:8888',
+      enabled: true,
+      logLevel: 'debug',
+      pathRewrite: {
+        '^/api/v1/proxy/healthplan/': ''
+      }
+    }
   ];
   return config;
 };
@@ -311,8 +326,9 @@ module.exports = config => {
 
 The configuration above does the following:
 
-- All requests going to `http://localhost:3000/api/v1/proxy/healthplan` will be proxied to `http://localhost:5555`. Notice the URL is being rewritten. Change the rewrite path to match your local path as needed.
-- All requests not going to `http://localhost:3000/api/v1/proxy/healthplan` will be proxied to mock server provided by `availtiy-workflow`.
+- Proxy requests starting with `/ms` or `/api` to the mock server but not paths that haves segments `/api/v1/proxy/healthplan/`. This configuration allows the Availity API to be simulated from mock server.
+- Proxy requests with path `/api/v1/proxy/healthplan/some/mock/path` to the mock server. Optional configuration that is useful if an API is not available for use and needs to be mocked. 
+- Proxy all requests with path segments `/api/v1/proxy/healthplan/` to the configured target `'http://localhost:8888'`. Notice the URL is being rewritten. Change the rewrite path to match your local path as needed. This configuration is useful when testing against live services.
 
 
 ## Contribute
