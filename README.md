@@ -280,7 +280,7 @@ headers: {
 ```
 ## FAQ
 
-### How to setup development environment to match deployment environment?
+### How to setup a development environment to match the deployment environment?
 
 Update `workflow.js` using the configuration below:
 ```js
@@ -344,4 +344,4 @@ Open source software components distributed or made available in the Availity Ma
 
 ## License
 
-Copyright (c) 2017 Availity, LLC. Code released under the [the MIT license](LICENSE)
+Copyright (c) 2017-present Availity, LLC. Code released under the [the MIT license](LICENSE)
