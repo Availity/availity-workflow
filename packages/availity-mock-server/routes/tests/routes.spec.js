@@ -1,3 +1,7 @@
+'use strict';
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 const request = require('superagent');
 const _ = require('lodash');
 const helper = require('../../tests/helpers');
@@ -13,16 +17,12 @@ describe('Routes', () => {
     const getConfiguredVerbs = (ekko, expectedVerbs, path) => {
       const routeConfigs = ekko.config().router.stack;
 
-      const verbs = _.chain(routeConfigs)
-        .filter(routeConfig => routeConfig.route !== undefined)
-        .map(routeConfig => {
-          if (routeConfig.route.path === path) {
-            return _.keys(routeConfig.route.methods)[0];
-          }
-          return null;
-        })
-        .filter(method => method !== undefined)
-        .value();
+      const verbs = _.chain(routeConfigs).filter(routeConfig => routeConfig.route !== undefined).map(routeConfig => {
+        if (routeConfig.route.path === path) {
+        return _.keys(routeConfig.route.methods)[0];
+        }
+        return null;
+      }).filter(method => method !== undefined).value();
 
       return verbs;
     };
@@ -33,46 +33,46 @@ describe('Routes', () => {
     expect(count).toBe(4);
   });
 
-  it('route 1 should respond with dummy-response1.json', async () => {
-    const res = await request.get(helper.getUrl('/v1/route1'));
+  it('route 1 should respond with dummy-response1.json', _asyncToGenerator(function* () {
+    const res = yield request.get(helper.getUrl('/v1/route1'));
 
     expect(res.status).toBe(200);
     expect(_.isEqual(res.body, { a: 1 })).toBeTruthy();
-  });
+  }));
 
-  it('route 2 should respond with dummy-response2.json for GET', async () => {
-    const res = await request.get(helper.getUrl('/internal/v2/route2'));
+  it('route 2 should respond with dummy-response2.json for GET', _asyncToGenerator(function* () {
+    const res = yield request.get(helper.getUrl('/internal/v2/route2'));
     expect(res.status).toBe(200);
     expect(_.isEqual(res.body, { b: 2 })).toBeTruthy();
-  });
+  }));
 
-  it('route 2 should respond with dummy-response3.json for POST', async () => {
-    const res = await request.post(helper.getUrl('/internal/v2/route2')).send({ bar: 'baz' });
+  it('route 2 should respond with dummy-response3.json for POST', _asyncToGenerator(function* () {
+    const res = yield request.post(helper.getUrl('/internal/v2/route2')).send({ bar: 'baz' });
     expect(res.status).toBe(200);
     expect(_.isEqual(res.body, { c: 3 })).toBeTruthy();
-  });
+  }));
 
-  it('route 4 should respond with dummy-response-2.json for POST with parameters', async () => {
-    const res = await request.post(helper.getUrl('/v1/route4')).send({ a: { b: 'b' } });
+  it('route 4 should respond with dummy-response-2.json for POST with parameters', _asyncToGenerator(function* () {
+    const res = yield request.post(helper.getUrl('/v1/route4')).send({ a: { b: 'b' } });
     expect(res.status).toBe(200);
     expect(_.isEqual(res.body, { b: 2 })).toBeTruthy();
-  });
+  }));
 
-  it('route 4 should response with dummy-response1.json [default file] for POST with no parameters', async () => {
-    const res = await request.post(helper.getUrl('/v1/route4'));
+  it('route 4 should response with dummy-response1.json [default file] for POST with no parameters', _asyncToGenerator(function* () {
+    const res = yield request.post(helper.getUrl('/v1/route4'));
     expect(res.status).toBe(200);
     expect(_.isEqual(res.body, { a: 1 })).toBeTruthy();
-  });
+  }));
 
-  it('route 9 should response with dummy-response1.json and status 201 for GET', async () => {
-    const res = await request.get(helper.getUrl('/v1/route9'));
+  it('route 9 should response with dummy-response1.json and status 201 for GET', _asyncToGenerator(function* () {
+    const res = yield request.get(helper.getUrl('/v1/route9'));
     expect(res.status).toBe(201);
     expect(_.isEqual(res.body, { a: 1 })).toBeTruthy();
-  });
+  }));
 
-  it('route 9 should response with dummy-response2.json and status 422 for POST', async () => {
-    const res = await request.post(helper.getUrl('/v1/route9'));
+  it('route 9 should response with dummy-response2.json and status 422 for POST', _asyncToGenerator(function* () {
+    const res = yield request.post(helper.getUrl('/v1/route9'));
     expect(res.status).toBe(203);
     expect(_.isEqual(res.body, { b: 2 })).toBeTruthy();
-  });
+  }));
 });

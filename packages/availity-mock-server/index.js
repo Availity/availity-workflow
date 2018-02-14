@@ -1,3 +1,7 @@
+'use strict';
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 /* eslint-disable promise/avoid-new */
 const express = require('express');
 const events = require('events');
@@ -35,37 +39,39 @@ class Ekko {
     return config.router;
   }
 
-  async start(options) {
-    this.middleware(options);
+  start(options) {
+    var _this = this;
 
-    const port = config.options.port || 0;
-    config.app.set('port', port);
-    config.server = http.createServer(config.app);
+    return _asyncToGenerator(function* () {
+      _this.middleware(options);
 
-    return new Promise((resolve, reject) => {
-      config.server.listen(config.options.port, () => {
-        const url = `http://localhost:${config.server.address().port}`;
-        logger.getInstance().info(`Ekko server started at ${chalk.green(url)}`);
+      const port = config.options.port || 0;
+      config.app.set('port', port);
+      config.server = http.createServer(config.app);
 
-        config.events.emit(config.constants.EVENTS.START, {
-          options: config.options
+      return new Promise(function (resolve, reject) {
+        config.server.listen(config.options.port, function () {
+          const url = `http://localhost:${config.server.address().port}`;
+            logger.getInstance().info(`Ekko server started at ${chalk.green(url)}`);
+
+          config.events.emit(config.constants.EVENTS.START, {
+            options: config.options
+          });
+
+          resolve(true);
         });
 
-        resolve(true);
-      });
+        config.server.on('error', function (e) {
+          if (e.errno === 'EADDRINUSE') {
+            logger.getInstance().error(`Cannot start Ekko server on PORT ${config.options.port}. Check if port is already in use.`);
+          } else {
+            logger.getInstance().error(`Failed to start Ekko server on PORT ${config.options.port}`);
+          }
 
-      config.server.on('error', e => {
-        if (e.errno === 'EADDRINUSE') {
-          logger
-            .getInstance()
-            .error(`Cannot start Ekko server on PORT ${config.options.port}. Check if port is already in use.`);
-        } else {
-          logger.getInstance().error(`Failed to start Ekko server on PORT ${config.options.port}`);
-        }
-
-        reject(new Error(e));
+          reject(new Error(e));
+        });
       });
-    });
+    })();
   }
 
   stop() {
