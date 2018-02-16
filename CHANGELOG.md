@@ -1,10 +1,12 @@
 <a name="2.7.1"></a>
 ## [2.7.1](https://github.com/Availity/availity-workflow/compare/v2.7.0...v2.7.1) (2018-02-16)
 
+### Bug Fixes
 
+* **availity-mock-data:** use Node 6 compat syntax. Closes [#135](https://github.com/Availity/availity-workflow/issues/130) ([c970587](https://github.com/Availity/availity-workflow/commit/c970587)). 
 
 <a name="2.7.0"></a>
-# [2.7.0](https://github.com/Availity/availity-workflow/compare/v2.6.5...v2.7.0) (2018-01-08)
+## [2.7.0](https://github.com/Availity/availity-workflow/compare/v2.6.5...v2.7.0) (2018-01-08)
 
 
 ### Bug Fixes
