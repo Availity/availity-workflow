@@ -1,3 +1,8 @@
+<a name="2.7.1"></a>
+## [2.7.1](https://github.com/Availity/availity-workflow/compare/v2.7.0...v2.7.1) (2018-02-16)
+
+
+
 <a name="2.7.0"></a>
 # [2.7.0](https://github.com/Availity/availity-workflow/compare/v2.6.5...v2.7.0) (2018-01-08)
 
