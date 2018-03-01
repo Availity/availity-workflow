@@ -14,7 +14,7 @@ const plugin = require('./plugin');
 function bundle(config) {
   return new Promise((resolve, reject) => {
     if (!settings.isDryRun()) {
-      Logger.message(`Skipping cleaning directories ${settings.output()}`, 'Dry Run');
+      Logger.success(`Cleaning directories ${settings.output()}`);
       del.sync([settings.output()]);
     }
 
