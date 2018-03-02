@@ -1,3 +1,13 @@
+<a name="2.7.3"></a>
+## [2.7.3](https://github.com/Availity/availity-workflow/compare/v2.7.2...v2.7.3) (2018-03-02)
+
+
+### Bug Fixes
+
+* **availity-worfklow:** v appended twice ([4cd6389](https://github.com/Availity/availity-workflow/commit/4cd6389))
+
+
+
 <a name="2.7.2"></a>
 ## [2.7.2](https://github.com/Availity/availity-workflow/compare/v2.7.1...v2.7.2) (2018-03-02)
 
