@@ -326,6 +326,10 @@ const settings = {
 
   isEkko() {
     return get(this.configuration, 'ekko.enabled', true);
+  },
+
+  commitMessage() {
+    return argv.message;
   }
 };
 

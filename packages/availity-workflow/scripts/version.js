@@ -16,9 +16,12 @@ function newLine(contents) {
 
 function tag() {
   if (settings.isDistribution() && !settings.isDryRun()) {
+    const message = settings.commitMessage()
+      ? `${settings.commitMessage()} (v${settings.version})`
+      : `v${settings.version}`;
     shell.exec('git add --all');
-    shell.exec(`git commit -m "v${settings.version}"`);
-    shell.exec(`git tag -a v${settings.version} -m "v${settings.version}"`);
+    shell.exec(`git commit -m "${message}"`);
+    shell.exec(`git tag -a "v${message}" -m "v${message}"`);
   } else {
     Logger.message('Skipping git commands', 'Dry Run');
   }
