@@ -79,6 +79,10 @@ yargs
   .command(
     'release',
     `${chalk.dim('Bundle project for distribution (production or staging) and create a git tag')}`,
+    yyargs =>
+      yyargs.option('message', {
+        describe: 'Allow for custom commit message for git tag'
+      }),
     () => {
       release();
     }
