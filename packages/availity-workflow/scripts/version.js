@@ -20,6 +20,7 @@ function tag() {
     const message = settings.commitMessage()
       ? `${settings.commitMessage()} (v${settings.version})`
       : `v${settings.version}`;
+
     shell.exec('git add --all');
     shell.exec(`git commit -m "${message}"`);
     shell.exec(`git tag -a "v${message}" -m "v${message}"`);
