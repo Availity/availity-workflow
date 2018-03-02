@@ -23,7 +23,7 @@ function tag() {
 
     shell.exec('git add --all');
     shell.exec(`git commit -m "${message}"`);
-    shell.exec(`git tag -a "v${message}" -m "v${message}"`);
+    shell.exec(`git tag -a "${message}" -m "${message}"`);
   } else {
     Logger.message('Skipping git commands', 'Dry Run');
   }
