@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow-settings",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Configuration for availity-workflow",
   "main": "index.js",
   "scripts": {
