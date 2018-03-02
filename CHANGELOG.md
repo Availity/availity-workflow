@@ -1,3 +1,13 @@
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/Availity/availity-workflow/compare/v3.1.0...v3.1.1) (2018-03-02)
+
+
+### Features
+
+* **availity-workflow:** allow custom commit message on release ([09f284c](https://github.com/Availity/availity-workflow/commit/09f284c))
+
+
+
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/Availity/availity-workflow/compare/v3.0.0...v3.1.0) (2018-01-18)
 
