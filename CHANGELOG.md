@@ -1,3 +1,13 @@
+<a name="3.1.2"></a>
+## [3.1.2](https://github.com/Availity/availity-workflow/compare/v3.1.1...v3.1.2) (2018-03-02)
+
+
+### Bug Fixes
+
+* **availity-workflow:** double v in commit message ([9ee4c75](https://github.com/Availity/availity-workflow/commit/9ee4c75))
+
+
+
 <a name="3.1.1"></a>
 ## [3.1.1](https://github.com/Availity/availity-workflow/compare/v3.1.0...v3.1.1) (2018-03-02)
 
