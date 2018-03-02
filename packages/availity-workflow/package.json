@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "description": "Upgradable workflow for Availity boilerplate projects",
   "main": "index.js",
   "bin": {
@@ -31,7 +31,7 @@
     "availity-mock-data": "^2.7.0",
     "availity-mock-server": "^2.7.1",
     "availity-workflow-logger": "^2.6.5",
-    "availity-workflow-settings": "^2.7.0",
+    "availity-workflow-settings": "^2.7.2",
     "bluebird": "^3.5.0",
     "chalk": "^2.1.0",
     "debug": "^3.0.0",
