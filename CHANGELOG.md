@@ -1,3 +1,15 @@
+<a name="2.7.2"></a>
+## [2.7.2](https://github.com/Availity/availity-workflow/compare/v2.7.1...v2.7.2) (2018-03-02)
+
+
+### Bug Fixes
+
+* **availity-workflow:** add message option for release command ([2297786](https://github.com/Availity/availity-workflow/commit/2297786))
+* **availity-workflow:** allow custom commit messages when releasing ([ead04e8](https://github.com/Availity/availity-workflow/commit/ead04e8))
+* **availity-workflow:** allow custom commit messages when releasing ([c1f6e5b](https://github.com/Availity/availity-workflow/commit/c1f6e5b))
+
+
+
 <a name="2.7.1"></a>
 ## [2.7.1](https://github.com/Availity/availity-workflow/compare/v2.7.0...v2.7.1) (2018-02-16)
 
