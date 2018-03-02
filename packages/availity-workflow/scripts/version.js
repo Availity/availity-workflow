@@ -18,7 +18,7 @@ function newLine(contents) {
 function tag() {
   if (settings.isDistribution() && !settings.isDryRun()) {
     const message = settings.commitMessage()
-      ? `${settings.commitMessage()} (v${settings.version})`
+      ? `${settings.commitMessage()} v${settings.version}`
       : `v${settings.version}`;
 
     shell.exec('git add --all');
