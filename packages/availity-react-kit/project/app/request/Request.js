@@ -22,7 +22,7 @@ export default class AuthorizationsRequest extends Component {
     appStore.getOrganizations();
   }
 
-  submit = async () => {};
+  submit = () => {};
 
   render() {
     return (
