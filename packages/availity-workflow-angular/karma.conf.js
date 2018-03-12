@@ -1,6 +1,6 @@
 const settings = require('availity-workflow-settings');
 
-const webpackConfig = require('./webpack.config.test');
+let webpackConfig = require('./webpack.config.test');
 
 if (settings.isCoverage()) {
   webpackConfig.module.rules.push({
@@ -11,6 +11,12 @@ if (settings.isCoverage()) {
     loader: 'istanbul-instrumenter-loader',
     options: { esModules: true }
   });
+}
+
+const { modifyWebpackConfig } = settings.config();
+
+if (typeof modifyWebpackConfig === 'function') {
+  webpackConfig = modifyWebpackConfig(webpackConfig, settings) || webpackConfig;
 }
 
 const karmaConfig = {

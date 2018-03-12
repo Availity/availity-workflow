@@ -278,6 +278,24 @@ headers: {
   RemoteUser: 'janedoe'
 }
 ```
+
+#### `modifyWebpackConfig`
+A function which, when provided, can be used to enhance/override or replace the webpack configuration used. The function will be invoked with the current webpack configuration object and a reference to the workflow settings.
+
+**Ex:**
+```js
+modifyWebpackConfig: (webpackConfig, settings) => {
+  // Add Subresource Integrity (SRI) security feature
+  webpackConfig.output = { crossOriginLoading: 'anonymous' };
+  // Note: SriPlugin would be imported in your workflow.js to be referenced here
+  webpackConfig.plugins.push(new SriPlugin({
+      hashFuncNames: ['sha256', 'sha384'],
+      // only enable it for non-development builds
+      enabled: !settings.isDevelopment(),
+  }));
+  return webpackConfig;
+}
+```
 ## FAQ
 
 ### How to setup a development environment to match the deployment environment?

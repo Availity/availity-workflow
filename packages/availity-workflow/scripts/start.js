@@ -107,6 +107,12 @@ function web() {
       })
     );
 
+    const { modifyWebpackConfig } = settings.config();
+
+    if (typeof modifyWebpackConfig === 'function') {
+      webpackConfig = modifyWebpackConfig(webpackConfig, settings) || webpackConfig;
+    }
+
     const compiler = webpack(webpackConfig);
 
     compiler.plugin('invalid', () => {

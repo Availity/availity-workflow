@@ -21,7 +21,7 @@ function bundle(config) {
     // Check arguement or CLI arg or default to false
     const shouldProfile = (config && config.profile) || argv.profile || false;
 
-    const webpackConfig = shouldProfile ? plugin('webpack.config.profile') : plugin('webpack.config.production');
+    let webpackConfig = shouldProfile ? plugin('webpack.config.profile') : plugin('webpack.config.production');
 
     Logger.info('Started compiling');
     const spinner = ora('Running webpack');
@@ -44,6 +44,12 @@ function bundle(config) {
         }
       })
     );
+
+    const { modifyWebpackConfig } = settings.config();
+
+    if (typeof modifyWebpackConfig === 'function') {
+      webpackConfig = modifyWebpackConfig(webpackConfig, settings) || webpackConfig;
+    }
 
     webpack(webpackConfig).run((err, stats) => {
       spinner.stop();
