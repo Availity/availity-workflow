@@ -49,7 +49,7 @@ const config = {
 
   resolve: {
     // Tell webpack what directories should be searched when resolving modules
-    modules: [settings.app(), path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
+    modules: ['nodle_modules', settings.app(), path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
     symlinks: true,
     extensions: ['.js', '.jsx', '.json', '.css', 'scss']
   },
