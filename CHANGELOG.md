@@ -1,3 +1,14 @@
+<a name="3.2.1"></a>
+## [3.2.1](https://github.com/Availity/availity-workflow/compare/v3.2.0...v3.2.1) (2018-03-14)
+
+
+### Bug Fixes
+
+* **availity-workflow:** Include 'node_modules' when searching for modules ([bf4f057](https://github.com/Availity/availity-workflow/commit/bf4f057))
+* **availity-workflow-react:** Update webpack config to include node_modules ([5e84e6d](https://github.com/Availity/availity-workflow/commit/5e84e6d))
+
+
+
 <a name="3.2.0"></a>
 # [3.2.0](https://github.com/Availity/availity-workflow/compare/v3.1.2...v3.2.0) (2018-03-12)
 
