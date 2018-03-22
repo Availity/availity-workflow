@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import get from 'lodash.get';
 import { Label, UncontrolledTooltip } from 'reactstrap';
-import { AvField } from 'availity-mobx-reactstrap-validation';
+import { AvField } from 'availity-reactstrap-validation';
 import propTypes from './props';
 
 @inject('stateStore', 'appStore')

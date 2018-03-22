@@ -39,11 +39,10 @@
   "dependencies": {
     "@availity/api-axios": "^1.0.0-alpha.11",
     "@availity/api-core": "^1.0.0-alpha.11",
-    "@availity/breadcrumbs-spaces-react": "^1.0.0-alpha.0",
+    "@availity/breadcrumbs-spaces-react": "^1.0.0-alpha.5",
     "@availity/localstorage-core": "^1.0.0-alpha.11",
-    "availity-mobx-reactstrap-validation": "^0.0.6",
-    "availity-reactstrap-validation": "^2.0.0-alpha.1",
-    "availity-uikit": "^3.0.0-beta.15",
+    "availity-reactstrap-validation": "^2.0.0-beta.4",
+    "availity-uikit": "^3.0.0-beta.18",
     "axios": "^0.17.1",
     "es6-promise": "^4.2.2",
     "es6-symbol": "^3.1.1",
@@ -54,11 +53,10 @@
     "react": "^16.2.0",
     "react-block-ui": "^1.1.1",
     "react-dom": "^16.2.0",
-    "react-hot-loader": "^3.1.3",
     "react-router-dom": "^4.2.2",
     "react-select": "^1.1.0",
     "react-transition-group": "^2.2.1",
-    "reactstrap": "^5.0.0-alpha.4"
+    "reactstrap": "^5.0.0-beta.3"
   },
   "devDependencies": {
     "availity-workflow": "^3.2.0",

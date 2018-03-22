@@ -324,6 +324,10 @@ const settings = {
     return get(this.configuration, 'development.hotLoader', true);
   },
 
+  getHotLoaderEntry() {
+    return get(this.configuration, 'development.hotLoaderEntry', /\/App\.jsx?/);
+  },
+
   isEkko() {
     return get(this.configuration, 'ekko.enabled', true);
   },

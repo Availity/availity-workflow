@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { AvField } from 'availity-mobx-reactstrap-validation';
+import { AvField } from 'availity-reactstrap-validation';
 import { Label, UncontrolledTooltip } from 'reactstrap';
 import propTypes from './props';
 
