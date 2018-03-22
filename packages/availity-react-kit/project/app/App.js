@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import AuthorizationRequest from './Request';
-import AuthorizationResponse from './Response';
+import AuthorizationRequest from './request';
+import AuthorizationResponse from './response';
 
 const App = () => (
   <BrowserRouter basename="/">
