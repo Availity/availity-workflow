@@ -18,20 +18,11 @@ const VersionPlugin = require('./version');
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
 
-const indexHotLoader = [
-  'react-hot-loader/patch', // Patches React.createElement in dev
-  `webpack-dev-server/client?http://${settings.host()}:${settings.port()}`, // Enables websocket for updates
-  'webpack/hot/only-dev-server', // performs HMR in browser
-  './index.js'
-];
-
-const indexHot = [
+const index = [
   `webpack-dev-server/client?http://${settings.host()}:${settings.port()}`, // Enables websocket for updates
   'webpack/hot/only-dev-server', // performs HMR in brwoser
   './index.js'
 ];
-
-const index = settings.isHotLoader() ? indexHotLoader : indexHot;
 
 const config = {
   context: settings.app(),
@@ -158,6 +149,13 @@ const config = {
     )
   ]
 };
+
+if (settings.isHotLoader()) {
+  config.module.rules.push({
+    test: settings.getHotLoaderEntry(),
+    loader: require.resolve('react-hot-loader-loader'),
+  });
+}
 
 if (settings.isNotifications()) {
   config.plugins.push(

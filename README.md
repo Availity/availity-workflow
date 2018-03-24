@@ -153,6 +153,10 @@ Enable hot module replacement for loaders like style-loader and react-hot-loader
 #### `development.hotLoader`
 Enable or disable react-hot-loader.  Default is `true` for `availity-workflow-react` plugin.
 
+#### `development.hotLoaderEntry`
+Regular expression to configure which file is entry point for hot loading via react-hot-loader-loader.  Default is `/\/App\.jsx?/` which will find `/App.js` or `/App.js` at the root of your app directory for `availity-workflow-react` plugin.
+<br /><small>Note: this should **not** by the application entry point (index.js), but the file which the component which is imported into index.js and rendered.</small>
+
 #### `development.coverage`
 Directory for Karma coverage reports. Only applicable for Angular projects. Default is `{workspace}/coverage`
 
