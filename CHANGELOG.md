@@ -1,3 +1,13 @@
+<a name="2.7.4"></a>
+## [2.7.4](https://github.com/Availity/availity-workflow/compare/v2.7.3...v2.7.4) (2018-03-26)
+
+
+### Bug Fixes
+
+* **availity-workflow:** include 'node_modules' when searching for modules ([aef46d3](https://github.com/Availity/availity-workflow/commit/aef46d3))
+
+
+
 <a name="2.7.3"></a>
 ## [2.7.3](https://github.com/Availity/availity-workflow/compare/v2.7.2...v2.7.3) (2018-03-02)
 
