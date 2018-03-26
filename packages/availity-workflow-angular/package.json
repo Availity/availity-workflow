@@ -1,6 +1,6 @@
 {
   "name": "availity-workflow-angular",
-  "version": "2.7.2",
+  "version": "2.7.4",
   "description": "Angular 1.x  module for availity-workflow",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",

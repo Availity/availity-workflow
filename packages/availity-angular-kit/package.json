@@ -1,6 +1,6 @@
 {
   "name": "availity-angular-kit",
-  "version": "2.7.3",
+  "version": "2.7.4",
   "private": true,
   "description": "Example Angular project using availity-workflow",
   "main": "index.js",
@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "availity-workflow": "^2.7.3",
-    "availity-workflow-angular": "^2.7.2",
+    "availity-workflow-angular": "^2.7.4",
     "babel-eslint": "^8.0.3",
     "cross-env": "^5.0.4",
     "eslint": "^4.13.1",
