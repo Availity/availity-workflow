@@ -39,7 +39,12 @@ const config = {
 
   resolve: {
     // Tell webpack what directories should be searched when resolving modules
-    modules: [settings.app(), 'node_modules', path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
+    modules: [
+      settings.app(),
+      'node_modules',
+      path.join(settings.project(), 'node_modules'),
+      path.join(__dirname, 'node_modules')
+    ],
     alias: {
       app: path.resolve(settings.app(), 'app-module')
     },
@@ -201,7 +206,9 @@ const config = {
       }
     }),
 
-    new ExtractTextPlugin(`css/${settings.css()}`),
+    new ExtractTextPlugin(`css/${settings.css()}`, {
+      allChunks: true
+    }),
 
     new CopyWebpackPlugin(
       [
