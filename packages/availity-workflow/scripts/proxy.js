@@ -55,12 +55,14 @@ function onResponse(proxyConfig, proxyObject, req, res) {
 
   // http://localhost:3000
   const hostUrl = `http://${host}:${port}`;
+
+  const proxyContext = Array.isArray(proxyConfig.context) ? proxyConfig.context[0] : proxyConfig.context;
   // http://localhost:3000/api
-  const hostUrlContext = urlJoin(`http://${host}:${port}`, proxyConfig.context);
+  const hostUrlContext = urlJoin(`http://${host}:${port}`, proxyContext);
   // http://localhost:8080
   const targetUrl = proxyConfig.target;
   // http://localhost:8080/api
-  const targetUrlContext = urlJoin(proxyConfig.target, proxyConfig.context);
+  const targetUrlContext = urlJoin(proxyConfig.target, proxyContext);
 
   const regexer = new RegExp(escapeStringRegexp(targetUrl, 'g'));
   const regexerContext = new RegExp(escapeStringRegexp(targetUrlContext, 'g'));
@@ -166,14 +168,16 @@ function proxy() {
       }
     });
 
+    const proxyContext = Array.isArray(proxyConfig.context) ? proxyConfig.context[0] : proxyConfig.context;
+
     // Only create proxy if enabled
     if (proxyConfig.enabled) {
       config.push(proxyConfig);
     } else {
       Logger.info(
-        `Proxy with context: ${chalk.dim(proxyConfig.context)} and target: ${chalk.dim(
-          proxyConfig.target
-        )} is ${chalk.magenta('DISABLED')}`
+        `Proxy with context: ${chalk.dim(proxyContext)} and target: ${chalk.dim(proxyConfig.target)} is ${chalk.magenta(
+          'DISABLED'
+        )}`
       );
     }
   });
