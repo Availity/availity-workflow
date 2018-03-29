@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { AvFeedback, AvInput, AvGroup } from 'availity-mobx-reactstrap-validation';
+import { AvFeedback, AvInput, AvGroup } from 'availity-reactstrap-validation';
 import { Label } from 'reactstrap';
 
 const Agreement = inject('appStore')(

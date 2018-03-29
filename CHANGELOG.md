@@ -1,3 +1,29 @@
+<a name="3.2.1"></a>
+## [3.2.1](https://github.com/Availity/availity-workflow/compare/v3.2.0...v3.2.1) (2018-03-14)
+
+
+### Bug Fixes
+
+* **availity-workflow:** Include 'node_modules' when searching for modules ([bf4f057](https://github.com/Availity/availity-workflow/commit/bf4f057))
+* **availity-workflow-react:** Update webpack config to include node_modules ([5e84e6d](https://github.com/Availity/availity-workflow/commit/5e84e6d))
+
+
+
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/Availity/availity-workflow/compare/v3.1.2...v3.2.0) (2018-03-12)
+
+
+### Bug Fixes
+
+* **availity-react-kit:** fix inconsistent casing of import file names ([96440b3](https://github.com/Availity/availity-workflow/commit/96440b3))
+
+
+### Features
+
+* **availity-workflow:** add option to allow user to modify the webpack config ([872dad2](https://github.com/Availity/availity-workflow/commit/872dad2)), closes [#134](https://github.com/Availity/availity-workflow/issues/134) [#146](https://github.com/Availity/availity-workflow/issues/146)
+
+
+
 <a name="3.1.2"></a>
 ## [3.1.2](https://github.com/Availity/availity-workflow/compare/v3.1.1...v3.1.2) (2018-03-02)
 

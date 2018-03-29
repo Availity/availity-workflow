@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { AvForm } from 'availity-mobx-reactstrap-validation';
+import { AvForm } from 'availity-reactstrap-validation';
 import { Button, Card, CardBody } from 'reactstrap';
 // import BlockUi from 'react-block-ui';
 
