@@ -6,7 +6,6 @@ const chalk = require('chalk');
 const settings = require('availity-workflow-settings');
 const Logger = require('availity-workflow-logger');
 const sizeTree = require('webpack-bundle-size-analyzer/build/src/size_tree');
-const { argv } = require('yargs');
 
 const plugin = require('./plugin');
 const customStats = require('./stats');
@@ -17,6 +16,9 @@ function bundle(config) {
       Logger.success(`Cleaning directories ${settings.output()}`);
       del.sync([settings.output()]);
     }
+
+    // Lazy load this else yars loads too early https://github.com/Availity/availity-workflow/issues/133
+    const { argv } = require('yargs');
 
     // Check arguement or CLI arg or default to false
     const shouldProfile = (config && config.profile) || argv.profile || false;
@@ -60,7 +62,10 @@ function bundle(config) {
         return;
       }
 
-      const statistics = customStats(stats, { errorDetails: shouldProfile, warnings: shouldProfile });
+      const statistics = customStats(stats, {
+        errorDetails: shouldProfile,
+        warnings: shouldProfile
+      });
 
       if (shouldProfile) {
         Logger.info(`${chalk.dim('Webpack profile:')}

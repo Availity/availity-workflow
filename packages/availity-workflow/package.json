@@ -14,13 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/availity/availity-workflow.git"
   },
-  "keywords": [
-    "boilerplate",
-    "workflow",
-    "availity",
-    "angular",
-    "react"
-  ],
+  "keywords": ["boilerplate", "workflow", "availity", "angular", "react"],
   "author": "Robert McGuinness",
   "license": "MIT",
   "bugs": {
@@ -60,7 +54,7 @@
     "webpack": "^3.6.0",
     "webpack-bundle-size-analyzer": "^2.6.0",
     "webpack-dev-server": "^2.8.2",
-    "yargs": "^8.0.2"
+    "yargs": "^11.0.0"
   },
   "engines": {
     "node": ">= 8.0.0",
