@@ -1,7 +1,7 @@
 /* global describe, it, beforeEach, inject, expect */
 import angular from 'angular';
 
-import { availity } from 'availity-angular';
+import availityApi from '@availity/api-angular';
 import uiRouter from '@uirouter/angularjs';
 import app from 'app-module';
 
@@ -11,7 +11,7 @@ describe('request', () => {
   let request;
 
   beforeEach(() => {
-    angular.mock.module(app.name, availity, uiRouter);
+    angular.mock.module(app.name, availityApi, uiRouter);
   });
 
   beforeEach(
