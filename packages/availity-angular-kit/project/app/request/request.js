@@ -1,5 +1,5 @@
 import app from 'app-module';
-import { availity } from 'availity-angular';
+import availityApi from '@availity/api-angular';
 import uiRouter from '@uirouter/angularjs';
 import Upload from '@availity/upload-core';
 
@@ -111,6 +111,6 @@ class Request {
   }
 }
 
-app.addModules([availity, uiRouter]).service('request', Request);
+app.addModules([availityApi, uiRouter]).service('request', Request);
 
 export default app;

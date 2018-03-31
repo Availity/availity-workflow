@@ -17,4 +17,4 @@ import 'angular-shims-placeholder';
 import 'angular-ui-mask';
 
 import './app';
-import './index.less';
+import './index.scss';
