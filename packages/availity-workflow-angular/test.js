@@ -1,103 +1,61 @@
-const Logger = require('availity-workflow-logger');
+// https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/utils/createJestConfig.js
+const jest = require('jest');
 const settings = require('availity-workflow-settings');
 const path = require('path');
-const exists = require('exists-sync');
-const karma = require('karma');
 
-function validate() {
-  const specExists = exists(path.join(settings.app(), 'specs-bundle.js'));
+function create() {
+  const rootDir = settings.project();
 
-  if (!specExists) {
-    Logger.failed('Missing specs-bundle.js that is required by Karma to run the unit tests.');
-    throw Error();
+  const config = {
+    collectCoverageFrom: ['project/app/**/*.js'],
+    coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/'],
+    testEnvironment: 'node',
+    testURL: 'http://localhost',
+    transform: {
+      '^.+\\.js$': `${require.resolve('./jest/babel.js')}`,
+      '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
+      '^(?!.*\\.(js|css|json)$)': `${require.resolve('./jest/file.js')}`
+    },
+    setupTestFrameworkScriptFile: `${require.resolve(path.join(settings.app(), 'jest.init.js'))}`,
+    transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@?availity).+\\.(js|jsx|html)$'],
+    moduleDirectories: ['node_modules', 'project/app', 'app'],
+    testMatch: [
+      // Ignore the following directories:
+      // build
+      //   - the build output directory
+      // .cache
+      //   - the yarn module cache on Ubuntu if $HOME === rootDir
+      // docs
+      //   - often used to publish to Github Pages
+      // node_modules
+      //   - ignore tests in dependencies
+      // dist
+      //   - the dist output directory
+      '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/__tests__/**/*.js',
+      '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/?(*.)(spec|test).js'
+    ],
+    globals: settings.globals()
+  };
+
+  if (rootDir) {
+    config.rootDir = rootDir;
   }
 
-  return Promise.resolve(specExists);
-}
-
-function integration() {
-  return new Promise((resolve, reject) => {
-    Logger.info('Started testing');
-
-    const server = new karma.Server(
-      {
-        configFile: path.join(__dirname, './karma.conf.sauce.js'),
-        autoWatch: false,
-        singleRun: true
-      },
-      exitStatus => {
-        if (exitStatus) {
-          Logger.failed('Failed testing');
-          reject(exitStatus);
-        } else {
-          Logger.success('Finished testing');
-          resolve(exitStatus);
-        }
-      }
-    );
-
-    server.start();
-  });
+  return config;
 }
 
 function unit() {
-  return new Promise((resolve, reject) => {
-    Logger.info('Started testing');
+  const argv = process.argv.slice(2);
+  const jestConfig = JSON.stringify(create());
+  argv.push(`--config=${jestConfig}`);
+  argv.push('--env=jsdom');
 
-    const server = new karma.Server(
-      {
-        configFile: path.join(__dirname, './karma.conf.js'),
-        autoWatch: false,
-        singleRun: true
-      },
-      exitStatus => {
-        if (exitStatus) {
-          Logger.failed('Failed testing');
-          reject(exitStatus);
-        } else {
-          Logger.success('Finished testing');
-          resolve(exitStatus);
-        }
-      }
-    );
+  jest.run(argv);
 
-    server.start();
-  });
-}
-
-function watch() {
-  return new Promise((resolve, reject) => {
-    const config = {
-      configFile: path.join(__dirname, './karma.conf.js'),
-      browsers: ['Chrome'],
-      autoWatch: true,
-      singleRun: false
-    };
-
-    const server = new karma.Server(config, exitStatus => {
-      if (exitStatus) {
-        Logger.failed('Failed testing');
-        reject(exitStatus);
-      } else {
-        Logger.success('Finished testing');
-        resolve(exitStatus);
-      }
-    });
-
-    server.start();
-  });
+  return Promise.resolve();
 }
 
 module.exports = {
-  run() {
-    if (settings.isWatch()) {
-      return watch();
-    } else if (settings.isIntegrationTesting()) {
-      return integration();
-    }
-
-    return validate().then(unit);
-  },
-
-  description: 'Run your tests using Karma and Chrome, IE or Firefox.  '
+  run: unit,
+  description: 'Run your tests using Jest'
 };
