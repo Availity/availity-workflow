@@ -1,10 +1,9 @@
 const chalk = require('chalk');
 const debug = require('debug')('workflow:proxy');
-const merge = require('lodash.merge');
+const { get, merge } = require('lodash');
 const proxyJson = require('node-http-proxy-json');
 const typeIs = require('type-is');
 const urlJoin = require('url-join');
-const get = require('lodash.get');
 const Logger = require('availity-workflow-logger');
 const escapeStringRegexp = require('escape-string-regexp');
 const settings = require('availity-workflow-settings');

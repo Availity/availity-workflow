@@ -1,9 +1,8 @@
 const Logger = require('availity-workflow-logger');
 const chalk = require('chalk');
 const webpack = require('webpack');
-const once = require('lodash.once');
+const { once, debounce, merge } = require('lodash');
 const pretty = require('pretty-ms');
-const debounce = require('lodash.debounce');
 const Ekko = require('availity-mock-server');
 const settings = require('availity-workflow-settings');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
@@ -15,7 +14,6 @@ const plugin = require('./plugin');
 const customStats = require('./stats');
 const open = require('./open');
 const formatWebpackMessages = require('./format');
-const merge = require('lodash.merge');
 
 let server;
 let ekko;

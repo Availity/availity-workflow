@@ -3,7 +3,7 @@ const path = require('path');
 const shell = require('shelljs');
 const semver = require('semver');
 const inquirer = require('inquirer');
-const _ = require('lodash');
+const { merge } = require('lodash');
 const moment = require('moment');
 const settings = require('availity-workflow-settings');
 const Logger = require('availity-workflow-logger');
@@ -41,7 +41,7 @@ function bump() {
   }
 
   const pkg = settings.pkg();
-  _.merge(pkg, { version: settings.version });
+  merge(pkg, { version: settings.version });
 
   let contents = JSON.stringify(pkg, null, 2);
   contents = newLine(contents);

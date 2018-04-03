@@ -1,8 +1,7 @@
 {
   "name": "availity-react-kit",
-  "version": "3.2.1",
-  "private": true,
-  "description": "Example React project using availity-workflow",
+  "version": "0.1.0",
+  "description": "React project using availity-workflow",
   "main": "index.js",
   "scripts": {
     "start": "av start",
@@ -21,23 +20,15 @@
     "production": "cross-env NODE_ENV=production av release",
     "staging": "cross-env NODE_ENV=staging av release"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/availity/availity-workflow.git"
-  },
   "keywords": ["react", "availity", "workflow"],
-  "author": "Robert McGuinness",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/availity/availity-workflow/issues"
-  },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
     "@availity/api-axios": "^1.0.0-alpha.11",
     "@availity/api-core": "^1.0.0-alpha.11",
     "@availity/breadcrumbs-spaces-react": "^1.0.0-alpha.5",
     "@availity/localstorage-core": "^1.0.0-alpha.11",
-    "availity-reactstrap-validation": "^2.0.0-beta.4",
+    "availity-reactstrap-validation": "^2.0.2",
     "availity-uikit": "^3.0.0-beta.18",
     "axios": "^0.17.1",
     "es6-promise": "^4.2.2",
@@ -46,13 +37,13 @@
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5",
     "prop-types": "^15.5.10",
-    "react": "^16.2.0",
+    "react": "^16.3.0",
     "react-block-ui": "^1.1.1",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.3.0",
     "react-router-dom": "^4.2.2",
     "react-select": "^1.1.0",
     "react-transition-group": "^2.2.1",
-    "reactstrap": "^5.0.0-beta.3"
+    "reactstrap": "^5.0.0"
   },
   "devDependencies": {
     "availity-workflow": "^3.2.0",

@@ -29,7 +29,7 @@ class Logger {
   }
 
   // › Started dev server
-  static record(entry, color) {
+  static record(entry = '', color) {
     const defaultColor = entry instanceof Error ? 'red' : 'gray';
     const crayoloa = color || defaultColor;
 

@@ -11,8 +11,7 @@ const about = require('./scripts/about');
 const build = require('./scripts/build');
 const release = require('./scripts/release');
 const profile = require('./scripts/profile');
-
-settings.init();
+require('./scripts/init');
 
 /* eslint-disable no-unused-expressions */
 yargs
@@ -20,6 +19,7 @@ yargs
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
 
   .command('start', `${chalk.dim('Start the development server')}`, () => {
+    settings.init();
     start();
   })
 
@@ -45,6 +45,7 @@ yargs
         });
     },
     () => {
+      settings.init();
       lint().catch(() => {
         /* noop */
       });
@@ -60,6 +61,7 @@ yargs
         describe: 'Watch files for changes and rerun tests related to changed files.'
       }),
     () => {
+      settings.init();
       test.run().catch(() => {
         /* noop */
       });
@@ -67,10 +69,12 @@ yargs
   )
 
   .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their sizes')}`, () => {
+    settings.init();
     profile();
   })
 
   .command('build', `${chalk.dim('Bundle project for distribution (production or staging)')}`, () => {
+    settings.init();
     build();
   })
 
@@ -78,11 +82,13 @@ yargs
     'release',
     `${chalk.dim('Bundle project for distribution (production or staging) and create a git tag')}`,
     () => {
+      settings.init();
       release();
     }
   )
 
   .command('about', `${chalk.dim('About availity-workflow')}`, () => {
+    settings.init();
     about();
   })
 
@@ -93,7 +99,8 @@ yargs
   .help('help')
   .alias('help', 'h')
 
-  .version(require('./package.json').version)
+  .version()
+  .alias('version', 'v')
 
   .example(chalk.yellow('av start'))
 

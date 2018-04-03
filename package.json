@@ -81,8 +81,8 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
-      "<rootDir>/packages/availity-angular-kit/",
-      "<rootDir>/packages/availity-react-kit/"
+      "<rootDir>/packages/availity-workflow-angular/template/",
+      "<rootDir>/packages/availity-workflow-react/template/"
     ],
     "testRegex": ".*.spec.js$"
   }
