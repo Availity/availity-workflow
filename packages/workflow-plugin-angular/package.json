@@ -1,0 +1,67 @@
+{
+  "name": "@availity/workflow-plugin-angular",
+  "version": "3.2.1",
+  "description": "Angular 1.x  module for @availity/workflow",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0",
+    "test:integration": "echo \"No test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/availity-workflow.git"
+  },
+  "keywords": [
+    "angular",
+    "workflow",
+    "availity"
+  ],
+  "author": "Robert McGuinness",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/availity/availity-workflow/issues"
+  },
+  "homepage": "https://github.com/availity/availity-workflow#readme",
+  "dependencies": {
+    "@availity/workflow-babel-preset": "^3.1.1",
+    "@availity/workflow-logger": "^2.6.5",
+    "@availity/workflow-settings": "^3.1.1",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.0.2",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "case-sensitive-paths-webpack-plugin": "^2.1.1",
+    "copy-webpack-plugin": "^4.0.1",
+    "cross-spawn": "^6.0.5",
+    "css-loader": "^0.28.5",
+    "duplicate-package-checker-webpack-plugin": "^2.1.0",
+    "exists-sync": "0.0.4",
+    "exports-loader": "^0.6.4",
+    "expose-loader": "^0.7.3",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^1.1.5",
+    "html-loader": "^0.5.0",
+    "html-webpack-plugin": "^2.30.1",
+    "jest": "^21.1.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5",
+    "moment": "^2.19.2",
+    "ngtemplate-loader": "^2.0.0",
+    "node-sass": "^4.5.2",
+    "null-loader": "^0.1.1",
+    "postcss-loader": "^2.0.6",
+    "require-relative": "^0.8.7",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.5.5",
+    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-notifier": "^1.5.0",
+    "webpack-sources": "^1.1.0"
+  },
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 4.0.0"
+  }
+}

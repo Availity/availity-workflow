@@ -24,20 +24,6 @@
     "prettier": "^1.8.2"
   },
   "scripts": {
-    "angular": "npm start --prefix packages/availity-angular-kit",
-    "angular:test": "npm test --prefix packages/availity-angular-kit",
-    "angular:coverage": "npm test --prefix packages/availity-angular-kit -- --coverage",
-    "angular:production": "npm run start --prefix packages/availity-angular-kit -- --dry-run",
-    "angular:profile": "npm run profile --prefix packages/availity-angular-kit",
-    "angular:lint": "npm run lint --prefix packages/availity-angular-kit",
-    "react": "npm start --prefix packages/availity-react-kit",
-    "react:test": "npm test --prefix packages/availity-react-kit",
-    "react:coverage": "npm test --prefix packages/availity-react-kit -- --coverage",
-    "react:profile": "npm run profile --prefix packages/availity-react-kit",
-    "react:staging": "npm run staging --prefix packages/availity-react-kit -- --dry-run",
-    "react:production": "npm run start --prefix packages/availity-react-kit -- --dry-run",
-    "react:lint": "npm run lint --prefix packages/availity-react-kit",
-    "react:help": "npm run help --prefix packages/availity-react-kit",
     "lint": "eslint .",
     "publish": "lerna publish --force-publish=*",
     "bootstrap": "lerna bootstrap",
@@ -81,8 +67,8 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
-      "<rootDir>/packages/availity-workflow-angular/template/",
-      "<rootDir>/packages/availity-workflow-react/template/"
+      "<rootDir>/packages/workflow-plugin-angular/template/",
+      "<rootDir>/packages/workflow-plugin-react/template/"
     ],
     "testRegex": ".*.spec.js$"
   }

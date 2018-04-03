@@ -1,0 +1,62 @@
+{
+  "name": "@availity/workflow-plugin-react",
+  "version": "3.2.1",
+  "description": "React module for @availity/workflow",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0",
+    "test:integration": "echo \"No test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/availity-workflow.git"
+  },
+  "keywords": [
+    "react",
+    "availity",
+    "workflow"
+  ],
+  "author": "Robert McGuinness",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/availity/availity-workflow/issues"
+  },
+  "homepage": "https://github.com/availity/availity-workflow#readme",
+  "dependencies": {
+    "@availity/workflow-babel-preset": "^3.1.1",
+    "@availity/workflow-logger": "^2.6.5",
+    "@availity/workflow-settings": "^3.1.1",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.0.2",
+    "babel-loader": "^7.1.2",
+    "babel-runtime": "^6.26.0",
+    "case-sensitive-paths-webpack-plugin": "^2.1.1",
+    "copy-webpack-plugin": "^4.0.1",
+    "cross-spawn": "^6.0.5",
+    "css-loader": "^0.28.5",
+    "duplicate-package-checker-webpack-plugin": "^2.0.2",
+    "exists-sync": "0.0.4",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^1.1.5",
+    "html-webpack-plugin": "^2.30.1",
+    "jest": "^21.1.0",
+    "moment": "^2.19.2",
+    "node-sass": "^4.5.2",
+    "postcss-loader": "^2.0.6",
+    "raf": "^3.4.0",
+    "react-hot-loader": "^4.0.0",
+    "react-hot-loader-loader": "0.0.5",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.6.0",
+    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-dev-server": "^2.8.2",
+    "webpack-notifier": "^1.5.0",
+    "webpack-sources": "^1.1.0"
+  },
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 4.0.0"
+  }
+}

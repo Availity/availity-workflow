@@ -1,0 +1,17 @@
+{
+  "name": "@availity/mock-data",
+  "version": "3.1.0",
+  "description": "Mock data for Availity API rest services",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "mock",
+    "rest",
+    "availity",
+    "api"
+  ],
+  "author": "Robert McGuinness <rob.mcguinness@availity.com>",
+  "license": "MIT"
+}

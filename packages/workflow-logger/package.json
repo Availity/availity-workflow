@@ -1,0 +1,30 @@
+{
+  "name": "@availity/workflow-logger",
+  "version": "2.6.5",
+  "description": "Simple colorized logger for @availity/workflow",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0",
+    "test:integration": "echo \"No test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/availity/availity-workflow.git"
+  },
+  "keywords": [
+    "logger",
+    "availity"
+  ],
+  "author": "Robert McGuinness",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/availity/availity-workflow/issues"
+  },
+  "homepage": "https://github.com/availity/availity-workflow#readme",
+  "dependencies": {
+    "boxen": "^1.1.0",
+    "chalk": "^2.0.1",
+    "dateformat": "^3.0.2",
+    "figures": "^2.0.0"
+  }
+}

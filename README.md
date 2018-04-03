@@ -28,12 +28,12 @@ npm install availity-workflow --save-dev
 
 ### React
 ```bash
-npm install availity-workflow-react --save-dev
+npm install @availity/workflow-plugin-react --save-dev
 ```
 
 ### Angular
 ```bash
-npm install availity-workflow-angular --save-dev
+npm install @availity/workflow-plugin-angular --save-dev
 ```
 
 - Update `package.json` with plugin reference
@@ -41,7 +41,7 @@ npm install availity-workflow-angular --save-dev
 ```json
 {
     "availityWorkflow": {
-        "plugin": "availity-workflow-react"
+        "plugin": "@availity/workflow-plugin-react"
     }
 }
 ```
@@ -109,7 +109,7 @@ module.exports = {
         "app": {
             "title": "My Awesome App"
         }
-        "plugin": "availity-workflow-react"
+        "plugin": "@availity/workflow-plugin-react"
     }
 }
 ```
@@ -151,10 +151,10 @@ Webpack `devtool` setting.  Default is `source-map`.  For more options please se
 Enable hot module replacement for loaders like style-loader and react-hot-loader
 
 #### `development.hotLoader`
-Enable or disable react-hot-loader.  Default is `true` for `availity-workflow-react` plugin.
+Enable or disable react-hot-loader.  Default is `true` for `@availity/workflow-plugin-react` plugin.
 
 #### `development.hotLoaderEntry`
-Regular expression to configure which file is entry point for hot loading via react-hot-loader-loader.  Default is `/\/App\.jsx?/` which will find `/App.js` or `/App.js` at the root of your app directory for `availity-workflow-react` plugin.
+Regular expression to configure which file is entry point for hot loading via react-hot-loader-loader.  Default is `/\/App\.jsx?/` which will find `/App.js` or `/App.js` at the root of your app directory for `@availity/workflow-plugin-react` plugin.
 <br /><small>Note: this should **not** by the application entry point (index.js), but the file which the component which is imported into index.js and rendered.</small>
 
 #### `development.coverage`
@@ -243,7 +243,7 @@ Folder that contains the mock data files (json, images, etc).  Defaults to `proj
 Path to route configuration file used by Ekko to build Express routes.  Defaults to `project/config/routes.json`.
 
 #### `ekko.plugins`
-Array of NPM module names that enhance Ekko with additional data and routes. @See https://github.com/Availity/availity-mock-data
+Array of NPM module names that enhance Ekko with additional data and routes. @See https://github.com/Availity/@availity/mock-data
 
 #### `ekko.pluginContext`
 Pass URL context information to mock responses so that HATEOS links traverse correctly. Defaults to `http://localhost:{development.port}/api`
