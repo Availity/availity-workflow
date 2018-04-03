@@ -1,8 +1,8 @@
 {
   "name": "availity-angular-kit",
-  "version": "3.2.1",
+  "version": "0.1.0",
   "private": true,
-  "description": "Example Angular project using availity-workflow",
+  "description": "Angular project using availity-workflow",
   "main": "index.js",
   "scripts": {
     "start": "av start",
@@ -23,20 +23,12 @@
     "staging": "cross-env NODE_ENV=staging av release",
     "precommit": "lint-staged"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/availity/availity-workflow.git"
-  },
   "keywords": [
     "angular",
     "availity",
     "workflow"
   ],
-  "author": "Robert McGuinness",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/availity/availity-workflow/issues"
-  },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
     "@availity/api-angular": "^1.0.0-alpha.17",

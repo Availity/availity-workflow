@@ -23,6 +23,7 @@
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
     "availity-workflow-babel-preset": "^3.1.1",
+    "availity-workflow-logger": "^2.6.5",
     "availity-workflow-settings": "^3.1.1",
     "babel-core": "^6.26.0",
     "babel-jest": "^21.0.2",
@@ -30,6 +31,7 @@
     "babel-runtime": "^6.26.0",
     "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "copy-webpack-plugin": "^4.0.1",
+    "cross-spawn": "^6.0.5",
     "css-loader": "^0.28.5",
     "duplicate-package-checker-webpack-plugin": "^2.0.2",
     "exists-sync": "0.0.4",
