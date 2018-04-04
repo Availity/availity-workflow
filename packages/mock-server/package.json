@@ -6,11 +6,7 @@
   "scripts": {
     "test": "test"
   },
-  "keywords": [
-    "mock",
-    "server",
-    "availity"
-  ],
+  "keywords": ["mock", "server", "availity"],
   "engines": {
     "node": ">=8.0.0"
   },
@@ -32,5 +28,8 @@
   "devDependencies": {
     "@availity/mock-data": "^3.1.0",
     "superagent": "^3.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -10,11 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/availity/availity-workflow.git"
   },
-  "keywords": [
-    "angular",
-    "workflow",
-    "availity"
-  ],
+  "keywords": ["angular", "workflow", "availity"],
   "author": "Robert McGuinness",
   "license": "MIT",
   "bugs": {
@@ -63,5 +59,8 @@
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 4.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

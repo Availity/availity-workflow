@@ -3,9 +3,7 @@
   "version": "3.1.1",
   "description": "Babel preset used by availity-workflow projects based on React",
   "main": "index.js",
-  "files": [
-    "index.js"
-  ],
+  "files": ["index.js"],
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
     "test:integration": "echo \"No test specified\" && exit 0"
@@ -14,10 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/availity/availity-workflow.git"
   },
-  "keywords": [
-    "babel",
-    "availity"
-  ],
+  "keywords": ["babel", "availity"],
   "author": "Robert McGuinness",
   "license": "MIT",
   "bugs": {
@@ -39,7 +34,10 @@
     "babel-runtime": "^6.26.0"
   },
   "engines": {
-    "node": ">= 6.0.0",
+    "node": ">= 8.0.0",
     "npm": ">= 4.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

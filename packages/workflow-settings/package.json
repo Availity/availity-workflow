@@ -10,10 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/availity/availity-workflow.git"
   },
-  "keywords": [
-    "availity",
-    "workflow"
-  ],
+  "keywords": ["availity", "workflow"],
   "author": "Robert McGuinness",
   "license": "MIT",
   "bugs": {
@@ -35,6 +32,9 @@
     "postcss-cssnext": "^3.0.2",
     "postcss-focus": "^2.0.0",
     "postcss-reporter": "^5.0.0",
-    "yargs": "^8.0.2"
+    "yargs": "^11.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
