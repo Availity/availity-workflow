@@ -7,6 +7,7 @@
     "@commitlint/config-lerna-scopes": "^5.2.0",
     "babel-eslint": "^8.0.3",
     "conventional-changelog": "^1.1.23",
+    "conventional-github-releaser": "^2.0.2",
     "conventional-recommended-bump": "^1.0.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
