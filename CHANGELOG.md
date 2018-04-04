@@ -1,3 +1,40 @@
+<a name="4.0.0-alpha.0"></a>
+# [4.0.0-alpha.0](https://github.com/Availity/availity-workflow/compare/v3.2.1...v4.0.0-alpha.0) (2018-04-04)
+
+
+### Bug Fixes
+
+* **availitiy-workflow-angular:** enable allChunks in ExtractTextPlugin ([cd5a6dc](https://github.com/Availity/availity-workflow/commit/cd5a6dc)), closes [#141](https://github.com/Availity/availity-workflow/issues/141)
+* **availitiy-workflow-react:** enable allChunks in ExtractTextPlugin ([d5bacfb](https://github.com/Availity/availity-workflow/commit/d5bacfb)), closes [#141](https://github.com/Availity/availity-workflow/issues/141)
+* **availity-react-kit:** fix directory casing ([ba31cbf](https://github.com/Availity/availity-workflow/commit/ba31cbf))
+* **availity-workflow:** handle when proxy context is array ([8ae9e69](https://github.com/Availity/availity-workflow/commit/8ae9e69))
+
+
+### Chores
+
+* **availity-workflow-react:** update react-hot-loader ([3b60424](https://github.com/Availity/availity-workflow/commit/3b60424))
+* **availity-workflow-settings:** use IE11 default target ([129806f](https://github.com/Availity/availity-workflow/commit/129806f))
+
+
+### Features
+
+* **availity-workflow-angular:** use jest for testing ([07e8110](https://github.com/Availity/availity-workflow/commit/07e8110))
+* cli init to bootstrap new app ([f6891af](https://github.com/Availity/availity-workflow/commit/f6891af))
+
+
+### BREAKING CHANGES
+
+* **availity-workflow-angular:** workflow-angular-kit no longer works with karma. Porjects with karma will need to add jest.init.js. See the current workflow-angular-kit jest.init.js for reference. Also, they can remove karma and webpack test config files as they are no longer used.
+* **availity-workflow-settings:** IE9 no longer supported for babel
+* **availity-workflow-react:** react hot loader v3 no longer works, workflow-react-kit packages with the old react hot loader usage will need to remove the usage. See the current workflow-react-kit index.js and App.js for reference.
+
+
+
+<a name="3.1.3"></a>
+## [3.1.3](https://github.com/Availity/availity-workflow/compare/v3.1.2...v3.1.3) (2018-03-05)
+
+
+
 <a name="3.2.1"></a>
 ## [3.2.1](https://github.com/Availity/availity-workflow/compare/v3.2.0...v3.2.1) (2018-03-14)
 
