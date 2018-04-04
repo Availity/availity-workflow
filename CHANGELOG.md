@@ -1,3 +1,13 @@
+<a name="4.0.0-alpha.4"></a>
+# [4.0.0-alpha.4](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2018-04-04)
+
+
+### Bug Fixes
+
+* **workflow-settings:** uodate mock-data package name ([cf03e13](https://github.com/Availity/availity-workflow/commit/cf03e13))
+
+
+
 <a name="4.0.0-alpha.3"></a>
 # [4.0.0-alpha.3](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.2...v4.0.0-alpha.3) (2018-04-04)
 
