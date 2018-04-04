@@ -8,11 +8,15 @@ const merge = require('lodash.merge');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const get = require('lodash.get');
-const { argv } = require('yargs');
+const yargs = require('yargs');
 const each = require('lodash.foreach');
 const isString = require('lodash.isstring');
 const isFunction = require('lodash.isfunction');
 const isObject = require('lodash.isobject');
+
+function argv () {
+  return yargs.argv;
+}
 
 function stringify(obj) {
   each(obj, (value, key) => {
@@ -161,7 +165,7 @@ const settings = {
 
   logLevel() {
     const level = get(this.configuration, 'development.logLevel', 'none');
-    return get(argv, 'development.logLevel', level);
+    return get(argv(), 'development.logLevel', level);
   },
 
   pluginName() {
@@ -205,10 +209,11 @@ const settings = {
     // Yargs will convert those arguments into an object.  We pluck the only the top level attributes that we
     // are interested in and merge into the default configuration.
     //
+    const args = argv();
     merge(this.configuration, {
-      development: argv.development,
-      ekko: argv.ekko,
-      globals: argv.globals
+      development: args.development,
+      ekko: args.ekko,
+      globals: args.globals
     });
 
     this.targets();
@@ -245,7 +250,7 @@ const settings = {
 
   // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
   js() {
-    let includeGlobs = argv.include;
+    let includeGlobs = argv().include;
 
     const defaultInclude = [`${this.app()}/**/*.js`, `${this.app()}/**/*.jsx`];
 
@@ -257,7 +262,7 @@ const settings = {
   },
 
   isDryRun() {
-    return argv.dryRun !== undefined;
+    return argv().dryRun !== undefined;
   },
 
   isStaging() {
@@ -281,19 +286,19 @@ const settings = {
   },
 
   isIgnoreUntracked() {
-    return argv.ignoreGitUntracked !== undefined;
+    return argv().ignoreGitUntracked !== undefined;
   },
 
   isWatch() {
-    return argv.watch !== undefined;
+    return argv().watch !== undefined;
   },
 
   isIntegrationTesting() {
-    return argv.integration !== undefined;
+    return argv().integration !== undefined;
   },
 
   isProduction() {
-    return argv.production || this.environment() === 'production';
+    return argv().production || this.environment() === 'production';
   },
 
   isDistribution() {
@@ -301,15 +306,15 @@ const settings = {
   },
 
   isCoverage() {
-    return argv.coverage !== undefined;
+    return argv().coverage !== undefined;
   },
 
   isFail() {
-    return argv.fail !== undefined;
+    return argv().fail !== undefined;
   },
 
   isProfile() {
-    return argv.profile !== undefined;
+    return argv().profile !== undefined;
   },
 
   historyFallback() {
@@ -317,7 +322,7 @@ const settings = {
   },
 
   isLinterDisabled() {
-    return argv.disableLinter !== undefined;
+    return argv().disableLinter !== undefined;
   },
 
   isHotLoader() {
@@ -333,7 +338,7 @@ const settings = {
   },
 
   commitMessage() {
-    return argv.message;
+    return argv().message;
   }
 };
 

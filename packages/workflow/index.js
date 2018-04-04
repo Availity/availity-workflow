@@ -106,4 +106,4 @@ yargs
 
   .example(chalk.yellow('av lint'))
 
-  .epilog(`View documentation at ${chalk.blue('https://github.com/availity/@availity/workflow')}`).argv;
+  .epilog(`View documentation at ${chalk.blue('https://github.com/availity/workflow')}`).argv;
