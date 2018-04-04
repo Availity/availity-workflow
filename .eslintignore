@@ -1,5 +1,6 @@
 node_modules/
-bower_components/
 dist/
 coverage/
+packages/workflow-plugin-angular/template
+packages/workflow-plugin-react/template
 

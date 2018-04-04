@@ -108,7 +108,7 @@ const settings = {
 
     const env = this.environment();
 
-    // - Read enviroment variables from command line
+    // - Read environment variables from command line
     // - Filter out variables that have not been declared in workflow config
     // - Apply environment variables to the default config
     // - Map "staging" to "production" for process.env so that React deploys without extra debugging
