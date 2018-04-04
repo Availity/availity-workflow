@@ -162,7 +162,7 @@ function isSafeToCreateProjectIn(root, name) {
 function getInstallPackage(package, version, originalDirectory) {
   let packageToInstall = `@availity/workflow-plugin-${package}`;
   const validSemver = semver.valid(version);
-  if (validSemver || version === 'latest') {
+  if (validSemver || ['latest', 'next'].indexOf(version) !== -1) {
     packageToInstall += `@${validSemver || version}`;
   } else if (version && version.match(/^file:/)) {
     packageToInstall = `file:${path.resolve(
