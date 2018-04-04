@@ -72,7 +72,7 @@ const ekko = {
 
   // Array of NPM module names that enhance Ekko with additional data and routes.
   // @See https://github.com/Availity/availity-mock-data
-  plugins: ['availity-mock-data'],
+  plugins: ['@availity/mock-data'],
 
   // Mock data can be passed a context so that HATEOS links traverse correctly
   pluginContext: `http://${development.host}:${development.port}/api`
