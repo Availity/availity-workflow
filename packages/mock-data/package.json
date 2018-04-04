@@ -6,12 +6,10 @@
   "scripts": {
     "test": "test"
   },
-  "keywords": [
-    "mock",
-    "rest",
-    "availity",
-    "api"
-  ],
+  "keywords": ["mock", "rest", "availity", "api"],
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
