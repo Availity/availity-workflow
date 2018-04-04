@@ -4,7 +4,6 @@
 lerna-debug.log
 npm-debug.log
 package-lock.json
-workflow.js
 node_modules/
 coverage/
 reports/

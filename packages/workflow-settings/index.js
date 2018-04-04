@@ -171,7 +171,7 @@ const settings = {
   },
 
   init() {
-    this.configuration = require('./workflow');
+    this.configuration = require('./defaults');
     let developerConfig = {};
 
     const defaultWorkflowConfig = path.join(__dirname, 'workflow.js');
