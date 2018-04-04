@@ -1,3 +1,13 @@
+<a name="4.0.0-alpha.3"></a>
+# [4.0.0-alpha.3](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.2...v4.0.0-alpha.3) (2018-04-04)
+
+
+### Bug Fixes
+
+* **workflow:** update deps in template package,json ([1ea97ad](https://github.com/Availity/availity-workflow/commit/1ea97ad))
+
+
+
 <a name="4.0.0-alpha.2"></a>
 # [4.0.0-alpha.2](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2018-04-04)
 
