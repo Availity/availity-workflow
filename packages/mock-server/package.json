@@ -1,12 +1,16 @@
 {
   "name": "@availity/mock-server",
-  "version": "3.1.0",
+  "version": "4.0.0-alpha.0",
   "description": "Mock server simulating Availity API rest services",
   "main": "index.js",
   "scripts": {
     "test": "test"
   },
-  "keywords": ["mock", "server", "availity"],
+  "keywords": [
+    "mock",
+    "server",
+    "availity"
+  ],
   "engines": {
     "node": ">=8.0.0"
   },
@@ -26,7 +30,7 @@
     "on-finished": "^2.3.0"
   },
   "devDependencies": {
-    "@availity/mock-data": "^3.1.0",
+    "@availity/mock-data": "^4.0.0-alpha.0",
     "superagent": "^3.6.0"
   },
   "publishConfig": {

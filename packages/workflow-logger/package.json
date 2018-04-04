@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-logger",
-  "version": "2.6.5",
+  "version": "4.0.0-alpha.0",
   "description": "Simple colorized logger for @availity/workflow",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,10 @@
     "type": "git",
     "url": "git+https://github.com/availity/availity-workflow.git"
   },
-  "keywords": ["logger", "availity"],
+  "keywords": [
+    "logger",
+    "availity"
+  ],
   "author": "Robert McGuinness",
   "license": "MIT",
   "bugs": {

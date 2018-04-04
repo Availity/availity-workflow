@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow",
-  "version": "3.2.0",
+  "version": "4.0.0-alpha.0",
   "description": "Upgradable workflow for Availity boilerplate projects",
   "main": "index.js",
   "bin": {
@@ -15,7 +15,13 @@
     "type": "git",
     "url": "git+https://github.com/availity/availity-workflow.git"
   },
-  "keywords": ["boilerplate", "workflow", "availity", "angular", "react"],
+  "keywords": [
+    "boilerplate",
+    "workflow",
+    "availity",
+    "angular",
+    "react"
+  ],
   "author": "Robert McGuinness",
   "license": "MIT",
   "bugs": {
@@ -23,10 +29,10 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/mock-data": "^3.1.0",
-    "@availity/mock-server": "^3.1.0",
-    "@availity/workflow-logger": "^2.6.5",
-    "@availity/workflow-settings": "^3.1.1",
+    "@availity/mock-data": "^4.0.0-alpha.0",
+    "@availity/mock-server": "^4.0.0-alpha.0",
+    "@availity/workflow-logger": "^4.0.0-alpha.0",
+    "@availity/workflow-settings": "^4.0.0-alpha.0",
     "chalk": "^2.3.2",
     "cross-spawn": "^6.0.5",
     "debug": "^3.0.0",
