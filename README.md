@@ -21,7 +21,7 @@
 - Install using NPM
 
 ```bash
-npm install availity-workflow --save-dev
+npm install @availity/workflow --save-dev
 ```
 
 - Install the appropriate plugin
@@ -59,11 +59,11 @@ npm install eslint eslint eslint-config-availity eslint-plugin-react eslint-plug
 
 ## CLI
 
-CLI options are documented in it's [README](./packages/availity-workflow/README.md)
+CLI options are documented in it's [README](./packages/workflow/README.md)
 
 ## Configuration
 
-`availity-workflow` can be configured using a javascript or yaml configuration file called `workflow.js` or `workflow.yml`.
+`workflow` can be configured using a javascript or yaml configuration file called `workflow.js` or `workflow.yml`.
 
 **Example:**
 ```js
@@ -96,7 +96,7 @@ module.exports = {
 }
 ```
 
-`availity-workflow`  can also be configured using `package.json`:
+`workflow` can also be configured using `package.json`:
 
 ```js
 {
@@ -163,7 +163,7 @@ Directory for Karma coverage reports. Only applicable for Angular projects. Defa
 #### `development.webpackDevServer`
 > **Caution**: Please be careful when overriding defaults
 
-Optional options for Webpack development server. If undefined, `availity-workflow` defaults are used. Please see https://webpack.js.org/configuration/dev-server/#devserver for all available options. 
+Optional options for Webpack development server. If undefined, `workflow` defaults are used. Please see https://webpack.js.org/configuration/dev-server/#devserver for all available options. 
 
 #### `development.targets`
 Allows developers to override the `babel-preset-env` target to match their developer environment.  This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6, therefore, not needing to Babelfy code completely.
