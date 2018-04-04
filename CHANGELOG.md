@@ -1,3 +1,13 @@
+<a name="4.0.0-alpha.1"></a>
+# [4.0.0-alpha.1](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.0...v4.0.0-alpha.1) (2018-04-04)
+
+
+### Bug Fixes
+
+* **workflow:** rename bin cmd to work with npx ([2fc1632](https://github.com/Availity/availity-workflow/commit/2fc1632)), closes [/github.com/zkat/npx/blob/6e89dbd5989366e52d3810692b1ab5889a05fbad/parse-args.js#L137-L138](https://github.com//github.com/zkat/npx/blob/6e89dbd5989366e52d3810692b1ab5889a05fbad/parse-args.js/issues/L137-L138)
+
+
+
 <a name="4.0.0-alpha.0"></a>
 # [4.0.0-alpha.0](https://github.com/Availity/availity-workflow/compare/v3.2.1...v4.0.0-alpha.0) (2018-04-04)
 
