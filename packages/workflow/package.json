@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": {
     "av": "./index.js",
-    "@availity/workflow": "./index.js"
+    "workflow": "./index.js"
   },
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
