@@ -18,39 +18,17 @@
 
 ## Getting Started
 
-- Install using NPM
-
-```bash
-npm install @availity/workflow --save-dev
-```
-
-- Install the appropriate plugin
-
 ### React
 ```bash
-npm install @availity/workflow-plugin-react --save-dev
+npx @availity/workflow init <your-project-name>
 ```
+<small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
 
 ### Angular
 ```bash
-npm install @availity/workflow-plugin-angular --save-dev
+npx @availity/workflow init <your-project-name> --package angular
 ```
-
-- Update `package.json` with plugin reference
-
-```json
-{
-    "availityWorkflow": {
-        "plugin": "@availity/workflow-plugin-react"
-    }
-}
-```
-
-- Install developer tools
-
-```
-npm install eslint eslint eslint-config-availity eslint-plugin-react eslint-plugin-import eslint-plugin-jsx-a11y babel-eslint ---save-dev
-```
+<small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
 
 ## Features
 
