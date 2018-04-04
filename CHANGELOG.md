@@ -1,3 +1,13 @@
+<a name="4.0.0-alpha.2"></a>
+# [4.0.0-alpha.2](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2018-04-04)
+
+
+### Bug Fixes
+
+* **workflow:** add missing packages and fix yargs.argv usage ([b1d2864](https://github.com/Availity/availity-workflow/commit/b1d2864))
+
+
+
 <a name="4.0.0-alpha.1"></a>
 # [4.0.0-alpha.1](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.0...v4.0.0-alpha.1) (2018-04-04)
 
