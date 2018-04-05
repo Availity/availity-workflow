@@ -22,6 +22,20 @@ npm run <command> -- <options>
 ### `help`
 Show help menu for all CLI options.
 
+### `init <projectName>`
+
+#### Positionals
+`projectName`  Required. The name of the project you want to create.
+
+#### Options
+- `--package`, `-p`:  The framework/library @availity/workflow-plugin package you want to initialize with. [default: "react"]
+- `--version`, `-v`:  Specify which version of the package project you want. [default: "latest"]
+
+#### Examples
+- `npx @availity/workflow init my-package-name`
+- `npx @availity/workflow init my-package-name --package angular`
+- `npx @availity/workflow init my-package-name --version 4.0.0-alpha.4`
+
 ### `start`
 Start the development server and watches for file changes.  Hot-reloading is enabled for React projects.  Angular projects hot reload CSS only.
 
