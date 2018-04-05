@@ -1,3 +1,8 @@
+<a name="4.0.0-alpha.5"></a>
+# [4.0.0-alpha.5](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.4...v4.0.0-alpha.5) (2018-04-05)
+
+
+
 <a name="4.0.0-alpha.4"></a>
 # [4.0.0-alpha.4](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2018-04-04)
 
