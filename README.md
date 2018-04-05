@@ -42,6 +42,7 @@ CLI options are documented in it's [README](./packages/workflow/README.md)
 ## Configuration
 
 `workflow` can be configured using a javascript or yaml configuration file called `workflow.js` or `workflow.yml`.
+`workflow.js` or `workflow.yml` lives in `<application_root>/project/config/workflow.js`
 
 **Example:**
 ```js
