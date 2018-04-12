@@ -15,6 +15,7 @@
     "lint": "av lint",
     "help": "av help",
     "profile": "av profile",
+    "profile:production": "cross-env NODE_ENV=production av profile",
     "build": "av build",
     "build:production": "cross-env NODE_ENV=production av build",
     "build:staging": "cross-env NODE_ENV=staging av build",

@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const settings = require('@availity/workflow-settings');
 const exists = require('exists-sync');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const loaders = require('@availity/workflow-settings/webpack');
@@ -19,6 +18,31 @@ function getVersion() {
 
 const config = {
   context: settings.app(),
+
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true
+        },
+        commons: {
+          chunks: 'initial',
+          minChunks: 2,
+        },
+        vendor: {
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 10,
+          enforce: true
+        }
+      }
+    },
+    minimizer: []
+  },
 
   entry: {
     index: ['./index.js']
