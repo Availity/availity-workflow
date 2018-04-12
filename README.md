@@ -118,7 +118,8 @@ Webpack build status system notifications
 Webpack dev server host
 
 #### `development.port`
-Webpack dev server port
+Webpack dev server port. If the port at this value is unavailable, the port value will be incremented until an unused port if found.
+Default: `3000`
 
 #### `development.logLevel`
 Allows [Webpack log levels presets](https://webpack.js.org/configuration/stats/#stats) to be used during development. A custom logger is used by default.
@@ -210,7 +211,9 @@ By default, the following feature flags are enabled:
 Enables or disables Ekko.  Default is `true`.
 
 #### `ekko.port`
-Ekko port number
+Ekko port number. If the port is unavailable, a random available port will be used.
+
+Note: we will automatically update the proxy settings to reflect the port used in the case of a random port being selected.
 
 #### `ekko.latency`
 Sets default latency for all mock responses

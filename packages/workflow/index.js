@@ -19,8 +19,9 @@ yargs
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
 
   .command('start', `${chalk.dim('Start the development server')}`, () => {
-    settings.init();
-    start();
+    settings.init().then(() => start()).catch(() => {
+      /* noop */
+    });
   })
 
   .command(

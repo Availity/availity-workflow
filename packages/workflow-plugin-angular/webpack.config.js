@@ -6,18 +6,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const ruleFonts = require('@availity/workflow-settings/webpack/rule-fonts');
-const loaderPostcss = require('@availity/workflow-settings/webpack/loader-postcss');
+const loaders = require('@availity/workflow-settings/webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const requireRelative = require('require-relative');
 
 const htmlConfig = require('./html');
-const VersionPlugin = require('./version');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
+
 const babelrcExists = exists(babelrcPath);
+function getVersion() {
+  return settings.pkg().version || 'N/A';
+}
 
 const config = {
+  mode: 'development',
+
   context: settings.app(),
 
   entry: {
@@ -33,7 +37,12 @@ const config = {
 
   resolve: {
     // Tell webpack what directories should be searched when resolving modules
-    modules: [settings.app(), 'node_modules', path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
+    modules: [
+      settings.app(),
+      'node_modules',
+      path.join(settings.project(), 'node_modules'),
+      path.join(__dirname, 'node_modules')
+    ],
 
     alias: {
       app: path.resolve(settings.app(), 'app-module')
@@ -98,67 +107,12 @@ const config = {
         test: requireRelative.resolve('moment', settings.project()),
         use: ['expose-loader?moment']
       },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          loaderPostcss,
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              importLoaders: 1,
-              name: 'images/[name].[ext]'
-            }
-          }
-        ]
-      },
-      {
-        test: /\.less$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              importLoaders: 1,
-              name: 'images/[name].[ext]'
-            }
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              sourceMap: true
-            }
-          }
-        ]
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              importLoaders: 1,
-              name: 'images/[name].[ext]'
-            }
-          },
-          loaderPostcss,
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
-          }
-        ]
-      },
-      ruleFonts,
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        use: ['url-loader?name=images/[name].[ext]&limit=10000']
-      }
+
+      loaders.css.development,
+      loaders.less.development,
+      loaders.scss.development,
+      loaders.fonts,
+      loaders.images
     ]
   },
   plugins: [
@@ -170,8 +124,15 @@ const config = {
       jQuery: 'jquery'
     }),
 
-    new VersionPlugin({
-      version: JSON.stringify(settings.version())
+    new webpack.BannerPlugin({
+      banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
+      test: /\.jsx?/,
+      raw: true,
+      entryOnly: true
+    }),
+
+    new webpack.BannerPlugin({
+      banner: `v${getVersion()} - ${new Date().toJSON()}`
     }),
 
     // Generate hot module chunks

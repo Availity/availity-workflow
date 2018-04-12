@@ -7,16 +7,18 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const loaderPostcss = require('@availity/workflow-settings/webpack/loader-postcss');
-const ruleFonts = require('@availity/workflow-settings/webpack/rule-fonts');
+const loaders = require('@availity/workflow-settings/webpack');
 
 process.noDeprecation = true;
 
 const htmlConfig = require('./html');
-const VersionPlugin = require('./version');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
+
+function getVersion() {
+  return settings.pkg().version || 'N/A';
+}
 
 const index = [
   `webpack-dev-server/client?http://${settings.host()}:${settings.port()}`, // Enables websocket for updates
@@ -25,6 +27,8 @@ const index = [
 ];
 
 const config = {
+  mode: 'development',
+
   context: settings.app(),
 
   entry: {
@@ -40,7 +44,12 @@ const config = {
 
   resolve: {
     // Tell webpack what directories should be searched when resolving modules
-    modules: [settings.app(), 'node_modules', path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
+    modules: [
+      settings.app(),
+      'node_modules',
+      path.join(settings.project(), 'node_modules'),
+      path.join(__dirname, 'node_modules')
+    ],
     symlinks: true,
     extensions: ['.js', '.jsx', '.json', '.css', 'scss']
   },
@@ -69,48 +78,24 @@ const config = {
           }
         ]
       },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: { sourceMap: true }
-          },
-          loaderPostcss
-        ]
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          loaderPostcss,
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
-          }
-        ]
-      },
-      ruleFonts,
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        use: ['url-loader?name=images/[name].[ext]&limit=10000']
-      }
+      loaders.css.development,
+      loaders.scss.development,
+      loaders.fonts,
+      loaders.images
     ]
   },
   plugins: [
     new webpack.DefinePlugin(settings.globals()),
 
-    new VersionPlugin({
-      version: JSON.stringify(settings.version())
+    new webpack.BannerPlugin({
+      banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
+      test: /\.jsx?/,
+      raw: true,
+      entryOnly: true
+    }),
+
+    new webpack.BannerPlugin({
+      banner: `v${getVersion()} - ${new Date().toJSON()}`
     }),
 
     // Converts:
@@ -153,7 +138,7 @@ const config = {
 if (settings.isHotLoader()) {
   config.module.rules.push({
     test: settings.getHotLoaderEntry(),
-    loader: require.resolve('react-hot-loader-loader'),
+    loader: require.resolve('react-hot-loader-loader')
   });
 }
 

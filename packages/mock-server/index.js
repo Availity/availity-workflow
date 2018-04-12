@@ -39,12 +39,13 @@ class Ekko {
     this.middleware(options);
 
     const port = config.options.port || 0;
+    const host = config.options.host || 'localhost';
     config.app.set('port', port);
     config.server = http.createServer(config.app);
 
     return new Promise((resolve, reject) => {
-      config.server.listen(config.options.port, () => {
-        const url = `http://localhost:${config.server.address().port}`;
+      config.server.listen(config.options.port, host, () => {
+        const url = `http://${host}:${config.server.address().port}`;
         logger.getInstance().info(`Ekko server started at ${chalk.green(url)}`);
 
         config.events.emit(config.constants.EVENTS.START, {
