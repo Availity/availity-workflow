@@ -13,8 +13,9 @@ const each = require('lodash.foreach');
 const isString = require('lodash.isstring');
 const isFunction = require('lodash.isfunction');
 const isObject = require('lodash.isobject');
+const getPort = require('get-port');
 
-function argv () {
+function argv() {
   return yargs.argv;
 }
 
@@ -38,6 +39,8 @@ const settings = {
   // Cache these values
   configuration: null,
   workflowConfigPath: null,
+  devServerPort: null,
+  ekkoServerPort: null,
 
   app() {
     return path.join(this.project(), 'project/app');
@@ -85,11 +88,15 @@ const settings = {
   },
 
   port() {
-    return get(this.configuration, 'development.port', 3000);
+    return this.devServerPort;
   },
 
   host() {
     return get(this.configuration, 'development.host', '0.0.0.0');
+  },
+
+  ekkoPort() {
+    return this.ekkoServerPort;
   },
 
   open() {
@@ -174,7 +181,7 @@ const settings = {
       .toLowerCase();
   },
 
-  init() {
+  async init() {
     this.configuration = require('./defaults');
     let developerConfig = {};
 
@@ -218,6 +225,27 @@ const settings = {
 
     this.targets();
     this.globals();
+
+    this.devServerPort = get(this.configuration, 'development.port', 3000);
+    for (;;) {
+      const availablePort = await getPort({ port: this.devServerPort, host: this.host() }); // eslint-disable-line no-await-in-loop
+      if (availablePort === this.devServerPort) break;
+      this.devServerPort += 1;
+    }
+
+    const wantedEkkoPort = get(this.configuration, 'ekko.port', 9999);
+    this.ekkoServerPort = await getPort({ port: wantedEkkoPort, host: this.host() }); // eslint-disable-line no-await-in-loop;
+    if (wantedEkkoPort !== this.ekkoServerPort) {
+      this.configuration.ekko.pluginContext = this.configuration.ekko.pluginContext.replace(
+        `:${wantedEkkoPort}`,
+        `:${this.ekkoServerPort}`
+      );
+      if (Array.isArray(this.configuration.proxies)) {
+        this.configuration.proxies.forEach(proxy => {
+          proxy.target = proxy.target.replace(`:${wantedEkkoPort}`, `:${this.ekkoServerPort}`);
+        });
+      }
+    }
   },
 
   raw() {

@@ -3,15 +3,12 @@ const webpack = require('webpack');
 const settings = require('@availity/workflow-settings');
 const exists = require('exists-sync');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const ruleFonts = require('@availity/workflow-settings/webpack/rule-fonts');
-const loaderPostcss = require('@availity/workflow-settings/webpack/loader-postcss');
+const loaders = require('@availity/workflow-settings/webpack');
 
 process.noDeprecation = true;
-
-const VersionPlugin = require('./version');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
@@ -69,47 +66,25 @@ const config = {
           }
         ]
       },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: { sourceMap: true }
-            },
-            loaderPostcss
-          ],
-          publicPath: '../'
-        })
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: { sourceMap: true }
-            },
-            loaderPostcss,
-            'sass-loader?sourceMap'
-          ],
-          publicPath: '../'
-        })
-      },
-      ruleFonts,
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        use: ['url-loader?name=images/[name].[ext]&limit=10000']
-      }
+
+      loaders.css.production,
+      loaders.scss.production,
+      loaders.fonts,
+      loaders.images
     ]
   },
   plugins: [
     new webpack.DefinePlugin(settings.globals('')),
 
-    new VersionPlugin({
-      version: JSON.stringify(getVersion())
+    new webpack.BannerPlugin({
+      banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
+      test: /\.jsx?/,
+      raw: true,
+      entryOnly: true
+    }),
+
+    new webpack.BannerPlugin({
+      banner: `v${getVersion()} - ${new Date().toJSON()}`
     }),
 
     new BundleAnalyzerPlugin({
@@ -117,17 +92,7 @@ const config = {
       reportFilename: 'profile.html'
     }),
 
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks(module) {
-        // this assumes your vendor imports exist in the node_modules directory
-        return module.context && module.context.indexOf('node_modules') !== -1;
-      }
-    }),
-
-    new ExtractTextPlugin(`css/${settings.css()}`, {
-      allChunks: true
-    }),
+    new loaders.MiniCssExtractPlugin(),
 
     new DuplicatePackageCheckerPlugin(),
 

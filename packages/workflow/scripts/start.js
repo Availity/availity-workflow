@@ -19,8 +19,20 @@ let server;
 let ekko;
 
 const startupMessage = once(() => {
-  const uri = `http://${settings.config().development.host}:${settings.config().development.port}/`;
-  Logger.box(`The app ${chalk.yellow(settings.pkg().name)} is running at ${chalk.green(uri)}`);
+  const wantedPort = settings.config().development.port;
+  const actualPort = settings.port();
+  const differentPort = wantedPort !== actualPort;
+  const uri = `http://${settings.host()}:${actualPort}/`;
+  Logger.box(
+    `The app ${chalk.yellow(settings.pkg().name)} is running at ${chalk.green(uri)}${
+      differentPort
+        ? `
+${chalk.yellow.bold('Warning:')} Port ${chalk.blue(wantedPort)} was already in use so we used ${chalk.blue(
+            actualPort
+          )}.`
+        : ''
+    }`
+  );
 });
 
 function compileMessage(stats) {
@@ -50,7 +62,8 @@ function rest() {
       data: settings.config().ekko.data,
       routes: settings.config().ekko.routes,
       plugins: settings.config().ekko.plugins,
-      port: settings.config().ekko.port,
+      port: settings.ekkoPort(),
+      host: settings.host(),
       pluginContext: settings.config().ekko.pluginContext,
       logProvider() {
         return {
@@ -113,7 +126,7 @@ function web() {
 
     const compiler = webpack(webpackConfig);
 
-    compiler.plugin('invalid', () => {
+    compiler.hooks.invalid.tap('invalid', () => {
       previousPercent = null;
       Logger.info('Started compiling');
     });
@@ -121,7 +134,7 @@ function web() {
     const openBrowser = once(open);
     const message = debounce(compileMessage, 500);
 
-    compiler.plugin('done', stats => {
+    compiler.hooks.done.tap('done', stats => {
       const hasErrors = stats.hasErrors();
       const hasWarnings = stats.hasWarnings();
 
@@ -191,7 +204,7 @@ function web() {
 
     server = new WebpackDevSever(compiler, webpackOptions);
 
-    server.listen(settings.config().development.port, settings.config().development.host, err => {
+    server.listen(settings.port(), settings.host(), err => {
       if (err) {
         Logger.failed(err);
         reject(err);

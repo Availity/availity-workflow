@@ -5,15 +5,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const exists = require('exists-sync');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const postcss = require('@availity/workflow-settings/webpack/loader-postcss');
-const ruleFonts = require('@availity/workflow-settings/webpack/rule-fonts');
+const loaders = require('@availity/workflow-settings/webpack');
 
 process.noDeprecation = true;
 
 const htmlConfig = require('./html');
-const VersionPlugin = require('./version');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 const babelrcExists = exists(babelrcPath);
@@ -23,10 +21,39 @@ function getVersion() {
 }
 
 const config = {
+  mode: 'production',
+
   context: settings.app(),
 
   entry: {
     index: ['./index.js']
+  },
+
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true
+        },
+        commons: {
+          chunks: 'initial',
+          minChunks: 2,
+          maxInitialRequests: 5, // The default limit is too small to showcase the effect
+          minSize: 0 // This is example is too small to create commons chunks
+        },
+        vendor: {
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 10,
+          enforce: true
+        }
+      }
+    },
+    minimizer: []
   },
 
   output: {
@@ -71,44 +98,24 @@ const config = {
           }
         ]
       },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: {
-            loader: require.resolve('style-loader'),
-            options: {
-              hmr: false
-            }
-          },
-          use: ['css-loader', postcss],
-          publicPath: '../'
-        })
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: {
-            loader: require.resolve('style-loader'),
-            options: {
-              hmr: false
-            }
-          },
-          use: ['css-loader', postcss, { loader: 'sass-loader', options: { sourceMap: true } }],
-          publicPath: '../'
-        })
-      },
-      ruleFonts,
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        use: ['url-loader?name=images/[name].[ext]&limit=10000']
-      }
+      loaders.css.production,
+      loaders.scss.production,
+      loaders.fonts,
+      loaders.images
     ]
   },
   plugins: [
     new webpack.DefinePlugin(settings.globals()),
 
-    new VersionPlugin({
-      version: JSON.stringify(getVersion())
+    new webpack.BannerPlugin({
+      banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
+      test: /\.jsx?/,
+      raw: true,
+      entryOnly: true
+    }),
+
+    new webpack.BannerPlugin({
+      banner: `v${getVersion()} - ${new Date().toJSON()}`
     }),
 
     new HtmlWebpackPlugin(htmlConfig),
@@ -118,19 +125,7 @@ const config = {
 
     new CaseSensitivePathsPlugin(),
 
-    new webpack.optimize.ModuleConcatenationPlugin(),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks(module) {
-        // this assumes your vendor imports exist in the node_modules directory
-        return module.context && module.context.indexOf('node_modules') !== -1;
-      }
-    }),
-
-    new ExtractTextPlugin(`css/${settings.css()}`, {
-      allChunks: true
-    }),
+    new loaders.MiniCssExtractPlugin(),
 
     new CopyWebpackPlugin(
       [
@@ -148,7 +143,7 @@ const config = {
 };
 
 if (settings.isProduction()) {
-  config.plugins.push(
+  config.optimization.minimizer.push(
     new UglifyJsPlugin({
       parallel: true,
       uglifyOptions: {
@@ -159,7 +154,8 @@ if (settings.isProduction()) {
           comments: false
         }
       }
-    })
+    }),
+    new OptimizeCSSAssetsPlugin()
   );
 }
 

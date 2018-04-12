@@ -70,9 +70,6 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.5.1",
-    "husky": "^0.14.3",
-    "lerna": "^2.5.1",
-    "lint-staged": "^6.0.0",
     "prettier": "^1.10.2"
   },
   "availityWorkflow": {
