@@ -1,3 +1,18 @@
+<a name="4.0.0-alpha.6"></a>
+# [4.0.0-alpha.6](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2018-04-13)
+
+
+### Bug Fixes
+
+* production/profiling webpack splitting ([23456d8](https://github.com/Availity/availity-workflow/commit/23456d8))
+
+
+### Features
+
+* upgrade to webpack 4 ([60d531a](https://github.com/Availity/availity-workflow/commit/60d531a))
+
+
+
 <a name="4.0.0-alpha.5"></a>
 # [4.0.0-alpha.5](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.4...v4.0.0-alpha.5) (2018-04-05)
 
