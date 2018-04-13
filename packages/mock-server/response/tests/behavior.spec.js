@@ -19,22 +19,4 @@ describe('Behavior', () => {
       expect(err.status).toBe(404);
     }
   });
-
-  describe('Events', () => {
-    it('should emit file not found event when file does not exist', done => {
-      helper.ekko.on('av:fileNotFound', () => {
-        done();
-      });
-
-      request.get(helper.getUrl('/bad/file')).end();
-    });
-
-    it('should emit response event when file exists', done => {
-      helper.ekko.on('av:response', () => {
-        done();
-      });
-
-      request.get(helper.getUrl('/v1/route1')).end();
-    });
-  });
 });

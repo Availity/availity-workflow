@@ -7,33 +7,37 @@
 
 ![CLI](/docs/cli.png)
 
-
 ## Table of Contents
-* [Getting Started](#getting-started)
-* [Features](#features)
-* [CLI](#cli)
-* [Configuration](#configuration)
-* [FAQ](#faq)
-* [License](#license)
+
+*   [Getting Started](#getting-started)
+*   [Features](#features)
+*   [CLI](#cli)
+*   [Configuration](#configuration)
+*   [FAQ](#faq)
+*   [License](#license)
 
 ## Getting Started
 
 ### React
+
 ```bash
 npx @availity/workflow init <your-project-name>
 ```
+
 <small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
 
 ### Angular
+
 ```bash
 npx @availity/workflow init <your-project-name> --package angular
 ```
+
 <small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
 
 ## Features
 
-- Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
-- A global variable `APP_VERSION` is written to javascript bundle that can be used to determine the version of the application that was deployed. Open up the browser debugger and type `APP_VERSION`.
+*   Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
+*   A global variable `APP_VERSION` is written to javascript bundle that can be used to determine the version of the application that was deployed. Open up the browser debugger and type `APP_VERSION`.
 
 ## CLI
 
@@ -45,6 +49,7 @@ CLI options are documented in it's [README](./packages/workflow/README.md)
 `workflow.js` or `workflow.yml` lives in `<application_root>/project/config/workflow.js`
 
 **Example:**
+
 ```js
 module.exports = {
     development: {
@@ -54,7 +59,7 @@ module.exports = {
     app: {
         title: 'My Awesome App'
     }
-    ekko: {
+    mock: {
         latency: 300,
         port: 9999
     },
@@ -97,8 +102,8 @@ If `workflow.js` exports a function it can be used to override properties from t
 
 ```js
 function merge(config) {
-  config.development.open = '#/foo';
-  return config;
+    config.development.open = '#/foo';
+    return config;
 }
 
 module.exports = merge;
@@ -107,64 +112,83 @@ module.exports = merge;
 ### Options
 
 #### `development.open`
+
 Opens the url in the default browser
 
 #### `development.notification`
+
 Webpack build status system notifications
 
 ![Notification](/docs/notification.png)
 
 #### `development.host`
+
 Webpack dev server host
 
 #### `development.port`
+
 Webpack dev server port. If the port at this value is unavailable, the port value will be incremented until an unused port if found.
 Default: `3000`
 
 #### `development.logLevel`
+
 Allows [Webpack log levels presets](https://webpack.js.org/configuration/stats/#stats) to be used during development. A custom logger is used by default.
 
 #### `development.sourceMap`
-Webpack `devtool` setting.  Default is `source-map`.  For more options please see https://webpack.js.org/configuration/devtool/#devtool.
+
+Webpack `devtool` setting. Default is `source-map`. For more options please see https://webpack.js.org/configuration/devtool/#devtool.
 
 #### `development.hot`
+
 Enable hot module replacement for loaders like style-loader and react-hot-loader
 
 #### `development.hotLoader`
-Enable or disable react-hot-loader.  Default is `true` for `@availity/workflow-plugin-react` plugin.
+
+Enable or disable react-hot-loader. Default is `true` for `@availity/workflow-plugin-react` plugin.
 
 #### `development.hotLoaderEntry`
-Regular expression to configure which file is entry point for hot loading via react-hot-loader-loader.  Default is `/\/App\.jsx?/` which will find `/App.js` or `/App.js` at the root of your app directory for `@availity/workflow-plugin-react` plugin.
+
+Regular expression to configure which file is entry point for hot loading via react-hot-loader-loader. Default is `/\/App\.jsx?/` which will find `/App.js` or `/App.js` at the root of your app directory for `@availity/workflow-plugin-react` plugin.
 <br /><small>Note: this should **not** by the application entry point (index.js), but the file which the component which is imported into index.js and rendered.</small>
 
 #### `development.coverage`
+
 Directory for Karma coverage reports. Only applicable for Angular projects. Default is `{workspace}/coverage`
 
 #### `development.webpackDevServer`
+
 > **Caution**: Please be careful when overriding defaults
 
-Optional options for Webpack development server. If undefined, `workflow` defaults are used. Please see https://webpack.js.org/configuration/dev-server/#devserver for all available options. 
+Optional options for Webpack development server. If undefined, `workflow` defaults are used. Please see https://webpack.js.org/configuration/dev-server/#devserver for all available options.
 
 #### `development.targets`
-Allows developers to override the `babel-preset-env` target to match their developer environment.  This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6, therefore, not needing to Babelfy code completely.
+
+Allows developers to override the `babel-preset-env` target to match their developer environment. This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6, therefore, not needing to Babelfy code completely.
 
 This setting is is only used for development and does not effect staging/production/testing builds which default to `IE9`. **@See** [https://github.com/babel/babel-preset-env](https://github.com/babel/babel-preset-env)
 
 **Examples:**
 
 ```js
-targets: { ie: 9 }
+targets: {
+    ie: 9;
+}
 ```
 
 ```js
-targets: { browsers: ['last 2 Chrome versions'] }
+targets: {
+    browsers: ['last 2 Chrome versions'];
+}
 ```
 
 ```js
-targets: { chrome: 57 }
+targets: {
+    chrome: 57;
+}
 ```
 
 #### `app.title`
+
 Page title to use for the generated HTML document. Default is `Availity`.
 
 ```html
@@ -176,11 +200,12 @@ Page title to use for the generated HTML document. Default is `Availity`.
 ```
 
 #### `testing.browsers`
-Array of browsers used when running Karma tests.  Default is `['Chrome']`;
 
+Array of browsers used when running Karma tests. Default is `['Chrome']`;
 
 #### `globals`
-Create globals to be used for feature flags.  Globals must be defined in the workflow configuration file before they can be used as flags by a project.
+
+Create globals to be used for feature flags. Globals must be defined in the workflow configuration file before they can be used as flags by a project.
 
 ```js
 globals: {
@@ -192,155 +217,166 @@ globals: {
 Once declared, override the default flag values from the command line .
 
 **Ex:**
+
 ```bash
 EXPERIMENTAL_FEATURE=true npm run production
 ```
 
-
 By default, the following feature flags are enabled:
 
-- `__DEV__`: **true** when `process.env.NODE_ENV` is **development**
-- `__TEST__`: **true** when `process.env.NODE_ENV`  is **test**
-- `__PROD__`: **true** when `process.env.NODE_ENV` is **production**
-- `__STAGING__`: **true** when `process.env.NODE_ENV` is **staging**
-- `process.env.NODE_ENV`: is `development`, `test`, `staging` or `production` accordingly.
+*   `__DEV__`: **true** when `process.env.NODE_ENV` is **development**
+*   `__TEST__`: **true** when `process.env.NODE_ENV` is **test**
+*   `__PROD__`: **true** when `process.env.NODE_ENV` is **production**
+*   `__STAGING__`: **true** when `process.env.NODE_ENV` is **staging**
+*   `process.env.NODE_ENV`: is `development`, `test`, `staging` or `production` accordingly.
 
 > `eslint-config-availity@2.1.0` or higher is needed for the default feature toggles to be recognized as valid globals by **eslint**.
 
-#### `ekko.enabled`
-Enables or disables Ekko.  Default is `true`.
+#### `mock.enabled`
 
-#### `ekko.port`
-Ekko port number. If the port is unavailable, a random available port will be used.
+Enables or disables mock server. Default is `true`.
+
+#### `mock.port`
+
+Mock server port number. If the port is unavailable, a random available port will be used.
 
 Note: we will automatically update the proxy settings to reflect the port used in the case of a random port being selected.
 
-#### `ekko.latency`
+#### `mock.latency`
+
 Sets default latency for all mock responses
 
-#### `ekko.data`
-Folder that contains the mock data files (json, images, etc).  Defaults to `project/data`.
+#### `mock.data`
 
-#### `ekko.path`
-Path to route configuration file used by Ekko to build Express routes.  Defaults to `project/config/routes.json`.
+Folder that contains the mock data files (json, images, etc). Defaults to `project/data`.
 
-#### `ekko.plugins`
-Array of NPM module names that enhance Ekko with additional data and routes. @See https://github.com/Availity/@availity/mock-data
+#### `mock.path`
 
-#### `ekko.pluginContext`
+Path to route configuration file used by Mock server to build Express routes. Defaults to `project/config/routes.json`.
+
+#### `mock.plugins`
+
+Array of NPM module names that enhance mock server with additional data and routes. @See https://github.com/Availity/@availity/mock-data
+
+#### `mock.pluginContext`
+
 Pass URL context information to mock responses so that HATEOS links traverse correctly. Defaults to `http://localhost:{development.port}/api`
 
 #### `proxies`
-Array of proxy configurations.  A default configuration is enabled to proxy requests to the Ekko server.  Each proxy configuration can have the following attributes.
 
-- `context`: URL context used to match the activation of the proxy per request.
+Array of proxy configurations. A default configuration is enabled to proxy requests to the mock server. Each proxy configuration can have the following attributes.
+
+*   `context`: URL context used to match the activation of the proxy per request.
 
 **Ex:**:
+
 ```js
-context: '/api'
+context: '/api';
 ```
 
-- `target`: Host and port number for proxy.
-- `enabled`: Enables or disables a proxy configuration
-- `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.
+*   `target`: Host and port number for proxy.
+*   `enabled`: Enables or disables a proxy configuration
+*   `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.
 
 **Ex:**
+
 ```js
 pathRewrite: {
   '^/api': ''
 }
 ```
 
-- `contextRewrite`: _(Optional)_ Does not work with multiple proxy contexts.  When `true`:
-    - Rewrites the `Origin` and `Referer` headers from host to match the the proxy target url.
-    - Rewrites the `Location` header from proxy to the host url.
-    - Rewrites any urls of the response body (JSON only) to match the url of the host.  Only URLs that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host.  The proxy context is automatically appended to the host url if missing the a URL response.
+*   `contextRewrite`: _(Optional)_ Does not work with multiple proxy contexts. When `true`:
 
-- `headers`: _(Optional)_ Send default headers to the proxy destination.
+    *   Rewrites the `Origin` and `Referer` headers from host to match the the proxy target url.
+    *   Rewrites the `Location` header from proxy to the host url.
+    *   Rewrites any urls of the response body (JSON only) to match the url of the host. Only URLs that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host. The proxy context is automatically appended to the host url if missing the a URL response.
+
+*   `headers`: _(Optional)_ Send default headers to the proxy destination.
 
 **Ex:**:
+
 ```js
 headers: {
-  RemoteUser: 'janedoe'
+    RemoteUser: 'janedoe';
 }
 ```
 
 #### `modifyWebpackConfig`
+
 A function which, when provided, can be used to enhance/override or replace the webpack configuration used. The function will be invoked with the current webpack configuration object and a reference to the workflow settings.
 
 **Ex:**
+
 ```js
 modifyWebpackConfig: (webpackConfig, settings) => {
-  // Add Subresource Integrity (SRI) security feature
-  webpackConfig.output = { crossOriginLoading: 'anonymous' };
-  // Note: SriPlugin would be imported in your workflow.js to be referenced here
-  webpackConfig.plugins.push(new SriPlugin({
-      hashFuncNames: ['sha256', 'sha384'],
-      // only enable it for non-development builds
-      enabled: !settings.isDevelopment(),
-  }));
-  return webpackConfig;
-}
+    // Add Subresource Integrity (SRI) security feature
+    webpackConfig.output = { crossOriginLoading: 'anonymous' };
+    // Note: SriPlugin would be imported in your workflow.js to be referenced here
+    webpackConfig.plugins.push(
+        new SriPlugin({
+            hashFuncNames: ['sha256', 'sha384'],
+            // only enable it for non-development builds
+            enabled: !settings.isDevelopment()
+        })
+    );
+    return webpackConfig;
+};
 ```
+
 ## FAQ
 
 ### How to setup a development environment to match the deployment environment?
 
 Update `workflow.js` using the configuration below:
+
 ```js
 module.exports = config => {
-  config.proxies = [
-    {
-      context: [
-        '/api/**',
-        '/ms/**',
-        '!/api/v1/proxy/healthplan/**'
-      ],
-      target: 'http://localhost:9999',
-      enabled: true,
-      logLevel: 'debug',
-      pathRewrite: {
-        '^/api': ''
-      }
-    },
-    {
-      context: ['/api/v1/proxy/healthplan/some/mock/path'],
-      target: 'http://localhost:9999',
-      enabled: true,
-      logLevel: 'debug',
-      pathRewrite: {
-        '^/api': ''
-      }
-    },
-    {
-      context: [
-        '/api/v1/proxy/healthplan/**'
-      ],
-      target: 'http://localhost:8888',
-      enabled: true,
-      logLevel: 'debug',
-      pathRewrite: {
-        '^/api/v1/proxy/healthplan/': ''
-      }
-    }
-  ];
-  return config;
+    config.proxies = [
+        {
+            context: ['/api/**', '/ms/**', '!/api/v1/proxy/healthplan/**'],
+            target: 'http://localhost:9999',
+            enabled: true,
+            logLevel: 'debug',
+            pathRewrite: {
+                '^/api': ''
+            }
+        },
+        {
+            context: ['/api/v1/proxy/healthplan/some/mock/path'],
+            target: 'http://localhost:9999',
+            enabled: true,
+            logLevel: 'debug',
+            pathRewrite: {
+                '^/api': ''
+            }
+        },
+        {
+            context: ['/api/v1/proxy/healthplan/**'],
+            target: 'http://localhost:8888',
+            enabled: true,
+            logLevel: 'debug',
+            pathRewrite: {
+                '^/api/v1/proxy/healthplan/': ''
+            }
+        }
+    ];
+    return config;
 };
 ```
 
 The configuration above does the following:
 
-- Proxy requests starting with `/ms` or `/api` to the mock server but not paths that haves segments `/api/v1/proxy/healthplan/`. This configuration allows the Availity API to be simulated from mock server.
-- Proxy requests with path `/api/v1/proxy/healthplan/some/mock/path` to the mock server. Optional configuration that is useful if an API is not available for use and needs to be mocked. 
-- Proxy all requests with path segments `/api/v1/proxy/healthplan/` to the configured target `'http://localhost:8888'`. Notice the URL is being rewritten. Change the rewrite path to match your local path as needed. This configuration is useful when testing against live services.
-
+*   Proxy requests starting with `/ms` or `/api` to the mock server but not paths that haves segments `/api/v1/proxy/healthplan/`. This configuration allows the Availity API to be simulated from mock server.
+*   Proxy requests with path `/api/v1/proxy/healthplan/some/mock/path` to the mock server. Optional configuration that is useful if an API is not available for use and needs to be mocked.
+*   Proxy all requests with path segments `/api/v1/proxy/healthplan/` to the configured target `'http://localhost:8888'`. Notice the URL is being rewritten. Change the rewrite path to match your local path as needed. This configuration is useful when testing against live services.
 
 ## Contribute
 
-- Run `npm install`
-- Run `npm run bootstrap` at project root
-- Use `npm run angular` to start the Angular sample application
-- Use `npm run react` to use the React sample application
+*   Run `npm install`
+*   Run `npm run bootstrap` at project root
+*   Use `npm run angular` to start the Angular sample application
+*   Use `npm run react` to use the React sample application
 
 ## Disclaimer
 

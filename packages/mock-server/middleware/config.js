@@ -13,7 +13,6 @@ const config = require('../config');
 const routes = require('../routes');
 const logger = require('../logger').getInstance();
 
-const requestHandler = require('./request');
 const notFoundHandler = require('./not.found');
 
 // Custom request logger
@@ -37,7 +36,6 @@ module.exports = function development() {
     });
   }
 
-  config.router.use(requestHandler());
   config.router.use(errorhandler());
   config.router.use(compression());
   config.router.use(cors());

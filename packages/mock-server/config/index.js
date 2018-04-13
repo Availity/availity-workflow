@@ -9,20 +9,8 @@ class Configuration {
     this.router = null;
     this.routes = [];
     this.cache = [];
-    this.events = null;
     this.path = null;
     this.addressInUse = null;
-
-    this.constants = {
-      EVENTS: {
-        START: 'av:started',
-        STOPPED: 'av:stopped',
-        REQUEST: 'av:request',
-        RESPONSE: 'av:response',
-        REDIRECT: 'av:redirect',
-        FILE_NOT_FOUND: 'av:fileNotFound'
-      }
-    };
   }
 
   /**

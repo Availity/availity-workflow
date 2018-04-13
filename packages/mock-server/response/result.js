@@ -14,10 +14,6 @@ const result = {
       if (err) {
         logger.error(`NOT FOUND ${filePath} `);
 
-        config.events.emit(config.constants.EVENTS.FILE_NOT_FOUND, {
-          req
-        });
-
         res.sendStatus(404);
       } else {
         const file = chalk.blue(filePath);
@@ -25,12 +21,6 @@ const result = {
 
         // Attach file path to response object for logging at the end of request cycle
         res.avFile = relativeFile;
-
-        config.events.emit(config.constants.EVENTS.RESPONSE, {
-          req,
-          res: response,
-          file: filePath
-        });
       }
     });
   },
@@ -58,19 +48,8 @@ const result = {
       res.avFile = relativeFile;
 
       res.status(status).json(json);
-
-      config.events.emit(config.constants.EVENTS.RESPONSE, {
-        req,
-        res: response,
-        file: filePath
-      });
     } catch (err) {
       logger.error(`NOT FOUND ${filePath} `);
-
-      config.events.emit(config.constants.EVENTS.FILE_NOT_FOUND, {
-        req
-      });
-
       res.sendStatus(404);
     }
   },
@@ -106,11 +85,6 @@ const result = {
   },
 
   url(req, res, response) {
-    config.events.emit(config.constants.EVENTS.REDIRECT, {
-      req,
-      res: response
-    });
-
     res.redirect(response.url);
   },
 

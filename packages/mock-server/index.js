@@ -1,6 +1,5 @@
 /* eslint-disable promise/avoid-new */
 const express = require('express');
-const events = require('events');
 const http = require('http');
 const chalk = require('chalk');
 const logger = require('./logger');
@@ -18,8 +17,6 @@ class Ekko {
         this.middleware(ekkoConfig);
       }
     }
-
-    config.events = new events.EventEmitter();
   }
 
   middleware(options) {
@@ -47,11 +44,6 @@ class Ekko {
       config.server.listen(config.options.port, host, () => {
         const url = `http://${host}:${config.server.address().port}`;
         logger.getInstance().info(`Ekko server started at ${chalk.green(url)}`);
-
-        config.events.emit(config.constants.EVENTS.START, {
-          options: config.options
-        });
-
         resolve(true);
       });
 
@@ -69,22 +61,16 @@ class Ekko {
     });
   }
 
-  stop() {
+  async stop() {
     return new Promise(resolve => {
       if (config.server && config.server.close) {
         config.server.close(() => {
-          config.events.emit(config.constants.EVENTS.STOPPED);
           resolve(true);
         });
       } else {
-        config.events.emit(config.constants.EVENTS.STOPPED);
         resolve(true);
       }
     });
-  }
-
-  on(event, callback) {
-    return config.events.on(event, callback);
   }
 
   config() {

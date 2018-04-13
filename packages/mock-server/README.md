@@ -2,15 +2,13 @@
 
 ## Table of Contents
 
-  * [Intro](#intro)
-  * [Server Configuration](#server-configuration)
-  * [Route Configuration](#route-configuration)
-  * [Events](#events)
-  * [Contributing](#contributing)
-  * [Authors](#authors)
-  * [Disclaimer](#disclaimer)
-  * [License](#license)
-
+*   [Intro](#intro)
+*   [Server Configuration](#server-configuration)
+*   [Route Configuration](#route-configuration)
+*   [Contributing](#contributing)
+*   [Authors](#authors)
+*   [Disclaimer](#disclaimer)
+*   [License](#license)
 
 ## Intro
 
@@ -18,17 +16,17 @@ Develop web applications without heavy back-end services by running Express midd
 
 Responses can be JSON or other formats to simulate REST services. Access-Control HTTP Headers are set by default to allow CORS requests. Mock services are configured in the [routes.json](./routes.json) file.
 
-This server can return other file types besides XML or JSON (PDFs, images, etc).  The appropriate response headers will be automatically set for different file types.  For a complete list of file types supported view the [mime types here](https://github.com/jshttp/mime-db/blob/88d8b0424d93aefef4ef300dc35ad2c8d1e1f9d4/db.json).
+This server can return other file types besides XML or JSON (PDFs, images, etc). The appropriate response headers will be automatically set for different file types. For a complete list of file types supported view the [mime types here](https://github.com/jshttp/mime-db/blob/88d8b0424d93aefef4ef300dc35ad2c8d1e1f9d4/db.json).
 
 ## Route Matching
 
-`avality-mock-server` is designed to respond with the route configuration that matches the incoming request the closest by introspecting the request body, parameters and headers. `avality-mock-server` calculates which route scores the highest for each request and returns the appropriate mock response. 
+`avality-mock-server` is designed to respond with the route configuration that matches the incoming request the closest by introspecting the request body, parameters and headers. `avality-mock-server` calculates which route scores the highest for each request and returns the appropriate mock response.
 
 ## Configuration
 
 ### Standalone Server
 
-The default server configuration can be found in [config.js](./config.js).  Pass a different configuration file to the `avality-mock-server` server to override the defaults.
+The default server configuration can be found in [config.js](./config.js). Pass a different configuration file to the `avality-mock-server` server to override the defaults.
 
 ```javascript
 const path = require('path');
@@ -53,6 +51,7 @@ const  = new MockServer();
 ```
 
 ### Express Middleware
+
 ```js
 const express = require('express');
 const app = express();
@@ -68,30 +67,29 @@ app.listen(3001);
 
 ## Options
 
-- **latency**: Global delay for all reponses.  The latency can be overridden per route configuration.  Default is `250ms`.
-- **limit**: Upload max size.  Default is `50mb`,
-- **host**: Server binds and listens for connections on the specified host. Default is `0.0.0.0`.
-- **port**: Server binds and listens for connections on the specified port.  Default is `9999`.
-- **data**: Path to folder that contains the json mock responses.
-- **routes**: Path(s) to configuration file that contains a mapping of the request/response routes.  Multiple paths can be passed in with an array of strings.
-- **plugins**: Array of NPM module names that enhance `@availity/mock-server` with additional data and routes.  @See [@availity/mock-data](https://github.com/Availity/@availity/mock-data)
-- **logProvider**: Function that returns a logger that is used in place of the default logger.  Inspired by the log provider in [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
-- **pluginContext**: A url context value which is used to rewrite every instance of `${context}` variable in mock data responses. This can be useful for HATEOS links.
+*   **latency**: Global delay for all reponses. The latency can be overridden per route configuration. Default is `250ms`.
+*   **limit**: Upload max size. Default is `50mb`,
+*   **host**: Server binds and listens for connections on the specified host. Default is `0.0.0.0`.
+*   **port**: Server binds and listens for connections on the specified port. Default is `9999`.
+*   **data**: Path to folder that contains the json mock responses.
+*   **routes**: Path(s) to configuration file that contains a mapping of the request/response routes. Multiple paths can be passed in with an array of strings.
+*   **plugins**: Array of NPM module names that enhance `@availity/mock-server` with additional data and routes. @See [@availity/mock-data](https://github.com/Availity/@availity/mock-data)
+*   **logProvider**: Function that returns a logger that is used in place of the default logger. Inspired by the log provider in [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
+*   **pluginContext**: A url context value which is used to rewrite every instance of `${context}` variable in mock data responses. This can be useful for HATEOS links.
 
 **Simple**
-```js
 
+```js
 function logProvider(provider) {
     return require('winston');
 }
 ```
 
 **Advanced**
+
 ```js
-
 function logProvider(provider) {
-
-    var logger = new (require('winston').Logger)();
+    var logger = new (require('winston')).Logger();
 
     var myCustomProvider = {
         log: logger.log,
@@ -99,7 +97,7 @@ function logProvider(provider) {
         info: logger.info,
         warn: logger.warn,
         error: logger.error
-    }
+    };
     return myCustomProvider;
 }
 ```
@@ -158,8 +156,8 @@ The mock configuration supports deep nested introspection of JSON and multi-part
           "a": "1",
           "b": "2"
       }
-  }, 
-  "put": {// all PUT requests      
+  },
+  "put": {// all PUT requests
       "file": "example1.json,
   },  
   "post": "example3.json", // all POST requests
@@ -354,36 +352,15 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 If you omit the port, or set it to `0`, `@availity/mock-server` will let the OS assign a random open port.
 This allows you to run multiple servers without keeping track of all ports being used. (see Example 2)
 
-## Events
-
-`@availity/mock-server` emits events to allow implementations to handle when specific events occur. Descriptions of the events are listed below.
-
-* `av:start` - Triggered when the `@availity/mock-server` server has been started.
-* `av:stop` - Triggered when the `@availity/mock-server` server has been stopped.
-* `av:request` - Triggered when a request has been received.
-* `av:response` - Triggered when a response file has been found for the requested route.
-* `av:fileNotFound` - Triggered when a response file could not be found -- either as a of an undefined route or the route's response file could not be found.
-* `av:redirect` - Triggered when a route specifies to redirect instead of responding with the contents of a file.
-
-To add event handlers, register the events before starting the `@availity/mock-server` server.
-```javascript
-const server = new MockServer(configPath);
-
-server.on('av:request', req => {
-    /* your logic here */
-});
-
-server.start();
-```
-
 ## Acknowledgements
 
-- [apimocker](https://github.com/gstroup/apimocker)
-- [json-server](https://github.com/typicode/json-server)
+*   [apimocker](https://github.com/gstroup/apimocker)
+*   [json-server](https://github.com/typicode/json-server)
 
 ## Disclaimer
 
 Open source software components distributed or made available in the Availity Materials are licensed to Company under the terms of the applicable open source license agreements, which may be found in text files included in the Availity Materials.
 
 ## License
+
 [MIT](../../LICENSE)
