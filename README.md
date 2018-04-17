@@ -165,13 +165,13 @@ Optional options for Webpack development server. If undefined, `workflow` defaul
 
 Allows developers to override the `babel-preset-env` target to match their developer environment. This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6, therefore, not needing to Babelfy code completely.
 
-This setting is is only used for development and does not effect staging/production/testing builds which default to `IE9`. **@See** [https://github.com/babel/babel-preset-env](https://github.com/babel/babel-preset-env)
+This setting is is only used for development and does not effect staging/production/testing builds which default to `IE11`. **@See** [https://github.com/babel/babel-preset-env](https://github.com/babel/babel-preset-env)
 
 **Examples:**
 
 ```js
 targets: {
-    ie: 9;
+    ie: 11;
 }
 ```
 
