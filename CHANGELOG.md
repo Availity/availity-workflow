@@ -1,3 +1,18 @@
+<a name="4.0.0-alpha.7"></a>
+# [4.0.0-alpha.7](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2018-04-23)
+
+
+### Code Refactoring
+
+* **mock-server:** remove server events ([2cb477b](https://github.com/Availity/availity-workflow/commit/2cb477b))
+
+
+### BREAKING CHANGES
+
+* **mock-server:** server lifecycle events are not longer emmitted
+
+
+
 <a name="4.0.0-alpha.6"></a>
 # [4.0.0-alpha.6](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2018-04-13)
 
