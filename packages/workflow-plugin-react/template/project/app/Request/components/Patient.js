@@ -4,19 +4,10 @@ import { AvField } from 'availity-reactstrap-validation';
 import { Label, UncontrolledTooltip } from 'reactstrap';
 import propTypes from './props';
 
-@inject('stateStore', 'appStore')
-@observer
-export default class Patient extends Component {
-  static propTypes = propTypes;
-
-  onMemberId = event => {
-    const { value } = event.target;
-    const { appStore } = this.props;
-    appStore.setMemberId(value);
-  };
-
-  render() {
-    const { memberId } = this.props.stateStore.form;
+const Patient = inject('stateStore', 'appStore')(
+  observer(props => {
+    const { memberId } = props.stateStore.form;
+    const { setMemberId } = props.appStore;
     return (
       <fieldset>
         <legend>Member</legend>
@@ -30,20 +21,17 @@ export default class Patient extends Component {
         </UncontrolledTooltip>
 
         <AvField
-          type="number"
-          id="memberID"
           name="memberID"
           value={memberId}
-          onChange={this.onMemberId}
+          onChange={setMemberId}
           validate={{
-            number: { value: true, errorMessage: 'Must be a number' },
+            pattern: { value: '^[0-9]*$', errorMessage: 'Must be a number' },
             minLength: { value: 5, errorMessage: '5 Character Minimum' }
           }}
         />
 
         <AvField
           type="date"
-          id="dob"
           name="dob"
           label="Date of Birth"
           validate={{ date: { format: 'MM/DD/YYYY' } }}
@@ -51,5 +39,9 @@ export default class Patient extends Component {
         />
       </fieldset>
     );
-  }
-}
+  })
+);
+
+Patient.propTypes = propTypes;
+
+export default Patient;

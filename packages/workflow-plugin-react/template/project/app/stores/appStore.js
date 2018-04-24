@@ -1,6 +1,13 @@
 import { action, computed } from 'mobx';
 import { organizationsApi, providersApi } from '@availity/api-axios';
 
+const valueFromEvent = event => {
+  if (event && event.target && typeof event.target.value !== 'undefined') {
+    return event.target.value
+  }
+  return event;
+}
+
 class AppStore {
   constructor(state) {
     this.state = state;
@@ -12,17 +19,18 @@ class AppStore {
   }
 
   @action
-  setOrganizations(orgs) {
-    this.state.form.organizations = orgs;
+  setOrganizations = event => {
+    this.state.form.organizations = valueFromEvent(event);;
   }
 
   @action
-  setSelectedOrganization(organization) {
-    this.state.form.selectedOrganization = organization;
+  setSelectedOrganization = event => {
+    this.state.form.selectedOrganization = valueFromEvent(event);;
   }
 
   @action
-  onSelectedOrganization(id) {
+  onSelectedOrganization = event => {
+    const id = valueFromEvent(event);
     this.state.form.organizations.forEach(org => {
       if (org.id === id) {
         this.state.form.selectedOrganization = org;
@@ -43,15 +51,17 @@ class AppStore {
   }
 
   @action
-  setProviders(providers) {
-    this.state.form.providers = providers;
+  setProviders = event => {
+    this.state.form.providers = valueFromEvent(event);
   }
 
   @action
-  onSelectedProvider(id) {
+  onSelectedProvider = event => {
+    const id = valueFromEvent(event);
     this.state.form.providers.forEach(provider => {
       if (provider.id === id) {
         this.state.form.selectedProvider = provider;
+        this.setProverNpi(provider.npi);
       }
     });
   }
@@ -62,8 +72,13 @@ class AppStore {
   }
 
   @action
-  setMemberId(id) {
-    this.state.form.memberId = id;
+  setMemberId = event => {
+    this.state.form.memberId = valueFromEvent(event);
+  }
+
+  @action
+  setProverNpi = event => {
+    this.state.form.npi = valueFromEvent(event);
   }
 
   @action
@@ -72,9 +87,9 @@ class AppStore {
   }
 
   @action
-  toggleAcceptedAgreement() {
+  toggleAcceptedAgreement = () => {
     this.state.form.acceptTerms = this.state.form.acceptTerms;
-  }
+  };
 }
 
 export default AppStore;

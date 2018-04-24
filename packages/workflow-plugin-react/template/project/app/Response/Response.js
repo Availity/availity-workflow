@@ -1,22 +1,22 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Badge, Card, CardBlock, Col, Row } from 'reactstrap';
+import { Badge, Card, CardBody, Col, Row } from 'reactstrap';
 import { Footer, Header } from '../components';
 
 const AuthorizationsResponse = () => (
   <div className="container-sm">
     <Header />
     <Card>
-      <CardBlock>
+      <CardBody>
         <div className="card-header-secondary">
           <small className="text-label text-label-inline">Transaction ID</small>&nbsp;
           <Badge color="info">236316981</Badge>&nbsp;
           <small className="text-label text-label-inline">Customer ID</small>&nbsp;
           <Badge color="info" />
         </div>
-      </CardBlock>
+      </CardBody>
 
-      <CardBlock>
+      <CardBody>
         <Row>
           <Col sm="3">
             <h5 className="text-label">Certification Number</h5>
@@ -54,7 +54,7 @@ const AuthorizationsResponse = () => (
             <p>Acme Health</p>
           </Col>
         </Row>
-      </CardBlock>
+      </CardBody>
     </Card>
     <Footer />
   </div>

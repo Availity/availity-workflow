@@ -1,13 +1,14 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
-import { useStrict } from 'mobx';
+import { configure } from 'mobx';
 import { Provider } from 'mobx-react';
 import { appStore, stateStore } from './stores';
 import AuthorizationRequest from './Request';
 import AuthorizationResponse from './Response';
 
 const stores = { appStore, stateStore };
-useStrict(true);
+window.stateStore = stateStore;
+configure({ enforceActions: true });
 
 const App = () => (
   <Provider {...stores}>

@@ -1,33 +1,13 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import get from 'lodash.get';
 import { Label, UncontrolledTooltip } from 'reactstrap';
 import { AvField } from 'availity-reactstrap-validation';
 import propTypes from './props';
 
-@inject('stateStore', 'appStore')
-@observer
-export default class Provider extends Component {
-  static propTypes = propTypes;
-
-  onSelectedOrganization = event => {
-    const { value } = event.target;
-    const { appStore } = this.props;
-    appStore.onSelectedOrganization(value);
-  };
-
-  onSelectedProvider = event => {
-    const { value } = event.target;
-    const { appStore } = this.props;
-    appStore.onSelectedProvider(value);
-  };
-
-  onNpiChange = () => {};
-
-  render() {
-    const { organizations, providers } = this.props.stateStore.form;
-
-    const { isProviderDisabled } = this.props.appStore;
+const Provider = inject('stateStore', 'appStore')(
+  observer(props => {
+    const { organizations, providers, npi } = props.stateStore.form;
+    const { isProviderDisabled, onSelectedOrganization, onSelectedProvider, setProverNpi } = props.appStore;
 
     return (
       <fieldset>
@@ -35,10 +15,9 @@ export default class Provider extends Component {
 
         <AvField
           type="select"
-          id="organizations"
           name="organizations"
           label="Organization"
-          onChange={this.onSelectedOrganization}
+          onChange={onSelectedOrganization}
           required
           errorMessage="Please select an organization"
         >
@@ -54,10 +33,9 @@ export default class Provider extends Component {
 
         <AvField
           type="select"
-          id="providers"
           name="providers"
           label="Provider"
-          onChange={this.onSelectedProvider}
+          onChange={onSelectedProvider}
           disabled={isProviderDisabled}
           required
           errorMessage="Please select a provider"
@@ -85,7 +63,8 @@ export default class Provider extends Component {
           type="text"
           id="npi"
           name="npi"
-          value={get('selectedProvider.npi')}
+          value={npi}
+          onChange={setProverNpi}
           validate={{
             npi: { value: true, errorMessage: 'NPI must be a valid format' },
             required: { value: true, errorMessage: 'NPI is required' }
@@ -93,5 +72,9 @@ export default class Provider extends Component {
         />
       </fieldset>
     );
-  }
-}
+  })
+);
+
+Provider.propTypes = propTypes;
+
+export default Provider;
