@@ -1,3 +1,18 @@
+<a name="4.0.0-alpha.8"></a>
+# [4.0.0-alpha.8](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.7...v4.0.0-alpha.8) (2018-04-24)
+
+
+### Bug Fixes
+
+* **workflow-plugin-react:** fix submit callback handler in template ([f0e0339](https://github.com/Availity/availity-workflow/commit/f0e0339))
+
+
+### Features
+
+* **workflow-plugin-react:** update template ([dab0320](https://github.com/Availity/availity-workflow/commit/dab0320))
+
+
+
 <a name="4.0.0-alpha.7"></a>
 # [4.0.0-alpha.7](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2018-04-23)
 
