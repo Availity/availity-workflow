@@ -55,6 +55,13 @@ class Logger {
     console.log(`${prefix} ${chalk.bgRed(label)} ${chalk.red(entry)}`);
   }
 
+  // ★ [ WARNING] Compiled with warnings
+  static alert(entry) {
+    const prefix = chalk.yellow(figures.star);
+    const label = chalk.black.bold(' WARNING ');
+    console.log(`${prefix} ${chalk.bgYellow(label)} ${chalk.yellow(entry)}`);
+  }
+
   static message(entry, entryLabel) {
     const prefix = chalk.blue(figures.info);
     entryLabel = entryLabel || 'INFO';
