@@ -35,7 +35,7 @@ ${chalk.yellow.bold('Warning:')} Port ${chalk.blue(wantedPort)} was already in u
   );
 });
 
-function compileMessage(stats) {
+function compileMessage(stats, message) {
   // Get the time
   const statistics = stats.toJson();
   const level = settings.logLevel();
@@ -47,6 +47,10 @@ ${statz}
 `);
   Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(pretty(statistics.time))}
   `);
+
+  if (message) {
+    message();
+  }
 
   startupMessage();
 }
@@ -138,25 +142,28 @@ function web() {
       const hasErrors = stats.hasErrors();
       const hasWarnings = stats.hasWarnings();
 
-      if (!hasErrors && !hasWarnings) {
-        openBrowser();
-        message(stats);
-        resolve(true);
-      }
-
       // https://webpack.js.org/configuration/stats/
       const json = stats.toJson({}, true);
       const messages = formatWebpackMessages(json);
 
-      if (hasWarnings) {
-        messages.warnings.forEach(warning => {
-          Logger.empty();
-          Logger.simple(`${chalk.yellow(warning)}`);
-          Logger.empty();
-        });
+      if (!hasErrors && !hasWarnings) {
+        openBrowser();
+        message(stats);
+        resolve(true);
+        return;
+      }
 
-        Logger.failed('Compiled with warnings');
+      function warning() {
         Logger.empty();
+        Logger.alert('Compiled with warnings');
+        Logger.empty();
+      }
+
+      if (hasWarnings) {
+        message(stats, warning);
+        openBrowser();
+        resolve(true);
+        return;
       }
 
       if (hasErrors) {
