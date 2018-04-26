@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { AvForm } from 'availity-reactstrap-validation';
 import { Button, Card, CardBody } from 'reactstrap';
+import 'react-datetime/css/react-datetime.css';
 
 import { Agreement, Patient, Provider } from './components';
 import { Footer, Header } from '../components';
