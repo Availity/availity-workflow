@@ -15,7 +15,7 @@ function create() {
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
       '^(?!.*\\.(js|jsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
-    setupFiles: ['raf/polyfill'],
+    setupFiles: [require.resolve('raf/polyfill')],
     transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@availity).+\\.(js|jsx)$'],
     testMatch: [
       // Ignore the following directories:
