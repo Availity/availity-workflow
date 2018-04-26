@@ -6,7 +6,6 @@ module.exports = {
     test: /\.css$/,
     use: [
       'style-loader',
-      loaderPostcss,
       {
         loader: 'css-loader',
         options: {
@@ -14,7 +13,8 @@ module.exports = {
           importLoaders: 1,
           name: 'images/[name].[ext]'
         }
-      }
+      },
+      loaderPostcss
     ]
   },
   production: {

@@ -159,7 +159,7 @@ function web() {
         Logger.empty();
       }
 
-      if (hasWarnings) {
+      if (hasWarnings && !hasErrors) {
         message(stats, warning);
         openBrowser();
         resolve(true);

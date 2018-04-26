@@ -1,0 +1,5 @@
+{
+  "v1/proxy/healthplan/v1/authorizations": {
+    "file": "authorization.json"
+  }
+}
