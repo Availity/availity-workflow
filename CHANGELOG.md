@@ -1,3 +1,21 @@
+<a name="4.0.0-alpha.10"></a>
+# [4.0.0-alpha.10](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.9...v4.0.0-alpha.10) (2018-04-26)
+
+
+### Bug Fixes
+
+* **workflow:** allow webpack warnings to fallthrough when errors are emitted ([bade285](https://github.com/Availity/availity-workflow/commit/bade285))
+* **workflow-plugin-react:** resolve raf/polyfill ([571cdce](https://github.com/Availity/availity-workflow/commit/571cdce))
+* **workflow-settings:** css import error ([9b8611a](https://github.com/Availity/availity-workflow/commit/9b8611a)), closes [#165](https://github.com/Availity/availity-workflow/issues/165)
+* **workflow-settings:** support only IE11+ ([21cb79a](https://github.com/Availity/availity-workflow/commit/21cb79a))
+
+
+### Features
+
+* **example-react:** add react sample project ([cb6a56e](https://github.com/Availity/availity-workflow/commit/cb6a56e))
+
+
+
 <a name="4.0.0-alpha.9"></a>
 # [4.0.0-alpha.9](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.8...v4.0.0-alpha.9) (2018-04-26)
 
