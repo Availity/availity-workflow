@@ -1,3 +1,18 @@
+<a name="4.0.0-alpha.9"></a>
+# [4.0.0-alpha.9](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.8...v4.0.0-alpha.9) (2018-04-26)
+
+
+### Bug Fixes
+
+* **workflow:** non-blocking webpack warning ([1a58fb4](https://github.com/Availity/availity-workflow/commit/1a58fb4)), closes [#161](https://github.com/Availity/availity-workflow/issues/161)
+
+
+### Features
+
+* **workflow-logger:** add warning message ([8abf42f](https://github.com/Availity/availity-workflow/commit/8abf42f))
+
+
+
 <a name="4.0.0-alpha.8"></a>
 # [4.0.0-alpha.8](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.7...v4.0.0-alpha.8) (2018-04-24)
 
