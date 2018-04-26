@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-plugin-angular",
-  "version": "4.0.0-alpha.9",
+  "version": "4.0.0-alpha.10",
   "description": "Angular 1.x  module for @availity/workflow",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
@@ -10,7 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/availity/availity-workflow.git"
   },
-  "keywords": ["angular", "workflow", "availity"],
+  "keywords": [
+    "angular",
+    "workflow",
+    "availity"
+  ],
   "author": "Robert McGuinness",
   "license": "MIT",
   "bugs": {
@@ -18,9 +22,9 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/workflow-babel-preset": "^4.0.0-alpha.9",
-    "@availity/workflow-logger": "^4.0.0-alpha.9",
-    "@availity/workflow-settings": "^4.0.0-alpha.9",
+    "@availity/workflow-babel-preset": "^4.0.0-alpha.10",
+    "@availity/workflow-logger": "^4.0.0-alpha.10",
+    "@availity/workflow-settings": "^4.0.0-alpha.10",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.2",
