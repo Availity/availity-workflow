@@ -1,3 +1,13 @@
+<a name="4.0.0-alpha.11"></a>
+# [4.0.0-alpha.11](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.10...v4.0.0-alpha.11) (2018-04-26)
+
+
+### Bug Fixes
+
+* **workflow-plugin-react:** allow hook into jest setupFiles ([d274f4f](https://github.com/Availity/availity-workflow/commit/d274f4f)), closes [#162](https://github.com/Availity/availity-workflow/issues/162)
+
+
+
 <a name="4.0.0-alpha.10"></a>
 # [4.0.0-alpha.10](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.9...v4.0.0-alpha.10) (2018-04-26)
 
