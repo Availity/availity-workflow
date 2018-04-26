@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-plugin-react",
-  "version": "4.0.0-alpha.10",
+  "version": "4.0.0-alpha.11",
   "description": "React module for @availity/workflow",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/workflow-babel-preset": "^4.0.0-alpha.10",
-    "@availity/workflow-logger": "^4.0.0-alpha.10",
-    "@availity/workflow-settings": "^4.0.0-alpha.10",
+    "@availity/workflow-babel-preset": "^4.0.0-alpha.11",
+    "@availity/workflow-logger": "^4.0.0-alpha.11",
+    "@availity/workflow-settings": "^4.0.0-alpha.11",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.2",
