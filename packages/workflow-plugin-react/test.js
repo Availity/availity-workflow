@@ -1,9 +1,16 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/utils/createJestConfig.js
 const jest = require('jest');
+const path = require('path');
 const settings = require('@availity/workflow-settings');
+const exists = require('exists-sync');
 
 function create() {
   const rootDir = settings.project();
+
+  const setupFilesPath = path.join(settings.project(), 'jest.setup.js');
+  const setupFilesExist = exists(setupFilesPath);
+
+  const setupFiles = setupFilesExist ? [`${require.resolve(setupFilesPath)}`] : [];
 
   const config = {
     collectCoverageFrom: ['project/app/**/*.{js,jsx}'],
@@ -15,7 +22,7 @@ function create() {
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
       '^(?!.*\\.(js|jsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
-    setupFiles: [require.resolve('raf/polyfill')],
+    setupFiles: [require.resolve('raf/polyfill'), ...setupFiles],
     transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@availity).+\\.(js|jsx)$'],
     testMatch: [
       // Ignore the following directories:

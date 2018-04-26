@@ -38,6 +38,7 @@ npx @availity/workflow init <your-project-name> --package angular
 
 *   Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
 *   A global variable `APP_VERSION` is written to javascript bundle that can be used to determine the version of the application that was deployed. Open up the browser debugger and type `APP_VERSION`.
+*   Hook into Jest `setupFiles` by adding `jest.setup.js` at the root of your project
 
 ## CLI
 
