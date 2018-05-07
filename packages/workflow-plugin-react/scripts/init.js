@@ -34,6 +34,11 @@ module.exports = function init(
     return;
   }
 
+  fs.renameSync(
+    path.join(appPath, 'gitignore'),
+    path.join(appPath, '.gitignore')
+  );
+
   const appPackage = require(path.join(appPath, 'package.json'));
 
   appPackage.name = appName;
