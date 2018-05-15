@@ -1,3 +1,3 @@
 # @availity/workflow-babel-preset
 
-> Preset for React projects using availity-workflow
+> Preset for projects using availity-workflow
