@@ -58,8 +58,8 @@
     "velocity-animate": "^1.5.0"
   },
   "devDependencies": {
-    "@availity/workflow": "^4.0.0-alpha.8",
-    "@availity/workflow-plugin-angular": "^4.0.0-alpha.8",
+    "@availity/workflow": "^4.0.0-alpha.12",
+    "@availity/workflow-plugin-angular": "^4.0.0-alpha.12",
     "babel-eslint": "^8.0.3",
     "cross-env": "^5.0.4",
     "eslint": "^4.13.1",
