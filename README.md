@@ -327,6 +327,18 @@ modifyWebpackConfig: (webpackConfig, settings) => {
 
 ## FAQ
 
+### How to integrate with Visual Studio Code's [Jest plugin](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)?
+
+Create `./vscode/settings.json` file with the following configuration:
+
+```json
+{ 
+  "jest.pathToJest": "npm test -- --runInBand"
+}
+```
+
+**Note**: The Jest plugin will still warn about Jest 20+ features missing but it doesn't appear to affect the plugins's functionality
+
 ### How to setup a development environment to match the deployment environment?
 
 Update `workflow.js` using the configuration below:
