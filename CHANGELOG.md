@@ -6,18 +6,6 @@
 
 * babel should compile [@av](https://github.com/av) namespace ([8cd92fe](https://github.com/Availity/availity-workflow/commit/8cd92fe))
 
-
-
-<a name="4.0.0"></a>
-# [4.0.0](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.12...v4.0.0) (2018-05-21)
-
-
-### Bug Fixes
-
-* babel should compile [@av](https://github.com/av) namespace ([8cd92fe](https://github.com/Availity/availity-workflow/commit/8cd92fe))
-
-
-
 <a name="4.0.0-alpha.12"></a>
 # [4.0.0-alpha.12](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.11...v4.0.0-alpha.12) (2018-05-16)
 
