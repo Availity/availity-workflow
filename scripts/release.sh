@@ -32,4 +32,4 @@ git add .
 git commit -m "docs: changelog v${VERSION}"
 
 echo "==> Bumping lerna version"
-node_modules/.bin/lerna publish --repo-version ${VERSION} --yes --npm-tag=next
+node_modules/.bin/lerna publish --repo-version ${VERSION} --yes --npm-tag=next --force-publish=*
