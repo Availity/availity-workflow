@@ -1,6 +1,6 @@
 {
   "name": "@availity/example-react",
-  "version": "4.0.0",
+  "version": "4.0.0-alpha.13",
   "private": true,
   "description": "React project using @availity/workflow",
   "main": "index.js",
@@ -53,8 +53,8 @@
     "reactstrap": "^5.0.0"
   },
   "devDependencies": {
-    "@availity/workflow": "^4.0.0",
-    "@availity/workflow-plugin-react": "^4.0.0",
+    "@availity/workflow": "^4.0.0-alpha.13",
+    "@availity/workflow-plugin-react": "^4.0.0-alpha.13",
     "babel-eslint": "^8.2.3",
     "cross-env": "^5.1.4",
     "eslint": "^4.19.1",
