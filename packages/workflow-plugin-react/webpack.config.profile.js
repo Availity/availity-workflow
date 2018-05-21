@@ -116,7 +116,9 @@ const config = {
       reportFilename: 'profile.html'
     }),
 
-    new loaders.MiniCssExtractPlugin(),
+    new loaders.MiniCssExtractPlugin({
+      filename:'css/index.css',
+    }),
 
     new DuplicatePackageCheckerPlugin(),
 

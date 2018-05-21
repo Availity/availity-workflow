@@ -1,3 +1,18 @@
+<a name="4.0.0-alpha.12"></a>
+# [4.0.0-alpha.12](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.11...v4.0.0-alpha.12) (2018-05-16)
+
+
+### Bug Fixes
+
+* fix fonts/css output in production build ([b021dbc](https://github.com/Availity/availity-workflow/commit/b021dbc))
+
+
+### Features
+
+* add gitignore to the init templates ([e16b74f](https://github.com/Availity/availity-workflow/commit/e16b74f))
+
+
+
 <a name="4.0.0-alpha.11"></a>
 # [4.0.0-alpha.11](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.10...v4.0.0-alpha.11) (2018-04-26)
 
