@@ -17,7 +17,7 @@ function create() {
       '^(?!.*\\.(js|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
     setupTestFrameworkScriptFile: `${require.resolve(path.join(settings.app(), 'jest.init.js'))}`,
-    transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@?availity).+\\.(js|jsx|html)$'],
+    transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@?av).+\\.(js|jsx|html)$'],
     moduleDirectories: ['node_modules', 'project/app', 'app'],
     testMatch: [
       // Ignore the following directories:
