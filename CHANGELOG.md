@@ -1,3 +1,13 @@
+<a name="4.0.0-alpha.14"></a>
+# [4.0.0-alpha.14](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.13...v4.0.0-alpha.14) (2018-05-22)
+
+
+### Bug Fixes
+
+* include [@av](https://github.com/av) during babel and jest ([9468ac6](https://github.com/Availity/availity-workflow/commit/9468ac6))
+
+
+
 <a name="4.0.0-alpha.13"></a>
 # [4.0.0-alpha.13](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.12...v4.0.0-alpha.13) (2018-05-21)
 
