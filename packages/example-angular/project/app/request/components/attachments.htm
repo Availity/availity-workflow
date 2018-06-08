@@ -1,0 +1,33 @@
+<fieldset>
+  <legend>Attachments</legend>
+  <div class="form-group">
+   <span class="btn btn-default btn-file" ng-class="vm.request.isAttachmentsDisabled() ? 'disabled' : ''">
+     <i class="icon icon-plus-circle"></i>
+     <span>Add file</span>
+     <input type="file" name="file" ng-disabled="vm.request.isAttachmentsDisabled()" av-on-file-change="vm.request.onAddAttachment">
+   </span>
+  </div>
+  <table class="table table-progress" ng-show="vm.request.uploads.length">
+    <thead>
+      <tr>
+        <th>Document Type</th>
+        <th>File Name</th>
+        <th>Progress</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="upload in vm.request.uploads">
+        <td>{{upload.file.type}}</td>
+        <td>{{upload.file.name}}</td>
+        <td>
+          <av-upload-progress-bar upload="upload"></av-upload-progress-bar>
+        </td>
+        <td>
+          <button type="button" class="close" aria-label="Close" ng-click="vm.request.onRemoveAttachment(upload)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </tr>
+    </tbody>
+  </table>
+</fieldset>

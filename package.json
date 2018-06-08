@@ -37,17 +37,28 @@
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
     "precommit": "lint-staged",
     "release": "npm run lint && copy:templates && sh ./scripts/release.sh",
-    "copy:templates": "npm run copy:react:templates",
+    "copy:templates": "npm run copy:react:templates && copy:angular:templates",
+    "copy:angular:templates": "copyfiles -a -u 2 \"packages/example-angular/**/*\" packages/workflow-plugin-angular/template/",
     "copy:react:templates": "copyfiles -a -u 2 \"packages/example-react/**/*\" packages/workflow-plugin-react/template/",
     "commitmsg": "commitlint -e $GIT_PARAMS"
   },
   "lint-staged": {
-    "*.js": ["prettier", "git add"]
+    "*.js": [
+      "prettier",
+      "git add"
+    ]
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional", "@commitlint/config-lerna-scopes"],
+    "extends": [
+      "@commitlint/config-conventional",
+      "@commitlint/config-lerna-scopes"
+    ],
     "rules": {
-      "header-max-length": [0, "always", 85]
+      "header-max-length": [
+        0,
+        "always",
+        85
+      ]
     }
   },
   "prettier": {
@@ -56,7 +67,9 @@
     "trailingComma": "none"
   },
   "jest": {
-    "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\](?!@availity).+\\.(js|jsx)$"],
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\](?!@availity).+\\.(js|jsx)$"
+    ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
       "<rootDir>/packages/workflow-plugin-angular/template/",

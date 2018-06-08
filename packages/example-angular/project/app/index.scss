@@ -1,0 +1,12 @@
+// BEFORE USING CUSTOM SCSS/CSS PLEASE TRY AND LEVERAGE THE UIKIT
+// AS MUCH AS POSSIBLE
+//
+// EVERY TIME A CUSTOM STYLE IS CREATED AN ANGEL LOSES ITS WINGS
+
+.progress {
+  margin-bottom: 0;
+}
+
+.table-progress > tbody > tr > td {
+  vertical-align: middle;
+}

@@ -1,8 +1,7 @@
 {
-  "name": "@availity/example-react",
-  "version": "4.0.0-alpha.14",
-  "private": true,
-  "description": "React project using @availity/workflow",
+  "name": "availity-react-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate React project using availity-workflow",
   "main": "index.js",
   "scripts": {
     "start": "av start",
