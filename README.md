@@ -150,7 +150,7 @@ Enable or disable react-hot-loader. Default is `true` for `@availity/workflow-pl
 #### `development.hotLoaderEntry`
 
 Regular expression to configure which file is entry point for hot loading via react-hot-loader-loader. Default is `/\/App\.jsx?/` which will find `/App.js` or `/App.js` at the root of your app directory for `@availity/workflow-plugin-react` plugin.
-<br /><small>Note: this should **not** by the application entry point (index.js), but the file which the component which is imported into index.js and rendered.</small>
+<br /><small>Note: this should **not** be the application entry point (index.js), but the file which the component which is imported into index.js and rendered.</small>
 
 #### `development.coverage`
 
@@ -164,7 +164,7 @@ Optional options for Webpack development server. If undefined, `workflow` defaul
 
 #### `development.targets`
 
-Allows developers to override the `babel-preset-env` target to match their developer environment. This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6, therefore, not needing to Babelfy code completely.
+Allows developers to override the `babel-preset-env` target to match their developer environment. This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6 features, therefore, not needing to Babelfy code completely.
 
 This setting is is only used for development and does not effect staging/production/testing builds which default to `IE11`. **@See** [https://github.com/babel/babel-preset-env](https://github.com/babel/babel-preset-env)
 
