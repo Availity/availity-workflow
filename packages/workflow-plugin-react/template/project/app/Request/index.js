@@ -1,3 +1,5 @@
-import Request from './Request';
+import Loader from 'react-loadable';
 
-export default Request;
+const LoadableRequest = Loadable(() => import('./Request'));
+
+export default LoadableRequest;

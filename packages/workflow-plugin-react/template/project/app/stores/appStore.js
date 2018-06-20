@@ -1,5 +1,5 @@
 import { action, computed } from 'mobx';
-import { organizationsApi, providersApi } from '@availity/api-axios';
+import { avOrganizationsApi, avProvidersApi } from '@availity/api-axios';
 
 const valueFromEvent = event => {
   if (event && event.target && typeof event.target.value !== 'undefined') {
@@ -14,7 +14,7 @@ class AppStore {
   }
 
   async getOrganizations() {
-    const response = await organizationsApi.getOrganizations();
+    const response = await avOrganizationsApi.getOrganizations();
     this.setOrganizations(response.data.organizations);
   }
 
@@ -40,7 +40,7 @@ class AppStore {
   }
 
   async getProviders(customerId) {
-    const response = await providersApi.getProviders(customerId);
+    const response = await avProvidersApi.getProviders(customerId);
     const providers = response.data.providers || [];
 
     // Normalize some attributes for UI

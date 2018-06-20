@@ -25,8 +25,8 @@
   "license": "MIT",
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/api-axios": "^1.4.0",
-    "@availity/api-core": "^1.4.0",
+    "@availity/api-axios": "^2.1.1",
+    "@availity/api-core": "^2.1.1",
     "@availity/breadcrumbs-spaces-react": "^1.0.0",
     "@availity/env-var": "^1.6.0",
     "@availity/localstorage-core": "^1.4.0",
