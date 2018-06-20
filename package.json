@@ -73,7 +73,8 @@
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
       "<rootDir>/packages/workflow-plugin-angular/template/",
-      "<rootDir>/packages/workflow-plugin-react/template/"
+      "<rootDir>/packages/workflow-plugin-react/template/",
+      "<rootDir>/packages/example-angular/"
     ],
     "testRegex": ".*.spec.js$"
   }
