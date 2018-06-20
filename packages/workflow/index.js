@@ -13,6 +13,26 @@ const release = require('./scripts/release');
 const profile = require('./scripts/profile');
 require('./scripts/init');
 
+yargs
+.command(
+  'release',
+  `${chalk.dim('Bundle project for distribution (production or staging) and create a git tag')}`,
+  yyargs => {
+    yyargs
+    .version(false)
+    .option('version', {
+      alias: 'v',
+      describe: 'Specify which version you want to use when tagging the project and creating the release.',
+    })
+      .usage(`\nUsage: ${chalk.yellow('av release')} ${chalk.magenta('[options]')}`)
+      .example(chalk.yellow(`${chalk.yellow('av release')} ${chalk.magenta('-v 2.0.0')}`))
+  },
+  () => {
+    settings.init();
+    release();
+  }
+)
+
 /* eslint-disable no-unused-expressions */
 yargs
 
@@ -79,14 +99,7 @@ yargs
     build();
   })
 
-  .command(
-    'release',
-    `${chalk.dim('Bundle project for distribution (production or staging) and create a git tag')}`,
-    () => {
-      settings.init();
-      release();
-    }
-  )
+  
 
   .command('about', `${chalk.dim('About @availity/workflow')}`, () => {
     settings.init();

@@ -5,6 +5,7 @@ const semver = require('semver');
 const inquirer = require('inquirer');
 const { merge } = require('lodash');
 const moment = require('moment');
+const yargs = require('yargs');
 const settings = require('@availity/workflow-settings');
 const Logger = require('@availity/workflow-logger');
 
@@ -64,6 +65,23 @@ function prompt() {
 
   const { version } = settings.pkg();
   const parsed = semver.parse(version);
+  const versionArg = yargs.argv.version || yargs.argv._[1]
+
+  if (versionArg) {
+    let error;
+    if (semver.valid(versionArg)) {
+      if (semver.gt(versionArg, version)) {
+        settings.version = versionArg;
+        return Promise.resolve(true);
+      }
+      error = `must be greater than the current version [${version}].`;
+    } else {
+      error = `is not a valid semver version.`;
+    }
+    error = `Specified version [${versionArg}] ${error}`;
+    Logger.error(error);
+    throw new Error(error);
+  }
 
   // regular release
   const simpleVersion = `${parsed.major}.${parsed.minor}.${parsed.patch}`;

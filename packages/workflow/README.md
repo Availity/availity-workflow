@@ -89,6 +89,19 @@ Skipped tasks will print a message in the console
 ℹ [ Dry Run ] Skipping version bump
 ```
 
+##### `--version <semver>`
+Disables version prompt. The semver version given is valid and greater than the current version.
+
+Alias `-v <semver>`<br/>
+Shorthand `av release <semver>`
+
+Usage within npm run-script (given npm run-script named `release` which calls `av release`); the follow are equivalent:
+```bash
+npm run release -- --version <semver>
+npm run release -- --v <semver>
+npm run release <semver>
+```
+
 ### `profile`
 Analyze Webpack bundles and find what is contributing their sizes.  This command generates an html graphical chart that automatically opens in the browser as well as a text summary report in the console.
 
