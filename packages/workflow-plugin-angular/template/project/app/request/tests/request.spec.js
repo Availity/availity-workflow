@@ -1,4 +1,4 @@
-/* global describe, it, beforeEach, inject, expect */
+/* global inject */
 import angular from 'angular';
 
 import availityApi from '@availity/api-angular';
@@ -14,11 +14,9 @@ describe('request', () => {
     angular.mock.module(app.name, availityApi, uiRouter);
   });
 
-  beforeEach(
-    inject(_request_ => {
-      request = _request_;
-    })
-  );
+  beforeEach(inject(_request_ => {
+    request = _request_;
+  }));
 
   it('should exist', () => {
     expect(request).toBeDefined();

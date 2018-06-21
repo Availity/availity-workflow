@@ -1,3 +1,13 @@
+<a name="4.0.0-alpha.15"></a>
+# [4.0.0-alpha.15](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.14...v4.0.0-alpha.15) (2018-06-21)
+
+
+### Features
+
+* **workflow:** accept version when running release ([50c76e6](https://github.com/Availity/availity-workflow/commit/50c76e6)), closes [#175](https://github.com/Availity/availity-workflow/issues/175)
+
+
+
 <a name="4.0.0-alpha.14"></a>
 # [4.0.0-alpha.14](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.13...v4.0.0-alpha.14) (2018-05-22)
 

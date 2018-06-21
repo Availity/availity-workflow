@@ -1,7 +1,7 @@
 {
-  "name": "availity-react-kit",
-  "version": "0.1.0",
-  "description": "React project using @availity/workflow",
+  "name": "availity-react-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate React project using availity-workflow",
   "main": "index.js",
   "scripts": {
     "start": "av start",
@@ -21,7 +21,11 @@
     "production": "cross-env NODE_ENV=production av release",
     "staging": "cross-env NODE_ENV=staging av release"
   },
-  "keywords": ["react", "availity", "workflow"],
+  "keywords": [
+    "react",
+    "availity",
+    "workflow"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
@@ -44,11 +48,11 @@
     "react-router-dom": "^4.2.2",
     "react-select": "^1.2.1",
     "react-transition-group": "^2.3.1",
-    "reactstrap": "^5.0.0"
+    "reactstrap": "^6.0.0"
   },
   "devDependencies": {
-    "@availity/workflow": "^4.0.0-alpha.12",
-    "@availity/workflow-plugin-react": "^4.0.0-alpha.12",
+    "@availity/workflow": "^4.0.0-alpha.14",
+    "@availity/workflow-plugin-react": "^4.0.0-alpha.14",
     "babel-eslint": "^8.2.3",
     "cross-env": "^5.1.4",
     "eslint": "^4.19.1",
@@ -63,13 +67,5 @@
   },
   "availityWorkflow": {
     "plugin": "@availity/workflow-plugin-react"
-  },
-  "lint-staged": {
-    "*.js": ["prettier --write", "git add"]
-  },
-  "prettier": {
-    "printWidth": 120,
-    "singleQuote": true,
-    "trailingComma": "es5"
   }
 }

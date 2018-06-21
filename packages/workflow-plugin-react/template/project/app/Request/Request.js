@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { AvForm } from 'availity-reactstrap-validation';
 import { Button, Card, CardBody } from 'reactstrap';
-// import BlockUi from 'react-block-ui';
+import 'react-datetime/css/react-datetime.css';
 
 import { Agreement, Patient, Provider } from './components';
 import { Footer, Header } from '../components';
@@ -14,6 +14,9 @@ export default class AuthorizationsRequest extends Component {
   static propTypes = {
     appStore: PropTypes.shape({
       state: PropTypes.any
+    }),
+    history: PropTypes.shape({
+      push: PropTypes.func
     })
   };
 
@@ -23,7 +26,7 @@ export default class AuthorizationsRequest extends Component {
   }
 
   submit = () => {
-    this.props.history.push("/response");
+    this.props.history.push('/response');
   };
 
   render() {

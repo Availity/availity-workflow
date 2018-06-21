@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "4.0.0-alpha.14",
+  "version": "4.0.0-alpha.15",
   "devDependencies": {
     "@commitlint/cli": "^5.2.5",
     "@commitlint/config-conventional": "^5.2.3",
@@ -36,10 +36,10 @@
     "postinstall": "lerna bootstrap",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
     "precommit": "lint-staged",
-    "release": "npm run lint && copy:templates && sh ./scripts/release.sh",
-    "copy:templates": "npm run copy:react:templates && copy:angular:templates",
-    "copy:angular:templates": "copyfiles -a -u 2 \"packages/example-angular/**/*\" packages/workflow-plugin-angular/template/",
-    "copy:react:templates": "copyfiles -a -u 2 \"packages/example-react/**/*\" packages/workflow-plugin-react/template/",
+    "release": "npm run lint && npm run copy:templates && sh ./scripts/release.sh",
+    "copy:templates": "npm run copy:react:templates && npm run copy:angular:templates",
+    "copy:angular:templates": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" \"packages/example-angular/**/*\" packages/workflow-plugin-angular/template/",
+    "copy:react:templates": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" \"packages/example-react/**/*\" packages/workflow-plugin-react/template/",
     "commitmsg": "commitlint -e $GIT_PARAMS"
   },
   "lint-staged": {

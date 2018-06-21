@@ -29,8 +29,8 @@
   "license": "MIT",
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/api-axios": "^1.4.0",
-    "@availity/api-core": "^1.4.0",
+    "@availity/api-axios": "^2.1.1",
+    "@availity/api-core": "^2.1.1",
     "@availity/breadcrumbs-spaces-react": "^1.0.0",
     "@availity/env-var": "^1.6.0",
     "@availity/localstorage-core": "^1.4.0",
@@ -44,12 +44,11 @@
     "prop-types": "^15.5.7",
     "react": "^16.3.2",
     "react-block-ui": "^1.1.1",
-    "react-datetime": "^2.14.0",
     "react-dom": "^16.3.2",
     "react-router-dom": "^4.2.2",
     "react-select": "^1.2.1",
     "react-transition-group": "^2.3.1",
-    "reactstrap": "^5.0.0"
+    "reactstrap": "^6.0.0"
   },
   "devDependencies": {
     "@availity/workflow": "^4.0.0-alpha.14",

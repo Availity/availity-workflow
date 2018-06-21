@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { Label, UncontrolledTooltip } from 'reactstrap';
 import { AvField } from 'availity-reactstrap-validation';
