@@ -1,9 +1,9 @@
 {
-  "name": "@availity/example-react",
-  "version": "4.0.0-alpha.15",
-  "description": "Boilerplate React project using availity-workflow",
-  "main": "index.js",
+  "name": "@availity/react-kit",
   "private": true,
+  "version": "4.0.0-alpha.15",
+  "description": "React project using @availity/workflow",
+  "main": "index.js",
   "scripts": {
     "start": "av start",
     "av": "av",
@@ -68,5 +68,13 @@
   },
   "availityWorkflow": {
     "plugin": "@availity/workflow-plugin-react"
+  },	
+  "lint-staged": {	
+    "*.js": ["prettier --write", "git add"]	
+  },	
+  "prettier": {	
+    "printWidth": 120,	
+    "singleQuote": true,	
+    "trailingComma": "es5"	
   }
 }

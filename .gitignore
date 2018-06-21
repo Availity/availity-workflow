@@ -9,3 +9,7 @@ coverage/
 reports/
 dist/
 build/
+packages/workflow-plugin-angular/template/*
+!packages/workflow-plugin-angular/template/README.md
+packages/workflow-plugin-react/template/*
+!packages/workflow-plugin-react/template/README.md
