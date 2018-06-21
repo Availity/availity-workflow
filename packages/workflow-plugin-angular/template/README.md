@@ -1,5 +1,5 @@
-# example-react
+# availity-angular-kit
 
-> DO NOT USE AS TEMPLATE FOR PROJECTS. THIS IS FOR CONTRIBUTORS TO TEST OUT CHANGES.
+> Example Angular application using @availity/workflow and @availity/workflow-plugin-angular
 
-## https://github.com/Availity/availity-workflow#react
+## https://github.com/Availity/availity-workflow#angular

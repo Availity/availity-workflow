@@ -1,5 +1,5 @@
-# example-react
+# availity-react-kit
 
-> DO NOT USE AS TEMPLATE FOR PROJECTS. THIS IS FOR CONTRIBUTORS TO TEST OUT CHANGES.
+> Example React application using @availity/workflow and @availity/workflow-plugin-react
 
 ## https://github.com/Availity/availity-workflow#react

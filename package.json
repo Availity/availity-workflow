@@ -38,8 +38,8 @@
     "precommit": "lint-staged",
     "release": "npm run lint && npm run copy:templates && sh ./scripts/release.sh",
     "copy:templates": "npm run copy:react:templates && npm run copy:angular:templates",
-    "copy:angular:templates": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" \"packages/example-angular/**/*\" packages/workflow-plugin-angular/template/",
-    "copy:react:templates": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" \"packages/example-react/**/*\" packages/workflow-plugin-react/template/",
+    "copy:angular:templates": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" -e \"**/README.md\" \"packages/example-angular/**/*\" packages/workflow-plugin-angular/template/",
+    "copy:react:templates": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" -e \"**/README.md\" \"packages/example-react/**/*\" packages/workflow-plugin-react/template/",
     "commitmsg": "commitlint -e $GIT_PARAMS"
   },
   "lint-staged": {
