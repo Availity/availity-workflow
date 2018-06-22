@@ -1,3 +1,13 @@
+<a name="4.0.0-alpha.16"></a>
+# [4.0.0-alpha.16](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.15...v4.0.0-alpha.16) (2018-06-22)
+
+
+### Bug Fixes
+
+* **mock-data:** add uiDisplayName to providers ([b12989f](https://github.com/Availity/availity-workflow/commit/b12989f))
+
+
+
 <a name="4.0.0-alpha.15"></a>
 # [4.0.0-alpha.15](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.14...v4.0.0-alpha.15) (2018-06-21)
 

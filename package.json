@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "4.0.0-alpha.15",
+  "version": "4.0.0-alpha.16",
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.1",
