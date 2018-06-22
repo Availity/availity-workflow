@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow",
-  "version": "4.0.0-alpha.15",
+  "version": "4.0.0-alpha.16",
   "description": "Upgradable workflow for Availity boilerplate projects",
   "main": "index.js",
   "bin": {
@@ -29,10 +29,10 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/mock-data": "^4.0.0-alpha.15",
-    "@availity/mock-server": "^4.0.0-alpha.15",
-    "@availity/workflow-logger": "^4.0.0-alpha.15",
-    "@availity/workflow-settings": "^4.0.0-alpha.15",
+    "@availity/mock-data": "^4.0.0-alpha.16",
+    "@availity/mock-server": "^4.0.0-alpha.16",
+    "@availity/workflow-logger": "^4.0.0-alpha.16",
+    "@availity/workflow-settings": "^4.0.0-alpha.16",
     "chalk": "^2.3.2",
     "cross-spawn": "^6.0.5",
     "debug": "^3.0.0",
