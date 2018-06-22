@@ -18,6 +18,7 @@
     {
       "id": "999999-9999-999999",
       "businessName": "Acme Provider LLC",
+      "uiDisplayName": "Acme Provider LLC",
       "atypical": false,
       "npi": "1234567893",
       "customerIds": [
@@ -88,6 +89,7 @@
       "lastName": "Farrell",
       "firstName": "Joe",
       "middleName": "L",
+      "uiDisplayName": "Joe L. Farrell",
       "atypical": false,
       "npi": "1770889999",
       "customerIds": [
