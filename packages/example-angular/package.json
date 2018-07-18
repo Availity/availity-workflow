@@ -1,6 +1,6 @@
 {
   "name": "@availity/angular-kit",
-  "version": "4.0.0-alpha.16",
+  "version": "4.0.0-alpha.17",
   "private": true,
   "description": "Angular project using @availity/workflow",
   "main": "index.js",
@@ -58,8 +58,8 @@
     "velocity-animate": "^1.5.0"
   },
   "devDependencies": {
-    "@availity/workflow": "^4.0.0-alpha.16",
-    "@availity/workflow-plugin-angular": "^4.0.0-alpha.16",
+    "@availity/workflow": "^4.0.0-alpha.17",
+    "@availity/workflow-plugin-angular": "^4.0.0-alpha.17",
     "babel-eslint": "^8.0.3",
     "cross-env": "^5.0.4",
     "eslint": "^4.13.1",
