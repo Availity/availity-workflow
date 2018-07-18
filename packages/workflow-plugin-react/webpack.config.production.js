@@ -124,7 +124,7 @@ const config = {
     new CaseSensitivePathsPlugin(),
 
     new loaders.MiniCssExtractPlugin({
-      filename:'css/index.css',
+      filename:'css/[name]-[contenthash].css',
     }),
 
     new CopyWebpackPlugin(

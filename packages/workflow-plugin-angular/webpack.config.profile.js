@@ -158,7 +158,7 @@ const config = {
     }),
 
     new loaders.MiniCssExtractPlugin({
-      filename:'css/index.css',
+      filename:'css/[name]-[contenthash].css',
     }),
 
     new DuplicatePackageCheckerPlugin(),
