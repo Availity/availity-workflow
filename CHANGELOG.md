@@ -1,3 +1,13 @@
+<a name="4.0.0-alpha.17"></a>
+# [4.0.0-alpha.17](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.16...v4.0.0-alpha.17) (2018-07-18)
+
+
+### Bug Fixes
+
+* cache bust generated css file names ([4bf0f9a](https://github.com/Availity/availity-workflow/commit/4bf0f9a))
+
+
+
 <a name="4.0.0-alpha.16"></a>
 # [4.0.0-alpha.16](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.15...v4.0.0-alpha.16) (2018-06-22)
 
