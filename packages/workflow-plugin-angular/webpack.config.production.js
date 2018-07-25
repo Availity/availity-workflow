@@ -41,7 +41,7 @@ const config = {
         },
         commons: {
           chunks: 'initial',
-          minChunks: 2,
+          minChunks: 2
         },
         vendor: {
           test: /node_modules/,
@@ -57,7 +57,11 @@ const config = {
 
   output: {
     path: settings.output(),
-    filename: settings.fileName()
+    filename: settings.fileName(),
+    devtoolModuleFilenameTemplate: info =>
+      `webpack:///${path.relative(settings.project(), info.absoluteResourcePath)}${
+        info.loaders ? `?${info.loaders}` : ''
+      }`
   },
 
   devtool: settings.sourceMap(),
@@ -167,7 +171,7 @@ const config = {
     new CaseSensitivePathsPlugin(),
 
     new loaders.MiniCssExtractPlugin({
-      filename:'css/[name]-[contenthash].css',
+      filename: 'css/[name]-[contenthash].css'
     }),
 
     new CopyWebpackPlugin(
@@ -189,6 +193,7 @@ if (settings.isProduction()) {
   config.optimization.minimizer.push(
     new UglifyJsPlugin({
       parallel: true,
+      sourceMap: true,
       uglifyOptions: {
         ie8: false,
         mangle: false,
