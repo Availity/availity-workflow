@@ -1,3 +1,13 @@
+<a name="4.0.0-alpha.18"></a>
+# [4.0.0-alpha.18](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.17...v4.0.0-alpha.18) (2018-07-25)
+
+
+### Features
+
+* generate sorcemaps for production builds ([c13c87e](https://github.com/Availity/availity-workflow/commit/c13c87e))
+
+
+
 <a name="4.0.0-alpha.17"></a>
 # [4.0.0-alpha.17](https://github.com/Availity/availity-workflow/compare/v4.0.0-alpha.16...v4.0.0-alpha.17) (2018-07-18)
 
