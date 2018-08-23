@@ -184,10 +184,15 @@ function web() {
 
     let webpackOptions = {
       contentBase: settings.output(),
-      // display no info to console (only warnings and errors)
-      noInfo: true,
+
       // display nothing to the console
       quiet: true,
+
+      // Don't enable this else webpack middleware will log messages and
+      // users will see log message printed twice
+      // noInfo: true,
+
+      clientLogLevel: 'none',
 
       historyApiFallback: settings.historyFallback(),
 
