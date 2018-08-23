@@ -1,3 +1,14 @@
+<a name="4.0.2"></a>
+## [4.0.2](https://github.com/Availity/availity-workflow/compare/v4.0.1...v4.0.2) (2018-08-23)
+
+
+### Bug Fixes
+
+* remove zindex optimization ([fd07b15](https://github.com/Availity/availity-workflow/commit/fd07b15))
+* **workflow:** disable log for webpack middleware ([62d4e44](https://github.com/Availity/availity-workflow/commit/62d4e44))
+
+
+
 <a name="4.0.1"></a>
 ## [4.0.1](https://github.com/Availity/availity-workflow/compare/v4.0.0...v4.0.1) (2018-08-16)
 
