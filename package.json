@@ -32,7 +32,7 @@
     "link": "lerna link",
     "test": "jest --silent",
     "test:integration": "lerna run --concurrency 1 integration",
-    "clean": "lerna clean",
+    "clean": "lerna clean --yes",
     "postinstall": "lerna bootstrap",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
     "precommit": "lint-staged",
