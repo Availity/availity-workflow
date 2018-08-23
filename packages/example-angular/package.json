@@ -1,5 +1,5 @@
 {
-  "name": "@availity/angular-kit",
+  "name": "@availity/example-angular",
   "version": "4.0.1",
   "private": true,
   "description": "Angular project using @availity/workflow",
