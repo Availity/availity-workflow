@@ -31,6 +31,7 @@
     "bootstrap": "lerna bootstrap",
     "link": "lerna link",
     "test": "jest --silent",
+    "start": "npm run start --prefix packages/example-react",
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean --yes",
     "postinstall": "lerna bootstrap",
@@ -40,7 +41,8 @@
     "copy:templates": "npm run copy:react:templates && npm run copy:angular:templates",
     "copy:angular:templates": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" -e \"**/README.md\" \"packages/example-angular/**/*\" packages/workflow-plugin-angular/template/",
     "copy:react:templates": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" -e \"**/README.md\" \"packages/example-react/**/*\" packages/workflow-plugin-react/template/",
-    "commitmsg": "commitlint -e $GIT_PARAMS"
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "add": "sh ./scripts/add.sh"
   },
   "lint-staged": {
     "*.js": [
