@@ -23,8 +23,7 @@
   "dependencies": {
     "@availity/workflow-logger": "^4.0.2",
     "chalk": "^2.0.1",
-    "exists-sync": "0.0.4",
-    "get-port": "^3.2.0",
+    "get-port": "^4.0.0",
     "js-yaml": "^3.9.0",
     "lodash.foreach": "^4.5.0",
     "lodash.get": "^4.4.2",
@@ -35,10 +34,10 @@
     "lodash.trimstart": "^4.5.1",
     "mini-css-extract-plugin": "^0.4.0",
     "postcss-cssnext": "^3.0.2",
-    "postcss-focus": "^2.0.0",
-    "postcss-reporter": "^5.0.0",
+    "postcss-focus": "^3.0.0",
+    "postcss-reporter": "^6.0.0",
     "webpack": "^4.5.0",
-    "yargs": "^11.0.0"
+    "yargs": "^12.0.1"
   },
   "publishConfig": {
     "access": "public"

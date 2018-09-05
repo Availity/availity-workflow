@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const settings = require('@availity/workflow-settings');
-const exists = require('exists-sync');
+const { existsSync } = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
@@ -14,7 +14,7 @@ const htmlConfig = require('./html');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
 
-const babelrcExists = exists(babelrcPath);
+const babelrcExists = existsSync(babelrcPath);
 function getVersion() {
   return settings.pkg().version || 'N/A';
 }

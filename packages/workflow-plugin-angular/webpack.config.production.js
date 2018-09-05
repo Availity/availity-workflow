@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const loaders = require('@availity/workflow-settings/webpack');
-const exists = require('exists-sync');
+const { existsSync } = require('fs');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const requireRelative = require('require-relative');
@@ -15,7 +15,7 @@ process.noDeprecation = true;
 const htmlConfig = require('./html');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
-const babelrcExists = exists(babelrcPath);
+const babelrcExists = existsSync(babelrcPath);
 
 function getVersion() {
   return settings.pkg().version || 'N/A';
