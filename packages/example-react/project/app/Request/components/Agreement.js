@@ -2,6 +2,7 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { AvFeedback, AvInput, AvGroup } from 'availity-reactstrap-validation';
 import { Label } from 'reactstrap';
+import props from './props';
 
 const Agreement = props => (
   <fieldset>
@@ -30,5 +31,7 @@ const Agreement = props => (
     </AvGroup>
   </fieldset>
 );
+
+Agreement.propTypes = props;
 
 export default inject('appStore')(observer(Agreement));
