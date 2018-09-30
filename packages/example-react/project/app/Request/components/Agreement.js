@@ -2,6 +2,7 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { AvFeedback, AvInput, AvGroup } from 'availity-reactstrap-validation';
 import { Label } from 'reactstrap';
+import props from './props';
 
 const Agreement = props => (
   <fieldset>
@@ -14,20 +15,23 @@ const Agreement = props => (
       § 160.103.
     </div>
 
-    <AvGroup check>
+    <AvGroup check className="custom-control custom-checkbox">
       <AvInput
         id="agreement"
         name="agreement"
         type="checkbox"
+        className="custom-control-input"
         onChange={props.appStore.toggleAcceptedAgreement}
         required
       />
-      <Label for="agreement" check>
+      <Label for="agreement" className="custom-control-label" check>
         &nbsp;I agree to the terms and conditions
       </Label>
       <AvFeedback>You must agree to terms</AvFeedback>
     </AvGroup>
   </fieldset>
 );
+
+Agreement.propTypes = props;
 
 export default inject('appStore')(observer(Agreement));
