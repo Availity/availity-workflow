@@ -32,9 +32,9 @@
     "lodash.isstring": "^4.0.1",
     "lodash.merge": "^4.6.0",
     "lodash.trimstart": "^4.5.1",
-    "mini-css-extract-plugin": "^0.4.0",
+    "mini-css-extract-plugin": "^0.4.3",
     "postcss-cssnext": "^3.0.2",
-    "postcss-focus": "^3.0.0",
+    "postcss-focus": "^4.0.0",
     "postcss-reporter": "^6.0.0",
     "webpack": "^4.5.0",
     "yargs": "^12.0.1"
