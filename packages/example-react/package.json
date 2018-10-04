@@ -54,7 +54,7 @@
   "devDependencies": {
     "@availity/workflow": "^4.0.2",
     "@availity/workflow-plugin-react": "^4.0.2",
-    "babel-eslint": "^9.0.0",
+    "babel-eslint": "^10.0.1",
     "cross-env": "^5.1.4",
     "eslint": "^5.5.0",
     "eslint-config-airbnb": "^17.1.0",
