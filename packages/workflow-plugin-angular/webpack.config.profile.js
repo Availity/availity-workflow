@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const settings = require('@availity/workflow-settings');
-const exists = require('exists-sync');
+const { existsSync } = require('fs');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -11,7 +11,7 @@ const loaders = require('@availity/workflow-settings/webpack');
 process.noDeprecation = true;
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
-const babelrcExists = exists(babelrcPath);
+const babelrcExists = existsSync(babelrcPath);
 
 function getVersion() {
   return settings.pkg().version || 'N/A';
@@ -31,7 +31,7 @@ const config = {
         },
         commons: {
           chunks: 'initial',
-          minChunks: 2,
+          minChunks: 2
         },
         vendor: {
           test: /node_modules/,
@@ -158,7 +158,7 @@ const config = {
     }),
 
     new loaders.MiniCssExtractPlugin({
-      filename:'css/[name]-[contenthash].css',
+      filename: 'css/[name]-[contenthash].css'
     }),
 
     new DuplicatePackageCheckerPlugin(),

@@ -1,7 +1,7 @@
 /* eslint global-require:0 import/no-dynamic-require: 0 */
 const path = require('path');
 const Logger = require('@availity/workflow-logger');
-const exists = require('exists-sync');
+const { existsSync } = require('fs');
 const trimStart = require('lodash.trimstart');
 const chalk = require('chalk');
 const merge = require('lodash.merge');
@@ -189,11 +189,11 @@ const settings = {
     const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
     const ymlWorkflowConfig = path.join(settings.project(), 'project/config/workflow.yml');
 
-    if (exists(jsWorkflowConfig)) {
+    if (existsSync(jsWorkflowConfig)) {
       // Try workflow.js
       this.workflowConfigPath = jsWorkflowConfig;
       developerConfig = require(this.workflowConfigPath);
-    } else if (exists(ymlWorkflowConfig)) {
+    } else if (existsSync(ymlWorkflowConfig)) {
       // Try workflow.yml
       this.workflowConfigPath = ymlWorkflowConfig;
       developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));

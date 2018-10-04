@@ -2,13 +2,13 @@
 const jest = require('jest');
 const path = require('path');
 const settings = require('@availity/workflow-settings');
-const exists = require('exists-sync');
+const { existsSync } = require('fs');
 
 function create() {
   const rootDir = settings.project();
 
   const setupFilesPath = path.join(settings.project(), 'jest.setup.js');
-  const setupFilesExist = exists(setupFilesPath);
+  const setupFilesExist = existsSync(setupFilesPath);
 
   const setupFiles = setupFilesExist ? [`${require.resolve(setupFilesPath)}`] : [];
 
