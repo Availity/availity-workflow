@@ -161,7 +161,7 @@ if (settings.isProduction()) {
       }
     }),
     new OptimizeCSSAssetsPlugin({
-      cssProcessorOptions: { zindex: false }
+      cssProcessorOptions: { zindex: false, reduceIdents: false }
     })
   );
 }
