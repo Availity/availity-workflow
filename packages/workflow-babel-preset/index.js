@@ -79,6 +79,7 @@ if (settings.isTesting()) {
         require.resolve('@babel/preset-env'),
         {
           targets: settings.targets(),
+          forceAllTransforms: settings.isDistribution(),
           ignoreBrowserslistConfig: true,
           modules: false,
           useBuiltIns: false,

@@ -1,6 +1,6 @@
 {
 	"name": "@availity/workflow-plugin-react",
-	"version": "4.0.2",
+	"version": "4.0.3",
 	"description": "React module for @availity/workflow",
 	"repository": {
 		"type": "git",
@@ -18,11 +18,12 @@
 	},
 	"homepage": "https://github.com/availity/availity-workflow#readme",
 	"dependencies": {
-    "@availity/workflow-babel-preset": "^4.0.2",
-    "@availity/workflow-logger": "^4.0.2",
-    "@availity/workflow-settings": "^4.0.2",
+		"@availity/workflow-babel-preset": "^4.0.3",
+		"@availity/workflow-logger": "^4.0.3",
+		"@availity/workflow-settings": "^4.0.3",
 		"@babel/core": "^7.0.0",
 		"@babel/runtime": "^7.0.0",
+		"babel-core": "^7.0.0-bridge.0",
 		"babel-jest": "^23.0.1",
 		"babel-loader": "^8.0.2",
 		"case-sensitive-paths-webpack-plugin": "^2.1.2",
@@ -42,6 +43,7 @@
 		"raf": "^3.4.0",
 		"react-hot-loader": "^4.3.6",
 		"react-hot-loader-loader": "0.0.6",
+		"regenerator-runtime": "^0.12.1",
 		"sass-loader": "^7.0.1",
 		"style-loader": "^0.23.0",
 		"terser-webpack-plugin": "^1.1.0",

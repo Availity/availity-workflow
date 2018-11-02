@@ -105,8 +105,7 @@ const settings = {
 
   targets() {
     const defaultTargets = {
-      ie: 11,
-      uglify: true
+      ie: 11
     };
 
     const developmentTarget = get(this.configuration, 'development.targets', defaultTargets);
