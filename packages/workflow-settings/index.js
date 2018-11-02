@@ -160,7 +160,7 @@ const settings = {
   },
 
   log() {
-    let message = `${this.pluginName().toUpperCase()} MODE`;
+    let message = `${this.pluginName().toUpperCase()}`;
 
     Logger.warn(chalk.bold.yellow(message));
 
@@ -257,7 +257,7 @@ const settings = {
   },
 
   asset(workflowFilePath, projectFilePath) {
-    const hasProjectFile = exists(projectFilePath);
+    const hasProjectFile = fs.existsSync(projectFilePath);
     const filePath = hasProjectFile ? projectFilePath : workflowFilePath;
 
     if (!this.isTesting()) {

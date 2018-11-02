@@ -59,7 +59,7 @@ const ekko = {
   // Enables or disables Ekko
   enabled: true,
 
-  port: 9999,
+  port: 0,
 
   // Sets default latency for all route responses
   latency: 250,

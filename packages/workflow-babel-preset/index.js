@@ -4,55 +4,40 @@ const settings = require('@availity/workflow-settings');
 
 const wfPlugins = [
   // @observer @observable
-  require.resolve('babel-plugin-transform-decorators-legacy'),
+  [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
 
   // class { handleClick = () => { } }
-  require.resolve('babel-plugin-transform-class-properties'),
+  [
+    require.resolve('@babel/plugin-proposal-class-properties'),
+    {
+      loose: true
+    }
+  ],
 
   // Object.assign(a, b)
-  require.resolve('babel-plugin-transform-object-assign'),
+  require.resolve('@babel/plugin-transform-object-assign'),
 
   [
-    require.resolve('babel-plugin-transform-object-rest-spread'),
+    require.resolve('@babel/plugin-proposal-object-rest-spread'),
     {
       useBuiltIns: true
     }
   ],
-  // Transforms JSX
-  [
-    require.resolve('babel-plugin-transform-react-jsx'),
-    {
-      useBuiltIns: true
-    }
-  ],
+
+  require.resolve('@babel/plugin-transform-destructuring'),
 
   // Polyfills the runtime needed for async/await and generators
   [
-    require.resolve('babel-plugin-transform-runtime'),
+    require.resolve('@babel/plugin-transform-runtime'),
     {
+      corejs: false,
       helpers: false,
-      polyfill: false,
       regenerator: true,
       // Resolve the Babel runtime relative to the config
-      moduleName: path.dirname(require.resolve('babel-runtime/package'))
+      absoluteRuntime: path.dirname(require.resolve('@babel/runtime/package.json'))
     }
   ]
 ];
-
-if (settings.isDevelopment() || settings.isTesting()) {
-  // The following two plugins are currently necessary to make React warnings
-  // include more valuable information. They are included here because they are
-  // currently not enabled in babel-preset-react. See the below threads for more info:
-  // https://github.com/babel/babel/issues/4702
-  // https://github.com/babel/babel/pull/3540#issuecomment-228673661
-  // https://github.com/facebookincubator/create-react-app/issues/989
-  wfPlugins.push.apply(wfPlugins, [
-    // Adds component stack to warning messages
-    require.resolve('babel-plugin-transform-react-jsx-source'),
-    // Adds __self attribute to JSX which React will use for some warnings
-    require.resolve('babel-plugin-transform-react-jsx-self')
-  ]);
-}
 
 let config;
 
@@ -62,7 +47,7 @@ if (settings.isTesting()) {
     presets: [
       // ES features necessary for user's Node version
       [
-        require('babel-preset-env').default,
+        require.resolve('@babel/preset-env'),
         {
           targets: {
             node: 'current'
@@ -70,10 +55,18 @@ if (settings.isTesting()) {
         }
       ],
       // JSX, Flow
-      require.resolve('babel-preset-react'),
-      require.resolve('babel-preset-stage-0')
+      // Transforms JSX
+      [
+        require.resolve('@babel/preset-react'),
+        {
+          development: settings.isDevelopment() || settings.isTesting(),
+          useBuiltIns: true
+        }
+      ]
     ],
     plugins: wfPlugins.concat([
+      // Adds syntax support for import()
+      require.resolve('@babel/plugin-syntax-dynamic-import'),
       // Compiles import() to a deferred require()
       require.resolve('babel-plugin-dynamic-import-node')
     ])
@@ -83,33 +76,30 @@ if (settings.isTesting()) {
     presets: [
       // Latest stable ECMAScript features
       [
-        require.resolve('babel-preset-env'),
+        require.resolve('@babel/preset-env'),
         {
           targets: settings.targets(),
-          // Tells the es2015 preset to avoid compiling import statements into CommonJS. That lets Webpack do tree shaking on your code.
+          ignoreBrowserslistConfig: true,
           modules: false,
-          // Disable polyfill transforms
-          useBuiltIns: false
+          useBuiltIns: false,
+          exclude: ['transform-typeof-symbol']
         }
       ],
-      // JSX, Flow
-      require.resolve('babel-preset-react'),
-      require.resolve('babel-preset-stage-0')
-    ],
-    plugins: wfPlugins.concat([
-      // function* () { yield 42; yield 43; }
       [
-        require.resolve('babel-plugin-transform-regenerator'),
+        require.resolve('@babel/preset-react'),
         {
-          // Async functions are converted to generators by babel-preset-env
-          async: false
+          development: settings.isDevelopment() || settings.isTesting(),
+          useBuiltIns: true
         }
-      ],
-      // Adds syntax support for import()
-      require.resolve('babel-plugin-syntax-dynamic-import'),
-      // Angular bombs
-      require.resolve('babel-plugin-transform-es2015-shorthand-properties')
-    ])
+      ]
+    ],
+    plugins: wfPlugins.concat(
+      // Tells the es2015 preset to avoid compiling import statements into CommonJS. That lets Webpack do tree shaking on your code. // Disable polyfill transforms // JSX, Flow
+      [
+        // Angular bombs
+        require.resolve('@babel/plugin-transform-shorthand-properties')
+      ]
+    )
   };
 }
-module.exports = config;
+module.exports = () => config;

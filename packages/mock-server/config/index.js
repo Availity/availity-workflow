@@ -21,7 +21,7 @@ class Configuration {
    */
 
   defaultConfig(path) {
-    return this.path ? require(path) : require('../config');
+    return this.path ? require(path) : this;
   }
 
   /**
