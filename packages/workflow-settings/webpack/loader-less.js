@@ -17,7 +17,7 @@ module.exports = {
       {
         loader: 'less-loader',
         options: {
-          sourceMap: true
+          sourceMap: false
         }
       }
     ]
@@ -38,7 +38,7 @@ module.exports = {
       loaderPostcss,
       {
         loader: 'less-loader',
-        options: { sourceMap: true, }
+        options: { sourceMap: true }
       }
     ]
   }

@@ -1,3 +1,14 @@
+<a name="4.0.3"></a>
+## [4.0.3](https://github.com/Availity/availity-workflow/compare/v4.0.2...v4.0.3) (2018-10-26)
+
+
+### Bug Fixes
+
+* remove reduceIdents from css optimization ([d37b0cf](https://github.com/Availity/availity-workflow/commit/d37b0cf))
+* **workflow-settings:** disable source maps in less ([b48ee33](https://github.com/Availity/availity-workflow/commit/b48ee33))
+
+
+
 <a name="4.0.2"></a>
 ## [4.0.2](https://github.com/Availity/availity-workflow/compare/v4.0.1...v4.0.2) (2018-08-23)
 

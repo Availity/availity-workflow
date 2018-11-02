@@ -3,4 +3,5 @@ dist/
 coverage/
 packages/workflow-plugin-angular/template
 packages/workflow-plugin-react/template
+packages/example-react/build
 

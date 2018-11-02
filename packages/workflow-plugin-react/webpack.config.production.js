@@ -185,7 +185,9 @@ if (settings.isProduction()) {
       cache: true,
       sourceMap: true
     }),
-    new OptimizeCSSAssetsPlugin({ cssProcessorOptions: { zindex: false } })
+    new OptimizeCSSAssetsPlugin({
+      cssProcessorOptions: { zindex: false, reduceIdents: false }
+    })
   );
 }
 
