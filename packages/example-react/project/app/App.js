@@ -8,7 +8,7 @@ import AuthorizationResponse from './Response';
 
 const stores = { appStore, stateStore };
 window.stateStore = stateStore;
-configure({ enforceActions: true });
+configure({ enforceActions: 'observed' });
 
 const App = () => (
   <Provider {...stores}>
