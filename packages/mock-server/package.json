@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@availity/mock-data": "^4.0.3",
-    "superagent": "^3.6.0"
+    "superagent": "^4.0.0"
   },
   "publishConfig": {
     "access": "public"
