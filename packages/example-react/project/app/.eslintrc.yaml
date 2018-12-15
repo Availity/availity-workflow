@@ -1,4 +1,2 @@
 ---
 extends: availity/browser
-env:
-  jest: true

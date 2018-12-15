@@ -9,14 +9,14 @@ import { Footer, Header } from '../components';
 
 @inject('appStore')
 @observer
-export default class AuthorizationsRequest extends Component {
+class AuthorizationsRequest extends Component {
   static propTypes = {
     appStore: PropTypes.shape({
-      state: PropTypes.any
+      state: PropTypes.any,
     }),
     history: PropTypes.shape({
-      push: PropTypes.func
-    })
+      push: PropTypes.func,
+    }),
   };
 
   componentDidMount() {
@@ -25,7 +25,8 @@ export default class AuthorizationsRequest extends Component {
   }
 
   submit = () => {
-    this.props.history.push('/response');
+    const { history } = this.props;
+    history.push('/response');
   };
 
   render() {
@@ -52,3 +53,5 @@ export default class AuthorizationsRequest extends Component {
     );
   }
 }
+
+export default AuthorizationsRequest;

@@ -4,15 +4,14 @@ import { AvFeedback, AvInput, AvGroup } from 'availity-reactstrap-validation';
 import { Label } from 'reactstrap';
 import props from './props';
 
-const Agreement = props => (
+const Agreement = ({ appStore }) => (
   <fieldset>
     <div className="disclaimer">
       I have fully read this agreement and understand that I am entering into a legally binding agreement and that my
       organization is bound by the terms and conditions contained therein. I attest and certify that I am the Primary
       Controlling Authority for the organization named herein and that I possess the necessary legal authority to bind
-      this organization. I further attest and certify my organization&quote;s designation as a Covered Entity under{' '}
-      <abbr title="Health Insurance Portability and Accountability Act">HIPAA</abbr>, as more fully described in 45 CFR
-      § 160.103.
+      this organization. I further attest and certify my organization&quote;s designation as a Covered Entity under
+      <abbr title="Health Insurance Portability and Accountability Act">HIPAA</abbr>
     </div>
 
     <AvGroup check className="custom-control custom-checkbox">
@@ -21,7 +20,7 @@ const Agreement = props => (
         name="agreement"
         type="checkbox"
         className="custom-control-input"
-        onChange={props.appStore.toggleAcceptedAgreement}
+        onChange={appStore.toggleAcceptedAgreement}
         required
       />
       <Label for="agreement" className="custom-control-label" check>
