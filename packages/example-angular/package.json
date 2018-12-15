@@ -47,7 +47,7 @@
     "animate.css": "^3.5.2",
     "availity-angular": "^2.2.0",
     "availity-uikit": "^2.2.0",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.0",
     "bootstrap-datepicker": "^1.7.1",
     "jquery": "^3.2.1",
     "lodash.merge": "^4.6.0",
