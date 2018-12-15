@@ -10,8 +10,7 @@ module.exports = {
         loader: 'css-loader',
         options: {
           sourceMap: true,
-          importLoaders: 1,
-          name: 'images/[name].[ext]'
+          importLoaders: 1
         }
       },
       {
@@ -38,7 +37,7 @@ module.exports = {
       loaderPostcss,
       {
         loader: 'less-loader',
-        options: { sourceMap: true }
+        options: { sourceMap: false }
       }
     ]
   }
