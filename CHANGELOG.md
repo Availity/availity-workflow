@@ -1,3 +1,24 @@
+<a name="5.0.0-alpha.0"></a>
+# [5.0.0-alpha.0](https://github.com/Availity/availity-workflow/compare/v4.0.3...v5.0.0-alpha.0) (2018-12-15)
+
+
+### Bug Fixes
+
+* **example-react:** make enforceActions 'observed' ([d72b841](https://github.com/Availity/availity-workflow/commit/d72b841))
+* **workflow-settings:** remove invalid options for css loader ([87eaaf4](https://github.com/Availity/availity-workflow/commit/87eaaf4))
+
+
+### Chores
+
+* upgrade deps ([702872e](https://github.com/Availity/availity-workflow/commit/702872e))
+
+
+### BREAKING CHANGES
+
+* upgrade to babel 7, eslint 5, eslint-config-airbnb 17
+
+
+
 <a name="4.0.3"></a>
 ## [4.0.3](https://github.com/Availity/availity-workflow/compare/v4.0.2...v4.0.3) (2018-10-26)
 
