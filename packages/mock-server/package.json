@@ -1,6 +1,6 @@
 {
   "name": "@availity/mock-server",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.2",
   "description": "Mock server simulating Availity API rest services",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,7 @@
     "on-finished": "^2.3.0"
   },
   "devDependencies": {
-    "@availity/mock-data": "^5.0.0-alpha.1",
+    "@availity/mock-data": "^5.0.0-alpha.2",
     "superagent": "^4.0.0"
   },
   "publishConfig": {
