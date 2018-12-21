@@ -1,3 +1,13 @@
+<a name="5.0.0-alpha.2"></a>
+# [5.0.0-alpha.2](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.1...v5.0.0-alpha.2) (2018-12-21)
+
+
+### Bug Fixes
+
+* **workflow-settings:** wrong options for css loader ([0014f31](https://github.com/Availity/availity-workflow/commit/0014f31))
+
+
+
 <a name="5.0.0-alpha.1"></a>
 # [5.0.0-alpha.1](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.0...v5.0.0-alpha.1) (2018-12-21)
 
