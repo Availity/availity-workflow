@@ -11,7 +11,7 @@ module.exports = {
         options: {
           sourceMap: true,
           importLoaders: 1,
-          name: 'images/[name].[ext]'
+          localIdentName: 'images/[name].[ext]'
         }
       },
       loaderPostcss
@@ -28,7 +28,7 @@ module.exports = {
       },
       {
         loader: 'css-loader',
-        options: { sourceMap: true, importLoaders: 1 }
+        options: { sourceMap: true, importLoaders: 1, localIdentName: 'images/[name].[ext]' }
       },
       loaderPostcss
     ]
