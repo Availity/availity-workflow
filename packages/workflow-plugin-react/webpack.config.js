@@ -22,7 +22,7 @@ function getVersion() {
 
 const index = [
   `webpack-dev-server/client?http://${settings.host()}:${settings.port()}`, // Enables websocket for updates
-  'webpack/hot/only-dev-server', // performs HMR in brwoser
+  'webpack/hot/only-dev-server', // performs HMR in browser
   './index.js'
 ];
 
