@@ -1,8 +1,5 @@
 {
-  "lerna": "2.0.0",
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "version": "5.0.0-alpha.2",
   "message": "chore: publish %s"
 }
