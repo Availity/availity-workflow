@@ -113,7 +113,10 @@ const config = {
     new HtmlWebpackPlugin(htmlConfig),
 
     new DuplicatePackageCheckerPlugin({
-      verbose: true
+      verbose: true,
+      exclude(instance) {
+        return instance.name === 'regenerator-runtime';
+      }
     }),
 
     // Ignore all the moment local files
