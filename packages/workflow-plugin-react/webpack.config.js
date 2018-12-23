@@ -21,8 +21,8 @@ function getVersion() {
 }
 
 const index = [
-  `webpack-dev-server/client?http://${settings.host()}:${settings.port()}`, // Enables websocket for updates
-  'webpack/hot/only-dev-server', // performs HMR in browser
+  `${require.resolve('webpack-dev-server/client')}?/`,
+  require.resolve('webpack/hot/dev-server'),
   './index.js'
 ];
 
@@ -37,7 +37,8 @@ const config = {
 
   output: {
     path: settings.output(),
-    filename: settings.fileName()
+    filename: settings.fileName(),
+    chunkFilename: settings.chunkFileName()
   },
 
   devtool: settings.sourceMap(),

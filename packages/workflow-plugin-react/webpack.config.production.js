@@ -57,6 +57,7 @@ const config = {
   output: {
     path: settings.output(),
     filename: settings.fileName(),
+    chunkFilename: settings.chunkFileName(),
     devtoolModuleFilenameTemplate: info =>
       `webpack:///${path.relative(settings.project(), info.absoluteResourcePath)}${
         info.loaders ? `?${info.loaders}` : ''
