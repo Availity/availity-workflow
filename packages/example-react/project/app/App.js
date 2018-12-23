@@ -1,10 +1,11 @@
-import React from 'react';
-import { HashRouter, Route } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
+import { Router } from '@reach/router';
 import { configure } from 'mobx';
 import { Provider } from 'mobx-react';
 import { appStore, stateStore } from './stores';
 import AuthorizationRequest from './Request';
-import AuthorizationResponse from './Response';
+
+const AuthorizationResponse = lazy(() => import('./Response'));
 
 const stores = { appStore, stateStore };
 window.stateStore = stateStore;
@@ -12,12 +13,12 @@ configure({ enforceActions: 'observed' });
 
 const App = () => (
   <Provider {...stores}>
-    <HashRouter basename="/">
-      <div>
-        <Route exact path="/" component={AuthorizationRequest} />
-        <Route path="/response" component={AuthorizationResponse} />
-      </div>
-    </HashRouter>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Router basepath="/" style={{ height: '100%' }}>
+        <AuthorizationRequest path="/" />
+        <AuthorizationResponse path="/response" />
+      </Router>
+    </Suspense>
   </Provider>
 );
 
