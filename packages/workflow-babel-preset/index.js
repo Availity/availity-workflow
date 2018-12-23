@@ -2,7 +2,7 @@
 const path = require('path');
 const settings = require('@availity/workflow-settings');
 
-const wfPlugins = [
+const workflowPlugins = [
   // @observer @observable
   [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
 
@@ -36,7 +36,10 @@ const wfPlugins = [
       // Resolve the Babel runtime relative to the config
       absoluteRuntime: path.dirname(require.resolve('@babel/runtime/package.json'))
     }
-  ]
+  ],
+
+  // Adds syntax support for import()
+  require.resolve('@babel/plugin-syntax-dynamic-import')
 ];
 
 let config;
@@ -64,9 +67,7 @@ if (settings.isTesting()) {
         }
       ]
     ],
-    plugins: wfPlugins.concat([
-      // Adds syntax support for import()
-      require.resolve('@babel/plugin-syntax-dynamic-import'),
+    plugins: workflowPlugins.concat([
       // Compiles import() to a deferred require()
       require.resolve('babel-plugin-dynamic-import-node')
     ])
@@ -94,7 +95,7 @@ if (settings.isTesting()) {
         }
       ]
     ],
-    plugins: wfPlugins.concat(
+    plugins: workflowPlugins.concat(
       // Tells the es2015 preset to avoid compiling import statements into CommonJS. That lets Webpack do tree shaking on your code. // Disable polyfill transforms // JSX, Flow
       [
         // Angular bombs
