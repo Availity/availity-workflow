@@ -9,9 +9,9 @@ const AuthorizationsResponse = () => (
     <Card>
       <CardBody>
         <div className="card-header-secondary">
-          <small className="text-label text-label-inline">Transaction ID</small>&nbsp;
-          <Badge color="info">236316981</Badge>&nbsp;
-          <small className="text-label text-label-inline">Customer ID</small>&nbsp;
+          <small className="text-label text-label-inline">Transaction ID</small>
+          <Badge color="info">236316981</Badge>
+          <small className="text-label text-label-inline">Customer ID</small>
           <Badge color="info" />
         </div>
       </CardBody>

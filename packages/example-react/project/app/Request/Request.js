@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { AvForm } from 'availity-reactstrap-validation';
 import { Button, Card, CardBody } from 'reactstrap';
+import { navigate } from '@reach/router';
 
 import { Agreement, Patient, Provider } from './components';
 import { Footer, Header } from '../components';
@@ -25,8 +26,7 @@ class AuthorizationsRequest extends Component {
   }
 
   submit = () => {
-    const { history } = this.props;
-    history.push('/response');
+    navigate(`/response`);
   };
 
   render() {
