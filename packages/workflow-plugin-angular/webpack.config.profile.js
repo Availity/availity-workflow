@@ -161,7 +161,11 @@ const config = {
       filename: 'css/[name]-[contenthash].css'
     }),
 
-    new DuplicatePackageCheckerPlugin(),
+    new DuplicatePackageCheckerPlugin({
+      exclude(instance) {
+        return instance.name === 'regenerator-runtime';
+      }
+    }),
 
     // Ignore all the moment local files
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
