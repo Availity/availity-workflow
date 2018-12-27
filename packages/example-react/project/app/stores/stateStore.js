@@ -1,22 +1,14 @@
 import { extendObservable, action, set } from 'mobx';
 
 const emptyState = {
-  user: {
-    username: null
-  },
-  form: {
-    selectedOrganization: null,
-    organizations: [],
-    selectedProvider: null,
-    providers: [],
-    npi: null,
+  request: {
+    organization: {
+      customerId: null,
+    },
+    provider: null,
     memberId: null,
-    dob: null,
-    acceptTerms: false
+    acceptTerms: false,
   },
-  page: {
-    title: null
-  }
 };
 
 class StateStore {

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { observer, inject } from 'mobx-react';
 import { AvForm } from 'availity-reactstrap-validation';
 import { Button, Card, CardBody } from 'reactstrap';
 import { navigate } from '@reach/router';
@@ -8,23 +6,7 @@ import { navigate } from '@reach/router';
 import { Agreement, Patient, Provider } from './components';
 import { Footer, Header } from '../components';
 
-@inject('appStore')
-@observer
 class AuthorizationsRequest extends Component {
-  static propTypes = {
-    appStore: PropTypes.shape({
-      state: PropTypes.any,
-    }),
-    history: PropTypes.shape({
-      push: PropTypes.func,
-    }),
-  };
-
-  componentDidMount() {
-    const { appStore } = this.props;
-    appStore.getOrganizations();
-  }
-
   submit = () => {
     navigate(`/response`);
   };

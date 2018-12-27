@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react';
 import { appStore, stateStore } from './stores';
 import AuthorizationRequest from './Request';
 
-const AuthorizationResponse = lazy(() => import('./Response'));
+const AuthorizationResponse = lazy(() => import(/* webpackChunkName: "Response" */ './Response'));
 
 const stores = { appStore, stateStore };
 window.stateStore = stateStore;
