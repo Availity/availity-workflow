@@ -1,9 +1,12 @@
 # availity-workflow
 
-> Upgradeable workflow engine for Availity boilerplate projects
+> Toolkit for Availity web projects. Heavily inspired by CRA.
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square&label=license)](http://opensource.org/licenses/MIT)
-[![NPM](http://img.shields.io/npm/v/@availity/workflow.svg?style=flat-square&label=npm)](https://npmjs.org/package/availity-workflow)
+[![](https://img.shields.io/github/license/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
+[![](https://img.shields.io/npm/v/@availity/workflow.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/availity-workflow)
+[![](https://img.shields.io/david/dev/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
+
+
 
 ![CLI](/docs/cli.png)
 
