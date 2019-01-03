@@ -47,11 +47,12 @@ ${figures.pointer}
     try {
       file = relative(`${plugin}/${path}`, settings.project());
     } catch (err) {
-      throw err;
+      error = err;
     }
   }
 
   if (!file && error) {
+    Logger.error(error);
     throw error;
   }
 
