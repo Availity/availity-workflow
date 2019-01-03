@@ -17,6 +17,7 @@
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "license": "MIT",
   "dependencies": {
+    "@availity/mock-data": "^5.0.0-alpha.2",
     "body-parser": "^1.18.2",
     "chalk": "^2.1.0",
     "compression": "^1.7.0",
@@ -30,7 +31,6 @@
     "on-finished": "^2.3.0"
   },
   "devDependencies": {
-    "@availity/mock-data": "^5.0.0-alpha.2",
     "superagent": "^4.0.0"
   },
   "publishConfig": {
