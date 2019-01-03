@@ -191,6 +191,11 @@ targets: {
 }
 ```
 
+#### `development.babelInclude`
+
+Include additinal packages from `node_modules` that should be compiled by Babel and Wepback. The default is to compile all packages that are prefixed with `@av/`
+
+
 #### `app.title`
 
 Page title to use for the generated HTML document. Default is `Availity`.
