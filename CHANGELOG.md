@@ -1,3 +1,22 @@
+<a name="5.0.0-alpha.3"></a>
+# [5.0.0-alpha.3](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2019-01-03)
+
+
+### Bug Fixes
+
+* **mock-server:** [@availity](https://github.com/availity)/mock-data as dependency ([ffc22b8](https://github.com/Availity/availity-workflow/commit/ffc22b8))
+* **workflow:** log proper error ([5b59246](https://github.com/Availity/availity-workflow/commit/5b59246))
+* **workflow-babel-preset:** enable [@babel](https://github.com/babel)/plugin-syntax-dynamic-import ([548a567](https://github.com/Availity/availity-workflow/commit/548a567))
+
+
+### Features
+
+* **example-angular:** angular v1.7 ([2d595b8](https://github.com/Availity/availity-workflow/commit/2d595b8))
+* **workflow-plugin-react:** enable code splitting ([bba4039](https://github.com/Availity/availity-workflow/commit/bba4039))
+* **workflow-settings:** allow developers to include packages for babel ([96cf764](https://github.com/Availity/availity-workflow/commit/96cf764))
+
+
+
 <a name="5.0.0-alpha.2"></a>
 # [5.0.0-alpha.2](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.1...v5.0.0-alpha.2) (2018-12-21)
 
