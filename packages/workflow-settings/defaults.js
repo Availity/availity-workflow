@@ -25,7 +25,9 @@ const development = {
   // Enable or disable react-hot-loader
   hotLoader: true,
 
-  hotLoaderEntry: /\/App\.jsx?/
+  hotLoaderEntry: /\/App\.jsx?/,
+
+  babelInclude: []
 
   // Allows developers to override the babel-preset-env target to match their developer environment.  This is benefecial if
   // a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot

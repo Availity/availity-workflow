@@ -6,7 +6,6 @@ const trimStart = require('lodash.trimstart');
 const chalk = require('chalk');
 const merge = require('lodash.merge');
 const fs = require('fs');
-const yaml = require('js-yaml');
 const get = require('lodash.get');
 const yargs = require('yargs');
 const each = require('lodash.foreach');
@@ -47,13 +46,17 @@ const settings = {
   },
 
   include() {
-    return [this.app(), /node_modules[\\/](?=@av).*/];
+    // Allow developers to add their own node_modules include path
+    const userInclude = this.configuration.development.babelInclude;
+    const includes = ['@av', ...userInclude].join('|');
+    const regex = new RegExp(`node_modules[\\/](?=(${includes})).*`);
+    return [this.app(), regex];
   },
 
   // https://webpack.js.org/configuration/devtool/
   sourceMap() {
     // Get sourcemap from command line or developer config else "source-map"
-    const sourceMap = get(this.configuration, 'development.sourceMap', 'source-map');
+    const sourceMap = get(this.configuration, 'development.sourceMap', 'cheap-module-source-map');
 
     return this.isDistribution() || this.isDryRun() ? 'source-map' : sourceMap;
   },
@@ -190,16 +193,11 @@ const settings = {
 
     const defaultWorkflowConfig = path.join(__dirname, 'workflow.js');
     const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
-    const ymlWorkflowConfig = path.join(settings.project(), 'project/config/workflow.yml');
 
     if (existsSync(jsWorkflowConfig)) {
       // Try workflow.js
       this.workflowConfigPath = jsWorkflowConfig;
       developerConfig = require(this.workflowConfigPath);
-    } else if (existsSync(ymlWorkflowConfig)) {
-      // Try workflow.yml
-      this.workflowConfigPath = ymlWorkflowConfig;
-      developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));
     } else {
       // fall back to default ./workflow.js
       this.workflowConfigPath = defaultWorkflowConfig;
