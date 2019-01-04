@@ -4,7 +4,6 @@ import { configure } from 'mobx';
 import { Provider } from 'mobx-react';
 import { appStore, stateStore } from './stores';
 import AuthorizationRequest from './Request';
-import 'react-table/react-table.css';
 
 const AuthorizationResponse = lazy(() => import(/* webpackChunkName: "Response" */ './Response'));
 
