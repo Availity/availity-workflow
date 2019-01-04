@@ -35,6 +35,7 @@
 		"@babel/preset-env": "^7.0.0",
 		"@babel/preset-react": "^7.0.0",
 		"@babel/runtime": "^7.0.0",
+		"babel-plugin-dynamic-import-node": "^2.2.0",
 		"babel-plugin-macros": "^2.4.0"
 	},
 	"engines": {
