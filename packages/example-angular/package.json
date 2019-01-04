@@ -1,6 +1,6 @@
 {
   "name": "@availity/example-angular",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0-alpha.4",
   "private": true,
   "description": "Angular project using @availity/workflow",
   "main": "index.js",
@@ -58,8 +58,8 @@
     "velocity-animate": "^1.5.0"
   },
   "devDependencies": {
-    "@availity/workflow": "^5.0.0-alpha.3",
-    "@availity/workflow-plugin-angular": "^5.0.0-alpha.3",
+    "@availity/workflow": "^5.0.0-alpha.4",
+    "@availity/workflow-plugin-angular": "^5.0.0-alpha.4",
     "babel-eslint": "^10.0.1",
     "cross-env": "^5.0.4",
     "eslint": "^5.5.0",
