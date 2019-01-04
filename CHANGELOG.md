@@ -1,3 +1,13 @@
+<a name="5.0.0-alpha.5"></a>
+# [5.0.0-alpha.5](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.4...v5.0.0-alpha.5) (2019-01-04)
+
+
+### Bug Fixes
+
+* **workflow-babel-preset:** missing babel-plugin-dynamic-import-node dep ([3406ecb](https://github.com/Availity/availity-workflow/commit/3406ecb))
+
+
+
 <a name="5.0.0-alpha.4"></a>
 # [5.0.0-alpha.4](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.3...v5.0.0-alpha.4) (2019-01-04)
 
