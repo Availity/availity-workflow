@@ -1,3 +1,13 @@
+<a name="5.0.0-alpha.4"></a>
+# [5.0.0-alpha.4](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.3...v5.0.0-alpha.4) (2019-01-04)
+
+
+### Bug Fixes
+
+* **workflow-settings:** regex for sass was not strict ([47249ea](https://github.com/Availity/availity-workflow/commit/47249ea))
+
+
+
 <a name="5.0.0-alpha.3"></a>
 # [5.0.0-alpha.3](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2019-01-03)
 
