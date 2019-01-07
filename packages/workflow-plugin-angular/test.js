@@ -1,10 +1,12 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/utils/createJestConfig.js
 const jest = require('jest');
+const { existsSync } = require('fs');
 const settings = require('@availity/workflow-settings');
 const path = require('path');
 
 function create() {
   const rootDir = settings.project();
+  const jestInitExists = existsSync(`${path.join(settings.app(), 'jest.init.js')}`);
 
   const config = {
     collectCoverageFrom: ['project/app/**/*.js'],
@@ -16,7 +18,9 @@ function create() {
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
       '^(?!.*\\.(js|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
-    setupTestFrameworkScriptFile: `${require.resolve(path.join(settings.app(), 'jest.init.js'))}`,
+    setupTestFrameworkScriptFile: jestInitExists
+      ? `${require.resolve(path.join(settings.app(), 'jest.init.js'))}`
+      : null,
     transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@?av).+\\.(js|jsx|html)$'],
     moduleDirectories: ['node_modules', 'project/app', 'app'],
     testMatch: [

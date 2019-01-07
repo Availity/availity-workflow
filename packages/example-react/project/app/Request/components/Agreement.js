@@ -27,7 +27,7 @@ const Agreement = ({ appStore, stateStore }) => {
           required
         />
         <Label for="agreement" className="custom-control-label" check>
-          &nbsp;I agree to the terms and conditions
+          I agree to the terms and conditions
         </Label>
         <AvFeedback>You must agree to terms</AvFeedback>
       </AvGroup>

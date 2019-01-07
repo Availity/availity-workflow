@@ -32,6 +32,7 @@
     "link": "lerna link",
     "test": "jest --silent",
     "start": "npm run start --prefix packages/example-react",
+    "test:react": "npm run test --prefix packages/example-react",
     "start:angular": "npm run start --prefix packages/example-angular",
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean --yes",
@@ -80,7 +81,7 @@
       "<rootDir>/packages/workflow-plugin-react/template/",
       "<rootDir>/packages/example-angular/"
     ],
-    "testRegex": ".*.spec.js$"
+    "testRegex": ".*.(spec|test).js$"
   },
   "husky": {
     "hooks": {

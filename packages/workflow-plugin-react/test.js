@@ -6,6 +6,7 @@ const { existsSync } = require('fs');
 
 function create() {
   const rootDir = settings.project();
+  const jestInitExists = existsSync(`${path.join(settings.app(), 'jest.init.js')}`);
 
   const setupFilesPath = path.join(settings.project(), 'jest.setup.js');
   const setupFilesExist = existsSync(setupFilesPath);
@@ -23,6 +24,9 @@ function create() {
       '^(?!.*\\.(js|jsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
     setupFiles: [require.resolve('raf/polyfill'), ...setupFiles],
+    setupTestFrameworkScriptFile: jestInitExists
+      ? `${require.resolve(path.join(settings.app(), 'jest.init.js'))}`
+      : null,
     transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@av).+\\.(js|jsx)$'],
     testMatch: [
       // Ignore the following directories:
