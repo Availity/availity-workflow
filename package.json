@@ -81,7 +81,7 @@
       "<rootDir>/packages/workflow-plugin-react/template/",
       "<rootDir>/packages/example-angular/"
     ],
-    "testRegex": ".*.(spec|test).js$"
+    "testRegex": ".*.spec.js$"
   },
   "husky": {
     "hooks": {

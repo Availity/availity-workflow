@@ -5,6 +5,7 @@ const settings = require('@availity/workflow-settings');
 const { existsSync } = require('fs');
 
 function create() {
+  settings.init();
   const rootDir = settings.project();
   const jestInitExists = existsSync(`${path.join(settings.app(), 'jest.init.js')}`);
 
@@ -12,6 +13,10 @@ function create() {
   const setupFilesExist = existsSync(setupFilesPath);
 
   const setupFiles = setupFilesExist ? [`${require.resolve(setupFilesPath)}`] : [];
+
+  // Allow developers to add their own node_modules include path
+  const userInclude = settings.configuration.development.babelInclude;
+  const includes = ['@av', ...userInclude].join('|');
 
   const config = {
     collectCoverageFrom: ['project/app/**/*.{js,jsx}'],
@@ -27,7 +32,7 @@ function create() {
     setupTestFrameworkScriptFile: jestInitExists
       ? `${require.resolve(path.join(settings.app(), 'jest.init.js'))}`
       : null,
-    transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@av).+\\.(js|jsx)$'],
+    transformIgnorePatterns: [`[/\\\\]node_modules[/\\\\](?!(${includes})).+\\.(js|jsx)$`],
     testMatch: [
       // Ignore the following directories:
       // build
