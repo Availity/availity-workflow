@@ -112,7 +112,8 @@ const config = {
       loaders.less.development,
       loaders.scss.development,
       loaders.fonts,
-      loaders.images
+      loaders.images,
+      loaders.eslint
     ]
   },
   plugins: [

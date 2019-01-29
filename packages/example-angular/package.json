@@ -60,17 +60,7 @@
   "devDependencies": {
     "@availity/workflow": "^5.0.0-alpha.5",
     "@availity/workflow-plugin-angular": "^5.0.0-alpha.5",
-    "babel-eslint": "^10.0.1",
     "cross-env": "^5.0.4",
-    "eslint": "^5.5.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-availity": "^4.0.0-alpha.1",
-    "eslint-config-prettier": "^3.0.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-promise": "^4.0.0",
-    "eslint-plugin-react": "^7.5.1",
     "prettier": "^1.10.2"
   },
   "availityWorkflow": {

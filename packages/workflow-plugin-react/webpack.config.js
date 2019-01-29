@@ -82,7 +82,9 @@ const config = {
       loaders.css.development,
       loaders.scss.development,
       loaders.fonts,
-      loaders.images
+      loaders.images,
+      loaders.eslint,
+      //      loaders.eslint
     ]
   },
   plugins: [
