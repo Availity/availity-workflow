@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-settings",
-  "version": "5.0.0-alpha.5",
+  "version": "5.0.0-alpha.6",
   "description": "Configuration for @availity/workflow",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/workflow-logger": "^5.0.0-alpha.5",
+    "@availity/workflow-logger": "^5.0.0-alpha.6",
     "chalk": "^2.0.1",
     "get-port": "^4.0.0",
     "lodash.foreach": "^4.5.0",
