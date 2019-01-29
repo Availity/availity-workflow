@@ -61,7 +61,6 @@
     "@availity/workflow": "^5.0.0-alpha.5",
     "@availity/workflow-plugin-angular": "^5.0.0-alpha.5",
     "cross-env": "^5.0.4",
-    "eslint-config-availity": "4.0.0-alpha.5",
     "prettier": "^1.10.2"
   },
   "availityWorkflow": {
