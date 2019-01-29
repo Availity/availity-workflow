@@ -5,5 +5,6 @@ module.exports = {
   postcss: require('./loader-postcss'),
   fonts: require('./rule-fonts'),
   images: require('./rule-images'),
+  eslint: require('./loader-eslint'),
   MiniCssExtractPlugin: require('mini-css-extract-plugin')
 };
