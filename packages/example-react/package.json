@@ -58,7 +58,6 @@
     "@availity/workflow": "^5.0.0-alpha.5",
     "@availity/workflow-plugin-react": "^5.0.0-alpha.5",
     "cross-env": "^5.1.4",
-    "eslint-config-availity": "^4.0.0-alpha.5",
     "jest-dom": "^3.0.0",
     "react-testing-library": "^5.4.4"
   },

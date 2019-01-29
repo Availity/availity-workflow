@@ -5,4 +5,4 @@ import './index.scss';
 import './index.css';
 import App from './App';
 
-render(<App />, document.querySelector('root'));
+render(<App />, document.getElementById('root'));
