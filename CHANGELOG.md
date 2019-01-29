@@ -1,3 +1,13 @@
+<a name="5.0.0-alpha.8"></a>
+# [5.0.0-alpha.8](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.7...v5.0.0-alpha.8) (2019-01-29)
+
+
+### Bug Fixes
+
+* **workflow:** reverted .gitignore -> gitignore ([9d468b6](https://github.com/Availity/availity-workflow/commit/9d468b6))
+
+
+
 <a name="5.0.0-alpha.7"></a>
 # [5.0.0-alpha.7](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.6...v5.0.0-alpha.7) (2019-01-29)
 
