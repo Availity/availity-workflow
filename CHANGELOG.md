@@ -1,3 +1,13 @@
+<a name="5.0.0-alpha.7"></a>
+# [5.0.0-alpha.7](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.6...v5.0.0-alpha.7) (2019-01-29)
+
+
+### Bug Fixes
+
+* **workflow:** fixed eslint issues ([54e070d](https://github.com/Availity/availity-workflow/commit/54e070d))
+
+
+
 <a name="5.0.0-alpha.6"></a>
 # [5.0.0-alpha.6](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.5...v5.0.0-alpha.6) (2019-01-29)
 
