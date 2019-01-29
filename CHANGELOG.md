@@ -1,3 +1,21 @@
+<a name="5.0.0-alpha.6"></a>
+# [5.0.0-alpha.6](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.5...v5.0.0-alpha.6) (2019-01-29)
+
+
+### Bug Fixes
+
+* **workflow-plugin-react:** removed eslint config from angular plugin ([39a5380](https://github.com/Availity/availity-workflow/commit/39a5380))
+
+
+### Features
+
+* **example-react:** add react-testing-library ([841793f](https://github.com/Availity/availity-workflow/commit/841793f))
+* **workflow-plugin-react:** added webpack config for eslint-config-availity ([4454457](https://github.com/Availity/availity-workflow/commit/4454457))
+* **workflow-plugin-react:** allow developers to include for jest to babel compile ([4136c9e](https://github.com/Availity/availity-workflow/commit/4136c9e))
+* **workflow-plugin-react:** eslint-config-availity runs now before babl ([22e62a4](https://github.com/Availity/availity-workflow/commit/22e62a4))
+
+
+
 <a name="5.0.0-alpha.5"></a>
 # [5.0.0-alpha.5](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.4...v5.0.0-alpha.5) (2019-01-04)
 

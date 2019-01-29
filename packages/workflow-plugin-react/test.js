@@ -1,5 +1,4 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/utils/createJestConfig.js
-const jest = require('jest');
 const path = require('path');
 const settings = require('@availity/workflow-settings');
 const { existsSync } = require('fs');

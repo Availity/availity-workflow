@@ -1,3 +1,8 @@
 extends: availity
 rules:
   global-require: 0
+  unicorn/no-process-exit: off
+  unicorn/catch-error-name: off
+  unicorn/prefer-starts-ends-with: off
+  unicorn/explicit-length-check: off
+  unicorn/no-abusive-eslint-disable: off

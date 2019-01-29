@@ -175,7 +175,7 @@ function web() {
         return reject(json.errors);
       }
 
-      resolve();
+      return resolve();
     });
 
     let webpackOptions = {
