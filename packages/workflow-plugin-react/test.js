@@ -38,7 +38,10 @@ function create() {
     setupFiles: [require.resolve('raf/polyfill'), ...setupFiles],
     setupFilesAfterEnv: jestInitExists
       ? require(path.join(settings.app(), 'jest.init.js'))
-      : null,
+      : [
+          'jest-dom/extend-expect',
+          'react-testing-library/cleanup-after-each'
+        ],
     transformIgnorePatterns: [`[/\\\\]node_modules[/\\\\](?!(${includes})).+\\.(js|jsx)$`],
     testMatch: [
       // Ignore the following directories:

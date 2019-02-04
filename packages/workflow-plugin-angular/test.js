@@ -27,7 +27,10 @@ function create() {
     },
     setupFilesAfterEnv: jestInitExists
     ? require(path.join(settings.app(), 'jest.init.js'))
-    : null,
+    : [
+      'angular',
+      'angular-mocks'
+    ],
     transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@?av).+\\.(js|jsx|html)$'],
     moduleDirectories: ['node_modules', 'project/app', 'app'],
     testMatch: [
