@@ -9,7 +9,7 @@
     "conventional-github-releaser": "^3.1.2",
     "conventional-recommended-bump": "^4.0.1",
     "copyfiles": "^2.1.0",
-    "eslint-config-availity": "4.0.0-alpha.5",
+    "eslint-config-availity": "^4.0.0",
     "husky": "^1.0.1",
     "jest": "^24.0.0",
     "lerna": "^3.2.1",
