@@ -3,7 +3,7 @@ const loaderPostcss = require('./loader-postcss');
 
 module.exports = {
   development: {
-    test: /\.s(a|c)ss$/,
+    test: /\.(scss|sass)$/,
     use: [
       'style-loader',
       {
@@ -22,7 +22,7 @@ module.exports = {
     ]
   },
   production: {
-    test: /\.scss$/,
+    test: /\.(scss|sass)$/,
     use: [
       {
         loader: MiniCssExtractPlugin.loader,

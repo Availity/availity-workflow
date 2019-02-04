@@ -3,3 +3,4 @@ extends: availity
 rules:
   import/no-dynamic-require: 0
   global-require: 0
+  unicorn/catch-error-name: off

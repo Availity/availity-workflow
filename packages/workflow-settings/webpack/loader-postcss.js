@@ -1,6 +1,7 @@
-const cssnext = require('postcss-cssnext');
 const postcssFocus = require('postcss-focus');
 const postcssReporter = require('postcss-reporter');
+const postcssFlexBugs = require('postcss-flexbugs-fixes');
+const postCssEnv = require('postcss-preset-env');
 
 module.exports = {
   loader: 'postcss-loader',
@@ -8,8 +9,12 @@ module.exports = {
     sourceMap: true,
     plugins: () => [
       postcssFocus(),
-      cssnext({
-        browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 11']
+      postcssFlexBugs(),
+      postCssEnv({
+        autoprefixer: {
+          flexbox: 'no-2009'
+        },
+        stage: 3
       }),
       postcssReporter({
         clearMessages: true

@@ -19,9 +19,9 @@ function release() {
       Logger.success('Finished releasing');
       return true;
     })
-    .catch(err => {
+    .catch(error => {
       Logger.failed(`Failed releasing:
-${err}
+${error}
 `);
     });
 }

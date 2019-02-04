@@ -1,94 +1,42 @@
 import { action, computed } from 'mobx';
-import { avOrganizationsApi, avProvidersApi } from '@availity/api-axios';
-
-const valueFromEvent = event => {
-  if (event && event.target && typeof event.target.value !== 'undefined') {
-    return event.target.value
-  }
-  return event;
-}
+import set from 'lodash.set';
+import get from 'lodash.get';
 
 class AppStore {
   constructor(state) {
     this.state = state;
   }
 
-  async getOrganizations() {
-    const response = await avOrganizationsApi.getOrganizations();
-    this.setOrganizations(response.data.organizations);
-  }
-
-  @action
-  setOrganizations = event => {
-    this.state.form.organizations = valueFromEvent(event);;
-  }
-
-  @action
-  setSelectedOrganization = event => {
-    this.state.form.selectedOrganization = valueFromEvent(event);;
-  }
-
-  @action
-  onSelectedOrganization = event => {
-    const id = valueFromEvent(event);
-    this.state.form.organizations.forEach(org => {
-      if (org.id === id) {
-        this.state.form.selectedOrganization = org;
-      }
-    });
-    this.getProviders(this.state.form.selectedOrganization.customerId);
-  }
-
-  async getProviders(customerId) {
-    const response = await avProvidersApi.getProviders(customerId);
-    const providers = response.data.providers || [];
-
-    // Normalize some attributes for UI
-    providers.forEach(provider => {
-      provider.name = provider.businessName || `${provider.lastName}, ${provider.firstName}`;
-    });
-    this.setProviders(providers);
-  }
-
-  @action
-  setProviders = event => {
-    this.state.form.providers = valueFromEvent(event);
-  }
-
-  @action
-  onSelectedProvider = event => {
-    const id = valueFromEvent(event);
-    this.state.form.providers.forEach(provider => {
-      if (provider.id === id) {
-        this.state.form.selectedProvider = provider;
-        this.setProverNpi(provider.npi);
-      }
-    });
-  }
-
   @computed
   get isProviderDisabled() {
-    return this.state.form.selectedOrganization === null;
+    return get(this, 'state.request.organization.customerId') === null;
   }
 
+  // react-select doesn't return the event so we pass additional
+  // argument to event handler:
+  //  - https://github.com/JedWatson/react-select/issues/1631
+  //  - https://reactjs.org/docs/handling-events.html#passing-arguments-to-event-handlers
   @action
-  setMemberId = event => {
-    this.state.form.memberId = valueFromEvent(event);
-  }
+  setSelectValue = (event, name) => {
+    if (name && event) {
+      set(this.state, name, event);
+    }
+  };
 
   @action
-  setProverNpi = event => {
-    this.state.form.npi = valueFromEvent(event);
-  }
+  setValue = ({ target = {} }) => {
+    const { name, value } = target;
+    if (name !== undefined && value !== undefined) {
+      set(this.state, name, value);
+    }
+  };
 
   @action
-  setPageTitle(title) {
-    this.state.page.title = title;
-  }
-
-  @action
-  toggleAcceptedAgreement = () => {
-    this.state.form.acceptTerms = this.state.form.acceptTerms;
+  toggle = ({ target = {} }) => {
+    const { name, checked } = target;
+    if (name !== undefined && checked !== undefined) {
+      set(this.state, name, checked);
+    }
   };
 }
 

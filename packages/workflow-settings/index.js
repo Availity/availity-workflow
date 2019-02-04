@@ -1,12 +1,11 @@
 /* eslint global-require:0 import/no-dynamic-require: 0 */
 const path = require('path');
 const Logger = require('@availity/workflow-logger');
-const exists = require('exists-sync');
+const { existsSync } = require('fs');
 const trimStart = require('lodash.trimstart');
 const chalk = require('chalk');
 const merge = require('lodash.merge');
 const fs = require('fs');
-const yaml = require('js-yaml');
 const get = require('lodash.get');
 const yargs = require('yargs');
 const each = require('lodash.foreach');
@@ -25,7 +24,7 @@ function stringify(obj) {
       try {
         JSON.parse(value);
         obj[key] = value;
-      } catch (e) {
+      } catch (error) {
         obj[key] = JSON.stringify(value);
       }
     } else if (isObject(value) && !isFunction(value)) {
@@ -47,13 +46,17 @@ const settings = {
   },
 
   include() {
-    return [this.app(), /node_modules[\\/](?=@av).*/];
+    // Allow developers to add their own node_modules include path
+    const userInclude = this.configuration.development.babelInclude;
+    const includes = ['@av', ...userInclude].join('|');
+    const regex = new RegExp(`node_modules[\\/](?=(${includes})).*`);
+    return [this.app(), regex];
   },
 
   // https://webpack.js.org/configuration/devtool/
   sourceMap() {
     // Get sourcemap from command line or developer config else "source-map"
-    const sourceMap = get(this.configuration, 'development.sourceMap', 'source-map');
+    const sourceMap = get(this.configuration, 'development.sourceMap', 'cheap-module-source-map');
 
     return this.isDistribution() || this.isDryRun() ? 'source-map' : sourceMap;
   },
@@ -63,7 +66,7 @@ const settings = {
   },
 
   css() {
-    return this.isDistribution() ? '[name]-[chunkhash].css' : '[name].css';
+    return this.isDistribution() ? '[name]-[chunkhash:8].css' : '[name].css';
   },
 
   // Returns the JSON object from contents or the JSON object from
@@ -80,7 +83,11 @@ const settings = {
   // In production, [chunkhash] generate hashes depending on the file contents this if
   // the contents don't change the file could potentially be cached in the browser.
   fileName() {
-    return this.isDistribution() ? '[name]-[chunkhash].js' : '[name].js';
+    return this.isDistribution() ? '[name]-[chunkhash:8].js' : '[name].js';
+  },
+
+  chunkFileName() {
+    return this.isDistribution() ? '[name]-[chunkhash:8].js' : '[name].js';
   },
 
   output() {
@@ -105,8 +112,7 @@ const settings = {
 
   targets() {
     const defaultTargets = {
-      ie: 11,
-      uglify: true
+      ie: 11
     };
 
     const developmentTarget = get(this.configuration, 'development.targets', defaultTargets);
@@ -160,7 +166,7 @@ const settings = {
   },
 
   log() {
-    let message = `${this.pluginName().toUpperCase()} MODE`;
+    let message = `${this.pluginName().toUpperCase()}`;
 
     Logger.warn(chalk.bold.yellow(message));
 
@@ -187,16 +193,11 @@ const settings = {
 
     const defaultWorkflowConfig = path.join(__dirname, 'workflow.js');
     const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
-    const ymlWorkflowConfig = path.join(settings.project(), 'project/config/workflow.yml');
 
-    if (exists(jsWorkflowConfig)) {
+    if (existsSync(jsWorkflowConfig)) {
       // Try workflow.js
       this.workflowConfigPath = jsWorkflowConfig;
       developerConfig = require(this.workflowConfigPath);
-    } else if (exists(ymlWorkflowConfig)) {
-      // Try workflow.yml
-      this.workflowConfigPath = ymlWorkflowConfig;
-      developerConfig = yaml.safeLoad(fs.readFileSync(this.workflowConfigPath, 'utf8'));
     } else {
       // fall back to default ./workflow.js
       this.workflowConfigPath = defaultWorkflowConfig;
@@ -257,7 +258,7 @@ const settings = {
   },
 
   asset(workflowFilePath, projectFilePath) {
-    const hasProjectFile = exists(projectFilePath);
+    const hasProjectFile = fs.existsSync(projectFilePath);
     const filePath = hasProjectFile ? projectFilePath : workflowFilePath;
 
     if (!this.isTesting()) {

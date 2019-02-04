@@ -17,5 +17,7 @@ rules:
   import/no-unresolved: 0
   import/no-extraneous-dependencies: 0
   import/extensions: 0
+  consistent-return: off
+  unicorn/catch-error-name: off
 globals:
   app-module: false

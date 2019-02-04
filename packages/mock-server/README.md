@@ -106,7 +106,7 @@ function logProvider(provider) {
 
 The `routes.json` defines the mock responses for rest services. Below are some sample scenarios that should help you understand the configuration options.
 
-The mock configuration supports deep nested introspection of JSON and multi-part form data when matching routes. See [Example 6](#example-6-post-with-params-with-deep-introspection) below.
+The mock configuration supports deep nested introspection of JSON and multi-part form data when matching routes. See [Example 6](#Multipart) below.
 
 ###### Simple
 
@@ -158,7 +158,7 @@ The mock configuration supports deep nested introspection of JSON and multi-part
       }
   },
   "put": {// all PUT requests
-      "file": "example1.json,
+      "file": "example1.json",
   },  
   "post": "example3.json", // all POST requests
   "delete": "example4.json" // all DELETE requests

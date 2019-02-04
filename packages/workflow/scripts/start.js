@@ -57,7 +57,6 @@ ${statz}
 
 function init() {
   settings.log();
-  return Promise.resolve(true);
 }
 
 function rest() {
@@ -149,8 +148,7 @@ function web() {
       if (!hasErrors && !hasWarnings) {
         openBrowser();
         message(stats);
-        resolve(true);
-        return;
+        return resolve();
       }
 
       function warning() {
@@ -162,8 +160,7 @@ function web() {
       if (hasWarnings && !hasErrors) {
         message(stats, warning);
         openBrowser();
-        resolve(true);
-        return;
+        return resolve();
       }
 
       if (hasErrors) {
@@ -175,11 +172,10 @@ function web() {
 
         Logger.failed('Failed compiling');
         Logger.empty();
-        reject(json.errors);
-        return;
+        return reject(json.errors);
       }
 
-      resolve();
+      return resolve();
     });
 
     let webpackOptions = {
@@ -228,7 +224,7 @@ function web() {
   });
 }
 
-function start() {
+async function start() {
   process.on('unhandledRejection', reason => {
     if (reason && reason.stack) {
       Logger.error(reason.stack);
@@ -236,10 +232,10 @@ function start() {
     }
   });
 
-  return init()
-    .then(web)
-    .then(notifier)
-    .then(rest);
+  init();
+  await web();
+  await notifier();
+  await rest();
 }
 
 module.exports = start;

@@ -1,3 +1,116 @@
+<a name="5.0.0-alpha.8"></a>
+# [5.0.0-alpha.8](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.7...v5.0.0-alpha.8) (2019-01-29)
+
+
+### Bug Fixes
+
+* **workflow:** reverted .gitignore -> gitignore ([9d468b6](https://github.com/Availity/availity-workflow/commit/9d468b6))
+
+
+
+<a name="5.0.0-alpha.7"></a>
+# [5.0.0-alpha.7](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.6...v5.0.0-alpha.7) (2019-01-29)
+
+
+### Bug Fixes
+
+* **workflow:** fixed eslint issues ([54e070d](https://github.com/Availity/availity-workflow/commit/54e070d))
+
+
+
+<a name="5.0.0-alpha.6"></a>
+# [5.0.0-alpha.6](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.5...v5.0.0-alpha.6) (2019-01-29)
+
+
+### Bug Fixes
+
+* **workflow-plugin-react:** removed eslint config from angular plugin ([39a5380](https://github.com/Availity/availity-workflow/commit/39a5380))
+
+
+### Features
+
+* **example-react:** add react-testing-library ([841793f](https://github.com/Availity/availity-workflow/commit/841793f))
+* **workflow-plugin-react:** added webpack config for eslint-config-availity ([4454457](https://github.com/Availity/availity-workflow/commit/4454457))
+* **workflow-plugin-react:** allow developers to include for jest to babel compile ([4136c9e](https://github.com/Availity/availity-workflow/commit/4136c9e))
+* **workflow-plugin-react:** eslint-config-availity runs now before babl ([22e62a4](https://github.com/Availity/availity-workflow/commit/22e62a4))
+
+
+
+<a name="5.0.0-alpha.5"></a>
+# [5.0.0-alpha.5](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.4...v5.0.0-alpha.5) (2019-01-04)
+
+
+### Bug Fixes
+
+* **workflow-babel-preset:** missing babel-plugin-dynamic-import-node dep ([3406ecb](https://github.com/Availity/availity-workflow/commit/3406ecb))
+
+
+
+<a name="5.0.0-alpha.4"></a>
+# [5.0.0-alpha.4](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.3...v5.0.0-alpha.4) (2019-01-04)
+
+
+### Bug Fixes
+
+* **workflow-settings:** regex for sass was not strict ([47249ea](https://github.com/Availity/availity-workflow/commit/47249ea))
+
+
+
+<a name="5.0.0-alpha.3"></a>
+# [5.0.0-alpha.3](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2019-01-03)
+
+
+### Bug Fixes
+
+* **mock-server:** [@availity](https://github.com/availity)/mock-data as dependency ([ffc22b8](https://github.com/Availity/availity-workflow/commit/ffc22b8))
+* **workflow:** log proper error ([5b59246](https://github.com/Availity/availity-workflow/commit/5b59246))
+* **workflow-babel-preset:** enable [@babel](https://github.com/babel)/plugin-syntax-dynamic-import ([548a567](https://github.com/Availity/availity-workflow/commit/548a567))
+
+
+### Features
+
+* **example-angular:** angular v1.7 ([2d595b8](https://github.com/Availity/availity-workflow/commit/2d595b8))
+* **workflow-plugin-react:** enable code splitting ([bba4039](https://github.com/Availity/availity-workflow/commit/bba4039))
+* **workflow-settings:** allow developers to include packages for babel ([96cf764](https://github.com/Availity/availity-workflow/commit/96cf764))
+
+
+
+<a name="5.0.0-alpha.2"></a>
+# [5.0.0-alpha.2](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.1...v5.0.0-alpha.2) (2018-12-21)
+
+
+### Bug Fixes
+
+* **workflow-settings:** wrong options for css loader ([0014f31](https://github.com/Availity/availity-workflow/commit/0014f31))
+
+
+
+<a name="5.0.0-alpha.1"></a>
+# [5.0.0-alpha.1](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.0...v5.0.0-alpha.1) (2018-12-21)
+
+
+
+<a name="5.0.0-alpha.0"></a>
+# [5.0.0-alpha.0](https://github.com/Availity/availity-workflow/compare/v4.0.3...v5.0.0-alpha.0) (2018-12-15)
+
+
+### Bug Fixes
+
+* **example-react:** make enforceActions 'observed' ([d72b841](https://github.com/Availity/availity-workflow/commit/d72b841))
+* **workflow-settings:** remove invalid options for css loader ([87eaaf4](https://github.com/Availity/availity-workflow/commit/87eaaf4))
+
+
+### Chores
+
+* upgrade deps ([702872e](https://github.com/Availity/availity-workflow/commit/702872e))
+
+
+### BREAKING CHANGES
+
+* upgrade to babel 7, eslint 5, eslint-config-airbnb 17
+
+
+
 <a name="4.0.3"></a>
 ## [4.0.3](https://github.com/Availity/availity-workflow/compare/v4.0.2...v4.0.3) (2018-10-26)
 

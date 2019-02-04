@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const settings = require('@availity/workflow-settings');
-const exists = require('exists-sync');
+const { existsSync } = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -14,15 +14,15 @@ process.noDeprecation = true;
 const htmlConfig = require('./html');
 
 const babelrcPath = path.join(settings.project(), '.babelrc');
-const babelrcExists = exists(babelrcPath);
+const babelrcExists = existsSync(babelrcPath);
 
 function getVersion() {
   return settings.pkg().version || 'N/A';
 }
 
 const index = [
-  `webpack-dev-server/client?http://${settings.host()}:${settings.port()}`, // Enables websocket for updates
-  'webpack/hot/only-dev-server', // performs HMR in brwoser
+  `${require.resolve('webpack-dev-server/client')}?/`,
+  require.resolve('webpack/hot/dev-server'),
   './index.js'
 ];
 
@@ -37,7 +37,8 @@ const config = {
 
   output: {
     path: settings.output(),
-    filename: settings.fileName()
+    filename: settings.fileName(),
+    chunkFilename: settings.chunkFileName()
   },
 
   devtool: settings.sourceMap(),
@@ -81,7 +82,9 @@ const config = {
       loaders.css.development,
       loaders.scss.development,
       loaders.fonts,
-      loaders.images
+      loaders.images,
+      loaders.eslint,
+      //      loaders.eslint
     ]
   },
   plugins: [
@@ -112,7 +115,10 @@ const config = {
     new HtmlWebpackPlugin(htmlConfig),
 
     new DuplicatePackageCheckerPlugin({
-      verbose: true
+      verbose: true,
+      exclude(instance) {
+        return instance.name === 'regenerator-runtime';
+      }
     }),
 
     // Ignore all the moment local files

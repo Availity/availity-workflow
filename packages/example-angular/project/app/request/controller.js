@@ -10,8 +10,8 @@ class RequestController {
         vm.request = request;
         return request;
       })
-      .catch(err => {
-        throw err;
+      .catch(error => {
+        throw error;
       });
   }
 }

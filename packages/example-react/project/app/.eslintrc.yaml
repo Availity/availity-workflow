@@ -1,4 +1,4 @@
 ---
 extends: availity/browser
-env:
-  jest: true
+rules:
+  unicorn/prefer-query-selector: off

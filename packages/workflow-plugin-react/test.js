@@ -1,16 +1,29 @@
+/* eslint-disable jest/no-jest-import */
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/utils/createJestConfig.js
-const jest = require('jest');
 const path = require('path');
+
+// https://github.com/facebook/jest/issues/7704#issuecomment-458552963
+require('jest/node_modules/jest-cli/build/cli');
+
+const jest = require('jest');
 const settings = require('@availity/workflow-settings');
-const exists = require('exists-sync');
+const { existsSync } = require('fs');
 
 function create() {
+  settings.init();
   const rootDir = settings.project();
+  const jestInitExists = existsSync(`${path.join(settings.app(), 'jest.init.js')}`);
 
   const setupFilesPath = path.join(settings.project(), 'jest.setup.js');
-  const setupFilesExist = exists(setupFilesPath);
+  const setupFilesExist = existsSync(setupFilesPath);
 
   const setupFiles = setupFilesExist ? [`${require.resolve(setupFilesPath)}`] : [];
+
+  // Allow developers to add their own node_modules include path
+  const userInclude = settings.configuration.development.babelInclude;
+  const includes = ['@av', ...userInclude].join('|');
 
   const config = {
     collectCoverageFrom: ['project/app/**/*.{js,jsx}'],
@@ -23,7 +36,13 @@ function create() {
       '^(?!.*\\.(js|jsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
     setupFiles: [require.resolve('raf/polyfill'), ...setupFiles],
-    transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@av).+\\.(js|jsx)$'],
+    setupFilesAfterEnv: jestInitExists
+      ? require(path.join(settings.app(), 'jest.init.js'))
+      : [
+          'jest-dom/extend-expect',
+          'react-testing-library/cleanup-after-each'
+        ],
+    transformIgnorePatterns: [`[/\\\\]node_modules[/\\\\](?!(${includes})).+\\.(js|jsx)$`],
     testMatch: [
       // Ignore the following directories:
       // build
