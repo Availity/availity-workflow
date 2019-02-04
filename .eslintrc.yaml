@@ -6,3 +6,5 @@ rules:
   unicorn/prefer-starts-ends-with: off
   unicorn/explicit-length-check: off
   unicorn/no-abusive-eslint-disable: off
+  jest/no-jest-import: off
+  import/no-dynamic-require: off

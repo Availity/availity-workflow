@@ -1,5 +1,10 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/utils/createJestConfig.js
 const { existsSync } = require('fs');
+
+// https://github.com/facebook/jest/issues/7704#issuecomment-458552963
+require('jest/node_modules/jest-cli/build/cli');
+
+const jest = require('jest');
 const settings = require('@availity/workflow-settings');
 const path = require('path');
 
@@ -18,8 +23,8 @@ function create() {
       '^(?!.*\\.(js|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
     setupFilesAfterEnv: jestInitExists
-      ? `${require.resolve(path.join(settings.app(), 'jest.init.js'))}`
-      : null,
+    ? require(path.join(settings.app(), 'jest.init.js'))
+    : null,
     transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@?av).+\\.(js|jsx|html)$'],
     moduleDirectories: ['node_modules', 'project/app', 'app'],
     testMatch: [
