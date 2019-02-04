@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require, prefer-promise-reject-errors */
 const fs = require('fs-extra');
 const path = require('path');

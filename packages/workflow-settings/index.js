@@ -24,7 +24,7 @@ function stringify(obj) {
       try {
         JSON.parse(value);
         obj[key] = value;
-      } catch (e) {
+      } catch (error) {
         obj[key] = JSON.stringify(value);
       }
     } else if (isObject(value) && !isFunction(value)) {

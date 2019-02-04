@@ -1,3 +1,7 @@
+/* eslint-disable unicorn/explicit-length-check */
+/* eslint-disable global-require */
+/* eslint-disable unicorn/prefer-starts-ends-with */
+/* eslint-disable unicorn/no-process-exit */
 /* eslint-disable import/no-dynamic-require, prefer-promise-reject-errors */
 const validateProjectName = require('validate-npm-package-name');
 const yargs = require('yargs');
@@ -27,6 +31,8 @@ function checkAppName(appName, package) {
     Logger.failed(`Could not create a project called "${appName}" because of npm naming restrictions:`);
     printValidationResults(validationResult.errors);
     printValidationResults(validationResult.warnings);
+
+    // eslint-disable-next-line unicorn/no-process-exit
     process.exit(1);
   }
 
@@ -50,7 +56,7 @@ function checkThatNpmCanReadCwd() {
     // to reproduce the wrong path. Just printing process.cwd()
     // in a Node process was not enough.
     childOutput = spawn.sync('npm', ['config', 'list']).output.join('');
-  } catch (err) {
+  } catch (error) {
     // Something went wrong spawning node.
     // Not great, but it means we can't do this check.
     // We might fail later on, but let's continue.
@@ -231,14 +237,14 @@ function run(root, package, appName, version, originalDirectory) {
       const init = require(scriptsPath);
       return init(root, appName, originalDirectory);
     })
-    .catch(reason => {
+    .catch(error => {
       Logger.empty();
       Logger.failed('Aborting installation.');
-      if (reason.command) {
-        Logger.error(`  ${chalk.cyan(reason.command)} has failed.`);
+      if (error.command) {
+        Logger.error(`  ${chalk.cyan(error.command)} has failed.`);
       } else {
         Logger.error(chalk.red('Unexpected error. Please report it as a bug:'));
-        Logger.error(reason);
+        Logger.error(error);
       }
       Logger.empty();
 

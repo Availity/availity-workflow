@@ -18,12 +18,13 @@ function lint() {
   let eslint;
   try {
     eslint = requireRelative('eslint', settings.project());
-  } catch (err) {
+  } catch (error) {
     // no op
   }
 
   if (!eslint) {
-    eslint = require('eslint'); // eslint-disable-line
+    // eslint-disable-next-line global-require
+    eslint = require('eslint');
   }
 
   let future;
@@ -32,7 +33,7 @@ function lint() {
     engine = new eslint.CLIEngine({
       useEslintrc: true
     });
-  } catch (err) {
+  } catch (error) {
     future = Promise.reject(new Error('ESLint configuration error in @availity/workflow'));
   }
 
@@ -82,7 +83,8 @@ function lint() {
         Logger.failed('Failed linting');
         reject(report.results);
         if (settings.isFail()) {
-          /* eslint no-process-exit:0 */
+          
+          // eslint-disable-next-line unicorn/no-process-exit
           process.exit(1);
         }
       } else {

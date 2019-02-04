@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/explicit-length-check */
 const fs = require('fs');
 const path = require('path');
 const shell = require('shelljs');

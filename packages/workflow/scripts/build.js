@@ -18,6 +18,7 @@ function bundle(config) {
     }
 
     // Lazy load this else yars loads too early https://github.com/Availity/@availity/workflow/issues/133
+    // eslint-disable-next-line global-require
     const { argv } = require('yargs');
 
     // Check arguement or CLI arg or default to false

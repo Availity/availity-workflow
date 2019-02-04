@@ -1,5 +1,13 @@
+/* eslint-disable jest/no-jest-import */
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/utils/createJestConfig.js
 const path = require('path');
+
+// https://github.com/facebook/jest/issues/7704#issuecomment-458552963
+require('jest/node_modules/jest-cli/build/cli');
+
+const jest = require('jest');
 const settings = require('@availity/workflow-settings');
 const { existsSync } = require('fs');
 
@@ -28,8 +36,8 @@ function create() {
       '^(?!.*\\.(js|jsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
     setupFiles: [require.resolve('raf/polyfill'), ...setupFiles],
-    setupTestFrameworkScriptFile: jestInitExists
-      ? `${require.resolve(path.join(settings.app(), 'jest.init.js'))}`
+    setupFilesAfterEnv: jestInitExists
+      ? require(path.join(settings.app(), 'jest.init.js'))
       : null,
     transformIgnorePatterns: [`[/\\\\]node_modules[/\\\\](?!(${includes})).+\\.(js|jsx)$`],
     testMatch: [
