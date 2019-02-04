@@ -1,3 +1,6 @@
+/* eslint-disable jest/no-jest-import */
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/utils/createJestConfig.js
 const { existsSync } = require('fs');
 

@@ -1,3 +1,5 @@
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
 const settings = require('@availity/workflow-settings');
 const Logger = require('@availity/workflow-logger');
 const figures = require('figures');
@@ -30,14 +32,13 @@ ${figures.pointer}
   }
 
   let file;
-  let error;
+  let err;
 
   try {
     const filePath = `${plugin}/${path}`;
-    // eslint-disable-next-line
     file = require(filePath);
-  } catch (err) {
-    error = err;
+  } catch (error) {
+    err = error;
   }
 
   if (!file) {
@@ -46,14 +47,14 @@ ${figures.pointer}
     const relative = require('require-relative');
     try {
       file = relative(`${plugin}/${path}`, settings.project());
-    } catch (err) {
-      error = err;
+    } catch (error) {
+      err = error;
     }
   }
 
-  if (!file && error) {
-    Logger.error(error);
-    throw error;
+  if (!file && err) {
+    Logger.error(err);
+    throw err;
   }
 
   return file;

@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 module.exports = {
   css: require('./loader-css'),
   less: require('./loader-less'),
