@@ -1,3 +1,16 @@
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.8...v5.0.0) (2019-02-04)
+
+
+### Bug Fixes
+
+* **example-angular:** bump bootstrap 3.4.0 for xss ([06aa13e](https://github.com/Availity/availity-workflow/commit/06aa13e))
+* **example-react:** make enforceActions 'observed' ([e6f88fc](https://github.com/Availity/availity-workflow/commit/e6f88fc))
+* **workflow:** fixed jest v24 not working ([68156ad](https://github.com/Availity/availity-workflow/commit/68156ad))
+* **workflow:** removed ignore for package-lock file as its required for travis ([4b3a05a](https://github.com/Availity/availity-workflow/commit/4b3a05a))
+
+
+
 <a name="5.0.0-alpha.8"></a>
 # [5.0.0-alpha.8](https://github.com/Availity/availity-workflow/compare/v5.0.0-alpha.7...v5.0.0-alpha.8) (2019-01-29)
 
