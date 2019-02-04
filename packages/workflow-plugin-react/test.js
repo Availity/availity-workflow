@@ -28,7 +28,7 @@ function create() {
       '^(?!.*\\.(js|jsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
     setupFiles: [require.resolve('raf/polyfill'), ...setupFiles],
-    setupTestFrameworkScriptFile: jestInitExists
+    setupFilesAfterEnv: jestInitExists
       ? `${require.resolve(path.join(settings.app(), 'jest.init.js'))}`
       : null,
     transformIgnorePatterns: [`[/\\\\]node_modules[/\\\\](?!(${includes})).+\\.(js|jsx)$`],

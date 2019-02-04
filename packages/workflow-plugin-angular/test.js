@@ -17,7 +17,7 @@ function create() {
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
       '^(?!.*\\.(js|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
-    setupTestFrameworkScriptFile: jestInitExists
+    setupFilesAfterEnv: jestInitExists
       ? `${require.resolve(path.join(settings.app(), 'jest.init.js'))}`
       : null,
     transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@?av).+\\.(js|jsx|html)$'],

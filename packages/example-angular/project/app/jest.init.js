@@ -1,2 +1,4 @@
-require('angular');
-require('angular-mocks');
+module.exports = [
+    'angular',
+    'angular-mocks'
+];
