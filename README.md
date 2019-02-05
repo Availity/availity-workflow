@@ -10,6 +10,10 @@
 
 ![CLI](/docs/cli.png)
 
+### Workflows
+- [webpack-plugin-react]('./packages/workflow-plugin-react)
+- [webpack-plugin-angular]('./packages/workflow-plugin-angular)
+
 ## Table of Contents
 
 *   [Getting Started](#getting-started)
