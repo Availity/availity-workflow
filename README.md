@@ -1,18 +1,12 @@
 # availity-workflow
 
-> Toolkit for Availity web projects. Heavily inspired by CRA.
+> Toolkit for Availity web projects. Heavily inspired by create-react-app.
 
 [![](https://img.shields.io/github/license/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 [![](https://img.shields.io/npm/v/@availity/workflow.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/availity-workflow)
 [![](https://img.shields.io/david/dev/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 
-
-
 ![CLI](/docs/cli.png)
-
-### Workflows
-- [webpack-plugin-react]('./packages/workflow-plugin-react)
-- [webpack-plugin-angular]('./packages/workflow-plugin-angular)
 
 ## Table of Contents
 
