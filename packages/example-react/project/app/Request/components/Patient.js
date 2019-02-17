@@ -2,6 +2,7 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { AvField } from 'availity-reactstrap-validation';
 import { Label, UncontrolledTooltip } from 'reactstrap';
+import { AvDateField } from '@availity/reactstrap-validation-date';
 import propTypes from './props';
 
 const Patient = ({ stateStore: { request }, appStore }) => {
@@ -28,13 +29,7 @@ const Patient = ({ stateStore: { request }, appStore }) => {
         }}
       />
 
-      <AvField
-        type="date"
-        name="dob"
-        label="Date of Birth"
-        validate={{ date: { format: 'MM/DD/YYYY' } }}
-        errorMessage="Date of birth format should be MM/DD/YYYY"
-      />
+      <AvDateField name="dob" label="Date of Birth" validate={{ date: { format: 'MM/DD/YYYY' } }} required />
     </fieldset>
   );
 };
