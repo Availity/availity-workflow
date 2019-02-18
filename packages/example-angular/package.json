@@ -22,7 +22,8 @@
     "release": "av release",
     "production": "cross-env NODE_ENV=production av release",
     "staging": "cross-env NODE_ENV=staging av release",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "upgrade:workflow": "./node_modules/.bin/upgrade-workflow"
   },
   "keywords": [
     "angular",

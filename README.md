@@ -14,6 +14,7 @@
 *   [Features](#features)
 *   [CLI](#cli)
 *   [Configuration](#configuration)
+*   [Upgrading](#upgrading)
 *   [FAQ](#faq)
 *   [License](#license)
 
@@ -329,6 +330,22 @@ modifyWebpackConfig: (webpackConfig, settings) => {
     );
     return webpackConfig;
 };
+```
+
+## Upgrading
+
+There are currently 2 different ways you can upgrade your current project to the newest version of `@availity/workflow`.
+
+### @availity/upgrader
+You can install the availity uprader package manually in run the upgrade script that way.
+```
+npm install @availity/upgrader && ./node_modules/.bin/upgrade-workflow
+```
+
+### @availity/workflow v5.0.0
+If you already have installed `v5` but haven't upgraded other packages you can simply just run the below command
+```
+./node_modules/.bin/upgrade-workflow
 ```
 
 ## FAQ
