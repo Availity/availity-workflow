@@ -332,20 +332,12 @@ modifyWebpackConfig: (webpackConfig, settings) => {
 };
 ```
 
-## Upgrading
+## Upgrading <small>[[Credit](https://github.com/typicode/husky/tree/master/src/upgrader)]</small>
 
-There are currently 2 different ways you can upgrade your current project to the newest version of `@availity/workflow`.
+Change to the directory you want to upgrade the workflow for and run the below command. 
 
-### @availity/upgrader
-You can install the availity uprader package manually in run the upgrade script that way.
 ```
-npm install @availity/upgrader && ./node_modules/.bin/upgrade-workflow
-```
-
-### @availity/workflow v5.0.0
-If you already have installed `v5` but haven't upgraded other packages you can simply just run the below command
-```
-./node_modules/.bin/upgrade-workflow
+npx @availity/workflow-upgrade
 ```
 
 ## FAQ
