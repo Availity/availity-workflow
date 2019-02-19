@@ -14,6 +14,7 @@
 *   [Features](#features)
 *   [CLI](#cli)
 *   [Configuration](#configuration)
+*   [Upgrading](#upgrading)
 *   [FAQ](#faq)
 *   [License](#license)
 
@@ -329,6 +330,14 @@ modifyWebpackConfig: (webpackConfig, settings) => {
     );
     return webpackConfig;
 };
+```
+
+## Upgrading <small>[[Credit](https://github.com/typicode/husky/tree/master/src/upgrader)]</small>
+
+Change to the directory you want to upgrade the workflow for and run the below command. 
+
+```
+npx @availity/workflow-upgrade
 ```
 
 ## FAQ

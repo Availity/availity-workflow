@@ -13,6 +13,7 @@
     "about": "av about",
     "lint": "av lint",
     "help": "av help",
+    "upgrade:workflow": "./node_modules/.bin/upgrade-workflow",
     "profile": "av profile",
     "profile:production": "cross-env NODE_ENV=production av profile",
     "build": "av build",
