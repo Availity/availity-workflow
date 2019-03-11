@@ -154,10 +154,6 @@ Enable or disable react-hot-loader. Default is `true` for `@availity/workflow-pl
 Regular expression to configure which file is entry point for hot loading via react-hot-loader-loader. Default is `/\/App\.jsx?/` which will find `/App.js` or `/App.js` at the root of your app directory for `@availity/workflow-plugin-react` plugin.
 <br /><small>Note: this should **not** be the application entry point (index.js), but the file which the component which is imported into index.js and rendered.</small>
 
-#### `development.coverage`
-
-Directory for Karma coverage reports. Only applicable for Angular projects. Default is `{workspace}/coverage`
-
 #### `development.webpackDevServer`
 
 > **Caution**: Please be careful when overriding defaults
@@ -206,10 +202,6 @@ Page title to use for the generated HTML document. Default is `Availity`.
     </head>
 </html>
 ```
-
-#### `testing.browsers`
-
-Array of browsers used when running Karma tests. Default is `['Chrome']`;
 
 #### `globals`
 
