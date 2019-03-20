@@ -13,7 +13,7 @@ module.exports = function(cwd) {
     const pkg = readPkg.sync({ cwd, normalize: false });
 
 
-    const { devDependencies,scripts } = pkg;
+    const { devDependencies, dependencies, scripts } = pkg;
 
     // Add this script into the new workflow scripts for the future
     scripts['upgrade:workflow'] = "./node_modules/.bin/upgrade-workflow";
@@ -31,6 +31,17 @@ module.exports = function(cwd) {
       delete devDependencies['eslint-config-prettier'];
       delete devDependencies['eslint-plugin-promise'];
       delete devDependencies['eslint-plugin-react'];
+    }
+
+    if(dependencies) {
+
+      // For the Angular Peeps 🤥
+      if(dependencies['availtiy-angular']) {
+        delete dependencies['availity-angular'];
+
+        dependencies['availity-angular'] = '^3.0.0';
+      }
+
     }
 
     console.log('Upgrading dependencies');
