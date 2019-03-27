@@ -277,7 +277,11 @@ function createApp(name, package, version, currentDir) {
   const appName = path.basename(root);
 
   checkAppName(appName, package);
-  fs.ensureDirSync(name);
+
+  if(!currentDir) {
+    fs.ensureDirSync(name);
+  }
+
   if (!isSafeToCreateProjectIn(root, name)) {
     process.exit(1);
   }
