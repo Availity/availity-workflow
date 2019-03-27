@@ -274,7 +274,7 @@ function run(root, package, appName, version, originalDirectory) {
 
 function createApp(name, package, version, currentDir) {
   const root = currentDir ? process.cwd() : path.resolve(name);
-  const appName = path.basename(root);
+  const appName = currentDir ? name : path.basename(root);
 
   checkAppName(appName, package);
 

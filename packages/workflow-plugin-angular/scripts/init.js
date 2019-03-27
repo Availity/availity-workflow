@@ -43,6 +43,8 @@ module.exports = function init(
   const appPackage = require(path.join(appPath, 'package.json'));
 
   appPackage.name = appName;
+  appPackage.version = "0.1.0";
+  appPackage.private = true;
 
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
