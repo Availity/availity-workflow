@@ -332,7 +332,7 @@ yargs
           chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')} ${chalk.magenta('-p angular')}`)
         );
     },
-    ({ projectName, package, version }) => createApp(projectName, package, version, currentDir)
+    ({ projectName, package, version, currentDir }) => createApp(projectName, package, version, currentDir)
   )
   .example(chalk.yellow('av init my-app-name'))
   .example(chalk.yellow('av init my-app-name -p angular'));
