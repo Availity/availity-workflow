@@ -30,6 +30,7 @@ Show help menu for all CLI options.
 #### Options
 - `--package`, `-p`:  The framework/library @availity/workflow-plugin package you want to initialize with. [default: "react"]
 - `--version`, `-v`:  Specify which version of the package project you want. [default: "latest"]
+- `--current-dir`, `-c`: If you want the project to be created in the current directory
 
 #### Examples
 - `npx @availity/workflow init my-package-name`

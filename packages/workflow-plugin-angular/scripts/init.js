@@ -84,6 +84,8 @@ module.exports = function init(
   Logger.info('    Starts the test runner.');
   Logger.info()
   Logger.info('We suggest that you begin by typing:');
-  Logger.info(chalk.cyan(`  cd ${cdpath}`));
+  if(originalDirectory !== appPath) {
+    Logger.info(chalk.cyan(`  cd ${cdpath}`));
+  }
   Logger.info(`  ${chalk.cyan('npm start')}`);
 };
