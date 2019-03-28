@@ -272,12 +272,16 @@ function run(root, package, appName, version, originalDirectory) {
     });
 }
 
-function createApp(name, package, version) {
-  const root = path.resolve(name);
-  const appName = path.basename(root);
+function createApp(name, package, version, currentDir) {
+  const root = currentDir ? process.cwd() : path.resolve(name);
+  const appName = currentDir ? name : path.basename(root);
 
   checkAppName(appName, package);
-  fs.ensureDirSync(name);
+
+  if(!currentDir) {
+    fs.ensureDirSync(name);
+  }
+
   if (!isSafeToCreateProjectIn(root, name)) {
     process.exit(1);
   }
@@ -321,13 +325,18 @@ yargs
           describe: 'Specify which version of the package project you want.',
           default: 'latest'
         })
+        .option('currentDir', {
+          alias: 'c',
+          describe: 'Pass this if you want to initialize the project in the same folder',
+          default: false
+        })
         .usage(`\nUsage: ${chalk.yellow('av init')} ${chalk.green('<projectName>')} ${chalk.magenta('[options]')}`)
         .example(chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')}`))
         .example(
           chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')} ${chalk.magenta('-p angular')}`)
         );
     },
-    ({ projectName, package, version }) => createApp(projectName, package, version)
+    ({ projectName, package, version, currentDir }) => createApp(projectName, package, version, currentDir)
   )
   .example(chalk.yellow('av init my-app-name'))
   .example(chalk.yellow('av init my-app-name -p angular'));

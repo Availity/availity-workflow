@@ -43,6 +43,8 @@ module.exports = function init(
   const appPackage = require(path.join(appPath, 'package.json'));
 
   appPackage.name = appName;
+  appPackage.version = "0.1.0";
+  appPackage.private = true;
 
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
@@ -82,6 +84,8 @@ module.exports = function init(
   Logger.info('    Starts the test runner.');
   Logger.info()
   Logger.info('We suggest that you begin by typing:');
-  Logger.info(chalk.cyan(`  cd ${cdpath}`));
+  if(originalDirectory !== appPath) {
+    Logger.info(chalk.cyan(`  cd ${cdpath}`));
+  }
   Logger.info(`  ${chalk.cyan('npm start')}`);
 };
