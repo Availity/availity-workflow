@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-plugin-angular",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Angular 1.x  module for @availity/workflow",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",

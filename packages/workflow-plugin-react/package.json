@@ -1,6 +1,6 @@
 {
 	"name": "@availity/workflow-plugin-react",
-	"version": "5.0.1",
+	"version": "5.0.2",
 	"description": "React module for @availity/workflow",
 	"repository": {
 		"type": "git",
