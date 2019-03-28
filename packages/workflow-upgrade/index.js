@@ -2,7 +2,7 @@ const fs = require('fs'); // read/write files
 const path = require('path'); // get directory paths
 const readPkg = require('read-pkg'); // read package.json correctly
 const rimraf = require('rimraf'); // Deleting folder with contents
-const exec = require('child_process').exec; // Run npm script from js
+const { exec } = require('child_process'); // Run npm script from js
 
 module.exports = function(cwd) {
   console.log('Upgrading @availity/workflow to v5.0.0');
@@ -23,7 +23,7 @@ module.exports = function(cwd) {
 
       // Delete all deps that were previously required
       delete devDependencies['babel-eslint'];
-      delete devDependencies['eslint'];
+      delete devDependencies.eslint;
       delete devDependencies['eslint-config-airbnb'];
       delete devDependencies['eslint-config-airbnb-base'];
       delete devDependencies['eslint-plugin-import'];
@@ -52,7 +52,7 @@ module.exports = function(cwd) {
 
     console.log('Re-Installing node modules..');
     // Run install command
-    exec('npm install',function(){
+    exec('npm install',() => {
       console.log("\nCongratulations! Welcome to the new @availity/workflow.")
     });
   }
