@@ -1,6 +1,10 @@
 <a name="5.1.0"></a>
 # [5.1.0](https://github.com/Availity/availity-workflow/compare/v5.0.2...v5.1.0) (2019-03-29)
 
+### Features
+
+* **workflow:** added ability to create app in the current directory -> gitignore ([b460605](https://github.com/Availity/availity-workflow/commit/b460605))
+
 
 
 <a name="5.0.0"></a>
