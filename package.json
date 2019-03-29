@@ -29,7 +29,7 @@
     "clean": "lerna clean --yes",
     "postinstall": "lerna bootstrap",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
-    "release": "npm run lint && npm run copy:templates && lerna publish",
+    "release": "npm run lint && npm run copy:templates && sh ./scripts/release.sh",
     "publishAll": "find ./packages -type d -maxdepth 1 -mindepth 1 -exec sh -c 'cd {} && npm publish' ';'",
     "copy:templates": "npm run copy:react:templates && npm run copy:angular:templates",
     "copy:angular:templates": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" -e \"**/README.md\" \"packages/example-angular/**/*\" packages/workflow-plugin-angular/template/",
