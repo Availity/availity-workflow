@@ -1,3 +1,15 @@
+<a name="5.2.0"></a>
+# [5.2.0](https://github.com/Availity/availity-workflow/compare/v5.1.0...v5.2.0) (2019-04-02)
+
+
+### Bug Fixes
+
+* **example-react:** include react-block-ui css ([e6c7311](https://github.com/Availity/availity-workflow/commit/e6c7311))
+* **workflow-settings:** fixed a bug where regex would not work properly on windows ([f6aa0f2](https://github.com/Availity/availity-workflow/commit/f6aa0f2))
+* **workflow-settings:** fixed incorrect regex pattern ([8d355dc](https://github.com/Availity/availity-workflow/commit/8d355dc))
+
+
+
 <a name="5.1.0"></a>
 # [5.1.0](https://github.com/Availity/availity-workflow/compare/v5.0.2...v5.1.0) (2019-03-29)
 
