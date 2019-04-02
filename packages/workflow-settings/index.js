@@ -49,7 +49,7 @@ const settings = {
     // Allow developers to add their own node_modules include path
     const userInclude = this.configuration.development.babelInclude;
     const includes = ['@av', ...userInclude].join('|');
-    const regex = new RegExp(`node_modules[\\/](?=(${includes})).*`);
+    const regex = new RegExp(`node_modules[\\\\\/](?=(${includes})).*`);
     return [this.app(), regex];
   },
 
