@@ -391,6 +391,16 @@ The configuration above does the following:
 *   Proxy requests with path `/api/v1/proxy/healthplan/some/mock/path` to the mock server. Optional configuration that is useful if an API is not available for use and needs to be mocked.
 *   Proxy all requests with path segments `/api/v1/proxy/healthplan/` to the configured target `'http://localhost:8888'`. Notice the URL is being rewritten. Change the rewrite path to match your local path as needed. This configuration is useful when testing against live services.
 
+### Tired of deeploy nested components?
+When you app gets deeply nested with components that are referencing folders 2 layers outside of your current directory this feature comes in handy.
+#### Import Aliasing
+```javascript
+// Our Project Root is already set to project/app
+import Test from '../../../../components/Test'; // Without aliasing
+import Test from '~/components/Test'; // With aliasing
+```
+
+
 ## Contribute
 
 *   Run `npm install`
