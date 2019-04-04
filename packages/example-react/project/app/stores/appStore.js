@@ -22,7 +22,7 @@ export class AppStore {
 
   @computed
   get isProviderDisabled() {
-    return get(this, 'state.request.organization.customerId') === null;
+    return get(this, 'request.organization.customerId') === null;
   }
 
   // react-select doesn't return the event so we pass additional
