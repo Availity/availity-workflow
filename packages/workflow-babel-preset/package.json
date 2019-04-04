@@ -36,7 +36,8 @@
 		"@babel/preset-react": "^7.0.0",
 		"@babel/runtime": "^7.0.0",
 		"babel-plugin-dynamic-import-node": "^2.2.0",
-		"babel-plugin-macros": "^2.4.0"
+		"babel-plugin-macros": "^2.4.0",
+		"babel-plugin-root-import": "^6.1.0"
 	},
 	"engines": {
 		"node": ">= 8.0.0",

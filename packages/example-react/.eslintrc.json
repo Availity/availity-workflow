@@ -1,0 +1,11 @@
+{
+  "extends": "availity/browser",
+  "rules": {
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": ["~"]
+      }
+    ]
+  }
+}

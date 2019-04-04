@@ -38,6 +38,14 @@ const workflowPlugins = [
     }
   ],
 
+  [
+    require.resolve('babel-plugin-root-import'),
+    {
+      rootPathSuffix: './project/app',
+      rootPathPrefix: '~'
+    }
+  ],
+
   // Adds syntax support for import()
   require.resolve('@babel/plugin-syntax-dynamic-import')
 ];
