@@ -1,5 +1,4 @@
 import React from 'react';
-import { observer, inject } from 'mobx-react';
 import { Card, CardBody } from 'reactstrap';
 import { Footer, Header } from '~/shared';
 import { Patient, Status, Transaction } from './components';
@@ -21,4 +20,4 @@ const AuthorizationsResponse = () => (
 
 AuthorizationsResponse.propTypes = propTypes;
 
-export default inject('stateStore')(observer(AuthorizationsResponse));
+export default AuthorizationsResponse;

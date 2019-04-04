@@ -1,5 +1,4 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
 import { Row, Col } from 'reactstrap';
 import propTypes from '../props';
 
@@ -26,4 +25,4 @@ const Status = () => (
 
 Status.propTypes = propTypes;
 
-export default inject('stateStore', 'appStore')(observer(Status));
+export default Status;

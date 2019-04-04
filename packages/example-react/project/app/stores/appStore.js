@@ -1,10 +1,23 @@
-import { action, computed } from 'mobx';
+import { createContext } from 'react';
+import { action, computed, extendObservable } from 'mobx';
 import set from 'lodash.set';
 import get from 'lodash.get';
 
-class AppStore {
-  constructor(state) {
-    this.state = state;
+const emptyState = {
+  request: {
+    organization: {
+      customerId: null,
+    },
+    provider: null,
+    memberId: null,
+    acceptTerms: false,
+  },
+};
+
+export class AppStore {
+  constructor(state = {}) {
+    extendObservable(this, emptyState, state);
+
   }
 
   @computed
@@ -19,7 +32,7 @@ class AppStore {
   @action
   setSelectValue = (event, name) => {
     if (name && event) {
-      set(this.state, name, event);
+      set(this, name, event);
     }
   };
 
@@ -27,7 +40,7 @@ class AppStore {
   setValue = ({ target = {} }) => {
     const { name, value } = target;
     if (name !== undefined && value !== undefined) {
-      set(this.state, name, value);
+      set(this, name, value);
     }
   };
 
@@ -35,9 +48,14 @@ class AppStore {
   toggle = ({ target = {} }) => {
     const { name, checked } = target;
     if (name !== undefined && checked !== undefined) {
-      set(this.state, name, checked);
+      set(this, name, checked);
     }
   };
+
+  @action
+  reset() {
+    set(this, emptyState);
+  }
 }
 
-export default AppStore;
+export default createContext(new AppStore());

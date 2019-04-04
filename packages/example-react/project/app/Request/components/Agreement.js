@@ -1,11 +1,13 @@
-import React from 'react';
-import { observer, inject } from 'mobx-react';
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react-lite';
 import { AvFeedback, AvInput, AvGroup } from 'availity-reactstrap-validation';
 import { Label } from 'reactstrap';
+import { AppStore } from '~/stores';
 import props from './props';
 
-const Agreement = ({ appStore, stateStore }) => {
-  const { acceptTerms } = stateStore;
+const Agreement = () => {
+  const { acceptTerms,toggle } = useContext(AppStore);
+
   return (
     <fieldset>
       <div className="disclaimer">
@@ -23,7 +25,7 @@ const Agreement = ({ appStore, stateStore }) => {
           type="checkbox"
           className="custom-control-input"
           checked={acceptTerms}
-          onChange={appStore.toggle}
+          onChange={toggle}
           required
         />
         <Label for="agreement" className="custom-control-label" check>
@@ -37,4 +39,4 @@ const Agreement = ({ appStore, stateStore }) => {
 
 Agreement.propTypes = props;
 
-export default inject('appStore', 'stateStore')(observer(Agreement));
+export default observer(Agreement);

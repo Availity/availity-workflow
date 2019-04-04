@@ -1,12 +1,16 @@
-import React from 'react';
-import { observer, inject } from 'mobx-react';
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react-lite';
 import { AvField } from 'availity-reactstrap-validation';
 import { Label, UncontrolledTooltip } from 'reactstrap';
 import { AvDateField } from '@availity/reactstrap-validation-date';
+import { AppStore } from '~/stores';
 import propTypes from './props';
 
-const Patient = ({ stateStore: { request }, appStore }) => {
-  const { memberId } = request;
+const Patient = () => {
+  const {
+    request: { memberId },
+    onChange,
+  } = useContext(AppStore);
   return (
     <fieldset>
       <legend>Member</legend>
@@ -22,7 +26,7 @@ const Patient = ({ stateStore: { request }, appStore }) => {
       <AvField
         name="memberID"
         value={memberId}
-        onChange={appStore.onChange}
+        onChange={onChange}
         validate={{
           pattern: { value: '^[0-9]*$', errorMessage: 'Must be a number' },
           minLength: { value: 5, errorMessage: '5 Character Minimum' },
@@ -36,4 +40,4 @@ const Patient = ({ stateStore: { request }, appStore }) => {
 
 Patient.propTypes = propTypes;
 
-export default inject('stateStore', 'appStore')(observer(Patient));
+export default observer(Patient);

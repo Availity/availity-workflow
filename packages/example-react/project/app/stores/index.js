@@ -1,6 +1,2 @@
-import AppStore from './appStore';
-import stateStore from './stateStore';
-
-const appStore = new AppStore(stateStore);
-
-export { stateStore, appStore };
+// eslint-disable-next-line import/prefer-default-export
+export { default as AppStore } from './appStore';

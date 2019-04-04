@@ -1,11 +1,13 @@
-import React from 'react';
-import { inject, observer } from 'mobx-react';
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react-lite';
 import { CardBody, Badge } from 'reactstrap';
+import { AppStore } from '~/stores';
 import propTypes from '../props';
 
-const Transaction = ({ stateStore: { request } }) => {
-  const { organization } = request;
+const Transaction = () => {
+  const { request: {organization} } = useContext(AppStore);
   const { customerId } = organization;
+
   return (
     <CardBody>
       <div className="card-header-secondary">
@@ -20,4 +22,4 @@ const Transaction = ({ stateStore: { request } }) => {
 
 Transaction.propTypes = propTypes;
 
-export default inject('stateStore', 'appStore')(observer(Transaction));
+export default observer(Transaction);
