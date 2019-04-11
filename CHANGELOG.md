@@ -1,3 +1,8 @@
+<a name="5.2.3"></a>
+## [5.2.3](https://github.com/Availity/availity-workflow/compare/v5.2.2...v5.2.3) (2019-04-11)
+
+
+
 <a name="5.2.2"></a>
 ## [5.2.2](https://github.com/Availity/availity-workflow/compare/v5.2.1...v5.2.2) (2019-04-11)
 
