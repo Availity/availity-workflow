@@ -132,7 +132,7 @@ const config = {
     new CaseSensitivePathsPlugin(),
 
     new webpack.ProvidePlugin({
-      Promise: 'es6-promise',
+      Promise: 'es6-promise-promise',
       Symbol: 'es6-symbol'
     })
   ]
