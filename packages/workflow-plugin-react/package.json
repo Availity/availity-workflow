@@ -1,6 +1,6 @@
 {
 	"name": "@availity/workflow-plugin-react",
-	"version": "5.2.1",
+	"version": "5.2.2",
 	"description": "React module for @availity/workflow",
 	"repository": {
 		"type": "git",
@@ -18,9 +18,9 @@
 	},
 	"homepage": "https://github.com/availity/availity-workflow#readme",
 	"dependencies": {
-		"@availity/workflow-babel-preset": "^5.2.1",
-		"@availity/workflow-logger": "^5.2.1",
-		"@availity/workflow-settings": "^5.2.1",
+		"@availity/workflow-babel-preset": "^5.2.2",
+		"@availity/workflow-logger": "^5.2.2",
+		"@availity/workflow-settings": "^5.2.2",
 		"@babel/core": "^7.0.0",
 		"@babel/runtime": "^7.0.0",
 		"babel-core": "^7.0.0-bridge.0",

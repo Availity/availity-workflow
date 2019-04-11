@@ -1,6 +1,6 @@
 {
   "name": "@availity/mock-data",
-  "version": "5.2.1",
+  "version": "5.2.2",
   "description": "Mock data for Availity API rest services",
   "main": "index.js",
   "scripts": {
