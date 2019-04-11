@@ -137,7 +137,11 @@ const config = {
       {
         debug: 'warning'
       }
-    )
+    ),
+    new webpack.ProvidePlugin({
+      Promise: 'es6-promise',
+      Symbol: 'es6-symbol'
+    })
   ]
 };
 
