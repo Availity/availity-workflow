@@ -1,3 +1,13 @@
+<a name="5.2.1"></a>
+## [5.2.1](https://github.com/Availity/availity-workflow/compare/v5.2.0...v5.2.1) (2019-04-11)
+
+
+### Bug Fixes
+
+* **workflow-plugin-react:** moved polyfills to webpack config ([45fe8b0](https://github.com/Availity/availity-workflow/commit/45fe8b0))
+
+
+
 <a name="5.2.0"></a>
 # [5.2.0](https://github.com/Availity/availity-workflow/compare/v5.1.0...v5.2.0) (2019-04-02)
 
