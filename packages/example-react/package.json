@@ -42,8 +42,6 @@
     "availity-reactstrap-validation": "^2.0.2",
     "availity-uikit": "^3.0.0",
     "axios": "^0.18.0",
-    "es6-promise": "^4.2.4",
-    "es6-symbol": "^3.1.1",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
     "mobx": "^4.0.0",
