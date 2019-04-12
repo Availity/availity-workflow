@@ -13,7 +13,7 @@
   ],
   "scripts":{
     "prepublish":"npm run copy-template",
-    "copy-template": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" -e \"**/README.md\" \"../example-react/**/*\" template/"
+    "copy-template": "copyfiles -a -u 2 -e \"../**/node_modules/**/*\" -e \"../**/README.md\" \"../example-react/**/*\" template/"
   },
 	"author": "Robert McGuinness",
 	"license": "MIT",
