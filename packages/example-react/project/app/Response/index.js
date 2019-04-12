@@ -1,3 +1,24 @@
-import Response from './Response';
+import React from 'react';
+import { observer, inject } from 'mobx-react';
+import { Card, CardBody } from 'reactstrap';
+import { Footer, Header } from '../components';
+import { Patient, Status, Transaction } from './components';
+import propTypes from './props';
 
-export default Response;
+const AuthorizationsResponse = () => (
+  <div className="container-sm">
+    <Header />
+    <Transaction />
+    <Card>
+      <CardBody>
+        <Patient />
+        <Status />
+      </CardBody>
+    </Card>
+    <Footer />
+  </div>
+);
+
+AuthorizationsResponse.propTypes = propTypes;
+
+export default inject('stateStore')(observer(AuthorizationsResponse));
