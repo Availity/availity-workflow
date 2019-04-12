@@ -1,3 +1,13 @@
+<a name="5.2.4"></a>
+## [5.2.4](https://github.com/Availity/availity-workflow/compare/v5.2.3...v5.2.4) (2019-04-12)
+
+
+### Bug Fixes
+
+* **workflow-settings:** emit warnings for eslint errors in webpack ([724627e](https://github.com/Availity/availity-workflow/commit/724627e)), closes [#204](https://github.com/Availity/availity-workflow/issues/204)
+
+
+
 <a name="5.2.3"></a>
 ## [5.2.3](https://github.com/Availity/availity-workflow/compare/v5.2.2...v5.2.3) (2019-04-11)
 
