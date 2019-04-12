@@ -6,7 +6,7 @@
     "test": "echo \"No test specified\" && exit 0",
     "test:integration": "echo \"No test specified\" && exit 0",
     "prepublish":"npm run copy-template",
-    "copy-template": "copyfiles -a -u 2 -e \"**/**/node_modules/**/*\" -e \"**/README.md\" \"../example-angular/**/*\" template/"
+    "copy-template": "copyfiles -a -u 2 -e \"../**/node_modules/**/*\" -e \"../**/README.md\" \"../example-angular/**/*\" template/"
   },
   "repository": {
     "type": "git",
