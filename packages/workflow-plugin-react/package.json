@@ -1,6 +1,6 @@
 {
 	"name": "@availity/workflow-plugin-react",
-	"version": "5.2.3",
+	"version": "5.2.4",
 	"description": "React module for @availity/workflow",
 	"repository": {
 		"type": "git",
@@ -10,11 +10,11 @@
 		"react",
 		"availity",
 		"workflow"
-  ],
-  "scripts":{
-    "prepublish":"npm run copy-template",
-    "copy-template": "copyfiles -a -u 2 -e \"../**/node_modules/**/*\" -e \"../**/README.md\" \"../example-react/**/*\" template/"
-  },
+	],
+	"scripts": {
+		"prepublish": "npm run copy-template",
+		"copy-template": "copyfiles -a -u 2 -e \"../**/node_modules/**/*\" -e \"../**/README.md\" \"../example-react/**/*\" template/"
+	},
 	"author": "Robert McGuinness",
 	"license": "MIT",
 	"bugs": {
@@ -22,9 +22,9 @@
 	},
 	"homepage": "https://github.com/availity/availity-workflow#readme",
 	"dependencies": {
-		"@availity/workflow-babel-preset": "^5.2.3",
-		"@availity/workflow-logger": "^5.2.3",
-		"@availity/workflow-settings": "^5.2.3",
+		"@availity/workflow-babel-preset": "^5.2.4",
+		"@availity/workflow-logger": "^5.2.4",
+		"@availity/workflow-settings": "^5.2.4",
 		"@babel/core": "^7.0.0",
 		"@babel/runtime": "^7.0.0",
 		"babel-core": "^7.0.0-bridge.0",
