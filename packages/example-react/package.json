@@ -37,7 +37,7 @@
     "@availity/env-var": "^1.6.0",
     "@availity/localstorage-core": "^2.5.0",
     "@availity/reactstrap-validation-date": "^1.7.1",
-    "@availity/reactstrap-validation-select": "^1.6.0",
+    "@availity/reactstrap-validation-select": "^3.0.0",
     "@reach/router": "^1.2.1",
     "availity-reactstrap-validation": "^2.0.2",
     "availity-uikit": "^3.0.0",
