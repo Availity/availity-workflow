@@ -1,10 +1,9 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
-const settings = require('@availity/workflow-settings');
 const Logger = require('@availity/workflow-logger');
 const figures = require('figures');
 
-function plugin(path) {
+function plugin({ path, settings }) {
   let plugin = settings.pkg().availityWorkflow && settings.pkg().availityWorkflow.plugin;
   plugin =
     plugin ||
@@ -31,33 +30,35 @@ ${figures.pointer}
     throw new Error('Missing @availity/workflow plugin');
   }
 
-  let file;
+  let fn;
   let err;
 
   try {
     const filePath = `${plugin}/${path}`;
-    file = require(filePath);
+    fn = require(filePath);
   } catch (error) {
     err = error;
   }
 
-  if (!file) {
+  if (!fn) {
     // Workaround when Lerna linked modules
     // eslint-disable-next-line global-require
     const relative = require('require-relative');
     try {
-      file = relative(`${plugin}/${path}`, settings.project());
+      fn = relative(`${plugin}/${path}`, settings.project());
     } catch (error) {
       err = error;
     }
   }
 
-  if (!file && err) {
+  if (!fn && err) {
     Logger.error(err);
     throw err;
   }
 
-  return file;
+  const webpackConfig = fn(settings);
+
+  return webpackConfig;
 }
 
 module.exports = plugin;

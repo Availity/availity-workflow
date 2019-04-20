@@ -105,9 +105,15 @@ function web() {
     // Allow production version to run in development
     if (settings.isDryRun() && settings.isDevelopment()) {
       Logger.message('Using production webpack settings', 'Dry Run');
-      webpackConfig = plugin('webpack.config.production');
+      webpackConfig = plugin({
+        path: 'webpack.config.production',
+        settings
+      });
     } else {
-      webpackConfig = plugin('webpack.config');
+      webpackConfig = plugin({
+        path: 'webpack.config',
+        settings
+      });
     }
 
     webpackConfig.plugins.push(

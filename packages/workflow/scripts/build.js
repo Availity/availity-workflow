@@ -3,14 +3,13 @@ const webpack = require('webpack');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const ora = require('ora');
 const chalk = require('chalk');
-const settings = require('@availity/workflow-settings');
 const Logger = require('@availity/workflow-logger');
 const sizeTree = require('webpack-bundle-size-analyzer/build/src/size_tree');
 
 const plugin = require('./plugin');
 const customStats = require('./stats');
 
-function bundle(config) {
+function bundle({ profile, settings }) {
   return new Promise((resolve, reject) => {
     if (!settings.isDryRun()) {
       Logger.success(`Cleaning directories ${settings.output()}`);
@@ -21,10 +20,18 @@ function bundle(config) {
     // eslint-disable-next-line global-require
     const { argv } = require('yargs');
 
-    // Check arguement or CLI arg or default to false
-    const shouldProfile = (config && config.profile) || argv.profile || false;
+    // Check argument or CLI arg or default to false
+    const shouldProfile = profile || argv.profile || false;
 
-    let webpackConfig = shouldProfile ? plugin('webpack.config.profile') : plugin('webpack.config.production');
+    let webpackConfig = shouldProfile
+      ? plugin({
+          path: 'webpack.config.profile',
+          settings
+        })
+      : plugin({
+          path: 'webpack.config.production',
+          settings
+        });
 
     Logger.info('Started compiling');
     const spinner = ora('Running webpack');

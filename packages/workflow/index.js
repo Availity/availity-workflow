@@ -13,25 +13,24 @@ const release = require('./scripts/release');
 const profile = require('./scripts/profile');
 require('./scripts/init');
 
-yargs
-.command(
+yargs.command(
   'release',
   `${chalk.dim('Bundle project for distribution (production or staging) and create a git tag')}`,
   yyargs => {
     yyargs
-    .version(false)
-    .option('version', {
-      alias: 'v',
-      describe: 'Specify which version you want to use when tagging the project and creating the release.',
-    })
+      .version(false)
+      .option('version', {
+        alias: 'v',
+        describe: 'Specify which version you want to use when tagging the project and creating the release.'
+      })
       .usage(`\nUsage: ${chalk.yellow('av release')} ${chalk.magenta('[options]')}`)
-      .example(chalk.yellow(`${chalk.yellow('av release')} ${chalk.magenta('-v 2.0.0')}`))
+      .example(chalk.yellow(`${chalk.yellow('av release')} ${chalk.magenta('-v 2.0.0')}`));
   },
   () => {
     settings.init();
     release();
   }
-)
+);
 
 /* eslint-disable no-unused-expressions */
 yargs
@@ -39,9 +38,12 @@ yargs
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
 
   .command('start', `${chalk.dim('Start the development server')}`, () => {
-    settings.init().then(() => start()).catch(() => {
-      /* noop */
-    });
+    settings
+      .init()
+      .then(() => start())
+      .catch(() => {
+        /* noop */
+      });
   })
 
   .command(
@@ -83,7 +85,7 @@ yargs
       }),
     () => {
       settings.init();
-      test.run().catch(() => {
+      test.run({ settings }).catch(() => {
         /* noop */
       });
     }
@@ -91,19 +93,17 @@ yargs
 
   .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their sizes')}`, () => {
     settings.init();
-    profile();
+    profile(settings);
   })
 
   .command('build', `${chalk.dim('Bundle project for distribution (production or staging)')}`, () => {
     settings.init();
-    build();
+    build({ settings });
   })
-
-  
 
   .command('about', `${chalk.dim('About @availity/workflow')}`, () => {
     settings.init();
-    about();
+    about({ settings });
   })
 
   .demand(1, chalk.red('Must provide a valid cli command'))

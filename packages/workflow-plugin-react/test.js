@@ -8,10 +8,9 @@ const path = require('path');
 require('jest/node_modules/jest-cli/build/cli');
 
 const jest = require('jest');
-const settings = require('@availity/workflow-settings');
 const { existsSync } = require('fs');
 
-function create() {
+function create(settings) {
   settings.init();
   const rootDir = settings.project();
   const jestInitExists = existsSync(`${path.join(settings.app(), 'jest.init.js')}`);
@@ -38,10 +37,7 @@ function create() {
     setupFiles: [require.resolve('raf/polyfill'), ...setupFiles],
     setupFilesAfterEnv: jestInitExists
       ? require(path.join(settings.app(), 'jest.init.js'))
-      : [
-          'jest-dom/extend-expect',
-          'react-testing-library/cleanup-after-each'
-        ],
+      : ['jest-dom/extend-expect', 'react-testing-library/cleanup-after-each'],
     transformIgnorePatterns: [`[/\\\\]node_modules[/\\\\](?!(${includes})).+\\.(js|jsx)$`],
     testMatch: [
       // Ignore the following directories:
@@ -68,9 +64,9 @@ function create() {
   return config;
 }
 
-function unit() {
+function unit(settings) {
   const argv = process.argv.slice(2);
-  const jestConfig = JSON.stringify(create());
+  const jestConfig = JSON.stringify(create(settings));
   argv.push(`--config=${jestConfig}`);
   argv.push('--env=jsdom');
 
@@ -79,7 +75,7 @@ function unit() {
   return Promise.resolve();
 }
 
-module.exports = {
-  run: unit,
+module.exports = settings => ({
+  run: () => unit(settings),
   description: 'Run your tests using Jest'
-};
+});
