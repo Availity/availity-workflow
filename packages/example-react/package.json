@@ -1,7 +1,7 @@
 {
   "name": "@availity/example-react",
   "private": true,
-  "version": "5.2.3",
+  "version": "5.2.5",
   "description": "React project using @availity/workflow",
   "main": "index.js",
   "scripts": {
@@ -37,7 +37,7 @@
     "@availity/env-var": "^1.6.0",
     "@availity/localstorage-core": "^2.5.0",
     "@availity/reactstrap-validation-date": "^1.7.1",
-    "@availity/reactstrap-validation-select": "^1.6.0",
+    "@availity/reactstrap-validation-select": "^3.0.0",
     "@reach/router": "^1.2.1",
     "availity-reactstrap-validation": "^2.0.2",
     "availity-uikit": "^3.0.0",
@@ -55,8 +55,8 @@
     "reactstrap": "^6.0.0"
   },
   "devDependencies": {
-    "@availity/workflow": "^5.2.3",
-    "@availity/workflow-plugin-react": "^5.2.3",
+    "@availity/workflow": "^5.2.5",
+    "@availity/workflow-plugin-react": "^5.2.5",
     "cross-env": "^5.1.4",
     "jest-dom": "^3.0.0",
     "react-testing-library": "^5.4.4"

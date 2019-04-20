@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "5.2.3",
+  "version": "5.2.5",
   "devDependencies": {
     "@commitlint/cli": "^7.5.2",
     "@commitlint/config-conventional": "^7.5.0",
@@ -29,11 +29,8 @@
     "clean": "lerna clean --yes",
     "postinstall": "lerna bootstrap",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
-    "release": "npm run lint && npm run copy:templates && sh ./scripts/release.sh",
+    "release": "npm run lint && sh ./scripts/release.sh",
     "publishAll": "find ./packages -type d -maxdepth 1 -mindepth 1 -exec sh -c 'cd {} && npm publish' ';'",
-    "copy:templates": "npm run copy:react:templates && npm run copy:angular:templates",
-    "copy:angular:templates": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" -e \"**/README.md\" \"packages/example-angular/**/*\" packages/workflow-plugin-angular/template/",
-    "copy:react:templates": "copyfiles -a -u 2 -e \"**/node_modules/**/*\" -e \"**/README.md\" \"packages/example-react/**/*\" packages/workflow-plugin-react/template/",
     "add": "sh ./scripts/add.sh",
     "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
     "remove-locks": "find . -type f -name 'package-lock.json' -delete"
