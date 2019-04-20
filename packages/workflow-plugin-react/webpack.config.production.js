@@ -58,6 +58,8 @@ const config = {
     path: settings.output(),
     filename: settings.fileName(),
     chunkFilename: settings.chunkFileName(),
+    // TODO: remove this when upgrading to webpack 5
+    futureEmitAssets: true,
     devtoolModuleFilenameTemplate: info =>
       `webpack:///${path.relative(settings.project(), info.absoluteResourcePath)}${
         info.loaders ? `?${info.loaders}` : ''
