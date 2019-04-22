@@ -1,3 +1,150 @@
+## 5.2.6-alpha.1 (2019-04-22)
+
+
+### Bug Fixes
+
+* **availitiy-workflow-angular:** enable allChunks in ExtractTextPlugin ([cd5a6dc](https://github.com/Availity/availity-workflow/commit/cd5a6dc)), closes [#141](https://github.com/Availity/availity-workflow/issues/141)
+* **availitiy-workflow-react:** enable allChunks in ExtractTextPlugin ([d5bacfb](https://github.com/Availity/availity-workflow/commit/d5bacfb)), closes [#141](https://github.com/Availity/availity-workflow/issues/141)
+* **availity-angular-kit:** stringify the error from karma ([31e75e3](https://github.com/Availity/availity-workflow/commit/31e75e3))
+* **availity-mock-data:** spaces collection in wrong folder ([3ce0a66](https://github.com/Availity/availity-workflow/commit/3ce0a66))
+* **availity-mock-server:** return correct status for resumable upload route ([0563d49](https://github.com/Availity/availity-workflow/commit/0563d49))
+* **availity-mock-server:** set response headers and unit test ([d7ab013](https://github.com/Availity/availity-workflow/commit/d7ab013))
+* **availity-react-kit:** add pageName to breadcrumbs example ([0683816](https://github.com/Availity/availity-workflow/commit/0683816))
+* **availity-react-kit:** fix directory casing ([ba31cbf](https://github.com/Availity/availity-workflow/commit/ba31cbf))
+* **availity-react-kit:** fix inconsistent casing of import file names ([96440b3](https://github.com/Availity/availity-workflow/commit/96440b3))
+* **availity-react-kit:** fix named export for api examples ([39cf50a](https://github.com/Availity/availity-workflow/commit/39cf50a))
+* **availity-worfklow-react:** fix negative lookahead in regex. Closes [#130](https://github.com/Availity/availity-workflow/issues/130) ([f9c32db](https://github.com/Availity/availity-workflow/commit/f9c32db))
+* **availity-workflow:** add back commands accidently removed ([d5b0ad7](https://github.com/Availity/availity-workflow/commit/d5b0ad7))
+* **availity-workflow:** double v in commit message ([9ee4c75](https://github.com/Availity/availity-workflow/commit/9ee4c75))
+* **availity-workflow:** handle when proxy context is array ([8ae9e69](https://github.com/Availity/availity-workflow/commit/8ae9e69))
+* **availity-workflow:** Include 'node_modules' when searching for modules ([bf4f057](https://github.com/Availity/availity-workflow/commit/bf4f057))
+* **availity-workflow:** sync webpack start and build stat messages ([0d04f64](https://github.com/Availity/availity-workflow/commit/0d04f64))
+* **availity-workflow-angular:** allow babel  for [@availity](https://github.com/availity) packages ([bb43e2a](https://github.com/Availity/availity-workflow/commit/bb43e2a))
+* **availity-workflow-react:** add raf polyfill. Closes [#125](https://github.com/Availity/availity-workflow/issues/125) ([65488de](https://github.com/Availity/availity-workflow/commit/65488de))
+* **availity-workflow-react:** allow babel  for [@availity](https://github.com/availity) packages ([5896bf2](https://github.com/Availity/availity-workflow/commit/5896bf2))
+* **availity-workflow-react:** transformIgnorePatterns ([d9e0e85](https://github.com/Availity/availity-workflow/commit/d9e0e85))
+* **availity-workflow-react:** Update webpack config to include node_modules ([5e84e6d](https://github.com/Availity/availity-workflow/commit/5e84e6d))
+* **availity-workflow-settings:** allow option to disable linter. Closes [#126](https://github.com/Availity/availity-workflow/issues/126). ([6eab351](https://github.com/Availity/availity-workflow/commit/6eab351))
+* **cli:** closes [#110](https://github.com/Availity/availity-workflow/issues/110) leverage local eslint when available ([1e6e738](https://github.com/Availity/availity-workflow/commit/1e6e738))
+* **example-angular:** bump bootstrap 3.4.0 for xss ([06aa13e](https://github.com/Availity/availity-workflow/commit/06aa13e))
+* **example-react:** include react-block-ui css ([e6c7311](https://github.com/Availity/availity-workflow/commit/e6c7311))
+* **example-react:** make enforceActions 'observed' ([d72b841](https://github.com/Availity/availity-workflow/commit/d72b841))
+* **example-react:** make enforceActions 'observed' ([e6f88fc](https://github.com/Availity/availity-workflow/commit/e6f88fc))
+* **fontRule:** filename no longer needs hyphen ([cbc0b3c](https://github.com/Availity/availity-workflow/commit/cbc0b3c)), closes [#137](https://github.com/Availity/availity-workflow/issues/137)
+* **mock-data:** add uiDisplayName to providers ([b12989f](https://github.com/Availity/availity-workflow/commit/b12989f))
+* **mock-server:** @availity/mock-data as dependency ([ffc22b8](https://github.com/Availity/availity-workflow/commit/ffc22b8))
+* **proxy:** don't clobber user callbacks ([bdaa6df](https://github.com/Availity/availity-workflow/commit/bdaa6df)), closes [#101](https://github.com/Availity/availity-workflow/issues/101)
+* **react kit:** fix incorrect dep version ([8752047](https://github.com/Availity/availity-workflow/commit/8752047))
+* **react-kit:** add es6-symbol for IE11 ([06880fa](https://github.com/Availity/availity-workflow/commit/06880fa))
+* **workflow:**  Cannot read property 'development' of null ([612b8df](https://github.com/Availity/availity-workflow/commit/612b8df)), closes [#199](https://github.com/Availity/availity-workflow/issues/199)
+* **workflow:** add missing packages and fix yargs.argv usage ([b1d2864](https://github.com/Availity/availity-workflow/commit/b1d2864))
+* **workflow:** added as arg to the arrow func ([8843f68](https://github.com/Availity/availity-workflow/commit/8843f68))
+* **workflow:** allow webpack warnings to fallthrough when errors are emitted ([bade285](https://github.com/Availity/availity-workflow/commit/bade285))
+* **workflow:** disable log for webpack middleware ([62d4e44](https://github.com/Availity/availity-workflow/commit/62d4e44))
+* **workflow:** fixed eslint issues ([54e070d](https://github.com/Availity/availity-workflow/commit/54e070d))
+* **workflow:** fixed jest v24 not working ([68156ad](https://github.com/Availity/availity-workflow/commit/68156ad))
+* **workflow:** log proper error ([5b59246](https://github.com/Availity/availity-workflow/commit/5b59246))
+* **workflow:** non-blocking webpack warning ([1a58fb4](https://github.com/Availity/availity-workflow/commit/1a58fb4)), closes [#161](https://github.com/Availity/availity-workflow/issues/161)
+* **workflow:** removed ignore for package-lock file as its required for travis ([4b3a05a](https://github.com/Availity/availity-workflow/commit/4b3a05a))
+* **workflow:** rename bin cmd to work with npx ([2fc1632](https://github.com/Availity/availity-workflow/commit/2fc1632)), closes [/github.com/zkat/npx/blob/6e89dbd5989366e52d3810692b1ab5889a05fbad/parse-args.js#L137-L138](https://github.com//github.com/zkat/npx/blob/6e89dbd5989366e52d3810692b1ab5889a05fbad/parse-args.js/issues/L137-L138)
+* **workflow:** reverted .gitignore -> gitignore ([9d468b6](https://github.com/Availity/availity-workflow/commit/9d468b6))
+* **workflow:** update deps in template package,json ([1ea97ad](https://github.com/Availity/availity-workflow/commit/1ea97ad))
+* **workflow-babel-preset:** enable @babel/plugin-syntax-dynamic-import ([548a567](https://github.com/Availity/availity-workflow/commit/548a567))
+* **workflow-babel-preset:** missing babel-plugin-dynamic-import-node dep ([3406ecb](https://github.com/Availity/availity-workflow/commit/3406ecb))
+* **workflow-plugin-angular:** added eslint-loader as dep for plugin ([bc05d68](https://github.com/Availity/availity-workflow/commit/bc05d68))
+* **workflow-plugin-react:** allow hook into jest setupFiles ([d274f4f](https://github.com/Availity/availity-workflow/commit/d274f4f)), closes [#162](https://github.com/Availity/availity-workflow/issues/162)
+* **workflow-plugin-react:** fix submit callback handler in template ([f0e0339](https://github.com/Availity/availity-workflow/commit/f0e0339))
+* **workflow-plugin-react:** moved polyfills to webpack config ([45fe8b0](https://github.com/Availity/availity-workflow/commit/45fe8b0))
+* **workflow-plugin-react:** removed eslint config from angular plugin ([39a5380](https://github.com/Availity/availity-workflow/commit/39a5380))
+* **workflow-plugin-react:** resolve raf/polyfill ([571cdce](https://github.com/Availity/availity-workflow/commit/571cdce))
+* **workflow-react:** fix jest transform pattern ([8072230](https://github.com/Availity/availity-workflow/commit/8072230))
+* **workflow-react, worfkow-angular:** closes [#118](https://github.com/Availity/availity-workflow/issues/118) use recommend head settings in html templates ([a1160e2](https://github.com/Availity/availity-workflow/commit/a1160e2))
+* **workflow-react, worfkow-angular:** use recommend head settings in html templates ([a27096a](https://github.com/Availity/availity-workflow/commit/a27096a))
+* **workflow-settings:** css import error ([9b8611a](https://github.com/Availity/availity-workflow/commit/9b8611a)), closes [#165](https://github.com/Availity/availity-workflow/issues/165)
+* **workflow-settings:** disable source maps in less ([b48ee33](https://github.com/Availity/availity-workflow/commit/b48ee33))
+* **workflow-settings:** emit warnings for eslint errors in webpack ([724627e](https://github.com/Availity/availity-workflow/commit/724627e)), closes [#204](https://github.com/Availity/availity-workflow/issues/204)
+* **workflow-settings:** fixed a bug where regex would not work properly on windows ([f6aa0f2](https://github.com/Availity/availity-workflow/commit/f6aa0f2))
+* **workflow-settings:** fixed incorrect regex pattern ([8d355dc](https://github.com/Availity/availity-workflow/commit/8d355dc))
+* **workflow-settings:** regex for sass was not strict ([47249ea](https://github.com/Availity/availity-workflow/commit/47249ea))
+* **workflow-settings:** remove invalid options for css loader ([87eaaf4](https://github.com/Availity/availity-workflow/commit/87eaaf4))
+* **workflow-settings:** support only IE11+ ([21cb79a](https://github.com/Availity/availity-workflow/commit/21cb79a))
+* **workflow-settings:** uodate mock-data package name ([cf03e13](https://github.com/Availity/availity-workflow/commit/cf03e13))
+* babel should compile [@av](https://github.com/av) namespace ([8cd92fe](https://github.com/Availity/availity-workflow/commit/8cd92fe))
+* cache bust generated css file names ([4bf0f9a](https://github.com/Availity/availity-workflow/commit/4bf0f9a))
+* fix fonts/css output in production build ([b021dbc](https://github.com/Availity/availity-workflow/commit/b021dbc))
+* include [@av](https://github.com/av) during babel and jest ([9468ac6](https://github.com/Availity/availity-workflow/commit/9468ac6))
+* production/profiling webpack splitting ([23456d8](https://github.com/Availity/availity-workflow/commit/23456d8))
+* remove reduceIdents from css optimization ([d37b0cf](https://github.com/Availity/availity-workflow/commit/d37b0cf))
+* remove zindex optimization ([fd07b15](https://github.com/Availity/availity-workflow/commit/fd07b15))
+* **workflow-settings:** wrong options for css loader ([0014f31](https://github.com/Availity/availity-workflow/commit/0014f31))
+
+
+### chore
+
+* **availity-worfklow:** enforce Node v8.0 ([a20e1c1](https://github.com/Availity/availity-workflow/commit/a20e1c1))
+* **availity-workflow-react:** update react-hot-loader ([3b60424](https://github.com/Availity/availity-workflow/commit/3b60424))
+* **availity-workflow-settings:** use IE11 default target ([129806f](https://github.com/Availity/availity-workflow/commit/129806f))
+* upgrade deps ([702872e](https://github.com/Availity/availity-workflow/commit/702872e))
+
+
+### Code Refactoring
+
+* **mock-server:** remove server events ([2cb477b](https://github.com/Availity/availity-workflow/commit/2cb477b))
+
+
+### Features
+
+* **availit-mock-data:**  integrate mock data. Closes [#128](https://github.com/Availity/availity-workflow/issues/128) ([bbc9043](https://github.com/Availity/availity-workflow/commit/bbc9043))
+* **availity-mock-data:** add spaces collection query ([84f1750](https://github.com/Availity/availity-workflow/commit/84f1750))
+* **availity-mock-server:** add patch support for tus ([4945642](https://github.com/Availity/availity-workflow/commit/4945642))
+* **availity-mock-server:** integrate mock server. Closes [#127](https://github.com/Availity/availity-workflow/issues/127) ([79b156c](https://github.com/Availity/availity-workflow/commit/79b156c))
+* **availity-workflow:** add env info in about messages ([3866998](https://github.com/Availity/availity-workflow/commit/3866998))
+* **availity-workflow:** add option to allow user to modify the webpack config ([872dad2](https://github.com/Availity/availity-workflow/commit/872dad2)), closes [#134](https://github.com/Availity/availity-workflow/issues/134) [#146](https://github.com/Availity/availity-workflow/issues/146)
+* **availity-workflow:** add option to disable linter ([572dee0](https://github.com/Availity/availity-workflow/commit/572dee0))
+* **availity-workflow:** allow custom commit message on release ([09f284c](https://github.com/Availity/availity-workflow/commit/09f284c))
+* **availity-workflow-angular:** add webpack DuplicatePackageCheckerPlugin to development ([27b2f2e](https://github.com/Availity/availity-workflow/commit/27b2f2e))
+* **availity-workflow-angular:** upgrade uglifyjs. Closes [#131](https://github.com/Availity/availity-workflow/issues/131). ([5a788d2](https://github.com/Availity/availity-workflow/commit/5a788d2))
+* **availity-workflow-angular:** use jest for testing ([07e8110](https://github.com/Availity/availity-workflow/commit/07e8110))
+* **availity-workflow-react:** add webpack DuplicatePackageCheckerPlugin to development ([1c36d8e](https://github.com/Availity/availity-workflow/commit/1c36d8e))
+* **availity-workflow-react:** upgrade uglifyjs. Closes [#131](https://github.com/Availity/availity-workflow/issues/131). ([531bdb5](https://github.com/Availity/availity-workflow/commit/531bdb5))
+* **availity-workflow-settings:** proxy /ms path ([dd78d7e](https://github.com/Availity/availity-workflow/commit/dd78d7e))
+* cli init to bootstrap new app ([f6891af](https://github.com/Availity/availity-workflow/commit/f6891af))
+* **build:** expose build via av build ([d6ac419](https://github.com/Availity/availity-workflow/commit/d6ac419))
+* **example-angular:** angular v1.7 ([2d595b8](https://github.com/Availity/availity-workflow/commit/2d595b8))
+* **example-react:** add react sample project ([cb6a56e](https://github.com/Availity/availity-workflow/commit/cb6a56e))
+* **example-react:** add react-testing-library ([841793f](https://github.com/Availity/availity-workflow/commit/841793f))
+* **settings:** allow merge function ([3427d7c](https://github.com/Availity/availity-workflow/commit/3427d7c))
+* generate sorcemaps for production builds ([c13c87e](https://github.com/Availity/availity-workflow/commit/c13c87e))
+* **upgrader:** created upgrader package for upgrading to v5 ([b7f97e6](https://github.com/Availity/availity-workflow/commit/b7f97e6))
+* **workflow:** accept version when running release ([50c76e6](https://github.com/Availity/availity-workflow/commit/50c76e6)), closes [#175](https://github.com/Availity/availity-workflow/issues/175)
+* **workflow:** added ability to create workflow project in current dir ([b460605](https://github.com/Availity/availity-workflow/commit/b460605))
+* **workflow-logger:** add warning message ([8abf42f](https://github.com/Availity/availity-workflow/commit/8abf42f))
+* **workflow-plugin-react:** added webpack config for eslint-config-availity ([4454457](https://github.com/Availity/availity-workflow/commit/4454457))
+* **workflow-plugin-react:** allow developers to include for jest to babel compile ([4136c9e](https://github.com/Availity/availity-workflow/commit/4136c9e))
+* **workflow-plugin-react:** enable code splitting ([bba4039](https://github.com/Availity/availity-workflow/commit/bba4039))
+* **workflow-plugin-react:** eslint-config-availity runs now before babl ([22e62a4](https://github.com/Availity/availity-workflow/commit/22e62a4))
+* **workflow-plugin-react:** update template ([dab0320](https://github.com/Availity/availity-workflow/commit/dab0320))
+* add gitignore to the init templates ([e16b74f](https://github.com/Availity/availity-workflow/commit/e16b74f))
+* upgrade to webpack 4 ([60d531a](https://github.com/Availity/availity-workflow/commit/60d531a))
+* **workflow-settings:** allow developers to include packages for babel ([96cf764](https://github.com/Availity/availity-workflow/commit/96cf764))
+
+
+### Performance Improvements
+
+* **react, angular:** closes [#117](https://github.com/Availity/availity-workflow/issues/117) disable hmr in production ([9d51692](https://github.com/Availity/availity-workflow/commit/9d51692))
+
+
+### BREAKING CHANGES
+
+* upgrade to babel 7, eslint 5, eslint-config-airbnb 17
+* **mock-server:** server lifecycle events are not longer emmitted
+* **availity-workflow-angular:** workflow-angular-kit no longer works with karma. Porjects with karma will need to add jest.init.js. See the current workflow-angular-kit jest.init.js for reference. Also, they can remove karma and webpack test config files as they are no longer used.
+* **availity-workflow-settings:** IE9 no longer supported for babel
+* **availity-workflow-react:** react hot loader v3 no longer works, workflow-react-kit packages with the old react hot loader usage will need to remove the usage. See the current workflow-react-kit index.js and App.js for reference.
+* **availity-worfklow:** Minimum requirement to run workflow is now Node 8. There are no API changes.
+
+
+
 <a name="5.2.5"></a>
 ## [5.2.5](https://github.com/Availity/availity-workflow/compare/v5.2.4...v5.2.5) (2019-04-15)
 
