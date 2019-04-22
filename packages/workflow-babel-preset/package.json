@@ -1,6 +1,6 @@
 {
 	"name": "@availity/workflow-babel-preset",
-	"version": "5.2.5",
+	"version": "5.2.6-alpha.1",
 	"description": "Babel preset used by availity-workflow projects based on React",
 	"main": "index.js",
 	"files": [
@@ -21,7 +21,7 @@
 	},
 	"homepage": "https://github.com/availity/availity-workflow#readme",
 	"dependencies": {
-		"@availity/workflow-settings": "^5.2.5",
+		"@availity/workflow-settings": "^5.2.6-alpha.1",
 		"@babel/core": "^7.0.0",
 		"@babel/plugin-proposal-class-properties": "^7.0.0",
 		"@babel/plugin-proposal-decorators": "^7.0.0",

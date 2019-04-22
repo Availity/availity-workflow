@@ -8,10 +8,9 @@ const { existsSync } = require('fs');
 require('jest/node_modules/jest-cli/build/cli');
 
 const jest = require('jest');
-const settings = require('@availity/workflow-settings');
 const path = require('path');
 
-function create() {
+function create(settings) {
   const rootDir = settings.project();
   const jestInitExists = existsSync(`${path.join(settings.app(), 'jest.init.js')}`);
 
@@ -26,11 +25,8 @@ function create() {
       '^(?!.*\\.(js|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
     setupFilesAfterEnv: jestInitExists
-    ? require(path.join(settings.app(), 'jest.init.js'))
-    : [
-      'angular',
-      'angular-mocks'
-    ],
+      ? require(path.join(settings.app(), 'jest.init.js'))
+      : ['angular', 'angular-mocks'],
     transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!@?av).+\\.(js|jsx|html)$'],
     moduleDirectories: ['node_modules', 'project/app', 'app'],
     testMatch: [
@@ -69,7 +65,7 @@ function unit() {
   return Promise.resolve();
 }
 
-module.exports = {
-  run: unit,
+module.exports = settings => ({
+  run: () => unit(settings),
   description: 'Run your tests using Jest'
-};
+});
