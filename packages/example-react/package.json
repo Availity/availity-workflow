@@ -1,7 +1,7 @@
 {
   "name": "@availity/example-react",
   "private": true,
-  "version": "5.2.6-alpha.1",
+  "version": "5.2.7",
   "description": "React project using @availity/workflow",
   "main": "index.js",
   "scripts": {
@@ -55,8 +55,8 @@
     "reactstrap": "^6.0.0"
   },
   "devDependencies": {
-    "@availity/workflow": "^5.2.6-alpha.1",
-    "@availity/workflow-plugin-react": "^5.2.6-alpha.1",
+    "@availity/workflow": "^5.2.7",
+    "@availity/workflow-plugin-react": "^5.2.7",
     "cross-env": "^5.1.4",
     "jest-dom": "^3.0.0",
     "react-testing-library": "^5.4.4"
