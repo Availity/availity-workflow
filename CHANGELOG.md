@@ -1,3 +1,13 @@
+## [5.2.7](https://github.com/Availity/availity-workflow/compare/v5.2.6-alpha.1...v5.2.7) (2019-04-25)
+
+
+### Performance Improvements
+
+* **workflow-plugin-angular:** enable futureEmitAssets ([99567e3](https://github.com/Availity/availity-workflow/commit/99567e3))
+* **workflow-plugin-react:** enable futureEmitAssets ([e09b735](https://github.com/Availity/availity-workflow/commit/e09b735))
+
+
+
 ## 5.2.6-alpha.1 (2019-04-22)
 
 
