@@ -6,6 +6,10 @@
 * **workflow-plugin-angular:** enable futureEmitAssets ([99567e3](https://github.com/Availity/availity-workflow/commit/99567e3))
 * **workflow-plugin-react:** enable futureEmitAssets ([e09b735](https://github.com/Availity/availity-workflow/commit/e09b735))
 
+### Bug Fixes
+
+* **workflow:**  Cannot read property 'development' of null ([612b8df](https://github.com/Availity/availity-workflow/commit/612b8df)), closes [#199](https://github.com/Availity/availity-workflow/issues/199)
+
 
 
 ## 5.2.6-alpha.1 (2019-04-22)
