@@ -1,25 +1,25 @@
-const fs = require('fs'); // read/write files
-const path = require('path'); // get directory paths
-const readPkg = require('read-pkg'); // read package.json correctly
-const rimraf = require('rimraf'); // Deleting folder with contents
-const { exec } = require('child_process'); // Run npm script from js
+const fs = require('fs');
+const path = require('path');
+const readPkg = require('read-pkg');
+const rimraf = require('rimraf');
+const { exec } = require('child_process');
+const Logger = require('@availity/workflow-logger');
 
-module.exports = function(cwd) {
-  console.log('Upgrading @availity/workflow to v5.0.0');
+module.exports = cwd => {
+  Logger.info('Upgrading @availity/workflow to v5.0.0');
   const pkgFile = path.join(cwd, 'package.json');
 
   if (fs.existsSync(pkgFile)) {
     // Read Package File to JSON
     const pkg = readPkg.sync({ cwd, normalize: false });
 
-
-    const { devDependencies,scripts } = pkg;
+    const { devDependencies, scripts } = pkg;
 
     // Add this script into the new workflow scripts for the future
-    scripts['upgrade:workflow'] = "./node_modules/.bin/upgrade-workflow";
+    scripts['upgrade:workflow'] = './node_modules/.bin/upgrade-workflow';
 
     if (devDependencies) {
-      console.log('Removing redundant packages...');
+      Logger.info('Removing redundant packages...');
 
       // Delete all deps that were previously required
       delete devDependencies['babel-eslint'];
@@ -33,7 +33,7 @@ module.exports = function(cwd) {
       delete devDependencies['eslint-plugin-react'];
     }
 
-    console.log('Upgrading dependencies');
+    Logger.info('Upgrading dependencies');
     // Set the new version of the workflow
     devDependencies['eslint-config-availity'] = '^4.0.0';
     devDependencies['@availity/workflow'] = '^5.0.0';
@@ -43,17 +43,17 @@ module.exports = function(cwd) {
     fs.writeFileSync(pkgFile, `${JSON.stringify(pkg, null, 2)}\n`, 'utf-8');
 
     // delete package lock
-    console.log("Deleting Package-Lock");
-    fs.unlinkSync(path.join(cwd,'package-lock.json'));
+    Logger.info('Deleting Package-Lock');
+    fs.unlinkSync(path.join(cwd, 'package-lock.json'));
 
-    console.log('Deleting node modules...');
+    Logger.info('Deleting node modules...');
     // Delete Node Modules
     rimraf.sync(path.join(cwd, 'node_modules'));
 
-    console.log('Re-Installing node modules..');
+    Logger.info('Re-Installing node modules..');
     // Run install command
-    exec('npm install',() => {
-      console.log("\nCongratulations! Welcome to the new @availity/workflow.")
+    exec('npm install', () => {
+      Logger.success('\nCongratulations! Welcome to the new @availity/workflow.');
     });
   }
 };
