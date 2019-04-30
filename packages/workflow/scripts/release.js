@@ -4,26 +4,22 @@ const version = require('./version');
 const lint = require('./lint');
 const build = require('./build');
 
-function release({ settings }) {
-  return version
-    .prompt()
-    .then(() => {
-      Logger.info('Started releasing');
-      return true;
-    })
-    .then(lint)
-    .then(version.bump)
-    .then(build({ settings }))
-    .then(version.tag)
-    .then(() => {
-      Logger.success('Finished releasing');
-      return true;
-    })
-    .catch(error => {
-      Logger.failed(`Failed releasing:
+async function release({ settings }) {
+  try {
+    await version.prompt();
+    Logger.info('Started releasing');
+
+    await lint();
+    await version.bump();
+    await build({ settings });
+    await version.tag();
+    Logger.success('Finished releasing');
+  } catch (error) {
+    Logger.failed(`Failed releasing:
 ${error}
 `);
-    });
+    throw error;
+  }
 }
 
 module.exports = release;
