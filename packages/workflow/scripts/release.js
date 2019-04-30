@@ -4,7 +4,7 @@ const version = require('./version');
 const lint = require('./lint');
 const build = require('./build');
 
-function release() {
+function release({ settings }) {
   return version
     .prompt()
     .then(() => {
@@ -13,7 +13,7 @@ function release() {
     })
     .then(lint)
     .then(version.bump)
-    .then(build)
+    .then(build({ settings }))
     .then(version.tag)
     .then(() => {
       Logger.success('Finished releasing');

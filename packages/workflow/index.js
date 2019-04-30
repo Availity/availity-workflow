@@ -28,7 +28,7 @@ yargs.command(
   },
   () => {
     settings.init();
-    release();
+    release({ settings });
   }
 );
 
