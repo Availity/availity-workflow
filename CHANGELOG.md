@@ -1,3 +1,12 @@
+## [5.2.8](https://github.com/Availity/availity-workflow/compare/v5.2.7...v5.2.8) (2019-04-30)
+
+
+### Bug Fixes
+
+* **workflow:** can not read property of ‘isDryRun’ of undefined ([a8133f5](https://github.com/Availity/availity-workflow/commit/a8133f5))
+
+
+
 ## [5.2.7](https://github.com/Availity/availity-workflow/compare/v5.2.6-alpha.1...v5.2.7) (2019-04-25)
 
 
