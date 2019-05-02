@@ -1,3 +1,12 @@
+# [5.3.0](https://github.com/Availity/availity-workflow/compare/v5.2.8...v5.3.0) (2019-05-02)
+
+
+### Features
+
+* **mock-data:** add legacy permission to mock routes ([9baf02f](https://github.com/Availity/availity-workflow/commit/9baf02f))
+
+
+
 ## [5.2.8](https://github.com/Availity/availity-workflow/compare/v5.2.7...v5.2.8) (2019-04-30)
 
 
