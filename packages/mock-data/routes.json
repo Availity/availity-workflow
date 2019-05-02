@@ -12,6 +12,9 @@
       }
     ]
   },
+  "internal/v1/axi-user-permissions": {
+    "file": "legacy-permissions.json"
+  },
   "sdk/platform/v1/users/me": {
     "file": "me.json"
   },
