@@ -1,3 +1,3 @@
-export { Status } from './Status';
-export { Patient } from './Patient';
-export { Transaction } from './Transaction';
+export { default as Status } from './Status';
+export { default as Patient } from './Patient';
+export { default as Transaction } from './Transaction';

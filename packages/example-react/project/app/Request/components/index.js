@@ -1,3 +1,3 @@
-export { Agreement } from './Agreement';
-export { Patient } from './Patient';
-export { Provider } from './Provider';
+export { default as Agreement } from './Agreement';
+export { default as Patient } from './Patient';
+export { default as Provider } from './Provider';
