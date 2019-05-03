@@ -1,5 +1,3 @@
-import Agreement from './Agreement';
-import Patient from './Patient';
-import Provider from './Provider';
-
-export { Agreement, Patient, Provider };
+export { Agreement } from './Agreement';
+export { Patient } from './Patient';
+export { Provider } from './Provider';
