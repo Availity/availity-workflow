@@ -1,5 +1,3 @@
-import Status from './Status';
-import Patient from './Patient';
-import Transaction from './Transaction';
-
-export { Transaction, Patient, Status };
+export { Status } from './Status';
+export { Patient } from './Patient';
+export { Transaction } from './Transaction';
