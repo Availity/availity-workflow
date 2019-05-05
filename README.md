@@ -16,6 +16,8 @@
 *   [Configuration](#configuration)
 *   [Upgrading](#upgrading)
 *   [FAQ](#faq)
+*   [CONTRIBUTE](#contribute)
+*   [DISCLAIMER](#disclaimer)
 *   [License](#license)
 
 ## Getting Started
