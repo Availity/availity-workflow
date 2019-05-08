@@ -220,7 +220,7 @@ function install(dependencies) {
   });
 }
 
-function run(root, package, appName, version, originalDirectory) {
+function run(root, package, appName, version, originalDirectory,template) {
   const packageToInstall = getInstallPackage(package, version, originalDirectory);
   const allDependencies = [packageToInstall];
 
@@ -235,7 +235,7 @@ function run(root, package, appName, version, originalDirectory) {
 
       const scriptsPath = path.resolve(process.cwd(), 'node_modules', packageName, 'scripts', 'init.js');
       const init = require(scriptsPath);
-      return init(root, appName, originalDirectory);
+      return init(root, appName, originalDirectory,template);
     })
     .catch(error => {
       Logger.empty();
@@ -272,7 +272,7 @@ function run(root, package, appName, version, originalDirectory) {
     });
 }
 
-function createApp(name, package, version, currentDir) {
+function createApp(name, package, version, currentDir, template) {
   const root = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(root);
 
@@ -302,7 +302,7 @@ function createApp(name, package, version, currentDir) {
     process.exit(1);
   }
 
-  run(root, package, appName, version, originalDirectory);
+  run(root, package, appName, version, originalDirectory, template);
 }
 /* eslint-disable no-unused-expressions */
 yargs
@@ -329,6 +329,12 @@ yargs
           alias: 'c',
           describe: 'Pass this if you want to initialize the project in the same folder',
           default: false
+        })
+        .option('template', {
+          alias: 't',
+          describe: 'The Example Template you would like to start with. ( Only Available if using React )',
+          choices: ['sso','authorizations'],
+          default: 'sso'
         })
         .usage(`\nUsage: ${chalk.yellow('av init')} ${chalk.green('<projectName>')} ${chalk.magenta('[options]')}`)
         .example(chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')}`))
