@@ -9,7 +9,7 @@ import useSpace from '../hooks/useSpace';
 
 export default () => {
   const [customerId, setCustomerId] = useState(null);
-  const [space, loading] = useSpace("48C607A70B5A46A3864A34E2BDDDEA04");
+  const [space] = useSpace("48C607A70B5A46A3864A34E2BDDDEA04");
 
   const onCancel = () => window.history.back();
 
