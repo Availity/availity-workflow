@@ -25,7 +25,7 @@
     "test": "jest --silent",
     "start": "npm run start --prefix packages/example-react",
     "build:examples": "npm run build --prefix packages/example-react",
-    "deploy:docs": "npm run build:examples && gh-pages packages/example-react/build",
+    "deploy:docs": "npm run build:examples && gh-pages -d packages/example-react/build",
     "test:react": "npm run test --prefix packages/example-react",
     "start:angular": "npm run start --prefix packages/example-angular",
     "test:integration": "lerna run --concurrency 1 integration",
