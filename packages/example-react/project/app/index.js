@@ -10,5 +10,5 @@ render(
   <LocationProvider history={hashHistory}>
     <App  />
   </LocationProvider>,
-  document.getElementById('root')
+  document.querySelector('#root')
 );

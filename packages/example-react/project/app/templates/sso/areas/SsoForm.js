@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button } from 'reactstrap';
+import get from 'lodash.get';
 import PageHeader from '@availity/page-header';
 import { AvForm } from 'availity-reactstrap-validation';
 import { AvOrganizationSelect, AvProviderSelect } from '@availity/reactstrap-validation-select/resources';
 import Agreement from '../components/Agreement';
-import { useSpace } from '../stores/spaceStore';
+import useSpace from '../hooks/useSpace';
 
 export default () => {
   const [customerId, setCustomerId] = useState(null);
-  const { space } = useSpace();
-
-  console.log("Space:",space);
+  const [space, loading] = useSpace("48C607A70B5A46A3864A34E2BDDDEA04");
 
   const onCancel = () => window.history.back();
 
+  console.log('Space:', space);
+
   return (
     <Container>
-      <PageHeader appName="Single Sign-On" spaceId="48C607A70B5A46A3864A34E2BDDDEA04" />
+      <PageHeader appName="Single Sign-On" spaceId="48C607A70B5A46A3864A34E2BDDDEA04" spaceName={get(space, 'name')} />
       <AvForm
         onValidSubmit={() => {
-          console.log("valid submit")
+          console.log('valid submit');
         }}
       >
         <AvOrganizationSelect
@@ -45,13 +46,7 @@ export default () => {
             </Button>
           </Col>
           <Col sm={6}>
-            <Button
-              id="submit-button"
-              aria-describedby="sso-desc"
-              type="submit"
-              color="success"
-              block
-            >
+            <Button id="submit-button" aria-describedby="sso-desc" type="submit" color="success" block>
               Submit
             </Button>
           </Col>

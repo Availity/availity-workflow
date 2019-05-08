@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AvForm } from 'availity-reactstrap-validation';
 import { Button, Card, CardBody } from 'reactstrap';
 
@@ -34,4 +35,7 @@ const AuthorizationsRequest = ({ navigate }) => {
   );
 };
 
+AuthorizationsRequest.propTypes = {
+  navigate: PropTypes.func
+};
 export default AuthorizationsRequest;

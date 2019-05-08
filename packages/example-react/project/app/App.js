@@ -1,11 +1,14 @@
 import React from 'react';
-import { Router } from '@reach/router';
+import { Router, Redirect } from '@reach/router';
 import { AuthorizationResponse, AuthorizationRequest } from './templates/authorizations/App';
 import Sso from './templates/sso/App';
 
+const RedirectRoute = () => <Redirect to='/authorizations' noThrow/>;
+
 export default () => (
   <Router>
-    <AuthorizationRequest exact path="/authorizations" />
+    <RedirectRoute path="/" />
+    <AuthorizationRequest path="/authorizations" />
     <AuthorizationResponse exact path="/authorizations/response" />
     <Sso path="/sso" />
   </Router>
