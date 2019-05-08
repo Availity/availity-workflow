@@ -1,9 +1,7 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
 import { Row, Col } from 'reactstrap';
-import propTypes from '../props';
 
-const Transaction = () => (
+export default () => (
   <Row>
     <Col sm="3">
       <h5 className="text-label">Certification Number</h5>
@@ -23,7 +21,3 @@ const Transaction = () => (
     </Col>
   </Row>
 );
-
-Transaction.propTypes = propTypes;
-
-export default inject('stateStore', 'appStore')(observer(Transaction));

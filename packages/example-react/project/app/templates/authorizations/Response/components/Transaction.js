@@ -1,11 +1,11 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import { CardBody, Badge } from 'reactstrap';
-import propTypes from '../props';
+import { useStateStore } from '../../stores';
 
-const Transaction = ({ stateStore: { request } }) => {
-  const { organization } = request;
-  const { customerId } = organization;
+export default observer(() => {
+  const { request: { organization: { customerId }} } = useStateStore();
+
   return (
     <CardBody>
       <div className="card-header-secondary">
@@ -16,8 +16,4 @@ const Transaction = ({ stateStore: { request } }) => {
       </div>
     </CardBody>
   );
-};
-
-Transaction.propTypes = propTypes;
-
-export default inject('stateStore', 'appStore')(observer(Transaction));
+});

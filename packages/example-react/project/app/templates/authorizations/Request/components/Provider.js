@@ -1,11 +1,15 @@
 import React from 'react';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import { AvProviderSelect, AvOrganizationSelect } from '@availity/reactstrap-validation-select/resources';
-import propTypes from './props';
+import { useStateStore, useAppStore } from '../../stores';
 
-const Provider = ({ stateStore: { request }, appStore }) => {
-  const { organization, provider } = request;
+export default observer(() => {
+  const {
+    request: { organization, provider },
+  } = useStateStore();
+  const { setSelectValue, isProviderDisabled } = useAppStore();
   const { customerId } = organization;
+
   return (
     <fieldset>
       <legend>Provider</legend>
@@ -14,7 +18,7 @@ const Provider = ({ stateStore: { request }, appStore }) => {
         name="request.organization"
         label="Select a Organization"
         value={organization}
-        onChange={e => appStore.setSelectValue(e, 'request.organization')}
+        onChange={e => setSelectValue(e, 'request.organization')}
         required
       />
 
@@ -24,15 +28,11 @@ const Provider = ({ stateStore: { request }, appStore }) => {
         value={provider}
         requiredParams={['customerId']}
         watchParams={['customerId']}
-        onChange={e => appStore.setSelectValue(e, 'request.provider')}
+        onChange={e => setSelectValue(e, 'request.provider')}
         label="Select a provider"
-        isDisabled={appStore.isProviderDisabled}
+        isDisabled={isProviderDisabled}
         required
       />
     </fieldset>
   );
-};
-
-Provider.propTypes = propTypes;
-
-export default inject('stateStore', 'appStore')(observer(Provider));
+});

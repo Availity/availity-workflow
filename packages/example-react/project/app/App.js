@@ -1,25 +1,12 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { Router } from '@reach/router';
-import { configure } from 'mobx';
-import { Provider } from 'mobx-react';
-import { appStore, stateStore } from './stores';
-import AuthorizationRequest from './Request';
+import { AuthorizationResponse, AuthorizationRequest } from './templates/authorizations/App';
+import Sso from './templates/sso/App';
 
-const AuthorizationResponse = lazy(() => import(/* webpackChunkName: "Response" */ './Response'));
-
-const stores = { appStore, stateStore };
-window.stateStore = stateStore;
-configure({ enforceActions: 'observed' });
-
-const App = () => (
-  <Provider {...stores}>
-    <Suspense fallback={<div>Loading...</div>}>
-      <Router basepath="/" style={{ height: '100%' }}>
-        <AuthorizationRequest path="/" />
-        <AuthorizationResponse path="/response" />
-      </Router>
-    </Suspense>
-  </Provider>
-);
-
-export default App;
+export default () => (
+  <Router>
+    <AuthorizationRequest exact path="/authorizations" />
+    <AuthorizationResponse exact path="/authorizations/response" />
+    <Sso path="/sso" />
+  </Router>
+)

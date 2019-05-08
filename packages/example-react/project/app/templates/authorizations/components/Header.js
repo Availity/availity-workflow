@@ -1,9 +1,9 @@
 import React from 'react';
-import Breadscrumbs from '@availity/breadcrumbs-spaces-react';
+import Breadscrumbs from '@availity/breadcrumbs';
 
-const Header = () => (
+export default () => (
   <div>
-    <Breadscrumbs pageName="My Healthcare App" />
+    <Breadscrumbs active="My Healthcare App" />
     <h2 className="page-header mt-3">
       <div className="page-header-title">
         <span className="app-icon app-icon-blue">ar</span> AR
@@ -11,5 +11,3 @@ const Header = () => (
     </h2>
   </div>
 );
-
-export default Header;

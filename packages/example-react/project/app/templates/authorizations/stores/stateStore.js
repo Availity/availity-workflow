@@ -23,5 +23,3 @@ class StateStore {
 }
 
 export default new StateStore();
-
-export { StateStore };

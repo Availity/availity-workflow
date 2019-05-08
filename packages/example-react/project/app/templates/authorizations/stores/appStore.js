@@ -2,7 +2,7 @@ import { action, computed } from 'mobx';
 import set from 'lodash.set';
 import get from 'lodash.get';
 
-class AppStore {
+export default class AppStore {
   constructor(state) {
     this.state = state;
   }
@@ -39,5 +39,3 @@ class AppStore {
     }
   };
 }
-
-export default AppStore;

@@ -1,9 +1,7 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
 import { Row, Col } from 'reactstrap';
-import propTypes from '../props';
 
-const Status = () => (
+export default () => (
   <Row>
     <Col sm="3">
       <h5 className="text-label">Status</h5>
@@ -23,7 +21,3 @@ const Status = () => (
     </Col>
   </Row>
 );
-
-Status.propTypes = propTypes;
-
-export default inject('stateStore', 'appStore')(observer(Status));
