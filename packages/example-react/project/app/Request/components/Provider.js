@@ -12,7 +12,7 @@ const Provider = ({ stateStore: { request }, appStore }) => {
 
       <AvOrganizationSelect
         name="request.organization"
-        label="Select a Organization"
+        label="Select an Organization"
         value={organization}
         onChange={e => appStore.setSelectValue(e, 'request.organization')}
         required
@@ -25,7 +25,7 @@ const Provider = ({ stateStore: { request }, appStore }) => {
         requiredParams={['customerId']}
         watchParams={['customerId']}
         onChange={e => appStore.setSelectValue(e, 'request.provider')}
-        label="Select a provider"
+        label="Select a Provider"
         isDisabled={appStore.isProviderDisabled}
         required
       />

@@ -12,8 +12,8 @@ const Agreement = ({ appStore, stateStore }) => {
         I have fully read this agreement and understand that I am entering into a legally binding agreement and that my
         organization is bound by the terms and conditions contained therein. I attest and certify that I am the Primary
         Controlling Authority for the organization named herein and that I possess the necessary legal authority to bind
-        this organization. I further attest and certify my organization&quote;s designation as a Covered Entity under
-        <abbr title="Health Insurance Portability and Accountability Act">HIPAA</abbr>
+        this organization. I further attest and certify my organization&apos;s designation as a Covered Entity under{' '}
+        <abbr title="Health Insurance Portability and Accountability Act">HIPAA</abbr>.
       </div>
 
       <AvGroup check className="custom-control custom-checkbox">
