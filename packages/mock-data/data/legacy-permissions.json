@@ -1,29 +1,19 @@
 {
-  "metadata": {
-    "totalCount": 74,
-    "offset": 0,
-    "limit": 1000
-  },
+  "totalCount": 9,
+  "count": 9,
+  "offset": 0,
+  "limit": 1000,
   "axiUserPermissions": [
     {
       "id": "6292",
       "description": "Claim Research Tool",
-      "organizationIds": [
-        "1111"
-      ],
-      "geographies": [
-        "OK",
-        "IL",
-        "NM",
-        "TX"
-      ]
+      "organizationIds": ["1111"],
+      "geographies": ["OK", "IL", "NM", "TX"]
     },
     {
       "id": "7078",
       "description": "Reporting and Analytics",
-      "organizationIds": [
-        "1111"
-      ],
+      "organizationIds": ["1111"],
       "geographies": [
         "HI",
         "NY",
@@ -69,9 +59,7 @@
     {
       "id": "7050",
       "description": "Care Reminders",
-      "organizationIds": [
-        "1111"
-      ],
+      "organizationIds": ["1111"],
       "geographies": [
         "HI",
         "NY",
@@ -117,9 +105,7 @@
     {
       "id": "1250",
       "description": "Authorization Request",
-      "organizationIds": [
-        "1111"
-      ],
+      "organizationIds": ["1111"],
       "geographies": [
         "HI",
         "NY",
@@ -165,9 +151,7 @@
     {
       "id": "2139",
       "description": "Fee Schedules",
-      "organizationIds": [
-        "1111"
-      ],
+      "organizationIds": ["1111"],
       "geographies": [
         "HI",
         "NY",
@@ -213,9 +197,7 @@
     {
       "id": "7105",
       "description": "Referral Request",
-      "organizationIds": [
-        "1111"
-      ],
+      "organizationIds": ["1111"],
       "geographies": [
         "HI",
         "NY",
@@ -261,9 +243,7 @@
     {
       "id": "484",
       "description": "Claim Status Inquiry",
-      "organizationIds": [
-        "1111"
-      ],
+      "organizationIds": ["1111"],
       "geographies": [
         "HI",
         "NY",
@@ -309,9 +289,7 @@
     {
       "id": "472",
       "description": "Authorization and Referral Inquiry",
-      "organizationIds": [
-        "1111"
-      ],
+      "organizationIds": ["1111"],
       "geographies": [
         "HI",
         "NY",
@@ -357,10 +335,7 @@
     {
       "id": "7166",
       "description": "Eligibility and Benefits Inquiry",
-      "organizationIds": [
-        "1111",
-        "3333"
-      ],
+      "organizationIds": ["1111", "3333"],
       "geographies": [
         "HI",
         "NY",
