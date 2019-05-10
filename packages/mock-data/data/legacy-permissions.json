@@ -4,7 +4,7 @@
     "offset": 0,
     "limit": 1000
   },
-  "permissions": [
+  "axiUserPermissions": [
     {
       "id": "6292",
       "description": "Claim Research Tool",
