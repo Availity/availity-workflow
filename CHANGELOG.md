@@ -1,3 +1,12 @@
+## [5.3.1](https://github.com/Availity/availity-workflow/compare/v5.3.0...v5.3.1) (2019-05-10)
+
+
+### Bug Fixes
+
+* **mock-data:** the mock-data response for axi userpermissions where incorrect ([02ea324](https://github.com/Availity/availity-workflow/commit/02ea324))
+
+
+
 # [5.3.0](https://github.com/Availity/availity-workflow/compare/v5.2.8...v5.3.0) (2019-05-02)
 
 
