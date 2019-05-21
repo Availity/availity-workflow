@@ -238,27 +238,11 @@ By default, the following feature flags are enabled:
 
 Enables or disables mock server. Default is `true`.
 
-#### `mock.port`
-
-Mock server port number. If the port is unavailable, a random available port will be used.
-
-Note: we will automatically update the proxy settings to reflect the port used in the case of a random port being selected.
-
 #### `mock.latency`
 
 Sets default latency for all mock responses
 
-#### `mock.data`
 
-Folder that contains the mock data files (json, images, etc). Defaults to `project/data`.
-
-#### `mock.path`
-
-Path to route configuration file used by Mock server to build Express routes. Defaults to `project/config/routes.json`.
-
-#### `mock.plugins`
-
-Array of NPM module names that enhance mock server with additional data and routes. @See https://github.com/Availity/@availity/mock-data
 
 #### `mock.pluginContext`
 
