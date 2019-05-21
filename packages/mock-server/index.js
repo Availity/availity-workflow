@@ -1,68 +1,50 @@
-/* eslint-disable promise/avoid-new */
-const express = require('express');
-const http = require('http');
-const chalk = require('chalk');
-const logger = require('./logger');
-const config = require('./config');
-const middleware = require('./middleware');
+const { Polly } = require('@pollyjs/core');
+const HttpAdapter = require('@pollyjs/adapter-node-http');
+const FsStoragePersister = require('@pollyjs/persister-fs');
+const path = require('path');
 
-class Ekko {
-  constructor(ekkoConfig) {
-    if (ekkoConfig) {
-      const isString = typeof ekkoConfig === 'string';
+const exitSignals = ['SIGTERM', 'SIGINT'];
 
-      if (isString) {
-        this.configPath = ekkoConfig;
-      } else {
-        this.middleware(ekkoConfig);
+const createPolly = () => {
+  Polly.register(HttpAdapter);
+  Polly.register(FsStoragePersister);
+
+  const polly = new Polly('NanoMixtape', {
+    adapters: ['node-http'],
+    persister: 'fs',
+    mode: 'replay',
+    recordIfMissing: true,
+    persisterOptions: {
+      fs: {
+        recordingsDir: path.join(process.cwd(), 'project/config/recordings')
       }
     }
-  }
+  });
 
-  middleware(options) {
-    config.path = this.configPath;
-    config.set(options);
+  polly.replay();
 
-    config.app = express();
-    config.router = new express.Router();
+  const saveRecordings = async () => {
+    console.log("Saving recordings");
+    await polly.stop(); // Saves the recordings
 
-    middleware.headers();
-    middleware.config();
+    exitSignals.forEach(signal => process.removeListener(signal, saveRecordings));
+  };
 
-    return config.router;
-  }
+  exitSignals.forEach(signal => process.on(signal, saveRecordings));
+};
 
-  async start(options) {
-    this.middleware(options);
+const start = async function() {
+    createPolly();
+};
 
-    const port = config.options.port || 0;
-    const host = config.options.host || 'localhost';
-    config.app.set('port', port);
-    config.server = http.createServer(config.app);
-
-    return new Promise((resolve, reject) => {
-      config.server.listen(config.options.port, host, () => {
-        const url = `http://${host}:${config.server.address().port}`;
-        logger.getInstance().info(`Ekko server started at ${chalk.green(url)}`);
-        resolve(true);
-      });
-
-      config.server.on('error', e => {
-        if (e.errno === 'EADDRINUSE') {
-          logger
-            .getInstance()
-            .error(`Cannot start Ekko server on PORT ${config.options.port}. Check if port is already in use.`);
-        } else {
-          logger.getInstance().error(`Failed to start Ekko server on PORT ${config.options.port}`);
-        }
-
-        reject(new Error(e));
-      });
-    });
+class MockServer {
+  async start() {
+    start();
   }
 
   async stop() {
     return new Promise(resolve => {
+      console.log("Stropping server");
       if (config.server && config.server.close) {
         config.server.close(() => {
           resolve(true);
@@ -78,4 +60,4 @@ class Ekko {
   }
 }
 
-module.exports = Ekko;
+module.exports = MockServer;
