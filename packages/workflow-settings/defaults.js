@@ -57,24 +57,14 @@ const globals = {
   __STAGING__: false
 };
 
-const ekko = {
-  // Enables or disables Ekko
-  enabled: true,
+const mock = {
+  // Enables or disables Mock Server
+  enabled: false,
 
-  port: 0,
+  port: 5050,
 
   // Sets default latency for all route responses
   latency: 250,
-
-  // Folder that contains the mock data files
-  data: path.join(process.cwd(), 'project/data'),
-
-  // Path to route configuration file used by Ekko to build Express routes
-  routes: path.join(process.cwd(), 'project/config/routes.json'),
-
-  // Array of NPM module names that enhance Ekko with additional data and routes.
-  // @See https://github.com/Availity/availity-mock-data
-  plugins: ['@availity/mock-data'],
 
   // Mock data can be passed a context so that HATEOS links traverse correctly
   pluginContext: `http://${development.host}:${development.port}/api`
@@ -86,7 +76,7 @@ const proxies = [
     context: ['/api', '/ms'],
 
     // Host and port number for proxy
-    target: `http://${development.host}:${ekko.port}`,
+    target: `http://localhost:5050`,
 
     // Enables or disalbe this proxy configuration
     enabled: true,
@@ -95,7 +85,7 @@ const proxies = [
 
     // Optional.  Rewrites (using regex) the a path before sending request to proxy target.
     pathRewrite: {
-      '^/api': ''
+      // '^/api': ''
     },
 
     // Optional.  Send default headers to the proxy destination.
@@ -110,6 +100,6 @@ module.exports = {
   app,
   globals,
   testing,
-  ekko,
+  mock,
   proxies
 };

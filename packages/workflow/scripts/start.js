@@ -3,7 +3,7 @@ const chalk = require('chalk');
 const webpack = require('webpack');
 const { once, debounce, merge } = require('lodash');
 const pretty = require('pretty-ms');
-const Ekko = require('@availity/mock-server');
+const MockServer = require('@availity/mock-server');
 const settings = require('@availity/workflow-settings');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const WebpackDevSever = require('webpack-dev-server');
@@ -16,7 +16,7 @@ const open = require('./open');
 const formatWebpackMessages = require('./format');
 
 let server;
-let ekko;
+let mockServer;
 
 const startupMessage = once(() => {
   const wantedPort = settings.config().development.port;
@@ -60,13 +60,8 @@ function init() {
 }
 
 function rest() {
-  if (settings.isEkko()) {
-    const ekkoOptions = {
-      data: settings.config().ekko.data,
-      routes: settings.config().ekko.routes,
-      plugins: settings.config().ekko.plugins,
-      port: settings.ekkoPort(),
-      host: settings.host(),
+  if (settings.isMockEnabled()) {
+    const mockOptions = {
       pluginContext: settings.config().ekko.pluginContext,
       logProvider() {
         return {
@@ -89,11 +84,10 @@ function rest() {
       }
     };
 
-    ekko = new Ekko();
+    mockServer = new MockServer(mockOptions);
 
-    return ekko.start(ekkoOptions);
+    return mockServer.start(mockOptions);
   }
-
   return Promise.resolve();
 }
 

@@ -39,7 +39,6 @@ const settings = {
   configuration: null,
   workflowConfigPath: null,
   devServerPort: null,
-  ekkoServerPort: null,
 
   app() {
     return path.join(this.project(), 'project/app');
@@ -100,10 +99,6 @@ const settings = {
 
   host() {
     return get(this.configuration, 'development.host', '0.0.0.0');
-  },
-
-  ekkoPort() {
-    return this.ekkoServerPort;
   },
 
   open() {
@@ -212,7 +207,7 @@ const settings = {
 
     // Merge in CLI overrides.  The command line args can pass nested properties like:
     //
-    //    start --development.port=3000 --ekko.port=9999
+    //    start --development.port=3000
     //
     // Yargs will convert those arguments into an object.  We pluck the only the top level attributes that we
     // are interested in and merge into the default configuration.
@@ -220,7 +215,6 @@ const settings = {
     const args = argv();
     merge(this.configuration, {
       development: args.development,
-      ekko: args.ekko,
       globals: args.globals
     });
 
@@ -232,20 +226,6 @@ const settings = {
       const availablePort = await getPort({ port: this.devServerPort, host: this.host() }); // eslint-disable-line no-await-in-loop
       if (availablePort === this.devServerPort) break;
       this.devServerPort += 1;
-    }
-
-    const wantedEkkoPort = get(this.configuration, 'ekko.port', 9999);
-    this.ekkoServerPort = await getPort({ port: wantedEkkoPort, host: this.host() }); // eslint-disable-line no-await-in-loop;
-    if (wantedEkkoPort !== this.ekkoServerPort) {
-      this.configuration.ekko.pluginContext = this.configuration.ekko.pluginContext.replace(
-        `:${wantedEkkoPort}`,
-        `:${this.ekkoServerPort}`
-      );
-      if (Array.isArray(this.configuration.proxies)) {
-        this.configuration.proxies.forEach(proxy => {
-          proxy.target = proxy.target.replace(`:${wantedEkkoPort}`, `:${this.ekkoServerPort}`);
-        });
-      }
     }
   },
 
@@ -362,8 +342,8 @@ const settings = {
     return get(this.configuration, 'development.hotLoaderEntry', /\/App\.jsx?/);
   },
 
-  isEkko() {
-    return get(this.configuration, 'ekko.enabled', true);
+  isMockEnabled() {
+    return get(this.configuration, 'mock.enabled', true);
   },
 
   commitMessage() {
