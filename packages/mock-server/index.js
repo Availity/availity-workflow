@@ -5,55 +5,56 @@ const path = require('path');
 
 const exitSignals = ['SIGTERM', 'SIGINT'];
 
-const createPolly = () => {
-  Polly.register(HttpAdapter);
-  Polly.register(FsStoragePersister);
-
-  const polly = new Polly('NanoMixtape', {
-    adapters: ['node-http'],
-    persister: 'fs',
-    mode: 'replay',
-    recordIfMissing: true,
-    persisterOptions: {
-      fs: {
-        recordingsDir: path.join(process.cwd(), 'project/config/recordings')
-      }
-    }
-  });
-
-  polly.replay();
-
-  const saveRecordings = async () => {
-    console.log("Saving recordings");
-    await polly.stop(); // Saves the recordings
-
-    exitSignals.forEach(signal => process.removeListener(signal, saveRecordings));
-  };
-
-  exitSignals.forEach(signal => process.on(signal, saveRecordings));
-};
-
-const start = async function() {
-    createPolly();
-};
-
 class MockServer {
-  async start() {
-    start();
-  }
+  constructor(mockConfig) {
+    this.logger = mockConfig.logProvider();
 
-  async stop() {
-    return new Promise(resolve => {
-      console.log("Stropping server");
-      if (config.server && config.server.close) {
-        config.server.close(() => {
-          resolve(true);
-        });
-      } else {
-        resolve(true);
+    Polly.register(HttpAdapter);
+    Polly.register(FsStoragePersister);
+
+    this.polly = new Polly('polly', {
+      adapters: ['node-http'],
+      persister: 'fs',
+      mode: 'replay',
+      recordIfMissing: true,
+      persisterOptions: {
+        fs: {
+          recordingsDir: path.join(process.cwd(), 'project/config/recordings')
+        }
+      },
+      matchRequestsBy: {
+        order: false, // We can call in any order
+        headers: {
+          exclude: ['cookie']
+        }
       }
     });
+
+    this.setupPolly();
+
+    exitSignals.forEach(signal => process.on(signal, this.saveRecordings.bind(this)));
   }
+  async start() {
+    this.logger.info('Pollyjs Has Started');
+    polly.replay();
+  }
+
+  setupPolly() {
+    // const { server } = this.polly;
+
+    // server.any().on('beforePersist', (req, recording) => {
+    //   recording.request.headers = recording.request.headers.filter(header => header.name !== 'cookie')
+    // });
+  }
+
+
+  async saveRecordings() {
+    this.logger.info('Saving recordings before exiting... ( Please don\'t exit yet.');
+    await this.polly.stop(); // Saves the recordings
+    this.logger.info("Finished saving recordings...");
+
+    exitSignals.forEach(signal => process.removeListener(signal, this.saveRecordings));
+  };
 
   config() {
     return config;

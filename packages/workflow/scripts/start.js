@@ -62,7 +62,6 @@ function init() {
 function rest() {
   if (settings.isMockEnabled()) {
     const mockOptions = {
-      pluginContext: settings.config().ekko.pluginContext,
       logProvider() {
         return {
           log(...args) {

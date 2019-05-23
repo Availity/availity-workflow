@@ -59,15 +59,10 @@ const globals = {
 
 const mock = {
   // Enables or disables Mock Server
-  enabled: false,
-
-  port: 5050,
+  enabled: true,
 
   // Sets default latency for all route responses
   latency: 250,
-
-  // Mock data can be passed a context so that HATEOS links traverse correctly
-  pluginContext: `http://${development.host}:${development.port}/api`
 };
 
 const proxies = [
