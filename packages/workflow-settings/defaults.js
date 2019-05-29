@@ -59,7 +59,7 @@ const globals = {
 
 const mock = {
   // Enables or disables Mock Server
-  enabled: true,
+  enabled: false,
 
   // Sets default latency for all route responses
   latency: 250,

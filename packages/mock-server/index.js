@@ -12,14 +12,14 @@ class MockServer {
     Polly.register(HttpAdapter);
     Polly.register(FsStoragePersister);
 
-    this.polly = new Polly('polly', {
+    this.polly = new Polly('NanoMixtape', {
       adapters: ['node-http'],
       persister: 'fs',
       mode: 'replay',
-      recordIfMissing: true,
+      // recordIfMissing: true,
       persisterOptions: {
         fs: {
-          recordingsDir: path.join(process.cwd(), 'project/config/recordings')
+          recordingsDir: path.join(process.cwd(), 'project/static/recordings')
         }
       },
       matchRequestsBy: {
