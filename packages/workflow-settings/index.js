@@ -346,6 +346,10 @@ const settings = {
     return get(this.configuration, 'mock.enabled', true);
   },
 
+  mock() {
+    return get(this.configuration,'mock',{})
+  },
+
   commitMessage() {
     return argv().message;
   }

@@ -80,7 +80,8 @@ function rest() {
             Logger.error(args);
           }
         };
-      }
+      },
+      ...settings.mock()
     };
 
     Logger.info("Staring Mock Server");

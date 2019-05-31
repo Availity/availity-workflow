@@ -12,6 +12,7 @@ class AuthorizationsRequest extends Component {
   };
 
   render() {
+
     return (
       <div className="container-sm">
         <Header />

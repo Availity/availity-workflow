@@ -6,29 +6,13 @@ const path = require('path');
 const exitSignals = ['SIGTERM', 'SIGINT'];
 
 class MockServer {
-  constructor(mockConfig) {
-    this.logger = mockConfig.logProvider();
+  constructor({ logProvider, pollyOptions }) {
+    this.logger = logProvider();
 
     Polly.register(HttpAdapter);
     Polly.register(FsStoragePersister);
 
-    this.polly = new Polly('NanoMixtape', {
-      adapters: ['node-http'],
-      persister: 'fs',
-      mode: 'replay',
-      // recordIfMissing: true,
-      persisterOptions: {
-        fs: {
-          recordingsDir: path.join(process.cwd(), 'project/static/recordings')
-        }
-      },
-      matchRequestsBy: {
-        order: false, // We can call in any order
-        headers: {
-          exclude: ['cookie']
-        }
-      }
-    });
+    this.polly = new Polly('polly', pollyOptions);
 
     this.setupPolly();
 
