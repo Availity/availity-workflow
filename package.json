@@ -21,6 +21,7 @@
     "publish": "lerna publish --force-publish=*",
     "bootstrap": "lerna bootstrap",
     "link": "lerna link",
+    "nuke": "npm run remove-locks && npm run clean",
     "test": "jest --silent",
     "start": "npm run start --prefix packages/example-react",
     "test:react": "npm run test --prefix packages/example-react",
