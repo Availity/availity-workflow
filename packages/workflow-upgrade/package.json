@@ -36,7 +36,7 @@
   "gitHead": "8f7a0269efb37671dd39eab4319b208a76cd71b8",
   "dependencies": {
     "@availity/workflow-logger": "^5.3.1",
-    "read-pkg": "^4.0.1",
+    "read-pkg": "^5.1.1",
     "rimraf": "^2.6.3"
   }
 }

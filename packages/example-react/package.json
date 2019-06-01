@@ -31,8 +31,8 @@
   "license": "MIT",
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/api-axios": "^3.0.1",
-    "@availity/api-core": "^3.0.0",
+    "@availity/api-axios": "^5.1.5",
+    "@availity/api-core": "^5.1.5",
     "@availity/breadcrumbs-spaces-react": "^1.0.0",
     "@availity/env-var": "^1.6.0",
     "@availity/localstorage-core": "^2.5.0",
@@ -45,21 +45,21 @@
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
     "mobx": "^4.0.0",
-    "mobx-react": "^5.2.6",
+    "mobx-react": "^6.0.2",
     "prop-types": "^15.5.7",
     "react": "^16.3.2",
     "react-block-ui": "^1.1.1",
     "react-dom": "^16.3.2",
     "react-select": "^2.0.0",
-    "react-transition-group": "^2.3.1",
-    "reactstrap": "^6.0.0"
+    "react-transition-group": "^4.0.1",
+    "reactstrap": "^8.0.0"
   },
   "devDependencies": {
     "@availity/workflow": "^5.3.1",
     "@availity/workflow-plugin-react": "^5.3.1",
     "cross-env": "^5.1.4",
     "jest-dom": "^3.0.0",
-    "react-testing-library": "^5.4.4"
+    "@testing-library/react": "^8.0.1"
   },
   "availityWorkflow": {
     "plugin": "@availity/workflow-plugin-react"

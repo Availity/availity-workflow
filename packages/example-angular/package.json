@@ -33,10 +33,10 @@
   "license": "MIT",
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/api-angular": "^3.0.1",
-    "@availity/api-core": "^3.0.0",
+    "@availity/api-angular": "^4.1.5",
+    "@availity/api-core": "^5.1.5",
     "@availity/localstorage-core": "^2.5.0",
-    "@availity/upload-core": "^2.5.0",
+    "@availity/upload-core": "^3.0.4",
     "@uirouter/angularjs": "^1.0.0",
     "angular": "1.7.x",
     "angular-animate": "1.7.x",
@@ -56,7 +56,7 @@
     "moment": "^2.20.1",
     "select2": "^3.5.2-browserify",
     "tracekit": "^0.4.4",
-    "tus-js-client": "^1.5.2",
+    "tus-js-client": "^1.7.1",
     "velocity-animate": "^1.5.0"
   },
   "devDependencies": {

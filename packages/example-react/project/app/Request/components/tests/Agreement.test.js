@@ -1,6 +1,6 @@
 import React from 'react';
 import { AvForm } from 'availity-reactstrap-validation';
-import { render, fireEvent } from 'react-testing-library';
+import { render, fireEvent } from '@testing-library/react';
 import Agreement from '../Agreement';
 
 describe('Agreement', () => {
