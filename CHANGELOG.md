@@ -1,3 +1,12 @@
+## [5.3.2](https://github.com/Availity/availity-workflow/compare/v5.3.1...v5.3.2) (2019-06-03)
+
+
+### Bug Fixes
+
+* **workflow-plugin-angular:** pass in settings for setup ([9e4b160](https://github.com/Availity/availity-workflow/commit/9e4b160))
+
+
+
 ## [5.3.1](https://github.com/Availity/availity-workflow/compare/v5.3.0...v5.3.1) (2019-05-10)
 
 
