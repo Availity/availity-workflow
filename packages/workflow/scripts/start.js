@@ -87,7 +87,11 @@ function rest() {
     Logger.info("Staring Mock Server");
     mockServer = new MockServer(mockOptions);
 
-    return mockServer.start(mockOptions);
+    if(mockOptions.configure) {
+      mockOptions.configure(mockServer.server());
+    }
+
+    return mockServer;
   }
   return Promise.resolve();
 }

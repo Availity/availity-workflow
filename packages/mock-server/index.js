@@ -1,7 +1,6 @@
 const { Polly } = require('@pollyjs/core');
 const HttpAdapter = require('@pollyjs/adapter-node-http');
 const FsStoragePersister = require('@pollyjs/persister-fs');
-const path = require('path');
 
 const exitSignals = ['SIGTERM', 'SIGINT'];
 
@@ -14,21 +13,12 @@ class MockServer {
 
     this.polly = new Polly('polly', pollyOptions);
 
-    this.setupPolly();
-
     exitSignals.forEach(signal => process.on(signal, this.saveRecordings.bind(this)));
   }
-  async start() {
-    this.logger.info('Pollyjs Has Started');
-    polly.replay();
-  }
 
-  setupPolly() {
-    // const { server } = this.polly;
 
-    // server.any().on('beforePersist', (req, recording) => {
-    //   recording.request.headers = recording.request.headers.filter(header => header.name !== 'cookie')
-    // });
+  server() {
+    return this.polly.server
   }
 
 

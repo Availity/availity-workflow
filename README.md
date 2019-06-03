@@ -65,8 +65,14 @@ module.exports = {
         title: 'My Awesome App'
     }
     mock: {
-        latency: 300,
-        port: 9999
+        enabled: true,
+        pollyOptions: {
+            mode: 'record',
+            matchRequestBy: {
+                order: false,
+                headers: false
+            }
+        }
     },
     proxies: [
         {
@@ -238,15 +244,10 @@ By default, the following feature flags are enabled:
 
 Enables or disables mock server. Default is `true`.
 
-#### `mock.latency`
 
-Sets default latency for all mock responses
+#### `mock.pollyOptions`
 
-
-
-#### `mock.pluginContext`
-
-Pass URL context information to mock responses so that HATEOS links traverse correctly. Defaults to `http://localhost:{development.port}/api`
+Any options you want passed to the constructor for pollyjs. Full details on configuration can be found [here](https://netflix.github.io/pollyjs/#/configuration)
 
 #### `proxies`
 

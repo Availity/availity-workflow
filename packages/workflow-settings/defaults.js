@@ -61,29 +61,26 @@ const mock = {
   // Enables or disables Mock Server
   enabled: true,
 
-  pollyOptions:{
+  pollyOptions: {
     adapters: ['node-http'],
     persister: 'fs',
     mode: 'replay',
     recordIfMissing: true,
     persisterOptions: {
       fs: {
-        recordingsDir: path.join(process.cwd(), 'project/static/recordings')
+        recordingsDir: path.join(process.cwd(), 'project/config/recordings')
       }
     },
     matchRequestsBy: {
       order: false, // We can call in any order
-      headers: false,
-      // body: false,
+      headers: false, // Call as a function to specify include list
       url: {
-        hostname:false,
+        hostname: false,
         protocol: false,
         port: false
       }
     }
-  },
-  // Sets default latency for all route responses
-  latency: 250
+  }
 };
 
 const proxies = [
@@ -110,7 +107,6 @@ const proxies = [
     }
   }
 ];
-
 
 module.exports = {
   development,
