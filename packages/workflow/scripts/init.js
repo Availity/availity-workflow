@@ -302,7 +302,7 @@ function createApp(name, package, version, currentDir, template) {
     process.exit(1);
   }
 
-  run(root, package, appName, version, originalDirectory);
+  run(root, package, appName, version, originalDirectory,template);
 }
 /* eslint-disable no-unused-expressions */
 yargs
