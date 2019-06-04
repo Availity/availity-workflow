@@ -11,10 +11,7 @@ const getQueryString = pathname => pathname.substring(pathname.lastIndexOf('?'),
 const App = () => {
   const queryParams = qs.parse(getQueryString(window.location.href));
 
-  const spaceId = useMemo(() => queryParams.spaceId ||'48C607A70B5A46A3864A34E2BDDDEA04' ,[queryParams]);
-
-  console.log("spaceId",spaceId);
-  console.log("query params",queryParams);
+  const spaceId = useMemo(() => queryParams.spaceId,[queryParams]);
 
   return (
     <Spaces spaceIds={[spaceId]} clientId="test">
