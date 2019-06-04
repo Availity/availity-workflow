@@ -1,0 +1,15 @@
+{
+  "data": {
+    "spaces": [
+      {
+        "id": "48C607A70B5A46A3864A34E2BDDDEA04",
+        "name": "My Health Plan",
+        "link": {
+          "text": "My Health Plan",
+          "url": "/public/apps/spaces/#/48C607A70B5A46A3864A34E2BDDDEA04"
+        },
+        "type": "space"
+      }
+    ]
+  }
+}

@@ -1,13 +1,10 @@
 import React, { useMemo} from 'react';
 import { Router } from '@reach/router';
 import { Container } from 'reactstrap';
-import { configure } from 'mobx';
 import Spaces from '@availity/spaces';
 import qs from 'query-string';
 import AuthorizationRequest from './areas/Request';
 import AuthorizationResponse from './areas/Response';
-
-configure({ enforceActions: 'observed' });
 
 const getQueryString = pathname => pathname.substring(pathname.lastIndexOf('?'), pathname.length);
 

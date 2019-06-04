@@ -1,5 +1,5 @@
 {
-  "v1/proxy/healthplan/v1/authorizations": {
-    "file": "authorization.json"
+  "ms/api/availity/internal/platform/slotmachine/graphql": {
+    "file": "slotmachine.json"
   }
 }
