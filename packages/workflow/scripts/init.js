@@ -220,7 +220,7 @@ function install(dependencies) {
   });
 }
 
-function run(root, package, appName, version, originalDirectory) {
+function run(root, package, appName, version, originalDirectory,template) {
   const packageToInstall = getInstallPackage(package, version, originalDirectory);
   const allDependencies = [packageToInstall];
 
@@ -235,7 +235,7 @@ function run(root, package, appName, version, originalDirectory) {
 
       const scriptsPath = path.resolve(process.cwd(), 'node_modules', packageName, 'scripts', 'init.js');
       const init = require(scriptsPath);
-      return init(root, appName, originalDirectory);
+      return init(root, appName, originalDirectory,template);
     })
     .catch(error => {
       Logger.empty();
@@ -272,7 +272,7 @@ function run(root, package, appName, version, originalDirectory) {
     });
 }
 
-function createApp(name, package, version, currentDir) {
+function createApp(name, package, version, currentDir, template) {
   const root = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(root);
 
@@ -330,13 +330,19 @@ yargs
           describe: 'Pass this if you want to initialize the project in the same folder',
           default: false
         })
+        .option('template', {
+          alias: 't',
+          describe: 'The name of the template to initalize the project with. ( React Only )',
+          choices: ['complex'],
+          default: 'complex'
+        })
         .usage(`\nUsage: ${chalk.yellow('av init')} ${chalk.green('<projectName>')} ${chalk.magenta('[options]')}`)
         .example(chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')}`))
         .example(
           chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')} ${chalk.magenta('-p angular')}`)
         );
     },
-    ({ projectName, package, version, currentDir }) => createApp(projectName, package, version, currentDir)
+    ({ projectName, package, version, currentDir, template }) => createApp(projectName, package, version, currentDir,template)
   )
   .example(chalk.yellow('av init my-app-name'))
   .example(chalk.yellow('av init my-app-name -p angular'));
