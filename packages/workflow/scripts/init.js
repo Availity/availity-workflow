@@ -333,8 +333,8 @@ yargs
         .option('template', {
           alias: 't',
           describe: 'The name of the template to initalize the project with. ( React Only )',
-          choices: ['complex'],
-          default: 'complex'
+          choices: ['simple','complex'],
+          default: 'simple'
         })
         .usage(`\nUsage: ${chalk.yellow('av init')} ${chalk.green('<projectName>')} ${chalk.magenta('[options]')}`)
         .example(chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')}`))
