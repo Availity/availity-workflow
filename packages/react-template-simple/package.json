@@ -39,6 +39,7 @@
     "@availity/page-header": "^4.4.1",
     "@availity/reactstrap-validation-select": "^3.0.0",
     "@availity/spaces": "^1.1.1",
+    "@availity/typography": "^1.1.1",
     "@reach/router": "^1.2.1",
     "availity-reactstrap-validation": "^2.0.2",
     "availity-uikit": "^3.0.0",
