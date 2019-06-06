@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <Spaces spaceIds={[spaceId]} clientId="test">
-      <Container>
+      <Container data-testid="app-container">
         <Router style={{ height: '100%' }}>
           <AuthorizationRequest spaceId={spaceId} path="/" />
           <AuthorizationResponse spaceId={spaceId} path="/response" />

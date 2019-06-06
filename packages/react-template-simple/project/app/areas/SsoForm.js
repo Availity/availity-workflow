@@ -14,12 +14,10 @@ const SsoForm = ({ location }) => {
   const queryParams = qs.parse(getQueryString(location.pathname));
   const [customerId, setCustomerId] = useState(null);
 
-  console.log("query params",queryParams);
-
   const onCancel = () => window.history.back();
 
   return (
-    <Container>
+    <Container data-testid="sso-container">
       <Spaces spaceIds={[queryParams.spaceId]} clientId="test">
         <PageHeader appName="Single Sign-On" spaceId={queryParams.spaceId} />
         <AvForm

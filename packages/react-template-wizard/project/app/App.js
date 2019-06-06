@@ -14,7 +14,7 @@ const App = ({ location, history }) => {
 
   return (
     <Spaces spaceIds={[spaceId]} clientId="test">
-      <Container>
+      <Container data-testid="app-container">
         <PageHeader appName="Claims Status Listing" spaceId={spaceId} feedback/>
         <Card body>
           <Wizard bar>
