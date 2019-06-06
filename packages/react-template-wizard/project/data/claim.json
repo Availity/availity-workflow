@@ -1,0 +1,29 @@
+{
+  "claimId": "332306663284822124",
+  "dates": "12/12/2012 - 12/12/2012",
+  "status": "FINALIZED",
+  "processed": "12/12/2012",
+  "billed": "$XXXX.XX",
+  "paid": "$XXXX.XX",
+  "patient": {
+    "accountNumber": "11111111"
+  },
+  "statusDetail": {
+    "checkNumber": "123456783",
+    "checkDate": "03/05/2017",
+    "billType": "131",
+    "billed": "$XXXX.XX",
+    "paid": "$XXXX.XX"
+  },
+  "serviceLines": [
+    {
+      "dates": "02/17/2012 - 02/17/2017",
+      "procedureCode": "JH3532",
+      "quantity": 1,
+      "revenueCode": "0636",
+      "copay": "N/A",
+      "deductible": "N/A",
+      "paid": "$XXXX.XX"
+    }
+  ]
+}
