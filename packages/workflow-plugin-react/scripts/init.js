@@ -10,7 +10,8 @@ const Logger = require('@availity/workflow-logger');
 module.exports = function init(
   appPath,
   appName,
-  originalDirectory
+  originalDirectory,
+  templateName
 ) {
   const ownPackageName = require(path.join(__dirname, '..', 'package.json'))
     .name;
@@ -25,7 +26,7 @@ module.exports = function init(
   }
 
   // Copy the files for the user
-  const templatePath = path.join(ownPath, 'template');
+  const templatePath = path.join(ownPath, `templates/react-template-${templateName}`);
   if (fs.existsSync(templatePath)) {
     fs.copySync(templatePath, appPath);
   } else {

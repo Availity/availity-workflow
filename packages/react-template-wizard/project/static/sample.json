@@ -1,0 +1,3 @@
+{
+  "description": "This file should be copied from the static folder into the /build or /dist folder during development or distribution"
+}
