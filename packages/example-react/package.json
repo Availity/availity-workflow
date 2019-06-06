@@ -31,7 +31,7 @@
   "license": "MIT",
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/api-axios": "^3.0.1",
+    "@availity/api-axios": "^5.1.6",
     "@availity/api-core": "^3.0.0",
     "@availity/breadcrumbs-spaces-react": "^1.0.0",
     "@availity/env-var": "^1.6.0",
