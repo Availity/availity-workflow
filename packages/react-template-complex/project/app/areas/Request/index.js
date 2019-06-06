@@ -7,7 +7,7 @@ import { Basic, Information, Provider } from './components';
 
 const AuthorizationRequest = ({ spaceId, navigate }) => (
   <Container>
-    <PageHeader appAbbr="AR" path="/" appName="Authorization Request" spaceId={spaceId} />
+    <PageHeader path="/" appName="Authorization Request" spaceId={spaceId} />
     <AvForm onValidSubmit={() => navigate('response')}>
       <Basic />
       <Information />

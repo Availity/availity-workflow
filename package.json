@@ -24,6 +24,7 @@
     "test": "jest --silent",
     "start": "npm run start --prefix packages/react-template-simple",
     "start:complex": "npm run start --prefix packages/react-template-complex",
+    "start:wizard": "npm run start --prefix packages/react-template-wizard",
     "test:react": "npm run test --prefix packages/react-template-complex",
     "start:angular": "npm run start --prefix packages/example-angular",
     "test:integration": "lerna run --concurrency 1 integration",

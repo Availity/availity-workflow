@@ -5,7 +5,7 @@ import { Transaction, Certification, Provider, Service, AdditionalService, Conta
 
 export default ({ spaceId }) => (
   <Container>
-    <PageHeader appAbbr="AR" path="/" appName="Authorization Response" spaceId={spaceId} />
+    <PageHeader path="/" appName="Authorization Response" spaceId={spaceId} />
     <Transaction />
     <Certification />
     <Provider />
