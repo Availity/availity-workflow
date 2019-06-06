@@ -23,6 +23,7 @@ const AuthorizationRequest = ({ spaceId, navigate }) => (
 
 AuthorizationRequest.propTypes = {
   navigate: PropTypes.func,
+  spaceId: PropTypes.string
 };
 
 export default AuthorizationRequest;

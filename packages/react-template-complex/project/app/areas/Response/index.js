@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import PageHeader from '@availity/page-header';
 import { Container } from 'reactstrap';
 import { Transaction, Certification, Provider, Service, AdditionalService, Contact } from './components';
 
-export default ({ spaceId }) => (
+const Response = ({ spaceId }) => (
   <Container>
     <PageHeader path="/" appName="Authorization Response" spaceId={spaceId} />
     <Transaction />
@@ -14,3 +15,9 @@ export default ({ spaceId }) => (
     <Contact />
   </Container>
 );
+
+Response.propTypes = {
+  spaceId: PropTypes.string
+};
+
+export default Response;

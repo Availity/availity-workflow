@@ -11,7 +11,8 @@ const Entry = ({ label, value, className: classes, ...rest }) => (
 
 Entry.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.any,
+  value: PropTypes.oneOfType([PropTypes.string,PropTypes.number]),
+  className: PropTypes.string
 };
 
 export default Entry;

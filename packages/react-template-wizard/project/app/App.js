@@ -45,6 +45,7 @@ const App = ({ location, history }) => {
 
 App.propTypes = {
   location: PropTypes.object,
+  history: PropTypes.object
 };
 
 export default withRouter(App);

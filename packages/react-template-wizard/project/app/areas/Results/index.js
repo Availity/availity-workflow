@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { CardBody, Row, Col } from 'reactstrap';
 import ListGroup from '@availity/list-group';
 import ClaimCard from './components/ClaimCard';

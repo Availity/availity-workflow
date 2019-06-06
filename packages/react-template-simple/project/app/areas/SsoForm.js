@@ -22,6 +22,7 @@ const SsoForm = ({ location }) => {
         <PageHeader appName="Single Sign-On" spaceId={queryParams.spaceId} />
         <AvForm
           onValidSubmit={() => {
+            // eslint-disable-next-line no-undef
             alert('SSO into Third Party App');
           }}
         >

@@ -21,6 +21,7 @@ const ClaimCard = ({ claimId, dates, status, processed, billed, paid }) => (
 ClaimCard.propTypes = {
   claimId: PropTypes.string,
   dates: PropTypes.string,
+  processed: PropTypes.string,
   billed: PropTypes.string,
   status: PropTypes.string,
   paid: PropTypes.string

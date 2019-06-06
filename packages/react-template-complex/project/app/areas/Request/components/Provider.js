@@ -12,7 +12,7 @@ export default () => {
   const increment = () => setCodeCount(codeCount + 1);
 
   const createCodeInputs = useCallback(() => {
-    let diagnosisCodes = [];
+    const diagnosisCodes = [];
     for (let i = 0; i < codeCount; i++) {
       diagnosisCodes.push(
         <Row key={i}>
