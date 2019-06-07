@@ -33,7 +33,7 @@
   "license": "MIT",
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/api-angular": "^3.0.1",
+    "@availity/api-angular": "^4.1.6",
     "@availity/api-core": "^3.0.0",
     "@availity/localstorage-core": "^2.5.0",
     "@availity/upload-core": "^2.5.0",
