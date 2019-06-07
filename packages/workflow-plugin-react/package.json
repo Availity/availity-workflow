@@ -13,7 +13,7 @@
 	],
 	"scripts": {
 		"prepublishOnly": "npm run copy-template",
-		"copy-template": "copyfiles -a -u 1 -e \"../**/node_modules/**/*\" -e \"../**/README.md\" \"../react-template-complex/**/*\" templates/"
+		"copy-template": "copyfiles -a -u 1 -e \"../**/node_modules/**/*\" -e \"../**/README.md\" \"../react-template-complex/**/*\" \"../react-template-wizard/**/*\" \"../react-template-simple/**/*\" templates/"
 	},
 	"author": "Robert McGuinness",
 	"license": "MIT",
@@ -27,6 +27,7 @@
 		"@availity/workflow-settings": "^5.3.3",
 		"@babel/core": "^7.0.0",
 		"@babel/runtime": "^7.0.0",
+		"@testing-library/react": "^8.0.1",
 		"babel-core": "^7.0.0-bridge.0",
 		"babel-jest": "^24.0.0",
 		"babel-loader": "^8.0.2",
@@ -52,7 +53,6 @@
 		"raf": "^3.4.0",
 		"react-hot-loader": "^4.3.6",
 		"react-hot-loader-loader": "0.0.7",
-		"react-testing-library": "^5.4.4",
 		"regenerator-runtime": "^0.13.1",
 		"sass-loader": "^7.0.1",
 		"style-loader": "^0.23.0",

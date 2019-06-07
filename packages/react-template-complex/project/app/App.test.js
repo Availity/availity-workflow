@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, waitForElement } from 'react-testing-library';
+import { render, cleanup, waitForElement } from '@testing-library/react';
 import { LocationProvider } from '@reach/router';
 import axiosMock from 'axios';
 import slotmachineResponse from '../data/slotmachine.json';

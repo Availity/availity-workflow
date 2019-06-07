@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, waitForElement } from 'react-testing-library';
+import { render, cleanup, waitForElement } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import axiosMock from 'axios';
