@@ -1,7 +1,7 @@
 {
   "name": "@availity/react-template-simple",
   "private": true,
-  "version": "5.3.0",
+  "version": "5.3.4",
   "description": "React project using @availity/workflow",
   "main": "index.js",
   "scripts": {
@@ -57,8 +57,8 @@
     "reactstrap": "^8.0.0"
   },
   "devDependencies": {
-    "@availity/workflow": "^5.3.0",
-    "@availity/workflow-plugin-react": "^5.3.0",
+    "@availity/workflow": "^5.3.4",
+    "@availity/workflow-plugin-react": "^5.3.4",
     "@testing-library/react": "^8.0.1",
     "cross-env": "^5.1.4",
     "jest-dom": "^3.0.0"
