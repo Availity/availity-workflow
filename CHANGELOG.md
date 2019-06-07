@@ -1,3 +1,29 @@
+## [5.3.4](https://github.com/Availity/availity-workflow/compare/v5.3.3...v5.3.4) (2019-06-07)
+
+
+### Bug Fixes
+
+* **mock-data:** fixed incorrect data response issue ([9475897](https://github.com/Availity/availity-workflow/commit/9475897))
+
+
+### Code Refactoring
+
+* deleted example-react and refactoring to templates ([24c9cf2](https://github.com/Availity/availity-workflow/commit/24c9cf2))
+
+
+### Features
+
+* **react-template-complex:** added complex template ([11cb758](https://github.com/Availity/availity-workflow/commit/11cb758))
+* **react-template-simple:** added simple react template and set as default ([dc16c82](https://github.com/Availity/availity-workflow/commit/dc16c82))
+* **react-template-wizard:** added wizard react template ([6acab8a](https://github.com/Availity/availity-workflow/commit/6acab8a))
+
+
+### BREAKING CHANGES
+
+* Refactored authorizations template to be in a new package for when we add 2 more to select from via the workflow
+
+
+
 ## [5.3.3](https://github.com/Availity/availity-workflow/compare/v5.3.2...v5.3.3) (2019-06-03)
 
 
