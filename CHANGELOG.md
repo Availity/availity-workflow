@@ -1,3 +1,12 @@
+## [5.3.8](https://github.com/Availity/availity-workflow/compare/v5.3.7...v5.3.8) (2019-06-11)
+
+
+### Bug Fixes
+
+* **workflow:** removed version and fixed npm install to latest ([2a1d0a2](https://github.com/Availity/availity-workflow/commit/2a1d0a2))
+
+
+
 ## [5.3.7](https://github.com/Availity/availity-workflow/compare/v5.3.6...v5.3.7) (2019-06-11)
 
 
