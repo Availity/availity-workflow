@@ -1,4 +1,0 @@
----
-extends: availity/browser
-rules:
-  linebreak-style: 0

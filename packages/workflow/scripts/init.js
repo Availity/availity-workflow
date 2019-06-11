@@ -9,13 +9,9 @@ const chalk = require('chalk');
 const fs = require('fs-extra');
 const path = require('path');
 const spawn = require('cross-spawn');
-const semver = require('semver');
 const os = require('os');
 const Logger = require('@availity/workflow-logger');
-
-// These files should be allowed to remain on a failed install,
-// but then silently removed during the next create.
-const errorLogFilePatterns = ['npm-debug.log'];
+const cloneStarter = require('./clone-starter');
 
 function printValidationResults(results) {
   if (typeof results !== 'undefined') {
@@ -25,7 +21,7 @@ function printValidationResults(results) {
   }
 }
 
-function checkAppName(appName, package) {
+function checkAppName(appName) {
   const validationResult = validateProjectName(appName);
   if (!validationResult.validForNewPackages) {
     Logger.failed(`Could not create a project called "${appName}" because of npm naming restrictions:`);
@@ -36,7 +32,7 @@ function checkAppName(appName, package) {
     process.exit(1);
   }
 
-  if (/^@availity\/workflow/.test(appName) || appName === package) {
+  if (/^@availity\/workflow/.test(appName)) {
     Logger.failed(`We cannot create a project called ${chalk.green(
       appName
     )} because a dependency with the same name exists.
@@ -97,212 +93,138 @@ function checkThatNpmCanReadCwd() {
   return false;
 }
 
-function isSafeToCreateProjectIn(root, name) {
-  const validFiles = [
-    '.DS_Store',
-    'Thumbs.db',
-    '.git',
-    '.gitignore',
-    '.idea',
-    'README.md',
-    'LICENSE',
-    'web.iml',
-    '.hg',
-    '.hgignore',
-    '.hgcheck',
-    '.npmignore',
-    'mkdocs.yml',
-    'docs',
-    '.travis.yml',
-    '.gitlab-ci.yml',
-    '.gitattributes'
-  ];
+function updatePackageJson({ appName, appPath, version }) {
+  const appPackage = require(path.join(appPath, 'package.json'));
+
+  appPackage.name = appName;
+  appPackage.version = '0.1.0';
+  appPackage.private = true;
+
+  if(!appPackage.availityWorkflow || !appPackage.availityWorkflow.plugin) {
+    throw new Error("Starter Project is not a valid Availity Workflow Project.");
+  }
+
+  appPackage.devDependencies[appPackage.availityWorkflow.plugin] = `^${version}`;
+  appPackage.devDependencies['@availity/workflow'] = `^${version}`;
+
+  fs.writeFileSync(path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2) + os.EOL);
+}
+
+function installDeps() {
+  Logger.info('Installing dependencies using npm...');
   Logger.empty();
 
-  const conflicts = fs
-    .readdirSync(root)
-    .filter(file => !validFiles.includes(file))
-    // Don't treat log files from previous installation as conflicts
-    .filter(file => !errorLogFilePatterns.some(pattern => file.indexOf(pattern) === 0));
-
-  if (conflicts.length > 0) {
-    Logger.failed(`The directory ${chalk.green(name)} contains files that could conflict:`);
-    Logger.empty();
-    conflicts.forEach(file => {
-      Logger.error(`  ${file}`);
-    });
-    Logger.empty();
-    Logger.error('Either try using a new directory name, or remove the files listed above.');
-
-    return false;
-  }
-
-  // Remove any remnant files from a previous installation
-  const currentFiles = fs.readdirSync(path.join(root));
-  currentFiles.forEach(file => {
-    errorLogFilePatterns.forEach(errorLogFilePattern => {
-      // This will catch `(npm-debug|yarn-error|yarn-debug).log*` files
-      if (file.indexOf(errorLogFilePattern) === 0) {
-        fs.removeSync(path.join(root, file));
-      }
-    });
-  });
-  return true;
-}
-
-function getInstallPackage(package, version, originalDirectory) {
-  let packageToInstall = `@availity/workflow-plugin-${package}`;
-  const validSemver = semver.valid(version);
-  if (validSemver || ['latest', 'next'].indexOf(version) !== -1) {
-    packageToInstall += `@${validSemver || version}`;
-  } else if (version && version.match(/^file:/)) {
-    packageToInstall = `file:${path.resolve(originalDirectory, version.match(/^file:(.*)?$/)[1])}`;
-  } else if (version) {
-    packageToInstall = version;
-  }
-  return packageToInstall;
-}
-
-// Extract package name from tarball url or path.
-function getPackageName(installPackage) {
-  if (installPackage.indexOf('git+') === 0) {
-    // Pull package name out of git urls e.g:
-    // git+https://github.com/mycompany/availity-react-kit.git
-    // git+ssh://github.com/mycompany/availity-angular-kit.git#v1.2.3
-    return installPackage.match(/([^/]+)\.git(#.*)?$/)[1];
-  }
-
-  if (installPackage.match(/.+@/)) {
-    // Do not match @scope/ when stripping off @version or @tag
-    return installPackage.charAt(0) + installPackage.substr(1).split('@')[0];
-  }
-
-  if (installPackage.match(/^file:/)) {
-    const installPackagePath = installPackage.match(/^file:(.*)?$/)[1];
-    const installPackageJson = require(path.join(installPackagePath, 'package.json'));
-    return installPackageJson.name;
-  }
-
-  return installPackage;
-}
-
-function checkNodeVersion(packageName) {
-  const packageJsonPath = path.resolve(process.cwd(), 'node_modules', packageName, 'package.json');
-  const packageJson = require(packageJsonPath);
-  if (!packageJson.engines || !packageJson.engines.node) {
+  // Install Depedencies
+  const proc = spawn.sync('npm', ['install', '--loglevel', 'error'], { stdio: 'inherit' });
+  if (proc.status !== 0) {
+    Logger.failed('`npm install` failed');
     return;
   }
+}
 
-  if (!semver.satisfies(process.version, packageJson.engines.node)) {
-    Logger.failed(
-      `You are running Node ${process.version}. ${packageName} requires Node ${
-        packageJson.engines.node
-      } or higher. Please update your version of Node.`
-    );
+async function run({ appPath, appName, version, originalDirectory, template }) {
+  try {
+    await cloneStarter({
+      template,
+      appName,
+      appPath,
+      version,
+      originalDirectory
+    });
+
+    // Update the Package JSON with correct deps and name/versions
+    updatePackageJson({
+      appName,
+      appPath,
+      version
+    });
+
+    // Install Depedencies
+    installDeps();
+
+    // Display the most elegant way to cd.
+    // This needs to handle an undefined originalDirectory for
+    // backward compatibility with old global-cli's.
+    let cdpath;
+    if (originalDirectory && path.join(originalDirectory, appName) === appPath) {
+      cdpath = appName;
+    } else {
+      cdpath = appPath;
+    }
+
+    Logger.empty();
+    Logger.success(`Success! Created ${appName} at ${appPath}`);
+    Logger.info('Inside that directory, you can run several commands:');
+    Logger.info();
+    Logger.info(chalk.cyan('  npm start'));
+    Logger.info('    Starts the development server.');
+    Logger.info();
+    Logger.info(chalk.cyan('  npm run build'));
+    Logger.info('    Bundles the app into static files for production.');
+    Logger.info();
+    Logger.info(chalk.cyan('  npm test'));
+    Logger.info('    Starts the test runner.');
+    Logger.info();
+    Logger.info('We suggest that you begin by typing:');
+    if (originalDirectory !== appPath) {
+      Logger.info(chalk.cyan(`  cd ${cdpath}`));
+    }
+    Logger.info(`  ${chalk.cyan('npm start')}`);
+  } catch (error) {
+    Logger.empty();
+    Logger.failed('Aborting installation.');
+    if (error.command) {
+      Logger.error(`  ${chalk.cyan(error.command)} has failed.`);
+    } else {
+      Logger.error(chalk.red('Unexpected error. Please report it as a bug:'));
+      Logger.error(error);
+    }
+    Logger.empty();
+
+    // On 'exit' we will delete these files from target directory.
+    const knownGeneratedFiles = ['package.json', 'package-lock.json', 'node_modules'];
+    const currentFiles = fs.readdirSync(path.join(appPath));
+    currentFiles.forEach(file => {
+      knownGeneratedFiles.forEach(fileToMatch => {
+        // This remove all of knownGeneratedFiles.
+        if (file === fileToMatch) {
+          Logger.info(`Deleting generated file... ${chalk.cyan(file)}`);
+          fs.removeSync(path.join(appPath, file));
+        }
+      });
+    });
+    const remainingFiles = fs.readdirSync(path.join(appPath));
+    if (!remainingFiles.length) {
+      // Delete target folder if empty
+      Logger.info(`Deleting ${chalk.cyan(`${appName}/`)} from ${chalk.cyan(path.resolve(appPath, '..'))}`);
+      process.chdir(path.resolve(appPath, '..'));
+      fs.removeSync(path.join(appPath));
+    }
+    Logger.info('Done.');
     process.exit(1);
   }
 }
 
-function install(dependencies) {
-  return new Promise((resolve, reject) => {
-    const args = ['install', '--save', '--save-exact', '--loglevel', 'error'].concat(dependencies);
+function createApp({ name, version, currentDir, template }) {
+  const appPath = currentDir ? process.cwd() : path.resolve(name);
+  const appName = currentDir ? name : path.basename(appPath);
 
-    const child = spawn('npm', args, { stdio: 'inherit' });
-    child.on('close', code => {
-      if (code !== 0) {
-        reject({
-          command: `npm ${args.join(' ')}`
-        });
-        return;
-      }
-      resolve();
-    });
-  });
-}
+  checkAppName(appName);
 
-function run(root, package, appName, version, originalDirectory,template) {
-  const packageToInstall = getInstallPackage(package, version, originalDirectory);
-  const allDependencies = [packageToInstall];
-
-  Logger.info('Installing packages. This might take a couple of minutes.');
-  const packageName = getPackageName(packageToInstall);
-  Logger.info(`Installing ${chalk.cyan(packageName)}...`);
-  Logger.empty();
-
-  install(allDependencies)
-    .then(() => {
-      checkNodeVersion(packageName);
-
-      const scriptsPath = path.resolve(process.cwd(), 'node_modules', packageName, 'scripts', 'init.js');
-      const init = require(scriptsPath);
-      return init(root, appName, originalDirectory,template);
-    })
-    .catch(error => {
-      Logger.empty();
-      Logger.failed('Aborting installation.');
-      if (error.command) {
-        Logger.error(`  ${chalk.cyan(error.command)} has failed.`);
-      } else {
-        Logger.error(chalk.red('Unexpected error. Please report it as a bug:'));
-        Logger.error(error);
-      }
-      Logger.empty();
-
-      // On 'exit' we will delete these files from target directory.
-      const knownGeneratedFiles = ['package.json', 'package-lock.json', 'node_modules'];
-      const currentFiles = fs.readdirSync(path.join(root));
-      currentFiles.forEach(file => {
-        knownGeneratedFiles.forEach(fileToMatch => {
-          // This remove all of knownGeneratedFiles.
-          if (file === fileToMatch) {
-            Logger.info(`Deleting generated file... ${chalk.cyan(file)}`);
-            fs.removeSync(path.join(root, file));
-          }
-        });
-      });
-      const remainingFiles = fs.readdirSync(path.join(root));
-      if (!remainingFiles.length) {
-        // Delete target folder if empty
-        Logger.info(`Deleting ${chalk.cyan(`${appName}/`)} from ${chalk.cyan(path.resolve(root, '..'))}`);
-        process.chdir(path.resolve(root, '..'));
-        fs.removeSync(path.join(root));
-      }
-      Logger.info('Done.');
-      process.exit(1);
-    });
-}
-
-function createApp(name, package, version, currentDir, template) {
-  const root = currentDir ? process.cwd() : path.resolve(name);
-  const appName = currentDir ? name : path.basename(root);
-
-  checkAppName(appName, package);
-
-  if(!currentDir) {
+  if (!currentDir) {
     fs.ensureDirSync(name);
   }
 
-  if (!isSafeToCreateProjectIn(root, name)) {
-    process.exit(1);
-  }
-
-  Logger.info(`Creating a new ${chalk.green(`@availity/workflow-plugin-${package}`)} app in ${chalk.green(root)}.`);
+  Logger.info(`Creating a new Availity app in ${chalk.green(appPath)}.`);
   Logger.empty();
 
-  const packageJson = {
-    name: appName,
-    version: '0.1.0',
-    private: true
-  };
-  fs.writeFileSync(path.join(root, 'package.json'), JSON.stringify(packageJson, null, 2) + os.EOL);
-
   const originalDirectory = process.cwd();
-  process.chdir(root);
+  process.chdir(appPath);
   if (!checkThatNpmCanReadCwd()) {
     process.exit(1);
   }
 
-  run(root, package, appName, version, originalDirectory,template);
+  run({ appPath, appName, version, originalDirectory, template });
 }
 /* eslint-disable no-unused-expressions */
 yargs
@@ -315,11 +237,6 @@ yargs
           describe: 'The name of the project you want to create.'
         })
         .version(false)
-        .option('package', {
-          alias: 'p',
-          describe: 'The framework/library @availity/workflow-plugin package you want to initialize with.',
-          default: 'react'
-        })
         .option('version', {
           alias: 'v',
           describe: 'Specify which version of the package project you want.',
@@ -332,9 +249,8 @@ yargs
         })
         .option('template', {
           alias: 't',
-          describe: 'The name of the template to initalize the project with. ( React Only )',
-          choices: ['simple','complex','wizard'],
-          default: 'simple'
+          describe: 'The availity template to initalize the project with. ( Git Repo )',
+          default: 'https://github.com/Availity/availity-starter-react'
         })
         .usage(`\nUsage: ${chalk.yellow('av init')} ${chalk.green('<projectName>')} ${chalk.magenta('[options]')}`)
         .example(chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')}`))
@@ -342,7 +258,7 @@ yargs
           chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')} ${chalk.magenta('-p angular')}`)
         );
     },
-    ({ projectName, package, version, currentDir, template }) => createApp(projectName, package, version, currentDir,template)
+    ({ projectName, version, currentDir, template }) => createApp({ projectName, version, currentDir, template })
   )
   .example(chalk.yellow('av init my-app-name'))
   .example(chalk.yellow('av init my-app-name -p angular'));

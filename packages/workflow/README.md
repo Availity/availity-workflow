@@ -28,13 +28,12 @@ Show help menu for all CLI options.
 `projectName`  Required. The name of the project you want to create.
 
 #### Options
-- `--package`, `-p`:  The framework/library @availity/workflow-plugin package you want to initialize with. [default: "react"]
-- `--version`, `-v`:  Specify which version of the package project you want. [default: "latest"]
+- `--version`, `-v`:  Specify which version of the plugin project you want. [default: "latest"]
 - `--current-dir`, `-c`: If you want the project to be created in the current directory
-
+- `--template`, `-t`: The template you want to initialize the projec with
 #### Examples
 - `npx @availity/workflow init my-package-name`
-- `npx @availity/workflow init my-package-name --package angular`
+- `npx @availity/workflow init my-package-name --template https://github.com/Availity/availity-starter-angular`
 - `npx @availity/workflow init my-package-name --version 4.0.0-alpha.4`
 
 ### `start`

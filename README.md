@@ -33,8 +33,15 @@ npx @availity/workflow init <your-project-name>
 ### Angular
 
 ```bash
-npx @availity/workflow init <your-project-name> --package angular
+npx @availity/workflow init <your-project-name> --template https://github.com/Availity/availity-starter-angular
 ```
+
+#### Availity Templates
+* [React Starter](https://github.com/Availity/availity-starter-react)
+* [Angular Starter](https://github.com/Availity/availity-starter-angular)
+* [Complex Starter (React)](https://github.com/Availity/availity-starter-complex)
+* [Wizard Starter (React)](https://github.com/Availity/availity-starter-wizard)
+
 
 <small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
 
