@@ -1,3 +1,7 @@
+## [5.3.7](https://github.com/Availity/availity-workflow/compare/v5.3.6...v5.3.7) (2019-06-11)
+
+
+
 ## [5.3.6](https://github.com/Availity/availity-workflow/compare/v5.3.5...v5.3.6) (2019-06-11)
 
 
