@@ -1,3 +1,12 @@
+## [5.3.6](https://github.com/Availity/availity-workflow/compare/v5.3.5...v5.3.6) (2019-06-11)
+
+
+### Bug Fixes
+
+* **workflow:** fixed issue with yargs not being passed through correctly ([f8e7a38](https://github.com/Availity/availity-workflow/commit/f8e7a38))
+
+
+
 ## [5.3.5](https://github.com/Availity/availity-workflow/compare/v5.3.4...v5.3.5) (2019-06-11)
 
 
