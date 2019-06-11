@@ -100,8 +100,8 @@ function updatePackageJson({ appName, appPath, version }) {
   appPackage.version = '0.1.0';
   appPackage.private = true;
 
-  if(!appPackage.availityWorkflow || !appPackage.availityWorkflow.plugin) {
-    throw new Error("Starter Project is not a valid Availity Workflow Project.");
+  if (!appPackage.availityWorkflow || !appPackage.availityWorkflow.plugin) {
+    throw new Error('Starter Project is not a valid Availity Workflow Project.');
   }
 
   appPackage.devDependencies[appPackage.availityWorkflow.plugin] = `^${version}`;
@@ -204,7 +204,7 @@ async function run({ appPath, appName, version, originalDirectory, template }) {
   }
 }
 
-function createApp({ name, version, currentDir, template }) {
+function createApp({ projectName: name, version, currentDir, template }) {
   const appPath = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(appPath);
 
@@ -257,7 +257,7 @@ yargs
           chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')} ${chalk.magenta('-p angular')}`)
         );
     },
-    ({ projectName, version, currentDir, template }) => createApp({ projectName, version, currentDir, template })
+    createApp
   )
   .example(chalk.yellow('av init my-app-name'))
   .example(chalk.yellow('av init my-app-name -p angular'));
