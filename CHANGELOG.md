@@ -1,3 +1,12 @@
+## [5.3.5](https://github.com/Availity/availity-workflow/compare/v5.3.4...v5.3.5) (2019-06-11)
+
+
+### Features
+
+* **workflow:** templates are now created via cloning templates from git ([811bfd8](https://github.com/Availity/availity-workflow/commit/811bfd8))
+
+
+
 ## [5.3.4](https://github.com/Availity/availity-workflow/compare/v5.3.3...v5.3.4) (2019-06-07)
 
 
