@@ -1,4 +1,4 @@
-
+/* eslint-disable import/newline-after-import */
 /**
  * Motivation
  * https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-cli/src/init-starter.js

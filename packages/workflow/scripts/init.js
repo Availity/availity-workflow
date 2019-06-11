@@ -118,7 +118,6 @@ function installDeps() {
   const proc = spawn.sync('npm', ['install', '--loglevel', 'error'], { stdio: 'inherit' });
   if (proc.status !== 0) {
     Logger.failed('`npm install` failed');
-    return;
   }
 }
 
