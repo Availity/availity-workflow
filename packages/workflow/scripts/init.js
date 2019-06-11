@@ -93,7 +93,7 @@ function checkThatNpmCanReadCwd() {
   return false;
 }
 
-function updatePackageJson({ appName, appPath, version }) {
+function updatePackageJson({ appName, appPath }) {
   const appPackage = require(path.join(appPath, 'package.json'));
 
   appPackage.name = appName;
@@ -103,10 +103,6 @@ function updatePackageJson({ appName, appPath, version }) {
   if (!appPackage.availityWorkflow || !appPackage.availityWorkflow.plugin) {
     throw new Error('Starter Project is not a valid Availity Workflow Project.');
   }
-
-  appPackage.devDependencies[appPackage.availityWorkflow.plugin] = `^${version}`;
-  appPackage.devDependencies['@availity/workflow'] = `^${version}`;
-
   fs.writeFileSync(path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2) + os.EOL);
 }
 
@@ -115,27 +111,25 @@ function installDeps() {
   Logger.empty();
 
   // Install Depedencies
-  const proc = spawn.sync('npm', ['install', '--loglevel', 'error'], { stdio: 'inherit' });
+  const proc = spawn.sync('npm', ['up', '--loglevel', 'error'], { stdio: 'inherit' });
   if (proc.status !== 0) {
     Logger.failed('`npm install` failed');
   }
 }
 
-async function run({ appPath, appName, version, originalDirectory, template }) {
+async function run({ appPath, appName, originalDirectory, template }) {
   try {
     await cloneStarter({
       template,
       appName,
       appPath,
-      version,
       originalDirectory
     });
 
     // Update the Package JSON with correct deps and name/versions
     updatePackageJson({
       appName,
-      appPath,
-      version
+      appPath
     });
 
     // Install Depedencies
@@ -204,7 +198,7 @@ async function run({ appPath, appName, version, originalDirectory, template }) {
   }
 }
 
-function createApp({ projectName: name, version, currentDir, template }) {
+function createApp({ projectName: name, currentDir, template }) {
   const appPath = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(appPath);
 
@@ -223,7 +217,7 @@ function createApp({ projectName: name, version, currentDir, template }) {
     process.exit(1);
   }
 
-  run({ appPath, appName, version, originalDirectory, template });
+  run({ appPath, appName, originalDirectory, template });
 }
 /* eslint-disable no-unused-expressions */
 yargs
@@ -236,11 +230,6 @@ yargs
           describe: 'The name of the project you want to create.'
         })
         .version(false)
-        .option('version', {
-          alias: 'v',
-          describe: 'Specify which version of the package project you want.',
-          default: 'latest'
-        })
         .option('currentDir', {
           alias: 'c',
           describe: 'Pass this if you want to initialize the project in the same folder',
