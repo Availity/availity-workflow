@@ -4,9 +4,7 @@
   "description": "Angular 1.x  module for @availity/workflow",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
-    "test:integration": "echo \"No test specified\" && exit 0",
-    "prepublishOnly": "npm run copy-template",
-    "copy-template": "copyfiles -a -u 2 -e \"../**/node_modules/**/*\" -e \"../**/README.md\" \"../example-angular/**/*\" template/"
+    "test:integration": "echo \"No test specified\" && exit 0"
   },
   "repository": {
     "type": "git",
