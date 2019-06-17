@@ -7,7 +7,7 @@
     {
       "id": "6292",
       "description": "Claim Research Tool",
-      "organizationIds": [{
+      "organizations": [{
         "id": "1111",
         "name":"Acme Medical Center",
         "customerId":"2222"
@@ -17,7 +17,7 @@
     {
       "id": "7078",
       "description": "Reporting and Analytics",
-      "organizationIds": [{
+      "organizations": [{
         "id": "1111",
         "name":"Acme Medical Center",
         "customerId":"2222"
@@ -26,7 +26,7 @@
     {
       "id": "7050",
       "description": "Care Reminders",
-      "organizationIds": [{
+      "organizations": [{
         "id": "1111",
         "name":"Acme Medical Center",
         "customerId":"2222"
@@ -35,7 +35,7 @@
     {
       "id": "1250",
       "description": "Authorization Request",
-      "organizationIds": [{
+      "organizations": [{
         "id": "1111",
         "name":"Acme Medical Center",
         "customerId":"2222"
@@ -44,7 +44,7 @@
     {
       "id": "2139",
       "description": "Fee Schedules",
-      "organizationIds": [{
+      "organizations": [{
         "id": "1111",
         "name":"Acme Medical Center",
         "customerId":"2222"
@@ -53,7 +53,7 @@
     {
       "id": "7105",
       "description": "Referral Request",
-      "organizationIds": [{
+      "organizations": [{
         "id": "1111",
         "name":"Acme Medical Center",
         "customerId":"2222"
@@ -62,7 +62,7 @@
     {
       "id": "484",
       "description": "Claim Status Inquiry",
-      "organizationIds": [{
+      "organizations": [{
         "id": "1111",
         "name":"Acme Medical Center",
         "customerId":"2222"
@@ -71,7 +71,7 @@
     {
       "id": "472",
       "description": "Authorization and Referral Inquiry",
-      "organizationIds": [{
+      "organizations": [{
         "id": "1111",
         "name":"Acme Medical Center",
         "customerId":"2222"
@@ -80,7 +80,7 @@
     {
       "id": "7166",
       "description": "Eligibility and Benefits Inquiry",
-      "organizationIds": [{
+      "organizations": [{
         "id": "1111",
         "name":"Acme Medical Center",
         "customerId":"2222"
