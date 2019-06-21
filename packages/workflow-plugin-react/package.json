@@ -70,7 +70,7 @@
 	"devDependencies": {
 		"copyfiles": "^2.1.0"
 	},
-	"peerDepedencies": {
+	"peerDependencies": {
 		"@testing-library/react": "^8.0.1"
 	}
 }
