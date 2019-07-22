@@ -205,7 +205,7 @@ function web() {
       // Reportedly, this avoids CPU overload on some systems.
       // https://github.com/facebookincubator/create-react-app/issues/293
       watchOptions: {
-        ignored: /node_modules/
+        ignored: /node_modules([\\]+|\/)+(?!(@availity|@av))/
       }
     };
 
