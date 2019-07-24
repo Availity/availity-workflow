@@ -37,7 +37,7 @@
 		"escape-string-regexp": "^1.0.5",
 		"eslint": "^5.5.0",
 		"execa": "^1.0.0",
-		"figures": "^2.0.0",
+		"figures": "^3.0.0",
 		"fs-extra": "^7.0.0",
 		"globby": "^8.0.1",
 		"hosted-git-info": "^2.7.1",
