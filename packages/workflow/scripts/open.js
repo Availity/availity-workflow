@@ -1,4 +1,4 @@
-const opn = require('opn');
+const opn = require('open');
 const chalk = require('chalk');
 const urlJoin = require('url-join');
 const settings = require('@availity/workflow-settings');
