@@ -13,7 +13,7 @@
     "husky": "^3.0.1",
     "jest": "^24.7.1",
     "lerna": "^3.16.4",
-    "lint-staged": "^8.1.5",
+    "lint-staged": "^9.2.1",
     "prettier": "^1.17.0"
   },
   "scripts": {
