@@ -31,7 +31,7 @@
     "on-finished": "^2.3.0"
   },
   "devDependencies": {
-    "superagent": "^4.0.0"
+    "superagent": "^5.1.0"
   },
   "publishConfig": {
     "access": "public"
