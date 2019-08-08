@@ -20,7 +20,7 @@ const plugin = settings => {
   }
 
   const index = [
-    require.resolve("react-app-polyfill/ie9"),
+    require.resolve("react-app-polyfill/ie11"),
     `${require.resolve('webpack-dev-server/client')}?/`,
     require.resolve('webpack/hot/dev-server'),
     './index.js'

@@ -45,7 +45,7 @@ const plugin = settings => {
     },
 
     entry: {
-      index: [require.resolve('react-app-polyfill/ie9'), './index.js']
+      index: [require.resolve('react-app-polyfill/ie11'), './index.js']
     },
 
     output: {
