@@ -25,7 +25,7 @@ const plugin = settings => {
     context: settings.app(),
 
     entry: {
-      index: ['./index.js']
+      index: [require.resolve("react-app-polyfill/ie9"),'./index.js']
     },
 
     optimization: {
@@ -145,10 +145,6 @@ const plugin = settings => {
           debug: 'warning'
         }
       ),
-      new webpack.ProvidePlugin({
-        Promise: 'es6-promise-promise',
-        Symbol: 'es6-symbol'
-      })
     ]
   };
 

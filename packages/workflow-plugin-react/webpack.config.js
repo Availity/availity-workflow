@@ -20,6 +20,7 @@ const plugin = settings => {
   }
 
   const index = [
+    require.resolve("react-app-polyfill/ie9"),
     `${require.resolve('webpack-dev-server/client')}?/`,
     require.resolve('webpack/hot/dev-server'),
     './index.js'
@@ -137,10 +138,6 @@ const plugin = settings => {
           debug: 'warning'
         }
       ),
-      new webpack.ProvidePlugin({
-        Promise: 'es6-promise-promise',
-        Symbol: 'es6-symbol'
-      })
     ]
   };
 

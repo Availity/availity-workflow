@@ -45,7 +45,7 @@ const plugin = settings => {
     },
 
     entry: {
-      index: ['./index.js']
+      index: [require.resolve('react-app-polyfill/ie9'), './index.js']
     },
 
     output: {
@@ -129,12 +129,7 @@ const plugin = settings => {
       // Ignore all the moment local files
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
-      new CaseSensitivePathsPlugin(),
-
-      new webpack.ProvidePlugin({
-        Promise: 'es6-promise-promise',
-        Symbol: 'es6-symbol'
-      })
+      new CaseSensitivePathsPlugin()
     ]
   };
 
