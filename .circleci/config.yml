@@ -40,7 +40,10 @@ jobs:
             - ./node_modules
       - run:
           name: Authenticate
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+          command: |
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+          git config --global user.email $GITHUB_EMAIL
+          git config --global user.name $GITHUB_USER
       - run: # Test
           command: |
             npm run release:ci
