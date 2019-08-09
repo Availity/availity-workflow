@@ -28,7 +28,7 @@ jobs:
     docker:
       - image: circleci/node:10
     steps:
-            - checkout
+      - checkout
       - restore_cache: # special step to restore the dependency cache
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
