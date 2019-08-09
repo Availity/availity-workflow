@@ -24,10 +24,32 @@ jobs:
           name: Run Test
           command: |
             npm run test
-deployment:
-  production:
-    branch: master
-    commands:
-      - git config --global user.email $GITHUB_EMAIL
-      - git config --global user.name $GITHUB_USER
-      - npm run release:ci
+  deploy:
+    docker:
+      - image: circleci/node:10
+    steps:
+            - checkout
+      - restore_cache: # special step to restore the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Setup Dependencies
+          command: npm install
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run: # Test
+          command: |
+            git config --global user.email $GITHUB_EMAIL
+            git config --global user.name $GITHUB_USER
+            npm run release:ci
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
