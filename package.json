@@ -25,7 +25,7 @@
     "nuke": "npm run remove-locks && npm run clean",
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean --yes",
-    "postinstall": "lerna bootstrap",
+    "postinstall": "npm run bootstrap",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
     "release": "npm run lint && sh ./scripts/release.sh",
     "pub": "find ./packages -type d -maxdepth 1 -mindepth 1 -exec sh -c 'cd {} && npm publish' ';'",
