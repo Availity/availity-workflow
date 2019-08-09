@@ -38,10 +38,11 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+      - run:
+        name: Authenticate
+        command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
       - run: # Test
           command: |
-            git config --global user.email $GITHUB_EMAIL
-            git config --global user.name $GITHUB_USER
             npm run release:ci
 workflows:
   version: 2
