@@ -1,3 +1,12 @@
+# [5.4.0](https://github.com/Availity/availity-workflow/compare/v5.3.9...v5.4.0) (2019-08-09)
+
+
+### Bug Fixes
+
+* **workflow-plugin-react:** fixed package-lock merge issue ([52a6e60](https://github.com/Availity/availity-workflow/commit/52a6e60))
+
+
+
 ## [5.3.9](https://github.com/Availity/availity-workflow/compare/v5.3.8...v5.3.9) (2019-06-17)
 
 
