@@ -19,19 +19,16 @@
   "scripts": {
     "lint": "eslint .",
     "publish": "lerna publish --force-publish=*",
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --no-package-locks --no-ci",
     "link": "lerna link",
     "test": "jest --silent",
-    "start": "npm run start --prefix packages/react-template-simple",
-    "start:complex": "npm run start --prefix packages/react-template-complex",
-    "start:wizard": "npm run start --prefix packages/react-template-wizard",
-    "test:react": "npm run test --prefix packages/react-template-complex",
-    "start:angular": "npm run start --prefix packages/example-angular",
+    "nuke": "npm run remove-locks && npm run clean",
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean --yes",
-    "postinstall": "lerna bootstrap",
+    "postinstall": "npm run bootstrap",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
-    "release": "npm run lint && sh ./scripts/release.sh",
+    "release": "lerna publish",
+    "release:ci": "lerna publish --force-publish",
     "pub": "find ./packages -type d -maxdepth 1 -mindepth 1 -exec sh -c 'cd {} && npm publish' ';'",
     "add": "sh ./scripts/add.sh",
     "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
@@ -78,5 +75,6 @@
       "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "name": "availity-workflow"
 }

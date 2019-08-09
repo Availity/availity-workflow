@@ -1,25 +1,20 @@
+git:
+  depth: 1
+  submodules: false
 sudo: false
 language: node_js
 node_js:
-  - '8'
-matrix:
-  fast_finish: true
+  - 10
 cache:
   directories:
     - node_modules
 notifications:
   email: false
-git:
-  depth: 1
-  submodules: false
-addons:
-  sauce_connect: true
-branches:
-  only:
-  - master
-script:
-  - npm test
 env:
   global:
-  - secure: o4sHxQunXOsRRyxVjXrV4cAKt5nN5aqn1Il/Tb6/KEaex2lK2tgjwRMF9F4mIXajIHHD9/OtttgX+QZY+ZPRrvBXBnsIpiwzh7w4U8BZ75OK1HHFgzujyvre0qb4pzEBLTAe3ZvZWQZ9WQg29Ml9X8CVxY1OPunsrlu3WvY9mBkZScA/uOEFYn9XsXwS+z6mqDEroiMVEW5JkE4FGv3CaGDEaXAUWdNXqoAhISrrqliDQeR0LRoLTm9Idc0lXcbQXspY2xaU8ttMIgqfFu8/msRU7sOKtVmOpzaeDZ59nlGASlbG/xxZ0OhRMjF0sSa9t4MYPie0E9agQBVwsx3HCAO6BzkYIWIr1Q2GzYAow1zWonGCuw8V4zqIfNJ/iUXHQKMPvQosfS3ZzEG8AVCR7vg0dy45qZCvKcYGGid7ycvBpomYW/B50qgWkKunWdXW/iLTyY0h1iKMSTZbvdyqMGBK5JIsrlO9qyBJxAIaDd4zAYzezPYETk30Aj3NLBeK3Y1u0sMfAXNivHd4OccR4zQW+hvqqyBdYwk7PSmVh/EEKR9OtqHhlb2ZzIbLatn4LpJyRfWNAe2R34nwoil/oW2TQCx7EJgmi3Jbjmv1BNvy4rDcYfZ1YBYJ54I3Gdq6HzyWktxIHrhFckWPT8vdGVjR15aakQfsyKR+u0VQIS8=
-  - secure: bVQZXLzEIEUXS1MDyX16EBrUIghVnjsDNUmkBpFXz+71CooiRodjQy0Grj13J93zjlITKbO43c1AbIQBwmmyjyTpUkigMlYIf0cL5mYyU3Vry8w9aqRAIYSkSSxMsAKU4Q07NKAbZb43H/xt6D7MAAJhwT2pYemJUupQDLDKtVGKluonX3xr7/eC6OMxvzqnBZgfri8FKzav1/zIpqqpxNqk8Ya5kqgAM9Bev+pslrnSUAvQuKO8CtGtf12b0drB4UpS1f2/wYHTCxnUbjPEs6JETGICt1O3GVEm4aqJdh6qe6RdTTAFTqrzKjN21tl+H6JfMJssWDDa3gPxRXCoMmULEWZ9VoT9aad/dCZB1ER4wJBIFz0J47ztbfs2hQUsAsYN93ke4OA9Vy2d5R15mE8HxLCtc/C4MN2BKbqkAlwa0rzv0EjsbILir4Y53sx2cmdBNqyObg1qvGEtS5qL50Lg6jDG2Jk2ATKVtth+IB44okSufARqr+Z1p6xdtS3ZUxmVhsDiQq26T6vluJfgxcbl2WWnEBspk0hZW6mtDqETFbCNkoD3VdLO9Cz8GjJrNEpBcL9vzvbrRUiIUg8K8Um83oZSiP1p2T16ylX2FmxCgFjkxD25qlGTMy6a/rs0pm9tWuliwFCF5ats/Jb00yh0/tp9boJa2R80DmwYiU4=
+    - USE_YARN=no
+before_script:
+  - npm run bootstrap
+script:
+  - npm run lint
+  - npm test
