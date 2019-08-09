@@ -39,8 +39,8 @@ jobs:
           paths:
             - ./node_modules
       - run:
-        name: Authenticate
-        command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+          name: Authenticate
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
       - run: # Test
           command: |
             npm run release:ci
