@@ -45,7 +45,10 @@ jobs:
             npm run release:ci
 workflows:
   version: 2
-  build-deploy:
+  build:
+    jobs:
+      - build
+  deploy:
     jobs:
       - deploy:
           requires:
