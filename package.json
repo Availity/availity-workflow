@@ -19,7 +19,7 @@
   "scripts": {
     "lint": "eslint .",
     "publish": "lerna publish --force-publish=*",
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --no-package-locks",
     "link": "lerna link",
     "test": "jest --silent",
     "nuke": "npm run remove-locks && npm run clean",
