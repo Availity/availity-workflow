@@ -18,7 +18,6 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "publish": "lerna publish --force-publish=*",
     "bootstrap": "lerna bootstrap --no-package-locks --no-ci",
     "link": "lerna link",
     "test": "jest --silent",
