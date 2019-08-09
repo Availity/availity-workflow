@@ -45,14 +45,12 @@ jobs:
             npm run release:ci
 workflows:
   version: 2
-  build-release:
+  deploy:
     jobs:
       - build
-  deploy-release:
-    jobs:
       - deploy:
           requires:
-            - build-release
+            - build
           filters:
             branches:
               only: master
