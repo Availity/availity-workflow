@@ -24,3 +24,10 @@ jobs:
           name: Run Test
           command: |
             npm run test
+deployment:
+  production:
+    branch: master
+    commands:
+      - git config --global user.email $GITHUB_EMAIL
+      - git config --global user.name $GITHUB_USER
+      - npm run release:ci

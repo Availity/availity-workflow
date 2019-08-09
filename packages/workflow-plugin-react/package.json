@@ -70,6 +70,7 @@
 		"copyfiles": "^2.1.0"
 	},
 	"peerDependencies": {
-		"@testing-library/react": "^8.0.1"
+    "@testing-library/react": "^8.0.1",
+    "@availity/workflow": "^5.4.0"
 	}
 }
