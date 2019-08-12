@@ -1,6 +1,6 @@
 {
 	"name": "@availity/workflow",
-	"version": "6.0.0",
+	"version": "6.0.1",
 	"description": "Upgradable workflow for Availity boilerplate projects",
 	"main": "index.js",
 	"bin": {
@@ -27,7 +27,7 @@
 	"dependencies": {
 		"@availity/mock-server": "^6.0.0",
 		"@availity/workflow-logger": "^5.5.0",
-		"@availity/workflow-settings": "^6.0.0",
+		"@availity/workflow-settings": "^6.0.1",
 		"@availity/workflow-upgrade": "^5.4.1",
 		"chalk": "^2.3.2",
 		"cross-spawn": "^6.0.5",
