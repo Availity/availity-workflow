@@ -55,7 +55,7 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - build
+      - build:
           context: availity-deploy
       - deploy:
           context: availity-deploy
