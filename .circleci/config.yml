@@ -20,6 +20,10 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+      - run: # LInt
+          name: Run Lint
+          command: |
+            npm run lint
       - run: # Test
           name: Run Test
           command: |
@@ -52,7 +56,9 @@ workflows:
   deploy:
     jobs:
       - build
+          context: availity-deploy
       - deploy:
+          context: availity-deploy
           requires:
             - build
           filters:
