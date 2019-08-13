@@ -42,6 +42,16 @@ const workflowPlugins = [
   require.resolve('@babel/plugin-syntax-dynamic-import')
 ];
 
+if (settings.isProduction()) {
+  workflowPlugins.concat([
+    // Remove "data-test-id", "data-testid" attributes from production builds.
+    require.resolve('babel-plugin-jsx-remove-data-test-id'),
+    {
+      attributes: ['data-test-id', 'data-testid']
+    }
+  ]);
+}
+
 let config;
 
 if (settings.isTesting()) {
