@@ -1,6 +1,6 @@
 {
 	"name": "@availity/workflow-babel-preset",
-	"version": "6.0.1",
+	"version": "6.1.0",
 	"description": "Babel preset used by availity-workflow projects based on React",
 	"main": "index.js",
 	"files": [
