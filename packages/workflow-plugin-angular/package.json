@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-plugin-angular",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "Angular 1.x  module for @availity/workflow",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/workflow-babel-preset": "^6.1.0",
+    "@availity/workflow-babel-preset": "^6.1.1",
     "@availity/workflow-logger": "^5.5.0",
     "@availity/workflow-settings": "^6.0.1",
     "@babel/core": "^7.0.0",
