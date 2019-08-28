@@ -17,6 +17,7 @@
     "prettier": "^1.17.0"
   },
   "scripts": {
+    "start:docs": "npm run develop --prefix packages/docs",
     "lint": "eslint .",
     "bootstrap": "lerna bootstrap --no-package-locks --no-ci",
     "link": "lerna link",
