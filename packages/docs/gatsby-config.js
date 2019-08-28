@@ -1,5 +1,5 @@
 module.exports = {
-  pathPrefix: '/docs/availity-workflow',
+  pathPrefix: '/availity-workflow',
   __experimentalThemes: [
     {
       resolve: '@availity/gatsby-theme',
