@@ -131,16 +131,6 @@ Lines        : 27.23% ( 7955/29217 )
 ✔ Finished testing
 ```
 
-### `about`
-Awesomeness.
-
-
-## Disclaimer
-
-Open source software components distributed or made available in the Availity Materials are licensed to Company under the terms of the applicable open source license agreements, which may be found in text files included in the Availity Materials.
-
-## License
-[MIT](../../LICENSE)
 
 
 

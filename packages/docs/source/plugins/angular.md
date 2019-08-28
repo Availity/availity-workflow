@@ -10,7 +10,7 @@ summary: Plugin for Angular based availity-workflow boilerplate projects
 
 ## Testing Libraries
 
-By default `angular` and `angular-mocks` are added to the project. Some of their scripts are also automatically added to the `setUpFilesAfterEnv` param for jest [here](./test.js#31).
+By default `angular` and `angular-mocks` are added to the project. Some of their scripts are also automatically added to the `setUpFilesAfterEnv` param for jest [here](https://github.com/Availity/availity-workflow/blob/master/packages/workflow-plugin-angular/test.js#L27).
 
 - `angular` - base angular framework.
 - `angular-mocks` - same mocks available for use in angular framework.

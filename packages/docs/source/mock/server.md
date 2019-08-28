@@ -7,7 +7,7 @@ summary: Simple express middleware for returning fake data.
 
 Develop web applications without heavy back-end services by running Express middleware or http server which can deliver mock responses.
 
-Responses can be JSON or other formats to simulate REST services. Access-Control HTTP Headers are set by default to allow CORS requests. Mock services are configured in the [routes.json](./routes.json) file.
+Responses can be JSON or other formats to simulate REST services. Access-Control HTTP Headers are set by default to allow CORS requests. Mock services are configured in the [routes.json](https://github.com/Availity/availity-workflow/blob/master/packages/mock-data/routes.json) file.
 
 This server can return other file types besides XML or JSON (PDFs, images, etc). The appropriate response headers will be automatically set for different file types. For a complete list of file types supported view the [mime types here](https://github.com/jshttp/mime-db/blob/88d8b0424d93aefef4ef300dc35ad2c8d1e1f9d4/db.json).
 
@@ -19,7 +19,7 @@ This server can return other file types besides XML or JSON (PDFs, images, etc).
 
 ### Standalone Server
 
-The default server configuration can be found in [config.js](./config.js). Pass a different configuration file to the `avality-mock-server` server to override the defaults.
+The default server configuration can be found in [config.js](https://github.com/Availity/availity-workflow/blob/master/packages/mock-server/config/index.js). Pass a different configuration file to the `avality-mock-server` server to override the defaults.
 
 ```javascript
 const path = require('path');
@@ -99,7 +99,7 @@ function logProvider(provider) {
 
 The `routes.json` defines the mock responses for rest services. Below are some sample scenarios that should help you understand the configuration options.
 
-The mock configuration supports deep nested introspection of JSON and multi-part form data when matching routes. See [Example 6](#Multipart) below.
+The mock configuration supports deep nested introspection of JSON and multi-part form data when matching routes. See Example 6 below.
 
 ###### Simple
 
@@ -349,11 +349,3 @@ This allows you to run multiple servers without keeping track of all ports being
 
 *   [apimocker](https://github.com/gstroup/apimocker)
 *   [json-server](https://github.com/typicode/json-server)
-
-## Disclaimer
-
-Open source software components distributed or made available in the Availity Materials are licensed to Company under the terms of the applicable open source license agreements, which may be found in text files included in the Availity Materials.
-
-## License
-
-[MIT](../../LICENSE)
