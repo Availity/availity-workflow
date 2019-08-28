@@ -7,7 +7,7 @@
 [![](https://img.shields.io/david/dev/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 [![CircleCI](https://img.shields.io/circleci/build/github/Availity/availity-workflow/master?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 
-![CLI](/docs/cli.png)
+![CLI](/images/cli.png)
 
 ## Table of Contents
 
@@ -132,7 +132,7 @@ Opens the url in the default browser
 
 Webpack build status system notifications
 
-![Notification](/docs/notification.png)
+![Notification](/images/notification.png)
 
 #### `development.host`
 
