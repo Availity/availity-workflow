@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start:docs": "npm run develop --prefix packages/docs",
-    "deploy:docs": "npm run build --prefix packages/docs && gh-pages -d packages/docs/public",
+    "deploy:docs": "npm run build:deploy --prefix packages/docs && gh-pages -d packages/docs/public",
     "lint": "eslint .",
     "bootstrap": "lerna bootstrap --no-package-locks --no-ci",
     "link": "lerna link",
