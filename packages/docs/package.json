@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "gatsby": "^2.13.83",
-    "@availity/gatsby-theme": "^0.4.3"
+    "@availity/gatsby-theme": "^0.4.4"
   }
 }
