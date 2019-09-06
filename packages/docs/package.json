@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "docs",
+  "name": "@availity/docs",
   "version": "1.1.2",
   "license": "MIT",
   "scripts": {
@@ -10,7 +10,9 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@availity/gatsby-theme-docs": "^1.2.3",
     "gatsby": "^2.13.83",
-    "@availity/gatsby-theme": "^0.4.4"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   }
 }
