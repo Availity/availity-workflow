@@ -51,6 +51,7 @@ jobs:
       - run: # Test
           command: |
             npm run release:ci
+            npm run deploy:docs
 workflows:
   version: 2
   deploy:
