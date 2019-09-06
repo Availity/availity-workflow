@@ -13,6 +13,7 @@
     "@availity/gatsby-theme-docs": "^1.2.3",
     "gatsby": "^2.13.83",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "reactstrap": "^8.0.1"
   }
 }
