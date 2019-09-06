@@ -1,50 +1,14 @@
-# availity-workflow
+---
+title: Introduction
+summary: Toolkit for Availity web projects. Heavily inspired by create-react-app.
+---
 
-> Toolkit for Availity web projects. Heavily inspired by create-react-app.
 
 [![](https://img.shields.io/github/license/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 [![](https://img.shields.io/npm/v/@availity/workflow.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/availity-workflow)
 [![](https://img.shields.io/david/dev/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 [![CircleCI](https://img.shields.io/circleci/build/github/Availity/availity-workflow/master?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 
-![CLI](/images/cli.png)
-
-## Table of Contents
-
-*   [Getting Started](#getting-started)
-*   [Features](#features)
-*   [CLI](#cli)
-*   [Configuration](#configuration)
-*   [Upgrading](#upgrading)
-*   [FAQ](#faq)
-*   [CONTRIBUTE](#contribute)
-*   [DISCLAIMER](#disclaimer)
-*   [License](#license)
-
-## Getting Started
-
-### React
-
-```bash
-npx @availity/workflow init <your-project-name>
-```
-
-<small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
-
-### Angular
-
-```bash
-npx @availity/workflow init <your-project-name> --template https://github.com/Availity/availity-starter-angular
-```
-
-#### Availity Templates
-* [React Starter](https://github.com/Availity/availity-starter-react)
-* [Angular Starter](https://github.com/Availity/availity-starter-angular)
-* [Complex Starter (React)](https://github.com/Availity/availity-starter-complex)
-* [Wizard Starter (React)](https://github.com/Availity/availity-starter-wizard)
-
-
-<small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
 
 ## Features
 
@@ -52,9 +16,6 @@ npx @availity/workflow init <your-project-name> --template https://github.com/Av
 *   A global variable `APP_VERSION` is written to javascript bundle that can be used to determine the version of the application that was deployed. Open up the browser debugger and type `APP_VERSION`.
 *   Hook into Jest `setupFiles` by adding `jest.setup.js` at the root of your project
 
-## CLI
-
-CLI options are documented in it's [README](./packages/workflow/README.md)
 
 ## Configuration
 
@@ -132,7 +93,7 @@ Opens the url in the default browser
 
 Webpack build status system notifications
 
-![Notification](/images/notification.png)
+<img src="./images/notification.png" className="w-50 mb-2" alt="notification" />
 
 #### `development.host`
 
@@ -334,13 +295,6 @@ modifyWebpackConfig: (webpackConfig, settings) => {
 };
 ```
 
-## Upgrading <small>[[Credit](https://github.com/typicode/husky/tree/master/src/upgrader)]</small>
-
-Change to the directory you want to upgrade the workflow for and run the below command. 
-
-```
-npx @availity/workflow-upgrade
-```
 
 ## FAQ
 
@@ -349,7 +303,7 @@ npx @availity/workflow-upgrade
 Create `./vscode/settings.json` file with the following configuration:
 
 ```json
-{ 
+{
   "jest.pathToJest": "npm test -- --runInBand"
 }
 ```
@@ -401,17 +355,10 @@ The configuration above does the following:
 *   Proxy requests with path `/api/v1/proxy/healthplan/some/mock/path` to the mock server. Optional configuration that is useful if an API is not available for use and needs to be mocked.
 *   Proxy all requests with path segments `/api/v1/proxy/healthplan/` to the configured target `'http://localhost:8888'`. Notice the URL is being rewritten. Change the rewrite path to match your local path as needed. This configuration is useful when testing against live services.
 
-## Contribute
+## Contributing
 
 *   Run `npm install`
 *   Run `npm run bootstrap` at project root
 *   Use `npm run angular` to start the Angular sample application
 *   Use `npm run react` to use the React sample application
 
-## Disclaimer
-
-Open source software components distributed or made available in the Availity Materials are licensed to Company under the terms of the applicable open source license agreements, which may be found in text files included in the Availity Materials.
-
-## License
-
-Copyright (c) 2017-present Availity, LLC. Code released under the [the MIT license](LICENSE)
