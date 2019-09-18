@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.4](https://github.com/availity/availity-workflow/compare/@availity/workflow-plugin-react@6.0.3...@availity/workflow-plugin-react@6.0.4) (2019-09-18)
+
+
+### Bug Fixes
+
+* **workflow-plugin-react:** removed @testing-library/react/cleanup-after-each as per warnings from the lib ([175f69c](https://github.com/availity/availity-workflow/commit/175f69c))
+
+
+
+
+
 ## [6.0.3](https://github.com/availity/availity-workflow/compare/@availity/workflow-plugin-react@6.0.2...@availity/workflow-plugin-react@6.0.3) (2019-08-14)
 
 **Note:** Version bump only for package @availity/workflow-plugin-react
