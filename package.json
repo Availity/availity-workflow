@@ -1,6 +1,9 @@
 {
   "private": true,
-  "version": "5.4.0",
+  "name":"@availity/workflow",
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
@@ -18,10 +21,10 @@
     "prettier": "^1.17.0"
   },
   "scripts": {
-    "start:docs": "npm run develop --prefix packages/docs",
-    "deploy:docs": "npm run build:deploy --prefix packages/docs && gh-pages -d packages/docs/public",
+    "start": "yarn workspace @availity/docs develop",
+    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d packages/docs/public",
     "lint": "eslint .",
-    "bootstrap": "lerna bootstrap --no-package-locks --no-ci",
+    "bootstrap": "lerna bootstrap --use-workspaces",
     "link": "lerna link",
     "test": "jest --silent",
     "nuke": "npm run remove-locks && npm run clean",
