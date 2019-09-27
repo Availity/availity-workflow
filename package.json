@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name":"@availity/workflow",
+  "name": "availity-workflow",
   "workspaces": [
     "packages/*",
     "my-proj"
@@ -23,22 +23,18 @@
   },
   "scripts": {
     "start": "yarn workspace @availity/docs develop",
-    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d packages/docs/public",
+    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d packages/docs/public --message 'deployed docs [skip ci]'",
     "lint": "eslint .",
-    "bootstrap": "lerna bootstrap --use-workspaces",
     "link": "lerna link",
     "test": "jest --silent",
-    "nuke": "npm run remove-locks && npm run clean",
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean --yes",
-    "postinstall": "npm run bootstrap",
+    "postinstall": "lerna bootstrap --use-workspaces",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
     "release": "lerna publish",
     "release:ci": "lerna publish --yes",
     "pub": "find ./packages -type d -maxdepth 1 -mindepth 1 -exec sh -c 'cd {} && npm publish' ';'",
-    "add": "sh ./scripts/add.sh",
-    "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
-    "remove-locks": "find . -type f -name 'package-lock.json' -delete"
+    "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u"
   },
   "lint-staged": {
     "*.js": [
@@ -72,7 +68,8 @@
       "<rootDir>/node_modules/",
       "<rootDir>/packages/workflow-plugin-angular/template/",
       "<rootDir>/packages/workflow-plugin-react/template/",
-      "<rootDir>/packages/example-angular/"
+      "<rootDir>/packages/example-angular/",
+      "<rootDir>/docs/"
     ],
     "testRegex": ".*.spec.js$"
   },
@@ -81,6 +78,5 @@
       "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
-  },
-  "name": "availity-workflow"
+  }
 }
