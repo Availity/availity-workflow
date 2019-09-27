@@ -61,10 +61,10 @@
     react-helmet "^5.2.1"
     react-icons "^3.7.0"
 
-"@availity/gatsby-theme-docs@^1.4.10":
-  version "1.4.10"
-  resolved "https://registry.yarnpkg.com/@availity/gatsby-theme-docs/-/gatsby-theme-docs-1.4.10.tgz#b2117fa1a5d221e78514387b71d5ad661c55af99"
-  integrity sha512-HbPqPrf85R5uy5QN3f/JklvZ2OnzxpAuM0AII8YlDErxP5S1NABSf2MKaTL3yugpsfH2zL2iraQEwsMKocjY0g==
+"@availity/gatsby-theme-docs@^1.4.13":
+  version "1.4.13"
+  resolved "https://registry.yarnpkg.com/@availity/gatsby-theme-docs/-/gatsby-theme-docs-1.4.13.tgz#54bd0b1e3242e690af1a58d9fb07f487022e809c"
+  integrity sha512-WfJzPaZSZZRtqkmpWHlEBRVKs8BaSrZu1RO3QvOU5hLC0Zt6YnpffSSblWbKNa7I3o8dVodWut7yDmemZH7LQA==
   dependencies:
     "@availity/api-axios" "^5.4.0"
     "@availity/api-core" "^5.4.0"

@@ -7,39 +7,39 @@ jobs:
     steps:
       - checkout
       - restore_cache: # special step to restore the dependency cache
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Setup Dependencies
-          command: npm install
+          command: yarn install
       - run:
           name: Setup Code Climate test-reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
       - save_cache: # special step to save the dependency cache
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
       - run: # LInt
           name: Run Lint
           command: |
-            npm run lint
+            yarn lint
       - run: # Test
           name: Run Test
           command: |
-            npm run test
+            yarn test
   deploy:
     docker:
       - image: circleci/node:10
     steps:
       - checkout
       - restore_cache: # special step to restore the dependency cache
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Setup Dependencies
-          command: npm install
+          command: yarn install
       - save_cache: # special step to save the dependency cache
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
       - run:
@@ -50,8 +50,8 @@ jobs:
             git config --global user.name $GITHUB_USER
       - run: # Test
           command: |
-            npm run release:ci
-            npm run deploy:docs
+            yarn release:ci
+            yarn deploy:docs
 workflows:
   version: 2
   deploy:

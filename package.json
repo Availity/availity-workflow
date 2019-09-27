@@ -2,7 +2,8 @@
   "private": true,
   "name":"@availity/workflow",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "my-proj"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",

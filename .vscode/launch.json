@@ -1,0 +1,38 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Create App",
+        "program": "${workspaceFolder}/packages/workflow/index.js",
+        "args": [
+          "init",
+          "my-proj",
+          "--template",
+          "https://github.com/Availity/availity-starter-complex.git"
+        ]
+      },
+        {
+            "type": "node",
+            "name": "React",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/packages/my-proj",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "program": "${workspaceFolder}/packages/my-proj/node_modules/.bin/av",
+            "args": [
+              "start"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/packages/example-react"
+        }
+    ]
+}
