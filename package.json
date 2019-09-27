@@ -3,7 +3,8 @@
   "name": "availity-workflow",
   "workspaces": [
     "packages/*",
-    "my-proj"
+    "my-proj",
+    "docs"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
@@ -23,7 +24,7 @@
   },
   "scripts": {
     "start": "yarn workspace @availity/docs develop",
-    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d packages/docs/public --message 'deployed docs [skip ci]'",
+    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d docs/public --message 'deployed docs [skip ci]'",
     "lint": "eslint .",
     "link": "lerna link",
     "test": "jest --silent",

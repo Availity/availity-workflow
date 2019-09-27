@@ -11,7 +11,7 @@ module.exports = {
         subtitle: 'Availity Workflow',
         description: 'Documentation for Availity Workflow',
         githubRepo: 'availity/availity-workflow',
-        contentDir: 'packages/docs/source',
+        contentDir: 'docs/source',
         sidebarCategories: {
           null: ['index', 'getting-started','upgrade'],
           Plugins: ['plugins/react', 'plugins/angular'],
