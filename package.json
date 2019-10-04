@@ -24,6 +24,7 @@
   },
   "scripts": {
     "start": "yarn workspace @availity/docs develop",
+    "start:app": "yarn workspace my-proj start",
     "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d docs/public --message 'deployed docs [skip ci]'",
     "lint": "eslint .",
     "link": "lerna link",

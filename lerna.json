@@ -4,6 +4,7 @@
   "version": "independent",
   "packages": [
     "packages/*",
+    "my-proj",
     "docs"
   ],
   "message": "chore: publish release [skip ci]",
