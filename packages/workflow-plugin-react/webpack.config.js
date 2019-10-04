@@ -20,11 +20,20 @@ const plugin = settings => {
   }
 
   const index = [
-    require.resolve("react-app-polyfill/ie11"),
+    require.resolve('react-app-polyfill/ie11'),
     `${require.resolve('webpack-dev-server/client')}?/`,
     require.resolve('webpack/hot/dev-server'),
     './index.js'
   ];
+
+  const modules = [
+    path.join(settings.project(), 'node_modules'),
+    path.join(__dirname, 'node_modules')
+  ];
+
+  if(settings.project().includes('availity-workflow/my-proj')){
+    modules.push(path.join(settings.project(), '../node_modules'))
+  }
 
   const config = {
     mode: 'development',
@@ -58,7 +67,7 @@ const plugin = settings => {
     // This set of options is identical to the resolve property set above,
     // but is used only to resolve webpack's loader packages.
     resolveLoader: {
-      modules: [path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
+      modules,
       symlinks: true
     },
 
@@ -137,7 +146,7 @@ const plugin = settings => {
         {
           debug: 'warning'
         }
-      ),
+      )
     ]
   };
 
