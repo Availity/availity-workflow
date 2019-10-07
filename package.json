@@ -3,7 +3,6 @@
   "name": "availity-workflow",
   "workspaces": [
     "packages/*",
-    "my-proj",
     "docs"
   ],
   "devDependencies": {
@@ -24,6 +23,8 @@
   },
   "scripts": {
     "start": "yarn workspace @availity/docs develop",
+    "start:app": "yarn workspace sample-project start",
+    "build:app": "yarn workspace sample-project build",
     "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d docs/public --message 'deployed docs [skip ci]'",
     "lint": "eslint .",
     "link": "lerna link",

@@ -106,18 +106,18 @@ function updatePackageJson({ appName, appPath }) {
   fs.writeFileSync(path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2) + os.EOL);
 }
 
-function installDeps() {
+function installDeps(useYarn) {
   Logger.info('Installing dependencies using npm...');
   Logger.empty();
 
-  // Install Depedencies
-  const proc = spawn.sync('npm', ['up', '--loglevel', 'error'], { stdio: 'inherit' });
+  // Install Depedenciesl
+  const proc = spawn.sync(useYarn ? 'yarn':'npm', ['install', '--loglevel', 'error'], { stdio: 'inherit' });
   if (proc.status !== 0) {
     Logger.failed('`npm install` failed');
   }
 }
 
-async function run({ appPath, appName, originalDirectory, template }) {
+async function run({ appPath, appName, originalDirectory, template, useYarn }) {
   try {
     await cloneStarter({
       template,
@@ -133,7 +133,7 @@ async function run({ appPath, appName, originalDirectory, template }) {
     });
 
     // Install Depedencies
-    installDeps();
+    installDeps(useYarn);
 
     // Display the most elegant way to cd.
     // This needs to handle an undefined originalDirectory for
@@ -198,7 +198,7 @@ async function run({ appPath, appName, originalDirectory, template }) {
   }
 }
 
-function createApp({ projectName: name, currentDir, template }) {
+function createApp({ projectName: name, currentDir, template, useYarn }) {
   const appPath = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(appPath);
 
@@ -217,7 +217,7 @@ function createApp({ projectName: name, currentDir, template }) {
     process.exit(1);
   }
 
-  run({ appPath, appName, originalDirectory, template });
+  run({ appPath, appName, originalDirectory, template, useYarn });
 }
 /* eslint-disable no-unused-expressions */
 yargs
@@ -239,6 +239,11 @@ yargs
           alias: 't',
           describe: 'The availity template to initalize the project with. ( Git Repo )',
           default: 'https://github.com/Availity/availity-starter-react'
+        })
+        .option('useYarn', {
+          alias: 'y',
+          describe: 'Whether or not to use yarn for install.',
+          default: false
         })
         .usage(`\nUsage: ${chalk.yellow('av init')} ${chalk.green('<projectName>')} ${chalk.magenta('[options]')}`)
         .example(chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')}`))

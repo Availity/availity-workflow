@@ -7,32 +7,39 @@
       {
         "type": "node",
         "request": "launch",
-        "name": "Create App",
+        "name": "react-app:create",
         "program": "${workspaceFolder}/packages/workflow/index.js",
         "args": [
           "init",
           "my-proj",
           "--template",
-          "https://github.com/Availity/availity-starter-complex.git"
+          "https://github.com/Availity/availity-starter-complex.git",
+          "-y"
         ]
       },
         {
             "type": "node",
-            "name": "React",
+            "name": "react-app:start",
             "request": "launch",
-            "cwd": "${workspaceFolder}/packages/my-proj",
+            "cwd": "${workspaceFolder}/packages/sample-project",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
-            "program": "${workspaceFolder}/packages/my-proj/node_modules/.bin/av",
+            "program": "${workspaceFolder}/node_modules/.bin/av",
             "args": [
               "start"
             ]
         },
         {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/packages/example-react"
-        }
+          "type": "node",
+          "name": "react-app:build",
+          "request": "launch",
+          "cwd": "${workspaceFolder}/packages/sample-project",
+          "console": "integratedTerminal",
+          "internalConsoleOptions": "neverOpen",
+          "program": "${workspaceFolder}/node_modules/.bin/av",
+          "args": [
+            "build"
+          ]
+      }
     ]
 }

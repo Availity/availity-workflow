@@ -20,7 +20,7 @@ const plugin = settings => {
   }
 
   const index = [
-    require.resolve("react-app-polyfill/ie11"),
+    require.resolve('react-app-polyfill/ie11'),
     `${require.resolve('webpack-dev-server/client')}?/`,
     require.resolve('webpack/hot/dev-server'),
     './index.js'
@@ -58,7 +58,10 @@ const plugin = settings => {
     // This set of options is identical to the resolve property set above,
     // but is used only to resolve webpack's loader packages.
     resolveLoader: {
-      modules: [path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
+      modules: [
+        path.join(settings.project(), 'node_modules'),
+        path.join(__dirname, 'node_modules')
+      ],
       symlinks: true
     },
 
@@ -137,7 +140,7 @@ const plugin = settings => {
         {
           debug: 'warning'
         }
-      ),
+      )
     ]
   };
 

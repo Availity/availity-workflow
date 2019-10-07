@@ -17,7 +17,7 @@ const plugin = settings => {
 
   function getVersion() {
     return settings.pkg().version || 'N/A';
-  }
+  };
 
   const config = {
     mode: 'production',
@@ -82,7 +82,10 @@ const plugin = settings => {
     // This set of options is identical to the resolve property set above,
     // but is used only to resolve webpack's loader packages.
     resolveLoader: {
-      modules: [path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
+      modules: [
+        path.join(settings.project(), 'node_modules'),
+        path.join(__dirname, 'node_modules')
+      ],
       symlinks: true
     },
 
