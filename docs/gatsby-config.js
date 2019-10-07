@@ -2,9 +2,9 @@ const themeOptions = require('@availity/gatsby-theme-docs/theme-options');
 
 module.exports = {
   pathPrefix: '/availity-workflow',
-  __experimentalThemes: [
+  plugins: [
     {
-      resolve: '@availity/gatsby-theme-docs',
+      resolve: require.resolve('@availity/gatsby-theme-docs'),
       options: {
         ...themeOptions,
         root: __dirname,

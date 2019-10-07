@@ -40,6 +40,18 @@
           "args": [
             "build"
           ]
-      }
+      },
+      {
+        "type": "node",
+        "name": "docs:start",
+        "request": "launch",
+        "cwd": "${workspaceFolder}/docs",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "program": "${workspaceFolder}/node_modules/.bin/gatsby",
+        "args": [
+          "develop"
+        ]
+    }
     ]
 }
