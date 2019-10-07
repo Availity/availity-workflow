@@ -38,7 +38,7 @@
 		"eslint": "^5.5.0",
 		"execa": "^2.0.3",
 		"figures": "^3.0.0",
-		"fs-extra": "^7.0.0",
+		"fs-extra": "^8.1.0",
 		"globby": "^8.0.1",
 		"hosted-git-info": "^3.0.0",
 		"inquirer": "^6.2.0",
