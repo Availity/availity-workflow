@@ -1,6 +1,7 @@
 # availity-workflow
 
-> Toolkit for Availity web projects. Heavily inspired by create-react-app.
+> :warning: This version is for making bugfixese only! For v6 angular support.  :warning:
+
 
 [![](https://img.shields.io/github/license/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 [![](https://img.shields.io/npm/v/@availity/workflow.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/availity-workflow)
