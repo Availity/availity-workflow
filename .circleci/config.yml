@@ -28,6 +28,10 @@ jobs:
           name: Run Test
           command: |
             yarn test
+      - run:
+          name: Run App Build
+          command: |
+            yarn run build:app
   deploy:
     docker:
       - image: circleci/node:10
