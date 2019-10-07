@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@availity/docs",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
@@ -10,13 +10,13 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@availity/gatsby-theme-docs": "^3.0.0",
-    "formik": "^2.0.1-rc.12",
-    "@availity/spaces": "^3.1.0",
     "@availity/api-axios": "^5.4.0",
     "@availity/api-core": "^5.4.0",
+    "@availity/gatsby-theme-docs": "^3.0.0",
     "@availity/localstorage-core": "^2.6.1",
+    "@availity/spaces": "^3.1.0",
     "axios": "^0.19.0",
+    "formik": "^2.0.1-rc.12",
     "gatsby": "^2.13.83",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
