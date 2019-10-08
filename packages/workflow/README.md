@@ -92,8 +92,6 @@ Skipped tasks will print a message in the console
 ### `profile`
 Analyze Webpack bundles and find what is contributing their sizes.  This command generates an html graphical chart that automatically opens in the browser as well as a text summary report in the console.
 
-![profile](./docs/profile.png)
-
 ```
 › Webpack profile:
 

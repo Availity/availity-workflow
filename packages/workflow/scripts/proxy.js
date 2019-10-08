@@ -6,7 +6,7 @@ const typeIs = require('type-is');
 const urlJoin = require('url-join');
 const Logger = require('@availity/workflow-logger');
 const escapeStringRegexp = require('escape-string-regexp');
-const settings = require('@availity/workflow-settings');
+const settings = require('../settings');
 
 // Clean up HPM messages so they appear more @availity/workflow like ;)
 function proxyLogRewrite(daArgs) {

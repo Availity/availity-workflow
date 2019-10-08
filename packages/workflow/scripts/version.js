@@ -7,8 +7,8 @@ const inquirer = require('inquirer');
 const { merge } = require('lodash');
 const moment = require('moment');
 const yargs = require('yargs');
-const settings = require('@availity/workflow-settings');
 const Logger = require('@availity/workflow-logger');
+const settings = require('../settings');
 
 // Add a new line character to end of contents
 function newLine(contents) {

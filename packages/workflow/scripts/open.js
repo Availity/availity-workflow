@@ -1,8 +1,8 @@
 const opn = require('open');
 const chalk = require('chalk');
 const urlJoin = require('url-join');
-const settings = require('@availity/workflow-settings');
 const Logger = require('@availity/workflow-logger');
+const settings = require('../settings');
 
 function open() {
   if (settings.open()) {
