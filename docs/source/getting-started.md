@@ -102,14 +102,6 @@ Skipped tasks will print a message in the console
 ### `profile`
 Analyze Webpack bundles and find what is contributing their sizes.  This command generates an html graphical chart that automatically opens in the browser as well as a text summary report in the console.
 
-
-<div align="center">
-  <img src="../images/profile.png" alt="profile" className="w-50" />
-</div>
-
-
-
-
 ### `test`
 Run the tests for your project.  The behavior of the test are determined by the plugin used in the workflow engine.  The engine supports `@availity/workflow-plugin-react` (Jest) and `@availity/workflow-plugin-angular` (Karma and Chrome|Firefox|IE) plugins.
 

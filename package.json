@@ -3,7 +3,8 @@
   "name": "availity-workflow",
   "workspaces": [
     "packages/*",
-    "docs"
+    "docs",
+    "example"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
@@ -23,8 +24,9 @@
   },
   "scripts": {
     "start": "yarn workspace @availity/docs develop",
-    "start:app": "yarn workspace sample-project start",
-    "build:app": "yarn workspace sample-project build",
+    "start:app": "yarn workspace @availity/example start",
+    "build:app": "yarn workspace @availity/example build",
+    "test:app": "yarn workspace @availity/example test",
     "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d docs/public --message 'deployed docs [skip ci]'",
     "lint": "eslint .",
     "link": "lerna link",
@@ -68,9 +70,6 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
-      "<rootDir>/packages/workflow-plugin-angular/template/",
-      "<rootDir>/packages/workflow-plugin-react/template/",
-      "<rootDir>/packages/example-angular/",
       "<rootDir>/docs/"
     ],
     "testRegex": ".*.spec.js$"

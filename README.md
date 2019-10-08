@@ -7,8 +7,6 @@
 [![](https://img.shields.io/david/dev/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 [![CircleCI](https://img.shields.io/circleci/build/github/Availity/availity-workflow/master?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 
-![CLI](/images/cli.png)
-
 ## Table of Contents
 
 *   [Getting Started](#getting-started)
@@ -32,14 +30,13 @@ npx @availity/workflow init <your-project-name>
 <small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
 
 ### Angular
-
+> ⚠️ Note we have dropped angular support, this is issuing a legacy version of workflow  ⚠️
 ```bash
 npx @availity/workflow init <your-project-name> --template https://github.com/Availity/availity-starter-angular
 ```
 
 #### Availity Templates
 * [React Starter](https://github.com/Availity/availity-starter-react)
-* [Angular Starter](https://github.com/Availity/availity-starter-angular)
 * [Complex Starter (React)](https://github.com/Availity/availity-starter-complex)
 * [Wizard Starter (React)](https://github.com/Availity/availity-starter-wizard)
 
@@ -131,8 +128,6 @@ Opens the url in the default browser
 #### `development.notification`
 
 Webpack build status system notifications
-
-![Notification](/images/notification.png)
 
 #### `development.host`
 
@@ -403,10 +398,8 @@ The configuration above does the following:
 
 ## Contribute
 
-*   Run `npm install`
-*   Run `npm run bootstrap` at project root
-*   Use `npm run angular` to start the Angular sample application
-*   Use `npm run react` to use the React sample application
+*   Run `yarn` to install all dependencies
+*   Use `yarn start` to use the React sample application
 
 ## Disclaimer
 

@@ -29,6 +29,10 @@ jobs:
           command: |
             yarn test
       - run:
+          name: Run App Test
+          command: |
+            yarn run test:app
+      - run:
           name: Run App Build
           command: |
             yarn run build:app
