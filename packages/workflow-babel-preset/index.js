@@ -1,117 +1,126 @@
 // Inspiration: https://github.com/facebookincubator/create-react-app/blob/master/packages/babel-preset-react-app/index.js
 const path = require('path');
-const settings = require('@availity/workflow-settings');
 
-const workflowPlugins = [
-  // @observer @observable
-  [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
+module.exports = (_, settings) => {
+  const isProduction = typeof settings.isProduction === 'function' ? settings.isProduction() : settings.isProduction;
+  const isDevelopment = typeof settings.isDevelopment === 'function' ? settings.isDevelopment() : settings.isDevelopment;
+  const isTesting = typeof settings.isTesting === 'function' ? settings.isTesting() : settings.isTesting;
+  const isDistribution = typeof settings.isDistribution === 'function' ? settings.isDistribution() : settings.isDistribution;
+  const targets = typeof settings.targets === 'function' ? settings.targets() : settings.targets;
 
-  // class { handleClick = () => { } }
-  [
-    require.resolve('@babel/plugin-proposal-class-properties'),
-    {
-      loose: true
-    }
-  ],
 
-  // Object.assign(a, b)
-  require.resolve('@babel/plugin-transform-object-assign'),
+  const workflowPlugins = [
+    // @observer @observable
+    [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
 
-  [
-    require.resolve('@babel/plugin-proposal-object-rest-spread'),
-    {
-      useBuiltIns: true
-    }
-  ],
+    // class { handleClick = () => { } }
+    [
+      require.resolve('@babel/plugin-proposal-class-properties'),
+      {
+        loose: true
+      }
+    ],
 
-  require.resolve('@babel/plugin-transform-destructuring'),
+    // Object.assign(a, b)
+    require.resolve('@babel/plugin-transform-object-assign'),
 
-  // Polyfills the runtime needed for async/await and generators
-  [
-    require.resolve('@babel/plugin-transform-runtime'),
-    {
-      corejs: false,
-      helpers: false,
-      regenerator: true,
-      // Resolve the Babel runtime relative to the config
-      absoluteRuntime: path.dirname(require.resolve('@babel/runtime/package.json'))
-    }
-  ],
+    [
+      require.resolve('@babel/plugin-proposal-object-rest-spread'),
+      {
+        useBuiltIns: true
+      }
+    ],
 
-  // Adds syntax support for import()
-  require.resolve('@babel/plugin-syntax-dynamic-import')
-];
+    require.resolve('@babel/plugin-transform-destructuring'),
 
-if (settings.isProduction()) {
-  workflowPlugins.concat([
-    // Remove "data-test-id", "data-testid" attributes from production builds.
-    require.resolve('babel-plugin-jsx-remove-data-test-id'),
-    {
-      attributes: ['data-test-id', 'data-testid']
-    }
-  ]);
-}
+    // Polyfills the runtime needed for async/await and generators
+    [
+      require.resolve('@babel/plugin-transform-runtime'),
+      {
+        corejs: false,
+        helpers: false,
+        regenerator: true,
+        // Resolve the Babel runtime relative to the config
+        absoluteRuntime: path.dirname(require.resolve('@babel/runtime/package.json'))
+      }
+    ],
 
-let config;
+    // Adds syntax support for import()
+    require.resolve('@babel/plugin-syntax-dynamic-import')
+  ];
 
-if (settings.isTesting()) {
-  // this will not work for Angular/Karma
-  config = {
-    presets: [
-      // ES features necessary for user's Node version
-      [
-        require.resolve('@babel/preset-env'),
-        {
-          targets: {
-            node: 'current'
+  if (isProduction) {
+    workflowPlugins.concat([
+      // Remove "data-test-id", "data-testid" attributes from production builds.
+      require.resolve('babel-plugin-jsx-remove-data-test-id'),
+      {
+        attributes: ['data-test-id', 'data-testid']
+      }
+    ]);
+  }
+
+  let config;
+
+  if (isTesting) {
+    // this will not work for Angular/Karma
+    config = {
+      presets: [
+        // ES features necessary for user's Node version
+        [
+          require.resolve('@babel/preset-env'),
+          {
+            targets: {
+              node: 'current'
+            }
           }
-        }
+        ],
+        // JSX, Flow
+        // Transforms JSX
+        [
+          require.resolve('@babel/preset-react'),
+          {
+            development: isDevelopment || isTesting,
+            useBuiltIns: true
+          }
+        ]
       ],
-      // JSX, Flow
-      // Transforms JSX
-      [
-        require.resolve('@babel/preset-react'),
-        {
-          development: settings.isDevelopment() || settings.isTesting(),
-          useBuiltIns: true
-        }
-      ]
-    ],
-    plugins: workflowPlugins.concat([
-      // Compiles import() to a deferred require()
-      require.resolve('babel-plugin-dynamic-import-node')
-    ])
-  };
-} else {
-  config = {
-    presets: [
-      // Latest stable ECMAScript features
-      [
-        require.resolve('@babel/preset-env'),
-        {
-          targets: settings.targets(),
-          forceAllTransforms: settings.isDistribution(),
-          ignoreBrowserslistConfig: true,
-          modules: false,
-          useBuiltIns: false,
-          exclude: ['transform-typeof-symbol']
-        }
+      plugins: workflowPlugins.concat([
+        // Compiles import() to a deferred require()
+        require.resolve('babel-plugin-dynamic-import-node')
+      ])
+    };
+  } else {
+    config = {
+      presets: [
+        // Latest stable ECMAScript features
+        [
+          require.resolve('@babel/preset-env'),
+          {
+            targets,
+            forceAllTransforms: isDistribution,
+            ignoreBrowserslistConfig: true,
+            modules: false,
+            useBuiltIns: false,
+            exclude: ['transform-typeof-symbol']
+          }
+        ],
+        [
+          require.resolve('@babel/preset-react'),
+          {
+            development: isDevelopment || isTesting,
+            useBuiltIns: true
+          }
+        ]
       ],
-      [
-        require.resolve('@babel/preset-react'),
-        {
-          development: settings.isDevelopment() || settings.isTesting(),
-          useBuiltIns: true
-        }
-      ]
-    ],
-    plugins: workflowPlugins.concat(
-      // Tells the es2015 preset to avoid compiling import statements into CommonJS. That lets Webpack do tree shaking on your code. // Disable polyfill transforms // JSX, Flow
-      [
-        // Angular bombs
-        require.resolve('@babel/plugin-transform-shorthand-properties')
-      ]
-    )
-  };
-}
-module.exports = () => config;
+      plugins: workflowPlugins.concat(
+        // Tells the es2015 preset to avoid compiling import statements into CommonJS. That lets Webpack do tree shaking on your code. // Disable polyfill transforms // JSX, Flow
+        [
+          // Angular bombs
+          require.resolve('@babel/plugin-transform-shorthand-properties')
+        ]
+      )
+    };
+  }
+
+  return config;
+};
