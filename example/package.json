@@ -1,5 +1,5 @@
 {
-  "name": "sample-project",
+  "name": "@availity/example",
   "private": true,
   "version": "1.0.1",
   "description": "React project using @availity/workflow",
@@ -56,14 +56,10 @@
   },
   "devDependencies": {
     "@availity/workflow": "^6.0.4",
-    "@availity/workflow-plugin-react": "^6.0.6",
     "@testing-library/react": "^8.0.1",
     "cross-env": "^5.1.4",
     "eslint-config-availity": "^4.0.7",
     "jest-dom": "^3.0.0"
-  },
-  "availityWorkflow": {
-    "plugin": "@availity/workflow-plugin-react"
   },
   "lint-staged": {
     "*.js": [
