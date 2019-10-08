@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-process-exit */
 /* eslint-disable global-require */
 
-const webpackConfig = require('../test');
+const webpackConfig = require('../jest.config.js');
 
 module.exports = {
   description: 'Run your tests',
