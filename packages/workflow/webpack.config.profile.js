@@ -5,12 +5,15 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const loaders = require('./loaders');
+const resolveModule = require('./helpers/resolve-module');
+const babelPreset = require('./babel-preset');
 
 process.noDeprecation = true;
 
 const plugin = settings => {
   const babelrcPath = path.join(settings.project(), '.babelrc');
   const babelrcExists = existsSync(babelrcPath);
+  const resolveApp = relativePath => path.resolve(settings.app(), relativePath);
 
   function getVersion() {
     return settings.pkg().version || 'N/A';
@@ -45,7 +48,7 @@ const plugin = settings => {
     },
 
     entry: {
-      index: [require.resolve('react-app-polyfill/ie11'), './index.js']
+      index: [require.resolve('react-app-polyfill/ie11'), resolveModule(resolveApp,'index')]
     },
 
     output: {
@@ -64,7 +67,7 @@ const plugin = settings => {
         path.join(__dirname, 'node_modules')
       ],
       symlinks: true,
-      extensions: ['.js', '.jsx', '.json', '.css', 'scss']
+      extensions: ['.js', '.jsx','.ts', '.tsx', '.json', '.css', 'scss']
     },
 
     // This set of options is identical to the resolve property set above,
@@ -77,13 +80,13 @@ const plugin = settings => {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.(js|mjs|jsx|ts|tsx)$/,
           include: settings.include(),
           use: [
             {
               loader: 'babel-loader',
               options: {
-                presets: [[require.resolve('@availity/workflow-babel-preset'),settings]],
+                presets: [babelPreset],
                 cacheDirectory: settings.isDevelopment(),
                 babelrc: babelrcExists
               }
@@ -102,7 +105,7 @@ const plugin = settings => {
 
       new webpack.BannerPlugin({
         banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
-        test: /\.jsx?/,
+        test: /\.(js|mjs|jsx|ts|tsx)$/,
         raw: true,
         entryOnly: true
       }),

@@ -1,3 +1,5 @@
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
@@ -7,6 +9,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const loaders = require('./loaders');
+const babelPreset = require('./babel-preset');
+const resolveModule = require('./helpers/resolve-module');
 const html = require('./html');
 
 process.noDeprecation = true;
@@ -14,6 +18,7 @@ process.noDeprecation = true;
 const plugin = settings => {
   const babelrcPath = path.join(settings.project(), '.babelrc');
   const babelrcExists = fs.existsSync(babelrcPath);
+  const resolveApp = relativePath => path.resolve(settings.app(), relativePath);
 
   function getVersion() {
     return settings.pkg().version || 'N/A';
@@ -25,7 +30,7 @@ const plugin = settings => {
     context: settings.app(),
 
     entry: {
-      index: [require.resolve('react-app-polyfill/ie11'), './index.js']
+      index: [require.resolve('react-app-polyfill/ie11'), resolveModule(resolveApp, 'index')]
     },
 
     optimization: {
@@ -76,7 +81,7 @@ const plugin = settings => {
         path.join(__dirname, 'node_modules')
       ],
       symlinks: true,
-      extensions: ['.js', '.jsx', '.json', '.css', 'scss']
+      extensions: ['.js', '.jsx','.ts','.tsx', '.json', '.css', 'scss'],
     },
 
     // This set of options is identical to the resolve property set above,
@@ -89,13 +94,13 @@ const plugin = settings => {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.(js|mjs|jsx|ts|tsx)$/,
           include: settings.include(),
           use: [
             {
               loader: 'babel-loader',
               options: {
-                presets: [[require.resolve('@availity/workflow-babel-preset'),settings]],
+                presets: [babelPreset],
                 cacheDirectory: settings.isDevelopment(),
                 babelrc: babelrcExists
               }

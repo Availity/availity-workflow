@@ -267,14 +267,19 @@ const settings = {
   },
 
   environment() {
-    return process.env.NODE_ENV || 'development';
+    if(process.env.NODE_ENV) {
+      return process.env.NODE_ENV;
+    }
+
+    process.env.NODE_ENV = "development";
+    return process.env.NODE_ENV;
   },
 
   // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
   js() {
     let includeGlobs = argv().include;
 
-    const defaultInclude = [`${this.app()}/**/*.js`, `${this.app()}/**/*.jsx`];
+    const defaultInclude = [`${this.app()}/**/*.js`, `${this.app()}/**/*.jsx`,`${this.app()}/**/*.ts`,`${this.app()}/**/*.tsx`];
 
     if (!includeGlobs || !Array.isArray(includeGlobs) || includeGlobs.length === 0) {
       includeGlobs = defaultInclude;

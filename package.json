@@ -14,7 +14,7 @@
     "conventional-github-releaser": "^3.1.3",
     "conventional-recommended-bump": "^5.0.0",
     "copyfiles": "^2.1.1",
-    "eslint-config-availity": "^4.0.9",
+    "eslint-config-availity": "^5.1.0",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.1",
     "jest": "^24.7.1",
@@ -34,7 +34,7 @@
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean --yes",
     "postinstall": "lerna bootstrap --use-workspaces",
-    "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
+    "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
     "release": "lerna publish",
     "release:ci": "lerna publish --yes",
     "pub": "find ./packages -type d -maxdepth 1 -mindepth 1 -exec sh -c 'cd {} && npm publish' ';'",
@@ -66,7 +66,7 @@
   },
   "jest": {
     "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\](?!@availity).+\\.(js|jsx)$"
+      "[/\\\\]node_modules[/\\\\](?!@availity).+\\.(js|jsx|ts|tsx)$"
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",

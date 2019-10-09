@@ -1,10 +1,10 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/config/jest/babelTransform.js
 const babelJest = require('babel-jest');
+const babelPreset = require('../babel-preset');
 
-const createTransformer = settings => {
-  console.log('settings');
+const createTransformer = () => {
   return babelJest.createTransformer({
-    presets: [[require.resolve('@availity/workflow-babel-preset'), settings]],
+    presets: [babelPreset],
     babelrc: false
   });
 };

@@ -7,11 +7,15 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const loaders = require('./loaders');
+const babelPreset = require('./babel-preset');
+const resolveModule = require('./helpers/resolve-module');
 const html = require('./html');
 
 process.noDeprecation = true;
 
 const plugin = settings => {
+  const resolveApp = relativePath => path.resolve(settings.app(), relativePath);
+
   const babelrcPath = path.join(settings.project(), '.babelrc');
   const babelrcExists = existsSync(babelrcPath);
 
@@ -23,7 +27,7 @@ const plugin = settings => {
     require.resolve('react-app-polyfill/ie11'),
     `${require.resolve('webpack-dev-server/client')}?/`,
     require.resolve('webpack/hot/dev-server'),
-    './index.js'
+    resolveModule(resolveApp,'index')
   ];
 
   const config = {
@@ -52,7 +56,7 @@ const plugin = settings => {
         path.join(__dirname, 'node_modules')
       ],
       symlinks: true,
-      extensions: ['.js', '.jsx', '.json', '.css', 'scss']
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss']
     },
 
     // This set of options is identical to the resolve property set above,
@@ -65,13 +69,13 @@ const plugin = settings => {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.(js|mjs|jsx|ts|tsx)$/,
           include: settings.include(),
           use: [
             {
               loader: 'babel-loader',
               options: {
-                presets: [[require.resolve('@availity/workflow-babel-preset'),settings]],
+                presets: [babelPreset],
                 cacheDirectory: settings.isDevelopment(),
                 babelrc: babelrcExists,
                 plugins: [babelrcExists ? null : require.resolve('react-hot-loader/babel')]
@@ -92,7 +96,7 @@ const plugin = settings => {
 
       new webpack.BannerPlugin({
         banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
-        test: /\.jsx?/,
+        test: /\.(js|mjs|jsx|ts|tsx)$/,
         raw: true,
         entryOnly: true
       }),
