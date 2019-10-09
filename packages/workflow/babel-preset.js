@@ -1,5 +1,4 @@
 // Inspiration: https://github.com/facebookincubator/create-react-app/blob/master/packages/babel-preset-react-app/index.js
-const path = require('path');
 
 module.exports = (_api, opts) => {
   // This is similar to how `env` works in Babel:

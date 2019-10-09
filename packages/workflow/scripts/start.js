@@ -153,14 +153,12 @@ function web() {
         return resolve();
       }
 
-      function warning() {
-        Logger.empty();
-        Logger.alert('Compiled with warnings');
-        Logger.empty();
-      }
-
       if (hasWarnings && !hasErrors) {
-        message(stats, warning);
+        message(stats, () => {
+          Logger.empty();
+          Logger.alert('Compiled with warnings');
+          Logger.empty();
+        });
         openBrowser();
         return resolve();
       }

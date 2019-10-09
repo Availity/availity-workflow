@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-string-slice */
 const friendlySyntaxErrorLabel = 'Syntax error:';
 
 function isLikelyASyntaxError(message) {
