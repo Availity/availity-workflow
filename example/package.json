@@ -65,6 +65,7 @@
     "@types/yup": "^0.26.24",
     "cross-env": "^5.1.4",
     "eslint-config-availity": "^5.1.2",
+    "eslint-import-resolver-root-import": "^1.0.4",
     "jest-dom": "^3.0.0",
     "typescript": "^3.6.3"
   },

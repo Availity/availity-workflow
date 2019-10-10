@@ -6,15 +6,11 @@ module.exports = {
   options: {
     emitWarning: true,
     baseConfig: {
-      extends: 'eslint-config-availity'
+      extends: 'eslint-config-availity/browser'
     },
-    settings: {
-      'import/resolver': {
-        'babel-plugin-root-import': {
-          rootPathPrefix: '@/',
-          rootPathSuffix: 'project/app'
-        }
-      }
+    rules: {
+      // FIXME we really need to find the right eslint config for this
+      'import/no-unresolved': [2, { ignore: ['@/'] }]
     }
   }
 };
