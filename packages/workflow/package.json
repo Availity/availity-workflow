@@ -53,7 +53,7 @@
     "execa": "^2.0.3",
     "figures": "^3.0.0",
     "file-loader": "^4.1.0",
-    "fs-extra": "^7.0.0",
+    "fs-extra": "^8.1.0",
     "get-port": "^5.0.0",
     "globby": "^8.0.1",
     "hosted-git-info": "^3.0.0",
