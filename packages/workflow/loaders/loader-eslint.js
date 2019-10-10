@@ -6,7 +6,7 @@ module.exports = {
   options: {
     emitWarning: true,
     baseConfig: {
-      extends: 'eslint-config-availity/browser'
+      extends: 'eslint-config-availity/workflow'
     },
     rules: {
       // FIXME we really need to find the right eslint config for this

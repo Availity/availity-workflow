@@ -13,8 +13,8 @@ module.exports = {
         gitRepo: 'availity/availity-workflow',
         contentDir: 'docs/source',
         sidebarCategories: {
-          null: ['index', 'getting-started','upgrade'],
-          Plugins: ['plugins/react', 'plugins/angular'],
+          null: ['index', 'getting-started', 'upgrade'],
+          Essentials: ['essentials/testing-libraries', 'essentials/root-imports', 'essentials/typescript'],
           Mocking: ['mock/server', 'mock/data']
         }
       }
