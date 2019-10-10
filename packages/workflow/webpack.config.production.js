@@ -147,7 +147,7 @@ const plugin = settings => {
           }
         ],
         {
-          debug: 'warning'
+          logLevel: 'warn'
         }
       )
     ]
