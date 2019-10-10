@@ -18,97 +18,116 @@ npx @availity/workflow init <your-project-name> --template https://github.com/Av
 ```
 
 #### Availity Templates
-* [React Starter](https://github.com/Availity/availity-starter-react)
-* [Angular Starter](https://github.com/Availity/availity-starter-angular)
-* [Complex Starter (React)](https://github.com/Availity/availity-starter-complex)
-* [Wizard Starter (React)](https://github.com/Availity/availity-starter-wizard)
 
+-   [React Starter](https://github.com/Availity/availity-starter-react)
+-   [Angular Starter](https://github.com/Availity/availity-starter-angular)
+-   [Complex Starter (React)](https://github.com/Availity/availity-starter-complex)
+-   [Wizard Starter (React)](https://github.com/Availity/availity-starter-wizard)
 
 <small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
-
 
 ## Commands
 
 ### `help`
+
 Show help menu for all CLI options.
 
 ### `init <projectName>`
 
 #### Positionals
-`projectName`  Required. The name of the project you want to create.
+
+`projectName` Required. The name of the project you want to create.
 
 #### Options
-- `--version`, `-v`:  Specify which version of the plugin project you want. [default: "latest"]
-- `--current-dir`, `-c`: If you want the project to be created in the current directory
-- `--template`, `-t`: The template you want to initialize the projec with
+
+-   `--version`, `-v`: Specify which version of the project you want. [default: "latest"]
+-   `--current-dir`, `-c`: If you want the project to be created in the current directory
+-   `--template`, `-t`: The template you want to initialize the projec with
+
 #### Examples
-- `npx @availity/workflow init my-package-name`
-- `npx @availity/workflow init my-package-name --template https://github.com/Availity/availity-starter-angular`
-- `npx @availity/workflow init my-package-name --version 4.0.0-alpha.4`
+
+-   `npx @availity/workflow init my-package-name`
+-   `npx @availity/workflow init my-package-name --template https://github.com/Availity/availity-starter-angular`
+-   `npx @availity/workflow init my-package-name --version 4.0.0-alpha.4`
 
 ### `start`
-Start the development server and watches for file changes.  Hot-reloading is enabled for React projects.  Angular projects hot reload CSS only.
+
+Start the development server and watches for file changes. Hot-reloading is enabled for React projects. Angular projects hot reload CSS only.
 
 #### options
 
 ##### `--dry-run`
+
 Start the development server using production settings. **Example:**
 
 `npm start -- --dry-run`
 
 ### `lint`
+
 Lint project files using EsLint.
 
 #### options
 
 ##### `--include`
+
 Include additional glob patterns for linting.
 
 ##### `--ignore-git-untracked`
+
 Ignore files that are not indexed by git.
 
 ##### `--disable-linter`
+
 Disable linter when creating bundles for production or staging.
 
 ### `build`
-- Cleans up `/dist` folder
-- Bundles project assets into the `/dist` folder
+
+-   Cleans up `/dist` folder
+-   Bundles project assets into the `/dist` folder
 
 ### `release`
-- Prompts the user for a version
-- Cleans up `/dist` folder
-- Bundles project assets into the `/dist` folder
-- Tags the version in Git
+
+-   Prompts the user for a version
+-   Cleans up `/dist` folder
+-   Bundles project assets into the `/dist` folder
+-   Tags the version in Git
 
 #### NODE_ENV
 
 ##### `production`
+
 Minifies the javascript assets.
 
 ##### `staging`
+
 No minification is done on javascript assets
 
 #### options
 
 ##### `--dry-run`
-- Disables committing files to git
-- Disables creating a git tag
+
+-   Disables committing files to git
+-   Disables creating a git tag
 
 Skipped tasks will print a message in the console
+
 ```bash
 ℹ [ Dry Run ] Skipping version bump
 ```
 
 ### `profile`
-Analyze Webpack bundles and find what is contributing their sizes.  This command generates an html graphical chart that automatically opens in the browser as well as a text summary report in the console.
+
+Analyze Webpack bundles and find what is contributing their sizes. This command generates an html graphical chart that automatically opens in the browser as well as a text summary report in the console.
 
 ### `test`
-Run the tests for your project.  The behavior of the test are determined by the plugin used in the workflow engine.  The engine supports `@availity/workflow-plugin-react` (Jest) and `@availity/workflow-plugin-angular` (Karma and Chrome|Firefox|IE) plugins.
+
+Run the tests for your project. (Jest)
 
 #### options
 
 ##### `--coverage`
-Indicates that test coverage information should be collected and reported in the output. React project leverage the `--coverage` option from Jest. Angular projects use Instanbul to collect coverage metrics. Angular projects output coverage statistics to the console as well as html files in the  `{workspaces}/coverage` folder.
+
+Indicates that test coverage information should be collected and reported in the output. React project leverage the `--coverage` option from Jest. Angular projects use Instanbul to collect coverage metrics. Angular projects output coverage statistics to the console as well as html files in the `{workspaces}/coverage` folder.
 
 ```bash
 › Started testing
@@ -123,7 +142,8 @@ Lines        : 27.23% ( 7955/29217 )
 ✔ Finished testing
 ```
 
+## Starter Applications
 
-
-
-
+-   [availity-starter-react](https://github.com/Availity/availity-starter-react)
+-   [availity-starter-complex](https://github.com/Availity/availity-starter-complex)
+-   [availity-starter-wizard](https://github.com/Availity/availity-starter-wizard)

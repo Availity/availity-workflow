@@ -3,13 +3,6 @@ title: Introduction
 summary: Toolkit for Availity web projects. Heavily inspired by create-react-app.
 ---
 
-
-[![](https://img.shields.io/github/license/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
-[![](https://img.shields.io/npm/v/@availity/workflow.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/availity-workflow)
-[![](https://img.shields.io/david/dev/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
-[![CircleCI](https://img.shields.io/circleci/build/github/Availity/availity-workflow/master?style=for-the-badge)](https://github.com/Availity/availity-workflow)
-
-
 ## Features
 
 *   Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
@@ -67,7 +60,6 @@ module.exports = {
         "app": {
             "title": "My Awesome App"
         }
-        "plugin": "@availity/workflow-plugin-react"
     }
 }
 ```
@@ -118,11 +110,11 @@ Enable hot module replacement for loaders like style-loader and react-hot-loader
 
 #### `development.hotLoader`
 
-Enable or disable react-hot-loader. Default is `true` for `@availity/workflow-plugin-react` plugin.
+Enable or disable react-hot-loader. Default is `true`.
 
 #### `development.hotLoaderEntry`
 
-Regular expression to configure which file is entry point for hot loading via react-hot-loader-loader. Default is `/\/App\.jsx?/` which will find `/App.js` or `/App.js` at the root of your app directory for `@availity/workflow-plugin-react` plugin.
+Regular expression to configure which file is entry point for hot loading via react-hot-loader-loader. Default is `/\/App\.jsx?/` which will find `/App.js` or `/App.js` at the root of your app directory.
 <br /><small>Note: this should **not** be the application entry point (index.js), but the file which the component which is imported into index.js and rendered.</small>
 
 #### `development.webpackDevServer`
