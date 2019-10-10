@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import 'availity-uikit';
+import './index.scss';
 import '@availity/yup';
 import App from './App';
 
