@@ -6,7 +6,7 @@ const { exec } = require('child_process');
 const Logger = require('@availity/workflow-logger');
 
 module.exports = cwd => {
-  Logger.info('Upgrading @availity/workflow to v5.0.0');
+  Logger.info('Upgrading @availity/workflow to v7.0.0');
   const pkgFile = path.join(cwd, 'package.json');
 
   if (fs.existsSync(pkgFile)) {
@@ -31,13 +31,14 @@ module.exports = cwd => {
       delete devDependencies['eslint-config-prettier'];
       delete devDependencies['eslint-plugin-promise'];
       delete devDependencies['eslint-plugin-react'];
+      delete devDependencies['@availity/workflow-plugin-react'];
+      delete devDependencies['@availity/workflow-plugin-angular'];
     }
 
     Logger.info('Upgrading dependencies');
     // Set the new version of the workflow
-    devDependencies['eslint-config-availity'] = '^4.0.0';
-    devDependencies['@availity/workflow'] = '^5.0.0';
-    devDependencies['@availity/workflow-plugin-react'] = '^5.0.0';
+    devDependencies['eslint-config-availity'] = '^5.2.0';
+    devDependencies['@availity/workflow'] = '^7.0.0';
 
     // Update package.json
     fs.writeFileSync(pkgFile, `${JSON.stringify(pkg, null, 2)}\n`, 'utf-8');
