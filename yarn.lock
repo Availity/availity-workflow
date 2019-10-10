@@ -7174,10 +7174,30 @@ eslint-config-airbnb@^18.0.1:
     object.assign "^4.1.0"
     object.entries "^1.1.0"
 
-eslint-config-availity@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-availity/-/eslint-config-availity-5.1.0.tgz#07e42147eba1b5a315639e80d53e2d0776899c5c"
-  integrity sha512-0wT736o81YJJTAULV6GF/maCevNgI71JkmsvGCMgKi+/HZ3QZM74DPVE47G7vvznILZu49Bvtmj2hiHGjqGcfA==
+eslint-config-availity@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-availity/-/eslint-config-availity-5.1.1.tgz#2fc19ba0f19f0b72ab92167f5564b76f69ae7cfe"
+  integrity sha512-oIg+KESVOd1H2lfi3MrI1ZNmr0diKipDeoF2k8EsrDxaODc1pgSU70tXfDijpS+3G6ec5P/3ktH38u0EPOfdJg==
+  dependencies:
+    "@typescript-eslint/eslint-plugin" "^2.3.1"
+    "@typescript-eslint/parser" "^2.3.1"
+    babel-eslint "^10.0.3"
+    eslint "^6.4.0"
+    eslint-config-airbnb "^18.0.1"
+    eslint-config-airbnb-base "^14.0.0"
+    eslint-config-prettier "^6.3.0"
+    eslint-plugin-import "^2.18.2"
+    eslint-plugin-jest "^22.17.0"
+    eslint-plugin-jsx-a11y "^6.2.3"
+    eslint-plugin-promise "^4.2.1"
+    eslint-plugin-react "^7.14.3"
+    eslint-plugin-react-hooks "^2.0.1"
+    eslint-plugin-unicorn "^12.0.1"
+
+eslint-config-availity@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-availity/-/eslint-config-availity-5.1.2.tgz#60e3833525746eca59950069289e70d3369ad28b"
+  integrity sha512-E5TsRWr3F3AqWmN7rXGyg5aWpa5xMD+8enl97IHcp1VF90aiHsvUsa4WqtMc2HwNLjnOsJ9vdmVNi2jdiofQDQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.3.1"
     "@typescript-eslint/parser" "^2.3.1"
@@ -7378,7 +7398,7 @@ eslint-visitor-keys@^1.0.0, eslint-visitor-keys@^1.1.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.1.0.tgz#e2a82cea84ff246ad6fb57f9bde5b46621459ec2"
   integrity sha512-8y9YjtM1JBJU/A9Kc+SbaOV4y29sSWckBwMHa+FGtVj5gN/sbnKDf6xJUl+8g7FAij9LVaP8C24DUiH/f/2Z9A==
 
-eslint@^5.16.0, eslint@^5.5.0:
+eslint@^5.16.0:
   version "5.16.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-5.16.0.tgz#a1e3ac1aae4a3fbd8296fcf8f7ab7314cbb6abea"
   integrity sha512-S3Rz11i7c8AA5JPv7xAH+dOyq/Cu/VXHiHXBPOU1k/JAM5dXqQPt3qcrhpHSorXmrpu2g0gkIBVXAqCpzfoZIg==
@@ -7420,7 +7440,7 @@ eslint@^5.16.0, eslint@^5.5.0:
     table "^5.2.3"
     text-table "^0.2.0"
 
-eslint@^6.4.0:
+eslint@^6.4.0, eslint@^6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-6.5.1.tgz#828e4c469697d43bb586144be152198b91e96ed6"
   integrity sha512-32h99BoLYStT1iq1v2P9uwpyznQ4M2jRiFB6acitKz52Gqn+vPaMDUTB1bYi1WN4Nquj2w+t+bimYUG83DC55A==

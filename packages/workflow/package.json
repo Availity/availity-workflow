@@ -47,8 +47,8 @@
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
     "envinfo": "^7.4.0",
     "escape-string-regexp": "^2.0.0",
-    "eslint": "^5.5.0",
-    "eslint-config-availity": "^5.1.0",
+    "eslint": "^6.5.1",
+    "eslint-config-availity": "^5.1.1",
     "eslint-loader": "^2.1.2",
     "execa": "^2.0.3",
     "figures": "^3.0.0",
@@ -116,5 +116,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "8f7a0269efb37671dd39eab4319b208a76cd71b8"
+  "gitHead": "8f7a0269efb37671dd39eab4319b208a76cd71b8",
+  "devDependencies": {
+    "eslint-config-availity": "^5.1.2"
+  }
 }

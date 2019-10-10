@@ -1,10 +1,9 @@
 import React from 'react';
-import { Formik, FormikProps } from 'formik';
+import { Formik } from 'formik';
 import PageHeader from '@availity/page-header';
 import { Container, Card } from 'reactstrap';
-import Form from '@/components/Form';
 import * as yup from 'yup';
-import { FormValues } from './form';
+import Form from '@/components/Form';
 
 const App: React.SFC<{}> = () => (
   <Container className="container-sm">
@@ -17,9 +16,7 @@ const App: React.SFC<{}> = () => (
       validationSchema={yup.object().shape({
         formField: yup.string().required('This field is required.'),
       })}
-      render={(formikProps: FormikProps<FormValues>) => (
-        <Form {...formikProps} />
-      )}
+      render={Form}
     />
   </Container>
 );

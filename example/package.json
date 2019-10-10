@@ -64,7 +64,7 @@
     "@types/reactstrap": "^8.0.4",
     "@types/yup": "^0.26.24",
     "cross-env": "^5.1.4",
-    "eslint-config-availity": "^5.1.0",
+    "eslint-config-availity": "^5.1.2",
     "jest-dom": "^3.0.0",
     "typescript": "^3.6.3"
   },

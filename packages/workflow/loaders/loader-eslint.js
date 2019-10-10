@@ -11,8 +11,8 @@ module.exports = {
     settings: {
       'import/resolver': {
         'babel-plugin-root-import': {
-          rootPathSuffix: 'project/app',
-          rootPathPrefix: '@/'
+          rootPathPrefix: '@/',
+          rootPathSuffix: 'project/app'
         }
       }
     }
