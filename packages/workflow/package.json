@@ -96,7 +96,7 @@
     "type-is": "^1.6.15",
     "update-notifier": "^3.0.1",
     "url-join": "^4.0.0",
-    "url-loader": "^1.0.1",
+    "url-loader": "^2.2.0",
     "validate-npm-package-name": "^3.0.0",
     "webpack": "^4.5.0",
     "webpack-bundle-analyzer": "^3.0.2",
