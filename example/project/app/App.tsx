@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Formik, FormikProps } from 'formik';
 import PageHeader from '@availity/page-header';
 import { Container, Card } from 'reactstrap';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { render, waitForElement } from '@testing-library/react';
 import App from '../app/App';
 

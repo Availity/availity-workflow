@@ -16,7 +16,7 @@ module.exports = (_api, opts) => {
   const isEnvProduction = env === 'production';
 
   return {
-    presets: [[require.resolve('babel-preset-react-app/dev')]],
+    presets: [[require.resolve('babel-preset-react-app')]],
     plugins: [
       isEnvProduction && [
         // Remove "data-test-id", "data-testid" attributes from production builds.
