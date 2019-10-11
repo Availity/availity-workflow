@@ -1,6 +1,23 @@
 {
   "compilerOptions": {
-      "experimentalDecorators": true,
-      "allowJs": true
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "baseUrl": "./example/",
+    "paths": {
+      "@/*": ["./project/app/*"]
+    },
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
   }
 }

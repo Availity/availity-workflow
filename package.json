@@ -3,7 +3,8 @@
   "name": "availity-workflow",
   "workspaces": [
     "packages/*",
-    "docs"
+    "docs",
+    "example"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
@@ -11,9 +12,8 @@
     "@commitlint/config-lerna-scopes": "^8.1.0",
     "conventional-changelog-cli": "^2.0.12",
     "conventional-github-releaser": "^3.1.3",
-    "conventional-recommended-bump": "^5.0.0",
-    "copyfiles": "^2.1.1",
-    "eslint-config-availity": "^4.0.9",
+    "conventional-recommended-bump": "^6.0.2",
+    "eslint-config-availity": "^5.2.0",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.1",
     "jest": "^24.7.1",
@@ -23,8 +23,9 @@
   },
   "scripts": {
     "start": "yarn workspace @availity/docs develop",
-    "start:app": "yarn workspace sample-project start",
-    "build:app": "yarn workspace sample-project build",
+    "start:app": "yarn workspace @availity/example start",
+    "build:app": "yarn workspace @availity/example build",
+    "test:app": "yarn workspace @availity/example test",
     "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d docs/public --message 'deployed docs [skip ci]'",
     "lint": "eslint .",
     "link": "lerna link",
@@ -32,7 +33,7 @@
     "test:integration": "lerna run --concurrency 1 integration",
     "clean": "lerna clean --yes",
     "postinstall": "lerna bootstrap --use-workspaces",
-    "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules|dist)/**/*.js'",
+    "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
     "release": "lerna publish",
     "release:ci": "lerna publish --yes",
     "pub": "find ./packages -type d -maxdepth 1 -mindepth 1 -exec sh -c 'cd {} && npm publish' ';'",
@@ -64,13 +65,10 @@
   },
   "jest": {
     "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\](?!@availity).+\\.(js|jsx)$"
+      "[/\\\\]node_modules[/\\\\](?!@availity).+\\.(js|jsx|ts|tsx)$"
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
-      "<rootDir>/packages/workflow-plugin-angular/template/",
-      "<rootDir>/packages/workflow-plugin-react/template/",
-      "<rootDir>/packages/example-angular/",
       "<rootDir>/docs/"
     ],
     "testRegex": ".*.spec.js$"

@@ -6,7 +6,8 @@ const chalk = require('chalk');
 const Logger = require('@availity/workflow-logger');
 const sizeTree = require('webpack-bundle-size-analyzer/build/src/size_tree');
 
-const plugin = require('./plugin');
+const webpackConfigProfile = require('../webpack.config.profile');
+const webpackConfigProduction = require('../webpack.config.production');
 const customStats = require('./stats');
 
 function bundle({ profile, settings }) {
@@ -24,14 +25,8 @@ function bundle({ profile, settings }) {
     const shouldProfile = profile || argv.profile || false;
 
     let webpackConfig = shouldProfile
-      ? plugin({
-          path: 'webpack.config.profile',
-          settings
-        })
-      : plugin({
-          path: 'webpack.config.production',
-          settings
-        });
+      ? webpackConfigProfile(settings)
+      : webpackConfigProduction(settings)
 
     Logger.info('Started compiling');
     const spinner = ora('Running webpack');

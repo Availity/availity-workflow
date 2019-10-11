@@ -4,13 +4,15 @@ const webpack = require('webpack');
 const { once, debounce, merge } = require('lodash');
 const pretty = require('pretty-ms');
 const Ekko = require('@availity/mock-server');
-const settings = require('@availity/workflow-settings');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const WebpackDevSever = require('webpack-dev-server');
 
+const settings = require('../settings');
+const webpackConfigBase = require('../webpack.config');
+const webpackConfigProduction = require('../webpack.config.profile');
+
 const proxy = require('./proxy');
 const notifier = require('./notifier');
-const plugin = require('./plugin');
 const customStats = require('./stats');
 const open = require('./open');
 const formatWebpackMessages = require('./format');
@@ -105,15 +107,9 @@ function web() {
     // Allow production version to run in development
     if (settings.isDryRun() && settings.isDevelopment()) {
       Logger.message('Using production webpack settings', 'Dry Run');
-      webpackConfig = plugin({
-        path: 'webpack.config.production',
-        settings
-      });
+      webpackConfig = webpackConfigProduction(settings);
     } else {
-      webpackConfig = plugin({
-        path: 'webpack.config',
-        settings
-      });
+      webpackConfig = webpackConfigBase(settings);
     }
 
     webpackConfig.plugins.push(
@@ -157,14 +153,12 @@ function web() {
         return resolve();
       }
 
-      function warning() {
-        Logger.empty();
-        Logger.alert('Compiled with warnings');
-        Logger.empty();
-      }
-
       if (hasWarnings && !hasErrors) {
-        message(stats, warning);
+        message(stats, () => {
+          Logger.empty();
+          Logger.alert('Compiled with warnings');
+          Logger.empty();
+        });
         openBrowser();
         return resolve();
       }

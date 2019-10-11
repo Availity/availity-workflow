@@ -4,7 +4,8 @@
   "version": "independent",
   "packages": [
     "packages/*",
-    "docs"
+    "docs",
+    "example"
   ],
   "message": "chore: publish release [skip ci]",
   "command": {

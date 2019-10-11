@@ -6,7 +6,7 @@ This is a monorepo managed using [lerna](https://github.com/lerna/lerna) in inde
 
 1. 
 ```bash
-$ npm run new
+$ yarn run new
 ```
 
 2. Add link to new package in README
@@ -18,6 +18,21 @@ We use [yarn](https://yarnpkg.com/lang/en/) workspaces for developing. If you do
 ```bash
 yarn install
 ```
+
+## Running
+There are a few scripts you can use for testing changes. If you are using `vscode` you will be able to run them from the debugger
+
+### `yarn run start:app`
+Runs the example application
+
+### `yarn run test:app`
+Tests the example application
+
+### `yarn run build:app`
+Buids the example application
+
+### `react-app:create` (vscode only)
+runs the cli for generating a new project
 
 All subsequent installs should be quick after the first initial one.
 

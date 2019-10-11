@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const settings = require('@availity/workflow-settings');
 
 const yargs = require('yargs');
 const chalk = require('chalk');
@@ -11,6 +10,7 @@ const about = require('./scripts/about');
 const build = require('./scripts/build');
 const release = require('./scripts/release');
 const profile = require('./scripts/profile');
+const settings = require('./settings');
 require('./scripts/init');
 
 yargs.command(

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /* eslint no-console:0 */
 const chalk = require('chalk');
 
@@ -92,6 +93,5 @@ module.exports = {
     }
 
     return loggerInstance;
-  },
-
+  }
 };

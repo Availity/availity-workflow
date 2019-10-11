@@ -2,10 +2,10 @@ const globby = require('globby');
 const ora = require('ora');
 const chalk = require('chalk');
 const Logger = require('@availity/workflow-logger');
-const settings = require('@availity/workflow-settings');
 const requireRelative = require('require-relative');
 const path = require('path');
 const { spawnSync } = require('child_process');
+const settings = require('../settings');
 
 function lint() {
   let engine;
@@ -83,7 +83,7 @@ function lint() {
         Logger.failed('Failed linting');
         reject(report.results);
         if (settings.isFail()) {
-          
+
           // eslint-disable-next-line unicorn/no-process-exit
           process.exit(1);
         }

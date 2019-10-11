@@ -40,36 +40,18 @@ ${chalk.yellow(logo)}
 ${chalk.bold('@availity/workflow')} ${version}
  `;
 
-// const plugins = {
-//   react: [
-//     '@availity/workflow',
-//     '@availity/workflow-plugin-react',
-//     'eslint-config-availity',
-//     'availity-uikit',
-//     'availity-reactstrap-validation',
-//     'react',
-//     'react-dom',
-//     'reactstrap',
-//     'mobx'
-//   ],
-//   angular: [
-//     '@availity/workflow',
-//     '@availity/workflow-plugin-angular',
-//     'eslint-config-availity',
-//     'availity-uikit',
-//     'angular'
-//   ]
-// };
-
 function about() {
   notifier();
   Logger.simple(message);
-  envinfo.print({
-    packages: ['@availity/workflow', '@availity/workflow-plugin-react'],
-    noNativeIDE: true,
-    duplicates: true,
-    clipboard: true
-  });
+  envinfo.run(
+    {
+        System: ['OS', 'CPU'],
+        Binaries: ['Node', 'Yarn', 'npm'],
+        Browsers: ['Chrome', 'Firefox', 'Safari'],
+        npmPackages: ['@availity/workflow'],
+    },
+    { console: true, showNotFound: true }
+);
 }
 
 module.exports = about;

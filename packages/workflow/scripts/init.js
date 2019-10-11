@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-string-slice */
 /* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable global-require */
 /* eslint-disable unicorn/prefer-starts-ends-with */

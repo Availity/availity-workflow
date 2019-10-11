@@ -1,7 +1,5 @@
 node_modules/
 dist/
 coverage/
-packages/workflow-plugin-angular/template
-packages/workflow-plugin-react/templates
 packages/react-template-complex/build
 
