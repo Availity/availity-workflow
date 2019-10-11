@@ -7174,10 +7174,32 @@ eslint-config-airbnb@^18.0.1:
     object.assign "^4.1.0"
     object.entries "^1.1.0"
 
-eslint-config-availity@^5.1.1, eslint-config-availity@^5.2.0:
+eslint-config-availity@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/eslint-config-availity/-/eslint-config-availity-5.2.0.tgz#2627d7204027bf769b2028d81a0dba3ae481a29c"
   integrity sha512-r18Pxw2QOULTq+4ExRM1WNkDtIno8zYPtFIgxNDASg9jzm7l+gMFuhvESbJVD4hwNawq4hiY4Gk2VXsd6P9PLg==
+  dependencies:
+    "@typescript-eslint/eslint-plugin" "^2.3.1"
+    "@typescript-eslint/parser" "^2.3.1"
+    babel-eslint "^10.0.3"
+    babel-plugin-root-import "^6.4.1"
+    eslint "^6.4.0"
+    eslint-config-airbnb "^18.0.1"
+    eslint-config-airbnb-base "^14.0.0"
+    eslint-config-prettier "^6.3.0"
+    eslint-import-resolver-root-import "^1.0.4"
+    eslint-plugin-import "^2.18.2"
+    eslint-plugin-jest "^22.17.0"
+    eslint-plugin-jsx-a11y "^6.2.3"
+    eslint-plugin-promise "^4.2.1"
+    eslint-plugin-react "^7.14.3"
+    eslint-plugin-react-hooks "^2.0.1"
+    eslint-plugin-unicorn "^12.0.1"
+
+eslint-config-availity@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-availity/-/eslint-config-availity-5.2.1.tgz#35a40ce87a48ab68af35b3f0d0bfe82dc525f781"
+  integrity sha512-iRMhktdzuZcV9DFDg6eNGwYr4wCnQdmXURhxROb/UWlKeJPni7zr8gieNq1gNg6sfcd5ty4d7fe/lm7Nq6m0Og==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.3.1"
     "@typescript-eslint/parser" "^2.3.1"
