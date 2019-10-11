@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@6.0.4...@availity/workflow@7.0.0) (2019-10-11)
+
+
+### Code Refactoring
+
+* **workflow:** added typescript support and root import support ([5e0286c](https://github.com/availity/availity-workflow/commit/5e0286c03aad58a58ecd04c88ec8409c17cd8498))
+
+
+### Features
+
+* **workflow:** workflow not only runs for react ([b538748](https://github.com/availity/availity-workflow/commit/b538748f9a5ace7bd7070c20e23f1783ccfbb209))
+
+
+### Performance Improvements
+
+* fixed linter errors ([6be7427](https://github.com/availity/availity-workflow/commit/6be742787afb0535be0ca2eaceb5c97e20642164))
+
+
+### BREAKING CHANGES
+
+* **workflow:** removed object assign because it is polyfilled\nBREAKING CHANGE: removed plugin plugin-transform-shorthand-properties\nBREAKING CHANGE: removed our custom presets for @babel/preset-env since we replaced with babel-preset-react-app
+* **workflow:** workflow now only runs for react and no longer requires the plugin dev dependencies
+
+
+
+
+
 ## [6.0.4](https://github.com/availity/availity-workflow/compare/@availity/workflow@6.0.3...@availity/workflow@6.0.4) (2019-10-07)
 
 **Note:** Version bump only for package @availity/workflow
