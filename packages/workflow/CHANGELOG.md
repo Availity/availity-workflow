@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.0.0...@availity/workflow@7.0.1) (2019-10-12)
+
+
+### Bug Fixes
+
+* **workflow:** added public folder back ([79dc5bf](https://github.com/availity/availity-workflow/commit/79dc5bf5301aae6a22f9cd2e395030077a02df42))
+
+
+
+
+
 # [7.0.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@6.0.4...@availity/workflow@7.0.0) (2019-10-11)
 
 
