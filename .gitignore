@@ -1,7 +1,7 @@
 .cache/
-public/
 .DS_Store
 .idea
+docs/public/
 lerna-debug.log
 npm-debug.log
 node_modules/
