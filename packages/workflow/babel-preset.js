@@ -25,7 +25,7 @@ module.exports = (_api, opts) => {
           attributes: ['data-test-id', 'data-testid']
         }
       ],
-      [require.resolve('@babel/plugin-proposal-decorators').default, { legacy: true }],
+      [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
       [
         'babel-plugin-root-import',
         {
