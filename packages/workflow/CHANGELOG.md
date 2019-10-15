@@ -34,7 +34,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### BREAKING CHANGES
 
-* **workflow:** removed object assign because it is polyfilled\nBREAKING CHANGE: removed plugin plugin-transform-shorthand-properties\nBREAKING CHANGE: removed our custom presets for @babel/preset-env since we replaced with babel-preset-react-app
+* **workflow:** 
+    - removed object assign because it is polyfilled
+    - removed plugin plugin-transform-shorthand-properties
+    - removed our custom presets for @babel/preset-env since we replaced with babel-preset-react-app
 * **workflow:** workflow now only runs for react and no longer requires the plugin dev dependencies
 
 
