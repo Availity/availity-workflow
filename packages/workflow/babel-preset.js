@@ -25,11 +25,12 @@ module.exports = (_api, opts) => {
           attributes: ['data-test-id', 'data-testid']
         }
       ],
+      [require.resolve('@babel/plugin-proposal-decorators').default, { legacy: true }],
       [
         'babel-plugin-root-import',
         {
           rootPathSuffix: 'project/app',
-          rootPathPrefix:'@/'
+          rootPathPrefix: '@/'
         }
       ]
     ].filter(Boolean)
