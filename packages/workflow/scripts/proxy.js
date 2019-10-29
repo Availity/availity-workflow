@@ -77,7 +77,7 @@ function onResponse(proxyConfig, proxyObject, req, res) {
   });
 
   const isJson = typeIs.is(proxyObject.headers['content-type'], ['json']) === 'json';
-  if (isJson && !proxyObject.statusCode === 304) {
+  if (isJson && proxyObject.statusCode !== 304) {
     proxyJson(res, proxyObject.headers['content-encoding'], body => {
       if (body) {
         const json = JSON.stringify(body);
