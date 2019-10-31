@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.5](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.0.4...@availity/workflow@7.0.5) (2019-10-31)
+
+
+### Bug Fixes
+
+* **workflow:** fixed bug with proxy middleware json not updating content length ([281a2d7](https://github.com/availity/availity-workflow/commit/281a2d7f200a90a19062e4ea83ce9007c239e9cb))
+
+
+
+
+
 ## [7.0.4](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.0.3...@availity/workflow@7.0.4) (2019-10-29)
 
 **Note:** Version bump only for package @availity/workflow
