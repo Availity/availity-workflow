@@ -3,6 +3,8 @@ const debug = require('debug')('workflow:proxy');
 const { get, merge } = require('lodash');
 const urlJoin = require('url-join');
 const Logger = require('@availity/workflow-logger');
+const proxyJson = require('node-http-proxy-json');
+const typeIs = require('type-is');
 const escapeStringRegexp = require('escape-string-regexp');
 const settings = require('../settings');
 
@@ -42,7 +44,7 @@ function onRequest(proxyConfig, proxyObject) {
   });
 }
 
-function onResponse(proxyConfig, proxyObject) {
+function onResponse(proxyConfig, proxyObject, req, res) {
   if (!get(proxyConfig, 'contextRewrite', true)) {
     return;
   }
@@ -74,24 +76,20 @@ function onResponse(proxyConfig, proxyObject) {
     }
   });
 
-  // Below code never worked as the content length also had to be modified before gzipping back to UI.
-  // This middleware didn't update the content length. Leaving this out unless in the future we have
-  // urls we want to rewrite to our localhost that isn't using ekko
+  const isJson = typeIs.is(proxyObject.headers['content-type'], ['json']) === 'json';
+  if (isJson && proxyObject.statusCode !== 304) {
+    proxyJson(res, proxyObject.headers['content-encoding'], body => {
+      if (body) {
+        const json = JSON.stringify(body);
+        const replacedUrl = regexerContext.test(json) ? hostUrl : hostUrlContext;
+        const replacedJson = json.replace(regexer, replacedUrl);
+        debug(`Rewriting response body urls to ${chalk.blue(replacedUrl)} for request ${chalk.blue(req.url)}`);
+        body = JSON.parse(replacedJson);
+      }
 
-  // const isJson = typeIs.is(proxyObject.headers['content-type'], ['json']) === 'json';
-  // if (isJson && proxyObject.statusCode !== 304) {
-  //   proxyJson(res, proxyObject.headers['content-encoding'], body => {
-  //     if (body) {
-  //       const json = JSON.stringify(body);
-  //       const replacedUrl = regexerContext.test(json) ? hostUrl : hostUrlContext;
-  //       const replacedJson = json.replace(regexer, replacedUrl);
-  //       debug(`Rewriting response body urls to ${chalk.blue(replacedUrl)} for request ${chalk.blue(req.url)}`);
-  //       body = JSON.parse(replacedJson);
-  //     }
-
-  //     return body;
-  //   });
-  // }
+      return body;
+    });
+  }
 }
 
 function onProxyError(proxyConfiguration, err, req, res) {
