@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/Availity/availity-workflow/compare/@availity/example@2.0.5...@availity/example@2.1.0) (2019-11-11)
+
+
+### Features
+
+* add chained value to example project ([9f83b33](https://github.com/Availity/availity-workflow/commit/9f83b3328fbd2194404e013de95e1340188fdbc8))
+
+
+
+
+
 ## [2.0.5](https://github.com/Availity/availity-workflow/compare/@availity/example@2.0.4...@availity/example@2.0.5) (2019-10-31)
 
 **Note:** Version bump only for package @availity/example

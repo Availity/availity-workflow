@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.1.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.0.5...@availity/workflow@7.1.0) (2019-11-11)
+
+
+### Features
+
+* add babel plugin for optional chaining ([085bec8](https://github.com/availity/availity-workflow/commit/085bec88ecb0bf4858779579400794fddd9f609e))
+
+
+
+
+
 ## [7.0.5](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.0.4...@availity/workflow@7.0.5) (2019-10-31)
 
 
