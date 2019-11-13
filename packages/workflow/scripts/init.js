@@ -29,7 +29,6 @@ function checkAppName(appName) {
     printValidationResults(validationResult.errors);
     printValidationResults(validationResult.warnings);
 
-    // eslint-disable-next-line unicorn/no-process-exit
     process.exit(1);
   }
 
@@ -112,7 +111,7 @@ function installDeps(useYarn) {
   Logger.empty();
 
   // Install Depedenciesl
-  const proc = spawn.sync(useYarn ? 'yarn':'npm', ['install', '--loglevel', 'error'], { stdio: 'inherit' });
+  const proc = spawn.sync(useYarn ? 'yarn' : 'npm', ['install', '--loglevel', 'error'], { stdio: 'inherit' });
   if (proc.status !== 0) {
     Logger.failed('`npm install` failed');
   }

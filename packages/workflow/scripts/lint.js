@@ -83,7 +83,6 @@ function lint() {
         Logger.failed('Failed linting');
         reject(report.results);
         if (settings.isFail()) {
-
           // eslint-disable-next-line unicorn/no-process-exit
           process.exit(1);
         }

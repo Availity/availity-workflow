@@ -1,5 +1,5 @@
 {
-  "extends": "eslint-config-availity/browser",
+  "extends": "availity/browser",
   "settings": {
     "import/resolver": {
       "root-import": {
