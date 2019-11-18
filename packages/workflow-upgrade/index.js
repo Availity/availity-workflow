@@ -43,9 +43,21 @@ module.exports = cwd => {
     // Update package.json
     fs.writeFileSync(pkgFile, `${JSON.stringify(pkg, null, 2)}\n`, 'utf-8');
 
-    // delete package lock
-    Logger.info('Deleting Package-Lock');
-    fs.unlinkSync(path.join(cwd, 'package-lock.json'));
+    let installCommand = '';
+    const pkgLock = path.join(cwd, 'package-lock.json');
+    const yarnLock = path.join(cwd, 'yarn.lock');
+
+    if (fs.existsSync(pkgLock)) {
+      // delete package lock, set npm install command
+      Logger.info('Deleting Package-Lock');
+      fs.unlinkSync(pkgLock);
+      installCommand = 'npm install';
+    } else if (fs.existsSync(yarnLock)) {
+      // delete yarn lock, set yarn install command
+      Logger.info('Deleting yarn.lock');
+      fs.unlinkSync(yarnLock);
+      installCommand = 'yarn install';
+    }
 
     Logger.info('Deleting node modules...');
     // Delete Node Modules
@@ -53,7 +65,7 @@ module.exports = cwd => {
 
     Logger.info('Re-Installing node modules..');
     // Run install command
-    exec('npm install', () => {
+    exec(installCommand, () => {
       Logger.success('\nCongratulations! Welcome to the new @availity/workflow.');
     });
   }
