@@ -100,9 +100,17 @@ function updatePackageJson({ appName, appPath }) {
   appPackage.version = '0.1.0';
   appPackage.private = true;
 
-  if (!appPackage.availityWorkflow || !appPackage.availityWorkflow.plugin) {
+  if (appPackage.availityWorkflow !== true) {
     throw new Error('Starter Project is not a valid Availity Workflow Project.');
   }
+  if (appPackage.availityWorkflow.plugin) {
+    throw new Error(
+      `This template is based on an older version of Availity Workflow and uses the deprecated plugin feature. ` +
+        `To correct this, remove the ${chalk.cyan('availityWorkflow.plugin')} entry in package.json ` +
+        `and add ${chalk.cyan('"availityWorkflow": true')} in its place.`
+    );
+  }
+
   fs.writeFileSync(path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2) + os.EOL);
 }
 
@@ -110,7 +118,7 @@ function installDeps(useYarn) {
   Logger.info('Installing dependencies using npm...');
   Logger.empty();
 
-  // Install Depedenciesl
+  // Install Dependencies
   const proc = spawn.sync(useYarn ? 'yarn' : 'npm', ['install', '--loglevel', 'error'], { stdio: 'inherit' });
   if (proc.status !== 0) {
     Logger.failed('`npm install` failed');
