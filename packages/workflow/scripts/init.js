@@ -42,7 +42,7 @@ Please choose a different project name.`);
   }
 }
 
-function checkThatWeCanReadCwd(useNpm) {
+function checkThatWeCanReadCwd(installer) {
   const cwd = process.cwd();
   let childOutput = null;
   try {
@@ -51,7 +51,7 @@ function checkThatWeCanReadCwd(useNpm) {
     // `npm config list` is the only reliable way I could find
     // to reproduce the wrong path. Just printing process.cwd()
     // in a Node process was not enough.
-    childOutput = spawn.sync(useNpm ? 'npm' : 'yarn', ['config', 'list']).output.join('');
+    childOutput = spawn.sync(`${installer}`, ['config', 'list']).output.join('');
   } catch (error) {
     // Something went wrong spawning node.
     // Not great, but it means we can't do this check.
@@ -114,18 +114,18 @@ function updatePackageJson({ appName, appPath }) {
   fs.writeFileSync(path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2) + os.EOL);
 }
 
-function installDeps(useNpm) {
-  Logger.info(`Installing dependencies using ${useNpm ? 'npm' : 'yarn'}...`);
+function installDeps(installer) {
+  Logger.info(`Installing dependencies using ${installer}...`);
   Logger.empty();
 
   // Install Dependencies
-  const proc = spawn.sync(useNpm ? 'npm' : 'yarn', ['install', '--loglevel', 'error'], { stdio: 'inherit' });
+  const proc = spawn.sync(`${installer}`, ['install', '--loglevel', 'error'], { stdio: 'inherit' });
   if (proc.status !== 0) {
-    Logger.failed(`${useNpm ? 'npm' : 'yarn'} install failed`);
+    Logger.failed(`${installer} install failed`);
   }
 }
 
-async function run({ appPath, appName, originalDirectory, template, useNpm }) {
+async function run({ appPath, appName, originalDirectory, template, installer }) {
   try {
     await cloneStarter({
       template,
@@ -141,7 +141,7 @@ async function run({ appPath, appName, originalDirectory, template, useNpm }) {
     });
 
     // Install Dependencies
-    installDeps(useNpm);
+    installDeps(installer);
 
     // Display the most elegant way to cd.
     // This needs to handle an undefined originalDirectory for
@@ -157,20 +157,20 @@ async function run({ appPath, appName, originalDirectory, template, useNpm }) {
     Logger.success(`Success! Created ${appName} at ${appPath}`);
     Logger.info('Inside that directory, you can run several commands:');
     Logger.info();
-    Logger.info(chalk.cyan('  npm start'));
+    Logger.info(chalk.cyan(`  ${installer} start`));
     Logger.info('    Starts the development server.');
     Logger.info();
-    Logger.info(chalk.cyan('  npm run build'));
+    Logger.info(chalk.cyan(`  ${installer} run build`));
     Logger.info('    Bundles the app into static files for production.');
     Logger.info();
-    Logger.info(chalk.cyan('  npm test'));
+    Logger.info(chalk.cyan(`  ${installer} test`));
     Logger.info('    Starts the test runner.');
     Logger.info();
     Logger.info('We suggest that you begin by typing:');
     if (originalDirectory !== appPath) {
       Logger.info(chalk.cyan(`  cd ${cdpath}`));
     }
-    Logger.info(`  ${chalk.cyan('npm start')}`);
+    Logger.info(`  ${chalk.cyan(`${installer} start`)}`);
   } catch (error) {
     Logger.empty();
     Logger.failed('Aborting installation.');
@@ -209,6 +209,7 @@ async function run({ appPath, appName, originalDirectory, template, useNpm }) {
 function createApp({ projectName: name, currentDir, template, useNpm }) {
   const appPath = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(appPath);
+  const installer = useNpm ? 'npm' : 'yarn';
 
   checkAppName(appName);
 
@@ -221,11 +222,11 @@ function createApp({ projectName: name, currentDir, template, useNpm }) {
 
   const originalDirectory = process.cwd();
   process.chdir(appPath);
-  if (!checkThatWeCanReadCwd(useNpm)) {
+  if (!checkThatWeCanReadCwd(installer)) {
     process.exit(1);
   }
 
-  run({ appPath, appName, originalDirectory, template, useNpm });
+  run({ appPath, appName, originalDirectory, template, installer });
 }
 /* eslint-disable no-unused-expressions */
 yargs
