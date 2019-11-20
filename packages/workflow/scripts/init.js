@@ -42,7 +42,7 @@ Please choose a different project name.`);
   }
 }
 
-function checkThatNpmCanReadCwd() {
+function checkThatWeCanReadCwd(useYarn) {
   const cwd = process.cwd();
   let childOutput = null;
   try {
@@ -51,7 +51,7 @@ function checkThatNpmCanReadCwd() {
     // `npm config list` is the only reliable way I could find
     // to reproduce the wrong path. Just printing process.cwd()
     // in a Node process was not enough.
-    childOutput = spawn.sync('npm', ['config', 'list']).output.join('');
+    childOutput = spawn.sync(useYarn ? 'yarn' : 'npm', ['config', 'list']).output.join('');
   } catch (error) {
     // Something went wrong spawning node.
     // Not great, but it means we can't do this check.
@@ -115,7 +115,7 @@ function updatePackageJson({ appName, appPath }) {
 }
 
 function installDeps(useYarn) {
-  Logger.info('Installing dependencies using npm...');
+  Logger.info(`Installing dependencies using ${useYarn ? 'yarn' : 'npm'}...`);
   Logger.empty();
 
   // Install Dependencies
@@ -140,7 +140,7 @@ async function run({ appPath, appName, originalDirectory, template, useYarn }) {
       appPath
     });
 
-    // Install Depedencies
+    // Install Dependencies
     installDeps(useYarn);
 
     // Display the most elegant way to cd.
@@ -183,7 +183,7 @@ async function run({ appPath, appName, originalDirectory, template, useYarn }) {
     Logger.empty();
 
     // On 'exit' we will delete these files from target directory.
-    const knownGeneratedFiles = ['package.json', 'package-lock.json', 'node_modules'];
+    const knownGeneratedFiles = ['package.json', 'package-lock.json', 'node_modules', 'yarn.lock'];
     const currentFiles = fs.readdirSync(path.join(appPath));
     currentFiles.forEach(file => {
       knownGeneratedFiles.forEach(fileToMatch => {
@@ -221,7 +221,7 @@ function createApp({ projectName: name, currentDir, template, useYarn }) {
 
   const originalDirectory = process.cwd();
   process.chdir(appPath);
-  if (!checkThatNpmCanReadCwd()) {
+  if (!checkThatWeCanReadCwd(useYarn)) {
     process.exit(1);
   }
 
@@ -245,10 +245,11 @@ yargs
         })
         .option('template', {
           alias: 't',
-          describe: 'The availity template to initalize the project with. ( Git Repo )',
+          describe: 'The availity template to initialize the project with. ( Git Repo )',
           default: 'https://github.com/Availity/availity-starter-react'
         })
         .option('useYarn', {
+          // TODO: make yarn default and replace with useNpm option
           alias: 'y',
           describe: 'Whether or not to use yarn for install.',
           default: false
