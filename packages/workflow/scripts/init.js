@@ -42,7 +42,7 @@ Please choose a different project name.`);
   }
 }
 
-function checkThatWeCanReadCwd(useYarn) {
+function checkThatWeCanReadCwd(useNpm) {
   const cwd = process.cwd();
   let childOutput = null;
   try {
@@ -51,7 +51,7 @@ function checkThatWeCanReadCwd(useYarn) {
     // `npm config list` is the only reliable way I could find
     // to reproduce the wrong path. Just printing process.cwd()
     // in a Node process was not enough.
-    childOutput = spawn.sync(useYarn ? 'yarn' : 'npm', ['config', 'list']).output.join('');
+    childOutput = spawn.sync(useNpm ? 'npm' : 'yarn', ['config', 'list']).output.join('');
   } catch (error) {
     // Something went wrong spawning node.
     // Not great, but it means we can't do this check.
@@ -114,18 +114,18 @@ function updatePackageJson({ appName, appPath }) {
   fs.writeFileSync(path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2) + os.EOL);
 }
 
-function installDeps(useYarn) {
-  Logger.info(`Installing dependencies using ${useYarn ? 'yarn' : 'npm'}...`);
+function installDeps(useNpm) {
+  Logger.info(`Installing dependencies using ${useNpm ? 'npm' : 'yarn'}...`);
   Logger.empty();
 
   // Install Dependencies
-  const proc = spawn.sync(useYarn ? 'yarn' : 'npm', ['install', '--loglevel', 'error'], { stdio: 'inherit' });
+  const proc = spawn.sync(useNpm ? 'npm' : 'yarn', ['install', '--loglevel', 'error'], { stdio: 'inherit' });
   if (proc.status !== 0) {
-    Logger.failed('`npm install` failed');
+    Logger.failed(`${useNpm ? 'npm' : 'yarn'} install failed`);
   }
 }
 
-async function run({ appPath, appName, originalDirectory, template, useYarn }) {
+async function run({ appPath, appName, originalDirectory, template, useNpm }) {
   try {
     await cloneStarter({
       template,
@@ -141,7 +141,7 @@ async function run({ appPath, appName, originalDirectory, template, useYarn }) {
     });
 
     // Install Dependencies
-    installDeps(useYarn);
+    installDeps(useNpm);
 
     // Display the most elegant way to cd.
     // This needs to handle an undefined originalDirectory for
@@ -206,7 +206,7 @@ async function run({ appPath, appName, originalDirectory, template, useYarn }) {
   }
 }
 
-function createApp({ projectName: name, currentDir, template, useYarn }) {
+function createApp({ projectName: name, currentDir, template, useNpm }) {
   const appPath = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(appPath);
 
@@ -221,11 +221,11 @@ function createApp({ projectName: name, currentDir, template, useYarn }) {
 
   const originalDirectory = process.cwd();
   process.chdir(appPath);
-  if (!checkThatWeCanReadCwd(useYarn)) {
+  if (!checkThatWeCanReadCwd(useNpm)) {
     process.exit(1);
   }
 
-  run({ appPath, appName, originalDirectory, template, useYarn });
+  run({ appPath, appName, originalDirectory, template, useNpm });
 }
 /* eslint-disable no-unused-expressions */
 yargs
@@ -248,10 +248,9 @@ yargs
           describe: 'The availity template to initialize the project with. ( Git Repo )',
           default: 'https://github.com/Availity/availity-starter-react'
         })
-        .option('useYarn', {
-          // TODO: make yarn default and replace with useNpm option
-          alias: 'y',
-          describe: 'Whether or not to use yarn for install.',
+        .option('useNpm', {
+          alias: 'n',
+          describe: 'Whether or not to use npm for install.',
           default: false
         })
         .usage(`\nUsage: ${chalk.yellow('av init')} ${chalk.green('<projectName>')} ${chalk.magenta('[options]')}`)
