@@ -61,13 +61,13 @@ module.exports = cwd => {
     Logger.info('Adding latest versions of eslint-config-availity and @availity/workflow');
 
     if (installer === 'yarn') {
-      exec(`${installer} add eslint-config-availity @availity/workflow --dev`, () => {
-        Logger.success('\nCongratulations! Welcome to the new @availity/workflow.');
+      exec(`${installer} add @availity/workflow eslint-config-availity --dev`, () => {
+        Logger.success('\nSuccessfully added!');
       });
     } else if (installer === 'npm') {
       // installer -i packages --save-dev
-      exec(`${installer} install eslint-config-availity @availity/workflow --save-dev`, () => {
-        Logger.success('\n');
+      exec(`${installer} install @availity/workflow eslint-config-availity --save-dev`, () => {
+        Logger.success('\nSuccessfully installed!');
       });
     }
 
