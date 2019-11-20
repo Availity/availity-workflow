@@ -58,23 +58,25 @@ module.exports = cwd => {
     // Delete Node Modules
     rimraf.sync(path.join(cwd, 'node_modules'));
 
-    Logger.info('Adding latest versions of eslint-config-availity and @availity/workflow');
+    const reinstallNodeModules = () => {
+      Logger.info('Reinstalling node modules..');
+      // Run install command
+      exec(`${installer} install`, () => {
+        Logger.success('\nCongratulations! Welcome to the new @availity/workflow.');
+      });
+    };
+
+    Logger.info('Adding latest versions of @availity/workflow and eslint-config-availity');
 
     if (installer === 'yarn') {
       exec(`${installer} add @availity/workflow eslint-config-availity --dev`, () => {
-        Logger.success('\nSuccessfully added!');
+        reinstallNodeModules();
       });
     } else if (installer === 'npm') {
       // installer -i packages --save-dev
       exec(`${installer} install @availity/workflow eslint-config-availity --save-dev`, () => {
-        Logger.success('\nSuccessfully installed!');
+        reinstallNodeModules();
       });
     }
-
-    Logger.info('Reinstalling node modules..');
-    // Run install command
-    exec(`${installer} install`, () => {
-      Logger.success('\nCongratulations! Welcome to the new @availity/workflow.');
-    });
   }
 };
