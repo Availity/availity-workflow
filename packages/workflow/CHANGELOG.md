@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.2.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.1.1...@availity/workflow@7.2.0) (2019-11-22)
+
+
+### Bug Fixes
+
+* **workflow:** fix trigger for invalid starter project ([8f8d762](https://github.com/availity/availity-workflow/commit/8f8d7621b7c30b904592e7c6cd787ef168c7f408))
+
+
+### Features
+
+* **workflow:** add checks for yarn, update logger to reflect yarn, spelling corrections ([2e04c94](https://github.com/availity/availity-workflow/commit/2e04c944c93824e08b03a2865e6a260b77ec7499))
+* **workflow:** prefer yarn install over npm ([57b3107](https://github.com/availity/availity-workflow/commit/57b3107eb667afb5779c10113700bb079aa9f448))
+
+
+
+
+
 ## [7.1.2](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.1.1...@availity/workflow@7.1.2) (2019-11-18)
 
 **Note:** Version bump only for package @availity/workflow

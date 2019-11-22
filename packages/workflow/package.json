@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow",
-  "version": "7.1.2",
+  "version": "7.2.0",
   "description": "Upgradable workflow for Availity boilerplate projects",
   "main": "index.js",
   "bin": {
@@ -25,9 +25,9 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/mock-server": "^7.0.0",
-    "@availity/workflow-logger": "^5.5.0",
-    "@availity/workflow-upgrade": "^5.4.2",
+    "@availity/mock-server": "^7.0.1",
+    "@availity/workflow-logger": "^5.5.1",
+    "@availity/workflow-upgrade": "^5.5.0",
     "@babel/core": "^7.7.2",
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "@babel/runtime": "^7.7.2",

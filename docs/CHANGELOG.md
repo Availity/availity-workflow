@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Availity/availity-workflow/compare/@availity/docs@1.2.11...@availity/docs@2.0.0) (2019-11-22)
+
+
+### chore
+
+* **docs:** update gatsby-theme-docs ([5b32a79](https://github.com/Availity/availity-workflow/commit/5b32a792e9bbb5422222a22bdd5f4e4dcdad95c0))
+
+
+### BREAKING CHANGES
+
+* **docs:** gatsby-theme-docs has been updated to use page-header 10.0.0 internally
+
+
+
+
+
 ## [1.2.11](https://github.com/Availity/availity-workflow/compare/@availity/docs@1.2.10...@availity/docs@1.2.11) (2019-10-11)
 
 **Note:** Version bump only for package @availity/docs

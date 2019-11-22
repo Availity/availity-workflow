@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.1](https://github.com/availity/availity-workflow/compare/@availity/workflow-logger@5.5.0...@availity/workflow-logger@5.5.1) (2019-11-22)
+
+**Note:** Version bump only for package @availity/workflow-logger
+
+
+
+
+
 # 5.5.0 (2019-08-09)
 
 

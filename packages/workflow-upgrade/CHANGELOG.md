@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@5.4.2...@availity/workflow-upgrade@5.5.0) (2019-11-22)
+
+
+### Features
+
+* **workflow-upgrade:** add latest versions of eslint-config-availity and @availity/workflow, refactor order of commands ([a7464cc](https://github.com/availity/availity-workflow/commit/a7464ccf68bfff7f9b97ec9d870a7425ae83080a))
+* **workflow-upgrade:** make upgrade compatible with npm and yarn ([ba68b92](https://github.com/availity/availity-workflow/commit/ba68b92d1368df22bebfd4c0d0a670cab9355eec))
+
+
+
+
+
 ## [5.4.2](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@5.4.1...@availity/workflow-upgrade@5.4.2) (2019-10-11)
 
 **Note:** Version bump only for package @availity/workflow-upgrade
