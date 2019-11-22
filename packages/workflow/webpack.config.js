@@ -27,7 +27,7 @@ const plugin = settings => {
     require.resolve('react-app-polyfill/ie11'),
     `${require.resolve('webpack-dev-server/client')}?/`,
     require.resolve('webpack/hot/dev-server'),
-    resolveModule(resolveApp,'index')
+    resolveModule(resolveApp, 'index')
   ];
 
   const config = {
@@ -88,7 +88,6 @@ const plugin = settings => {
         loaders.fonts,
         loaders.images,
         loaders.eslint
-        //      loaders.eslint
       ]
     },
     plugins: [

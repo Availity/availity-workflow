@@ -29,7 +29,6 @@ function checkAppName(appName) {
     printValidationResults(validationResult.errors);
     printValidationResults(validationResult.warnings);
 
-    // eslint-disable-next-line unicorn/no-process-exit
     process.exit(1);
   }
 
@@ -43,7 +42,7 @@ Please choose a different project name.`);
   }
 }
 
-function checkThatNpmCanReadCwd() {
+function checkThatWeCanReadCwd(installer) {
   const cwd = process.cwd();
   let childOutput = null;
   try {
@@ -52,7 +51,7 @@ function checkThatNpmCanReadCwd() {
     // `npm config list` is the only reliable way I could find
     // to reproduce the wrong path. Just printing process.cwd()
     // in a Node process was not enough.
-    childOutput = spawn.sync('npm', ['config', 'list']).output.join('');
+    childOutput = spawn.sync(`${installer}`, ['config', 'list']).output.join('');
   } catch (error) {
     // Something went wrong spawning node.
     // Not great, but it means we can't do this check.
@@ -101,24 +100,32 @@ function updatePackageJson({ appName, appPath }) {
   appPackage.version = '0.1.0';
   appPackage.private = true;
 
-  if (!appPackage.availityWorkflow || !appPackage.availityWorkflow.plugin) {
+  if (appPackage.availityWorkflow !== true) {
     throw new Error('Starter Project is not a valid Availity Workflow Project.');
   }
+  if (appPackage.availityWorkflow.plugin) {
+    throw new Error(
+      `This template is based on an older version of Availity Workflow and uses the deprecated plugin feature. ` +
+        `To correct this, remove the ${chalk.cyan('availityWorkflow.plugin')} entry in package.json ` +
+        `and add ${chalk.cyan('"availityWorkflow": true')} in its place.`
+    );
+  }
+
   fs.writeFileSync(path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2) + os.EOL);
 }
 
-function installDeps(useYarn) {
-  Logger.info('Installing dependencies using npm...');
+function installDeps(installer) {
+  Logger.info(`Installing dependencies using ${installer}...`);
   Logger.empty();
 
-  // Install Depedenciesl
-  const proc = spawn.sync(useYarn ? 'yarn':'npm', ['install', '--loglevel', 'error'], { stdio: 'inherit' });
+  // Install Dependencies
+  const proc = spawn.sync(`${installer}`, ['install', '--loglevel', 'error'], { stdio: 'inherit' });
   if (proc.status !== 0) {
-    Logger.failed('`npm install` failed');
+    Logger.failed(`${installer} install failed`);
   }
 }
 
-async function run({ appPath, appName, originalDirectory, template, useYarn }) {
+async function run({ appPath, appName, originalDirectory, template, installer }) {
   try {
     await cloneStarter({
       template,
@@ -133,8 +140,8 @@ async function run({ appPath, appName, originalDirectory, template, useYarn }) {
       appPath
     });
 
-    // Install Depedencies
-    installDeps(useYarn);
+    // Install Dependencies
+    installDeps(installer);
 
     // Display the most elegant way to cd.
     // This needs to handle an undefined originalDirectory for
@@ -150,20 +157,20 @@ async function run({ appPath, appName, originalDirectory, template, useYarn }) {
     Logger.success(`Success! Created ${appName} at ${appPath}`);
     Logger.info('Inside that directory, you can run several commands:');
     Logger.info();
-    Logger.info(chalk.cyan('  npm start'));
+    Logger.info(chalk.cyan(`  ${installer} start`));
     Logger.info('    Starts the development server.');
     Logger.info();
-    Logger.info(chalk.cyan('  npm run build'));
+    Logger.info(chalk.cyan(`  ${installer} run build`));
     Logger.info('    Bundles the app into static files for production.');
     Logger.info();
-    Logger.info(chalk.cyan('  npm test'));
+    Logger.info(chalk.cyan(`  ${installer} test`));
     Logger.info('    Starts the test runner.');
     Logger.info();
     Logger.info('We suggest that you begin by typing:');
     if (originalDirectory !== appPath) {
       Logger.info(chalk.cyan(`  cd ${cdpath}`));
     }
-    Logger.info(`  ${chalk.cyan('npm start')}`);
+    Logger.info(`  ${chalk.cyan(`${installer} start`)}`);
   } catch (error) {
     Logger.empty();
     Logger.failed('Aborting installation.');
@@ -176,7 +183,7 @@ async function run({ appPath, appName, originalDirectory, template, useYarn }) {
     Logger.empty();
 
     // On 'exit' we will delete these files from target directory.
-    const knownGeneratedFiles = ['package.json', 'package-lock.json', 'node_modules'];
+    const knownGeneratedFiles = ['package.json', 'package-lock.json', 'node_modules', 'yarn.lock'];
     const currentFiles = fs.readdirSync(path.join(appPath));
     currentFiles.forEach(file => {
       knownGeneratedFiles.forEach(fileToMatch => {
@@ -199,9 +206,10 @@ async function run({ appPath, appName, originalDirectory, template, useYarn }) {
   }
 }
 
-function createApp({ projectName: name, currentDir, template, useYarn }) {
+function createApp({ projectName: name, currentDir, template, useNpm }) {
   const appPath = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(appPath);
+  const installer = useNpm ? 'npm' : 'yarn';
 
   checkAppName(appName);
 
@@ -214,11 +222,11 @@ function createApp({ projectName: name, currentDir, template, useYarn }) {
 
   const originalDirectory = process.cwd();
   process.chdir(appPath);
-  if (!checkThatNpmCanReadCwd()) {
+  if (!checkThatWeCanReadCwd(installer)) {
     process.exit(1);
   }
 
-  run({ appPath, appName, originalDirectory, template, useYarn });
+  run({ appPath, appName, originalDirectory, template, installer });
 }
 /* eslint-disable no-unused-expressions */
 yargs
@@ -238,12 +246,12 @@ yargs
         })
         .option('template', {
           alias: 't',
-          describe: 'The availity template to initalize the project with. ( Git Repo )',
+          describe: 'The availity template to initialize the project with. ( Git Repo )',
           default: 'https://github.com/Availity/availity-starter-react'
         })
-        .option('useYarn', {
-          alias: 'y',
-          describe: 'Whether or not to use yarn for install.',
+        .option('useNpm', {
+          alias: 'n',
+          describe: 'Whether or not to use npm for install.',
           default: false
         })
         .usage(`\nUsage: ${chalk.yellow('av init')} ${chalk.green('<projectName>')} ${chalk.magenta('[options]')}`)

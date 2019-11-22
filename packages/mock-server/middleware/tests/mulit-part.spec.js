@@ -1,5 +1,3 @@
-/* globals describe, it */
-
 const request = require('superagent');
 const _ = require('lodash');
 const helper = require('../../tests/helpers');

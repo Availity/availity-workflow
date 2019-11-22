@@ -228,7 +228,7 @@ const settings = {
     }
 
     const wantedEkkoPort = get(this.configuration, 'ekko.port', 9999);
-    this.ekkoServerPort = await getPort({ port: wantedEkkoPort, host: this.host() }); // eslint-disable-line no-await-in-loop;
+    this.ekkoServerPort = await getPort({ port: wantedEkkoPort, host: this.host() }); // eslint-disable-line no-await-in-loop
     if (wantedEkkoPort !== this.ekkoServerPort) {
       this.configuration.ekko.pluginContext = this.configuration.ekko.pluginContext.replace(
         `:${wantedEkkoPort}`,
@@ -267,11 +267,11 @@ const settings = {
   },
 
   environment() {
-    if(process.env.NODE_ENV) {
+    if (process.env.NODE_ENV) {
       return process.env.NODE_ENV;
     }
 
-    process.env.NODE_ENV = "development";
+    process.env.NODE_ENV = 'development';
     return process.env.NODE_ENV;
   },
 
@@ -279,7 +279,12 @@ const settings = {
   js() {
     let includeGlobs = argv().include;
 
-    const defaultInclude = [`${this.app()}/**/*.js`, `${this.app()}/**/*.jsx`,`${this.app()}/**/*.ts`,`${this.app()}/**/*.tsx`];
+    const defaultInclude = [
+      `${this.app()}/**/*.js`,
+      `${this.app()}/**/*.jsx`,
+      `${this.app()}/**/*.ts`,
+      `${this.app()}/**/*.tsx`
+    ];
 
     if (!includeGlobs || !Array.isArray(includeGlobs) || includeGlobs.length === 0) {
       includeGlobs = defaultInclude;
