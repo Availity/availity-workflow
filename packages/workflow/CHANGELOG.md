@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.2](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.1.1...@availity/workflow@7.1.2) (2019-11-18)
+
+**Note:** Version bump only for package @availity/workflow
+
+
+
+
+
+## [7.1.1](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.1.0...@availity/workflow@7.1.1) (2019-11-18)
+
+
+### Bug Fixes
+
+* **workflow:** get specific version of babel plugin ([a0011b7](https://github.com/availity/availity-workflow/commit/a0011b7ae57d919807a917ce76c444f0bb33a391))
+
+
+
+
+
 # [7.1.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.0.5...@availity/workflow@7.1.0) (2019-11-11)
 
 
