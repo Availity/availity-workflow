@@ -11,8 +11,9 @@ module.exports = {
         options: {
           sourceMap: true,
           importLoaders: 1,
-          localIdentName: 'images/[name].[ext]'
-
+          modules: {
+            localIdentName: 'images/[name].[ext]'
+          }
         }
       },
       loaderPostcss
@@ -32,7 +33,9 @@ module.exports = {
         options: {
           sourceMap: true,
           importLoaders: 1,
-          localIdentName: 'images/[name].[ext]'
+          modules: {
+            localIdentName: 'images/[name].[ext]'
+          }
 
         }
       },
