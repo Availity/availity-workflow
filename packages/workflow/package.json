@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow",
-  "version": "7.2.1",
+  "version": "7.2.2",
   "description": "Upgradable workflow for Availity boilerplate projects",
   "main": "index.js",
   "bin": {
