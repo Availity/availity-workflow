@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.3](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.2.2...@availity/workflow@7.2.3) (2019-11-26)
+
+
+### Bug Fixes
+
+* **workflow:** revert sass-loader to v7 ([cb0d8f5](https://github.com/availity/availity-workflow/commit/cb0d8f5e79c81542f7b49cb0d14efbbed18a0957))
+
+
+
+
+
 ## [7.2.2](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.2.1...@availity/workflow@7.2.2) (2019-11-25)
 
 **Note:** Version bump only for package @availity/workflow
