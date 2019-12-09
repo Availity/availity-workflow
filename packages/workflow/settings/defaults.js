@@ -19,11 +19,11 @@ const development = {
 
   sourceMap: 'source-map',
 
-  // Enable hot module replacement for loaders like  style-loader and react-hot-loader
-  hot: true,
-
   // Enable or disable react-hot-loader
-  hotLoader: true,
+  hotLoader: {
+    enabled: true,
+    experimental: false
+  },
 
   hotLoaderEntry: /\/App\.jsx?/,
 

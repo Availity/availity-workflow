@@ -4,6 +4,7 @@ const { existsSync } = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const loaders = require('./loaders');
@@ -78,7 +79,7 @@ const plugin = settings => {
                 presets: [babelPreset],
                 cacheDirectory: settings.isDevelopment(),
                 babelrc: babelrcExists,
-                plugins: [babelrcExists ? null : require.resolve('react-hot-loader/babel')]
+                plugins: [babelrcExists ? null : settings.getHotLoaderName()]
               }
             }
           ]
@@ -114,6 +115,9 @@ const plugin = settings => {
 
       // Generate hot module chunks
       new webpack.HotModuleReplacementPlugin(),
+      new ReactRefreshWebpackPlugin({
+        disableRefreshCheck: true
+      }),
 
       new HtmlWebpackPlugin(html(settings)),
 
@@ -143,13 +147,6 @@ const plugin = settings => {
       )
     ]
   };
-
-  if (settings.isHotLoader()) {
-    config.module.rules.push({
-      test: settings.getHotLoaderEntry(),
-      loader: require.resolve('react-hot-loader-loader')
-    });
-  }
 
   if (settings.isNotifications()) {
     config.plugins.push(

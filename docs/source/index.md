@@ -5,10 +5,9 @@ summary: Toolkit for Availity web projects. Heavily inspired by create-react-app
 
 ## Features
 
-*   Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
-*   A global variable `APP_VERSION` is written to javascript bundle that can be used to determine the version of the application that was deployed. Open up the browser debugger and type `APP_VERSION`.
-*   Hook into Jest `setupFiles` by adding `jest.setup.js` at the root of your project
-
+-   Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
+-   A global variable `APP_VERSION` is written to javascript bundle that can be used to determine the version of the application that was deployed. Open up the browser debugger and type `APP_VERSION`.
+-   Hook into Jest `setupFiles` by adding `jest.setup.js` at the root of your project
 
 ## Configuration
 
@@ -104,18 +103,21 @@ Allows [Webpack log levels presets](https://webpack.js.org/configuration/stats/#
 
 Webpack `devtool` setting. Default is `source-map`. For more options please see https://webpack.js.org/configuration/devtool/#devtool.
 
-#### `development.hot`
-
-Enable hot module replacement for loaders like style-loader and react-hot-loader
-
 #### `development.hotLoader`
 
 Enable or disable react-hot-loader. Default is `true`.
 
-#### `development.hotLoaderEntry`
+Can also be an object to enable experimental `react-refresh` features
+ex.
 
-Regular expression to configure which file is entry point for hot loading via react-hot-loader-loader. Default is `/\/App\.jsx?/` which will find `/App.js` or `/App.js` at the root of your app directory.
-<br /><small>Note: this should **not** be the application entry point (index.js), but the file which the component which is imported into index.js and rendered.</small>
+```json
+{
+    "hotLoader": {
+        "enabled": true,
+        "experimental": true
+    }
+}
+```
 
 #### `development.webpackDevServer`
 
@@ -153,7 +155,6 @@ targets: {
 
 Include additinal packages from `node_modules` that should be compiled by Babel and Wepback. The default is to compile all packages that are prefixed with `@av/`
 
-
 #### `app.title`
 
 Page title to use for the generated HTML document. Default is `Availity`.
@@ -187,11 +188,11 @@ EXPERIMENTAL_FEATURE=true npm run production
 
 By default, the following feature flags are enabled:
 
-*   `__DEV__`: **true** when `process.env.NODE_ENV` is **development**
-*   `__TEST__`: **true** when `process.env.NODE_ENV` is **test**
-*   `__PROD__`: **true** when `process.env.NODE_ENV` is **production**
-*   `__STAGING__`: **true** when `process.env.NODE_ENV` is **staging**
-*   `process.env.NODE_ENV`: is `development`, `test`, `staging` or `production` accordingly.
+-   `__DEV__`: **true** when `process.env.NODE_ENV` is **development**
+-   `__TEST__`: **true** when `process.env.NODE_ENV` is **test**
+-   `__PROD__`: **true** when `process.env.NODE_ENV` is **production**
+-   `__STAGING__`: **true** when `process.env.NODE_ENV` is **staging**
+-   `process.env.NODE_ENV`: is `development`, `test`, `staging` or `production` accordingly.
 
 > `eslint-config-availity@2.1.0` or higher is needed for the default feature toggles to be recognized as valid globals by **eslint**.
 
@@ -229,7 +230,7 @@ Pass URL context information to mock responses so that HATEOS links traverse cor
 
 Array of proxy configurations. A default configuration is enabled to proxy requests to the mock server. Each proxy configuration can have the following attributes.
 
-*   `context`: URL context used to match the activation of the proxy per request.
+-   `context`: URL context used to match the activation of the proxy per request.
 
 **Ex:**:
 
@@ -237,9 +238,9 @@ Array of proxy configurations. A default configuration is enabled to proxy reque
 context: '/api';
 ```
 
-*   `target`: Host and port number for proxy.
-*   `enabled`: Enables or disables a proxy configuration
-*   `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.
+-   `target`: Host and port number for proxy.
+-   `enabled`: Enables or disables a proxy configuration
+-   `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.
 
 **Ex:**
 
@@ -249,13 +250,13 @@ pathRewrite: {
 }
 ```
 
-*   `contextRewrite`: _(Optional)_ Does not work with multiple proxy contexts. When `true`:
+-   `contextRewrite`: _(Optional)_ Does not work with multiple proxy contexts. When `true`:
 
-    *   Rewrites the `Origin` and `Referer` headers from host to match the the proxy target url.
-    *   Rewrites the `Location` header from proxy to the host url.
-    *   Rewrites any urls of the response body (JSON only) to match the url of the host. Only URLs that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host. The proxy context is automatically appended to the host url if missing the a URL response.
+    -   Rewrites the `Origin` and `Referer` headers from host to match the the proxy target url.
+    -   Rewrites the `Location` header from proxy to the host url.
+    -   Rewrites any urls of the response body (JSON only) to match the url of the host. Only URLs that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host. The proxy context is automatically appended to the host url if missing the a URL response.
 
-*   `headers`: _(Optional)_ Send default headers to the proxy destination.
+-   `headers`: _(Optional)_ Send default headers to the proxy destination.
 
 **Ex:**:
 
@@ -287,7 +288,6 @@ modifyWebpackConfig: (webpackConfig, settings) => {
 };
 ```
 
-
 ## FAQ
 
 ### How to integrate with Visual Studio Code's [Jest plugin](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)?
@@ -296,7 +296,7 @@ Create `./vscode/settings.json` file with the following configuration:
 
 ```json
 {
-  "jest.pathToJest": "npm test -- --runInBand"
+    "jest.pathToJest": "npm test -- --runInBand"
 }
 ```
 
@@ -343,14 +343,13 @@ module.exports = config => {
 
 The configuration above does the following:
 
-*   Proxy requests starting with `/ms` or `/api` to the mock server but not paths that haves segments `/api/v1/proxy/healthplan/`. This configuration allows the Availity API to be simulated from mock server.
-*   Proxy requests with path `/api/v1/proxy/healthplan/some/mock/path` to the mock server. Optional configuration that is useful if an API is not available for use and needs to be mocked.
-*   Proxy all requests with path segments `/api/v1/proxy/healthplan/` to the configured target `'http://localhost:8888'`. Notice the URL is being rewritten. Change the rewrite path to match your local path as needed. This configuration is useful when testing against live services.
+-   Proxy requests starting with `/ms` or `/api` to the mock server but not paths that haves segments `/api/v1/proxy/healthplan/`. This configuration allows the Availity API to be simulated from mock server.
+-   Proxy requests with path `/api/v1/proxy/healthplan/some/mock/path` to the mock server. Optional configuration that is useful if an API is not available for use and needs to be mocked.
+-   Proxy all requests with path segments `/api/v1/proxy/healthplan/` to the configured target `'http://localhost:8888'`. Notice the URL is being rewritten. Change the rewrite path to match your local path as needed. This configuration is useful when testing against live services.
 
 ## Contributing
 
-*   Run `npm install`
-*   Run `npm run bootstrap` at project root
-*   Use `npm run angular` to start the Angular sample application
-*   Use `npm run react` to use the React sample application
-
+-   Run `npm install`
+-   Run `npm run bootstrap` at project root
+-   Use `npm run angular` to start the Angular sample application
+-   Use `npm run react` to use the React sample application
