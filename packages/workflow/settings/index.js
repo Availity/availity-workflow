@@ -358,13 +358,13 @@ const settings = {
   },
 
   isHotLoader() {
-    const isHot = get(this.configuration, 'development.hotLoader');
+    const isHot = get(this.configuration, 'development.hotLoader', true);
 
     if (typeof isHot === 'object') {
       return isHot.enabled;
     }
 
-    return isHot || true;
+    return isHot;
   },
 
   getHotLoaderName() {
