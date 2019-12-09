@@ -358,7 +358,19 @@ const settings = {
   },
 
   isHotLoader() {
-    return get(this.configuration, 'development.hotLoader', true);
+    const isHot = get(this.configuration, 'development.hotLoader', true);
+
+    if (typeof isHot === 'object') {
+      return isHot.enabled;
+    }
+
+    return isHot;
+  },
+
+  getHotLoaderName() {
+    const isExperimental = get(this.configuration, 'development.hotLoader.experimental', false);
+
+    return isExperimental ? 'react-refresh/babel' : 'react-hot-loader/babel';
   },
 
   getHotLoaderEntry() {

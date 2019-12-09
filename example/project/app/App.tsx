@@ -15,6 +15,7 @@ const App: React.SFC<{}> = () => (
         formField: '',
         chainedField: chain,
       }}
+      onSubmit={() => {}}
       validationSchema={yup.object().shape({
         formField: yup.string().required('This field is required.'),
         chainedField: yup.string().required('This field is required.'),
