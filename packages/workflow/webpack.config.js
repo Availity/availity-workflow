@@ -79,7 +79,7 @@ const plugin = settings => {
                 presets: [babelPreset],
                 cacheDirectory: settings.isDevelopment(),
                 babelrc: babelrcExists,
-                plugins: [babelrcExists ? null : settings.getHotLoaderName()]
+                plugins: [babelrcExists ? null : require.resolve(settings.getHotLoaderName())]
               }
             }
           ]
