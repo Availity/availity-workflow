@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/Availity/availity-workflow/compare/@availity/example@2.1.5...@availity/example@2.2.0) (2019-12-09)
+
+
+### Features
+
+* **workflow:** added react refresh experimental feature ([90557f6](https://github.com/Availity/availity-workflow/commit/90557f6b8d088d9866bedaf86cbb32e54fdd9b73))
+
+
+
+
+
 ## [2.1.5](https://github.com/Availity/availity-workflow/compare/@availity/example@2.1.4...@availity/example@2.1.5) (2019-11-26)
 
 **Note:** Version bump only for package @availity/example
