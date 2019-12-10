@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.1](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.3.0...@availity/workflow@7.3.1) (2019-12-10)
+
+
+### Bug Fixes
+
+* **workflow:** only add ReactRefreshWebpackPlugin if hotLoader experimental flag is true ([64943bd](https://github.com/availity/availity-workflow/commit/64943bdc471be213bce87e740fc4a95f74054158))
+
+
+
+
+
 # [7.3.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.2.3...@availity/workflow@7.3.0) (2019-12-09)
 
 
