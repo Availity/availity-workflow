@@ -115,9 +115,6 @@ const plugin = settings => {
 
       // Generate hot module chunks
       new webpack.HotModuleReplacementPlugin(),
-      new ReactRefreshWebpackPlugin({
-        disableRefreshCheck: true
-      }),
 
       new HtmlWebpackPlugin(html(settings)),
 
@@ -147,6 +144,14 @@ const plugin = settings => {
       )
     ]
   };
+
+  if (settings.getHotLoaderName() === 'react-refresh/babel') {
+    config.plugins.push(
+      new ReactRefreshWebpackPlugin({
+        disableRefreshCheck: true
+      })
+    );
+  }
 
   if (settings.isNotifications()) {
     config.plugins.push(
