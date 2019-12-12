@@ -10,5 +10,6 @@ reports/
 dist/
 build/
 /.history
+yarn-error.log
 
 my-proj/
