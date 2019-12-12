@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.4.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.3.1...@availity/workflow@7.4.0) (2019-12-12)
+
+
+### Features
+
+* **workflow:** add navigator.sendbeacon polyfill ([134eb51](https://github.com/availity/availity-workflow/commit/134eb51182a41a5057df5b4ad4037b076bdc9d43))
+
+
+
+
+
 ## [7.3.1](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.3.0...@availity/workflow@7.3.1) (2019-12-10)
 
 
