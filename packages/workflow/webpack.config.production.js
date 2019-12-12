@@ -30,7 +30,11 @@ const plugin = settings => {
     context: settings.app(),
 
     entry: {
-      index: [require.resolve('react-app-polyfill/ie11'), resolveModule(resolveApp, 'index')]
+      index: [
+        require.resolve('react-app-polyfill/ie11'),
+        require.resolve('navigator.sendbeacon'),
+        resolveModule(resolveApp, 'index')
+      ]
     },
 
     optimization: {
@@ -81,7 +85,7 @@ const plugin = settings => {
         path.join(__dirname, 'node_modules')
       ],
       symlinks: true,
-      extensions: ['.js', '.jsx','.ts','.tsx', '.json', '.css', 'scss'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss']
     },
 
     // This set of options is identical to the resolve property set above,
