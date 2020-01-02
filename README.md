@@ -39,11 +39,12 @@ npx @availity/workflow init <your-project-name> --template https://github.com/Av
 
 #### Availity Templates
 
--   [React Starter](https://github.com/Availity/availity-starter-react)
+-   [React Starter (default)](https://github.com/Availity/availity-starter-react)
 -   [Complex Starter (React)](https://github.com/Availity/availity-starter-complex)
 -   [Wizard Starter (React)](https://github.com/Availity/availity-starter-wizard)
+-   [TypeScript Starter (React)](https://github.com/Availity/availity-starter-typescript)
 
-<small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
+<small>Note: use `-t` or `--template` to specify a template</small>
 
 ## Features
 
