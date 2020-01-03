@@ -31,6 +31,7 @@
     "@babel/core": "^7.7.2",
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "@babel/runtime": "^7.7.2",
+    "@hapi/joi": "^16.1.8",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.1.0",
     "@testing-library/jest-dom": "^4.2.3",
     "babel-core": "^7.0.0-bridge.0",
