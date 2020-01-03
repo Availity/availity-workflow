@@ -30,7 +30,7 @@ const schema = Joi.object()
         hotLoader: Joi.object()
           .keys({
             enabled: Joi.boolean().default(true),
-            expirimental: Joi.boolean().default(false)
+            experimental: Joi.boolean().default(false)
           })
           .description('Enable or disable react-hot-loader')
           .default(),
