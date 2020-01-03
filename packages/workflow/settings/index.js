@@ -13,6 +13,7 @@ const isString = require('lodash.isstring');
 const isFunction = require('lodash.isfunction');
 const isObject = require('lodash.isobject');
 const getPort = require('get-port');
+const Joi = require('@hapi/joi');
 
 function argv() {
   return yargs.argv;
@@ -181,8 +182,11 @@ const settings = {
   },
 
   async init() {
-    this.configuration = require('./defaults');
+    let config = {};
+    const schema = require('./schema');
     let developerConfig = {};
+
+    const { value: defaultConfig } = schema.validate({});
 
     const defaultWorkflowConfig = path.join(__dirname, 'workflow.js');
     const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
@@ -198,9 +202,20 @@ const settings = {
 
     // Merge in ./workflow.js defaults with overrides from developer config
     if (typeof developerConfig === 'function') {
-      this.configuration = developerConfig(this.configuration);
+      config = developerConfig(defaultConfig);
     } else {
-      merge(this.configuration, this.pkg().availityWorkflow, developerConfig);
+      merge(config, defaultConfig, this.pkg().availityWorkflow, developerConfig);
+    }
+
+    // Validate workflow.js settings
+    try {
+      Joi.assert(config, schema);
+      this.configuration = config;
+    } catch (error) {
+      const details = JSON.stringify(error.details, null, 2);
+      const message = `Your workflow.js settings are invalid. See details below:\n${details}`;
+      Logger.failed(message);
+      throw error;
     }
 
     // Merge in CLI overrides.  The command line args can pass nested properties like:
