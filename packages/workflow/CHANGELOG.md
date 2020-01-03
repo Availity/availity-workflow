@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.5.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.4.0...@availity/workflow@7.5.0) (2020-01-03)
+
+
+### Bug Fixes
+
+* **workflow:** fix spelling error in schema ([c8e33c2](https://github.com/availity/availity-workflow/commit/c8e33c2f0b101d6411dc913d4abe4cc66bc8db6a))
+
+
+### Features
+
+* **workflow:** validate workflow.js settings ([e2a9cd3](https://github.com/availity/availity-workflow/commit/e2a9cd335a1c07c7a57c6fb0287889955db63336))
+
+
+
+
+
 # [7.4.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.3.1...@availity/workflow@7.4.0) (2019-12-12)
 
 
