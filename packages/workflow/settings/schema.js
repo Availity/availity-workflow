@@ -7,6 +7,7 @@ const schema = Joi.object()
       .keys({
         open: Joi.string()
           .default('')
+          .allow('')
           .description('Where to open the application in the default browser')
           .example('#/my-route'),
         notification: Joi.boolean()
