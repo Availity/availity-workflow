@@ -11,20 +11,12 @@ npx @availity/workflow init <your-project-name>
 
 <small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
 
-### Angular
-
-```bash
-npx @availity/workflow init <your-project-name> --template https://github.com/Availity/availity-starter-angular
-```
-
 #### Availity Templates
 
 -   [React Starter](https://github.com/Availity/availity-starter-react)
--   [Angular Starter](https://github.com/Availity/availity-starter-angular)
 -   [Complex Starter (React)](https://github.com/Availity/availity-starter-complex)
 -   [Wizard Starter (React)](https://github.com/Availity/availity-starter-wizard)
-
-<small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
+-   [Typescript Starter](https://github.com/Availity/availity-starter-typescript)
 
 ## Commands
 

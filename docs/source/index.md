@@ -349,7 +349,5 @@ The configuration above does the following:
 
 ## Contributing
 
--   Run `npm install`
--   Run `npm run bootstrap` at project root
--   Use `npm run angular` to start the Angular sample application
--   Use `npm run react` to use the React sample application
+-   Run `yarn`
+-   Use `yarn start:app` to start the React sample application
