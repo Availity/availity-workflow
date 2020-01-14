@@ -28,13 +28,18 @@ const schema = Joi.object()
         sourceMap: Joi.string()
           .default('source-map')
           .description('Webpack devtool setting. https://webpack.js.org/configuration/devtool/#devtool'),
-        hotLoader: Joi.object()
-          .keys({
-            enabled: Joi.boolean().default(true),
-            experimental: Joi.boolean().default(false)
-          })
-          .description('Enable or disable react-hot-loader')
-          .default(),
+        hotLoader: [
+          Joi.object()
+            .keys({
+              enabled: Joi.boolean().default(true),
+              experimental: Joi.boolean().default(false)
+            })
+            .description('Enable or disable react-hot-loader')
+            .default(),
+          Joi.boolean()
+            .default(true)
+            .description('Enable or disable react-hot-loader')
+        ],
         hotLoaderEntry: Joi.object()
           .instance(RegExp)
           .default(/\/App\.jsx?/)
