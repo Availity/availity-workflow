@@ -2722,17 +2722,12 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
-"@types/jest-diff@*":
-  version "20.0.1"
-  resolved "https://registry.yarnpkg.com/@types/jest-diff/-/jest-diff-20.0.1.tgz#35cc15b9c4f30a18ef21852e255fdb02f6d59b89"
-  integrity sha512-yALhelO3i0hqZwhjtcr6dYyaLoCHbAMshwtj6cGxTvHZAKXHsYGdff6E8EPw3xLKY0ELUTQ69Q1rQiJENnccMA==
-
 "@types/jest@^24.0.22":
-  version "24.0.22"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.22.tgz#08a50be08e78aba850a1185626e71d31e2336145"
-  integrity sha512-t2OvhNZnrNjlzi2i0/cxbLVM59WN15I2r1Qtb7wDv28PnV9IzrPtagFRey/S9ezdLD0zyh1XGMQIEQND2YEfrw==
+  version "24.9.0"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.9.0.tgz#78c6991cd1734cf0d390be24875e310bb0a9fb74"
+  integrity sha512-dXvuABY9nM1xgsXlOtLQXJKdacxZJd7AtvLsKZ/0b57ruMXDKCOXAC/M75GbllQX6o1pcZ5hAG4JzYy7Z/wM2w==
   dependencies:
-    "@types/jest-diff" "*"
+    jest-diff "^24.3.0"
 
 "@types/json-schema@^7.0.3":
   version "7.0.3"
@@ -4416,13 +4411,13 @@ browserslist@^4.0.0, browserslist@^4.6.0:
     node-releases "^1.1.23"
 
 browserslist@^4.6.4, browserslist@^4.7.2:
-  version "4.8.2"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.8.2.tgz#b45720ad5fbc8713b7253c20766f701c9a694289"
-  integrity sha512-+M4oeaTplPm/f1pXDw84YohEv7B1i/2Aisei8s4s6k3QsoSHa7i5sz8u/cGQkkatCPxMASKxPualR4wwYgVboA==
+  version "4.8.5"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.8.5.tgz#691af4e327ac877b25e7a3f7ee869c4ef36cdea3"
+  integrity sha512-4LMHuicxkabIB+n9874jZX/az1IaZ5a+EUuvD7KFOu9x/Bd5YHyO0DIz2ls/Kl8g0ItS4X/ilEgf4T1Br0lgSg==
   dependencies:
-    caniuse-lite "^1.0.30001015"
-    electron-to-chromium "^1.3.322"
-    node-releases "^1.1.42"
+    caniuse-lite "^1.0.30001022"
+    electron-to-chromium "^1.3.338"
+    node-releases "^1.1.46"
 
 bser@^2.0.0:
   version "2.1.1"
@@ -4733,10 +4728,10 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000974:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000974.tgz#b7afe14ee004e97ce6dc73e3f878290a12928ad8"
   integrity sha512-xc3rkNS/Zc3CmpMKuczWEdY2sZgx09BkAxfvkxlAEBTqcMHeL8QnPqhKse+5sRTi3nrw2pJwToD2WvKn1Uhvww==
 
-caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30000989, caniuse-lite@^1.0.30001006, caniuse-lite@^1.0.30001015:
-  version "1.0.30001017"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001017.tgz#d3ad6ec18148b9bd991829958d9d7e562bb78cd6"
-  integrity sha512-EDnZyOJ6eYh6lHmCvCdHAFbfV4KJ9lSdfv4h/ppEhrU/Yudkl7jujwMZ1we6RX7DXqBfT04pVMQ4J+1wcTlsKA==
+caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30000989, caniuse-lite@^1.0.30001006, caniuse-lite@^1.0.30001022:
+  version "1.0.30001022"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001022.tgz#9eeffe580c3a8f110b7b1742dcf06a395885e4c6"
+  integrity sha512-FjwPPtt/I07KyLPkBQ0g7/XuZg6oUkYBVnPHNj3VHJbOjmmJ/GdSo/GUY6MwINEQvjhP6WZVbX8Tvms8xh0D5A==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -6911,10 +6906,10 @@ electron-to-chromium@^1.3.150:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.311.tgz#73baa361e2b1f44b7b4f1a443aaa1372f8074ebb"
   integrity sha512-7GH6RKCzziLzJ9ejmbiBEdzHZsc6C3eRpav14dmRfTWMpNgMqpP1ukw/FU/Le2fR+ep642naq7a23xNdmh2s+A==
 
-electron-to-chromium@^1.3.247, electron-to-chromium@^1.3.322, electron-to-chromium@^1.3.47:
-  version "1.3.322"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.322.tgz#a6f7e1c79025c2b05838e8e344f6e89eb83213a8"
-  integrity sha512-Tc8JQEfGQ1MzfSzI/bTlSr7btJv/FFO7Yh6tanqVmIWOuNCu6/D1MilIEgLtmWqIrsv+o4IjpLAhgMBr/ncNAA==
+electron-to-chromium@^1.3.247, electron-to-chromium@^1.3.338, electron-to-chromium@^1.3.47:
+  version "1.3.339"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.339.tgz#ff7b56c4bc58159f0d6623591116e4414e7a618b"
+  integrity sha512-C1i/vH6/kQx9YV8RddMkmW216GwW4pTrnYIlKmDFIqXA4fPwqDxIdGyHsuG+fgurHoljRz7/oaD+tztcryW/9g==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
@@ -11040,7 +11035,7 @@ jest-config@^24.9.0:
     pretty-format "^24.9.0"
     realpath-native "^1.1.0"
 
-jest-diff@^24.0.0, jest-diff@^24.9.0:
+jest-diff@^24.0.0, jest-diff@^24.3.0, jest-diff@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-24.9.0.tgz#931b7d0d5778a1baf7452cb816e325e3724055da"
   integrity sha512-qMfrTs8AdJE2iqrTp0hzh7kTd2PQWrsFyj9tORoKmu32xjPjeE4NyjVRDz8ybYwqS2ik8N4hsIpiVTyFeo2lBQ==
@@ -13135,10 +13130,10 @@ node-releases@^1.1.23:
   dependencies:
     semver "^6.3.0"
 
-node-releases@^1.1.29, node-releases@^1.1.42:
-  version "1.1.44"
-  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.44.tgz#cd66438a6eb875e3eb012b6a12e48d9f4326ffd7"
-  integrity sha512-NwbdvJyR7nrcGrXvKAvzc5raj/NkoJudkarh2yIpJ4t0NH4aqjUDz/486P+ynIW5eokKOfzGNRdYoLfBlomruw==
+node-releases@^1.1.29, node-releases@^1.1.46:
+  version "1.1.47"
+  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.47.tgz#c59ef739a1fd7ecbd9f0b7cf5b7871e8a8b591e4"
+  integrity sha512-k4xjVPx5FpwBUj0Gw7uvFOTF4Ep8Hok1I6qjwL3pLfwe7Y0REQSAqOwwv9TWBCUtMHxcXfY4PgRLRozcChvTcA==
   dependencies:
     semver "^6.3.0"
 
