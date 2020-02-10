@@ -41,6 +41,17 @@
     "@availity/select" "^0.6.1"
     prop-types "^15.5.8"
 
+"@availity/feedback@^5.3.10":
+  version "5.3.10"
+  resolved "https://registry.yarnpkg.com/@availity/feedback/-/feedback-5.3.10.tgz#1cba6d90fac25b47b5c3d38f7be211f9f7b2f4cb"
+  integrity sha512-iY49FROCHFta1cRRLnAAQ+15ylhSlTjeABAwZY3TaLQa6hO2NvPgT5ZsfNlhZfH7Xd/yw42FQ6/S9BWB5ykd4A==
+  dependencies:
+    "@availity/form" "^0.5.2"
+    "@availity/hooks" "^1.6.5"
+    "@availity/icon" "^0.7.0"
+    "@availity/select" "^0.9.3"
+    prop-types "^15.5.8"
+
 "@availity/form@^0.4.9":
   version "0.4.9"
   resolved "https://registry.yarnpkg.com/@availity/form/-/form-0.4.9.tgz#8821231345f322eae73b339b03128a1505652765"
@@ -50,10 +61,19 @@
     prop-types "^15.5.8"
     uuid "^3.3.3"
 
-"@availity/gatsby-theme-core@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@availity/gatsby-theme-core/-/gatsby-theme-core-2.0.2.tgz#41b0383d4eaed98804f70f74bca1b9e27c5f1f4f"
-  integrity sha512-UAHlwpY3eJGK/viwWm+gu19M/CiDN9B1sCFc4wiBXzMcKLD7xbPdWxV80nJAgzKohyOfEerN16+xX7chyq4qQA==
+"@availity/form@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@availity/form/-/form-0.5.2.tgz#be66e9d8fc0c8b74a13c9d2a16a4f96207bfdd08"
+  integrity sha512-JTXwnf+0NCIuP8IVeM+ZPsd/BNBmkSKjrctebbbqnzC3CvNsmOVza45nEWzS5HXClVMcQaXz1LXRtm1U0Jfy0A==
+  dependencies:
+    classnames "^2.2.6"
+    prop-types "^15.5.8"
+    uuid "^3.3.3"
+
+"@availity/gatsby-theme-core@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@availity/gatsby-theme-core/-/gatsby-theme-core-2.0.3.tgz#44864905ab381b98ec17c5c9d62aaf8ca8de255e"
+  integrity sha512-p6ByLaBKncCyt5jHCeCMm7E19/dK8lDJLw0MN44fXpccpP5hAqp0wabPzNVaofq3x2iFWmB215E2zS3qkCawTw==
   dependencies:
     availity-uikit "^3.2.0"
     classnames "^2.2.6"
@@ -63,12 +83,13 @@
     react-helmet "^5.2.1"
     react-icons "^3.7.0"
 
-"@availity/gatsby-theme-docs@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@availity/gatsby-theme-docs/-/gatsby-theme-docs-4.0.0.tgz#41d2448067f67e3e997bdb1912c430b4ffc44078"
-  integrity sha512-dJda4S+YCqv401CB6lsGqka8adnsBV58JSc7wAJiKzCGi1O15es/A7e+31dROL/ZdBPHOTmwKTy1wmlLElp1eg==
+"@availity/gatsby-theme-docs@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@availity/gatsby-theme-docs/-/gatsby-theme-docs-4.0.1.tgz#a45da0aed2f09903d7d08d7f9b0d7c0a10d5f015"
+  integrity sha512-gNV3QsQCMEYlbTHPquW2BRMdF6ojUZ535jhb1Omiegbk5AaKeFV2SoJ3AV5tD84TJHOaLDZHXKyNqCJgQowLaw==
   dependencies:
-    "@availity/gatsby-theme-core" "^2.0.2"
+    "@availity/gatsby-theme-core" "^2.0.3"
+    "@availity/page-header" "^10.0.16"
     "@availity/resolve-url" "^1.1.1"
     "@loadable/component" "^5.10.3"
     "@mdx-js/mdx" "^1.5.1"
@@ -101,6 +122,13 @@
   dependencies:
     prop-types "^15.5.8"
 
+"@availity/hooks@^1.6.5":
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/@availity/hooks/-/hooks-1.6.5.tgz#59466bd9d62b3c5446a8fd0f00c2f74734ec533b"
+  integrity sha512-2z+iIJdXRVW2fqxNB2M9F1OnKLETQc5/oRBgNFn3O1XD0Kz6G4zBDE1BjazfS6Oiyp7GO2TY/djdsNbpXnB09g==
+  dependencies:
+    prop-types "^15.5.8"
+
 "@availity/icon@^0.6.2":
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/@availity/icon/-/icon-0.6.2.tgz#e5cc9f5878ad2c0f4b8df90b94df137646fabed8"
@@ -108,10 +136,30 @@
   dependencies:
     classnames "^2.2.6"
 
+"@availity/icon@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@availity/icon/-/icon-0.7.0.tgz#c9ffc9a7a902b0149515b154c333d1f85e1f8a4c"
+  integrity sha512-umqDbw31wkW5AlsUlpu89qvFcCtEXSsV+qJmbsy1JTdUO/JFj++CiMc801e+RIyH2gutET4zK6KgYnSXyBIo1g==
+  dependencies:
+    classnames "^2.2.6"
+
 "@availity/localstorage-core@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@availity/localstorage-core/-/localstorage-core-3.0.0.tgz#3c8f7fbb84338562d117569b59a4cec415d8aa1f"
   integrity sha512-3N0fHI7DuHksvnhdtvZcnnFpKYY4BmCcL1nc3jb9U9sPEIhw/9q4203yhd9MEsYcICLbpA6I03p7/vbo048ayA==
+
+"@availity/page-header@^10.0.16":
+  version "10.0.16"
+  resolved "https://registry.yarnpkg.com/@availity/page-header/-/page-header-10.0.16.tgz#18257804689db6774d7ef6f970ac2fea27a45b27"
+  integrity sha512-7B6Vw2fsXfVpM4uQ5lerSCc+DQUGEtbL2hut3MWZknG1gKZPyEUsFlp8pDZ7BZSOVWM6nNhpku2KL7WI2bSY7A==
+  dependencies:
+    "@availity/app-icon" "^1.3.1"
+    "@availity/breadcrumbs" "^3.1.5"
+    "@availity/feedback" "^5.3.10"
+    "@availity/payer-logo" "^4.0.6"
+    "@availity/training-link" "^1.2.1"
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
 
 "@availity/page-header@^9.0.5":
   version "9.0.5"
@@ -135,6 +183,15 @@
     lodash.get "^4.4.2"
     prop-types "^15.5.8"
 
+"@availity/payer-logo@^4.0.6":
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/@availity/payer-logo/-/payer-logo-4.0.6.tgz#83040407374ec03bfb064d6e6814e0dd31026469"
+  integrity sha512-rZ53+NlRk79SQdZ3uTtX0kBgjgkHJneaXVSaiWgDb8cFPO4wJUVqA1Ndk6knooRFblly5EYH8wOIduwDmgZC4w==
+  dependencies:
+    "@availity/hooks" "^1.6.5"
+    lodash.get "^4.4.2"
+    prop-types "^15.5.8"
+
 "@availity/resolve-url@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@availity/resolve-url/-/resolve-url-1.1.1.tgz#f775c7b4d10dcc5fe8fd1be386929bdb7d76df0a"
@@ -144,6 +201,19 @@
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@availity/select/-/select-0.6.1.tgz#92c34415fe18b0087eed60db379a1f464ceb1280"
   integrity sha512-Kv+v9HZ2gtLeKvPrnSld5R49Q05V4TeKL/RzFbND209IiIWX9ewMQ1nRMClZwt6DwZd7Mx1NVI5x8E70ohZlyQ==
+  dependencies:
+    classnames "^2.2.5"
+    lodash.get "^4.4.2"
+    lodash.isfunction "^3.0.9"
+    prop-types "^15.5.8"
+    qs "^6.5.2"
+    react-select "^3.0.4"
+    react-select-async-paginate "^0.3.7"
+
+"@availity/select@^0.9.3":
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/@availity/select/-/select-0.9.3.tgz#f359eb86a44c71a497b90ba15fe8ea228f8f1813"
+  integrity sha512-n6kHBfIHHYu014E3FsqTNt1E1qWDuQEZbW5GKaqwf3Lkq7XZx+WNQk4KDsOUcIkA4QJ2qSSmDIducMXpzy1v5w==
   dependencies:
     classnames "^2.2.5"
     lodash.get "^4.4.2"
