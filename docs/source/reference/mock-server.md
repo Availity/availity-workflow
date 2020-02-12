@@ -1,6 +1,5 @@
 ---
-title: Server
-summary: Simple express middleware for returning fake data.
+title: 'Reference: Mock Server'
 ---
 
 ## Intro
@@ -60,15 +59,15 @@ app.listen(3001);
 
 ## Options
 
-*   **latency**: Global delay for all reponses. The latency can be overridden per route configuration. Default is `250ms`.
-*   **limit**: Upload max size. Default is `50mb`,
-*   **host**: Server binds and listens for connections on the specified host. Default is `0.0.0.0`.
-*   **port**: Server binds and listens for connections on the specified port. Default is `9999`.
-*   **data**: Path to folder that contains the json mock responses.
-*   **routes**: Path(s) to configuration file that contains a mapping of the request/response routes. Multiple paths can be passed in with an array of strings.
-*   **plugins**: Array of NPM module names that enhance `@availity/mock-server` with additional data and routes. @See [@availity/mock-data](https://github.com/Availity/@availity/mock-data)
-*   **logProvider**: Function that returns a logger that is used in place of the default logger. Inspired by the log provider in [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
-*   **pluginContext**: A url context value which is used to rewrite every instance of `${context}` variable in mock data responses. This can be useful for HATEOS links.
+-   **latency**: Global delay for all reponses. The latency can be overridden per route configuration. Default is `250ms`.
+-   **limit**: Upload max size. Default is `50mb`,
+-   **host**: Server binds and listens for connections on the specified host. Default is `0.0.0.0`.
+-   **port**: Server binds and listens for connections on the specified port. Default is `9999`.
+-   **data**: Path to folder that contains the json mock responses.
+-   **routes**: Path(s) to configuration file that contains a mapping of the request/response routes. Multiple paths can be passed in with an array of strings.
+-   **plugins**: Array of NPM module names that enhance `@availity/mock-server` with additional data and routes. @See [@availity/mock-data](https://github.com/Availity/@availity/mock-data)
+-   **logProvider**: Function that returns a logger that is used in place of the default logger. Inspired by the log provider in [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
+-   **pluginContext**: A url context value which is used to rewrite every instance of `${context}` variable in mock data responses. This can be useful for HATEOS links.
 
 **Simple**
 
@@ -82,7 +81,7 @@ function logProvider(provider) {
 
 ```js
 function logProvider(provider) {
-    var logger = new (require('winston')).Logger();
+    var logger = new (require('winston').Logger)();
 
     var myCustomProvider = {
         log: logger.log,
@@ -95,13 +94,13 @@ function logProvider(provider) {
 }
 ```
 
-## Route Configuration
+## Route Configuration Examples
 
 The `routes.json` defines the mock responses for rest services. Below are some sample scenarios that should help you understand the configuration options.
 
 The mock configuration supports deep nested introspection of JSON and multi-part form data when matching routes. See Example 6 below.
 
-###### Simple
+### Simple
 
 ```javascript
 "v1/route1": {
@@ -109,7 +108,7 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 }
 ```
 
-###### Status Code
+### Status Code
 
 ```javascript
 "v1/route2": {
@@ -119,7 +118,7 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 }
 ```
 
-###### POST with Default Response
+### POST with Default Response
 
 ```javascript
 "v1/route3": {
@@ -128,7 +127,7 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 }
 ```
 
-###### CRUD
+### CRUD
 
 ```javascript
 "v1/route4": {
@@ -139,7 +138,7 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 }
 ```
 
-###### CRUD using objects
+### CRUD using objects
 
 ```javascript
 "v1/route4": {
@@ -152,13 +151,13 @@ The mock configuration supports deep nested introspection of JSON and multi-part
   },
   "put": {// all PUT requests
       "file": "example1.json",
-  },  
+  },
   "post": "example3.json", // all POST requests
   "delete": "example4.json" // all DELETE requests
 }
 ```
 
-###### Query Params with Arrays and Regexes
+### Query Params with Arrays and Regexes
 
 ```javascript
 "v1/route5": {
@@ -192,7 +191,7 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 }
 ```
 
-###### POST Params
+### POST Params
 
 ```javascript
 "v1/route6": {
@@ -220,13 +219,16 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 },
 ```
 
-###### Multipart
+### Multipart
 
 ```html
 <form action="/api/v1/users" method="post" enctype="multipart/form-data">
-  <p><input type="text" name="a" value="example">
-  <p><input type="file" name="b"> <!--the name of the file is used below to match and score the proper response -->
-  <p><button type="submit">Submit</button>
+    <p><input type="text" name="a" value="example" /></p>
+    <p>
+        <input type="file" name="b" />
+        <!--the name of the file is used below to match and score the proper response -->
+    </p>
+    <p><button type="submit">Submit</button></p>
 </form>
 ```
 
@@ -255,7 +257,7 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 }
 ```
 
-###### Async Responses
+### Async Responses
 
 ```javascript
 "v1/route8": {
@@ -280,7 +282,7 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 }
 ```
 
-###### Async Responses with Repeat Option
+### Async Responses with Repeat Option
 
 ```javascript
 "v1/route10": {
@@ -312,7 +314,7 @@ The mock configuration supports deep nested introspection of JSON and multi-part
   }
 ```
 
-###### Match Headers
+### Match Headers
 
 ```javascript
 "v1/route11": {
@@ -334,7 +336,7 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 }
 ```
 
-###### Url Redirect
+### Url Redirect
 
 ```javascript
 "v1/route9": {
@@ -347,5 +349,5 @@ This allows you to run multiple servers without keeping track of all ports being
 
 ## Acknowledgements
 
-*   [apimocker](https://github.com/gstroup/apimocker)
-*   [json-server](https://github.com/typicode/json-server)
+-   [apimocker](https://github.com/gstroup/apimocker)
+-   [json-server](https://github.com/typicode/json-server)
