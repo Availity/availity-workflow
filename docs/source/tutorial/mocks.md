@@ -61,14 +61,15 @@ import React, { useEffect, useState } from 'react';
 import { avUserApi } from '@availity/api-axios';
 
 const App = () => {
-    const [name, setName] = useState('');
+    const [name, setName] = useState(''); // initialize state
 
     const fetchData = async () => {
-        const user = await avUserApi.me();
+        const user = await avUserApi.me(); // Request current user
 
-        setName(user.firstName);
+        setName(user.firstName); // set the name to state
     };
 
+    // Fetch the user on component mount
     useEffect(() => {
         fetchData();
     }, []);
