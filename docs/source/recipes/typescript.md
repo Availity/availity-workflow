@@ -10,7 +10,7 @@ Adding in [Typescript](https://www.typescriptlang.org/) to an existing project i
 ## Install Dependencies
 
 ```bash
-yarn add typescript @types/node @types/react @types/react-dom @types/jest
+yarn add typescript @types/node @types/react @types/react-dom @types/jest --dev
 ```
 
 Once installed, all files need to be renamed from `.js/.jsx` to `.tsx`.

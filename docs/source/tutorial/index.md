@@ -35,7 +35,7 @@ yarn start
 
 ## Project Structure
 
-Next let's open the project in any one of your favorite editors so we can revie wthe project structure.
+Next let's open the project in any one of your favorite editors so we can review the project structure.
 
 <img width="100%" src="project-structure.png" alt="Project Structure" />
 
