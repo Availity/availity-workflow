@@ -11,7 +11,7 @@ Lucky for you, we have built a local mock server built into workflow that will r
 
 ## Mock Data Structure
 
-<img width="100%" src="mock-data.png" alt="Mock Data Structur" />
+<img width="100%" src="mock-data.png" alt="Mock Data Structure" />
 
 Inside of the `config` folder is a file titled `routes.json`. This contains an object `key/value` pair of all the API routes you override from your UI.
 
