@@ -1,7 +1,8 @@
 ---
-title: Root Imports
+title: Configuring Root Imports
 ---
-> Supported versions `7>=`
+
+> Note that the below recipe only works in Workflow Versions `>=7.0.0`
 
 By default we include `babel-plugin-import` which allows you to import components using a specific syntax if you have a tree structure that goes past 2 - 3 layers.
 
@@ -21,6 +22,7 @@ import Form from '@/components/Form';
 ## Eslint Config
 
 Make sure you have the latest `eslint-config-availity` installed.
+
 ```bash
 yarn add eslint-config-availity@latest --dev
 ```
@@ -35,30 +37,30 @@ If you want intellisense in vscode to pick up the root imports and allow you to 
 
 ```json
 {
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./project/app/*"]
+    "compilerOptions": {
+        "target": "es5",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./project/app/*"]
+        }
     }
-  }
 }
 ```
 
 ## References
 
-- [babel-plugin-root-import](https://www.npmjs.com/package/babel-plugin-root-import)
-- [eslint-root-import-resolver](https://www.npmjs.com/package/eslint-import-resolver-babel-plugin-root-import)
+-   [babel-plugin-root-import](https://www.npmjs.com/package/babel-plugin-root-import)
+-   [eslint-root-import-resolver](https://www.npmjs.com/package/eslint-import-resolver-babel-plugin-root-import)
