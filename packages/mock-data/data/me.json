@@ -15,9 +15,13 @@
   "akaName": "aka123456789",
   "lastName": "Smith",
   "firstName": "Jane",
+  "legalFirstName": "Jane",
   "email": "jane.smith@example.com",
   "phone": "9045555555 x555",
+  "phoneTypeCd": 2,
   "jobTitle": "JT_CM",
   "userValidated": true,
-  "legalFirstName": "Jane"
+  "userHasSecurityException": false,
+  "currentRegion": "MN",
+  "createDate": "2017-01-01T12:00:00.000+0000"
 }
