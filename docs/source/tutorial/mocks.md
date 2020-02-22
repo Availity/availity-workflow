@@ -4,10 +4,10 @@ title: Bring on the Mocks
 
 When developing Availity applications there is no use in a UI that doesn't connect to some data source. There are a few ways a developer can get data when developing locally:
 
-1. Proxy requests from the local the webpack-dev-server to the target API environment and have the proxy handle the authentication.
+1. Proxy requests from the local webpack-dev-server to the target API environment and have the proxy handle the authentication.
 2. Spin up a local mock server to accept inbound requests and respond with fake data.
 
-Lucky for you, we have built a local mock server built into workflow that will return mock data for most the APIs that we support.
+Lucky for you, we have built a local mock server into workflow that will return mock data for most of the APIs that we support.
 
 ## Mock Data Structure
 
@@ -80,7 +80,7 @@ const App = () => {
 export default App;
 ```
 
-The above code snippet runs a method called `fetchData` on mount that will fetch the user's `firstName` using the `avUserApi` from `@availity/api-axios`. You can read more on what that resource looks like `here`.
+The above code snippet runs a method called `fetchData` on mount that will fetch the user's `firstName` using the `avUserApi` from `@availity/api-axios`. You can read more on what that resource looks like [here](https://github.com/Availity/sdk-js/tree/master/packages/api-axios).
 
 Since we know the route is going to look like `api/sdk/platform/v1/users/me` we can mock it out in the `routes.json` by adding the following to our file:
 
@@ -97,7 +97,7 @@ Since we know the route is going to look like `api/sdk/platform/v1/users/me` we 
 }
 ```
 
-Note that we can stripe the prefixing `/api` as the mock server takes that off automatically.
+Note that we can strip the prefixing `/api` as the mock server takes that off automatically.
 
 ### Adding Response Data
 
@@ -111,7 +111,7 @@ Now that we have the route we need to mock out our `user.json` response:
 
 We added a simple response object with one key that is the `firstName` used to render in the App.
 
-If you your application is currently running you will need to restart it as the mock server will need to be restarted in order to get the updated mock data.
+If your application is currently running you will need to restart it as the mock server will need to be restarted in order to get the updated mock data.
 
 If all goes correct you should see the Application rendering
 
