@@ -99,7 +99,6 @@
     "update-notifier": "^3.0.1",
     "url-join": "^4.0.0",
     "url-loader": "^2.2.0",
-    "url-search-params-polyfill": "^8.0.0",
     "validate-npm-package-name": "^3.0.0",
     "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.6.0",
