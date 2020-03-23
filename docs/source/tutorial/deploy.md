@@ -4,7 +4,7 @@ title: Creating a Deployment
 
 If you have made it this far then you must mean business. The application must have 100% test coverage and ready to be deployed on a Friday afternoon to production. 😉
 
-In all seriousness let's start on how to get your application in a deploy ready state.
+In all seriousness, let's start on how to get your application in a deploy ready state.
 
 ## Running the Build Script
 
@@ -46,8 +46,22 @@ There will already be a commit created with the version bump and `dist` folder u
 git push && git push --tags
 ```
 
-## Next Steps
+Congratulations! You successfully created your first deployment artifact! You can choose to read more about the additional features that our Workflow toolkit provides in the `Recipes` section.
 
-Congratulations! You sucessfully created your first deployment artifact! You can choose to read more about the additional features that our Workflow toolkit provides in the `Recipes` section.
+## Release Schedule
+
+Once your application is ready for production, it can be released in accordance with following schedule:
+
+### Major Release (Monthly Release)
+
+-   Major releases occur on the **_3rd Saturday of every month_** - With the exception of November and December - Where they occur on the **_2nd Saturday of the month._**
+-   Code Freezes for Major Releases occur on the **_Wednesday_** preceding the release. All code changes must be submitted by that time.
+
+### Minor Release (Weekly Release)
+
+-   Minor releases are off-cycle releases that occur **_every Wednesday_**, with the exception on the week of a Major (Monthly) release.
+-   Code Freezes for Minor Releases occur on the **_Friday_** preceding the release. All code changes must be submitted by that time.
+
+## Next Steps
 
 Checkout our [React Component Library](https://availity.github.io/availity/react) for some pre-built reactstrap components to assist in building solid web applications.
