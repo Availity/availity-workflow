@@ -81,7 +81,7 @@ bootstrap                                 3.3.7             3.3.7         4.0.0 
 -   Check the library changelog for BREAKING CHANGE announcements or recent fixes
 -   Check the offending library issue board and see if tickets have been
     opened or closed similar to the issue being experienced.
--   If the problem can't be resolved, open an issue on `code.availity.com` under the `availity-support` project so that the Availity team can fix or provide feedback.
+-   If the problem can't be resolved, feel free to open an issue so that the Availity team can fix or provide feedback.
 -   Rollback to previous library version if necessary
 
 ### Why did `minor` or `patch` upgrade break my build/app?
