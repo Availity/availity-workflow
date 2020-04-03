@@ -15,7 +15,7 @@ module.exports = {
         contentDir: 'docs/source',
         sidebarCategories: {
           null: ['index', 'quick-start'],
-          Tutorial: ['tutorial/index', 'tutorial/mocks', 'tutorial/deploy'],
+          Tutorial: ['tutorial/index', 'tutorial/mocks', 'tutorial/deploy', 'tutorial/dependency-management'],
           Recipes: ['recipes/testing-libraries', 'recipes/root-imports', 'recipes/typescript'],
           'API Reference': ['reference/workflow-config', 'reference/commands', 'reference/mock-server']
         }
