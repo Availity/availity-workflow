@@ -3,7 +3,6 @@ const chalk = require('chalk');
 const webpack = require('webpack');
 const { once, debounce, merge } = require('lodash');
 const pretty = require('pretty-ms');
-const Ekko = require('@availity/mock-server');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const WebpackDevSever = require('webpack-dev-server');
 
@@ -90,6 +89,9 @@ function rest() {
         };
       }
     };
+
+    // eslint-disable-next-line global-require
+    const Ekko = require('@availity/mock-server');
 
     ekko = new Ekko();
 
