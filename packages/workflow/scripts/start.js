@@ -90,12 +90,16 @@ function rest() {
       }
     };
 
-    // eslint-disable-next-line global-require
-    const Ekko = require('@availity/mock-server');
-
-    ekko = new Ekko();
-
-    return ekko.start(ekkoOptions);
+    try {
+      // eslint-disable-next-line global-require
+      const Ekko = require('@availity/mock-server');
+      ekko = new Ekko();
+      return ekko.start(ekkoOptions);
+    } catch (error) {
+      Logger.error(
+        "Failed to create Ekko Server. Please install '@availity/mock-server' with `yarn install @availity/mock-server --dev` or check your settings"
+      );
+    }
   }
 
   return Promise.resolve();
