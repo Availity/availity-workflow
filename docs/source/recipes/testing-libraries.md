@@ -9,7 +9,7 @@ By default `@testing-library/react` and `@testing-library/jest-dom/extend-expect
 
 If you want to override this you can create a file in the `/app` directory called `jest.init.js` and export whichever modules you want.
 
-#### Example
+## Example
 
 ```javascript
 module.exports = ['@testing-library/react/cleanup-after-each', '@testing-library/jest-dom/extend-expect'];
@@ -23,7 +23,7 @@ If your tests require data that's supplied by an external data source, you can u
 
 Once you've mocked the module, you can provide a `mockResolvedValue` that returns the data you want to use for your test.
 
-#### Example
+## Example
 
 ```javascript
 import React from 'react';
