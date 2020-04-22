@@ -27,7 +27,14 @@ Once the CLI finishes initializing the project we can `cd` into the directory wi
 cd ./workflow-app
 ```
 
-Go ahead and start the application by running the below command:
+Go ahead and start the application by running the below commands:
+
+```bash
+yarn
+```
+  
+  and then: 
+
 
 ```bash
 yarn start
