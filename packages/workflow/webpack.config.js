@@ -134,7 +134,7 @@ const plugin = settings => {
       new CopyWebpackPlugin(
         [
           {
-            context: `${settings.project()}/project/static`, // copy from this directory
+            context: `${settings.app()}/static`, // copy from this directory
             from: '**/*', // copy all files
             to: 'static' // copy into {output}/static folder
           }
