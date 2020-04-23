@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow",
-  "version": "7.5.12",
+  "version": "7.5.13",
   "description": "Upgradable workflow for Availity boilerplate projects",
   "main": "index.js",
   "bin": {
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/workflow-logger": "^5.5.5",
+    "@availity/workflow-logger": "^5.5.6",
     "@babel/core": "^7.7.2",
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "@babel/runtime": "^7.7.2",

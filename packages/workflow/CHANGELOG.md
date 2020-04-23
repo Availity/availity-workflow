@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.5.13 (2020-04-23)
+
+
+### Bug Fixes
+
+* **workflow:** wrong path to static folder for copying ([6140e5f](https://github.com/availity/availity-workflow/commit/6140e5f7d3793493f2a865aa632b56ac55688e03))
+
+
+
+
+
 ## 7.5.12 (2020-04-21)
 
 **Note:** Version bump only for package @availity/workflow
