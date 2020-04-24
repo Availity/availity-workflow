@@ -294,12 +294,36 @@ modifyWebpackConfig: (webpackConfig, settings) => {
 Create `./vscode/settings.json` file with the following configuration:
 
 ```json
-{
-    "jest.pathToJest": "npm test -- --runInBand"
+{ 
+    "jest.pathToJest": "node_modules/.bin/av test"
 }
 ```
 
 **Note**: The Jest plugin will still warn about Jest 20+ features missing but it doesn't appear to affect the plugins's functionality
+
+If you would like to debug Jest tests, create `./vscode/launch.json` with this configuration:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "name": "vscode-jest-tests",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/.bin/av",
+      "args": ["test", "--runInBand"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+  ]
+}
+```
+
+Then you will be able to debug Jest tests like this:
+
+<img width="100%" src="jest-debug.gif" alt="Jest Debugging Example" />  
 
 ### How to setup a development environment to match the deployment environment?
 
