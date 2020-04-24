@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.5.14 (2020-04-24)
+
+**Note:** Version bump only for package @availity/workflow
+
+
+
+
+
 ## 7.5.13 (2020-04-23)
 
 
