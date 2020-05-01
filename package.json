@@ -26,7 +26,7 @@
     "start:app": "yarn workspace @availity/example start",
     "build:app": "yarn workspace @availity/example build",
     "test:app": "yarn workspace @availity/example test",
-    "deploy:docs": "yarn workspace @availity/docs build:deploy && gh-pages -d docs/public --message 'deployed docs [skip ci]'",
+    "build:docs": "yarn workspace @availity/docs build:deploy",
     "lint": "eslint .",
     "link": "lerna link",
     "test": "jest --silent",
