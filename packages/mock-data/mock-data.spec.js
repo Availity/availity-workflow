@@ -1,4 +1,4 @@
-const mocks = require('./');
+const mocks = require('.');
 
 describe('mock data', () => {
   it('should be defined', () => {

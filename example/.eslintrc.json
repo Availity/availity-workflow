@@ -1,11 +1,19 @@
 {
   "extends": "availity/browser",
+  "rules": {
+    "import/extensions": 0
+  },
   "settings": {
     "import/resolver": {
       "root-import": {
         "rootPathPrefix": "@/",
         "rootPathSuffix": "example/project/app",
-        "extensions": [".js", ".jsx", ".tsx", ".ts"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".tsx",
+          ".ts"
+        ]
       }
     }
   }
