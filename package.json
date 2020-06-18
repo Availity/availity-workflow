@@ -13,6 +13,7 @@
     "conventional-changelog-cli": "^2.0.27",
     "conventional-github-releaser": "^3.1.3",
     "conventional-recommended-bump": "^6.0.4",
+    "dependency-check": "^4.1.0",
     "eslint-config-availity": "^5.2.3",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.9",
@@ -37,11 +38,16 @@
     "release": "lerna publish",
     "release:ci": "lerna publish --yes",
     "pub": "find ./packages -type d -maxdepth 1 -mindepth 1 -exec sh -c 'cd {} && npm publish' ';'",
-    "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u"
+    "nuke": "yarn remove-locks && yarn clean",
+    "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
+    "check:packages": "sh ./scripts/artifactory-check.sh",
+    "check:dependencies": "node scripts/check-missing-deps.js",
+    "remove-locks": "find . -type f -name 'yarn.lock' -delete"
   },
   "lint-staged": {
     "*.js": [
-      "prettier",
+      "eslint --fix",
+      "prettier --write",
       "git add"
     ]
   },
@@ -76,7 +82,8 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn check:dependencies && yarn check:packages"
     }
   }
 }
