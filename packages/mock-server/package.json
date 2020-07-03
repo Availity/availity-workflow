@@ -1,6 +1,6 @@
 {
   "name": "@availity/mock-server",
-  "version": "7.0.10",
+  "version": "7.0.11",
   "description": "Mock server simulating Availity API rest services",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "license": "MIT",
   "dependencies": {
-    "@availity/mock-data": "^5.5.6",
+    "@availity/mock-data": "^5.5.7",
     "body-parser": "^1.18.2",
     "chalk": "^3.0.0",
     "compression": "^1.7.0",
