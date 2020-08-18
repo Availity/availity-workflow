@@ -56,7 +56,7 @@ function create(settings) {
       // dist
       //   - the dist output directory
       '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/__tests__/**/*.(js|ts|tsx)?(x)',
-      '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/?(*.)(spec|test).(js|ts|tsx)?(x)'
+      '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/*(*.)(spec|test).(js|ts|tsx)?(x)'
     ],
     globals: settings.globals()
   };
