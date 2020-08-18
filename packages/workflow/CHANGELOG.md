@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.5.16](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.15...@availity/workflow@7.5.16) (2020-08-18)
+
+**Note:** Version bump only for package @availity/workflow
+
+
+
+
+
 ## [7.5.15](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.14...@availity/workflow@7.5.15) (2020-07-03)
 
 **Note:** Version bump only for package @availity/workflow
