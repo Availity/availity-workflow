@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.5.17](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.16...@availity/workflow@7.5.17) (2020-08-21)
+
+
+### Bug Fixes
+
+* **workflow:** fixes issue with Windows paths being incompatible with globby ([f2867c2](https://github.com/availity/availity-workflow/commit/f2867c2158dba9ef09a1b685609ace5adb116459))
+
+
+
+
+
 ## [7.5.16](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.15...@availity/workflow@7.5.16) (2020-08-18)
 
 **Note:** Version bump only for package @availity/workflow
