@@ -67,7 +67,7 @@ function lint() {
 
     // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
     /* eslint-disable promise/catch-or-return */
-    globby(settings.js()).then(paths => {
+    globby(settings.js().map(path => path.replace(/\\/g, '/'))).then(paths => {
       spinner.stop();
       const filesToLint = gitTrackedFiles
         ? // git repository present
