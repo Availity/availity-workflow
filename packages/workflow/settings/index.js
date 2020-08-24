@@ -43,8 +43,7 @@ const settings = {
   ekkoServerPort: null,
 
   app() {
-    // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
-    return path.join(this.project(), 'project/app').replace(/\\/g, '/');
+    return path.join(this.project(), 'project/app');
   },
 
   include() {
