@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.5.18](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.17...@availity/workflow@7.5.18) (2020-08-24)
+
+
+### Bug Fixes
+
+* **workflow:** fix incorrect paths picked up on windows in lint script ([e27071a](https://github.com/availity/availity-workflow/commit/e27071a202d9d24174824f1bf31ca43484e9ae61))
+
+
+### Reverts
+
+* Revert "fix(workflow): fixes issue with Windows paths being incompatible with globby" ([59140d0](https://github.com/availity/availity-workflow/commit/59140d05f336ce000db3d943f2acce8579bd1411))
+
+
+
+
+
 ## [7.5.17](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.16...@availity/workflow@7.5.17) (2020-08-21)
 
 
