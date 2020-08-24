@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@availity/workflow": "^7.5.18",
-    "@testing-library/react": "^9.3.2",
+    "@testing-library/react": "^10.4.9",
     "@types/jest": "^25.1.2",
     "@types/node": "^12.12.7",
     "@types/react": "^16.9.11",
