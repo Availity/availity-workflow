@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 const yargs = require('yargs');
 const chalk = require('chalk');
 const start = require('./scripts/start');
@@ -13,10 +12,14 @@ const profile = require('./scripts/profile');
 const settings = require('./settings');
 require('./scripts/init');
 
+if (process.env.NODE_ENV === 'stage') {
+  process.env.NODE_ENV = 'development';
+}
+
 yargs.command(
   'release',
   `${chalk.dim('Bundle project for distribution (production or staging) and create a git tag')}`,
-  yyargs => {
+  (yyargs) => {
     yyargs
       .version(false)
       .option('version', {
@@ -49,7 +52,7 @@ yargs
   .command(
     'lint',
     `${chalk.dim('Lint source files using ESLint')}`,
-    yyargs => {
+    (yyargs) => {
       yyargs
         .option('include', {
           alias: 'i',
@@ -78,7 +81,7 @@ yargs
   .command(
     'test',
     `${chalk.dim(test.description)}`,
-    yyargs =>
+    (yyargs) =>
       yyargs.option('watch', {
         alias: 'w',
         describe: 'Watch files for changes and rerun tests related to changed files.'
