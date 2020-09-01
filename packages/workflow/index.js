@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'stage') {
 yargs.command(
   'release',
   `${chalk.dim('Bundle project for distribution (production or staging) and create a git tag')}`,
-  (yyargs) => {
+  yyargs => {
     yyargs
       .version(false)
       .option('version', {
@@ -52,7 +52,7 @@ yargs
   .command(
     'lint',
     `${chalk.dim('Lint source files using ESLint')}`,
-    (yyargs) => {
+    yyargs => {
       yyargs
         .option('include', {
           alias: 'i',
@@ -81,7 +81,7 @@ yargs
   .command(
     'test',
     `${chalk.dim(test.description)}`,
-    (yyargs) =>
+    yyargs =>
       yyargs.option('watch', {
         alias: 'w',
         describe: 'Watch files for changes and rerun tests related to changed files.'
