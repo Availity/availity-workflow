@@ -39,7 +39,7 @@
     "@availity/api-core": "^6.0.1",
     "@availity/breadcrumbs": "^3.1.5",
     "@availity/form": "^0.5.8",
-    "@availity/icon": "^0.6.2",
+    "@availity/icon": "^0.7.17",
     "@availity/localstorage-core": "^3.0.0",
     "@availity/page-header": "^9.0.5",
     "@availity/spaces": "^4.0.1",
