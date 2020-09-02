@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.0.12 (2020-09-02)
+
+**Note:** Version bump only for package @availity/mock-server
+
+
+
+
+
 ## [7.0.11](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@7.0.10...@availity/mock-server@7.0.11) (2020-07-03)
 
 **Note:** Version bump only for package @availity/mock-server

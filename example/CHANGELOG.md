@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.24](https://github.com/Availity/availity-workflow/compare/@availity/example@2.2.23...@availity/example@2.2.24) (2020-09-02)
+
+**Note:** Version bump only for package @availity/example
+
+
+
+
+
 ## [2.2.23](https://github.com/Availity/availity-workflow/compare/@availity/example@2.2.22...@availity/example@2.2.23) (2020-08-24)
 
 **Note:** Version bump only for package @availity/example

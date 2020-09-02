@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.5.19](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.18...@availity/workflow@7.5.19) (2020-09-02)
+
+
+### Bug Fixes
+
+* **workflow:** fix node_env issue ([74d76c8](https://github.com/availity/availity-workflow/commit/74d76c8e8d47339f4268e873e7414de3c6525bfc))
+* **workflow:** linting issue ([4badb5a](https://github.com/availity/availity-workflow/commit/4badb5a8bb8c52210c345d77c9914f9adf80060a))
+* **workflow:** this fix corrects babel from using the wrong env variable when the staging command runs ([b15a021](https://github.com/availity/availity-workflow/commit/b15a021a3ecca91d096eba757db681906dcf59a4))
+
+
+
+
+
 ## [7.5.18](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.17...@availity/workflow@7.5.18) (2020-08-24)
 
 
