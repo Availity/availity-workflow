@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow",
-  "version": "7.5.19-alpha.0+74d76c8",
+  "version": "7.5.18",
   "description": "Upgradable workflow for Availity boilerplate projects",
   "main": "index.js",
   "bin": {
@@ -117,7 +117,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "74d76c8e8d47339f4268e873e7414de3c6525bfc",
   "devDependencies": {
     "eslint": "^7.2.0"
   }
