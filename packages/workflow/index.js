@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-
-
+if (process.env.NODE_ENV === 'staging') {
+  process.env.NODE_ENV = 'development';
+}
 const yargs = require('yargs');
 const chalk = require('chalk');
 const start = require('./scripts/start');
