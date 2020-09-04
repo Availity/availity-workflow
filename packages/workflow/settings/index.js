@@ -18,7 +18,6 @@ const Joi = require('@hapi/joi');
 function argv() {
   return yargs.argv;
 }
-
 function stringify(obj) {
   each(obj, (value, key) => {
     if (isString(value)) {
@@ -313,7 +312,7 @@ const settings = {
   },
 
   isStaging() {
-    return this.environment() === 'staging';
+    return this.environment() === 'production' && process.argv.includes('--no-optimize');
   },
 
   isIntegration() {
@@ -345,7 +344,7 @@ const settings = {
   },
 
   isProduction() {
-    return argv().production || this.environment() === 'production';
+    return (argv().production || this.environment() === 'production') && !process.argv.includes('--no-optimize');
   },
 
   isDistribution() {
