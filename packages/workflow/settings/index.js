@@ -311,8 +311,12 @@ const settings = {
     return argv().dryRun !== undefined;
   },
 
+  isOptimized() {
+    return argv().optimize === undefined;
+  },
+
   isStaging() {
-    return this.environment() === 'production' && process.argv.includes('--no-optimize');
+    return this.environment() === 'production' && !this.isOptimized();
   },
 
   isIntegration() {
@@ -344,7 +348,7 @@ const settings = {
   },
 
   isProduction() {
-    return (argv().production || this.environment() === 'production') && !process.argv.includes('--no-optimize');
+    return (argv().production || this.environment() === 'production') && this.isOptimized();
   },
 
   isDistribution() {
