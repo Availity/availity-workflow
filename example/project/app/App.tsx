@@ -3,8 +3,8 @@ import { Formik } from 'formik';
 import PageHeader from '@availity/page-header';
 import { Container, Card } from 'reactstrap';
 import * as yup from 'yup';
-import Form from './components/Form';
-import chain from './chain';
+import Form from '@/components/Form';
+import chain from '@/chain';
 
 const App: React.SFC<{}> = () => (
   <Container className="container-sm">

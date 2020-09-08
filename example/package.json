@@ -67,6 +67,7 @@
     "cross-env": "^6.0.3",
     "eslint-config-availity": "^5.2.3",
     "eslint-import-resolver-root-import": "^1.0.4",
+    "eslint-import-resolver-typescript": "^2.3.0",
     "jest-dom": "^4.0.0",
     "typescript": "^3.7.2"
   },
