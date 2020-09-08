@@ -15,8 +15,7 @@ async function release({ settings }) {
     await version.tag();
     Logger.success('Finished releasing');
   } catch (error) {
-    Logger.failed(`Failed releasing - fix errors and retry.
-`);
+    Logger.failed(`Failed releasing ${error.message}\n\n ${error.stack}`);
     throw error;
   }
 }
