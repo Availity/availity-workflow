@@ -1,8 +1,11 @@
 #!/usr/bin/env node
+let shouldMimicStage = false;
 if (process.env.NODE_ENV === 'staging') {
   process.argv.push('--no-optimize');
   process.env.NODE_ENV = 'production';
+  shouldMimicStage = true;
 }
+
 const yargs = require('yargs');
 const chalk = require('chalk');
 const start = require('./scripts/start');
@@ -29,7 +32,7 @@ yargs.command(
       .example(chalk.yellow(`${chalk.yellow('av release')} ${chalk.magenta('-v 2.0.0')}`));
   },
   () => {
-    settings.init();
+    settings.init({ shouldMimicStage });
     release({ settings });
   }
 );
@@ -99,7 +102,7 @@ yargs
   })
 
   .command('build', `${chalk.dim('Bundle project for distribution (production or staging)')}`, () => {
-    settings.init();
+    settings.init({ shouldMimicStage });
     build({ settings });
   })
 

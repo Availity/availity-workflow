@@ -180,10 +180,12 @@ const settings = {
     return get(argv(), 'development.logLevel', level);
   },
 
-  async init() {
+  async init({ shouldMimicStage }) {
     let config = {};
     const schema = require('./schema');
     let developerConfig = {};
+
+    this.shouldMimicStage = shouldMimicStage;
 
     const { value: defaultConfig } = schema.validate({});
 
@@ -316,7 +318,7 @@ const settings = {
   },
 
   isStaging() {
-    return this.environment() === 'production';
+    return this.environment() === 'staging' || this.shouldMimicStage;
   },
 
   isIntegration() {
