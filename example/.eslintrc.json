@@ -5,15 +5,11 @@
   },
   "settings": {
     "import/resolver": {
+      "typescript": {},
       "root-import": {
-        "rootPathPrefix": "@/",
-        "rootPathSuffix": "example/project/app",
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".tsx",
-          ".ts"
-        ]
+        "rootPathPrefix": "@",
+        "rootPathSuffix": "project/app",
+        "extensions": [".js", ".jsx", ".tsx", ".ts"]
       }
     }
   }

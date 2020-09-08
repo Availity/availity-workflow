@@ -33,13 +33,16 @@
     },
     {
       "type": "node",
-      "name": "react-app:test",
+      "name": "react-app:release:staging",
       "request": "launch",
       "cwd": "${workspaceFolder}/example",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "program": "${workspaceFolder}/node_modules/.bin/av",
-      "args": ["test"]
+      "args": ["release"],
+      "env": {
+        "NODE_ENV": "staging"
+      }
     },
     {
       "type": "node",
