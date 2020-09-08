@@ -181,7 +181,7 @@ const settings = {
     return get(argv(), 'development.logLevel', level);
   },
 
-  async init({ shouldMimicStaging }) {
+  async init({ shouldMimicStaging } = {}) {
     let config = {};
     const schema = require('./schema');
     let developerConfig = {};
