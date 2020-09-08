@@ -157,7 +157,8 @@ const plugin = settings => {
     ]
   };
 
-  if (settings.isProduction()) {
+  if (settings.isProduction() && settings.isOptimized()) {
+    console.log('fdf');
     config.optimization.minimizer.push(
       new TerserPlugin({
         terserOptions: {

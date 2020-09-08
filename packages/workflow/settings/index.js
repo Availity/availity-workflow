@@ -316,7 +316,7 @@ const settings = {
   },
 
   isStaging() {
-    return this.environment() === 'production' && !this.isOptimized();
+    return this.environment() === 'production';
   },
 
   isIntegration() {
@@ -348,7 +348,7 @@ const settings = {
   },
 
   isProduction() {
-    return (argv().production || this.environment() === 'production') && this.isOptimized();
+    return argv().production || this.environment() === 'production';
   },
 
   isDistribution() {
