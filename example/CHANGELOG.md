@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.25](https://github.com/Availity/availity-workflow/compare/@availity/example@2.2.24...@availity/example@2.2.25) (2020-09-08)
+
+
+### Bug Fixes
+
+* **workflow:** this commit fixes staging, adds a --no-optimize flag, updates the readme, and  fixes the release error ([15bcc6a](https://github.com/Availity/availity-workflow/commit/15bcc6ad2ff136d3a610f0a185e4258fbf51188c))
+* **workflow:** this fixes the example project linter script error and adds a root import resolver for typescript ([a598340](https://github.com/Availity/availity-workflow/commit/a59834057189360156caefd63e8ae9417a24ea39))
+
+
+
+
+
 ## [2.2.24](https://github.com/Availity/availity-workflow/compare/@availity/example@2.2.23...@availity/example@2.2.24) (2020-09-02)
 
 **Note:** Version bump only for package @availity/example

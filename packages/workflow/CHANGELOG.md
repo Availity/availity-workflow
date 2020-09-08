@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.5.20](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.19...@availity/workflow@7.5.20) (2020-09-08)
+
+
+### Bug Fixes
+
+* **workflow:** add defaults for init options ([fe98810](https://github.com/availity/availity-workflow/commit/fe988105409b859cc4ed02d7a350d1b5722399ca))
+* **workflow:** refactor webpack prod to check for isOptimized ([87e528d](https://github.com/availity/availity-workflow/commit/87e528de5b775558833a8c75c6f579f2828a4d06))
+* **workflow:** rm console log ([2019bbe](https://github.com/availity/availity-workflow/commit/2019bbed24ab7aa8e13e5428b4b78d45b33850b9))
+* **workflow:** this commit fixes staging, adds a --no-optimize flag, updates the readme, and  fixes the release error ([15bcc6a](https://github.com/availity/availity-workflow/commit/15bcc6ad2ff136d3a610f0a185e4258fbf51188c))
+* **workflow:** try and simulate staging command ([ac0b514](https://github.com/availity/availity-workflow/commit/ac0b5145ceab596f585fa282311cab3b9db2300c))
+
+
+
+
+
 ## [7.5.19](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.18...@availity/workflow@7.5.19) (2020-09-02)
 
 
