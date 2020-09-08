@@ -157,7 +157,7 @@ const plugin = settings => {
     ]
   };
 
-  if (settings.isProduction() && settings.isOptimized()) {
+  if (settings.isProduction() && !settings.shouldMimicStaging) {
     config.optimization.minimizer.push(
       new TerserPlugin({
         terserOptions: {

@@ -18,6 +18,7 @@ const Joi = require('@hapi/joi');
 function argv() {
   return yargs.argv;
 }
+
 function stringify(obj) {
   each(obj, (value, key) => {
     if (isString(value)) {
@@ -180,12 +181,12 @@ const settings = {
     return get(argv(), 'development.logLevel', level);
   },
 
-  async init({ shouldMimicStage }) {
+  async init({ shouldMimicStaging }) {
     let config = {};
     const schema = require('./schema');
     let developerConfig = {};
 
-    this.shouldMimicStage = shouldMimicStage;
+    this.shouldMimicStaging = shouldMimicStaging;
 
     const { value: defaultConfig } = schema.validate({});
 
@@ -318,7 +319,7 @@ const settings = {
   },
 
   isStaging() {
-    return this.environment() === 'staging' || this.shouldMimicStage;
+    return this.environment() === 'staging' || this.shouldMimicStaging;
   },
 
   isIntegration() {
