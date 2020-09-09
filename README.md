@@ -5,7 +5,6 @@
 [![](https://img.shields.io/github/license/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 [![](https://img.shields.io/npm/v/@availity/workflow.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/availity-workflow)
 [![](https://img.shields.io/david/dev/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
-[![CircleCI](https://img.shields.io/circleci/build/github/Availity/availity-workflow/master?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 
 ## Table of Contents
 
