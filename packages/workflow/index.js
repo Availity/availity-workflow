@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-let shouldMimicStaging = false;
 if (process.env.NODE_ENV === 'staging') {
   process.argv.push('--no-optimize');
   process.env.NODE_ENV = 'production';
-  shouldMimicStaging = true;
 }
+const shouldMimicStaging = process.argv.includes('--no-optimize');
 
 const yargs = require('yargs');
 const chalk = require('chalk');
