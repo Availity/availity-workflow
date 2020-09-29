@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 /* eslint global-require:0 import/no-dynamic-require: 0 */
 const path = require('path');
 const Logger = require('@availity/workflow-logger');
@@ -25,7 +26,7 @@ function stringify(obj) {
       try {
         JSON.parse(value);
         obj[key] = value;
-      } catch (error) {
+      } catch {
         obj[key] = JSON.stringify(value);
       }
     } else if (isObject(value) && !isFunction(value)) {
@@ -133,6 +134,7 @@ const settings = {
     //   capabilities
     const parsedGlobals = Object.keys(process.env)
       .filter(key => key in configGlobals)
+      // eslint-disable-next-line unicorn/no-reduce
       .reduce(
         (result, key) => {
           result[key] = JSON.stringify(process.env[key]);
@@ -238,7 +240,7 @@ const settings = {
     this.globals();
 
     this.devServerPort = get(this.configuration, 'development.port', 3000);
-    for (;;) {
+    for (; ;) {
       const availablePort = await getPort({ port: this.devServerPort, host: this.host() }); // eslint-disable-line no-await-in-loop
       if (availablePort === this.devServerPort) break;
       this.devServerPort += 1;

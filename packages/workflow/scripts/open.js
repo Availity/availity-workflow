@@ -14,7 +14,7 @@ function open() {
       const uri = urlJoin(`http://${host}:${port}/`, url);
       opn(uri);
       Logger.info(`Opening browser at ${chalk.green(uri)}`);
-    } catch (error) {
+    } catch {
       // Ignore errors.
     }
   }

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.5.21](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.20...@availity/workflow@7.5.21) (2020-09-09)
+
+
+### Bug Fixes
+
+* **workflow:** fixes --no-optimize flag, release error message ([d816a89](https://github.com/availity/availity-workflow/commit/d816a899437a63dd4d01508e3e51efb312e815a9))
+
+
+
+
+
 ## [7.5.20](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.19...@availity/workflow@7.5.20) (2020-09-08)
 
 

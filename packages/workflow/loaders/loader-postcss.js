@@ -7,18 +7,20 @@ module.exports = {
   loader: 'postcss-loader',
   options: {
     sourceMap: true,
-    plugins: () => [
-      postcssFocus(),
-      postcssFlexBugs(),
-      postCssEnv({
-        autoprefixer: {
-          flexbox: 'no-2009'
-        },
-        stage: 3
-      }),
-      postcssReporter({
-        clearMessages: true
-      })
-    ]
+    postcssOptions: {
+      plugins: [
+        postcssFocus(),
+        postcssFlexBugs(),
+        postCssEnv({
+          autoprefixer: {
+            flexbox: 'no-2009'
+          },
+          stage: 3
+        }),
+        postcssReporter({
+          clearMessages: true
+        })
+      ]
+    }
   }
 };

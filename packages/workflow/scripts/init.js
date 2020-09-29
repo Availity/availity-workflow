@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 /* eslint-disable unicorn/prefer-string-slice */
 /* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable global-require */
@@ -52,7 +53,7 @@ function checkThatWeCanReadCwd(installer) {
     // to reproduce the wrong path. Just printing process.cwd()
     // in a Node process was not enough.
     childOutput = spawn.sync(`${installer}`, ['config', 'list']).output.join('');
-  } catch (error) {
+  } catch {
     // Something went wrong spawning node.
     // Not great, but it means we can't do this check.
     // We might fail later on, but let's continue.
@@ -77,17 +78,17 @@ function checkThatWeCanReadCwd(installer) {
   }
   Logger.error(
     `Could not start an npm process in the right directory.\n\n` +
-      `The current directory is: ${chalk.bold(cwd)}\n` +
-      `However, a newly started npm process runs in: ${chalk.bold(npmCWD)}\n\n` +
-      `This is probably caused by a misconfigured system terminal shell.`
+    `The current directory is: ${chalk.bold(cwd)}\n` +
+    `However, a newly started npm process runs in: ${chalk.bold(npmCWD)}\n\n` +
+    `This is probably caused by a misconfigured system terminal shell.`
   );
   if (process.platform === 'win32') {
     Logger.error(
       `On Windows, this can usually be fixed by running:\n\n` +
-        `  ${chalk.cyan('reg')} delete "HKCU\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n` +
-        `  ${chalk.cyan('reg')} delete "HKLM\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n\n` +
-        `Try to run the above two lines in the terminal.\n` +
-        `To learn more about this problem, read: https://blogs.msdn.microsoft.com/oldnewthing/20071121-00/?p=24433/`
+      `  ${chalk.cyan('reg')} delete "HKCU\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n` +
+      `  ${chalk.cyan('reg')} delete "HKLM\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n\n` +
+      `Try to run the above two lines in the terminal.\n` +
+      `To learn more about this problem, read: https://blogs.msdn.microsoft.com/oldnewthing/20071121-00/?p=24433/`
     );
   }
   return false;
@@ -106,8 +107,8 @@ function updatePackageJson({ appName, appPath }) {
   if (appPackage.availityWorkflow.plugin) {
     throw new Error(
       `This template is based on an older version of Availity Workflow and uses the deprecated plugin feature. ` +
-        `To correct this, remove the ${chalk.cyan('availityWorkflow.plugin')} entry in package.json ` +
-        `and add ${chalk.cyan('"availityWorkflow": true')} in its place.`
+      `To correct this, remove the ${chalk.cyan('availityWorkflow.plugin')} entry in package.json ` +
+      `and add ${chalk.cyan('"availityWorkflow": true')} in its place.`
     );
   }
 

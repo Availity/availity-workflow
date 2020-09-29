@@ -70,7 +70,7 @@ const plugin = settings => {
       futureEmitAssets: true,
       devtoolModuleFilenameTemplate: info =>
         `webpack:///${path.relative(settings.project(), info.absoluteResourcePath)}${
-          info.loaders ? `?${info.loaders}` : ''
+        info.loaders ? `?${info.loaders}` : ''
         }`
     },
 
@@ -142,18 +142,16 @@ const plugin = settings => {
         filename: 'css/[name]-[contenthash].css'
       }),
 
-      new CopyWebpackPlugin(
-        [
+      new CopyWebpackPlugin({
+        patterns: [
           {
             context: `${settings.app()}/static`, // copy from this directory
             from: '**/*', // copy all files
-            to: 'static' // copy into {output}/static folder
+            to: 'static', // copy into {output}/static folder
+            noErrorOnMissing: true
           }
-        ],
-        {
-          logLevel: 'warn'
-        }
-      )
+        ]
+      })
     ]
   };
 

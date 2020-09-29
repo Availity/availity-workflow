@@ -1,6 +1,6 @@
 const path = require('path');
 
-const html = settings => {
+const html = (settings) => {
   const workflowTemplate = path.join(__dirname, './public/index.html');
   const projectTemplate = path.join(settings.app(), 'index.html');
 
@@ -10,8 +10,7 @@ const html = settings => {
   const config = {
     template: settings.asset(workflowTemplate, projectTemplate),
     favicon: settings.asset(workflowFavicon, projectFavicon),
-    title: settings.title(),
-    chunksSortMode: 'dependency'
+    title: settings.title()
   };
 
   return config;
