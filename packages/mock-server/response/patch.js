@@ -13,7 +13,7 @@ const patch = {
       patch.tus(req, res);
       match.set(req, res);
       result.send(req, res);
-    } catch (err) {
+    } catch {
       res.status(500).send({ error: 'mock server error' });
     }
   }

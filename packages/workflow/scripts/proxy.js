@@ -10,9 +10,9 @@ const settings = require('../settings');
 function proxyLogRewrite(daArgs) {
   const args = Array.prototype.slice.call(daArgs);
 
-  return args.map(arg => {
+  return args.map((arg) => {
     if (typeof arg === 'string') {
-      return arg.replace(/\[HPM\] /g, '').replace(/ {2}/g, ' ');
+      return arg.replace(/\[HPM] /g, '').replace(/ {2}/g, ' ');
     }
 
     return arg;
@@ -32,7 +32,7 @@ function onRequest(proxyConfig, proxyObject) {
 
   const regexer = new RegExp(escapeStringRegexp(local, 'g'));
 
-  ['referer', 'origin'].forEach(header => {
+  ['referer', 'origin'].forEach((header) => {
     const requestHeader = proxyObject.getHeader(header);
     if (requestHeader) {
       const replacedHeader = requestHeader.replace(regexer, target);
@@ -64,7 +64,7 @@ function onResponse(proxyConfig, proxyObject) {
   const regexer = new RegExp(escapeStringRegexp(targetUrl, 'g'));
   const regexerContext = new RegExp(escapeStringRegexp(targetUrlContext, 'g'));
 
-  ['location'].forEach(header => {
+  ['location'].forEach((header) => {
     const responseHeader = proxyObject.headers[header];
     if (responseHeader) {
       const replacedUrl = regexerContext.test(responseHeader) ? hostUrl : hostUrlContext;
@@ -144,7 +144,7 @@ function proxy() {
   const config = [];
 
   // Iterate through each proxy configuration
-  proxies.forEach(proxyConfiguration => {
+  proxies.forEach((proxyConfiguration) => {
     // Merge in defaults including custom Logger and custom request/response function
     const proxyConfig = merge({}, defaultProxy, proxyConfiguration, {
       onProxyReq: (proxyReq, req) => {

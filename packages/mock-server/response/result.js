@@ -10,7 +10,7 @@ const result = {
   cache: {},
 
   sendFile(req, res, status, response, filePath) {
-    res.status(status).sendFile(filePath, err => {
+    res.status(status).sendFile(filePath, (err) => {
       if (err) {
         logger.error(`NOT FOUND ${filePath} `);
 
@@ -29,7 +29,7 @@ const result = {
     let replacedContents;
     try {
       replacedContents = JSON.parse(contents);
-    } catch (err) {
+    } catch {
       replacedContents = contents;
     }
 
@@ -48,7 +48,7 @@ const result = {
       res.avFile = relativeFile;
 
       res.status(status).json(json);
-    } catch (err) {
+    } catch {
       logger.error(`NOT FOUND ${filePath} `);
       res.sendStatus(404);
     }
@@ -61,7 +61,7 @@ const result = {
       const status = response.status || 200;
 
       const headers = response.responseHeaders || {};
-      Object.keys(headers).forEach(key => {
+      Object.keys(headers).forEach((key) => {
         res.set(key, response.responseHeaders[key]);
       });
 

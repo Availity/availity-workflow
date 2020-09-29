@@ -43,7 +43,7 @@ function formatMessage(message) {
   // Cleans up syntax error messages.
   if (lines[1].indexOf('Module build failed: ') === 0) {
     const cleanedLines = [];
-    lines.forEach(line => {
+    lines.forEach((line) => {
       if (line !== '') {
         cleanedLines.push(line);
       }
@@ -66,16 +66,18 @@ function formatMessage(message) {
 }
 
 function formatWebpackMessages(json) {
-  const formattedErrors = json.errors.map(message => `Error in ${formatMessage(message)}`);
-  const formattedWarnings = json.warnings.map(message => `Warning in ${formatMessage(message)}`);
+  const formattedErrors = json.errors.map((message) => `Error in ${formatMessage(message)}`);
+  const formattedWarnings = json.warnings.map((message) => `Warning in ${formatMessage(message)}`);
   const result = {
     errors: formattedErrors,
     warnings: formattedWarnings
   };
+  // eslint-disable-next-line unicorn/no-fn-reference-in-iterator
   if (result.errors.some(isLikelyASyntaxError)) {
     // If there are any syntax errors, show just them.
     // This prevents a confusing ESLint parsing error
     // preceding a much more useful Babel syntax error.
+    // eslint-disable-next-line unicorn/no-fn-reference-in-iterator
     result.errors = result.errors.filter(isLikelyASyntaxError);
   }
 
