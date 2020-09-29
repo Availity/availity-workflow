@@ -18,7 +18,7 @@ function lint() {
   let eslint;
   try {
     eslint = requireRelative('eslint', settings.project());
-  } catch (error) {
+  } catch {
     // no op
   }
 
@@ -33,7 +33,7 @@ function lint() {
     engine = new eslint.CLIEngine({
       useEslintrc: true
     });
-  } catch (error) {
+  } catch {
     future = Promise.reject(new Error('ESLint configuration error in @availity/workflow'));
   }
 
@@ -56,22 +56,19 @@ function lint() {
         gitTrackedFiles = null;
       } else {
         const gitLsFiles = spawnSync('git', ['ls-files']);
-        gitTrackedFiles = gitLsFiles.stdout
-          .toString()
-          .trim()
-          .split('\n');
+        gitTrackedFiles = gitLsFiles.stdout.toString().trim().split('\n');
         const gitRoot = gitRootCmd.stdout.toString().trim();
-        gitTrackedFiles = gitTrackedFiles.map(f => path.join(gitRoot, f));
+        gitTrackedFiles = gitTrackedFiles.map((f) => path.join(gitRoot, f));
       }
     }
 
     // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
     /* eslint-disable promise/catch-or-return */
-    globby(settings.js().map(path => path.replace(/\\/g, '/'))).then(paths => {
+    globby(settings.js().map((path) => path.replace(/\\/g, '/'))).then((paths) => {
       spinner.stop();
       const filesToLint = gitTrackedFiles
         ? // git repository present
-          paths.filter(f => gitTrackedFiles.indexOf(f) > 0)
+          paths.filter((f) => gitTrackedFiles.indexOf(f) > 0)
         : paths;
 
       const report = engine.executeOnFiles(filesToLint);
