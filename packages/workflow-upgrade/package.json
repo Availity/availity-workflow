@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-upgrade",
-  "version": "5.5.7",
+  "version": "5.5.8",
   "bin": {
     "upgrade-workflow": "./bin.js"
   },
@@ -34,7 +34,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@availity/workflow-logger": "^5.5.8",
+    "@availity/workflow-logger": "^5.5.9",
     "read-pkg": "^5.2.0",
     "rimraf": "^3.0.0"
   }
