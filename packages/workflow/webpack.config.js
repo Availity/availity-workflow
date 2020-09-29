@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 const path = require('path');
 const webpack = require('webpack');
 const { existsSync } = require('fs');
@@ -7,6 +8,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const loaders = require('./loaders');
 const babelPreset = require('./babel-preset');
 const resolveModule = require('./helpers/resolve-module');
@@ -88,8 +90,7 @@ const plugin = settings => {
         loaders.css.development,
         loaders.scss.development,
         loaders.fonts,
-        loaders.images,
-        loaders.eslint
+        loaders.images
       ]
     },
     plugins: [
@@ -118,11 +119,15 @@ const plugin = settings => {
       new webpack.HotModuleReplacementPlugin(),
 
       new HtmlWebpackPlugin(html(settings)),
-
       new DuplicatePackageCheckerPlugin({
         verbose: true,
         exclude(instance) {
-          return instance.name === 'regenerator-runtime';
+          return (
+            instance.name === 'regenerator-runtime' ||
+            instance.name === 'unist-util-visit-parents' ||
+            instance.name === 'scheduler' ||
+            instance.name === '@babel/runtime'
+          );
         }
       }),
 
@@ -130,28 +135,22 @@ const plugin = settings => {
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
       new CaseSensitivePathsPlugin(),
-
-      new CopyWebpackPlugin(
-        [
+      new ESLintPlugin({ quiet: true }),
+      new CopyWebpackPlugin({
+        patterns: [
           {
             context: `${settings.app()}/static`, // copy from this directory
             from: '**/*', // copy all files
-            to: 'static' // copy into {output}/static folder
+            to: 'static', // copy into {output}/static folder
+            noErrorOnMissing: true
           }
-        ],
-        {
-          logLevel: 'warn'
-        }
-      )
+        ]
+      })
     ]
   };
 
   if (settings.getHotLoaderName() === 'react-refresh/babel') {
-    config.plugins.push(
-      new ReactRefreshWebpackPlugin({
-        disableRefreshCheck: true
-      })
-    );
+    config.plugins.push(new ReactRefreshWebpackPlugin());
   }
 
   if (settings.isNotifications()) {

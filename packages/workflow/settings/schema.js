@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi');
+const Joi = require('joi');
 const path = require('path');
 
 const schema = Joi.object()

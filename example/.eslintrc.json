@@ -1,5 +1,4 @@
 {
-  "extends": "availity/browser",
   "rules": {
     "import/extensions": 0
   },

@@ -19,7 +19,7 @@
   "dependencies": {
     "@availity/mock-data": "^5.5.8",
     "body-parser": "^1.18.2",
-    "chalk": "^3.0.0",
+    "chalk": "^4.1.0",
     "compression": "^1.7.0",
     "connect-busboy": "0.0.2",
     "cors": "^2.8.4",
@@ -31,7 +31,7 @@
     "on-finished": "^2.3.0"
   },
   "devDependencies": {
-    "superagent": "^5.1.0"
+    "superagent": "^6.1.0"
   },
   "publishConfig": {
     "access": "public"

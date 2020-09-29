@@ -95,7 +95,7 @@ function rest() {
       const Ekko = require('@availity/mock-server');
       ekko = new Ekko();
       return ekko.start(ekkoOptions);
-    } catch (error) {
+    } catch {
       Logger.error(
         "Failed to create Ekko Server. Please install '@availity/mock-server' with `yarn install @availity/mock-server --dev` or check your settings"
       );
@@ -117,7 +117,6 @@ function web() {
     } else {
       webpackConfig = webpackConfigBase(settings);
     }
-
     webpackConfig.plugins.push(
       new ProgressPlugin((percentage, msg) => {
         const percent = Math.round(percentage * 100);
@@ -138,6 +137,7 @@ function web() {
     const compiler = webpack(webpackConfig);
 
     compiler.hooks.invalid.tap('invalid', () => {
+      // eslint-disable-next-line unicorn/no-null
       previousPercent = null;
       Logger.info('Started compiling');
     });
@@ -145,7 +145,7 @@ function web() {
     const openBrowser = once(open);
     const message = debounce(compileMessage, 500);
 
-    compiler.hooks.done.tap('done', stats => {
+    compiler.hooks.done.tap('done', (stats) => {
       const hasErrors = stats.hasErrors();
       const hasWarnings = stats.hasWarnings();
 
@@ -170,7 +170,7 @@ function web() {
       }
 
       if (hasErrors) {
-        messages.errors.forEach(error => {
+        messages.errors.forEach((error) => {
           Logger.empty();
           Logger.simple(`${chalk.red(error)}`);
           Logger.empty();
@@ -205,7 +205,7 @@ function web() {
       // Reportedly, this avoids CPU overload on some systems.
       // https://github.com/facebookincubator/create-react-app/issues/293
       watchOptions: {
-        ignored: /node_modules([\\]+|\/)+(?!(@availity|@av))/
+        ignored: /node_modules(\\+|\/)+(?!(@availity|@av))/
       }
     };
 
@@ -218,7 +218,7 @@ function web() {
 
     server = new WebpackDevSever(compiler, webpackOptions);
 
-    server.listen(settings.port(), settings.host(), err => {
+    server.listen(settings.port(), settings.host(), (err) => {
       if (err) {
         Logger.failed(err);
         reject(err);
@@ -231,7 +231,7 @@ function web() {
 }
 
 async function start() {
-  process.on('unhandledRejection', reason => {
+  process.on('unhandledRejection', (reason) => {
     if (reason && reason.stack) {
       Logger.error(reason.stack);
       Logger.empty();
@@ -239,7 +239,9 @@ async function start() {
   });
 
   init();
+
   await web();
+
   await notifier();
   await rest();
 }

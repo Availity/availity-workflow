@@ -23,7 +23,7 @@
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
     "boxen": "^4.1.0",
-    "chalk": "^3.0.0",
+    "chalk": "^4.1.0",
     "dateformat": "^3.0.2",
     "figures": "^3.1.0"
   },
