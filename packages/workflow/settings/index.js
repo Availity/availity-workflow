@@ -14,7 +14,7 @@ const isString = require('lodash.isstring');
 const isFunction = require('lodash.isfunction');
 const isObject = require('lodash.isobject');
 const getPort = require('get-port');
-const Joi = require('@hapi/joi');
+const Joi = require('joi');
 
 function argv() {
   return yargs.argv;
