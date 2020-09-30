@@ -76,6 +76,7 @@
     "open": "^7.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "ora": "^5.1.0",
+    "postcss": "^8.0.9",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-focus": "^5.0.0",
     "postcss-loader": "^4.0.2",
@@ -106,6 +107,9 @@
     "webpack-sources": "^2.0.0",
     "yargs": "^16.0.3"
   },
+  "devDependencies": {
+    "eslint": "^7.9.0"
+  },
   "peerDependencies": {
     "@availity/mock-server": "^7.0.6",
     "@testing-library/react": "^8.0.1"
@@ -116,9 +120,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "devDependencies": {
-    "eslint": "^7.9.0",
-    "postcss": "^8.0.9"
   }
 }
