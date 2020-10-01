@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.5.9 (2020-10-01)
+
+
+### Bug Fixes
+
+* **workflow-upgrade:** add missing devDependencies from eslint-config-availity, use yarn by default when no lockfile found ([e4c8c3b](https://github.com/availity/availity-workflow/commit/e4c8c3b05802a7c4e9ed4b523090012cca47f115))
+* **workflow-upgrade:** await peerDependency additions so writeFileSync always writes correct data ([7cc694a](https://github.com/availity/availity-workflow/commit/7cc694a2cf6064554b07112de932140cbbb89859))
+
+
+
+
+
 ## 5.5.8 (2020-09-29)
 
 **Note:** Version bump only for package @availity/workflow-upgrade
