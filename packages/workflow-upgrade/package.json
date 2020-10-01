@@ -27,8 +27,9 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "engines": {
-    "node": ">= 8.0.0",
-    "npm": ">= 4.0.0"
+    "node": ">= 10.22.0",
+    "npm": ">= 6.4.1",
+    "yarn": ">=1.22.0"
   },
   "publishConfig": {
     "access": "public"
