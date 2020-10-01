@@ -1,11 +1,15 @@
+const { exec } = require('child_process');
+const { promisify } = require('util');
 const fs = require('fs');
 const path = require('path');
 const readPkg = require('read-pkg');
 const rimraf = require('rimraf');
-const { exec } = require('child_process');
 const Logger = require('@availity/workflow-logger');
 
-module.exports = (cwd) => {
+const asyncExec = promisify(exec);
+const reinstallTimeout = 30 * 1000 * 60; // 30 minutes
+
+module.exports = async (cwd) => {
   Logger.info('Upgrading @availity/workflow');
   const pkgFile = path.join(cwd, 'package.json');
 
@@ -54,15 +58,21 @@ module.exports = (cwd) => {
 
       // Get needed dependencies from eslint-config-availity
       Logger.info('Adding peerDependencies from eslint-config-availity to devDependencies');
-      exec(`${installer} info eslint-config-availity peerDependencies`, (error, stdout, stderr) => {
-        if (!error && !stderr && stdout) {
-          // Both npm and yarn will return an object containing key/value pairs of dependencies
-          Object.assign(devDependencies, stdout);
-          peerInfoReceived = true;
-        } else {
-          Logger.warn('Failed to get peerDependencies from eslint-config-availity');
-        }
-      });
+
+      const { error, stdout, stderr } = await asyncExec(
+        `${installer} info eslint-config-availity peerDependencies --json`
+      );
+      if (!error && !stderr && stdout) {
+        // Both npm and yarn will return an object containing key/value pairs of dependencies
+        // npm will return only the peerDependencies object, but yarn nests them inside a data key
+        const eslintPkg = JSON.parse(stdout);
+        const peerDependencies = installer === 'npm' ? eslintPkg : eslintPkg.data;
+
+        Object.assign(devDependencies, peerDependencies);
+        peerInfoReceived = true;
+      } else {
+        Logger.warn('Failed to get peerDependencies from eslint-config-availity');
+      }
     }
 
     // Update package.json
@@ -75,10 +85,10 @@ module.exports = (cwd) => {
     const reinstallNodeModules = () => {
       Logger.info('Reinstalling node modules..');
       // Run install command
-      exec(`${installer} install`, () => {
+      exec(`${installer} install`, { timeout: reinstallTimeout }, () => {
         Logger.success('\nCongratulations! Welcome to the new @availity/workflow.');
         if (!peerInfoReceived) {
-          Logger.info(
+          Logger.warn(
             'To complete your upgrade, please install the peerDependencies from eslint-config-availity as devDependencies in your project.'
           );
         }
@@ -88,14 +98,18 @@ module.exports = (cwd) => {
     Logger.info('Adding latest versions of @availity/workflow and eslint-config-availity');
 
     if (installer === 'yarn') {
-      exec(`${installer} add @availity/workflow eslint-config-availity --dev`, () => {
+      exec(`${installer} add @availity/workflow eslint-config-availity --dev`, { timeout: reinstallTimeout }, () => {
         reinstallNodeModules();
       });
     } else if (installer === 'npm') {
       // installer -i packages --save-dev
-      exec(`${installer} install @availity/workflow eslint-config-availity --save-dev`, () => {
-        reinstallNodeModules();
-      });
+      exec(
+        `${installer} install @availity/workflow eslint-config-availity --save-dev`,
+        { timeout: reinstallTimeout },
+        () => {
+          reinstallNodeModules();
+        }
+      );
     }
   }
 };
