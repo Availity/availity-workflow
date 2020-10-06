@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.5.25](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.24...@availity/workflow@7.5.25) (2020-10-06)
+
+
+### Bug Fixes
+
+* **workflow:** add ESLint config options, closes [#463](https://github.com/availity/availity-workflow/issues/463) ([45365eb](https://github.com/availity/availity-workflow/commit/45365ebf60c2ef6e15cd1916fb682b52951b201e))
+
+
+
+
+
 ## [7.5.24](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.23...@availity/workflow@7.5.24) (2020-10-01)
 
 **Note:** Version bump only for package @availity/workflow
