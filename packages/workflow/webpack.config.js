@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-null */
 const path = require('path');
 const webpack = require('webpack');
 const { existsSync } = require('fs');
@@ -16,8 +15,8 @@ const html = require('./html');
 
 process.noDeprecation = true;
 
-const plugin = settings => {
-  const resolveApp = relativePath => path.resolve(settings.app(), relativePath);
+const plugin = (settings) => {
+  const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
 
   const babelrcPath = path.join(settings.project(), '.babelrc');
   const babelrcExists = existsSync(babelrcPath);
@@ -135,7 +134,14 @@ const plugin = settings => {
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
       new CaseSensitivePathsPlugin(),
-      new ESLintPlugin({ quiet: true }),
+      new ESLintPlugin({
+        quiet: false,
+        emitWarning: true,
+        extensions: ['js', 'jsx', 'ts', 'tsx', 'mjs'],
+        baseConfig: {
+          extends: 'availity/workflow'
+        }
+      }),
       new CopyWebpackPlugin({
         patterns: [
           {
