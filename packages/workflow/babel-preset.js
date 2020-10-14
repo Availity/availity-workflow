@@ -32,8 +32,7 @@ module.exports = (_api, opts) => {
           rootPathSuffix: 'project/app',
           rootPathPrefix: '@/'
         }
-      ],
-      [require.resolve('@babel/plugin-proposal-optional-chaining')]
+      ]
     ].filter(Boolean)
   };
 };
