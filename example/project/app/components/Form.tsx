@@ -12,6 +12,7 @@ const Form: React.SFC<FormikProps<FormValues>> = ({ handleSubmit, handleReset })
     <CardBody>
       <Field name="formField" label="Some Field Label" />
       <Field name="chainedField" label="Another Field Label" />
+      <Field name="nullishCoalescedField" label="Yet Another Field Label" />
     </CardBody>
     <CardFooter className="d-flex justify-content-end">
       <Button color="secondary" onClick={handleReset}>
