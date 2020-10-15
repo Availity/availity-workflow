@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/Availity/availity-workflow/compare/@availity/example@2.2.30...@availity/example@2.3.0) (2020-10-15)
+
+
+### Features
+
+* **example:** update example app with nullish coalescing ([e79dbd2](https://github.com/Availity/availity-workflow/commit/e79dbd23ab689fdab63ccbbddd5c21e077f67d90))
+
+
+
+
+
 ## [2.2.30](https://github.com/Availity/availity-workflow/compare/@availity/example@2.2.29...@availity/example@2.2.30) (2020-10-06)
 
 **Note:** Version bump only for package @availity/example
