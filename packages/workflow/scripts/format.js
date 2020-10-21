@@ -66,8 +66,8 @@ function formatMessage(message) {
 }
 
 function formatWebpackMessages(json) {
-  const formattedErrors = json.errors.map((message) => `Error in ${formatMessage(message)}`);
-  const formattedWarnings = json.warnings.map((message) => `Warning in ${formatMessage(message)}`);
+  const formattedErrors = json.errors.map((message) => `Error in ${formatMessage(message.message)}`);
+  const formattedWarnings = json.warnings.map((message) => `Warning in ${formatMessage(message.message)}`);
   const result = {
     errors: formattedErrors,
     warnings: formattedWarnings

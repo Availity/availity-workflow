@@ -25,21 +25,19 @@ const plugin = (settings) => {
     return settings.pkg().version || 'N/A';
   }
 
-  const index = [
-    require.resolve('react-app-polyfill/ie11'),
-    `${require.resolve('webpack-dev-server/client')}?/`,
-    require.resolve('webpack/hot/dev-server'),
-    require.resolve('navigator.sendbeacon'),
-    resolveModule(resolveApp, 'index')
-  ];
-
   const config = {
     mode: 'development',
 
     context: settings.app(),
 
     entry: {
-      index
+      index: [
+        require.resolve('react-app-polyfill/ie11'),
+        `${require.resolve('webpack-dev-server/client')}?/`,
+        require.resolve('webpack/hot/dev-server'),
+        require.resolve('navigator.sendbeacon'),
+        resolveModule(resolveApp, 'index')
+      ]
     },
 
     output: {
@@ -59,7 +57,10 @@ const plugin = (settings) => {
         path.join(__dirname, 'node_modules')
       ],
       symlinks: true,
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss']
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss'],
+      fallback: {
+        path: require.resolve('path-browserify')
+      }
     },
 
     // This set of options is identical to the resolve property set above,
@@ -86,12 +87,20 @@ const plugin = (settings) => {
             }
           ]
         },
+        // Allows .mjs and .js files from packages of type "module" to be required without the extension
+        {
+          test: /\.m?js/,
+          resolve: {
+            fullySpecified: false
+          }
+        },
         loaders.css.development,
         loaders.scss.development,
         loaders.fonts,
         loaders.images
       ]
     },
+
     plugins: [
       new webpack.DefinePlugin(settings.globals()),
 
@@ -105,14 +114,6 @@ const plugin = (settings) => {
       new webpack.BannerPlugin({
         banner: `v${getVersion()} - ${new Date().toJSON()}`
       }),
-
-      // Converts:
-      //    [HMR] Updated modules:
-      //    [HMR]  - 5
-      // To:
-      //    [HMR] Updated modules:
-      //    [HMR]  - ./src/middleware/api.js
-      new webpack.NamedModulesPlugin(),
 
       // Generate hot module chunks
       new webpack.HotModuleReplacementPlugin(),
@@ -131,7 +132,7 @@ const plugin = (settings) => {
       }),
 
       // Ignore all the moment local files
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
 
       new CaseSensitivePathsPlugin(),
       new ESLintPlugin({

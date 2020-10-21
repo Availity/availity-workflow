@@ -10,10 +10,10 @@ const babelPreset = require('./babel-preset');
 
 process.noDeprecation = true;
 
-const plugin = settings => {
+const plugin = (settings) => {
   const babelrcPath = path.join(settings.project(), '.babelrc');
   const babelrcExists = existsSync(babelrcPath);
-  const resolveApp = relativePath => path.resolve(settings.app(), relativePath);
+  const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
 
   function getVersion() {
     return settings.pkg().version || 'N/A';
@@ -22,11 +22,13 @@ const plugin = settings => {
   const config = {
     context: settings.app(),
 
+    mode: 'none',
+
     optimization: {
       splitChunks: {
         cacheGroups: {
           styles: {
-            name: 'styles',
+            idHint: 'styles',
             test: /\.css$/,
             chunks: 'all',
             enforce: true
@@ -38,7 +40,7 @@ const plugin = settings => {
           vendor: {
             test: /node_modules/,
             chunks: 'initial',
-            name: 'vendor',
+            idHint: 'vendor',
             priority: 10,
             enforce: true
           }
@@ -71,7 +73,10 @@ const plugin = settings => {
         path.join(__dirname, 'node_modules')
       ],
       symlinks: true,
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss']
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss'],
+      fallback: {
+        path: require.resolve('path-browserify')
+      }
     },
 
     // This set of options is identical to the resolve property set above,
@@ -97,7 +102,13 @@ const plugin = settings => {
             }
           ]
         },
-
+        // Allows .mjs and .js files from packages of type "module" to be required without the extension
+        {
+          test: /\.m?js/,
+          resolve: {
+            fullySpecified: false
+          }
+        },
         loaders.css.production,
         loaders.scss.production,
         loaders.fonts,
@@ -134,7 +145,7 @@ const plugin = settings => {
       }),
 
       // Ignore all the moment local files
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
 
       new CaseSensitivePathsPlugin()
     ]

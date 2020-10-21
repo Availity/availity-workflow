@@ -15,10 +15,10 @@ const html = require('./html');
 
 process.noDeprecation = true;
 
-const plugin = settings => {
+const plugin = (settings) => {
   const babelrcPath = path.join(settings.project(), '.babelrc');
   const babelrcExists = fs.existsSync(babelrcPath);
-  const resolveApp = relativePath => path.resolve(settings.app(), relativePath);
+  const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
 
   function getVersion() {
     return settings.pkg().version || 'N/A';
@@ -41,7 +41,7 @@ const plugin = settings => {
       splitChunks: {
         cacheGroups: {
           styles: {
-            name: 'styles',
+            idHint: 'styles',
             test: /\.css$/,
             chunks: 'all',
             enforce: true
@@ -53,7 +53,7 @@ const plugin = settings => {
           vendor: {
             test: /node_modules/,
             chunks: 'initial',
-            name: 'vendor',
+            idHint: 'vendor',
             priority: 10,
             enforce: true
           }
@@ -66,11 +66,9 @@ const plugin = settings => {
       path: settings.output(),
       filename: settings.fileName(),
       chunkFilename: settings.chunkFileName(),
-      // TODO: remove this when upgrading to webpack 5
-      futureEmitAssets: true,
-      devtoolModuleFilenameTemplate: info =>
+      devtoolModuleFilenameTemplate: (info) =>
         `webpack:///${path.relative(settings.project(), info.absoluteResourcePath)}${
-        info.loaders ? `?${info.loaders}` : ''
+          info.loaders ? `?${info.loaders}` : ''
         }`
     },
 
@@ -85,7 +83,10 @@ const plugin = settings => {
         path.join(__dirname, 'node_modules')
       ],
       symlinks: true,
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss']
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss'],
+      fallback: {
+        path: require.resolve('path-browserify')
+      }
     },
 
     // This set of options is identical to the resolve property set above,
@@ -111,6 +112,13 @@ const plugin = settings => {
             }
           ]
         },
+        // Allows .mjs and .js files from packages of type "module" to be required without the extension
+        {
+          test: /\.m?js/,
+          resolve: {
+            fullySpecified: false
+          }
+        },
         loaders.css.production,
         loaders.scss.production,
         loaders.fonts,
@@ -134,7 +142,7 @@ const plugin = settings => {
       new HtmlWebpackPlugin(html(settings)),
 
       // Ignore all the moment local files
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
 
       new CaseSensitivePathsPlugin(),
 
@@ -189,10 +197,7 @@ const plugin = settings => {
         },
         // Use multi-process parallel running to improve the build speed
         // Default number of concurrent runs: os.cpus().length - 1
-        parallel: true,
-        // Enable file caching
-        cache: true,
-        sourceMap: true
+        parallel: true
       }),
       new OptimizeCSSAssetsPlugin({
         cssProcessorOptions: { zindex: false, reduceIdents: false }
