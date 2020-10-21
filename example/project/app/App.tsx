@@ -2,9 +2,9 @@ import React from 'react';
 import { Formik } from 'formik';
 import PageHeader from '@availity/page-header';
 import { Container, Card } from 'reactstrap';
-import * as yup from 'yup';
+import { object, string } from 'yup';
 import Form from '@/components/Form';
-import chain from '@/chain';
+import { chain, nullChain } from '@/chain';
 
 const App: React.SFC<{}> = () => (
   <Container className="container-sm">
@@ -14,14 +14,17 @@ const App: React.SFC<{}> = () => (
       initialValues={{
         formField: '',
         chainedField: chain,
+        nullishCoalescedField: nullChain,
       }}
       // onSubmit={() => {}}
-      validationSchema={yup.object().shape({
-        formField: yup.string().required('This field is required.'),
-        chainedField: yup.string().required('This field is required.'),
+      validationSchema={object().shape({
+        formField: string().required('This field is required.'),
+        chainedField: string().required('This field is required.'),
+        nullishCoalescedField: string().required('This field is required.'),
       })}
-      render={Form}
-    />
+    >
+      {Form}
+    </Card>
   </Container>
 );
 
