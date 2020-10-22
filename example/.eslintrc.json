@@ -1,4 +1,5 @@
 {
+  "root": true,
   "rules": {
     "import/extensions": 0
   },

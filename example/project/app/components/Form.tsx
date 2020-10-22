@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Field } from '@availity/form';
 import { Form as RForm, CardHeader, CardBody, CardFooter, Button } from 'reactstrap';
-import { FormikProps } from 'formik';
-import { FormValues } from '../form';
 
 const Form: React.SFC<FormikProps<FormValues>> = ({ handleSubmit, handleReset }) => (
   <RForm onSubmit={handleSubmit}>
