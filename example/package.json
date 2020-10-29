@@ -1,7 +1,7 @@
 {
   "name": "@availity/example",
   "private": true,
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "React project using @availity/workflow",
   "main": "index.js",
   "scripts": {
@@ -57,7 +57,7 @@
     "yup": "^0.29.3"
   },
   "devDependencies": {
-    "@availity/workflow": "^7.5.26",
+    "@availity/workflow": "^8.0.0",
     "@testing-library/react": "^11.0.4",
     "@types/jest": "^26.0.14",
     "@types/node": "^14.11.2",

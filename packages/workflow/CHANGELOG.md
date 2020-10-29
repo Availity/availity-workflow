@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.26...@availity/workflow@8.0.0) (2020-10-29)
+
+
+### Features
+
+* **workflow:** upgrade to webpack 5 ([3378833](https://github.com/availity/availity-workflow/commit/33788338e9ef84866f77131fb70d35d3e3e87786))
+
+
+### BREAKING CHANGES
+
+* **workflow:** eslint >= 7 or eslint-config-availity >= 6 is required
+
+
+
+
+
 ## [7.5.26](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.25...@availity/workflow@7.5.26) (2020-10-15)
 
 **Note:** Version bump only for package @availity/workflow
