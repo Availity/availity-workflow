@@ -5,6 +5,7 @@
   "packages": [
     "packages/*",
     "docs",
+    "docusaurus",
     "example"
   ],
   "message": "chore: publish release [skip ci]",

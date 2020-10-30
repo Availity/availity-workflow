@@ -4,7 +4,9 @@
   "workspaces": [
     "packages/*",
     "docs",
+    "docusaurus",
     "example"
+
   ],
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -25,7 +27,9 @@
   "scripts": {
     "start": "yarn workspace @availity/docs develop",
     "start:app": "yarn workspace @availity/example start",
+    "start:dino": "yarn workspace @availity/dinosaurdocs start",
     "build:app": "yarn workspace @availity/example build",
+    "build:dino": "yarn workspace @availity/dinosaurdocs build",
     "test:app": "yarn workspace @availity/example test",
     "build:docs": "yarn workspace @availity/docs build:deploy",
     "lint": "eslint .",

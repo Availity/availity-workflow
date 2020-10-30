@@ -13,3 +13,6 @@ build/
 yarn-error.log
 
 my-proj/
+yarn-error.log
+/**/build
+/**/.docusaurus
