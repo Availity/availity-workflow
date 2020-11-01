@@ -53,12 +53,12 @@
   integrity sha512-t0J0oIZK0D6OBNco/xB1AR8Vby4r8C3uZ6ofm7vNaWQwoWj4jZkuB0E/IiT3TTDvfm8ooqthCn15KtNY8Z8A6A==
 
 "@availity/favorites@^2.1.30":
-  version "2.1.30"
-  resolved "https://registry.yarnpkg.com/@availity/favorites/-/favorites-2.1.30.tgz#2d116cf1cd4f2c578a3f85dcb30819dd34a7636b"
-  integrity sha512-7KDwcCy64At5fmwtQA3kzNAaxqSaxuFiY5x/sX85n/U/M/8kBelE2BIyFHx1ALShOy1/erv7gYfmNJu6zufZcA==
+  version "2.1.31"
+  resolved "https://registry.yarnpkg.com/@availity/favorites/-/favorites-2.1.31.tgz#dfac102966eb567eb7fde4b59913b563514ec23e"
+  integrity sha512-I2aMT+3kZr92cBI6c2uleaos7JZ9KQQtNcBG01RsdSHpjBuYikEp/daMrWXjq62OcXS5yIpFMD+ytwrwav8AuA==
   dependencies:
     "@availity/analytics-core" "^2.6.0"
-    "@availity/hooks" "^1.8.0"
+    "@availity/hooks" "^2.0.0"
     "@availity/message-core" "^4.0.1"
     lodash.clone "^4.5.0"
     lodash.findwhere "^3.1.0"
@@ -141,6 +141,14 @@
   dependencies:
     prop-types "^15.5.8"
     react-query "^1.5.7"
+
+"@availity/hooks@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@availity/hooks/-/hooks-2.0.0.tgz#690d2ad234057c7d9f33c97020ab38bbfc05774f"
+  integrity sha512-53I14wUNxjLKEFJOmCUExe4z7pi8BkJWPOhwLFA8nNsyN+O4A3rjTqaGkaA/MuyWw8x/qPJSN6gY3eGW3o9aow==
+  dependencies:
+    prop-types "^15.5.8"
+    react-query "^2.25.2"
 
 "@availity/icon@^0.7.17":
   version "0.7.17"
@@ -5845,10 +5853,15 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001135:
-  version "1.0.30001150"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001150.tgz#6d0d829da654b0b233576de00335586bc2004df1"
-  integrity sha512-kiNKvihW0m36UhAFnl7bOAv0i1K1f6wpfVtTF5O5O82XzgtBnb05V0XeV3oZ968vfg2sRNChsHw8ASH2hDfoYQ==
+caniuse-lite@^1.0.0:
+  version "1.0.30000974"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000974.tgz#b7afe14ee004e97ce6dc73e3f878290a12928ad8"
+  integrity sha512-xc3rkNS/Zc3CmpMKuczWEdY2sZgx09BkAxfvkxlAEBTqcMHeL8QnPqhKse+5sRTi3nrw2pJwToD2WvKn1Uhvww==
+
+caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001135:
+  version "1.0.30001154"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001154.tgz#f3bbc245ce55e4c1cd20fa731b097880181a7f17"
+  integrity sha512-y9DvdSti8NnYB9Be92ddMZQrcOe04kcQtcxtBx4NkB04+qZ+JUWotnXBJTmxlKudhxNTQ3RRknMwNU2YQl/Org==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -17454,6 +17467,13 @@ react-query@^1.5.7:
   dependencies:
     "@scarf/scarf" "^1.0.6"
     ts-toolbelt "^6.9.4"
+
+react-query@^2.25.2:
+  version "2.25.2"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.25.2.tgz#afefdf57a166bcbf08c93a26522a8c6cb1bdf849"
+  integrity sha512-GIz75WlRAzJ+wKos9VPw6PMAB3FqGmB2lHtRZlvKKByurlMNHa5rOFPz4WCYGWsPBSk7m6FHWrkK9aItDrP2mw==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
 
 react-reconciler@^0.24.0:
   version "0.24.0"
