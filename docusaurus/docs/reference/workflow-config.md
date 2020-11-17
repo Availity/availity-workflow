@@ -2,6 +2,8 @@
 title: 'Reference: Workflow Configuration'
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 ## Features
 
 -   Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
@@ -83,7 +85,7 @@ Opens the url in the default browser
 
 Webpack build status system notifications
 
-<img src="./images/notification.png" className="w-50 mb-2" alt="notification" />
+<img src={useBaseUrl('img/notification.png')} className="w-50 mb-2" alt="notification" />
 
 #### `development.host`
 
@@ -294,7 +296,7 @@ modifyWebpackConfig: (webpackConfig, settings) => {
 Create `./vscode/settings.json` file with the following configuration:
 
 ```json
-{ 
+{
     "jest.pathToJest": "node_modules/.bin/av test"
 }
 ```
@@ -305,32 +307,32 @@ If you would like to debug Jest tests, create `./vscode/launch.json` with this c
 
 ```json
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "name": "vscode-jest-tests",
-      "request": "launch",
-      "program": "${workspaceRoot}/node_modules/.bin/av",
-      "args": ["test", "--runInBand"],
-      "cwd": "${workspaceFolder}",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    },
-  ]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "name": "vscode-jest-tests",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/.bin/av",
+            "args": ["test", "--runInBand"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        }
+    ]
 }
 ```
 
 Then you will be able to debug Jest tests like this:
 
-<img width="100%" src="jest-debug.gif" alt="Jest Debugging Example" />  
+<img width="100%" src={useBaseUrl('img/jest-debug.gif')} src="jest-debug.gif" alt="Jest Debugging Example" />
 
 ### How to setup a development environment to match the deployment environment?
 
 Update `workflow.js` using the configuration below:
 
 ```js
-module.exports = config => {
+module.exports = (config) => {
     config.proxies = [
         {
             context: ['/api/**', '/ms/**', '!/api/v1/proxy/healthplan/**'],

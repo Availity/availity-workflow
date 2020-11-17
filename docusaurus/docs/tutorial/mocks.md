@@ -2,6 +2,8 @@
 title: Bring on the Mocks
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 When developing Availity applications there is no use in a UI that doesn't connect to some data source. There are a few ways a developer can get data when developing locally:
 
 1. Proxy requests from the local webpack-dev-server to the target API environment and have the proxy handle the authentication.
@@ -11,7 +13,7 @@ Lucky for you, we have built a local mock server into workflow that will return 
 
 ## Mock Data Structure
 
-<img width="100%" src="mock-data.png" alt="Mock Data Structure" />
+<img width="100%" src={useBaseUrl('img/mock-data.png')} alt="Mock Data Structure" />
 
 Inside of the `config` folder is a file titled `routes.json`. This contains an object `key/value` pair of all the API routes you override from your UI.
 
@@ -57,24 +59,24 @@ We are going to clear out the `App.js` file for tesing purposes and instead past
 ### Adding API Code Snippet
 
 ```jsx header=App.js
-import React, { useEffect, useState } from "react";
-import { avUserApi } from "@availity/api-axios";
+import React, { useEffect, useState } from 'react';
+import { avUserApi } from '@availity/api-axios';
 
 const App = () => {
-  const [name, setName] = useState(""); // initialize state
+    const [name, setName] = useState(''); // initialize state
 
-  const fetchData = async () => {
-    const user = await avUserApi.me(); // Request current user
+    const fetchData = async () => {
+        const user = await avUserApi.me(); // Request current user
 
-    setName(user.firstName); // set the name to state
-  };
+        setName(user.firstName); // set the name to state
+    };
 
-  // Fetch the user on component mount
-  useEffect(() => {
-    fetchData();
-  }, []);
+    // Fetch the user on component mount
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-  return <div>Hello {name}</div>;
+    return <div>Hello {name}</div>;
 };
 
 export default App;
@@ -88,12 +90,12 @@ Since we know the route is going to look like `api/sdk/platform/v1/users/me` we 
 
 ```json header=routes.json
 {
-  "ms/api/availity/internal/spc/slotmachine/graphql": {
-    "file": "slotmachine.json"
-  },
-  "sdk/platform/v1/users/me": {
-    "file": "user.json"
-  }
+    "ms/api/availity/internal/spc/slotmachine/graphql": {
+        "file": "slotmachine.json"
+    },
+    "sdk/platform/v1/users/me": {
+        "file": "user.json"
+    }
 }
 ```
 
@@ -105,7 +107,7 @@ Now that we have the route we need to mock out our `user.json` response:
 
 ```json header=user.json
 {
-  "firstName": "Kyle"
+    "firstName": "Kyle"
 }
 ```
 

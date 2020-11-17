@@ -3,7 +3,6 @@
   "name": "availity-workflow",
   "workspaces": [
     "packages/*",
-    "docs",
     "docusaurus",
     "example"
 
@@ -27,11 +26,10 @@
   "scripts": {
     "start": "yarn workspace @availity/docs develop",
     "start:app": "yarn workspace @availity/example start",
-    "start:dino": "yarn workspace @availity/dinosaurdocs start",
+    "start:docs": "yarn workspace @availity/dinosaurdocs start",
     "build:app": "yarn workspace @availity/example build",
-    "build:dino": "yarn workspace @availity/dinosaurdocs build",
+    "build:docs": "yarn workspace @availity/dinosaurdocs build",
     "test:app": "yarn workspace @availity/example test",
-    "build:docs": "yarn workspace @availity/docs build:deploy",
     "lint": "eslint .",
     "link": "lerna link",
     "test": "jest --silent",
