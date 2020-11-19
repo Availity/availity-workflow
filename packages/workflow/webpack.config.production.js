@@ -39,6 +39,7 @@ const plugin = (settings) => {
 
     optimization: {
       splitChunks: {
+        // TODO: https://github.com/webpack/changelog-v5/blob/master/MIGRATION%20GUIDE.md#cleanup-configuration ?
         cacheGroups: {
           styles: {
             idHint: 'styles',
