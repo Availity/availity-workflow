@@ -416,7 +416,7 @@ info Number of shared dependencies: 22
 ✨  Done in 0.93s.
 ```
 
-Now we can see the `@availity/spaces` relies on `react-markdown`.
+Now we can see that `@availity/spaces` relies on `react-markdown`.
 
 ###### When to open an issue
 

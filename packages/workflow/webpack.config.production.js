@@ -99,7 +99,7 @@ const plugin = (settings) => {
 
     module: {
       rules: [
-        // solution to process.cwd() is not a function for react-markdown
+        // solution to process.cwd() is undefined in @availity/spaces -> react-markdown -> vfile
         // https://github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835
         // Needed for @availity/spaces compatibility with Webpack 5
         {
