@@ -120,6 +120,21 @@ function merge(config) {
 module.exports = merge;
 ```
 
+or
+
+```js
+module.exports = (config) => {
+    config.development.open = '/';
+
+    config.development.hotLoader = {
+        enabled: true,
+        experimental: true
+    };
+
+    return config;
+};
+```
+
 ### Options
 
 #### `development.open`
@@ -342,6 +357,117 @@ npx @availity/workflow-upgrade
 
 ## FAQ
 
+### Webpack 5
+
+Please reference [the Webpack 5 migration guide](https://github.com/webpack/changelog-v5/blob/master/MIGRATION%20GUIDE.md) to familiarize yourself with the possible issues and changes needed to complete a migration for your project.
+
+Much of the internal work and configuration changes will be handled by `@availity/workflow`, but individual projects may require extra attention.
+
+#### How to resolve _new_ runtime errors after upgrading to Webpack 5
+
+Please see [this section from the Webpack 5 migration guide](https://github.com/webpack/changelog-v5/blob/master/MIGRATION%20GUIDE.md#level-5-runtime-errors).
+
+##### Example flow for troubleshooting and resolving runtime errors
+
+###### Initial troubleshooting steps
+
+The stacktrace should include a reference to a file or package located your `node_modules` folder. In this example our runtime error references `process.cwd()` being `undefined` from the package `vfile`.
+
+Running the command `yarn why vfile` in our project directory will tell us why we have this dependency.
+
+```log
+spaces on  fix/process-cwd-bug via ⬢ v14.9.0
+❯ yarn why vfile
+yarn why v1.22.4
+[1/4] 🤔  Why do we have the module "vfile"...?
+[2/4] 🚚  Initialising dependency graph...
+[3/4] 🔍  Finding dependency...
+[4/4] 🚡  Calculating file sizes...
+=> Found "vfile@2.3.0"
+info Reasons this module exists
+   - "react-markdown#unified" depends on it
+   - Hoisted from "react-markdown#unified#vfile"
+info Disk size without dependencies: "28KB"
+info Disk size with unique dependencies: "104KB"
+info Disk size with transitive dependencies: "104KB"
+info Number of shared dependencies: 4
+✨  Done in 0.91s.
+```
+
+We can see above that `vfile` is required by `react-markdown`, now we need to find out why `react-markdown` is required. Running `yarn why react-markdown` in our project gives the following results:
+
+```log
+spaces on  fix/process-cwd-bug via ⬢ v14.9.0
+❯ yarn why react-markdown
+yarn why v1.22.4
+[1/4] 🤔  Why do we have the module "react-markdown"...?
+[2/4] 🚚  Initialising dependency graph...
+[3/4] 🔍  Finding dependency...
+[4/4] 🚡  Calculating file sizes...
+=> Found "react-markdown@4.3.1"
+info Has been hoisted to "react-markdown"
+info Reasons this module exists
+   - Specified in "dependencies"
+   - Hoisted from "@availity#spaces#react-markdown"
+info Disk size without dependencies: "200KB"
+info Disk size with unique dependencies: "924KB"
+info Disk size with transitive dependencies: "5.36MB"
+info Number of shared dependencies: 22
+✨  Done in 0.93s.
+```
+
+Now we can see the `@availity/spaces` relies on `react-markdown`.
+
+###### When to open an issue
+
+If the runtime error is determined to be coming from Availity package, please let us know by opening an issue and adding relevant information about which dependencies of that package are causing the issue. We will then be able to determine if we can refactor away from the offending dependency or provide a polyfill for the missing code.
+
+###### How to resolve
+
+This will vary on a case by case basis, but in general you will want to try and either refactor away from the dependency causing the issue, or provide a polyfill **if one has not yet been provided from this repo**. The following continues with the `vfile`, `react-markdown`, and `@availity/spaces` example from above.
+
+Since the runtime error noted that `process.cwd()` was `undefined`, we know that we need to add a polyfill for `process` to our project. To do that, we will add the necessary dependencies and modify our webpack configuration for the project.
+
+```log
+spaces on  fix/process-cwd-bug via ⬢ v14.9.0
+❯ yarn add -D process imports-loader
+```
+
+Inside `project/config/workflow.js`:
+
+```js
+const modifyWebpackConfig = (webpackConfig) => {
+    webpackConfig.module.rules.push({
+        test: /node_modules\/vfile\/core\.js/,
+        use: [
+            {
+                loader: 'imports-loader',
+                options: {
+                    type: 'commonjs',
+                    imports: ['single process/browser process']
+                }
+            }
+        ]
+    });
+    return webpackConfig;
+};
+
+function config(config) {
+    config.modifyWebpackConfig = modifyWebpackConfig;
+    // ...rest of custom workflow config
+
+    return config;
+}
+
+module.exports = config;
+```
+
+Now the runtime issue has been resolved! Note that this only polyfills `process` for the one package that needs it, instead of all packages. Some packages may rely on the existence of `process` to determine what type of environment they are running in, in those cases we probably wouldn't want to make `process` available to them.
+
+[Documentation for imports-loader](https://webpack.js.org/loaders/imports-loader/)
+
+[Link to specific vfile issue and solution](https://github.com/vfile/vfile/issues/38#issuecomment-683198538)
+
 ### How to integrate with Visual Studio Code's [Jest plugin](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)?
 
 Create `./vscode/settings.json` file with the following configuration:
@@ -359,7 +485,7 @@ Create `./vscode/settings.json` file with the following configuration:
 Update `workflow.js` using the configuration below:
 
 ```js
-module.exports = config => {
+module.exports = (config) => {
     config.proxies = [
         {
             context: ['/api/**', '/ms/**', '!/api/v1/proxy/healthplan/**'],
