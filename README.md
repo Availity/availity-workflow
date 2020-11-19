@@ -420,7 +420,7 @@ Now we can see that `@availity/spaces` relies on `react-markdown`.
 
 ###### When to open an issue
 
-If the runtime error is determined to be coming from Availity package, please let us know by opening an issue and adding relevant information about which dependencies of that package are causing the issue. We will then be able to determine if we can refactor away from the offending dependency or provide a polyfill for the missing code.
+If the runtime error is determined to be coming from an Availity package, please let us know by opening an issue and adding relevant information about which dependencies of that package are causing the issue. We will then be able to determine if we can refactor away from the offending dependency or provide a polyfill for the missing code.
 
 ###### How to resolve
 
