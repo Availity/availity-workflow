@@ -72,6 +72,21 @@ const plugin = (settings) => {
 
     module: {
       rules: [
+        // solution to process.cwd() is not a function for react-markdown
+        // https://github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835
+        // Needed for @availity/spaces compatibility with Webpack 5
+        {
+          test: /node_modules\/vfile\/core\.js/,
+          use: [
+            {
+              loader: 'imports-loader',
+              options: {
+                type: 'commonjs',
+                imports: ['single process/browser process']
+              }
+            }
+          ]
+        },
         {
           test: /\.(js|mjs|jsx|ts|tsx)$/,
           include: settings.include(),
