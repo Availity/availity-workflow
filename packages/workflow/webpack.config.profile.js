@@ -25,7 +25,47 @@ const plugin = (settings) => {
     mode: 'production',
 
     optimization: {
-      minimizer: []
+      splitChunks: {
+        cacheGroups: {
+          // https://webpack.js.org/plugins/split-chunks-plugin/#optimizationsplitchunks
+          // Add defaultVendors and default so we don't override webpack 5 defaults
+          // When files paths are processed by webpack, they always contain / on Unix systems and \ on Windows.
+          // That's why using [\\/] in {cacheGroup}.test fields is necessary to represent a path separator.
+          // / or \ in { cacheGroup }.test will cause issues when used cross- platform.
+          defaultVendors: {
+            test: /[/\\]node_modules[/\\]/,
+            priority: -10
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true
+          },
+          // Create a chunk for react and react-dom since they shouldn't change often
+          // https://webpack.js.org/guides/caching/#extracting-boilerplate
+          // https://webpack.js.org/plugins/split-chunks-plugin/#split-chunks-example-3
+          react: {
+            test: /[/\\]node_modules[/\\](react|react-dom)[/\\]/,
+            idHint: 'vendors',
+            chunks: 'all',
+            priority: 10
+          },
+          // Create a chunk for lodash or any of its separate packages
+          lodash: {
+            test: /[/\\]node_modules[/\\](lodash|lodash.*)[/\\]/,
+            idHint: 'vendors',
+            chunks: 'all',
+            priority: 1
+          }
+          // TODO: re-implement cacheGroups for styles?
+          // TODO: Add cacheGroup for Availity packages in node_modules ?
+        }
+      },
+      minimizer: [],
+
+      // To extract boilerplate like runtime and manifest info
+      // Should aid caching by keeping filenames consistent if content doesn't change
+      runtimeChunk: 'single'
     },
 
     entry: {
