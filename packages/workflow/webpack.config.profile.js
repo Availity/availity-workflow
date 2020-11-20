@@ -22,7 +22,7 @@ const plugin = (settings) => {
   const config = {
     context: settings.app(),
 
-    mode: 'none',
+    mode: 'production',
 
     optimization: {
       splitChunks: {
