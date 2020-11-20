@@ -65,7 +65,8 @@ const plugin = (settings) => {
           },
           // Create a chunk for lodash or any of its separate packages
           lodash: {
-            test: /[/\\]node_modules[/\\](lodash|lodash.*)[/\\]/,
+            // Should capture lodash/, lodash-es/, lodash.whateverModule/
+            test: /[/\\]node_modules[/\\](lodash([.-])?\w*?)[/\\]/,
             idHint: 'vendors',
             chunks: 'all',
             priority: 1
@@ -84,7 +85,12 @@ const plugin = (settings) => {
 
       // To extract boilerplate like runtime and manifest info
       // Should aid caching by keeping filenames consistent if content doesn't change
-      runtimeChunk: 'single'
+      runtimeChunk: 'single',
+
+      // Keeps vendor hashes consistent between builds where local dependency imports change the order of resolution
+      // https://webpack.js.org/guides/caching/#module-identifiers
+      // https://webpack.js.org/configuration/optimization/#optimizationmoduleids
+      moduleIds: 'deterministic'
     },
 
     output: {
