@@ -56,6 +56,12 @@ const plugin = (settings) => {
             idHint: 'vendors',
             chunks: 'all',
             priority: 1
+          },
+          moment: {
+            test: /[/\\]node_modules[/\\](moment)[/\\]/,
+            idHint: 'vendors',
+            chunks: 'all',
+            priority: 2
           }
           // TODO: re-implement cacheGroups for styles?
           // TODO: Add cacheGroup for Availity packages in node_modules ?
