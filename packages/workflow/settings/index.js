@@ -68,7 +68,7 @@ const settings = {
   },
 
   css() {
-    return this.isDistribution() ? '[name]-[chunkhash:8].css' : '[name].css';
+    return this.isDistribution() ? '[name]-[contenthash].css' : '[name].css';
   },
 
   // Returns the JSON object from contents or the JSON object from
@@ -81,15 +81,15 @@ const settings = {
     return require(path.join(this.project(), 'package.json'));
   },
 
-  // Don’t use [chunkhash] in development since this will increase compilation time
-  // In production, [chunkhash] generate hashes depending on the file contents this if
-  // the contents don't change the file could potentially be cached in the browser.
+  // [contenthash] generates unique hashes depending on the file contents
+  // If the contents of a file don't change, the file should be cached in the browser.
+  // https://webpack.js.org/guides/caching/#output-filenames
   fileName() {
-    return this.isDistribution() ? '[name]-[chunkhash:8].js' : '[name].js';
+    return '[name]-[contenthash].js';
   },
 
   chunkFileName() {
-    return this.isDistribution() ? '[name]-[chunkhash:8].js' : '[name].js';
+    return this.isDistribution() ? '[name]-[contenthash].js' : '[name].js';
   },
 
   output() {
@@ -133,7 +133,7 @@ const settings = {
     // - Map "staging" to "production" for process.env so that React deploys without extra debugging
     //   capabilities
     const parsedGlobals = Object.keys(process.env)
-      .filter(key => key in configGlobals)
+      .filter((key) => key in configGlobals)
       // eslint-disable-next-line unicorn/no-reduce
       .reduce(
         (result, key) => {
@@ -240,7 +240,7 @@ const settings = {
     this.globals();
 
     this.devServerPort = get(this.configuration, 'development.port', 3000);
-    for (; ;) {
+    for (;;) {
       const availablePort = await getPort({ port: this.devServerPort, host: this.host() }); // eslint-disable-line no-await-in-loop
       if (availablePort === this.devServerPort) break;
       this.devServerPort += 1;
@@ -254,7 +254,7 @@ const settings = {
         `:${this.ekkoServerPort}`
       );
       if (Array.isArray(this.configuration.proxies)) {
-        this.configuration.proxies.forEach(proxy => {
+        this.configuration.proxies.forEach((proxy) => {
           proxy.target = proxy.target.replace(`:${wantedEkkoPort}`, `:${this.ekkoServerPort}`);
         });
       }
