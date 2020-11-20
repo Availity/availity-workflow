@@ -160,7 +160,7 @@ Allows [Webpack log levels presets](https://webpack.js.org/configuration/stats/#
 
 #### `development.sourceMap`
 
-Webpack `devtool` setting. Default is `source-map`. For more options please see https://webpack.js.org/configuration/devtool/#devtool.
+Webpack `devtool` setting. Default is `source-map`. For more options please see <https://webpack.js.org/configuration/devtool/#devtool>.
 
 #### `development.hotLoader`
 
@@ -182,7 +182,19 @@ ex.
 
 > **Caution**: Please be careful when overriding defaults
 
-Optional options for Webpack development server. If undefined, `workflow` defaults are used. Please see https://webpack.js.org/configuration/dev-server/#devserver for all available options.
+Optional options for Webpack development server. If undefined, `workflow` defaults are used. Please see <https://webpack.js.org/configuration/dev-server/#devserver> for all available options.
+
+##### Example configuration
+
+When starting the dev server using production settings as a dry run, `yarn start --dry-run`, the dev server will need to be told where to serve bundled content from:
+
+```js
+{
+    contentBase: path.join(process.cwd(), 'dist'),
+    compress: true, // gzip content before serving
+    port: 3000, // serve content on localhost:3000
+  };
+```
 
 #### `development.targets`
 
