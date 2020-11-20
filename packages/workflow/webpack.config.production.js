@@ -39,7 +39,6 @@ const plugin = (settings) => {
 
     optimization: {
       splitChunks: {
-        // TODO: https://github.com/webpack/changelog-v5/blob/master/MIGRATION%20GUIDE.md#cleanup-configuration ?
         cacheGroups: {
           styles: {
             idHint: 'styles',
@@ -51,10 +50,10 @@ const plugin = (settings) => {
             chunks: 'initial',
             minChunks: 2
           },
-          vendor: {
+          defaultVendors: {
             test: /node_modules/,
             chunks: 'initial',
-            idHint: 'vendor',
+            idHint: 'defaultVendors',
             priority: 10,
             enforce: true
           }
