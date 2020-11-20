@@ -25,27 +25,6 @@ const plugin = (settings) => {
     mode: 'production',
 
     optimization: {
-      splitChunks: {
-        cacheGroups: {
-          styles: {
-            idHint: 'styles',
-            test: /\.css$/,
-            chunks: 'all',
-            enforce: true
-          },
-          commons: {
-            chunks: 'initial',
-            minChunks: 2
-          },
-          defaultVendors: {
-            test: /node_modules/,
-            chunks: 'initial',
-            idHint: 'defaultVendors',
-            priority: 10,
-            enforce: true
-          }
-        }
-      },
       minimizer: []
     },
 
