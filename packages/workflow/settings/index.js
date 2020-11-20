@@ -68,7 +68,7 @@ const settings = {
   },
 
   css() {
-    return this.isDistribution() ? '[name]-[contenthash].css' : '[name].css';
+    return '[name]-[contenthash].css';
   },
 
   // Returns the JSON object from contents or the JSON object from
@@ -89,7 +89,7 @@ const settings = {
   },
 
   chunkFileName() {
-    return this.isDistribution() ? '[name]-[contenthash].js' : '[name].js';
+    return '[name]-[contenthash].js';
   },
 
   output() {
