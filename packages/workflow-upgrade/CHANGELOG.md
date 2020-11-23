@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.5.10 (2020-11-23)
+
+
+### Bug Fixes
+
+* **workflow:** add polyfill for process.cwd() in vfile package ([654b4a4](https://github.com/availity/availity-workflow/commit/654b4a4d5cc579fd8f07ad6cd4243e37c7cd8c05)), closes [/github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835](https://github.com//github.com/remarkjs/react-markdown/issues/339/issues/issuecomment-683199835)
+
+
+
+
+
 ## 5.5.9 (2020-10-01)
 
 

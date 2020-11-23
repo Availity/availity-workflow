@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.1.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.0.0...@availity/workflow@8.1.0) (2020-11-23)
+
+
+### Bug Fixes
+
+* **workflow:** add polyfill for process.cwd() in vfile package ([654b4a4](https://github.com/availity/availity-workflow/commit/654b4a4d5cc579fd8f07ad6cd4243e37c7cd8c05)), closes [/github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835](https://github.com//github.com/remarkjs/react-markdown/issues/339/issues/issuecomment-683199835)
+* **workflow:** add process polyfill to webpack.config.profile ([de3e6e2](https://github.com/availity/availity-workflow/commit/de3e6e28696fc0f3cf6ec87d90923bfb89160b90))
+* **workflow:** splitChunks.cacheGroups.vendor renamed to splitChunks.cacheGroups.defaultVendors ([6ce2e3e](https://github.com/availity/availity-workflow/commit/6ce2e3e86cbc83db9fd84586ee2ca59983e057be))
+
+
+### Features
+
+* **workflow:** add a cacheGroup for moment ([27e8b64](https://github.com/availity/availity-workflow/commit/27e8b645033ae176c768566b794d65c98c6802e5))
+* **workflow:** re-implement and update cacheGroups ([2f36c2c](https://github.com/availity/availity-workflow/commit/2f36c2cfa7c663b9e7b9b487ae2f9d2aa821ec80))
+* **workflow:** update regex for lodash chunking, add deterministic moduleIds optimization ([fc71c2c](https://github.com/availity/availity-workflow/commit/fc71c2cfe608de7026e5a02befd2a95c939ab999))
+* **workflow:** use contenthash over chunkhash for better long term caching ([00d6b43](https://github.com/availity/availity-workflow/commit/00d6b43c956fc3036fb32f5d74e925bb0a45293a))
+
+
+
+
+
 # [8.0.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.26...@availity/workflow@8.0.0) (2020-10-29)
 
 
