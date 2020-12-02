@@ -47,6 +47,8 @@ const plugin = (settings) => {
           // / or \ in { cacheGroup }.test will cause issues when used cross- platform.
           defaultVendors: {
             test: /[/\\]node_modules[/\\]/,
+            idHint: 'defaultVendors',
+            chunks: 'all',
             priority: -10
           },
           default: {
@@ -76,8 +78,13 @@ const plugin = (settings) => {
             idHint: 'vendors',
             chunks: 'all',
             priority: 2
+          },
+          styles: {
+            idHint: 'styles',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true
           }
-          // TODO: re-implement cacheGroups for styles?
           // TODO: Add cacheGroup for Availity packages in node_modules ?
         }
       },
