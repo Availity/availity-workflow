@@ -200,7 +200,7 @@ const plugin = (settings) => {
       new CaseSensitivePathsPlugin(),
 
       new loaders.MiniCssExtractPlugin({
-        filename: 'css/[name]-[contenthash].css'
+        filename: 'css/[name]-[contenthash:8].chunk.css'
       }),
 
       new CopyWebpackPlugin({
