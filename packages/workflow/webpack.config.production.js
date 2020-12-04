@@ -144,7 +144,7 @@ const plugin = (settings) => {
             // https://github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835
             // Needed for @availity/spaces compatibility with Webpack 5
             {
-              test: /node_modules\/vfile\/core\.js/,
+              test: /[/\\]node_modules[/\\]vfile[/\\]core\.js/,
               use: [
                 {
                   loader: 'imports-loader',
