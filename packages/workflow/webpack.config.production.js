@@ -151,6 +151,7 @@ const plugin = (settings) => {
             }
           ]
         },
+        // Process application JS and user-specified paths with Babel.
         {
           test: /\.(js|mjs|jsx|ts|tsx)$/,
           include: settings.include(),
@@ -159,7 +160,12 @@ const plugin = (settings) => {
               loader: 'babel-loader',
               options: {
                 presets: [babelPreset],
-                cacheDirectory: settings.isDevelopment(),
+                // This is a feature of `babel-loader` for webpack (not Babel itself).
+                // It enables caching results in ./node_modules/.cache/babel-loader/
+                // directory for faster rebuilds.
+                cacheDirectory: true,
+                // See #6846 for context on why cacheCompression is disabled
+                cacheCompression: false,
                 babelrc: babelrcExists
               }
             }

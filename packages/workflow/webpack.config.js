@@ -95,7 +95,12 @@ const plugin = (settings) => {
               loader: 'babel-loader',
               options: {
                 presets: [babelPreset],
+                // This is a feature of `babel-loader` for webpack (not Babel itself).
+                // It enables caching results in ./node_modules/.cache/babel-loader/
+                // directory for faster rebuilds.
                 cacheDirectory: settings.isDevelopment(),
+                // See #6846 for context on why cacheCompression is disabled
+                cacheCompression: false,
                 babelrc: babelrcExists,
                 plugins: [babelrcExists ? null : require.resolve(settings.getHotLoaderName())]
               }
