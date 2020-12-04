@@ -19,6 +19,7 @@ const plugin = (settings) => {
     return settings.pkg().version || 'N/A';
   }
 
+  // TODO: update to production settings or refactor functions to just use production config
   const config = {
     context: settings.app(),
 

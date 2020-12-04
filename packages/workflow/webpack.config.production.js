@@ -136,68 +136,75 @@ const plugin = (settings) => {
 
     module: {
       rules: [
-        // solution to process.cwd() is undefined in @availity/spaces -> react-markdown -> vfile
-        // https://github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835
-        // Needed for @availity/spaces compatibility with Webpack 5
+        // "oneOf" will traverse all the following loaders until it finds a match.
+        // If no loader matches it will use the default file loader at the end of this list.
         {
-          test: /node_modules\/vfile\/core\.js/,
-          use: [
+          oneOf: [
+            // solution to process.cwd() is undefined in @availity/spaces -> react-markdown -> vfile
+            // https://github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835
+            // Needed for @availity/spaces compatibility with Webpack 5
             {
-              loader: 'imports-loader',
-              options: {
-                type: 'commonjs',
-                imports: ['single process/browser process']
-              }
-            }
-          ]
-        },
-        // Process application JS and user-specified paths with Babel.
-        {
-          test: /\.(js|mjs|jsx|ts|tsx)$/,
-          include: settings.include(),
-          use: [
+              test: /node_modules\/vfile\/core\.js/,
+              use: [
+                {
+                  loader: 'imports-loader',
+                  options: {
+                    type: 'commonjs',
+                    imports: ['single process/browser process']
+                  }
+                }
+              ]
+            },
+            // Process application JS and user-specified paths with Babel.
             {
+              test: /\.(js|mjs|jsx|ts|tsx)$/,
+              include: settings.include(),
+              use: [
+                {
+                  loader: 'babel-loader',
+                  options: {
+                    presets: [babelPreset],
+                    // This is a feature of `babel-loader` for webpack (not Babel itself).
+                    // It enables caching results in ./node_modules/.cache/babel-loader/
+                    // directory for faster rebuilds.
+                    cacheDirectory: true,
+                    // See #6846 for context on why cacheCompression is disabled
+                    cacheCompression: false,
+                    babelrc: babelrcExists
+                  }
+                }
+              ]
+            },
+            // Process any JS outside of the app with Babel.
+            // Unlike the application JS, we only compile the standard ES features.
+            {
+              test: /\.(js|mjs)$/,
+              exclude: [...settings.include(), /@babel(?:\/|\\{1,2})runtime/],
               loader: 'babel-loader',
               options: {
-                presets: [babelPreset],
-                // This is a feature of `babel-loader` for webpack (not Babel itself).
-                // It enables caching results in ./node_modules/.cache/babel-loader/
-                // directory for faster rebuilds.
+                babelrc: false,
+                configFile: false,
+                compact: false,
+                presets: [[require.resolve('babel-preset-react-app/dependencies'), { helpers: true }]],
                 cacheDirectory: true,
                 // See #6846 for context on why cacheCompression is disabled
-                cacheCompression: false,
-                babelrc: babelrcExists
+                cacheCompression: false
               }
-            }
+            },
+            // Allows .mjs and .js files from packages of type "module" to be required without the extension
+            {
+              test: /\.m?js/,
+              resolve: {
+                fullySpecified: false
+              }
+            },
+            loaders.css.production,
+            loaders.scss.production,
+            loaders.fonts,
+            loaders.images
+            // TODO: implement a catch-all loader
           ]
-        },
-        // Process any JS outside of the app with Babel.
-        // Unlike the application JS, we only compile the standard ES features.
-        {
-          test: /\.(js|mjs)$/,
-          exclude: /@babel(?:\/|\\{1,2})runtime/,
-          loader: 'babel-loader',
-          options: {
-            babelrc: false,
-            configFile: false,
-            compact: false,
-            presets: [[require.resolve('babel-preset-react-app/dependencies'), { helpers: true }]],
-            cacheDirectory: true,
-            // See #6846 for context on why cacheCompression is disabled
-            cacheCompression: false
-          }
-        },
-        // Allows .mjs and .js files from packages of type "module" to be required without the extension
-        {
-          test: /\.m?js/,
-          resolve: {
-            fullySpecified: false
-          }
-        },
-        loaders.css.production,
-        loaders.scss.production,
-        loaders.fonts,
-        loaders.images
+        }
       ]
     },
     plugins: [
