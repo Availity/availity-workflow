@@ -16145,6 +16145,11 @@ pnp-webpack-plugin@^1.6.4:
   dependencies:
     ts-pnp "^1.1.6"
 
+polyfill-array-includes@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/polyfill-array-includes/-/polyfill-array-includes-2.0.0.tgz#a160d85de1a7eec4be0fd67da1c5030b699d2429"
+  integrity sha512-HTrB0xYCN3TgOQvk5Tc7ehhl0vC73DARlhNMIDF8xCdPwPOELAYEZkgqJp0vbUGnM3FvcaXgxrwLw+bzKepI2A==
+
 popper.js@^1.14.4:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
