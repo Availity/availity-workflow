@@ -19,6 +19,7 @@ const plugin = (settings) => {
     return settings.pkg().version || 'N/A';
   }
 
+  // TODO: update to production settings or refactor functions to just use production config
   const config = {
     context: settings.app(),
 
@@ -181,7 +182,7 @@ const plugin = (settings) => {
       }),
 
       new loaders.MiniCssExtractPlugin({
-        filename: 'css/[name]-[contenthash].css'
+        filename: 'css/[name]-[contenthash:8].chunk.css'
       }),
 
       new DuplicatePackageCheckerPlugin({

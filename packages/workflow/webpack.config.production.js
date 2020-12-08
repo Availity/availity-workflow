@@ -47,6 +47,8 @@ const plugin = (settings) => {
           // / or \ in { cacheGroup }.test will cause issues when used cross- platform.
           defaultVendors: {
             test: /[/\\]node_modules[/\\]/,
+            idHint: 'defaultVendors',
+            chunks: 'all',
             priority: -10
           },
           default: {
@@ -76,8 +78,13 @@ const plugin = (settings) => {
             idHint: 'vendors',
             chunks: 'all',
             priority: 2
+          },
+          styles: {
+            idHint: 'styles',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true
           }
-          // TODO: re-implement cacheGroups for styles?
           // TODO: Add cacheGroup for Availity packages in node_modules ?
         }
       },
@@ -129,46 +136,90 @@ const plugin = (settings) => {
 
     module: {
       rules: [
-        // solution to process.cwd() is undefined in @availity/spaces -> react-markdown -> vfile
-        // https://github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835
-        // Needed for @availity/spaces compatibility with Webpack 5
+        // "oneOf" will traverse all the following loaders until it finds a match.
+        // If no loader matches it will use the default file loader at the end of this list.
         {
-          test: /node_modules\/vfile\/core\.js/,
-          use: [
+          oneOf: [
+            // solution to process.cwd() is undefined in @availity/spaces -> react-markdown -> vfile
+            // https://github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835
+            // Needed for @availity/spaces compatibility with Webpack 5
             {
-              loader: 'imports-loader',
-              options: {
-                type: 'commonjs',
-                imports: ['single process/browser process']
-              }
-            }
-          ]
-        },
-        {
-          test: /\.(js|mjs|jsx|ts|tsx)$/,
-          include: settings.include(),
-          use: [
+              test: /[/\\]node_modules[/\\]vfile[/\\]core\.js/,
+              use: [
+                {
+                  loader: 'imports-loader',
+                  options: {
+                    type: 'commonjs',
+                    imports: ['single process/browser process']
+                  }
+                }
+              ]
+            },
+            // Process application JS and user-specified paths with Babel.
             {
+              test: /\.(js|mjs|jsx|ts|tsx)$/,
+              include: settings.include(),
+              use: [
+                {
+                  loader: 'babel-loader',
+                  options: {
+                    presets: [babelPreset],
+                    // This is a feature of `babel-loader` for webpack (not Babel itself).
+                    // It enables caching results in ./node_modules/.cache/babel-loader/
+                    // directory for faster rebuilds.
+                    cacheDirectory: true,
+                    // See https://github.com/facebook/create-react-app/issues/6846 for context on why cacheCompression is disabled
+                    cacheCompression: false,
+                    babelrc: babelrcExists
+                  }
+                }
+              ]
+            },
+            // Process any JS outside of the app with Babel.
+            // Unlike the application JS, we only compile the standard ES features.
+            {
+              test: /\.(js|mjs)$/,
+              exclude: [...settings.include(), /@babel(?:\/|\\{1,2})runtime/],
               loader: 'babel-loader',
               options: {
-                presets: [babelPreset],
-                cacheDirectory: settings.isDevelopment(),
-                babelrc: babelrcExists
+                babelrc: false,
+                configFile: false,
+                compact: false,
+                presets: [[require.resolve('babel-preset-react-app/dependencies'), { helpers: true }]],
+                cacheDirectory: true,
+                // See https://github.com/facebook/create-react-app/issues/6846 for context on why cacheCompression is disabled
+                cacheCompression: false
+              }
+            },
+            // Allows .mjs and .js files from packages of type "module" to be required without the extension
+            {
+              test: /\.m?js/,
+              resolve: {
+                fullySpecified: false
+              }
+            },
+            loaders.css.production,
+            loaders.scss.production,
+            loaders.fonts,
+            loaders.images,
+            // "file" loader makes sure those assets get served by WebpackDevServer.
+            // When you `import` an asset, you get its (virtual) filename.
+            // In production, they would get copied to the `build` folder.
+            // This loader doesn't use a "test" so it will catch all modules
+            // that fall through the other loaders.
+            {
+              loader: require.resolve('file-loader'),
+              // Exclude `js` files to keep "css" loader working as it injects
+              // its runtime that would otherwise be processed through "file" loader.
+              // Also exclude `html` and `json` extensions so they get processed
+              // by webpack's internal loaders.
+              exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
+              options: {
+                name: 'static/media/[name].[contenthash:8].[ext]'
               }
             }
           ]
-        },
-        // Allows .mjs and .js files from packages of type "module" to be required without the extension
-        {
-          test: /\.m?js/,
-          resolve: {
-            fullySpecified: false
-          }
-        },
-        loaders.css.production,
-        loaders.scss.production,
-        loaders.fonts,
-        loaders.images
+        }
       ]
     },
     plugins: [
@@ -193,7 +244,7 @@ const plugin = (settings) => {
       new CaseSensitivePathsPlugin(),
 
       new loaders.MiniCssExtractPlugin({
-        filename: 'css/[name]-[contenthash].css'
+        filename: 'css/[name]-[contenthash:8].chunk.css'
       }),
 
       new CopyWebpackPlugin({
@@ -214,8 +265,8 @@ const plugin = (settings) => {
       new TerserPlugin({
         terserOptions: {
           parse: {
-            // we want terser to parse ecma 8 code. However, we don't want it
-            // to apply any minfication steps that turns valid ecma 5 code
+            // We want terser to parse ecma 8 code. However, we don't want it
+            // to apply any minification steps that turns valid ecma 5 code
             // into invalid ecma 5 code. This is why the 'compress' and 'output'
             // sections only apply transformations that are ecma 5 safe
             // https://github.com/facebook/create-react-app/pull/4234
@@ -228,7 +279,12 @@ const plugin = (settings) => {
             // https://github.com/facebook/create-react-app/issues/2376
             // Pending further investigation:
             // https://github.com/mishoo/UglifyJS2/issues/2011
-            comparisons: false
+            comparisons: false,
+            // Disabled because of an issue with Terser breaking valid code:
+            // https://github.com/facebook/create-react-app/issues/5250
+            // Pending further investigation:
+            // https://github.com/terser-js/terser/issues/120
+            inline: 2
           },
           mangle: {
             safari10: true
