@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.3.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.2.0...@availity/workflow@8.3.0) (2020-12-08)
+
+
+### Bug Fixes
+
+* **workflow:** fixes bad rule placement ([0465602](https://github.com/availity/availity-workflow/commit/0465602ab35bcabaf3d64100a70df460654719e9))
+* **workflow:** fixes regex test for vfile in development, now compatible with Windows ([1fb35ab](https://github.com/availity/availity-workflow/commit/1fb35ab489bd58c1f5fac6cfc6d9fa1091309bb2))
+* **workflow:** make regex for vfile Windows friendly ([6b86f2f](https://github.com/availity/availity-workflow/commit/6b86f2f31a261bc8e7345669f4b04c73d25be538))
+
+
+### Features
+
+* **workflow:** add cacheDirectory for production builds ([00825ff](https://github.com/availity/availity-workflow/commit/00825ffa4a488e4e3f9b05e6c052276d55f8ea81))
+* **workflow:** add catch-all loader for production ([cf6dfe1](https://github.com/availity/availity-workflow/commit/cf6dfe1d35fc3a08d90a7fd120a31dc42abe7be2))
+* **workflow:** add polyfill for Array.prototype.includes() ([4ff09eb](https://github.com/availity/availity-workflow/commit/4ff09eb10b2b3c4a0694fc0b8c48fb37efe5fb46))
+* **workflow:** implement oneOf when loading modules ([34a2a29](https://github.com/availity/availity-workflow/commit/34a2a2910403c162f6a31dd78eca940d3e30a9b7)), closes [#98](https://github.com/availity/availity-workflow/issues/98)
+* **workflow:** use babel to process dependencies ([80c6a7e](https://github.com/availity/availity-workflow/commit/80c6a7e6d8121e9b8736720fcb414766de995a6f)), closes [#212](https://github.com/availity/availity-workflow/issues/212)
+
+
+
+
+
 # [8.2.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.1.0...@availity/workflow@8.2.0) (2020-12-08)
 
 
