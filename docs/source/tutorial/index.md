@@ -13,13 +13,14 @@ The minimum required [Nodejs](https://nodejs.org/) version to run and use our to
 
 Our toolkit has a built in CLI that will allow you to run multiple commands like you would with any other react project. In addition to the default commands you would see like `start`, `test`, `build` we have an `init` command that will initialize a new project using a [specified default template](/reference/commands/#availity-templates).
 
-You can run the below command to get started:
+You can run the below commands to get started:
 
 ```bash
 npx @availity/workflow init workflow-app
+yarn add @availity/mock-server --dev
 ```
 
-What the above command is doing is using [npx](https://www.npmjs.com/package/npx) to download and execute the script without you having a pre-existing `package.json`. The `init` command is the command we send to our package `@availity/workflow`. The last argument, `workflow-app` is the project name that we gave.
+What the above commands are doing is using [npx](https://www.npmjs.com/package/npx) to download and execute the script without you having a pre-existing `package.json`. The `init` command is the command we send to our package `@availity/workflow`. The last argument, `workflow-app` is the project name that we gave.
 
 Once the CLI finishes initializing the project we can `cd` into the directory with the below command:
 
