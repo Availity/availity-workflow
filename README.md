@@ -197,28 +197,26 @@ When starting the dev server using production settings as a dry run, `yarn start
 
 #### `development.targets`
 
-Allows developers to override the `babel-preset-env` target to match their developer environment. This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6 features, therefore, not needing to Babelfy code completely.
+Allows developers to override the `webpack` target to match their developer environment. This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6 features, therefore, not needing to Babelfy code completely.
 
-This setting is is only used for development and does not effect staging/production/testing builds which default to `IE11`. **@See** [https://github.com/babel/babel-preset-env](https://github.com/babel/babel/tree/master/packages/babel-preset-env)
+This setting is is only used for development and does not effect staging/production/testing builds which default to `'browserslist: defaults, ie 11'`. **@See** [https://webpack.js.org/configuration/target/](https://webpack.js.org/configuration/target/)
+
+##### Note about `browserslist`
+
+If your project's `package.json` contains a `browserslist` entry, that will be used in place of `development.targets`
 
 **Examples:**
 
 ```js
-targets: {
-    ie: 11;
-}
+targets: 'web';
 ```
 
 ```js
-targets: {
-    browsers: ['last 2 Chrome versions'];
-}
+targets: ['web', 'es5];
 ```
 
 ```js
-targets: {
-    chrome: 57;
-}
+targets: 'browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version';
 ```
 
 #### `development.babelInclude`

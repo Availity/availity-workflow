@@ -12,7 +12,7 @@ module.exports = (_api, opts) => {
   if (!opts) {
     opts = {};
   }
-  // const targets = validateBoolOption('targets',opts.targets);
+
   const isEnvProduction = env === 'production';
 
   return {

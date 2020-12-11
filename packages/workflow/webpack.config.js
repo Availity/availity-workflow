@@ -28,6 +28,8 @@ const plugin = (settings) => {
   const config = {
     mode: 'development',
 
+    target: settings.developmentTargets(),
+
     context: settings.app(),
 
     entry: {
