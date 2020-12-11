@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.4.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.3.0...@availity/workflow@8.4.0) (2020-12-11)
+
+
+### Bug Fixes
+
+* **workflow:** fixes webpack development targets ([9b1a6e9](https://github.com/availity/availity-workflow/commit/9b1a6e91db4d3aa6bd467d33b257cceaa2e67ec8))
+
+
+### Features
+
+* **workflow:** add default target to webpack config in production ([41eaa1d](https://github.com/availity/availity-workflow/commit/41eaa1dcc150b729484f09f7891476a3bafa3192))
+
+
+
+
+
 # [8.3.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.2.0...@availity/workflow@8.3.0) (2020-12-08)
 
 
