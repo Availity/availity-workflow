@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-jest-import */
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
-// https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/utils/createJestConfig.js
+// https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/scripts/utils/createJestConfig.js
 const path = require('path');
 
 const jest = require('jest');
@@ -28,13 +28,7 @@ function create(settings) {
     testURL: 'http://localhost',
     transform: {
       // Jest and Babel don't allow functions in the options so we just return their values here
-      '^.+\\.(js|jsx|ts|tsx)$': [`${require.resolve('./jest/babel.js')}`,{
-        isProduction: settings.isProduction(),
-        isTesting: settings.isTesting(),
-        isDevelopment: settings.isDevelopment(),
-        isDistribution: settings.isDistribution(),
-        targets: settings.targets(),
-      }],
+      '^.+\\.(js|jsx|ts|tsx)$': `${require.resolve('./jest/babel.js')}`,
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
       '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
@@ -79,7 +73,7 @@ function unit(settings) {
   return Promise.resolve();
 }
 
-module.exports = settings => ({
+module.exports = (settings) => ({
   run: () => unit(settings),
   description: 'Run your tests using Jest'
 });
