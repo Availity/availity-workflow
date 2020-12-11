@@ -112,14 +112,15 @@ const settings = {
     return get(this.configuration, 'development.open');
   },
 
-  targets() {
-    const defaultTargets = {
-      ie: 11
-    };
+  developmentTargets() {
+    const defaultTargets = 'browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version';
+    const { browserslist } = this.pkg();
 
-    const developmentTarget = get(this.configuration, 'development.targets', defaultTargets);
+    const developmentTargets = get(this.configuration, 'development.targets', defaultTargets);
 
-    return this.isDevelopment() ? developmentTarget : defaultTargets;
+    // If project has a browserslist entry, webpack will use that as its development target
+    // https://webpack.js.org/configuration/target/#target
+    return browserslist ? 'browserslist' : developmentTargets;
   },
 
   globals() {
