@@ -192,19 +192,19 @@ const settings = {
 
     const { value: defaultConfig } = schema.validate({});
 
-    const defaultWorkflowConfig = path.join(__dirname, 'workflow.js');
+    const defaultWorkflowConfig = path.join(__dirname, 'schema.js');
     const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
 
     if (existsSync(jsWorkflowConfig)) {
-      // Try workflow.js
+      // Try project's workflow.js
       this.workflowConfigPath = jsWorkflowConfig;
       developerConfig = require(this.workflowConfigPath);
     } else {
-      // fall back to default ./workflow.js
+      // fall back to default ./schema.js
       this.workflowConfigPath = defaultWorkflowConfig;
     }
 
-    // Merge in ./workflow.js defaults with overrides from developer config
+    // Merge in ./schema.js defaults with overrides from developer config
     if (typeof developerConfig === 'function') {
       config = developerConfig(defaultConfig);
     } else {
@@ -236,7 +236,6 @@ const settings = {
       globals: args.globals
     });
 
-    this.targets();
     this.globals();
 
     this.devServerPort = get(this.configuration, 'development.port', 3000);
