@@ -27,6 +27,10 @@ const plugin = (settings) => {
   const config = {
     mode: 'production',
 
+    // Using an explicit browserslist query will override any project configs
+    // This is fine because we need to ensure IE 11 is being targeted
+    target: 'browserslist: defaults, ie 11',
+
     context: settings.app(),
 
     entry: {
