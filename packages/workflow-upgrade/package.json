@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-upgrade",
-  "version": "5.5.9",
+  "version": "5.5.10",
   "bin": {
     "upgrade-workflow": "./bin.js"
   },
@@ -29,7 +29,7 @@
   "engines": {
     "node": ">= 10.22.0",
     "npm": ">= 6.4.1",
-    "yarn": ">=1.22.0"
+    "yarn": ">=1.19.1"
   },
   "publishConfig": {
     "access": "public"

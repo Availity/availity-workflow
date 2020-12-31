@@ -3,6 +3,102 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.4.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.3.0...@availity/workflow@8.4.0) (2020-12-11)
+
+
+### Bug Fixes
+
+* **workflow:** fixes webpack development targets ([9b1a6e9](https://github.com/availity/availity-workflow/commit/9b1a6e91db4d3aa6bd467d33b257cceaa2e67ec8))
+
+
+### Features
+
+* **workflow:** add default target to webpack config in production ([41eaa1d](https://github.com/availity/availity-workflow/commit/41eaa1dcc150b729484f09f7891476a3bafa3192))
+
+
+
+
+
+# [8.3.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.2.0...@availity/workflow@8.3.0) (2020-12-08)
+
+
+### Bug Fixes
+
+* **workflow:** fixes bad rule placement ([0465602](https://github.com/availity/availity-workflow/commit/0465602ab35bcabaf3d64100a70df460654719e9))
+* **workflow:** fixes regex test for vfile in development, now compatible with Windows ([1fb35ab](https://github.com/availity/availity-workflow/commit/1fb35ab489bd58c1f5fac6cfc6d9fa1091309bb2))
+* **workflow:** make regex for vfile Windows friendly ([6b86f2f](https://github.com/availity/availity-workflow/commit/6b86f2f31a261bc8e7345669f4b04c73d25be538))
+
+
+### Features
+
+* **workflow:** add cacheDirectory for production builds ([00825ff](https://github.com/availity/availity-workflow/commit/00825ffa4a488e4e3f9b05e6c052276d55f8ea81))
+* **workflow:** add catch-all loader for production ([cf6dfe1](https://github.com/availity/availity-workflow/commit/cf6dfe1d35fc3a08d90a7fd120a31dc42abe7be2))
+* **workflow:** add polyfill for Array.prototype.includes() ([4ff09eb](https://github.com/availity/availity-workflow/commit/4ff09eb10b2b3c4a0694fc0b8c48fb37efe5fb46))
+* **workflow:** implement oneOf when loading modules ([34a2a29](https://github.com/availity/availity-workflow/commit/34a2a2910403c162f6a31dd78eca940d3e30a9b7)), closes [#98](https://github.com/availity/availity-workflow/issues/98)
+* **workflow:** use babel to process dependencies ([80c6a7e](https://github.com/availity/availity-workflow/commit/80c6a7e6d8121e9b8736720fcb414766de995a6f)), closes [#212](https://github.com/availity/availity-workflow/issues/212)
+
+
+
+
+
+# [8.2.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.1.0...@availity/workflow@8.2.0) (2020-12-08)
+
+
+### Bug Fixes
+
+* **workflow:** fixes bad rule placement ([0465602](https://github.com/availity/availity-workflow/commit/0465602ab35bcabaf3d64100a70df460654719e9))
+* **workflow:** fixes regex test for vfile in development, now compatible with Windows ([1fb35ab](https://github.com/availity/availity-workflow/commit/1fb35ab489bd58c1f5fac6cfc6d9fa1091309bb2))
+* **workflow:** make regex for vfile Windows friendly ([6b86f2f](https://github.com/availity/availity-workflow/commit/6b86f2f31a261bc8e7345669f4b04c73d25be538))
+
+
+### Features
+
+* **workflow:** add cacheDirectory for production builds ([00825ff](https://github.com/availity/availity-workflow/commit/00825ffa4a488e4e3f9b05e6c052276d55f8ea81))
+* **workflow:** add catch-all loader for production ([cf6dfe1](https://github.com/availity/availity-workflow/commit/cf6dfe1d35fc3a08d90a7fd120a31dc42abe7be2))
+* **workflow:** implement oneOf when loading modules ([34a2a29](https://github.com/availity/availity-workflow/commit/34a2a2910403c162f6a31dd78eca940d3e30a9b7)), closes [#98](https://github.com/availity/availity-workflow/issues/98)
+* **workflow:** use babel to process dependencies ([80c6a7e](https://github.com/availity/availity-workflow/commit/80c6a7e6d8121e9b8736720fcb414766de995a6f)), closes [#212](https://github.com/availity/availity-workflow/issues/212)
+
+
+
+
+
+# [8.1.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.0.0...@availity/workflow@8.1.0) (2020-11-23)
+
+
+### Bug Fixes
+
+* **workflow:** add polyfill for process.cwd() in vfile package ([654b4a4](https://github.com/availity/availity-workflow/commit/654b4a4d5cc579fd8f07ad6cd4243e37c7cd8c05)), closes [/github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835](https://github.com//github.com/remarkjs/react-markdown/issues/339/issues/issuecomment-683199835)
+* **workflow:** add process polyfill to webpack.config.profile ([de3e6e2](https://github.com/availity/availity-workflow/commit/de3e6e28696fc0f3cf6ec87d90923bfb89160b90))
+* **workflow:** splitChunks.cacheGroups.vendor renamed to splitChunks.cacheGroups.defaultVendors ([6ce2e3e](https://github.com/availity/availity-workflow/commit/6ce2e3e86cbc83db9fd84586ee2ca59983e057be))
+
+
+### Features
+
+* **workflow:** add a cacheGroup for moment ([27e8b64](https://github.com/availity/availity-workflow/commit/27e8b645033ae176c768566b794d65c98c6802e5))
+* **workflow:** re-implement and update cacheGroups ([2f36c2c](https://github.com/availity/availity-workflow/commit/2f36c2cfa7c663b9e7b9b487ae2f9d2aa821ec80))
+* **workflow:** update regex for lodash chunking, add deterministic moduleIds optimization ([fc71c2c](https://github.com/availity/availity-workflow/commit/fc71c2cfe608de7026e5a02befd2a95c939ab999))
+* **workflow:** use contenthash over chunkhash for better long term caching ([00d6b43](https://github.com/availity/availity-workflow/commit/00d6b43c956fc3036fb32f5d74e925bb0a45293a))
+
+
+
+
+
+# [8.0.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.26...@availity/workflow@8.0.0) (2020-10-29)
+
+
+### Features
+
+* **workflow:** upgrade to webpack 5 ([3378833](https://github.com/availity/availity-workflow/commit/33788338e9ef84866f77131fb70d35d3e3e87786))
+
+
+### BREAKING CHANGES
+
+* **workflow:** eslint >= 7 or eslint-config-availity >= 6 is required
+
+
+
+
+
 ## [7.5.26](https://github.com/availity/availity-workflow/compare/@availity/workflow@7.5.25...@availity/workflow@7.5.26) (2020-10-15)
 
 **Note:** Version bump only for package @availity/workflow

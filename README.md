@@ -4,7 +4,6 @@
 
 [![](https://img.shields.io/github/license/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 [![](https://img.shields.io/npm/v/@availity/workflow.svg?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/availity-workflow)
-[![](https://img.shields.io/david/dev/availity/availity-workflow.svg?style=for-the-badge)](https://github.com/Availity/availity-workflow)
 
 ## Table of Contents
 
@@ -120,6 +119,21 @@ function merge(config) {
 module.exports = merge;
 ```
 
+or
+
+```js
+module.exports = (config) => {
+    config.development.open = '/';
+
+    config.development.hotLoader = {
+        enabled: true,
+        experimental: true
+    };
+
+    return config;
+};
+```
+
 ### Options
 
 #### `development.open`
@@ -145,7 +159,7 @@ Allows [Webpack log levels presets](https://webpack.js.org/configuration/stats/#
 
 #### `development.sourceMap`
 
-Webpack `devtool` setting. Default is `source-map`. For more options please see https://webpack.js.org/configuration/devtool/#devtool.
+Webpack `devtool` setting. Default is `source-map`. For more options please see <https://webpack.js.org/configuration/devtool/#devtool>.
 
 #### `development.hotLoader`
 
@@ -167,32 +181,42 @@ ex.
 
 > **Caution**: Please be careful when overriding defaults
 
-Optional options for Webpack development server. If undefined, `workflow` defaults are used. Please see https://webpack.js.org/configuration/dev-server/#devserver for all available options.
+Optional options for Webpack development server. If undefined, `workflow` defaults are used. Please see <https://webpack.js.org/configuration/dev-server/#devserver> for all available options.
+
+##### Example configuration
+
+When starting the dev server using production settings as a dry run, `yarn start --dry-run`, the dev server will need to be told where to serve bundled content from:
+
+```js
+{
+    contentBase: path.join(process.cwd(), 'dist'),
+    compress: true, // gzip content before serving
+    port: 3000, // serve content on localhost:3000
+  };
+```
 
 #### `development.targets`
 
-Allows developers to override the `babel-preset-env` target to match their developer environment. This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6 features, therefore, not needing to Babelfy code completely.
+Allows developers to override the `webpack` target to match their developer environment. This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6 features, therefore, not needing to Babelfy code completely.
 
-This setting is is only used for development and does not effect staging/production/testing builds which default to `IE11`. **@See** [https://github.com/babel/babel-preset-env](https://github.com/babel/babel/tree/master/packages/babel-preset-env)
+This setting is is only used for development and does not effect staging/production/testing builds which default to `'browserslist: defaults, ie 11'`. **@See** [https://webpack.js.org/configuration/target/](https://webpack.js.org/configuration/target/)
+
+##### Note about `browserslist`
+
+If your project's `package.json` contains a `browserslist` entry, that will be used in place of `development.targets`
 
 **Examples:**
 
 ```js
-targets: {
-    ie: 11;
-}
+targets: 'web';
 ```
 
 ```js
-targets: {
-    browsers: ['last 2 Chrome versions'];
-}
+targets: ['web', 'es5];
 ```
 
 ```js
-targets: {
-    chrome: 57;
-}
+targets: 'browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version';
 ```
 
 #### `development.babelInclude`
@@ -342,6 +366,117 @@ npx @availity/workflow-upgrade
 
 ## FAQ
 
+### Webpack 5
+
+Please reference [the Webpack 5 migration guide](https://github.com/webpack/changelog-v5/blob/master/MIGRATION%20GUIDE.md) to familiarize yourself with the possible issues and changes needed to complete a migration for your project.
+
+Much of the internal work and configuration changes will be handled by `@availity/workflow`, but individual projects may require extra attention.
+
+#### How to resolve _new_ runtime errors after upgrading to Webpack 5
+
+Please see [this section from the Webpack 5 migration guide](https://github.com/webpack/changelog-v5/blob/master/MIGRATION%20GUIDE.md#level-5-runtime-errors).
+
+##### Example flow for troubleshooting and resolving runtime errors
+
+###### Initial troubleshooting steps
+
+The stacktrace should include a reference to a file or package located your `node_modules` folder. In this example our runtime error references `process.cwd()` being `undefined` from the package `vfile`.
+
+Running the command `yarn why vfile` in our project directory will tell us why we have this dependency.
+
+```log
+spaces on  fix/process-cwd-bug via ⬢ v14.9.0
+❯ yarn why vfile
+yarn why v1.22.4
+[1/4] 🤔  Why do we have the module "vfile"...?
+[2/4] 🚚  Initialising dependency graph...
+[3/4] 🔍  Finding dependency...
+[4/4] 🚡  Calculating file sizes...
+=> Found "vfile@2.3.0"
+info Reasons this module exists
+   - "react-markdown#unified" depends on it
+   - Hoisted from "react-markdown#unified#vfile"
+info Disk size without dependencies: "28KB"
+info Disk size with unique dependencies: "104KB"
+info Disk size with transitive dependencies: "104KB"
+info Number of shared dependencies: 4
+✨  Done in 0.91s.
+```
+
+We can see above that `vfile` is required by `react-markdown`, now we need to find out why `react-markdown` is required. Running `yarn why react-markdown` in our project gives the following results:
+
+```log
+spaces on  fix/process-cwd-bug via ⬢ v14.9.0
+❯ yarn why react-markdown
+yarn why v1.22.4
+[1/4] 🤔  Why do we have the module "react-markdown"...?
+[2/4] 🚚  Initialising dependency graph...
+[3/4] 🔍  Finding dependency...
+[4/4] 🚡  Calculating file sizes...
+=> Found "react-markdown@4.3.1"
+info Has been hoisted to "react-markdown"
+info Reasons this module exists
+   - Specified in "dependencies"
+   - Hoisted from "@availity#spaces#react-markdown"
+info Disk size without dependencies: "200KB"
+info Disk size with unique dependencies: "924KB"
+info Disk size with transitive dependencies: "5.36MB"
+info Number of shared dependencies: 22
+✨  Done in 0.93s.
+```
+
+Now we can see that `@availity/spaces` relies on `react-markdown`.
+
+###### When to open an issue
+
+If the runtime error is determined to be coming from an Availity package, please let us know by opening an issue and adding relevant information about which dependencies of that package are causing the issue. We will then be able to determine if we can refactor away from the offending dependency or provide a polyfill for the missing code.
+
+###### How to resolve
+
+This will vary on a case by case basis, but in general you will want to try and either refactor away from the dependency causing the issue, or provide a polyfill **if one has not yet been provided from this repo**. The following continues with the `vfile`, `react-markdown`, and `@availity/spaces` example from above.
+
+Since the runtime error noted that `process.cwd()` was `undefined`, we know that we need to add a polyfill for `process` to our project. To do that, we will add the necessary dependencies and modify our webpack configuration for the project.
+
+```log
+spaces on  fix/process-cwd-bug via ⬢ v14.9.0
+❯ yarn add -D process imports-loader
+```
+
+Inside `project/config/workflow.js`:
+
+```js
+const modifyWebpackConfig = (webpackConfig) => {
+    webpackConfig.module.rules.push({
+        test: /node_modules\/vfile\/core\.js/,
+        use: [
+            {
+                loader: 'imports-loader',
+                options: {
+                    type: 'commonjs',
+                    imports: ['single process/browser process']
+                }
+            }
+        ]
+    });
+    return webpackConfig;
+};
+
+function config(config) {
+    config.modifyWebpackConfig = modifyWebpackConfig;
+    // ...rest of custom workflow config
+
+    return config;
+}
+
+module.exports = config;
+```
+
+Now the runtime issue has been resolved! Note that this only polyfills `process` for the one package that needs it, instead of all packages. Some packages may rely on the existence of `process` to determine what type of environment they are running in, in those cases we probably wouldn't want to make `process` available to them.
+
+[Documentation for imports-loader](https://webpack.js.org/loaders/imports-loader/)
+
+[Link to specific vfile issue and solution](https://github.com/vfile/vfile/issues/38#issuecomment-683198538)
+
 ### How to integrate with Visual Studio Code's [Jest plugin](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)?
 
 Create `./vscode/settings.json` file with the following configuration:
@@ -359,7 +494,7 @@ Create `./vscode/settings.json` file with the following configuration:
 Update `workflow.js` using the configuration below:
 
 ```js
-module.exports = config => {
+module.exports = (config) => {
     config.proxies = [
         {
             context: ['/api/**', '/ms/**', '!/api/v1/proxy/healthplan/**'],

@@ -68,7 +68,7 @@ const settings = {
   },
 
   css() {
-    return this.isDistribution() ? '[name]-[chunkhash:8].css' : '[name].css';
+    return '[name]-[contenthash:8].chunk.css';
   },
 
   // Returns the JSON object from contents or the JSON object from
@@ -81,15 +81,15 @@ const settings = {
     return require(path.join(this.project(), 'package.json'));
   },
 
-  // Don’t use [chunkhash] in development since this will increase compilation time
-  // In production, [chunkhash] generate hashes depending on the file contents this if
-  // the contents don't change the file could potentially be cached in the browser.
+  // [contenthash] generates unique hashes depending on the file contents
+  // If the contents of a file don't change, the file should be cached in the browser.
+  // https://webpack.js.org/guides/caching/#output-filenames
   fileName() {
-    return this.isDistribution() ? '[name]-[chunkhash:8].js' : '[name].js';
+    return '[name]-[contenthash:8].chunk.js';
   },
 
   chunkFileName() {
-    return this.isDistribution() ? '[name]-[chunkhash:8].js' : '[name].js';
+    return '[name]-[contenthash:8].chunk.js';
   },
 
   output() {
@@ -112,14 +112,15 @@ const settings = {
     return get(this.configuration, 'development.open');
   },
 
-  targets() {
-    const defaultTargets = {
-      ie: 11
-    };
+  developmentTargets() {
+    const defaultTargets = 'browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version';
+    const { browserslist } = this.pkg();
 
-    const developmentTarget = get(this.configuration, 'development.targets', defaultTargets);
+    const developmentTargets = get(this.configuration, 'development.targets', defaultTargets);
 
-    return this.isDevelopment() ? developmentTarget : defaultTargets;
+    // If project has a browserslist entry, webpack will use that as its development target
+    // https://webpack.js.org/configuration/target/#target
+    return browserslist ? 'browserslist' : developmentTargets;
   },
 
   globals() {
@@ -133,7 +134,7 @@ const settings = {
     // - Map "staging" to "production" for process.env so that React deploys without extra debugging
     //   capabilities
     const parsedGlobals = Object.keys(process.env)
-      .filter(key => key in configGlobals)
+      .filter((key) => key in configGlobals)
       // eslint-disable-next-line unicorn/no-reduce
       .reduce(
         (result, key) => {
@@ -192,19 +193,19 @@ const settings = {
 
     const { value: defaultConfig } = schema.validate({});
 
-    const defaultWorkflowConfig = path.join(__dirname, 'workflow.js');
+    const defaultWorkflowConfig = path.join(__dirname, 'schema.js');
     const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
 
     if (existsSync(jsWorkflowConfig)) {
-      // Try workflow.js
+      // Try project's workflow.js
       this.workflowConfigPath = jsWorkflowConfig;
       developerConfig = require(this.workflowConfigPath);
     } else {
-      // fall back to default ./workflow.js
+      // fall back to default ./schema.js
       this.workflowConfigPath = defaultWorkflowConfig;
     }
 
-    // Merge in ./workflow.js defaults with overrides from developer config
+    // Merge in ./schema.js defaults with overrides from developer config
     if (typeof developerConfig === 'function') {
       config = developerConfig(defaultConfig);
     } else {
@@ -236,11 +237,10 @@ const settings = {
       globals: args.globals
     });
 
-    this.targets();
     this.globals();
 
     this.devServerPort = get(this.configuration, 'development.port', 3000);
-    for (; ;) {
+    for (;;) {
       const availablePort = await getPort({ port: this.devServerPort, host: this.host() }); // eslint-disable-line no-await-in-loop
       if (availablePort === this.devServerPort) break;
       this.devServerPort += 1;
@@ -254,7 +254,7 @@ const settings = {
         `:${this.ekkoServerPort}`
       );
       if (Array.isArray(this.configuration.proxies)) {
-        this.configuration.proxies.forEach(proxy => {
+        this.configuration.proxies.forEach((proxy) => {
           proxy.target = proxy.target.replace(`:${wantedEkkoPort}`, `:${this.ekkoServerPort}`);
         });
       }

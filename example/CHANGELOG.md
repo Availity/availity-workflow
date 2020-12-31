@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.4](https://github.com/Availity/availity-workflow/compare/@availity/example@3.0.3...@availity/example@3.0.4) (2020-12-11)
+
+**Note:** Version bump only for package @availity/example
+
+
+
+
+
+## [3.0.3](https://github.com/Availity/availity-workflow/compare/@availity/example@3.0.2...@availity/example@3.0.3) (2020-12-08)
+
+**Note:** Version bump only for package @availity/example
+
+
+
+
+
+## [3.0.2](https://github.com/Availity/availity-workflow/compare/@availity/example@3.0.1...@availity/example@3.0.2) (2020-12-08)
+
+**Note:** Version bump only for package @availity/example
+
+
+
+
+
+## [3.0.1](https://github.com/Availity/availity-workflow/compare/@availity/example@3.0.0...@availity/example@3.0.1) (2020-11-23)
+
+**Note:** Version bump only for package @availity/example
+
+
+
+
+
+# [3.0.0](https://github.com/Availity/availity-workflow/compare/@availity/example@2.3.0...@availity/example@3.0.0) (2020-10-29)
+
+
+### Features
+
+* **workflow:** upgrade to webpack 5 ([3378833](https://github.com/Availity/availity-workflow/commit/33788338e9ef84866f77131fb70d35d3e3e87786))
+
+
+### BREAKING CHANGES
+
+* **workflow:** eslint >= 7 or eslint-config-availity >= 6 is required
+
+
+
+
+
 # [2.3.0](https://github.com/Availity/availity-workflow/compare/@availity/example@2.2.30...@availity/example@2.3.0) (2020-10-15)
 
 

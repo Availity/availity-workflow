@@ -25,21 +25,22 @@ const plugin = (settings) => {
     return settings.pkg().version || 'N/A';
   }
 
-  const index = [
-    require.resolve('react-app-polyfill/ie11'),
-    `${require.resolve('webpack-dev-server/client')}?/`,
-    require.resolve('webpack/hot/dev-server'),
-    require.resolve('navigator.sendbeacon'),
-    resolveModule(resolveApp, 'index')
-  ];
-
   const config = {
     mode: 'development',
+
+    target: settings.developmentTargets(),
 
     context: settings.app(),
 
     entry: {
-      index
+      index: [
+        require.resolve('react-app-polyfill/ie11'),
+        require.resolve('polyfill-array-includes'),
+        `${require.resolve('webpack-dev-server/client')}?/`,
+        require.resolve('webpack/hot/dev-server'),
+        require.resolve('navigator.sendbeacon'),
+        resolveModule(resolveApp, 'index')
+      ]
     },
 
     output: {
@@ -59,7 +60,10 @@ const plugin = (settings) => {
         path.join(__dirname, 'node_modules')
       ],
       symlinks: true,
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss']
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss'],
+      fallback: {
+        path: require.resolve('path-browserify')
+      }
     },
 
     // This set of options is identical to the resolve property set above,
@@ -71,6 +75,21 @@ const plugin = (settings) => {
 
     module: {
       rules: [
+        // solution to process.cwd() is undefined in @availity/spaces -> react-markdown -> vfile
+        // https://github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835
+        // Needed for @availity/spaces compatibility with Webpack 5
+        {
+          test: /[/\\]node_modules[/\\]vfile[/\\]core\.js/,
+          use: [
+            {
+              loader: 'imports-loader',
+              options: {
+                type: 'commonjs',
+                imports: ['single process/browser process']
+              }
+            }
+          ]
+        },
         {
           test: /\.(js|mjs|jsx|ts|tsx)$/,
           include: settings.include(),
@@ -79,12 +98,24 @@ const plugin = (settings) => {
               loader: 'babel-loader',
               options: {
                 presets: [babelPreset],
+                // This is a feature of `babel-loader` for webpack (not Babel itself).
+                // It enables caching results in ./node_modules/.cache/babel-loader/
+                // directory for faster rebuilds.
                 cacheDirectory: settings.isDevelopment(),
+                // See https://github.com/facebook/create-react-app/issues/6846 for context on why cacheCompression is disabled
+                cacheCompression: false,
                 babelrc: babelrcExists,
                 plugins: [babelrcExists ? null : require.resolve(settings.getHotLoaderName())]
               }
             }
           ]
+        },
+        // Allows .mjs and .js files from packages of type "module" to be required without the extension
+        {
+          test: /\.m?js/,
+          resolve: {
+            fullySpecified: false
+          }
         },
         loaders.css.development,
         loaders.scss.development,
@@ -92,6 +123,7 @@ const plugin = (settings) => {
         loaders.images
       ]
     },
+
     plugins: [
       new webpack.DefinePlugin(settings.globals()),
 
@@ -105,14 +137,6 @@ const plugin = (settings) => {
       new webpack.BannerPlugin({
         banner: `v${getVersion()} - ${new Date().toJSON()}`
       }),
-
-      // Converts:
-      //    [HMR] Updated modules:
-      //    [HMR]  - 5
-      // To:
-      //    [HMR] Updated modules:
-      //    [HMR]  - ./src/middleware/api.js
-      new webpack.NamedModulesPlugin(),
 
       // Generate hot module chunks
       new webpack.HotModuleReplacementPlugin(),
@@ -131,7 +155,7 @@ const plugin = (settings) => {
       }),
 
       // Ignore all the moment local files
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
 
       new CaseSensitivePathsPlugin(),
       new ESLintPlugin({

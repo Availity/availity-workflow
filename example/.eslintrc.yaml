@@ -1,0 +1,15 @@
+extends: availity/workflow
+
+root: true
+
+settings:
+  import/resolver:
+    typescript: {}
+    root-import:
+      rootPathPrefix: '@'
+      rootPathSuffix: project/app
+      extensions:
+        - .js
+        - .jsx
+        - .tsx
+        - .ts

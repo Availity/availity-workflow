@@ -10,41 +10,75 @@ const babelPreset = require('./babel-preset');
 
 process.noDeprecation = true;
 
-const plugin = settings => {
+const plugin = (settings) => {
   const babelrcPath = path.join(settings.project(), '.babelrc');
   const babelrcExists = existsSync(babelrcPath);
-  const resolveApp = relativePath => path.resolve(settings.app(), relativePath);
+  const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
 
   function getVersion() {
     return settings.pkg().version || 'N/A';
   }
 
+  // TODO: update to production settings or refactor functions to just use production config
   const config = {
     context: settings.app(),
+
+    mode: 'production',
 
     optimization: {
       splitChunks: {
         cacheGroups: {
-          styles: {
-            name: 'styles',
-            test: /\.css$/,
+          // https://webpack.js.org/plugins/split-chunks-plugin/#optimizationsplitchunks
+          // Add defaultVendors and default so we don't override webpack 5 defaults
+          // When files paths are processed by webpack, they always contain / on Unix systems and \ on Windows.
+          // That's why using [\\/] in {cacheGroup}.test fields is necessary to represent a path separator.
+          // / or \ in { cacheGroup }.test will cause issues when used cross- platform.
+          defaultVendors: {
+            test: /[/\\]node_modules[/\\]/,
+            priority: -10
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true
+          },
+          // Create a chunk for react and react-dom since they shouldn't change often
+          // https://webpack.js.org/guides/caching/#extracting-boilerplate
+          // https://webpack.js.org/plugins/split-chunks-plugin/#split-chunks-example-3
+          react: {
+            test: /[/\\]node_modules[/\\](react|react-dom)[/\\]/,
+            idHint: 'vendors',
             chunks: 'all',
-            enforce: true
+            priority: 10
           },
-          commons: {
-            chunks: 'initial',
-            minChunks: 2
+          // Create a chunk for lodash or any of its separate packages
+          lodash: {
+            // Should capture lodash/, lodash-es/, lodash.whateverModule/
+            test: /[/\\]node_modules[/\\](lodash([.-])?\w*?)[/\\]/,
+            idHint: 'vendors',
+            chunks: 'all',
+            priority: 1
           },
-          vendor: {
-            test: /node_modules/,
-            chunks: 'initial',
-            name: 'vendor',
-            priority: 10,
-            enforce: true
+          moment: {
+            test: /[/\\]node_modules[/\\](moment)[/\\]/,
+            idHint: 'vendors',
+            chunks: 'all',
+            priority: 2
           }
+          // TODO: re-implement cacheGroups for styles?
+          // TODO: Add cacheGroup for Availity packages in node_modules ?
         }
       },
-      minimizer: []
+      minimizer: [],
+
+      // To extract boilerplate like runtime and manifest info
+      // Should aid caching by keeping filenames consistent if content doesn't change
+      runtimeChunk: 'single',
+
+      // Keeps vendor hashes consistent between builds where local dependency imports change the order of resolution
+      // https://webpack.js.org/guides/caching/#module-identifiers
+      // https://webpack.js.org/configuration/optimization/#optimizationmoduleids
+      moduleIds: 'deterministic'
     },
 
     entry: {
@@ -71,7 +105,10 @@ const plugin = settings => {
         path.join(__dirname, 'node_modules')
       ],
       symlinks: true,
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss']
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss'],
+      fallback: {
+        path: require.resolve('path-browserify')
+      }
     },
 
     // This set of options is identical to the resolve property set above,
@@ -83,6 +120,21 @@ const plugin = settings => {
 
     module: {
       rules: [
+        // solution to process.cwd() is undefined in @availity/spaces -> react-markdown -> vfile
+        // https://github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835
+        // Needed for @availity/spaces compatibility with Webpack 5
+        {
+          test: /node_modules\/vfile\/core\.js/,
+          use: [
+            {
+              loader: 'imports-loader',
+              options: {
+                type: 'commonjs',
+                imports: ['single process/browser process']
+              }
+            }
+          ]
+        },
         {
           test: /\.(js|mjs|jsx|ts|tsx)$/,
           include: settings.include(),
@@ -97,7 +149,13 @@ const plugin = settings => {
             }
           ]
         },
-
+        // Allows .mjs and .js files from packages of type "module" to be required without the extension
+        {
+          test: /\.m?js/,
+          resolve: {
+            fullySpecified: false
+          }
+        },
         loaders.css.production,
         loaders.scss.production,
         loaders.fonts,
@@ -124,7 +182,7 @@ const plugin = settings => {
       }),
 
       new loaders.MiniCssExtractPlugin({
-        filename: 'css/[name]-[contenthash].css'
+        filename: 'css/[name]-[contenthash:8].chunk.css'
       }),
 
       new DuplicatePackageCheckerPlugin({
@@ -134,7 +192,7 @@ const plugin = settings => {
       }),
 
       // Ignore all the moment local files
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
 
       new CaseSensitivePathsPlugin()
     ]
