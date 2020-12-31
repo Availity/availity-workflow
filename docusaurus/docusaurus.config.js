@@ -2,13 +2,13 @@ module.exports = {
   plugins: [],
   themes: [['@docusaurus/theme-search-algolia', { id: '01' }]],
   onBrokenLinks: 'log',
-  title: 'Availity Docs',
-  tagline: 'React components using Availity UIKit and Bootstrap 4',
-  url: 'https://availity.github.io/cli',
-  baseUrl: '/',
+  title: 'Availity Workflow Docs',
+  tagline: 'Toolkit for Availity web projects',
+  url: 'https://availity.github.io/availity-workflow',
+  baseUrl: '/availity-workflow',
   favicon: 'img/favicon.ico',
   organizationName: 'availity', // Usually your GitHub org/user name.
-  projectName: 'availity-react', // Usually your repo name.
+  projectName: 'availity-workflow', // Usually your repo name.
   themeConfig: {
     algolia: {
       apiKey: 'eec0154a008662c32d440b7de7982cd2',
@@ -21,41 +21,49 @@ module.exports = {
     //   content:
     //     '⭐️ If you like Availity-React, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/availity/availity-react">GitHub</a>! ⭐️'
     // },
-    colorMode: { defaultMode: 'dark' },
+    colorMode: {
+      defaultMode: 'dark',
+      // Should we use the prefers-color-scheme media-query,
+      // using user system preferences, instead of the hardcoded defaultMode
+      respectPrefersColorScheme: true
+    },
 
     navbar: {
       title: 'Availity Docs',
-      hideOnScroll: true,
+      // hideOnScroll: true,
       logo: {
         alt: 'Availity Docs Logo',
-        src: 'img/icon.png'
+        src: 'img/icon.png',
+        href: 'https://availity.github.io',
+        target: '_self'
       },
       items: [
         {
-          to: 'http://localhost:3000', // needs to be updated once deployed
-          label: 'CLI',
-          class: 'active',
-          position: 'right'
-        },
-        {
-          to: 'http://localhost:3001', // needs to be updated once deployed
-          label: 'SDK',
-          position: 'right'
-        },
-        {
-          to: 'https://deploy-preview-571--condescending-leavitt-66e607.netlify.app/', // The target URL (string).
+          href: 'https://availity.github.io/availity-workflow',
+          target: '_self'
           label: 'React',
-          position: 'right'
+          position: 'right',
         },
-
         {
-          href: 'https://github.com/availity',
+          href: 'https://availity.github.io/sdk-js',
+          target: '_self',
+          label: 'SDK-JS',
+          position: 'right',
+        },
+        {
+          to: '/', // availity.github.io/availity-workflow, this repo
+          label: 'Workflow',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/availity/availity-workflow',
           position: 'right',
           className: 'header-github-link',
-          'aria-label': 'GitHub repository'
-        }
+          'aria-label': 'GitHub repository',
+        },
       ]
-    }
+    },
+    footer: {},
   },
   presets: [
     [
@@ -67,7 +75,7 @@ module.exports = {
 
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/availity/availity-react/edit/feat/docusaurus-docs/docusaurus/'
+          editUrl: 'https://github.com/availity/availity-workflow/edit/master/'
         },
 
         theme: {
