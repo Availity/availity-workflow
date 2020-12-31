@@ -1,3 +1,6 @@
 [build]
-  publish = "example/build"
-  command = "yarn run build:app"
+  publish = "docusaurus/build"
+  command = "yarn build:docs"
+
+[build.environment]
+  NODE_VERSION = "14"
