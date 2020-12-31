@@ -75,7 +75,7 @@ module.exports = {
 
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/availity/availity-workflow/edit/master/docusaurus/docs/'
+          editUrl: 'https://github.com/availity/availity-workflow/edit/master/docusaurus/'
         },
 
         theme: {
