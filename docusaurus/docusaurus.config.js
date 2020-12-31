@@ -5,7 +5,7 @@ module.exports = {
   title: 'Availity Workflow Docs',
   tagline: 'Toolkit for Availity web projects',
   url: 'https://availity.github.io/availity-workflow',
-  baseUrl: '/availity-workflow',
+  baseUrl: '/availity-workflow/',
   favicon: 'img/favicon.ico',
   organizationName: 'availity', // Usually your GitHub org/user name.
   projectName: 'availity-workflow', // Usually your repo name.
@@ -40,30 +40,30 @@ module.exports = {
       items: [
         {
           href: 'https://availity.github.io/availity-workflow',
-          target: '_self'
+          target: '_self',
           label: 'React',
-          position: 'right',
+          position: 'right'
         },
         {
           href: 'https://availity.github.io/sdk-js',
           target: '_self',
           label: 'SDK-JS',
-          position: 'right',
+          position: 'right'
         },
         {
           to: '/', // availity.github.io/availity-workflow, this repo
           label: 'Workflow',
-          position: 'right',
+          position: 'right'
         },
         {
           href: 'https://github.com/availity/availity-workflow',
           position: 'right',
           className: 'header-github-link',
-          'aria-label': 'GitHub repository',
-        },
+          'aria-label': 'GitHub repository'
+        }
       ]
     },
-    footer: {},
+    footer: {}
   },
   presets: [
     [
