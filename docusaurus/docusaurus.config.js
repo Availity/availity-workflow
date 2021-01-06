@@ -7,8 +7,8 @@ module.exports = {
   url: 'https://availity.github.io/availity-workflow',
   baseUrl: '/availity-workflow/',
   favicon: 'img/favicon.ico',
-  organizationName: 'availity',
-  projectName: 'availity-workflow',
+  organizationName: 'availity', // Usually your GitHub org/user name.
+  projectName: 'availity-workflow', // Usually your repo name.
   themeConfig: {
     algolia: {
       apiKey: 'eec0154a008662c32d440b7de7982cd2',
@@ -19,7 +19,7 @@ module.exports = {
     //   backgroundColor: '#e29f0d',
     //   textColor: 'black',
     //   content:
-    //     '⭐️ If you like Availity Workflow, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/availity/availity-workflow">GitHub</a>! ⭐️'
+    //     '⭐️ If you like Availity-React, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/availity/availity-react">GitHub</a>! ⭐️'
     // },
     colorMode: {
       defaultMode: 'dark',
@@ -74,6 +74,7 @@ module.exports = {
           routeBasePath: '/',
 
           sidebarPath: require.resolve('./sidebars.js'),
+          // Please change this to your repo.
           editUrl: 'https://github.com/availity/availity-workflow/edit/master/docusaurus/'
         },
 

@@ -2,7 +2,12 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "version": "independent",
-  "packages": ["packages/*", "docs", "example"],
+  "packages": [
+    "packages/*",
+    "docs",
+    "docusaurus",
+    "example"
+  ],
   "message": "chore: publish release [skip ci]",
   "command": {
     "publish": {

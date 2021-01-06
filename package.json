@@ -3,7 +3,9 @@
   "name": "availity-workflow",
   "workspaces": [
     "packages/*",
+    "docusaurus",
     "example"
+
   ],
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -22,12 +24,12 @@
     "prettier": "^2.1.2"
   },
   "scripts": {
-    "start": "cd ./docusaurus && yarn start",
+    "start": "yarn workspace @availity/docs develop",
     "start:app": "yarn workspace @availity/example start",
+    "start:docs": "yarn workspace @availity/dinosaurdocs start",
     "build:app": "yarn workspace @availity/example build",
+    "build:docs": "yarn workspace @availity/dinosaurdocs build",
     "test:app": "yarn workspace @availity/example test",
-    "build:docs": "cd ./docusaurus && yarn build",
-    "start:docs": "cd ./docusaurus && yarn start",
     "lint": "eslint .",
     "link": "lerna link",
     "test": "jest --silent",
