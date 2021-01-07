@@ -1,7 +1,8 @@
 ---
 title: Dependency Management
-summary: Everything related to managing dependencies
 ---
+
+Everything related to managing dependencies
 
 ## Semver
 

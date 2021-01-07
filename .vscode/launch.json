@@ -9,7 +9,13 @@
       "request": "launch",
       "name": "react-app:create",
       "program": "${workspaceFolder}/packages/workflow/index.js",
-      "args": ["init", "my-proj", "--template", "https://github.com/Availity/availity-starter-complex.git", "-y"]
+      "args": [
+        "init",
+        "my-proj",
+        "--template",
+        "https://github.com/Availity/availity-starter-complex.git",
+        "-y"
+      ]
     },
     {
       "type": "node",
@@ -19,7 +25,9 @@
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "program": "${workspaceFolder}/node_modules/.bin/av",
-      "args": ["start"]
+      "args": [
+        "start"
+      ]
     },
     {
       "type": "node",
@@ -29,7 +37,9 @@
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "program": "${workspaceFolder}/node_modules/.bin/av",
-      "args": ["build"]
+      "args": [
+        "build"
+      ]
     },
     {
       "type": "node",
@@ -39,7 +49,9 @@
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "program": "${workspaceFolder}/node_modules/.bin/av",
-      "args": ["release"],
+      "args": [
+        "release"
+      ],
       "env": {
         "NODE_ENV": "staging"
       }
@@ -48,11 +60,13 @@
       "type": "node",
       "name": "docs:start",
       "request": "launch",
-      "cwd": "${workspaceFolder}/docs",
+      "cwd": "${workspaceFolder}/docusaurus",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "program": "${workspaceFolder}/node_modules/.bin/gatsby",
-      "args": ["develop"]
+      "program": "${workspaceFolder}/docusaurus/node_modules/.bin/docusaurus",
+      "args": [
+        "start --no-open"
+      ]
     }
   ]
 }

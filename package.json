@@ -3,7 +3,7 @@
   "name": "availity-workflow",
   "workspaces": [
     "packages/*",
-    "docs",
+    "docusaurus",
     "example"
   ],
   "devDependencies": {
@@ -23,15 +23,16 @@
     "prettier": "^2.1.2"
   },
   "scripts": {
-    "start": "yarn workspace @availity/docs develop",
-    "start:app": "yarn workspace @availity/example start",
     "build:app": "yarn workspace @availity/example build",
+    "start:app": "yarn workspace @availity/example start",
     "test:app": "yarn workspace @availity/example test",
-    "build:docs": "yarn workspace @availity/docs build:deploy",
+    "build:docs": "yarn workspace @availity/dinosaurdocs build",
+    "start": "yarn workspace @availity/dinosaurdocs start --no-open",
+    "start:docs": "yarn workspace @availity/dinosaurdocs start",
     "lint": "eslint .",
     "link": "lerna link",
     "test": "jest --silent",
-    "test:integration": "lerna run --concurrency 1 integration",
+    "test:integration": "lerna run --concurrency 1 --loglevel verbose --stream integration",
     "clean": "lerna clean --yes",
     "postinstall": "lerna bootstrap --use-workspaces",
     "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
@@ -74,7 +75,7 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
-      "<rootDir>/docs/"
+      "<rootDir>/docusaurus/"
     ],
     "testRegex": ".*.spec.js$"
   },

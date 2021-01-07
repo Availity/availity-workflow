@@ -17,16 +17,14 @@ function bundle({ profile, settings }) {
       del.sync([settings.output()]);
     }
 
-    // Lazy load this else yars loads too early https://github.com/Availity/@availity/workflow/issues/133
+    // Lazy load this else yargs loads too early https://github.com/Availity/@availity/workflow/issues/133
     // eslint-disable-next-line global-require
     const { argv } = require('yargs');
 
     // Check argument or CLI arg or default to false
     const shouldProfile = profile || argv.profile || false;
 
-    let webpackConfig = shouldProfile
-      ? webpackConfigProfile(settings)
-      : webpackConfigProduction(settings)
+    let webpackConfig = shouldProfile ? webpackConfigProfile(settings) : webpackConfigProduction(settings);
 
     Logger.info('Started compiling');
     const spinner = ora('Running webpack');
@@ -56,18 +54,20 @@ function bundle({ profile, settings }) {
       webpackConfig = modifyWebpackConfig(webpackConfig, settings) || webpackConfig;
     }
 
+    // https://webpack.js.org/api/node/#webpack
     webpack(webpackConfig).run((err, stats) => {
       spinner.stop();
 
       if (err) {
-        Logger.failed('Failed compiling');
+        Logger.failed('Failed to run, possible webpack configuration error');
         reject(err);
         return;
       }
 
+      // https://webpack.js.org/api/node/#error-handling
       const statistics = customStats(stats, {
-        errorDetails: shouldProfile,
-        warnings: shouldProfile
+        errorDetails: stats.hasErrors(),
+        warnings: stats.hasWarnings()
       });
 
       if (shouldProfile) {
@@ -76,8 +76,8 @@ function bundle({ profile, settings }) {
         const statz = JSON.stringify(stats.toJson());
         const parsedStats = JSON.parse(statz);
         const trees = sizeTree.dependencySizeTree(parsedStats);
-        trees.forEach(tree => {
-          sizeTree.printDependencySizeTree(tree, true, 2, output => {
+        trees.forEach((tree) => {
+          sizeTree.printDependencySizeTree(tree, true, 2, (output) => {
             Logger.simple(output);
           });
         });

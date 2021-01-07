@@ -1,6 +1,7 @@
 module.exports = (stats, options = {}) => {
   const { errorDetails = true, warnings = true } = options;
 
+  // https://webpack.js.org/configuration/stats/#stats-options
   return stats.toString({
     colors: true,
     cached: true,

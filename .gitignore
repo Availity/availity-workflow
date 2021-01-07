@@ -1,15 +1,16 @@
 .cache/
 .DS_Store
 .idea
-docs/public/
+.history
+
 lerna-debug.log
 npm-debug.log
-node_modules/
-coverage/
-reports/
-dist/
-build/
-/.history
 yarn-error.log
 
-my-proj/
+coverage/
+reports/
+
+/**/node_modules
+/**/build
+/**/dist
+/**/.docusaurus

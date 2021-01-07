@@ -1,7 +1,8 @@
 ---
 title: Adding Typescript Support
-summary: Step by step for adding typescript to workflow.
 ---
+
+Step by step for adding typescript to workflow.
 
 > Note that the below recipe only works in Workflow Versions `>=7.0.0`
 

@@ -2,6 +2,8 @@
 title: Bring on the Mocks
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 When developing Availity applications there is no use in a UI that doesn't connect to some data source. There are a few ways a developer can get data when developing locally:
 
 1. Proxy requests from the local webpack-dev-server to the target API environment and have the proxy handle the authentication.
@@ -11,7 +13,7 @@ Lucky for you, we have built a local mock server into workflow that will return 
 
 ## Mock Data Structure
 
-<img width="100%" src="mock-data.png" alt="Mock Data Structure" />
+<img width="100%" src={useBaseUrl('img/mock-data.png')} alt="Mock Data Structure" />
 
 Inside of the `config` folder is a file titled `routes.json`. This contains an object `key/value` pair of all the API routes you override from your UI.
 
