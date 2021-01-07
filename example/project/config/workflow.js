@@ -1,6 +1,7 @@
 const path = require('path');
 
-module.exports = config => {
+// TODO: add more complex workflow features for building/testing
+module.exports = (config) => {
   config.development.open = '/';
 
   config.development.hotLoader = {
