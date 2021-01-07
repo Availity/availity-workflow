@@ -34,7 +34,7 @@ jobs:
       - run: yarn install
       - run: yarn lint
       - run: yarn test
-      - run: yarn test:app
+      - run: yarn test:integration
       - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
       - run: git config --global user.email ${{ secrets.GH_EMAIL }}
       - run: git config --global user.name ${{ secrets.GH_USER }}

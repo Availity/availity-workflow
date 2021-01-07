@@ -32,7 +32,7 @@
     "lint": "eslint .",
     "link": "lerna link",
     "test": "jest --silent",
-    "test:integration": "lerna run --concurrency 1 integration",
+    "test:integration": "lerna run --concurrency 1 --loglevel verbose --stream integration",
     "clean": "lerna clean --yes",
     "postinstall": "lerna bootstrap --use-workspaces",
     "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
