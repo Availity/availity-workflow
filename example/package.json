@@ -42,7 +42,7 @@
     "@availity/spaces": "4.0.26",
     "@availity/yup": "^3.0.7",
     "availity-uikit": "^3.0.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "formik": "^2.0.3",
     "prop-types": "^15.5.7",
