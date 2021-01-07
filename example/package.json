@@ -9,7 +9,7 @@
     "av": "av",
     "test": "av test",
     "test:watch": "av test --watch",
-    "test:integration": "av test",
+    "integration": "yarn lint && yarn test && yarn build && yarn build:production",
     "about": "av about",
     "lint": "av lint",
     "help": "av help",
@@ -28,10 +28,6 @@
     "availity",
     "workflow"
   ],
-  "resolutions": {
-    "browserslist": "4.14.5",
-    "caniuse-lite": "1.0.30000974"
-  },
   "license": "MIT",
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
@@ -57,7 +53,7 @@
     "yup": "^0.29.3"
   },
   "devDependencies": {
-    "@availity/workflow": "^8.4.0",
+    "@availity/workflow": "link:../packages/workflow/",
     "@testing-library/react": "^11.0.4",
     "@types/jest": "^26.0.14",
     "@types/node": "^14.11.2",
