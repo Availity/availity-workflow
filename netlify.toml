@@ -1,6 +1,0 @@
-[build]
-  publish = "docusaurus/build"
-  command = "yarn build:docs"
-
-[build.environment]
-  NODE_VERSION = "14"
