@@ -75,7 +75,7 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
-      "<rootDir>/docs/"
+      "<rootDir>/docusaurus/"
     ],
     "testRegex": ".*.spec.js$"
   },
