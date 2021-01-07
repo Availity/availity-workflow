@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/Availity/availity-workflow/compare/@availity/example@3.0.4...@availity/example@3.1.0) (2021-01-07)
+
+
+### Features
+
+* **example:** symlink to workflow package and add simple integration test ([f9df655](https://github.com/Availity/availity-workflow/commit/f9df655119680f875cda02ce1980e6b6dbf926fe))
+
+
+
+
+
 ## [3.0.4](https://github.com/Availity/availity-workflow/compare/@availity/example@3.0.3...@availity/example@3.0.4) (2020-12-11)
 
 **Note:** Version bump only for package @availity/example

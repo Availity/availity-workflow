@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.4.1](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.4.0...@availity/workflow@8.4.1) (2021-01-07)
+
+
+### Bug Fixes
+
+* **workflow:** update html-webpack-plugin to 5.0.0-beta.4 ([238f16f](https://github.com/availity/availity-workflow/commit/238f16f63a5d4661daaf4a343ce53353a88ba81b))
+
+
+
+
+
 # [8.4.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.3.0...@availity/workflow@8.4.0) (2020-12-11)
 
 
