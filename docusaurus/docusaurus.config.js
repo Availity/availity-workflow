@@ -7,8 +7,8 @@ module.exports = {
   url: 'https://availity.github.io/availity-workflow',
   baseUrl: '/availity-workflow/',
   favicon: 'img/favicon.ico',
-  organizationName: 'availity', // Usually your GitHub org/user name.
-  projectName: 'availity-workflow', // Usually your repo name.
+  organizationName: 'availity',
+  projectName: 'availity-workflow',
   themeConfig: {
     algolia: {
       apiKey: 'eec0154a008662c32d440b7de7982cd2',
@@ -39,7 +39,7 @@ module.exports = {
       },
       items: [
         {
-          href: 'https://availity.github.io/availity-workflow',
+          href: 'https://availity.github.io/availity-react',
           target: '_self',
           label: 'React',
           position: 'right'
@@ -72,9 +72,7 @@ module.exports = {
         docs: {
           // It is recommended to set document id as docs home page (`docs/` path).
           routeBasePath: '/',
-
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl: 'https://github.com/availity/availity-workflow/edit/master/docusaurus/'
         },
 
