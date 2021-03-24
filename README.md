@@ -477,6 +477,38 @@ Now the runtime issue has been resolved! Note that this only polyfills `process`
 
 [Link to specific vfile issue and solution](https://github.com/vfile/vfile/issues/38#issuecomment-683198538)
 
+### How can I test locally running code in IE 11?
+
+The webpack config for development does not actively support development in IE 11, even though our production config does. In both environments we will transpile our Availity packages to meet that target, and in production we take the extra step to transform all other packages and hit the IE 11 compatibility target.
+
+Most packages will ship transpiled, but more and more are starting to drop IE 11 support. In production that still doesn't affect us, we will make necessary changes to support IE 11, but for active local development you have a few ways forward to avoid things like syntax errors inside `node_modules`:
+
+### Recommended Approach
+
+This approach, requiring the least amount of investigating, is to develop locally against modern targets, then use a combination of `yarn build:production`, `yarn start --dry-run`, and something like below inside `workflow.js` to allow you to test what the production-like code will look like in IE 11.
+
+```js
+const path = require('path');
+
+// ...
+
+if (dryRun) {
+    config.development.webpackDevServer = {
+        contentBase: path.join(process.cwd(), 'dist'),
+        compress: true,
+        port: 3000
+    };
+}
+```
+
+This will instruct the webpackDevServer to serve content from your `dist` folder. Running `yarn build:production` will generate the production-like code and place it in the `dist` folder. Then, after manually setting a `dryRun` boolean to `true` inside `workflow.js` (or setting it up to take a command-line argument), you can run `yarn start --dry-run` which will start up the dev server with some production-like settings, and serve your IE 11 compatible-code for testing.
+
+### Other Approaches
+
+-   Figure out which packages are causing the issue and then add them to `configuration.development.babelInclude` inside `workflow.js`
+
+-   Alternatively, use `modifyWebpackConfig` to include the packages and specify a custom loader or rule for them https://github.com/Availity/availity-workflow#modifywebpackconfig
+
 ### How to integrate with Visual Studio Code's [Jest plugin](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)?
 
 Create `./vscode/settings.json` file with the following configuration:
