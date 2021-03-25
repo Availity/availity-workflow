@@ -4,7 +4,7 @@ const path = require('path');
 const shell = require('shelljs');
 const semver = require('semver');
 const inquirer = require('inquirer');
-const { merge } = require('lodash');
+const merge = require('lodash/merge');
 const moment = require('moment');
 const yargs = require('yargs');
 const Logger = require('@availity/workflow-logger');
@@ -66,7 +66,7 @@ function prompt() {
 
   const { version } = settings.pkg();
   const parsed = semver.parse(version);
-  const versionArg = yargs.argv.version || yargs.argv._[1]
+  const versionArg = yargs.argv.version || yargs.argv._[1];
 
   if (versionArg) {
     let error;
@@ -149,7 +149,7 @@ function prompt() {
     }
   ];
 
-  return inquirer.prompt(questions).then(answers => {
+  return inquirer.prompt(questions).then((answers) => {
     settings.version = answers.bump !== 'other' ? answers.bump : answers.version;
     return settings.version;
   });
