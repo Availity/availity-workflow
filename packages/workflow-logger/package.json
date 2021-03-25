@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "boxen": "^4.1.0",
+    "boxen": "^5.0.0",
     "chalk": "^4.1.0",
-    "dateformat": "^3.0.2",
+    "dateformat": "^4.5.1",
     "figures": "^3.1.0"
   },
   "publishConfig": {
