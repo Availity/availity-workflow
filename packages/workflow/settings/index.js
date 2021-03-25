@@ -3,16 +3,16 @@
 const path = require('path');
 const Logger = require('@availity/workflow-logger');
 const { existsSync } = require('fs');
-const trimStart = require('lodash.trimstart');
+const each = require('lodash/forEach');
+const get = require('lodash/get');
+const isFunction = require('lodash/isFunction');
+const isObject = require('lodash/isObject');
+const isString = require('lodash/isString');
+const merge = require('lodash/merge');
+const trimStart = require('lodash/trimStart');
 const chalk = require('chalk');
-const merge = require('lodash.merge');
 const fs = require('fs');
-const get = require('lodash.get');
 const yargs = require('yargs');
-const each = require('lodash.foreach');
-const isString = require('lodash.isstring');
-const isFunction = require('lodash.isfunction');
-const isObject = require('lodash.isobject');
 const getPort = require('get-port');
 const Joi = require('joi');
 

@@ -1,7 +1,9 @@
 const Logger = require('@availity/workflow-logger');
 const chalk = require('chalk');
 const webpack = require('webpack');
-const { once, debounce, merge } = require('lodash');
+const debounce = require('lodash/debounce');
+const merge = require('lodash/merge');
+const once = require('lodash/once');
 const pretty = require('pretty-ms');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const WebpackDevSever = require('webpack-dev-server');

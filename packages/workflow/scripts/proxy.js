@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const debug = require('debug')('workflow:proxy');
-const { get, merge } = require('lodash');
+const get = require('lodash/get');
+const merge = require('lodash/merge');
 const urlJoin = require('url-join');
 const Logger = require('@availity/workflow-logger');
 const escapeStringRegexp = require('escape-string-regexp');
