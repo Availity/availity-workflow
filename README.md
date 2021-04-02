@@ -356,7 +356,9 @@ modifyWebpackConfig: (webpackConfig, settings) => {
 };
 ```
 
-## Upgrading <small>[[Credit](https://github.com/typicode/husky/tree/master/src/upgrader)]</small>
+## Upgrading
+
+[[Credit](https://github.com/typicode/husky/tree/master/src/upgrader)]
 
 Change to the directory you want to upgrade the workflow for and run the below command.
 
