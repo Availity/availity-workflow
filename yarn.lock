@@ -312,9 +312,9 @@
     classnames "^2.2.6"
 
 "@availity/workflow@link:packages/workflow":
-  version "8.4.1"
+  version "8.4.2"
   dependencies:
-    "@availity/workflow-logger" "^5.5.9"
+    "@availity/workflow-logger" "^5.5.10"
     "@babel/core" "^7.13.10"
     "@babel/runtime" "^7.13.10"
     "@pmmmwh/react-refresh-webpack-plugin" "^0.4.2"
@@ -359,7 +359,6 @@
     optimize-css-assets-webpack-plugin "^5.0.1"
     ora "^5.4.0"
     path-browserify "^1.0.1"
-    polyfill-array-includes "^2.0.0"
     postcss "^8.2.8"
     postcss-flexbugs-fixes "^4.1.0"
     postcss-focus "^5.0.0"
@@ -15185,11 +15184,6 @@ pnp-webpack-plugin@^1.6.4:
   integrity sha512-7Wjy+9E3WwLOEL30D+m8TSTF7qJJUJLONBnwQp0518siuMxUQUbgZwssaFX+QKlZkjHZcw/IpZCt/H0srrntSg==
   dependencies:
     ts-pnp "^1.1.6"
-
-polyfill-array-includes@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/polyfill-array-includes/-/polyfill-array-includes-2.0.0.tgz#a160d85de1a7eec4be0fd67da1c5030b699d2429"
-  integrity sha512-HTrB0xYCN3TgOQvk5Tc7ehhl0vC73DARlhNMIDF8xCdPwPOELAYEZkgqJp0vbUGnM3FvcaXgxrwLw+bzKepI2A==
 
 popper.js@^1.14.4:
   version "1.16.1"
