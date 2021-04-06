@@ -33,6 +33,9 @@ const plugin = (settings) => {
 
     context: settings.app(),
 
+    // https://webpack.js.org/configuration/experiments/
+    experiments: settings.experimentalWebpackFeatures(),
+
     entry: {
       index: [
         require.resolve('react-app-polyfill/ie11'),

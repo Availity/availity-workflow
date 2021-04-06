@@ -137,7 +137,13 @@ const schema = Joi.object()
             RemoteUser: 'jsmith'
           }
         }
-      ])
+      ]),
+    experiments: Joi.object()
+      .description('Configure experimental Webpack features. https://webpack.js.org/configuration/experiments/')
+      .example({
+        lazyCompilation: true
+      })
+      .default({})
   })
   .unknown();
 
