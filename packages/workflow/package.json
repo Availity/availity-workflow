@@ -109,9 +109,6 @@
     "@availity/mock-server": "^7.0.6",
     "@testing-library/react": "^8.0.1"
   },
-  "resolutions": {
-    "webpack": "5.25.1"
-  },
   "engines": {
     "node": ">= 10.22.0",
     "npm": ">= 6.4.1",
