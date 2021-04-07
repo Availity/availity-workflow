@@ -32,10 +32,13 @@ const plugin = (settings) => {
 
     context: settings.app(),
 
+    // https://webpack.js.org/configuration/experiments/
+    experiments: settings.experimentalWebpackFeatures(),
+
     entry: {
       index: [
         require.resolve('react-app-polyfill/ie11'),
-        require.resolve('polyfill-array-includes'),
+        require.resolve('react-app-polyfill/stable'),
         `${require.resolve('webpack-dev-server/client')}?/`,
         require.resolve('webpack/hot/dev-server'),
         require.resolve('navigator.sendbeacon'),

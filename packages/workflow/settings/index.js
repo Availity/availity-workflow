@@ -406,6 +406,11 @@ const settings = {
 
   commitMessage() {
     return argv().message;
+  },
+
+  // webpack docs default experiments to false, but that causes build errors
+  experimentalWebpackFeatures() {
+    return get(this.configuration, 'experiments', {});
   }
 };
 

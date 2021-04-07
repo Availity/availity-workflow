@@ -223,6 +223,10 @@ targets: 'browserslist: last 1 chrome version, last 1 firefox version, last 1 sa
 
 Include additional packages from `node_modules` that should be compiled by Babel and Webpack. The default is to compile all packages that are prefixed with `@av/`
 
+#### `development.experiments`
+
+Enable [experimental Webpack 5 features](https://webpack.js.org/configuration/experiments/) in your configurations.
+
 #### `app.title`
 
 Page title to use for the generated HTML document. Default is `Availity`.
