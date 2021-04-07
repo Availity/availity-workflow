@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.5.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.4.2...@availity/workflow@8.5.0) (2021-04-07)
+
+
+### Bug Fixes
+
+* **workflow:** remove polyfill-array-includes since it can conflict with core-js polyfills ([5374815](https://github.com/availity/availity-workflow/commit/5374815a36435bcabf0a41813eb818b2c09dc2d6))
+
+
+### Features
+
+* **workflow:** allow experimental webpack features to be added to config ([2c759fd](https://github.com/availity/availity-workflow/commit/2c759fdb990d99aa78f129ead3165df827466dd1))
+* **workflow:** polyfill stable language features for browser targets ([d506c76](https://github.com/availity/availity-workflow/commit/d506c76a8b259b0da630b95036e39f93c0e7ed48))
+
+
+
+
+
 ## 8.4.2 (2021-03-25)
 
 **Note:** Version bump only for package @availity/workflow

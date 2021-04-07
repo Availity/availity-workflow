@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.12](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@5.5.11...@availity/workflow-upgrade@5.5.12) (2021-04-07)
+
+**Note:** Version bump only for package @availity/workflow-upgrade
+
+
+
+
+
 ## 5.5.11 (2021-03-25)
 
 **Note:** Version bump only for package @availity/workflow-upgrade
