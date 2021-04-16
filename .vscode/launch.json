@@ -13,7 +13,7 @@
         "init",
         "my-proj",
         "--template",
-        "https://github.com/Availity/availity-starter-complex.git",
+        "https://github.com/Availity/availity-starter-react.git",
         "-y"
       ]
     },
