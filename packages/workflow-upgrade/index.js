@@ -16,32 +16,40 @@ module.exports = async (cwd) => {
   if (fs.existsSync(pkgFile)) {
     // Read Package File to JSON
     const pkg = readPkg.sync({ cwd, normalize: false });
-    const { devDependencies, scripts } = pkg;
+    const { devDependencies, scripts, availityWorkflow } = pkg;
     const pkgLock = path.join(cwd, 'package-lock.json');
     const yarnLock = path.join(cwd, 'yarn.lock');
     let installer = '';
     let peerInfoReceived = false;
 
     if (fs.existsSync(pkgLock)) {
-      // delete package lock, set npm install command
+      // delete package lock, set npm as installer
       Logger.info('Deleting Package-Lock');
       fs.unlinkSync(pkgLock);
       installer = 'npm';
     } else if (fs.existsSync(yarnLock)) {
-      // delete yarn lock, set yarn install command
+      // delete yarn lock, set yarn as installer
       Logger.info('Deleting yarn.lock');
       fs.unlinkSync(yarnLock);
       installer = 'yarn';
     } else {
-      Logger.warn('No lockfile detected, setting yarn as default installer.');
+      Logger.warn('No lockfile detected, using yarn as default installer.');
       installer = 'yarn';
     }
 
     // Add this script into the new workflow scripts for the future
     scripts['upgrade:workflow'] = './node_modules/.bin/upgrade-workflow';
 
+    if (!availityWorkflow) {
+      Object.assign(pkg, { availityWorkflow: true });
+    } else if (availityWorkflow.plugin) {
+      Logger.warn(`Deprecated plugin feature detected, removing availityWorkflow.plugin entry.
+      If you are not configuring workflow via package.json, please add "availityWorkflow": true, in its place.`);
+      delete availityWorkflow.plugin;
+    }
+
     if (devDependencies) {
-      Logger.info('Removing redundant packages...');
+      Logger.info('Removing devDependencies that are no longer needed...');
 
       // Delete all deps that were previously required
       delete devDependencies['babel-eslint'];
@@ -53,11 +61,13 @@ module.exports = async (cwd) => {
       delete devDependencies['eslint-config-prettier'];
       delete devDependencies['eslint-plugin-promise'];
       delete devDependencies['eslint-plugin-react'];
+      delete devDependencies['availity-workflow'];
+      delete devDependencies['availity-workflow-angular'];
       delete devDependencies['@availity/workflow-plugin-react'];
       delete devDependencies['@availity/workflow-plugin-angular'];
 
       // Get needed dependencies from eslint-config-availity
-      Logger.info('Adding peerDependencies from eslint-config-availity to devDependencies');
+      Logger.info('Adding peerDependencies from eslint-config-availity to devDependencies in project');
 
       const { error, stdout, stderr } = await asyncExec(
         `${installer} info eslint-config-availity peerDependencies --json`
@@ -78,12 +88,13 @@ module.exports = async (cwd) => {
     // Update package.json
     fs.writeFileSync(pkgFile, `${JSON.stringify(pkg, null, 2)}\n`, 'utf-8');
 
-    Logger.info('Deleting node modules...');
+    Logger.info('Deleting node_modules...');
     // Delete Node Modules
     rimraf.sync(path.join(cwd, 'node_modules'));
 
     const reinstallNodeModules = async () => {
-      Logger.info('Reinstalling node modules..');
+      Logger.info('Reinstalling packages..');
+
       // Run install command
       await asyncExec(`${installer} install`, { timeout: reinstallTimeout }, () => {
         Logger.success('\nCongratulations! Welcome to the new @availity/workflow.');
@@ -97,10 +108,8 @@ module.exports = async (cwd) => {
 
     Logger.info('Adding latest versions of @availity/workflow and eslint-config-availity');
 
-    // FIXME: eslint-config-availity is not (always? ever?) added using this command
-    // should that be asyncExec, is reinstallNodeModules being called too soon and overwriting?
-    // Should we just add eslint-config-availity like we do its peerDeps
     if (installer === 'yarn') {
+      // yarn add package will grab the latest version of a package by default
       await asyncExec(
         `${installer} add @availity/workflow eslint-config-availity --dev`,
         { timeout: reinstallTimeout },
@@ -109,9 +118,9 @@ module.exports = async (cwd) => {
         }
       );
     } else if (installer === 'npm') {
-      // installer -i packages --save-dev
+      // npm install package will respect semver if a package is already listed in project
       await asyncExec(
-        `${installer} install @availity/workflow eslint-config-availity --save-dev`,
+        `${installer} install @availity/workflow@latest eslint-config-availity@latest --save-dev`,
         { timeout: reinstallTimeout },
         async () => {
           await reinstallNodeModules();
