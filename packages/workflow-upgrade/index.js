@@ -40,12 +40,18 @@ module.exports = async (cwd) => {
     // Add this script into the new workflow scripts for the future
     scripts['upgrade:workflow'] = './node_modules/.bin/upgrade-workflow';
 
-    if (!availityWorkflow) {
-      Object.assign(pkg, { availityWorkflow: true });
-    } else if (availityWorkflow.plugin) {
+    // Check for deprecated workflow features
+    if (availityWorkflow.plugin) {
       Logger.warn(`Deprecated plugin feature detected, removing availityWorkflow.plugin entry.
-      If you are not configuring workflow via package.json, please add "availityWorkflow": true, in its place.`);
+        If you are not configuring workflow via package.json, please add "availityWorkflow": true, in its place.`);
+
       delete availityWorkflow.plugin;
+    }
+
+    // If workflow entry didn't exist, or plugin was its only key
+    if (!availityWorkflow || Object.keys(availityWorkflow).length === 0) {
+      Logger.info(`Adding '"availityWorkflow": true' to package.json`);
+      Object.assign(pkg, { availityWorkflow: true });
     }
 
     if (devDependencies) {
