@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.13](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@5.5.12...@availity/workflow-upgrade@5.5.13) (2021-04-27)
+
+
+### Bug Fixes
+
+* **workflow-upgrade:** add latest packages when using npm as installer ([43f1b18](https://github.com/availity/availity-workflow/commit/43f1b18a315fb8737eb971d531e8ef8a5ec6f165))
+* **workflow-upgrade:** fixes eslint-config-availity not being installed ([d9388ee](https://github.com/availity/availity-workflow/commit/d9388ee5af48740c48100bc699a2d79d048058d3))
+
+
+
+
+
 ## [5.5.12](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@5.5.11...@availity/workflow-upgrade@5.5.12) (2021-04-07)
 
 **Note:** Version bump only for package @availity/workflow-upgrade
