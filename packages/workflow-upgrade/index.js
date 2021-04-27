@@ -82,10 +82,10 @@ module.exports = async (cwd) => {
     // Delete Node Modules
     rimraf.sync(path.join(cwd, 'node_modules'));
 
-    const reinstallNodeModules = () => {
+    const reinstallNodeModules = async () => {
       Logger.info('Reinstalling node modules..');
       // Run install command
-      exec(`${installer} install`, { timeout: reinstallTimeout }, () => {
+      await asyncExec(`${installer} install`, { timeout: reinstallTimeout }, () => {
         Logger.success('\nCongratulations! Welcome to the new @availity/workflow.');
         if (!peerInfoReceived) {
           Logger.warn(
@@ -97,17 +97,24 @@ module.exports = async (cwd) => {
 
     Logger.info('Adding latest versions of @availity/workflow and eslint-config-availity');
 
+    // FIXME: eslint-config-availity is not (always? ever?) added using this command
+    // should that be asyncExec, is reinstallNodeModules being called too soon and overwriting?
+    // Should we just add eslint-config-availity like we do its peerDeps
     if (installer === 'yarn') {
-      exec(`${installer} add @availity/workflow eslint-config-availity --dev`, { timeout: reinstallTimeout }, () => {
-        reinstallNodeModules();
-      });
+      await asyncExec(
+        `${installer} add @availity/workflow eslint-config-availity --dev`,
+        { timeout: reinstallTimeout },
+        async () => {
+          await reinstallNodeModules();
+        }
+      );
     } else if (installer === 'npm') {
       // installer -i packages --save-dev
-      exec(
+      await asyncExec(
         `${installer} install @availity/workflow eslint-config-availity --save-dev`,
         { timeout: reinstallTimeout },
-        () => {
-          reinstallNodeModules();
+        async () => {
+          await reinstallNodeModules();
         }
       );
     }
