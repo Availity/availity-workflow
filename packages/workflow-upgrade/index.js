@@ -42,9 +42,7 @@ module.exports = async (cwd) => {
 
     // Check for deprecated workflow features
     if (availityWorkflow.plugin) {
-      Logger.warn(`Deprecated plugin feature detected, removing availityWorkflow.plugin entry.
-        If you are not configuring workflow via package.json, please add "availityWorkflow": true, in its place.`);
-
+      Logger.warn(`Deprecated plugin feature detected, removing availityWorkflow.plugin entry.`);
       delete availityWorkflow.plugin;
     }
 
