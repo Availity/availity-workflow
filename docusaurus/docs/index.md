@@ -20,6 +20,7 @@ If you can't find what you are looking for on any of the left sub menus try out 
 
 ## Supported Browsers
 
--   Internet Explorer 11+
--   Google Chrome
--   Mozilla Firefox
+- Google Chrome
+- Mozilla Firefox
+- Microsoft Edge
+- Internet Explorer 11+ (Internet Explorer will no longer be supported starting August 21st, 2021)
