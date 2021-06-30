@@ -39,7 +39,7 @@
     "@availity/icon": "^0.7.17",
     "@availity/localstorage-core": "^3.0.0",
     "@availity/page-header": "^10.0.63",
-    "@availity/spaces": "4.0.26",
+    "@availity/spaces": "4.0.30",
     "@availity/yup": "^3.0.7",
     "availity-uikit": "^3.0.0",
     "axios": "^0.20.0",
