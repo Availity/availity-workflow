@@ -149,7 +149,7 @@ Webpack dev server host
 
 #### `development.port`
 
-Webpack dev server port. If the port at this value is unavailable, the port value will be incremented until an unused port if found.
+Webpack dev server port. If the port at this value is unavailable, the port value will be incremented until an unused port is found.
 Default: `3000`
 
 #### `development.logLevel`

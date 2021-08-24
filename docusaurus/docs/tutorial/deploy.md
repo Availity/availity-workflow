@@ -2,13 +2,13 @@
 title: Creating a Deployment
 ---
 
-If you have made it this far then you must mean business. The application must have 100% test coverage and ready to be deployed on a Friday afternoon to production. 😉
+If you have made it this far then you must mean business. The application must have 100% test coverage and be ready to be deployed on a Friday afternoon to production. 😉
 
 In all seriousness let's start on how to get your application in a deploy ready state.
 
 ## Running the Build Script
 
-Our CLI ships with two different commands for building your deployments. The first is the `staging` command and the second being `production`.
+Our CLI ships with two different commands for building your deployments. The first is the `staging` command and the second is `production`.
 
 Both commands run the same CLI workflow, the only difference is that the `production` command will minify your code for a smaller gzip footprint.
 
@@ -48,6 +48,6 @@ git push && git push --tags
 
 ## Next Steps
 
-Congratulations! You sucessfully created your first deployment artifact! You can choose to read more about the additional features that our Workflow toolkit provides in the `Recipes` section.
+Congratulations! You successfully created your first deployment artifact! You can choose to read more about the additional features that our Workflow toolkit provides in the `Recipes` section.
 
 Checkout our [React Component Library](https://availity.github.io/availity/react) for some pre-built reactstrap components to assist in building solid web applications.
