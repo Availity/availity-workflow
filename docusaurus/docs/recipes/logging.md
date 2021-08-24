@@ -2,7 +2,7 @@
 title: Setting up Logging
 ---
 
-Analytics allows you to collect data on clicks and different page events across your application. More detailed prop options and examples can be found [here](https://availity.github.io/availity-react/components/analytics).
+Analytics allows you to collect data on clicks and different page events across your application. More detailed prop options and examples can be found [here](https://availity.github.io/availity-react/components/analytics/analytics#props).
 
 ## Installation
 
@@ -31,7 +31,7 @@ const splunkAnalytics = new AvSplunkAnalytics(avLogMessagesApi, true);
 
 ### Creating the React Component
 
-Next we want to render our `Analytics` component which will allow us to start logging analytics. You want to do this at the root of you App so any `child` component can gain access to the log service.
+Next we want to render our `Analytics` component which will allow us to start logging analytics. You want to do this at the root of your App so any `child` component can gain access to the log service.
 
 For this example we will assume we are rendering at the root `index.js`
 
@@ -71,7 +71,7 @@ Now that the component is initialized we can start to add attributes onto our js
 
 Notice the prefix `data-av-analytics`. This directly corresponds to the `attributePrefix` property that we passed into the Analytics component above. Note that this is the default prefix and we can change that if we want to anything else as long as it doesn't conflict with other key properties on JSX components.
 
-One of the key's here is the `action` attribute. These can be of type `['click','blur','focus']`. In this case we want to log the event when the user `clicks` the link. The output of this went sent outbound to our analytics service looks like the below.
+One of the key's here is the `action` attribute. These can be of type `['click','blur','focus']`. In this case we want to log the event when the user `clicks` the link. The output of this when sent outbound to our analytics service looks like the below.
 
 ```json hideCopy=true
 {

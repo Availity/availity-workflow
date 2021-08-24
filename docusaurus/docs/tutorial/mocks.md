@@ -27,7 +27,7 @@ The above pictured scenario can be explained by saying "the specified path will 
 
 By default, if you have not modified your `workflow.js` file the mock server will automatically start up and be running. This can be disabled by setting `development.mock.enabled` to `false` in the configuration file.
 
-The easiest way to know if the server is running is you should see a message saying `Ekko servered started at...`.
+The easiest way to know if the server is running is you should see a message saying `Ekko server started at...`.
 
 ```shell hideCopy=true
 Workspaces/workflow-app is 📦 v0.1.0 via ⬢ v12.14.0 took 11s 487ms yarn start
@@ -54,7 +54,7 @@ $ av start
 
 The best way to learn is by examples and that is what we are going to do here.
 
-We are going to clear out the `App.js` file for tesing purposes and instead paste the below code snippet.
+We are going to clear out the `App.js` file for testing purposes and instead paste the below code snippet.
 
 ### Adding API Code Snippet
 

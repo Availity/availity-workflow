@@ -93,7 +93,7 @@ Webpack dev server host
 
 #### `development.port`
 
-Webpack dev server port. If the port at this value is unavailable, the port value will be incremented until an unused port if found.
+Webpack dev server port. If the port at this value is unavailable, the port value will be incremented until an unused port is found.
 Default: `3000`
 
 #### `development.logLevel`
@@ -154,7 +154,7 @@ targets: {
 
 #### `development.babelInclude`
 
-Include additinal packages from `node_modules` that should be compiled by Babel and Wepback. The default is to compile all packages that are prefixed with `@av/`
+Include additional packages from `node_modules` that should be compiled by Babel and Wepback. The default is to compile all packages that are prefixed with `@av/`
 
 #### `app.title`
 
@@ -241,7 +241,7 @@ context: '/api';
 
 -   `target`: Host and port number for proxy.
 -   `enabled`: Enables or disables a proxy configuration
--   `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.
+-   `pathRewrite`: _(Optional)_ Rewrites (using regex) the path before sending request to proxy target.
 
 **Ex:**
 
