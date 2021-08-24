@@ -20,13 +20,13 @@ This server can return other file types besides XML or JSON (PDFs, images, etc).
 
 ## Route Matching
 
-`avality-mock-server` is designed to respond with the route configuration that matches the incoming request the closest by introspecting the request body, parameters and headers. `avality-mock-server` calculates which route scores the highest for each request and returns the appropriate mock response.
+`availity-mock-server` is designed to respond with the route configuration that matches the incoming request the closest by introspecting the request body, parameters and headers. `availity-mock-server` calculates which route scores the highest for each request and returns the appropriate mock response.
 
 ## Configuration
 
 ### Standalone Server
 
-The default server configuration can be found in [config.js](./config.js). Pass a different configuration file to the `avality-mock-server` server to override the defaults.
+The default server configuration can be found in [config.js](./config.js). Pass a different configuration file to the `availity-mock-server` server to override the defaults.
 
 ```javascript
 const path = require('path');
