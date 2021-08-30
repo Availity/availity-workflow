@@ -136,7 +136,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn install
       - run: yarn build:docs
-      - uses: crazy-max/ghaction-github-pages@v1
+      - uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: gh-pages
           build_dir: docusaurus/build
