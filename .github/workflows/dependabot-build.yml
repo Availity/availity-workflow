@@ -1,0 +1,53 @@
+# This workflow has access to secrets and a read token
+name: Dependabot Build
+on:
+  workflow_run:
+    workflows: ["Dependabot PR Check"]
+    types:
+      - completed
+
+permissions:
+  pull-requests: read
+
+jobs:
+  validate-pr-check:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: exit 1 # fail the workflow
+
+  setup:
+    needs: validate-pr-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: yarn install
+
+  # Jobs run in parallel by default, these run together once initial setup completes
+  lint:
+    needs: [validate-pr-check, setup]
+    runs-on: ubuntu-latest
+    steps: 
+        - run: yarn lint
+
+  test:
+    needs: [validate-pr-check, setup]
+    runs-on: ubuntu-latest
+    steps:
+      - run: yarn test
