@@ -26,4 +26,4 @@ jobs:
           path: scripts
 
       - name: Run registry checker
-        run: sh ./scripts/artifactory-check.sh
+        run: ./scripts/artifactory-check.sh
