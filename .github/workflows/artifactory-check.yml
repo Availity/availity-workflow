@@ -1,0 +1,29 @@
+name: Artifactory Check CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v2
+
+      - name: Checkout shared Availity tools
+        uses: actions/checkout@v2
+        with:
+          repository: Availity/.github
+          token: ${{ secrets.BOT_TOKEN}}
+          # Relative path under $GITHUB_WORKSPACE to place the repository
+          path: scripts
+
+      - name: Run registry checker
+        run: sh ./scripts/artifactory-check.sh
