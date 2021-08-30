@@ -10,10 +10,14 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
-
     steps:
+      - if: ${{ github.actor == 'dependabot[bot]' }}
+        run: |
+          echo "Dependabot detected, skipping rest of job" 
+          exit 0
+
       - name: Checkout current repo
         uses: actions/checkout@v2
 
@@ -28,3 +32,4 @@ jobs:
       - name: Run registry checker
         working-directory: tools
         run: ./scripts/artifactory-check.sh
+        
