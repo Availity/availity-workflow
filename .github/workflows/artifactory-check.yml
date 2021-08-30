@@ -21,9 +21,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: Availity/.github
-          token: ${{ secrets.BOT_TOKEN}}
+          token: ${{ secrets.BOT_TOKEN }}
           # Relative path under $GITHUB_WORKSPACE to place the repository
           path: scripts
 
       - name: Run registry checker
-        run: ./scripts/artifactory-check.sh
+        run: .${{ github.workspace }}/scripts/artifactory-check.sh
