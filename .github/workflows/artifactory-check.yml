@@ -27,6 +27,4 @@ jobs:
 
       - name: Run registry checker
         working-directory: tools
-        run: |
-          ls -la
-          find scripts
+        run: ./scripts/artifactory-check.sh
