@@ -23,7 +23,7 @@ jobs:
           repository: Availity/.github
           token: ${{ secrets.BOT_TOKEN }}
           # Relative path under $GITHUB_WORKSPACE to place the repository
-          path: scripts
+          path: tools
 
       - name: Run registry checker
-        run: .${{ github.workspace }}/scripts/artifactory-check.sh
+        run: .${{ github.workspace }}/tools/scripts/artifactory-check.sh
