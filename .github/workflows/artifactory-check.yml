@@ -26,4 +26,7 @@ jobs:
           path: tools
 
       - name: Run registry checker
-        run: .${{ github.workspace }}/tools/.github/scripts/artifactory-check.sh
+        working-directory: tools
+        run: |
+          ls -la
+          find scripts
