@@ -6,20 +6,12 @@ on:
     types:
       - completed
 
-permissions:
-  pull-requests: read
-  contents: read
+permissions: read-all # TODO: figure out appropriate permissions
 
 jobs:
-  validate-pr-check:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - run: exit 1 # fail the workflow
-
   build:
-    needs: validate-pr-check
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
