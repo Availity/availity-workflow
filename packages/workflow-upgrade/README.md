@@ -5,5 +5,5 @@ Simple package that will upgrade the `@availity/workflow` to the latest version.
 #### Usage
 Change to the directory you want to upgrade the workflow for and run the below command. 
 ```bash
-npx @availity/workflow
+npx @availity/workflow-upgrade
 ```
