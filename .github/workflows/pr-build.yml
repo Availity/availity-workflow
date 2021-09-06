@@ -8,22 +8,18 @@ on:
     branches: [master]
 
 jobs:
-  validate-pr-check:
-    runs-on: ubuntu-latest
-    steps:
-    - if: ${{ github.actor == 'dependabot[bot]' }}
-      run: |
-        echo "Dependabot detected, skipping rest of job"
-        exit 1
-
   build:
-    needs: validate-pr-check
-    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [12, 14]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: ${{ matrix.node }}
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
