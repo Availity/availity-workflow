@@ -83,5 +83,6 @@
       "pre-commit": "lint-staged",
       "pre-push": "yarn check:dependencies && yarn check:packages"
     }
-  }
+  },
+  "packageManager": "yarn@3.0.2"
 }
