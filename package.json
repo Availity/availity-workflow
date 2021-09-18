@@ -33,7 +33,7 @@
     "start:docs": "yarn workspace @availity/dinosaurdocs start",
     "lint": "eslint .",
     "test": "jest --silent",
-    "test:integration": "TODO: migrate to berry alternative:lerna run --concurrency 1 --loglevel verbose --stream integration",
+    "test:integration": "yarn workspaces foreach run integration --verbose",
     "clean": "TODO: migrate to berry alternative:lerna clean --yes",
     "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
     "release": "TODO: migrate to berry alternative:lerna publish",
