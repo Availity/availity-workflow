@@ -14,3 +14,11 @@ reports/
 /**/build
 /**/dist
 /**/.docusaurus
+
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

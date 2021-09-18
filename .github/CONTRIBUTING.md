@@ -1,10 +1,13 @@
+<!-- TODO: Update for yarn v3, no lerna -->
+
 ## Contributing
 
 This is a monorepo managed using [lerna](https://github.com/lerna/lerna) in independent mode (each packages is versioned and published individually).
 
 ## Adding a New Package
 
-1. 
+1.
+
 ```bash
 $ yarn run new
 ```
@@ -12,6 +15,7 @@ $ yarn run new
 2. Add link to new package in README
 
 ## Installing
+
 We use [yarn](https://yarnpkg.com/lang/en/) workspaces for developing. If you don't have [yarn](https://yarnpkg.com/lang/en/) you can install it by running
 `npm install -g yarn`. Otherwise you can run the below to install all the dependencies.
 
@@ -20,33 +24,43 @@ yarn install
 ```
 
 ## Running
+
 There are a few scripts you can use for testing changes. If you are using `vscode` you will be able to run them from the debugger
 
 ### `yarn run start:app`
+
 Runs the example application
 
 ### `yarn run test:app`
+
 Tests the example application
 
 ### `yarn run build:app`
+
 Buids the example application
 
 ### `react-app:create` (vscode only)
+
 runs the cli for generating a new project
 
 All subsequent installs should be quick after the first initial one.
 
 ### Commits
+
 Commits should use the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type). Scope should one of un-prefixed name of the packages under ./packages/. If a commit applies to multiple packages, leave out the scope.
 
 ### Releasing
+
 Make sure when you publish that there are no spooky things going on with the version bumps. Lerna will auto detect the changes up to the last commit and auto bump all the required packages accordingly.
+
 ```bash
 lerna publish
 ```
 
 ### Canary Relases
+
 You can alternatively run a canary release that will not impact the current `latest` tag version and can be used to test out changes.
+
 ```bash
 lerna publish -c
 ```

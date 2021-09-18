@@ -1,2 +1,6 @@
 # Enforce Unix newlines
 .*      text eol=lf
+
+# Mark binary files to avoid Git showing huge diffs
+/.yarn/releases/** binary
+/.yarn/plugins/** binary
