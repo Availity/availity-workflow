@@ -254,7 +254,7 @@ __metadata:
     "@availity/localstorage-core": ^3.0.0
     "@availity/page-header": ^10.0.63
     "@availity/spaces": 4.0.26
-    "@availity/workflow": "link:../packages/workflow/"
+    "@availity/workflow": "workspace:*"
     "@availity/yup": ^3.0.7
     "@testing-library/react": ^11.0.4
     "@types/jest": ^26.0.14
@@ -408,7 +408,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@availity/mock-data@^5.5.8, @availity/mock-data@workspace:packages/mock-data":
+"@availity/mock-data@workspace:*, @availity/mock-data@workspace:packages/mock-data":
   version: 0.0.0-use.local
   resolution: "@availity/mock-data@workspace:packages/mock-data"
   languageName: unknown
@@ -418,7 +418,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@availity/mock-server@workspace:packages/mock-server"
   dependencies:
-    "@availity/mock-data": ^5.5.8
+    "@availity/mock-data": "workspace:*"
     body-parser: ^1.18.2
     chalk: ^4.1.0
     compression: ^1.7.0
@@ -555,7 +555,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@availity/workflow-logger@^5.5.11, @availity/workflow-logger@workspace:packages/workflow-logger":
+"@availity/workflow-logger@workspace:*, @availity/workflow-logger@workspace:packages/workflow-logger":
   version: 0.0.0-use.local
   resolution: "@availity/workflow-logger@workspace:packages/workflow-logger"
   dependencies:
@@ -570,7 +570,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@availity/workflow-upgrade@workspace:packages/workflow-upgrade"
   dependencies:
-    "@availity/workflow-logger": ^5.5.11
+    "@availity/workflow-logger": "workspace:*"
     read-pkg: ^5.2.0
     rimraf: ^3.0.0
   bin:
@@ -578,17 +578,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@availity/workflow@link:../packages/workflow/::locator=%40availity%2Fexample%40workspace%3Aexample":
-  version: 0.0.0-use.local
-  resolution: "@availity/workflow@link:../packages/workflow/::locator=%40availity%2Fexample%40workspace%3Aexample"
-  languageName: node
-  linkType: soft
-
-"@availity/workflow@workspace:packages/workflow":
+"@availity/workflow@workspace:*, @availity/workflow@workspace:packages/workflow":
   version: 0.0.0-use.local
   resolution: "@availity/workflow@workspace:packages/workflow"
   dependencies:
-    "@availity/workflow-logger": ^5.5.11
+    "@availity/workflow-logger": "workspace:*"
     "@babel/core": ^7.13.14
     "@babel/runtime": ^7.13.10
     "@pmmmwh/react-refresh-webpack-plugin": ^0.4.2
@@ -666,7 +660,7 @@ __metadata:
     webpack-sources: ^2.0.0
     yargs: ^16.0.3
   peerDependencies:
-    "@availity/mock-server": ^7.0.6
+    "@availity/mock-server": "*"
     "@testing-library/react": ^8.0.1
   bin:
     av: ./index.js

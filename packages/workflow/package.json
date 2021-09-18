@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/workflow-logger": "^5.5.11",
+    "@availity/workflow-logger": "workspace:*",
     "@babel/core": "^7.13.14",
     "@babel/runtime": "^7.13.10",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.2",
@@ -106,7 +106,7 @@
     "eslint": "^7.23.0"
   },
   "peerDependencies": {
-    "@availity/mock-server": "^7.0.6",
+    "@availity/mock-server": "*",
     "@testing-library/react": "^8.0.1"
   },
   "engines": {
