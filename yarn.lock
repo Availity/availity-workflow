@@ -2762,19 +2762,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-lerna-scopes@npm:^11.0.0":
-  version: 11.0.0
-  resolution: "@commitlint/config-lerna-scopes@npm:11.0.0"
-  dependencies:
-    import-from: 3.0.0
-    resolve-pkg: 2.0.0
-    semver: 7.3.2
-  peerDependencies:
-    lerna: ^3.22.1
-  checksum: ab152477af51aae96b4ce7ed288fdfdffce7f7eecf86a5b9d6ac148da97da17ea5cfd6ac7b6a7e04af4e7edfd42375308d64e96c2b7dad82ac202e811b46eb26
-  languageName: node
-  linkType: hard
-
 "@commitlint/ensure@npm:^11.0.0":
   version: 11.0.0
   resolution: "@commitlint/ensure@npm:11.0.0"
@@ -5807,7 +5794,6 @@ __metadata:
   dependencies:
     "@commitlint/cli": ^11.0.0
     "@commitlint/config-conventional": ^11.0.0
-    "@commitlint/config-lerna-scopes": ^11.0.0
     conventional-changelog-cli: ^2.0.27
     conventional-github-releaser: ^3.1.3
     conventional-recommended-bump: ^6.0.4
@@ -13374,15 +13360,6 @@ fsevents@~2.3.1:
     parent-module: ^1.0.0
     resolve-from: ^4.0.0
   checksum: 2cacfad06e652b1edc50be650f7ec3be08c5e5a6f6d12d035c440a42a8cc028e60a5b99ca08a77ab4d6b1346da7d971915828f33cdab730d3d42f08242d09baa
-  languageName: node
-  linkType: hard
-
-"import-from@npm:3.0.0":
-  version: 3.0.0
-  resolution: "import-from@npm:3.0.0"
-  dependencies:
-    resolve-from: ^5.0.0
-  checksum: 5040a7400e77e41e2c3bb6b1b123b52a15a284de1ffc03d605879942c00e3a87428499d8d031d554646108a0f77652549411167f6a7788e4fc7027eefccf3356
   languageName: node
   linkType: hard
 
@@ -21064,15 +21041,6 @@ fsevents@~2.3.1:
   version: 3.0.0
   resolution: "resolve-pathname@npm:3.0.0"
   checksum: 6147241ba42c423dbe83cb067a2b4af4f60908c3af57e1ea567729cc71416c089737fe2a73e9e79e7a60f00f66c91e4b45ad0d37cd4be2d43fec44963ef14368
-  languageName: node
-  linkType: hard
-
-"resolve-pkg@npm:2.0.0":
-  version: 2.0.0
-  resolution: "resolve-pkg@npm:2.0.0"
-  dependencies:
-    resolve-from: ^5.0.0
-  checksum: 4a14cc38effed20ff362c8f377719af9a45ebe27ee07d79d4802b4568858cd96033f4edc3a2add7fd27e361d24101a042047297a9ef9476696ba16b72e0a05fc
   languageName: node
   linkType: hard
 
