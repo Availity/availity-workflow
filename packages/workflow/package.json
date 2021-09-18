@@ -27,6 +27,7 @@
   "dependencies": {
     "@availity/workflow-logger": "workspace:*",
     "@babel/core": "^7.13.14",
+    "@babel/plugin-proposal-decorators": "^7.15.4",
     "@babel/runtime": "^7.13.10",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.2",
     "@testing-library/jest-dom": "^5.11.10",
