@@ -11,10 +11,10 @@ jobs:
   validate-pr-check:
     runs-on: ubuntu-latest
     steps:
-    - if: ${{ github.actor == 'dependabot[bot]' }}
-      run: |
-        echo "Dependabot detected, skipping rest of job"
-        exit 1
+      - if: ${{ github.actor == 'dependabot[bot]' }}
+        run: |
+          echo "Dependabot detected, skipping rest of job"
+          exit 1
 
   build:
     needs: validate-pr-check
@@ -36,7 +36,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - run: yarn install --frozen-lockfile --prefer-offline
+      - run: yarn install --immutable --prefer-offline
       - run: yarn lint
       - run: yarn test
       - run: yarn test:integration

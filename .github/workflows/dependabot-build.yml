@@ -2,7 +2,7 @@
 name: Dependabot Build
 on:
   workflow_run:
-    workflows: ["Dependabot PR Check"]
+    workflows: ['Dependabot PR Check']
     types:
       - completed
 
@@ -30,7 +30,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - run: yarn install --frozen-lockfile --prefer-offline
+      - run: yarn install --immutable --prefer-offline
       - run: yarn lint
       - run: yarn test
       - run: yarn test:integration
