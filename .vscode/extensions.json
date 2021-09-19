@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "orta.vscode-jest",
+    "gruntfuggly.todo-tree",
+    "esbenp.prettier-vscode",
+    "wix.vscode-import-cost",
+    "nwallace.peep"
+  ]
+}
