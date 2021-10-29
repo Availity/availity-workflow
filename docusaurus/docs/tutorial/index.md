@@ -8,7 +8,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 Throughout the documentation you will see [yarn](https://yarnpkg.com/) used. You are not required to use this however it is our package manager of choice. If you are still wanting to use npm then just note the subtle differences in the commands. `yarn start` would be the same `npm start`.
 
-The minimum required [Nodejs](https://nodejs.org/) version to run and use our toolkit is `10.19.0`
+The minimum required [Nodejs](https://nodejs.org/) version to run and use our toolkit is `v12.19.0`, but using `v14.17.6` or higher is recommended.
 
 ## Creating a new App Using the Workflow CLI
 

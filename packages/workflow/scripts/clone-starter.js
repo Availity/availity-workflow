@@ -20,6 +20,7 @@ const spawn = (cmd, options) => {
 const clone = async (hostInfo, appPath) => {
   let url;
   // Let people use private repos accessed over SSH.
+  // eslint-disable-next-line unicorn/prefer-ternary
   if (hostInfo.getDefaultRepresentation() === `sshurl`) {
     url = hostInfo.ssh({ noCommittish: true });
     // Otherwise default to normal git syntax.
@@ -42,7 +43,6 @@ const clone = async (hostInfo, appPath) => {
  * Main function that clones or copies the starter.
  */
 module.exports = async ({ template: templateUrl, appPath }) => {
-
   const urlObject = url.parse(appPath);
   if (urlObject.protocol && urlObject.host) {
     Logger.failed(

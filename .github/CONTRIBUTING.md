@@ -1,17 +1,19 @@
-## Contributing
+# Contributing
 
-This is a monorepo managed using [lerna](https://github.com/lerna/lerna) in independent mode (each packages is versioned and published individually).
+This is a monorepo managed using [`yarn berry` workspaces](https://yarnpkg.com/features/workspaces). Each package is versioned and published individually.
 
 ## Adding a New Package
 
-1. 
+1.
+
 ```bash
-$ yarn run new
+ yarn run new
 ```
 
 2. Add link to new package in README
 
 ## Installing
+
 We use [yarn](https://yarnpkg.com/lang/en/) workspaces for developing. If you don't have [yarn](https://yarnpkg.com/lang/en/) you can install it by running
 `npm install -g yarn`. Otherwise you can run the below to install all the dependencies.
 
@@ -19,34 +21,42 @@ We use [yarn](https://yarnpkg.com/lang/en/) workspaces for developing. If you do
 yarn install
 ```
 
-## Running
-There are a few scripts you can use for testing changes. If you are using `vscode` you will be able to run them from the debugger
+Although we are not yet using [Plug'n'Play](https://yarnpkg.com/features/pnp) all subsequent installs should be quick after the first initial one.
 
-### `yarn run start:app`
+## Testing Changes
+
+There are a few scripts you can use for testing changes. If you are using `vscode` you will be able to run them from the debugger, otherwise they can be run from your CLI.
+
+### `yarn start:app`
+
 Runs the example application
 
-### `yarn run test:app`
+### `yarn test:app`
+
 Tests the example application
 
-### `yarn run build:app`
-Buids the example application
+### `yarn test:integration`
 
-### `react-app:create` (vscode only)
-runs the cli for generating a new project
+Runs the integration command on each workspace in this repo. Generally, it will build and test each workspace.
 
-All subsequent installs should be quick after the first initial one.
+### `yarn build:app`
+
+Builds the example application
 
 ### Commits
-Commits should use the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type). Scope should one of un-prefixed name of the packages under ./packages/. If a commit applies to multiple packages, leave out the scope.
 
-### Releasing
-Make sure when you publish that there are no spooky things going on with the version bumps. Lerna will auto detect the changes up to the last commit and auto bump all the required packages accordingly.
-```bash
-lerna publish
-```
+Commits should use the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type). Scope should be one of the un-prefixed name of the packages under `./packages/`, for example, `feat(workflow): msg` would apply to the `@availity/workflow` package. If a commit applies to multiple packages, leave out the scope.
 
-### Canary Relases
-You can alternatively run a canary release that will not impact the current `latest` tag version and can be used to test out changes.
-```bash
-lerna publish -c
-```
+### Versioning
+
+This repo uses [monodeploy](https://tophat.github.io/monodeploy/) for managing versions and releases. It is similar to `lerna`, but is built to leverage `berry` workspaces. We use conventional commits to automatically determine semantic version bumps when releasing packages, so following the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type) is important! When in doubt, don't hesitate to reach out to the reviewers of your PR for help with commit messages.
+
+### Contributor Workflow
+
+-   `git clone` this repo if you are a member of the Availity organization, otherwise `git fork` it
+
+-   Make and commit any changes, being sure to follow the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type)
+
+-   `git push` those changes to your PR
+
+-   Upon merge to `master`, changelogs will be automatically generated, and your versions will be tagged and published without requiring any further action

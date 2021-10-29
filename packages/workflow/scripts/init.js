@@ -17,7 +17,7 @@ const cloneStarter = require('./clone-starter');
 
 function printValidationResults(results) {
   if (typeof results !== 'undefined') {
-    results.forEach(error => {
+    results.forEach((error) => {
       Logger.error(`  *  ${error}`);
     });
   }
@@ -67,7 +67,7 @@ function checkThatWeCanReadCwd(installer) {
   // "; cwd = C:\path\to\current\dir" (unquoted)
   // I couldn't find an easier way to get it.
   const prefix = '; cwd = ';
-  const line = lines.find(line => line.indexOf(prefix) === 0);
+  const line = lines.find((line) => line.indexOf(prefix) === 0);
   if (typeof line !== 'string') {
     // Fail gracefully. They could remove it.
     return true;
@@ -78,17 +78,17 @@ function checkThatWeCanReadCwd(installer) {
   }
   Logger.error(
     `Could not start an npm process in the right directory.\n\n` +
-    `The current directory is: ${chalk.bold(cwd)}\n` +
-    `However, a newly started npm process runs in: ${chalk.bold(npmCWD)}\n\n` +
-    `This is probably caused by a misconfigured system terminal shell.`
+      `The current directory is: ${chalk.bold(cwd)}\n` +
+      `However, a newly started npm process runs in: ${chalk.bold(npmCWD)}\n\n` +
+      `This is probably caused by a misconfigured system terminal shell.`
   );
   if (process.platform === 'win32') {
     Logger.error(
       `On Windows, this can usually be fixed by running:\n\n` +
-      `  ${chalk.cyan('reg')} delete "HKCU\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n` +
-      `  ${chalk.cyan('reg')} delete "HKLM\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n\n` +
-      `Try to run the above two lines in the terminal.\n` +
-      `To learn more about this problem, read: https://blogs.msdn.microsoft.com/oldnewthing/20071121-00/?p=24433/`
+        `  ${chalk.cyan('reg')} delete "HKCU\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n` +
+        `  ${chalk.cyan('reg')} delete "HKLM\\Software\\Microsoft\\Command Processor" /v AutoRun /f\n\n` +
+        `Try to run the above two lines in the terminal.\n` +
+        `To learn more about this problem, read: https://blogs.msdn.microsoft.com/oldnewthing/20071121-00/?p=24433/`
     );
   }
   return false;
@@ -107,8 +107,8 @@ function updatePackageJson({ appName, appPath }) {
   if (appPackage.availityWorkflow.plugin) {
     throw new Error(
       `This template is based on an older version of Availity Workflow and uses the deprecated plugin feature. ` +
-      `To correct this, remove the ${chalk.cyan('availityWorkflow.plugin')} entry in package.json ` +
-      `and add ${chalk.cyan('"availityWorkflow": true')} in its place.`
+        `To correct this, remove the ${chalk.cyan('availityWorkflow.plugin')} entry in package.json ` +
+        `and add ${chalk.cyan('"availityWorkflow": true')} in its place.`
     );
   }
 
@@ -147,12 +147,7 @@ async function run({ appPath, appName, originalDirectory, template, installer })
     // Display the most elegant way to cd.
     // This needs to handle an undefined originalDirectory for
     // backward compatibility with old global-cli's.
-    let cdpath;
-    if (originalDirectory && path.join(originalDirectory, appName) === appPath) {
-      cdpath = appName;
-    } else {
-      cdpath = appPath;
-    }
+    const cdpath = originalDirectory && path.join(originalDirectory, appName) === appPath ? appName : appPath;
 
     Logger.empty();
     Logger.success(`Success! Created ${appName} at ${appPath}`);
@@ -186,8 +181,8 @@ async function run({ appPath, appName, originalDirectory, template, installer })
     // On 'exit' we will delete these files from target directory.
     const knownGeneratedFiles = ['package.json', 'package-lock.json', 'node_modules', 'yarn.lock'];
     const currentFiles = fs.readdirSync(path.join(appPath));
-    currentFiles.forEach(file => {
-      knownGeneratedFiles.forEach(fileToMatch => {
+    currentFiles.forEach((file) => {
+      knownGeneratedFiles.forEach((fileToMatch) => {
         // This remove all of knownGeneratedFiles.
         if (file === fileToMatch) {
           Logger.info(`Deleting generated file... ${chalk.cyan(file)}`);
@@ -234,7 +229,7 @@ yargs
   .command(
     'init <projectName> [options]',
     `${chalk.dim('Initialize your project from scratch.')}`,
-    yyargs => {
+    (yyargs) => {
       yyargs
         .positional('projectName', {
           describe: 'The name of the project you want to create.'

@@ -1,6 +1,10 @@
 {
   "private": true,
   "name": "availity-workflow",
+  "engines": {
+    "yarn": "^3.0.0",
+    "node": "^12.0.0 || ^14.0.0"
+  },
   "workspaces": [
     "packages/*",
     "docusaurus",
@@ -9,17 +13,17 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@commitlint/config-lerna-scopes": "^11.0.0",
     "conventional-changelog-cli": "^2.0.27",
+    "conventional-changelog-conventionalcommits": "^4.6.1",
     "conventional-github-releaser": "^3.1.3",
     "conventional-recommended-bump": "^6.0.4",
     "dependency-check": "^4.1.0",
-    "eslint-config-availity": "^6.0.1",
+    "eslint-config-availity": "^7.0.251",
     "gh-pages": "^3.1.0",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
-    "lerna": "^3.18.4",
     "lint-staged": "^10.4.0",
+    "monodeploy": "^2.8.13",
     "prettier": "^2.1.2"
   },
   "scripts": {
@@ -29,18 +33,12 @@
     "build:docs": "yarn workspace @availity/dinosaurdocs build",
     "start": "yarn workspace @availity/dinosaurdocs start --no-open",
     "start:docs": "yarn workspace @availity/dinosaurdocs start",
-    "lint": "eslint .",
-    "link": "lerna link",
+    "lint": "node ./node_modules/.bin/eslint .",
     "test": "jest --silent",
-    "test:integration": "lerna run --concurrency 1 --loglevel verbose --stream integration",
-    "clean": "lerna clean --yes",
-    "postinstall": "lerna bootstrap --use-workspaces",
+    "test:integration": "yarn workspaces foreach -i -v run integration --verbose",
     "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
-    "release": "lerna publish",
-    "release:ci": "lerna publish --yes",
-    "pub": "find ./packages -type d -maxdepth 1 -mindepth 1 -exec sh -c 'cd {} && npm publish' ';'",
+    "release:ci": "yarn monodeploy --config-file monodeploy.config.js",
     "nuke": "yarn remove-locks && yarn clean",
-    "check": "npm-check -u && lerna exec --bail false --concurrency 1 -- npm-check -u",
     "check:packages": "sh ./scripts/artifactory-check.sh",
     "check:dependencies": "node scripts/check-missing-deps.js",
     "remove-locks": "find . -type f -name 'yarn.lock' -delete"
@@ -53,8 +51,7 @@
   },
   "commitlint": {
     "extends": [
-      "@commitlint/config-conventional",
-      "@commitlint/config-lerna-scopes"
+      "@commitlint/config-conventional"
     ],
     "rules": {
       "header-max-length": [
@@ -85,5 +82,6 @@
       "pre-commit": "lint-staged",
       "pre-push": "yarn check:dependencies && yarn check:packages"
     }
-  }
+  },
+  "packageManager": "yarn@3.1.0"
 }
