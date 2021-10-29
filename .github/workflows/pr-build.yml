@@ -33,6 +33,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - run: yarn install --immutable
+      - run: yarn constraints
       - run: yarn lint
       - run: yarn test
       - run: yarn test:integration

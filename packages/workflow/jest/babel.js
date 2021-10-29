@@ -2,12 +2,11 @@
 const babelJest = require('babel-jest');
 const babelPreset = require('../babel-preset');
 
-const createTransformer = () => {
-  return babelJest.createTransformer({
+const createTransformer = () =>
+  babelJest.createTransformer({
     presets: [babelPreset],
     babelrc: false
   });
-};
 
 module.exports = {
   createTransformer
