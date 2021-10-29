@@ -39,7 +39,7 @@ jobs:
 
       - name: Release
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+          yarn config set npmAuthToken "${{ secrets.NPM_TOKEN }}"
           git config --global user.email ${{ secrets.GH_EMAIL }}
           git config --global user.name ${{ secrets.GH_USER }}
           yarn release:ci
