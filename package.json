@@ -22,6 +22,7 @@
     "husky": "^4.3.0",
     "jest": "^26.4.2",
     "lint-staged": "^10.4.0",
+    "monodeploy": "^2.8.13",
     "prettier": "^2.1.2"
   },
   "scripts": {
