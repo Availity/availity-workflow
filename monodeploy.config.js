@@ -4,7 +4,7 @@ module.exports = {
   access: 'infer',
   autoCommit: true,
   changelogFilename: 'CHANGELOG.md',
-  // changesetFilename: 'needed?',
+  changesetFilename: '-', // stdout
   changesetIgnorePatterns: ['**/*.test.js', '**/*.spec.{js,ts}', '**/*.{md,mdx}', '**/yarn.lock'],
   conventionalChangelogConfig: 'conventional-changelog-conventionalcommits',
   dryRun: false,
@@ -14,5 +14,7 @@ module.exports = {
   persistVersions: true,
   prerelease: false,
   prereleaseId: 'alpha',
-  prereleaseNPMTag: 'canary'
+  prereleaseNPMTag: 'canary',
+  topological: true,
+  topologicalDev: true
 };
