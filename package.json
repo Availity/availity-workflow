@@ -37,7 +37,7 @@
     "test": "jest --silent",
     "test:integration": "yarn workspaces foreach -i -v run integration --verbose",
     "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
-    "release:ci": "yarn monodeploy --config-file monodeploy.config.js",
+    "release:ci": "yarn monodeploy --config-file monodeploy.config.js --log-level 0",
     "nuke": "yarn remove-locks && yarn clean",
     "check:packages": "sh ./scripts/artifactory-check.sh",
     "check:dependencies": "node scripts/check-missing-deps.js",
