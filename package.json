@@ -13,17 +13,16 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@types/is-ci": "^3",
     "conventional-changelog-cli": "^2.0.27",
     "conventional-changelog-conventionalcommits": "^4.6.1",
-    "conventional-github-releaser": "^3.1.3",
-    "conventional-recommended-bump": "^6.0.4",
     "dependency-check": "^4.1.0",
     "eslint-config-availity": "^7.0.251",
     "gh-pages": "^3.1.0",
-    "husky": "^4.3.0",
+    "husky": "^7.0.0",
+    "is-ci": "^3.0.1",
     "jest": "^26.4.2",
     "lint-staged": "^10.4.0",
-    "monodeploy": "^2.8.13",
     "prettier": "^2.1.2"
   },
   "scripts": {
@@ -37,11 +36,10 @@
     "test": "jest --silent",
     "test:integration": "yarn workspaces foreach -i -v run integration --verbose",
     "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
-    "release:ci": "yarn monodeploy --config-file monodeploy.config.js --log-level 0",
-    "nuke": "yarn remove-locks && yarn clean",
+    "changelog:generate": "yarn conventional-changelog -p angular -i CHANGELOG.md -s",
     "check:packages": "sh ./scripts/artifactory-check.sh",
     "check:dependencies": "node scripts/check-missing-deps.js",
-    "remove-locks": "find . -type f -name 'yarn.lock' -delete"
+    "postinstall": "is-ci || husky install"
   },
   "lint-staged": {
     "*.js": [
@@ -75,13 +73,6 @@
       "<rootDir>/docusaurus/"
     ],
     "testRegex": ".*.spec.js$"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn check:dependencies && yarn check:packages"
-    }
   },
   "packageManager": "yarn@3.1.0"
 }
