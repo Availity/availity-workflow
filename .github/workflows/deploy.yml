@@ -33,6 +33,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn install --immutable
       - run: yarn constraints
+      - run: yarn version check
       - run: yarn lint
       - run: yarn test
       - run: yarn test:integration
@@ -42,7 +43,12 @@ jobs:
           yarn config set npmAuthToken "${{ secrets.NPM_TOKEN }}"
           git config --global user.email ${{ secrets.GH_EMAIL }}
           git config --global user.name ${{ secrets.GH_USER }}
-          yarn release:ci
+          yarn version apply --recursive
+          yarn changelog:generate
+          git add CHANGELOG.md
+          git commit -m "ci: updates changelog [skip ci]"
+          yarn workspaces foreach -ipv --no-private --since=origin/master --recursive run yarn npm publish --tolerate-republish --access public
+          git push
 
       - run: yarn build:docs
       - name: Deploy docs
