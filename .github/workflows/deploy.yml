@@ -34,7 +34,7 @@ jobs:
       - run: yarn install --immutable
       - run: yarn constraints
       - run: yarn version check
-      - run: yarn lint
+#      - run: yarn lint
       - run: yarn test
       - run: yarn test:integration
 
