@@ -47,7 +47,7 @@ jobs:
           yarn changelog:generate
           git add CHANGELOG.md packages/*
           git commit -m "ci: bumps version [skip ci]"
-          yarn workspaces foreach -ipv --no-private --since=origin/master --recursive run yarn npm publish --tolerate-republish --access public
+          yarn workspaces foreach -ipvt --no-private --since=origin/master npm publish --tolerate-republish --access public
           git push
 
       - run: yarn build:docs
