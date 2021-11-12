@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-upgrade",
-  "version": "5.5.19",
+  "version": "5.5.20",
   "bin": {
     "upgrade-workflow": "./bin.js"
   },
