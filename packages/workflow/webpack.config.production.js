@@ -1,17 +1,15 @@
-/* eslint-disable import/no-dynamic-require */
-/* eslint-disable global-require */
-const path = require('path');
-const fs = require('fs');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const loaders = require('./loaders');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const fs = require('fs');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack');
 const babelPreset = require('./babel-preset');
 const resolveModule = require('./helpers/resolve-module');
 const html = require('./html');
+const loaders = require('./loaders');
 
 process.noDeprecation = true;
 
@@ -314,9 +312,7 @@ const plugin = (settings) => {
         // Default number of concurrent runs: os.cpus().length - 1
         parallel: true
       }),
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: { zindex: false, reduceIdents: false }
-      })
+      new CssMinimizerPlugin()
     );
   }
 
