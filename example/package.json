@@ -50,7 +50,7 @@
     "react-block-ui": "^1.3.2",
     "react-dom": "^16.11.0",
     "reactstrap": "^8.6.0",
-    "yup": "^0.29.3"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@availity/workflow": "workspace:*",
