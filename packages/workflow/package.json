@@ -98,7 +98,7 @@
     "webpack": "^5.30.0",
     "webpack-bundle-analyzer": "^4.4.0",
     "webpack-bundle-size-analyzer": "^3.0.0",
-    "webpack-dev-server": "^3.11.2",
+    "webpack-dev-server": "^4.4.0",
     "webpack-notifier": "^1.13.0",
     "webpack-sources": "^2.0.0",
     "yargs": "^16.0.3"
