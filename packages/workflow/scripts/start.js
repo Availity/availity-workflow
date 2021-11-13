@@ -93,7 +93,6 @@ function rest() {
     };
 
     try {
-      // eslint-disable-next-line global-require
       const Ekko = require('@availity/mock-server');
       ekko = new Ekko();
       return ekko.start(ekkoOptions);
@@ -149,6 +148,7 @@ function web() {
 
     compiler.hooks.done.tap('done', (stats) => {
       const hasErrors = stats.hasErrors();
+      // TODO: investigate eslint warnings may be getting returned as errors, preventing startup
       const hasWarnings = stats.hasWarnings();
 
       // https://webpack.js.org/configuration/stats/
@@ -186,7 +186,7 @@ function web() {
       return resolve();
     });
 
-    let webpackOptions = {
+    const defaults = {
       contentBase: settings.output(),
 
       // display nothing to the console
@@ -196,39 +196,49 @@ function web() {
       // users will see log message printed twice
       // noInfo: true,
 
-      clientLogLevel: 'none',
+      client: {
+        logging: 'none'
+      },
 
       historyApiFallback: settings.historyFallback(),
 
+      // Enable gzip compression of generated files.
       compress: true,
 
       hot: true,
 
-      // Reportedly, this avoids CPU overload on some systems.
-      // https://github.com/facebookincubator/create-react-app/issues/293
-      watchOptions: {
-        ignored: /node_modules(\\+|\/)+(?!(@availity|@av))/
+      static: {
+        // Reportedly, this avoids CPU overload on some systems.
+        // https://github.com/facebookincubator/create-react-app/issues/293
+        watch: {
+          ignored: /node_modules(\\+|\/)+(?!(@availity|@av))/
+        }
       }
     };
 
-    webpackOptions = merge(webpackOptions, settings.config().development.webpackDevServer);
+    const devServerOptions = merge(defaults, settings.config().development.webpackDevServer);
     const proxyConfig = proxy();
 
     if (proxyConfig) {
-      webpackOptions.proxy = proxyConfig;
+      devServerOptions.proxy = proxyConfig;
     }
 
-    server = new WebpackDevSever(compiler, webpackOptions);
+    server = new WebpackDevSever(devServerOptions, compiler);
 
-    server.listen(settings.port(), settings.host(), (err) => {
-      if (err) {
-        Logger.failed(err);
-        reject(err);
+    const runServer = async () => {
+      try {
+        Logger.info('Starting development sever');
+        await server.start();
+        Logger.info('Started development server');
+        resolve();
+      } catch (error) {
+        Logger.failed('Failed to start development server');
+        Logger.failed(error);
+        reject(error);
       }
+    };
 
-      Logger.info('Started development server');
-      resolve();
-    });
+    runServer();
   });
 }
 
