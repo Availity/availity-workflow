@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import PageHeader from '@availity/page-header';
 import { Container, Card } from 'reactstrap';
 import { object, string } from 'yup';
+// eslint-disable-next-line import/extensions
 import Form from '@/components/Form';
 import { chain, nullChain } from '@/chain';
 

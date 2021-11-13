@@ -48,7 +48,7 @@
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
     "envinfo": "^7.8.1",
     "escape-string-regexp": "^4.0.0",
-    "eslint-config-availity": "^7.0.251",
+    "eslint-config-availity": "^7.1.1",
     "eslint-webpack-plugin": "^2.5.3",
     "execa": "^5.0.0",
     "figures": "^3.1.0",
@@ -105,8 +105,7 @@
     "yargs": "^16.0.3"
   },
   "devDependencies": {
-    "@testing-library/react": "^11.0.4",
-    "eslint": "^7.23.0"
+    "@testing-library/react": "^11.0.4"
   },
   "engines": {
     "node": "^12.0.0 || ^14.0.0",

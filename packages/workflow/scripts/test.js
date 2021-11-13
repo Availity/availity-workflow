@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/no-process-exit */
-/* eslint-disable global-require */
 
+// eslint-disable-next-line import/extensions
 const webpackConfig = require('../jest.config.js');
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
   run: ({ settings }) => {
     const tester = webpackConfig(settings);
     process.env.NODE_ENV = 'test';
-    return tester.run().then(exitCode => {
+    return tester.run().then((exitCode) => {
       if (Number.isInteger(exitCode)) {
         process.exit(exitCode);
       }
