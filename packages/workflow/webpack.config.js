@@ -178,9 +178,7 @@ const plugin = (settings) => {
     ]
   };
 
-  if (settings.getHotLoaderName() === 'react-refresh/babel') {
-    config.plugins.push(new ReactRefreshWebpackPlugin());
-  }
+  config.plugins.push(new ReactRefreshWebpackPlugin());
 
   if (settings.isNotifications()) {
     config.plugins.push(

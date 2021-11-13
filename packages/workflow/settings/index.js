@@ -391,9 +391,7 @@ const settings = {
   },
 
   getHotLoaderName() {
-    const isExperimental = get(this.configuration, 'development.hotLoader.experimental', false);
-
-    return isExperimental ? 'react-refresh/babel' : 'react-hot-loader/babel';
+    return 'react-refresh/babel';
   },
 
   getHotLoaderEntry() {
