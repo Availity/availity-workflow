@@ -106,6 +106,7 @@ const plugin = (settings) => {
                 // See https://github.com/facebook/create-react-app/issues/6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
                 babelrc: babelrcExists,
+                // TODO: why disable hot loader if babelrc exists?
                 plugins: [babelrcExists ? null : require.resolve(settings.getHotLoaderName())]
               }
             }

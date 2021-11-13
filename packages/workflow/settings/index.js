@@ -380,11 +380,11 @@ const settings = {
     return argv().disableLinter !== undefined;
   },
 
-  isHotLoader() {
+  enableHotLoader() {
     const isHot = get(this.configuration, 'development.hotLoader', true);
 
     if (typeof isHot === 'object') {
-      return isHot.enabled;
+      return isHot.enabled ?? false;
     }
 
     return isHot;

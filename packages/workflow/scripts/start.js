@@ -205,7 +205,7 @@ function web() {
       // Enable gzip compression of generated files.
       compress: true,
 
-      hot: true,
+      hot: settings.enableHotLoader(),
 
       static: {
         // Reportedly, this avoids CPU overload on some systems.
