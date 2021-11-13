@@ -37,7 +37,6 @@ const plugin = (settings) => {
 
     entry: {
       index: [
-        require.resolve('react-app-polyfill/ie11'),
         require.resolve('react-app-polyfill/stable'),
         require.resolve('navigator.sendbeacon'),
         resolveModule(resolveApp, 'index')

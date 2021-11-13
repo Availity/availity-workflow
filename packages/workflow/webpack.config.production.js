@@ -13,10 +13,10 @@ const loaders = require('./loaders');
 
 process.noDeprecation = true;
 
-// Override user's potential browserslist config to ensure IE 11 support here
+// Override user's potential browserslist config to ensure portal support here
 // This is needed in addition to config.target below so that browserslist queries inside
-// react-app-polyfill/stable and core-js provide everything needed for IE 11
-process.env.BROWSERSLIST = 'defaults, ie 11';
+// react-app-polyfill/stable and core-js provide everything needed
+process.env.BROWSERSLIST = 'defaults';
 
 const plugin = (settings) => {
   const babelrcPath = path.join(settings.project(), '.babelrc');
@@ -31,8 +31,8 @@ const plugin = (settings) => {
     mode: 'production',
 
     // Using an explicit browserslist query will override any project configs
-    // This is fine because we need to ensure IE 11 is being targeted
-    target: 'browserslist: defaults, ie 11',
+    // This is fine because we need to ensure our targets in the portal
+    target: 'browserslist: defaults',
 
     context: settings.app(),
 
@@ -41,7 +41,6 @@ const plugin = (settings) => {
 
     entry: {
       index: [
-        require.resolve('react-app-polyfill/ie11'),
         require.resolve('react-app-polyfill/stable'),
         require.resolve('navigator.sendbeacon'),
         resolveModule(resolveApp, 'index')
