@@ -39,8 +39,6 @@ const plugin = (settings) => {
       index: [
         require.resolve('react-app-polyfill/ie11'),
         require.resolve('react-app-polyfill/stable'),
-        `${require.resolve('webpack-dev-server/client')}?/`,
-        require.resolve('webpack/hot/dev-server'),
         require.resolve('navigator.sendbeacon'),
         resolveModule(resolveApp, 'index')
       ]
@@ -140,9 +138,6 @@ const plugin = (settings) => {
       new webpack.BannerPlugin({
         banner: `v${getVersion()} - ${new Date().toJSON()}`
       }),
-
-      // Generate hot module chunks
-      new webpack.HotModuleReplacementPlugin(),
 
       new HtmlWebpackPlugin(html(settings)),
       new DuplicatePackageCheckerPlugin({
