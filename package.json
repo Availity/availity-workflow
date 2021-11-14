@@ -11,8 +11,8 @@
     "example"
   ],
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/cli": "^14.1.0",
+    "@commitlint/config-conventional": "^14.1.0",
     "@types/is-ci": "^3",
     "conventional-changelog-cli": "^2.0.27",
     "conventional-changelog-conventionalcommits": "^4.6.1",
