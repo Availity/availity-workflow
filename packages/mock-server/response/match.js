@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-this-assignment */
 const _ = require('lodash');
 
 const match = {
@@ -113,9 +114,10 @@ const match = {
     };
 
     // set the default request
+    // eslint-disable-next-line unicorn/consistent-destructuring
     [res.locals.request] = requests;
 
-    _.each(requests, _request => {
+    _.each(requests, (_request) => {
       const score = self.scoreParams(_request, params, method);
       self.scoreHeaders(score, _request, req.headers);
 
@@ -130,8 +132,8 @@ const match = {
       //  3. Unless both hits and misses are equal last configuration should win
       if (
         score.hits > topScore.hits ||
-        ((score.hits === topScore.hits && score.misses < topScore.misses) ||
-          (score.hits === topScore.hits && score.misses === topScore.misses))
+        (score.hits === topScore.hits && score.misses < topScore.misses) ||
+        (score.hits === topScore.hits && score.misses === topScore.misses)
       ) {
         topScore.hits = score.hits;
         topScore.misses = score.misses;

@@ -76,11 +76,11 @@ function bundle({ profile, settings }) {
         const statz = JSON.stringify(stats.toJson());
         const parsedStats = JSON.parse(statz);
         const trees = sizeTree.dependencySizeTree(parsedStats);
-        trees.forEach((tree) => {
+        for (const tree of trees) {
           sizeTree.printDependencySizeTree(tree, true, 2, (output) => {
             Logger.simple(output);
           });
-        });
+        }
         Logger.empty();
       }
 
