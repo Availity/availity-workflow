@@ -172,11 +172,11 @@ function web() {
       }
 
       if (hasErrors) {
-        messages.errors.forEach((error) => {
+        for (const error of messages.errors) {
           Logger.empty();
           Logger.simple(`${chalk.red(error)}`);
           Logger.empty();
-        });
+        }
 
         Logger.failed('Failed compiling');
         Logger.empty();
@@ -187,11 +187,6 @@ function web() {
     });
 
     const defaults = {
-      contentBase: settings.output(),
-
-      // display nothing to the console
-      quiet: true,
-
       // Don't enable this else webpack middleware will log messages and
       // users will see log message printed twice
       // noInfo: true,
@@ -208,6 +203,8 @@ function web() {
       hot: settings.enableHotLoader(),
 
       static: {
+        directory: settings.output(),
+
         // Reportedly, this avoids CPU overload on some systems.
         // https://github.com/facebookincubator/create-react-app/issues/293
         watch: {
