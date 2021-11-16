@@ -14,6 +14,7 @@ const fs = require('fs');
 const yargs = require('yargs');
 const getPort = require('get-port');
 const Joi = require('joi');
+const paths = require('../helpers/paths');
 
 function argv() {
   return yargs.argv;
@@ -43,7 +44,7 @@ const settings = {
   ekkoServerPort: null,
 
   app() {
-    return path.join(this.project(), 'project/app');
+    return paths.app;
   },
 
   include() {
@@ -153,7 +154,7 @@ const settings = {
   },
 
   project() {
-    return process.cwd();
+    return paths.project;
   },
 
   version() {

@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const { existsSync } = require('fs');
@@ -170,19 +171,24 @@ const plugin = (settings) => {
         baseConfig: {
           extends: 'availity/workflow'
         }
-      }),
-      new CopyWebpackPlugin({
-        patterns: [
-          {
-            context: `${settings.app()}/static`, // copy from this directory
-            from: '**/*', // copy all files
-            to: 'static', // copy into {output}/static folder
-            noErrorOnMissing: true
-          }
-        ]
       })
     ]
   };
+
+  if (fs.existsSync(paths.appStatic)) {
+    config.plugins.push(
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            context: paths.appStatic, // copy from this directory
+            from: '**/*', // copy all files
+            to: 'static', // copy into {output}/static folder
+            noErrorOnMissing: false
+          }
+        ]
+      })
+    );
+  }
 
   config.plugins.push(new ReactRefreshWebpackPlugin());
 

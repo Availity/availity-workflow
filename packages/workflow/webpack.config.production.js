@@ -7,6 +7,7 @@ const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 const babelPreset = require('./babel-preset');
+const paths = require('./helpers/paths');
 const resolveModule = require('./helpers/resolve-module');
 const html = require('./html');
 const loaders = require('./loaders');
@@ -259,20 +260,24 @@ const plugin = (settings) => {
 
       new loaders.MiniCssExtractPlugin({
         filename: 'css/[name]-[contenthash:8].chunk.css'
-      }),
-
-      new CopyWebpackPlugin({
-        patterns: [
-          {
-            context: `${settings.app()}/static`, // copy from this directory
-            from: '**/*', // copy all files
-            to: 'static', // copy into {output}/static folder
-            noErrorOnMissing: true
-          }
-        ]
       })
     ]
   };
+
+  if (fs.existsSync(paths.appStatic)) {
+    config.plugins.push(
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            context: paths.appStatic, // copy from this directory
+            from: '**/*', // copy all files
+            to: 'static', // copy into {output}/static folder
+            noErrorOnMissing: false
+          }
+        ]
+      })
+    );
+  }
 
   if (settings.isProduction() && !settings.shouldMimicStaging) {
     config.optimization.minimizer.push(

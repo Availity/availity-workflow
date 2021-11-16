@@ -7,5 +7,8 @@ const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
 module.exports = {
   // TODO: add other common paths
-  appNodeModules: resolveApp('node_modules')
+  project: resolveApp(''),
+  app: resolveApp('project/app'),
+  appNodeModules: resolveApp('node_modules'),
+  appStatic: resolveApp('project/app/static')
 };
