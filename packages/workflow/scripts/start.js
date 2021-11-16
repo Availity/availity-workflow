@@ -235,7 +235,11 @@ function web() {
       }
     };
 
-    runServer();
+    try {
+      runServer();
+    } catch (error) {
+      Logger.failed(error);
+    }
   });
 }
 
@@ -247,12 +251,16 @@ async function start() {
     }
   });
 
-  init();
+  try {
+    init();
+    await web();
+    await notifier();
+    await rest();
+  } catch (error) {
+    Logger.failed(`${error}
 
-  await web();
-
-  await notifier();
-  await rest();
+    Stack: ${error.stack}`);
+  }
 }
 
 module.exports = start;
