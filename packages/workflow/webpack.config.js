@@ -36,6 +36,10 @@ const plugin = (settings) => {
     // https://webpack.js.org/configuration/experiments/
     experiments: settings.experimentalWebpackFeatures(),
 
+    infrastructureLogging: {
+      level: settings.infrastructureLogLevel()
+    },
+
     entry: {
       index: [
         require.resolve('react-app-polyfill/stable'),

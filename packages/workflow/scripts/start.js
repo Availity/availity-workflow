@@ -41,7 +41,7 @@ ${chalk.yellow.bold('Warning:')} Port ${chalk.blue(wantedPort)} was already in u
 function compileMessage(stats, message) {
   // Get the time
   const statistics = stats.toJson();
-  const level = settings.logLevel();
+  const level = settings.statsLogLevel();
 
   const statz = level === 'custom' ? customStats(stats) : stats.toString(level);
   Logger.info(`${chalk.dim('Webpack stats:')}

@@ -1,5 +1,4 @@
-/* eslint-disable unicorn/no-null */
-/* eslint global-require:0 import/no-dynamic-require: 0 */
+/* eslint-disable import/no-dynamic-require */
 const path = require('path');
 const Logger = require('@availity/workflow-logger');
 const { existsSync } = require('fs');
@@ -179,9 +178,14 @@ const settings = {
     }
   },
 
-  logLevel() {
-    const level = get(this.configuration, 'development.logLevel', 'none');
-    return get(argv(), 'development.logLevel', level);
+  statsLogLevel() {
+    const level = get(this.configuration, 'development.stats.level', 'info');
+    return get(argv(), 'development.stats.level', level);
+  },
+
+  infrastructureLogLevel() {
+    const level = get(this.configuration, 'development.infrastructureLogging.level', 'info');
+    return get(argv(), 'development.infrastructureLogging.level', level);
   },
 
   async init({ shouldMimicStaging } = {}) {
@@ -254,9 +258,9 @@ const settings = {
         `:${this.ekkoServerPort}`
       );
       if (Array.isArray(this.configuration.proxies)) {
-        this.configuration.proxies.forEach((proxy) => {
+        for (const proxy of this.configuration.proxies) {
           proxy.target = proxy.target.replace(`:${wantedEkkoPort}`, `:${this.ekkoServerPort}`);
-        });
+        }
       }
     }
   },
@@ -309,7 +313,8 @@ const settings = {
       includeGlobs = defaultInclude;
     }
 
-    return includeGlobs.concat(includeGlobs);
+    // eslint-disable-next-line unicorn/prefer-spread
+    return includeGlobs.concat(includeGlobs); // FIXME: should probably be [...default, ...includeGlobs]
   },
 
   isDryRun() {

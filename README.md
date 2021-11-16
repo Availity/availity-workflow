@@ -152,9 +152,13 @@ Webpack dev server host
 Webpack dev server port. If the port at this value is unavailable, the port value will be incremented until an unused port is found.
 Default: `3000`
 
-#### `development.logLevel`
+#### `development.stats.level`
 
 Allows [Webpack log levels presets](https://webpack.js.org/configuration/stats/#stats) to be used during development. A custom logger is used by default.
+
+#### `development.infrastructureLogging.level`
+
+Allows [Webpack infrastructure log levels](https://webpack.js.org/configuration/other-options/#infrastructurelogging) to be set during development.
 
 #### `development.sourceMap`
 

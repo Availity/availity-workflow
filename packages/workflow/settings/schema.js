@@ -15,11 +15,20 @@ const schema = Joi.object()
           .description('Whether to send webpack build status system notifications'),
         host: Joi.string().default('localhost').description('Webpack dev server host'),
         port: Joi.number().integer().default(3000).description('Webpack dev server port'),
-        logLevel: Joi.string()
-          .default('custom')
-          .description(
-            'Allows presets to be used for Webpack log levels. https://webpack.js.org/configuration/stats/#stats.'
-          ),
+        stats: Joi.object().keys({
+          level: Joi.string()
+            .default('custom')
+            .description(
+              'Allows presets to be used for Webpack stats log levels. https://webpack.js.org/configuration/stats/#stats'
+            )
+        }),
+        infrastructureLogging: Joi.object().keys({
+          level: Joi.string()
+            .default('info')
+            .description(
+              'Allows presets to be used for Webpack infrastructure log levels. https://webpack.js.org/configuration/other-options/#infrastructurelogging'
+            )
+        }),
         sourceMap: Joi.string()
           .default('source-map')
           .description('Webpack devtool setting. https://webpack.js.org/configuration/devtool/#devtool'),
