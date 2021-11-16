@@ -10,6 +10,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const loaders = require('./loaders');
 const babelPreset = require('./babel-preset');
+const paths = require('./helpers/paths');
 const resolveModule = require('./helpers/resolve-module');
 const html = require('./html');
 
@@ -158,6 +159,7 @@ const plugin = (settings) => {
       new CaseSensitivePathsPlugin(),
       new ESLintPlugin({
         cache: true,
+        cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
         quiet: false,
         emitWarning: true,
         extensions: ['js', 'jsx', 'ts', 'tsx', 'mjs'],
