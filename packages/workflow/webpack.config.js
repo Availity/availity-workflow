@@ -157,6 +157,7 @@ const plugin = (settings) => {
 
       new CaseSensitivePathsPlugin(),
       new ESLintPlugin({
+        cache: true,
         quiet: false,
         emitWarning: true,
         extensions: ['js', 'jsx', 'ts', 'tsx', 'mjs'],
