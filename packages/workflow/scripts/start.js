@@ -187,12 +187,8 @@ function web() {
     });
 
     const defaults = {
-      // Don't enable this else webpack middleware will log messages and
-      // users will see log message printed twice
-      // noInfo: true,
-
       client: {
-        logging: 'none'
+        logging: settings.infrastructureLogLevel()
       },
 
       historyApiFallback: settings.historyFallback(),
@@ -201,6 +197,8 @@ function web() {
       compress: true,
 
       hot: settings.enableHotLoader(),
+
+      // TODO: port and/or host defaults
 
       static: {
         directory: settings.output(),
