@@ -15,20 +15,24 @@ const schema = Joi.object()
           .description('Whether to send webpack build status system notifications'),
         host: Joi.string().default('localhost').description('Webpack dev server host'),
         port: Joi.number().integer().default(3000).description('Webpack dev server port'),
-        stats: Joi.object().keys({
-          level: Joi.string()
-            .default('custom')
-            .description(
-              'Allows presets to be used for Webpack stats log levels. https://webpack.js.org/configuration/stats/#stats'
-            )
-        }),
-        infrastructureLogging: Joi.object().keys({
-          level: Joi.string()
-            .default('info')
-            .description(
-              'Allows presets to be used for Webpack infrastructure log levels. https://webpack.js.org/configuration/other-options/#infrastructurelogging'
-            )
-        }),
+        stats: Joi.object()
+          .keys({
+            level: Joi.string()
+              .default('normal')
+              .description(
+                'Allows presets to be used for Webpack stats log levels. https://webpack.js.org/configuration/stats/#stats'
+              )
+          })
+          .default(),
+        infrastructureLogging: Joi.object()
+          .keys({
+            level: Joi.string()
+              .default('info')
+              .description(
+                'Allows presets to be used for Webpack infrastructure log levels. https://webpack.js.org/configuration/other-options/#infrastructurelogging'
+              )
+          })
+          .default(),
         sourceMap: Joi.string()
           .default('source-map')
           .description('Webpack devtool setting. https://webpack.js.org/configuration/devtool/#devtool'),
@@ -38,16 +42,18 @@ const schema = Joi.object()
           .default(/\/App\.jsx?/)
           .description('The entry point of the hot loader'),
         webpackDevServer: Joi.object(),
-        targets: [
-          Joi.array()
-            .description('Target a specific development environment. https://webpack.js.org/configuration/target/')
-            .example(['web', 'es5']),
-          Joi.string()
-            .description('Target a specific development environment. https://webpack.js.org/configuration/target/')
-            .example('web')
-            .example('browserslist')
-            .default('browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version')
-        ],
+        targets: Joi.alternatives()
+          .try(
+            Joi.array()
+              .description('Target a specific development environment. https://webpack.js.org/configuration/target/')
+              .example(['web', 'es5']),
+            Joi.string()
+              .description('Target a specific development environment. https://webpack.js.org/configuration/target/')
+              .example('web')
+              .example('browserslist')
+              .default('browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version')
+          )
+          .default('browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version'),
         babelInclude: Joi.array()
           .items(Joi.string())
           .description('Include additional packages from node_modules that should be compiled by Babel and Webpack.')
@@ -100,7 +106,7 @@ const schema = Joi.object()
       .unknown()
       .default((parent) => ({
         enabled: true,
-        port: 0,
+        port: 9999,
         latency: 250,
         data: path.join(process.cwd(), 'project/data'),
         routes: path.join(process.cwd(), 'project/config/routes.json'),
