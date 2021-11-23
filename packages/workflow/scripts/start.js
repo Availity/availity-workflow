@@ -151,8 +151,14 @@ function web() {
 
     const defaults = {
       client: {
-        logging: settings.infrastructureLogLevel()
+        logging: settings.infrastructureLogLevel(),
+        overlay: {
+          errors: false,
+          warnings: false
+        }
       },
+
+      port: settings.port(),
 
       historyApiFallback: settings.historyFallback(),
 
@@ -160,8 +166,6 @@ function web() {
       compress: true,
 
       hot: settings.enableHotLoader(),
-
-      // TODO: port and/or host defaults
 
       static: {
         directory: settings.output(),
