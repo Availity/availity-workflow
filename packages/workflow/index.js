@@ -20,7 +20,7 @@ require('./scripts/init');
 yargs.command(
   'release',
   `${chalk.dim('Bundle project for distribution (production or staging) and create a git tag')}`,
-  yyargs => {
+  (yyargs) => {
     yyargs
       .version(false)
       .option('version', {
@@ -30,9 +30,9 @@ yargs.command(
       .usage(`\nUsage: ${chalk.yellow('av release')} ${chalk.magenta('[options]')}`)
       .example(chalk.yellow(`${chalk.yellow('av release')} ${chalk.magenta('-v 2.0.0')}`));
   },
-  () => {
-    settings.init({ shouldMimicStaging });
-    release({ settings });
+  async () => {
+    await settings.init({ shouldMimicStaging });
+    await release({ settings });
   }
 );
 
@@ -41,19 +41,19 @@ yargs
 
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
 
-  .command('start', `${chalk.dim('Start the development server')}`, () => {
-    settings
-      .init()
-      .then(() => start())
-      .catch(() => {
-        /* noop */
-      });
+  .command('start', `${chalk.dim('Start the development server')}`, async () => {
+    try {
+      await settings.init();
+      await start();
+    } catch {
+      /* noop */
+    }
   })
 
   .command(
     'lint',
     `${chalk.dim('Lint source files using ESLint')}`,
-    yyargs => {
+    (yyargs) => {
       yyargs
         .option('include', {
           alias: 'i',
@@ -71,8 +71,8 @@ yargs
           describe: 'Disable linter when creating bundles for production or staging'
         });
     },
-    () => {
-      settings.init();
+    async () => {
+      await settings.init();
       lint().catch(() => {
         /* noop */
       });
@@ -82,31 +82,31 @@ yargs
   .command(
     'test',
     `${chalk.dim(test.description)}`,
-    yyargs =>
+    (yyargs) =>
       yyargs.option('watch', {
         alias: 'w',
         describe: 'Watch files for changes and rerun tests related to changed files.'
       }),
-    () => {
-      settings.init();
+    async () => {
+      await settings.init();
       test.run({ settings }).catch(() => {
         /* noop */
       });
     }
   )
 
-  .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their sizes')}`, () => {
-    settings.init();
-    profile(settings);
+  .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their sizes')}`, async () => {
+    await settings.init();
+    await profile(settings);
   })
 
-  .command('build', `${chalk.dim('Bundle project for distribution (production or staging)')}`, () => {
-    settings.init({ shouldMimicStaging });
-    build({ settings });
+  .command('build', `${chalk.dim('Bundle project for distribution (production or staging)')}`, async () => {
+    await settings.init({ shouldMimicStaging });
+    await build({ settings });
   })
 
-  .command('about', `${chalk.dim('About @availity/workflow')}`, () => {
-    settings.init();
+  .command('about', `${chalk.dim('About @availity/workflow')}`, async () => {
+    await settings.init();
     about({ settings });
   })
 
