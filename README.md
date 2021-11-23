@@ -64,7 +64,7 @@ CLI options are documented in it's [README](./packages/workflow/README.md)
 module.exports = {
     development: {
         notification: true
-        hot: true
+        hotLoader: true
     },
     app: {
         title: 'My Awesome App'
@@ -123,11 +123,7 @@ or
 ```js
 module.exports = (config) => {
     config.development.open = '/';
-
-    config.development.hotLoader = {
-        enabled: true,
-        experimental: true
-    };
+    config.development.hotLoader = true;
 
     return config;
 };
@@ -166,19 +162,7 @@ Webpack `devtool` setting. Default is `source-map`. For more options please see 
 
 #### `development.hotLoader`
 
-Enable or disable react-hot-loader. Default is `true`.
-
-Can also be an object to enable experimental `react-refresh` features
-ex.
-
-```json
-{
-    "hotLoader": {
-        "enabled": true,
-        "experimental": true
-    }
-}
-```
+Enable or disable Fast Refresh using [`react-refresh`](https://github.com/pmmmwh/react-refresh-webpack-plugin). Default is `true`.
 
 #### `development.webpackDevServer`
 
@@ -192,7 +176,9 @@ When starting the dev server using production settings as a dry run, `yarn start
 
 ```js
 {
-    contentBase: path.join(process.cwd(), 'dist'),
+    static: {
+        directory: path.join(process.cwd(), 'dist'),
+    },
     compress: true, // gzip content before serving
     port: 3000, // serve content on localhost:3000
   };
@@ -485,6 +471,10 @@ Now the runtime issue has been resolved! Note that this only polyfills `process`
 [Documentation for imports-loader](https://webpack.js.org/loaders/imports-loader/)
 
 [Link to specific vfile issue and solution](https://github.com/vfile/vfile/issues/38#issuecomment-683198538)
+
+### Why are there so many deprecation warnings when compiling or running the dev server?
+
+`@availity/workflow` has recently switched from the deprecated `node-sass` to `dart-sass`, which emits these upcoming deprecation warnings. [The Node API is not able to use the `--quiet-upstream` flag](https://github.com/sass/dart-sass/issues/672#issuecomment-846311746), but these warnings can be safely ignored. They will eventually be handled by Availity's UI Kit and other upstream dependencies.
 
 ### **DEPRECATED IE 11 SECTION**
 
