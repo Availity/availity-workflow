@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "boxen": "^5.0.1",
-    "chalk": "^4.1.0",
+    "boxen": "^5.1.2",
+    "chalk": "^4.1.2",
     "dateformat": "^4.5.1",
-    "figures": "^3.1.0"
+    "figures": "^3.2.0"
   },
   "engines": {
     "node": "^12.0.0 || ^14.0.0",
