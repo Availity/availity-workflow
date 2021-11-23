@@ -68,7 +68,7 @@ const settings = {
   },
 
   css() {
-    return '[name]-[contenthash:8].chunk.css';
+    return this.isProduction() ? '[name]-[contenthash:8].chunk.css' : '[name].chunk.css';
   },
 
   // Returns the JSON object from contents or the JSON object from
@@ -85,11 +85,11 @@ const settings = {
   // If the contents of a file don't change, the file should be cached in the browser.
   // https://webpack.js.org/guides/caching/#output-filenames
   fileName() {
-    return '[name]-[contenthash:8].chunk.js';
+    return this.isProduction() ? '[name]-[contenthash:8].chunk.js' : '[name].js';
   },
 
   chunkFileName() {
-    return '[name]-[contenthash:8].chunk.js';
+    return this.isProduction() ? '[name]-[contenthash:8].chunk.js' : '[name].chunk.js';
   },
 
   output() {
