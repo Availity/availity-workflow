@@ -390,7 +390,7 @@ const settings = {
     const isHot = get(this.configuration, 'development.hotLoader', true);
 
     if (typeof isHot === 'object') {
-      return isHot.enabled ?? false;
+      return isHot.enabled || false;
     }
 
     return isHot;
