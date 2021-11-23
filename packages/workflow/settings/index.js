@@ -245,14 +245,20 @@ const settings = {
     this.globals();
 
     this.devServerPort = get(this.configuration, 'development.port', 3000);
-    for (;;) {
-      const availablePort = await getPort({ port: this.devServerPort, host: this.host() }); // eslint-disable-line no-await-in-loop
-      if (availablePort === this.devServerPort) break;
-      this.devServerPort += 1;
+    const availablePort = await getPort({
+      port: getPort.makeRange(this.devServerPort, this.devServerPort + 1000),
+      host: this.host()
+    });
+
+    if (availablePort !== this.devServerPort) {
+      this.devServerPort = availablePort;
     }
 
     const wantedEkkoPort = get(this.configuration, 'ekko.port', 9999);
-    this.ekkoServerPort = await getPort({ port: wantedEkkoPort, host: this.host() }); // eslint-disable-line no-await-in-loop
+    this.ekkoServerPort = await getPort({
+      port: getPort.makeRange(wantedEkkoPort, wantedEkkoPort + 1000),
+      host: this.host()
+    });
     if (wantedEkkoPort !== this.ekkoServerPort) {
       this.configuration.ekko.pluginContext = this.configuration.ekko.pluginContext.replace(
         `:${wantedEkkoPort}`,
