@@ -1,10 +1,8 @@
 const Logger = require('@availity/workflow-logger');
 const chalk = require('chalk');
 const webpack = require('webpack');
-const debounce = require('lodash/debounce');
 const merge = require('lodash/merge');
 const once = require('lodash/once');
-const pretty = require('pretty-ms');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const WebpackDevSever = require('webpack-dev-server');
 
@@ -14,7 +12,6 @@ const webpackConfigProduction = require('../webpack.config.profile');
 
 const proxy = require('./proxy');
 const notifier = require('./notifier');
-const customStats = require('./stats');
 const open = require('./open');
 const formatWebpackMessages = require('./format');
 
@@ -37,26 +34,6 @@ ${chalk.yellow.bold('Warning:')} Port ${chalk.blue(wantedPort)} was already in u
     }`
   );
 });
-
-function compileMessage(stats, message) {
-  // Get the time
-  const statistics = stats.toJson();
-  const level = settings.statsLogLevel();
-
-  const statz = level === 'custom' ? customStats(stats) : stats.toString(level);
-  Logger.info(`${chalk.dim('Webpack stats:')}
-
-${statz}
-`);
-  Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(pretty(statistics.time))}
-  `);
-
-  if (message) {
-    message();
-  }
-
-  startupMessage();
-}
 
 function init() {
   settings.log();
@@ -138,35 +115,21 @@ function web() {
     const compiler = webpack(webpackConfig);
 
     compiler.hooks.invalid.tap('invalid', () => {
-      // eslint-disable-next-line unicorn/no-null
       previousPercent = null;
       Logger.info('Started compiling');
     });
 
     const openBrowser = once(open);
-    const message = debounce(compileMessage, 500);
 
     compiler.hooks.done.tap('done', (stats) => {
       const hasErrors = stats.hasErrors();
-      // TODO: investigate eslint warnings may be getting returned as errors, preventing startup
-      const hasWarnings = stats.hasWarnings();
 
       // https://webpack.js.org/configuration/stats/
       const json = stats.toJson({}, true);
       const messages = formatWebpackMessages(json);
 
-      if (!hasErrors && !hasWarnings) {
-        openBrowser();
-        message(stats);
-        return resolve();
-      }
-
-      if (hasWarnings && !hasErrors) {
-        message(stats, () => {
-          Logger.empty();
-          Logger.alert('Compiled with warnings');
-          Logger.empty();
-        });
+      if (!hasErrors) {
+        startupMessage();
         openBrowser();
         return resolve();
       }

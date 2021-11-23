@@ -41,6 +41,8 @@ const plugin = (settings) => {
       level: settings.infrastructureLogLevel()
     },
 
+    stats: settings.statsLogLevel(),
+
     entry: {
       index: [
         require.resolve('react-app-polyfill/stable'),
@@ -200,6 +202,8 @@ const plugin = (settings) => {
       })
     );
   }
+
+  // TODO: set up persistent cache options https://webpack.js.org/guides/build-performance/#persistent-cache
 
   return config;
 };
