@@ -32,7 +32,7 @@
     "build:docs": "yarn workspace @availity/dinosaurdocs build",
     "start": "yarn workspace @availity/dinosaurdocs start --no-open",
     "start:docs": "yarn workspace @availity/dinosaurdocs start",
-    "lint": "node ./node_modules/.bin/eslint .",
+    "lint": "yarn node ./node_modules/.bin/eslint .",
     "test": "jest --silent",
     "test:integration": "yarn workspaces foreach -i -v run integration --verbose",
     "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
