@@ -150,7 +150,7 @@ Default: `3000`
 
 #### `development.stats.level`
 
-Allows [Webpack log levels presets](https://webpack.js.org/configuration/stats/#stats) to be used during development. A custom logger is used by default.
+Allows [Webpack log levels presets](https://webpack.js.org/configuration/stats/#stats) to be used during development.
 
 #### `development.infrastructureLogging.level`
 

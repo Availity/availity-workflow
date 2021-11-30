@@ -180,12 +180,12 @@ const settings = {
   },
 
   statsLogLevel() {
-    const level = get(this.configuration, 'development.stats.level', 'normal');
+    const level = get(this.configuration, 'development.stats.level', 'minimal');
     return get(argv(), 'development.stats.level', level);
   },
 
   infrastructureLogLevel() {
-    const level = get(this.configuration, 'development.infrastructureLogging.level', 'info');
+    const level = get(this.configuration, 'development.infrastructureLogging.level', 'warn');
     return get(argv(), 'development.infrastructureLogging.level', level);
   },
 

@@ -18,7 +18,7 @@ const schema = Joi.object()
         stats: Joi.object()
           .keys({
             level: Joi.string()
-              .default('normal')
+              .default('minimal')
               .description(
                 'Allows presets to be used for Webpack stats log levels. https://webpack.js.org/configuration/stats/#stats'
               )
@@ -27,7 +27,7 @@ const schema = Joi.object()
         infrastructureLogging: Joi.object()
           .keys({
             level: Joi.string()
-              .default('info')
+              .default('warn')
               .description(
                 'Allows presets to be used for Webpack infrastructure log levels. https://webpack.js.org/configuration/other-options/#infrastructurelogging'
               )
