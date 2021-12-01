@@ -36,7 +36,7 @@
     "@availity/breadcrumbs": "^3.1.5",
     "@availity/favorites": "^2.1.30",
     "@availity/form": "^0.5.8",
-    "@availity/icon": "^0.7.17",
+    "@availity/icon": "^0.10.0",
     "@availity/localstorage-core": "^3.0.0",
     "@availity/page-header": "^10.0.63",
     "@availity/spaces": "4.0.26",
