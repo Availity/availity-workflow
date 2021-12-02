@@ -33,14 +33,14 @@ function onRequest(proxyConfig, proxyObject) {
 
   const regexer = new RegExp(escapeStringRegexp(local, 'g'));
 
-  ['referer', 'origin'].forEach((header) => {
+  for (const header of ['referer', 'origin']) {
     const requestHeader = proxyObject.getHeader(header);
     if (requestHeader) {
       const replacedHeader = requestHeader.replace(regexer, target);
       proxyObject.setHeader(header, replacedHeader);
       debug(`Rewriting ${header} header from ${requestHeader} to ${replacedHeader}`);
     }
-  });
+  }
 }
 
 function onResponse(proxyConfig, proxyObject) {
@@ -65,7 +65,7 @@ function onResponse(proxyConfig, proxyObject) {
   const regexer = new RegExp(escapeStringRegexp(targetUrl, 'g'));
   const regexerContext = new RegExp(escapeStringRegexp(targetUrlContext, 'g'));
 
-  ['location'].forEach((header) => {
+  for (const header of ['location']) {
     const responseHeader = proxyObject.headers[header];
     if (responseHeader) {
       const replacedUrl = regexerContext.test(responseHeader) ? hostUrl : hostUrlContext;
@@ -73,7 +73,7 @@ function onResponse(proxyConfig, proxyObject) {
       debug(`Rewriting ${header} header from ${chalk.blue(responseHeader)} to ${chalk.blue(replacedHeader)}`);
       proxyObject.headers[header] = replacedHeader;
     }
-  });
+  }
 
   // Below code never worked as the content length also had to be modified before gzipping back to UI.
   // This middleware didn't update the content length. Leaving this out unless in the future we have
@@ -145,7 +145,7 @@ function proxy() {
   const config = [];
 
   // Iterate through each proxy configuration
-  proxies.forEach((proxyConfiguration) => {
+  for (const proxyConfiguration of proxies) {
     // Merge in defaults including custom Logger and custom request/response function
     const proxyConfig = merge({}, defaultProxy, proxyConfiguration, {
       onProxyReq: (proxyReq, req) => {
@@ -182,7 +182,7 @@ function proxy() {
         )}`
       );
     }
-  });
+  }
 
   // return null if the array is 0 to make the checks easier upstream
   return config.length === 0 ? null : config;

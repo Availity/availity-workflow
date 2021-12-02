@@ -3,6 +3,6 @@ import { render } from 'react-dom';
 import './index.scss';
 import 'react-block-ui/style.css';
 import '@availity/yup';
-import App from './App.tsx';
+import App from './App';
 
 render(<App />, document.querySelector('#root'));

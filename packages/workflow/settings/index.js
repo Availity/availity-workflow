@@ -1,5 +1,4 @@
-/* eslint-disable unicorn/no-null */
-/* eslint global-require:0 import/no-dynamic-require: 0 */
+/* eslint-disable import/no-dynamic-require */
 const path = require('path');
 const Logger = require('@availity/workflow-logger');
 const { existsSync } = require('fs');
@@ -15,6 +14,7 @@ const fs = require('fs');
 const yargs = require('yargs');
 const getPort = require('get-port');
 const Joi = require('joi');
+const paths = require('../helpers/paths');
 
 function argv() {
   return yargs.argv;
@@ -44,7 +44,7 @@ const settings = {
   ekkoServerPort: null,
 
   app() {
-    return path.join(this.project(), 'project/app');
+    return paths.app;
   },
 
   include() {
@@ -68,7 +68,7 @@ const settings = {
   },
 
   css() {
-    return '[name]-[contenthash:8].chunk.css';
+    return this.isProduction() ? '[name]-[contenthash:8].chunk.css' : '[name].chunk.css';
   },
 
   // Returns the JSON object from contents or the JSON object from
@@ -85,11 +85,11 @@ const settings = {
   // If the contents of a file don't change, the file should be cached in the browser.
   // https://webpack.js.org/guides/caching/#output-filenames
   fileName() {
-    return '[name]-[contenthash:8].chunk.js';
+    return this.isProduction() ? '[name]-[contenthash:8].chunk.js' : '[name].js';
   },
 
   chunkFileName() {
-    return '[name]-[contenthash:8].chunk.js';
+    return this.isProduction() ? '[name]-[contenthash:8].chunk.js' : '[name].chunk.js';
   },
 
   output() {
@@ -154,7 +154,7 @@ const settings = {
   },
 
   project() {
-    return process.cwd();
+    return paths.project;
   },
 
   version() {
@@ -179,9 +179,14 @@ const settings = {
     }
   },
 
-  logLevel() {
-    const level = get(this.configuration, 'development.logLevel', 'none');
-    return get(argv(), 'development.logLevel', level);
+  statsLogLevel() {
+    const level = get(this.configuration, 'development.stats.level', 'minimal');
+    return get(argv(), 'development.stats.level', level);
+  },
+
+  infrastructureLogLevel() {
+    const level = get(this.configuration, 'development.infrastructureLogging.level', 'warn');
+    return get(argv(), 'development.infrastructureLogging.level', level);
   },
 
   async init({ shouldMimicStaging } = {}) {
@@ -240,23 +245,29 @@ const settings = {
     this.globals();
 
     this.devServerPort = get(this.configuration, 'development.port', 3000);
-    for (;;) {
-      const availablePort = await getPort({ port: this.devServerPort, host: this.host() }); // eslint-disable-line no-await-in-loop
-      if (availablePort === this.devServerPort) break;
-      this.devServerPort += 1;
+    const availablePort = await getPort({
+      port: getPort.makeRange(this.devServerPort, this.devServerPort + 1000),
+      host: this.host()
+    });
+
+    if (availablePort !== this.devServerPort) {
+      this.devServerPort = availablePort;
     }
 
     const wantedEkkoPort = get(this.configuration, 'ekko.port', 9999);
-    this.ekkoServerPort = await getPort({ port: wantedEkkoPort, host: this.host() }); // eslint-disable-line no-await-in-loop
+    this.ekkoServerPort = await getPort({
+      port: getPort.makeRange(wantedEkkoPort, wantedEkkoPort + 1000),
+      host: this.host()
+    });
     if (wantedEkkoPort !== this.ekkoServerPort) {
       this.configuration.ekko.pluginContext = this.configuration.ekko.pluginContext.replace(
         `:${wantedEkkoPort}`,
         `:${this.ekkoServerPort}`
       );
       if (Array.isArray(this.configuration.proxies)) {
-        this.configuration.proxies.forEach((proxy) => {
+        for (const proxy of this.configuration.proxies) {
           proxy.target = proxy.target.replace(`:${wantedEkkoPort}`, `:${this.ekkoServerPort}`);
-        });
+        }
       }
     }
   },
@@ -309,7 +320,8 @@ const settings = {
       includeGlobs = defaultInclude;
     }
 
-    return includeGlobs.concat(includeGlobs);
+    // eslint-disable-next-line unicorn/prefer-spread
+    return includeGlobs.concat(includeGlobs); // FIXME: should probably be [...default, ...includeGlobs]
   },
 
   isDryRun() {
@@ -380,20 +392,18 @@ const settings = {
     return argv().disableLinter !== undefined;
   },
 
-  isHotLoader() {
+  enableHotLoader() {
     const isHot = get(this.configuration, 'development.hotLoader', true);
 
     if (typeof isHot === 'object') {
-      return isHot.enabled;
+      return isHot.enabled || false;
     }
 
     return isHot;
   },
 
   getHotLoaderName() {
-    const isExperimental = get(this.configuration, 'development.hotLoader.experimental', false);
-
-    return isExperimental ? 'react-refresh/babel' : 'react-hot-loader/babel';
+    return 'react-refresh/babel';
   },
 
   getHotLoaderEntry() {

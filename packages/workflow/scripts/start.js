@@ -1,10 +1,8 @@
 const Logger = require('@availity/workflow-logger');
 const chalk = require('chalk');
 const webpack = require('webpack');
-const debounce = require('lodash/debounce');
 const merge = require('lodash/merge');
 const once = require('lodash/once');
-const pretty = require('pretty-ms');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const WebpackDevSever = require('webpack-dev-server');
 
@@ -14,7 +12,6 @@ const webpackConfigProduction = require('../webpack.config.profile');
 
 const proxy = require('./proxy');
 const notifier = require('./notifier');
-const customStats = require('./stats');
 const open = require('./open');
 const formatWebpackMessages = require('./format');
 
@@ -37,26 +34,6 @@ ${chalk.yellow.bold('Warning:')} Port ${chalk.blue(wantedPort)} was already in u
     }`
   );
 });
-
-function compileMessage(stats, message) {
-  // Get the time
-  const statistics = stats.toJson();
-  const level = settings.logLevel();
-
-  const statz = level === 'custom' ? customStats(stats) : stats.toString(level);
-  Logger.info(`${chalk.dim('Webpack stats:')}
-
-${statz}
-`);
-  Logger.success(`${chalk.gray('Compiled')} in ${chalk.magenta(pretty(statistics.time))}
-  `);
-
-  if (message) {
-    message();
-  }
-
-  startupMessage();
-}
 
 function init() {
   settings.log();
@@ -93,7 +70,6 @@ function rest() {
     };
 
     try {
-      // eslint-disable-next-line global-require
       const Ekko = require('@availity/mock-server');
       ekko = new Ekko();
       return ekko.start(ekkoOptions);
@@ -139,44 +115,31 @@ function web() {
     const compiler = webpack(webpackConfig);
 
     compiler.hooks.invalid.tap('invalid', () => {
-      // eslint-disable-next-line unicorn/no-null
       previousPercent = null;
       Logger.info('Started compiling');
     });
 
     const openBrowser = once(open);
-    const message = debounce(compileMessage, 500);
 
     compiler.hooks.done.tap('done', (stats) => {
       const hasErrors = stats.hasErrors();
-      const hasWarnings = stats.hasWarnings();
 
       // https://webpack.js.org/configuration/stats/
       const json = stats.toJson({}, true);
       const messages = formatWebpackMessages(json);
 
-      if (!hasErrors && !hasWarnings) {
-        openBrowser();
-        message(stats);
-        return resolve();
-      }
-
-      if (hasWarnings && !hasErrors) {
-        message(stats, () => {
-          Logger.empty();
-          Logger.alert('Compiled with warnings');
-          Logger.empty();
-        });
+      if (!hasErrors) {
+        startupMessage();
         openBrowser();
         return resolve();
       }
 
       if (hasErrors) {
-        messages.errors.forEach((error) => {
+        for (const error of messages.errors) {
           Logger.empty();
           Logger.simple(`${chalk.red(error)}`);
           Logger.empty();
-        });
+        }
 
         Logger.failed('Failed compiling');
         Logger.empty();
@@ -186,49 +149,62 @@ function web() {
       return resolve();
     });
 
-    let webpackOptions = {
-      contentBase: settings.output(),
+    const defaults = {
+      client: {
+        logging: settings.infrastructureLogLevel(),
+        overlay: {
+          errors: false,
+          warnings: false
+        }
+      },
 
-      // display nothing to the console
-      quiet: true,
-
-      // Don't enable this else webpack middleware will log messages and
-      // users will see log message printed twice
-      // noInfo: true,
-
-      clientLogLevel: 'none',
+      port: settings.port(),
 
       historyApiFallback: settings.historyFallback(),
 
+      // Enable gzip compression of generated files.
       compress: true,
 
-      hot: true,
+      hot: settings.enableHotLoader(),
 
-      // Reportedly, this avoids CPU overload on some systems.
-      // https://github.com/facebookincubator/create-react-app/issues/293
-      watchOptions: {
-        ignored: /node_modules(\\+|\/)+(?!(@availity|@av))/
+      static: {
+        directory: settings.output(),
+
+        // Reportedly, this avoids CPU overload on some systems.
+        // https://github.com/facebookincubator/create-react-app/issues/293
+        watch: {
+          ignored: /node_modules(\\+|\/)+(?!(@availity|@av))/
+        }
       }
     };
 
-    webpackOptions = merge(webpackOptions, settings.config().development.webpackDevServer);
+    const devServerOptions = merge(defaults, settings.config().development.webpackDevServer);
     const proxyConfig = proxy();
 
     if (proxyConfig) {
-      webpackOptions.proxy = proxyConfig;
+      devServerOptions.proxy = proxyConfig;
     }
 
-    server = new WebpackDevSever(compiler, webpackOptions);
+    server = new WebpackDevSever(devServerOptions, compiler);
 
-    server.listen(settings.port(), settings.host(), (err) => {
-      if (err) {
-        Logger.failed(err);
-        reject(err);
+    const runServer = async () => {
+      try {
+        Logger.info('Starting development sever');
+        await server.start();
+        Logger.info('Started development server');
+        resolve();
+      } catch (error) {
+        Logger.failed('Failed to start development server');
+        Logger.failed(error);
+        reject(error);
       }
+    };
 
-      Logger.info('Started development server');
-      resolve();
-    });
+    try {
+      runServer();
+    } catch (error) {
+      Logger.failed(error);
+    }
   });
 }
 
@@ -240,12 +216,16 @@ async function start() {
     }
   });
 
-  init();
+  try {
+    init();
+    await web();
+    await notifier();
+    await rest();
+  } catch (error) {
+    Logger.failed(`${error}
 
-  await web();
-
-  await notifier();
-  await rest();
+    Stack: ${error.stack}`);
+  }
 }
 
 module.exports = start;

@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const { existsSync } = require('fs');
@@ -10,6 +11,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const loaders = require('./loaders');
 const babelPreset = require('./babel-preset');
+const paths = require('./helpers/paths');
 const resolveModule = require('./helpers/resolve-module');
 const html = require('./html');
 
@@ -35,12 +37,15 @@ const plugin = (settings) => {
     // https://webpack.js.org/configuration/experiments/
     experiments: settings.experimentalWebpackFeatures(),
 
+    infrastructureLogging: {
+      level: settings.infrastructureLogLevel()
+    },
+
+    stats: settings.statsLogLevel(),
+
     entry: {
       index: [
-        require.resolve('react-app-polyfill/ie11'),
         require.resolve('react-app-polyfill/stable'),
-        `${require.resolve('webpack-dev-server/client')}?/`,
-        require.resolve('webpack/hot/dev-server'),
         require.resolve('navigator.sendbeacon'),
         resolveModule(resolveApp, 'index')
       ]
@@ -108,6 +113,7 @@ const plugin = (settings) => {
                 // See https://github.com/facebook/create-react-app/issues/6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
                 babelrc: babelrcExists,
+                // TODO: why disable hot loader if babelrc exists?
                 plugins: [babelrcExists ? null : require.resolve(settings.getHotLoaderName())]
               }
             }
@@ -141,9 +147,6 @@ const plugin = (settings) => {
         banner: `v${getVersion()} - ${new Date().toJSON()}`
       }),
 
-      // Generate hot module chunks
-      new webpack.HotModuleReplacementPlugin(),
-
       new HtmlWebpackPlugin(html(settings)),
       new DuplicatePackageCheckerPlugin({
         verbose: true,
@@ -162,29 +165,34 @@ const plugin = (settings) => {
 
       new CaseSensitivePathsPlugin(),
       new ESLintPlugin({
+        cache: true,
+        cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
         quiet: false,
         emitWarning: true,
         extensions: ['js', 'jsx', 'ts', 'tsx', 'mjs'],
         baseConfig: {
           extends: 'availity/workflow'
         }
-      }),
-      new CopyWebpackPlugin({
-        patterns: [
-          {
-            context: `${settings.app()}/static`, // copy from this directory
-            from: '**/*', // copy all files
-            to: 'static', // copy into {output}/static folder
-            noErrorOnMissing: true
-          }
-        ]
       })
     ]
   };
 
-  if (settings.getHotLoaderName() === 'react-refresh/babel') {
-    config.plugins.push(new ReactRefreshWebpackPlugin());
+  if (fs.existsSync(paths.appStatic)) {
+    config.plugins.push(
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            context: paths.appStatic, // copy from this directory
+            from: '**/*', // copy all files
+            to: 'static', // copy into {output}/static folder
+            noErrorOnMissing: false
+          }
+        ]
+      })
+    );
   }
+
+  config.plugins.push(new ReactRefreshWebpackPlugin());
 
   if (settings.isNotifications()) {
     config.plugins.push(
@@ -194,6 +202,8 @@ const plugin = (settings) => {
       })
     );
   }
+
+  // TODO: set up persistent cache options https://webpack.js.org/guides/build-performance/#persistent-cache
 
   return config;
 };

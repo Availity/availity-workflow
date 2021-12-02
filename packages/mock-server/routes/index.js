@@ -1,3 +1,6 @@
+/* eslint-disable unicorn/no-array-for-each */
+/* eslint-disable unicorn/consistent-destructuring */
+/* eslint-disable unicorn/no-this-assignment */
 /* eslint-disable import/no-dynamic-require */
 const _ = require('lodash');
 const fs = require('fs');
@@ -53,11 +56,11 @@ const routes = {
     // support multiple directories for routes
     routePaths = _.isArray(routePaths) ? routePaths : [routePaths];
 
-    _.forEach(routePaths, routePath => {
+    _.forEach(routePaths, (routePath) => {
       const contents = fs.readFileSync(routePath, 'utf8');
       const routeConfig = JSON.parse(contents);
 
-      _.each(routeConfig, route => {
+      _.each(routeConfig, (route) => {
         route.dataPath = dataPath;
       });
       _.merge(config.options.endpoints, routeConfig);
@@ -67,7 +70,7 @@ const routes = {
   plugins() {
     const plugins = config.options.plugins || [];
 
-    _.forEach(plugins, plugin => {
+    _.forEach(plugins, (plugin) => {
       let pluginConfig = null;
 
       pluginConfig = require(plugin);
@@ -90,7 +93,7 @@ const routes = {
     const methods = _.keys(route.methods);
     const { router } = config;
 
-    _.each(methods, method => {
+    _.each(methods, (method) => {
       // builds get|post|put|delete routes like /v1/payers
       router[method](route.url, (req, res, next) => {
         // get from cache and attach to request local

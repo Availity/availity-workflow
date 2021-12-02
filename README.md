@@ -64,7 +64,7 @@ CLI options are documented in it's [README](./packages/workflow/README.md)
 module.exports = {
     development: {
         notification: true
-        hot: true
+        hotLoader: true
     },
     app: {
         title: 'My Awesome App'
@@ -123,11 +123,7 @@ or
 ```js
 module.exports = (config) => {
     config.development.open = '/';
-
-    config.development.hotLoader = {
-        enabled: true,
-        experimental: true
-    };
+    config.development.hotLoader = true;
 
     return config;
 };
@@ -152,9 +148,13 @@ Webpack dev server host
 Webpack dev server port. If the port at this value is unavailable, the port value will be incremented until an unused port is found.
 Default: `3000`
 
-#### `development.logLevel`
+#### `development.stats.level`
 
-Allows [Webpack log levels presets](https://webpack.js.org/configuration/stats/#stats) to be used during development. A custom logger is used by default.
+Allows [Webpack log levels presets](https://webpack.js.org/configuration/stats/#stats) to be used during development.
+
+#### `development.infrastructureLogging.level`
+
+Allows [Webpack infrastructure log levels](https://webpack.js.org/configuration/other-options/#infrastructurelogging) to be set during development.
 
 #### `development.sourceMap`
 
@@ -162,19 +162,7 @@ Webpack `devtool` setting. Default is `source-map`. For more options please see 
 
 #### `development.hotLoader`
 
-Enable or disable react-hot-loader. Default is `true`.
-
-Can also be an object to enable experimental `react-refresh` features
-ex.
-
-```json
-{
-    "hotLoader": {
-        "enabled": true,
-        "experimental": true
-    }
-}
-```
+Enable or disable Fast Refresh using [`react-refresh`](https://github.com/pmmmwh/react-refresh-webpack-plugin). Default is `true`.
 
 #### `development.webpackDevServer`
 
@@ -188,7 +176,9 @@ When starting the dev server using production settings as a dry run, `yarn start
 
 ```js
 {
-    contentBase: path.join(process.cwd(), 'dist'),
+    static: {
+        directory: path.join(process.cwd(), 'dist'),
+    },
     compress: true, // gzip content before serving
     port: 3000, // serve content on localhost:3000
   };
@@ -198,7 +188,7 @@ When starting the dev server using production settings as a dry run, `yarn start
 
 Allows developers to override the `webpack` target to match their developer environment. This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6 features, therefore, not needing to Babelfy code completely.
 
-This setting is is only used for development and does not effect staging/production/testing builds which default to `'browserslist: defaults, ie 11'`. **@See** [https://webpack.js.org/configuration/target/](https://webpack.js.org/configuration/target/)
+This setting is is only used for development and does not effect staging/production/testing builds which default to `'browserslist: defaults'`. **@See** [https://webpack.js.org/configuration/target/](https://webpack.js.org/configuration/target/)
 
 ##### Note about `browserslist`
 
@@ -482,13 +472,19 @@ Now the runtime issue has been resolved! Note that this only polyfills `process`
 
 [Link to specific vfile issue and solution](https://github.com/vfile/vfile/issues/38#issuecomment-683198538)
 
-### How can I test locally running code in IE 11?
+### Why are there so many deprecation warnings when compiling or running the dev server?
+
+`@availity/workflow` has recently switched from the deprecated `node-sass` to `dart-sass`, which emits these upcoming deprecation warnings. [The Node API is not able to use the `--quiet-upstream` flag](https://github.com/sass/dart-sass/issues/672#issuecomment-846311746), but these warnings can be safely ignored. They will eventually be handled by Availity's UI Kit and other upstream dependencies.
+
+### **DEPRECATED IE 11 SECTION**
+
+#### How can I test locally running code in IE 11?
 
 The webpack config for development does not actively support development in IE 11, even though our production config does. In both environments we will transpile our Availity packages to meet that target, and in production we take the extra step to transform all other packages and hit the IE 11 compatibility target.
 
 Most packages will ship transpiled, but more and more are starting to drop IE 11 support. In production that still doesn't affect us, we will make necessary changes to support IE 11, but for active local development you have a few ways forward to avoid things like syntax errors inside `node_modules`:
 
-### Recommended Approach
+#### Recommended Approach
 
 This approach, requiring the least amount of investigating, is to develop locally against modern targets, then use a combination of `yarn build:production`, `yarn start --dry-run`, and something like below inside `workflow.js` to allow you to test what the production-like code will look like in IE 11.
 
@@ -508,11 +504,13 @@ if (dryRun) {
 
 This will instruct the webpackDevServer to serve content from your `dist` folder. Running `yarn build:production` will generate the production-like code and place it in the `dist` folder. Then, after manually setting a `dryRun` boolean to `true` inside `workflow.js` (or setting it up to take a command-line argument), you can run `yarn start --dry-run` which will start up the dev server with some production-like settings, and serve your IE 11 compatible-code for testing.
 
-### Other Approaches
+#### Other Approaches
 
 -   Figure out which packages are causing the issue and then add them to `configuration.development.babelInclude` inside `workflow.js`
 
 -   Alternatively, use `modifyWebpackConfig` to include the packages and specify a custom loader or rule for them https://github.com/Availity/availity-workflow#modifywebpackconfig
+
+### **END DEPRECATED IE 11 SECTION**
 
 ### How to integrate with Visual Studio Code's [Jest plugin](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)?
 

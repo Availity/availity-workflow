@@ -22,14 +22,15 @@ jobs:
           node-version: 14
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: |
+          echo "::set-output name=dir::$(yarn config get cacheFolder)"
       - uses: actions/cache@v2
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-14-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-14-yarn-
       - run: yarn install --immutable
       - run: yarn constraints
       - run: yarn version check
@@ -46,8 +47,8 @@ jobs:
           yarn changelog:generate
           git add CHANGELOG.md packages/*
           git commit -m "ci: bumps version [skip ci]"
-          yarn workspaces foreach -ipvt --no-private --since=origin/master npm publish --tolerate-republish --access public
-          git push
+          yarn workspaces foreach -ipv --no-private --since=origin/master npm publish --tolerate-republish --access public
+          git push && git push --tags
 
       - run: yarn build:docs
       - name: Deploy docs

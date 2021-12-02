@@ -13,28 +13,31 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest] # TODO: windows-latest yarn-cache-dir-path
-        node: [12, 14]
+        os: [ubuntu-latest, macos-latest] # TODO: re-enable windows-latest after yarn lint fixed
+        node: [12, 14, 16]
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: |
+          echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
       - uses: actions/cache@v2
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-${{ matrix.node }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-${{ matrix.node }}-yarn-
 
       - run: yarn install --immutable
       - run: yarn constraints
-      - run: yarn lint
+      - run: yarn lint # FIXME: 'node ./node_modules/.bin/eslint .' is mac/linux specific, but 'yarn eslint .' currently broken
       - run: yarn test
       - run: yarn test:integration
       - run: yarn version check

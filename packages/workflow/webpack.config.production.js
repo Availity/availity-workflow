@@ -1,24 +1,23 @@
-/* eslint-disable import/no-dynamic-require */
-/* eslint-disable global-require */
-const path = require('path');
-const fs = require('fs');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const loaders = require('./loaders');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const fs = require('fs');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack');
 const babelPreset = require('./babel-preset');
+const paths = require('./helpers/paths');
 const resolveModule = require('./helpers/resolve-module');
 const html = require('./html');
+const loaders = require('./loaders');
 
 process.noDeprecation = true;
 
-// Override user's potential browserslist config to ensure IE 11 support here
+// Override user's potential browserslist config to ensure portal support here
 // This is needed in addition to config.target below so that browserslist queries inside
-// react-app-polyfill/stable and core-js provide everything needed for IE 11
-process.env.BROWSERSLIST = 'defaults, ie 11';
+// react-app-polyfill/stable and core-js provide everything needed
+process.env.BROWSERSLIST = 'defaults';
 
 const plugin = (settings) => {
   const babelrcPath = path.join(settings.project(), '.babelrc');
@@ -33,17 +32,20 @@ const plugin = (settings) => {
     mode: 'production',
 
     // Using an explicit browserslist query will override any project configs
-    // This is fine because we need to ensure IE 11 is being targeted
-    target: 'browserslist: defaults, ie 11',
+    // This is fine because we need to ensure our targets in the portal
+    target: 'browserslist: defaults',
 
     context: settings.app(),
 
     // https://webpack.js.org/configuration/experiments/
     experiments: settings.experimentalWebpackFeatures(),
 
+    infrastructureLogging: {
+      level: settings.infrastructureLogLevel()
+    },
+
     entry: {
       index: [
-        require.resolve('react-app-polyfill/ie11'),
         require.resolve('react-app-polyfill/stable'),
         require.resolve('navigator.sendbeacon'),
         resolveModule(resolveApp, 'index')
@@ -258,20 +260,24 @@ const plugin = (settings) => {
 
       new loaders.MiniCssExtractPlugin({
         filename: 'css/[name]-[contenthash:8].chunk.css'
-      }),
-
-      new CopyWebpackPlugin({
-        patterns: [
-          {
-            context: `${settings.app()}/static`, // copy from this directory
-            from: '**/*', // copy all files
-            to: 'static', // copy into {output}/static folder
-            noErrorOnMissing: true
-          }
-        ]
       })
     ]
   };
+
+  if (fs.existsSync(paths.appStatic)) {
+    config.plugins.push(
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            context: paths.appStatic, // copy from this directory
+            from: '**/*', // copy all files
+            to: 'static', // copy into {output}/static folder
+            noErrorOnMissing: false
+          }
+        ]
+      })
+    );
+  }
 
   if (settings.isProduction() && !settings.shouldMimicStaging) {
     config.optimization.minimizer.push(
@@ -314,9 +320,7 @@ const plugin = (settings) => {
         // Default number of concurrent runs: os.cpus().length - 1
         parallel: true
       }),
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: { zindex: false, reduceIdents: false }
-      })
+      new CssMinimizerPlugin()
     );
   }
 

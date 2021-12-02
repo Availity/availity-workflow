@@ -65,8 +65,7 @@ function create(settings) {
 function unit(settings) {
   const argv = process.argv.slice(2);
   const jestConfig = JSON.stringify(create(settings));
-  argv.push(`--config=${jestConfig}`);
-  argv.push('--env=jsdom');
+  argv.push(`--config=${jestConfig}`, '--env=jsdom');
 
   jest.run(argv);
 

@@ -17,9 +17,9 @@ const cloneStarter = require('./clone-starter');
 
 function printValidationResults(results) {
   if (typeof results !== 'undefined') {
-    results.forEach((error) => {
+    for (const error of results) {
       Logger.error(`  *  ${error}`);
-    });
+    }
   }
 }
 
@@ -181,15 +181,15 @@ async function run({ appPath, appName, originalDirectory, template, installer })
     // On 'exit' we will delete these files from target directory.
     const knownGeneratedFiles = ['package.json', 'package-lock.json', 'node_modules', 'yarn.lock'];
     const currentFiles = fs.readdirSync(path.join(appPath));
-    currentFiles.forEach((file) => {
-      knownGeneratedFiles.forEach((fileToMatch) => {
+    for (const file of currentFiles) {
+      for (const fileToMatch of knownGeneratedFiles) {
         // This remove all of knownGeneratedFiles.
         if (file === fileToMatch) {
           Logger.info(`Deleting generated file... ${chalk.cyan(file)}`);
           fs.removeSync(path.join(appPath, file));
         }
-      });
-    });
+      }
+    }
     const remainingFiles = fs.readdirSync(path.join(appPath));
     if (!remainingFiles.length) {
       // Delete target folder if empty

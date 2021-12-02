@@ -61,9 +61,9 @@ const result = {
       const status = response.status || 200;
 
       const headers = response.responseHeaders || {};
-      Object.keys(headers).forEach((key) => {
+      for (const key of Object.keys(headers)) {
         res.set(key, response.responseHeaders[key]);
-      });
+      }
 
       /* eslint-disable promise/always-return */
       if (path.extname(filePath) === '.json') {
