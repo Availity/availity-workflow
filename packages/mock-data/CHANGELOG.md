@@ -1,3 +1,7 @@
+## [5.5.10](https://github.com/Availity/availity-workflow/compare/@availity/mock-data@5.5.9...@availity/mock-data@5.5.10) (2021-12-04)
+
+
+
 # Change Log
 
 All notable changes to this project will be documented in this file.

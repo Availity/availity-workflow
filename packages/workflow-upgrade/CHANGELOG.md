@@ -1,3 +1,7 @@
+## [5.6.1](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@5.5.19...@availity/workflow-upgrade@5.6.1) (2021-12-04)
+
+
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
