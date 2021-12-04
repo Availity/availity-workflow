@@ -1,7 +1,0 @@
-releases:
-  "@availity/dinosaurdocs": minor
-  "@availity/example": minor
-  "@availity/mock-server": minor
-  "@availity/workflow": major
-  "@availity/workflow-logger": minor
-  "@availity/workflow-upgrade": minor
