@@ -11,6 +11,7 @@
     "url": "git+https://github.com/availity/availity-workflow.git"
   },
   "scripts": {
+    "generateChangelog": "yarn changelog:generate --tag-prefix @availity/workflow-upgrade --lerna-package @availity/workflow-upgrade",
     "start": "node bin.js"
   },
   "keywords": [

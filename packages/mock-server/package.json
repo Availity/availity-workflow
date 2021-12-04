@@ -4,6 +4,7 @@
   "description": "Mock server simulating Availity API rest services",
   "main": "index.js",
   "scripts": {
+    "generateChangelog": "yarn changelog:generate --tag-prefix @availity/mock-server --lerna-package @availity/mock-server",
     "test": "test"
   },
   "keywords": [

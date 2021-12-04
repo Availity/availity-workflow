@@ -24,6 +24,9 @@
     "url": "https://github.com/availity/availity-workflow/issues"
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
+  "scripts": {
+    "generateChangelog": "yarn changelog:generate --tag-prefix @availity/workflow --lerna-package @availity/workflow"
+  },
   "dependencies": {
     "@availity/mock-server": "workspace:*",
     "@availity/workflow-logger": "workspace:*",

@@ -4,6 +4,7 @@
   "description": "Simple colorized logger for @availity/workflow",
   "main": "index.js",
   "scripts": {
+    "generateChangelog": "yarn changelog:generate --tag-prefix @availity/workflow-logger --lerna-package @availity/workflow-logger",
     "test": "echo \"No test specified\" && exit 0",
     "test:integration": "echo \"No test specified\" && exit 0"
   },
