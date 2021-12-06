@@ -1,3 +1,38 @@
+## [9.0.2](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.5.9...@availity/workflow@9.0.2) (2021-12-06)
+
+
+### Bug Fixes
+
+* **workflow:** correctly sets default values, changes default stats level ([f59d96a](https://github.com/availity/availity-workflow/commit/f59d96ac80d835347601793f2b01812f00a666ed))
+* **workflow:** only copies static files if dir exists ([fbb482c](https://github.com/availity/availity-workflow/commit/fbb482cc996ba50cbfd0c5d9a3401a77c5b2b8e3)), closes [/github.com/webpack-contrib/copy-webpack-plugin/issues/602#issuecomment-817740138](https://github.com//github.com/webpack-contrib/copy-webpack-plugin/issues/602/issues/issuecomment-817740138)
+* **workflow:** passes correct option for webpack-dev-server v4 ([8819d27](https://github.com/availity/availity-workflow/commit/8819d27b94f5c74a9aef2d027d98240ea8c3af1c))
+* **workflow:** removes custom stats messages on startup ([ba375d2](https://github.com/availity/availity-workflow/commit/ba375d2c2210567747eb7bf1a4054644a77c6379))
+* **workflow:** removes nullish coalescing operator ([e6684f7](https://github.com/availity/availity-workflow/commit/e6684f70284316c73cd29767b880a7fe05e010cc))
+* **workflow:** updates react-refresh, uses enableHotLoader when determining defaults ([6a7cb58](https://github.com/availity/availity-workflow/commit/6a7cb5890509f86467fa8efd6748ae8c72503151))
+* fixes eslint across monorepo ([5f16cc0](https://github.com/availity/availity-workflow/commit/5f16cc02eb17754575ae6d59c6025f08aea7a97c))
+
+
+### Features
+
+* **workflow:** adds caching for eslint ([3eb5d01](https://github.com/availity/availity-workflow/commit/3eb5d01acac87f876ff9d7791a0300f95309ebaa))
+* **workflow:** adds infrastructure logging to dev server options ([b08cd6e](https://github.com/availity/availity-workflow/commit/b08cd6e99c412d0aafc2273b8efa273c4d7d07ea))
+* **workflow:** migrates to dart-sass from node-sass ([877865d](https://github.com/availity/availity-workflow/commit/877865d988a3ae3cc2fede89edc23bbd9add6f92))
+* **workflow:** removes deprecated react-hot-loader ([6fb1883](https://github.com/availity/availity-workflow/commit/6fb1883382ba69389facb52e97071b6c73ca61ec))
+* **workflow:** removes ie 11 support ([478accb](https://github.com/availity/availity-workflow/commit/478accb39ba5bc1474a44a8577a10b463888fa5f))
+* **workflow:** updates webpack-dev-server ([297a1d6](https://github.com/availity/availity-workflow/commit/297a1d6a2669e35cd5f8dc5fcf4a0bf418c19e73))
+
+
+### BREAKING CHANGES
+
+* **workflow:** config.development.logLevel has been replaced with config.development.stats.level
+* **workflow:** IE 11 is officially no longer supported by Availity
+* **workflow:** minimum required version for react and react-dom is now at least 16.13.0, released in Feb 2020
+react-hot-loader is being replaced by react fast refresh
+https://github.com/gaearon/react-hot-loader/tree/ed8b31080e766ae07c0dd2dc27b639df45cbc0c9#moving-towards-next-step
+* **workflow:** minimum required Node version is now 12.13.0
+
+
+
 # [9.0.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@8.5.9...@availity/workflow@9.0.0) (2021-12-04)
 
 ### Bug Fixes
