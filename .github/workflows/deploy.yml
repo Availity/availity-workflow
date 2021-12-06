@@ -45,7 +45,7 @@ jobs:
           git config --global user.name ${{ secrets.GH_USER }}
           yarn version apply --all
           yarn workspaces foreach -ipv --no-private --since=origin/master run generateChangelog
-          git add packages/*/CHANGELOG.md .yarn/versions/*
+          git add packages/*/CHANGELOG.md packages/*/package.json .yarn/versions/*
           git commit -m "chore: publish release [skip ci]"
           yarn workspaces foreach -ipv --no-private --since=origin/master run generateTag
           yarn workspaces foreach -ipv --no-private --since=origin/master npm publish --tolerate-republish --access public
