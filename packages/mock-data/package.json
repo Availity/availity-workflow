@@ -4,7 +4,8 @@
   "description": "Mock data for Availity API rest services",
   "main": "index.js",
   "scripts": {
-    "generateChangelog": "yarn changelog:generate --tag-prefix @availity/mock-data --lerna-package @availity/mock-data",
+    "generateChangelog": "yarn changelog:generate --tag-prefix $npm_package_name --lerna-package $npm_package_name",
+    "generateTag": "yarn exec git tag --message \"${npm_package_name}@${npm_package_version}\" --annotate \"${npm_package_name}@${npm_package_version}\"",
     "test": "test"
   },
   "keywords": [
