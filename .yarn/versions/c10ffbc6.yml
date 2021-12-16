@@ -1,0 +1,5 @@
+releases:
+  "@availity/example": patch
+  "@availity/workflow": patch
+  "@availity/workflow-logger": patch
+  "@availity/workflow-upgrade": patch
