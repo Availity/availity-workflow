@@ -38,6 +38,7 @@ jobs:
       - run: yarn test
       - run: yarn test:integration
 
+      # TODO: make sure to skip release if no release strategy present
       - name: Release
         run: |
           yarn config set npmAuthToken "${{ secrets.NPM_TOKEN }}"
