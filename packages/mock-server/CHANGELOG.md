@@ -1,3 +1,7 @@
+## [7.1.4](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@7.1.3...@availity/mock-server@7.1.4) (2021-12-16)
+
+
+
 ## [7.1.3](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@7.1.2...@availity/mock-server@7.1.3) (2021-12-16)
 
 
