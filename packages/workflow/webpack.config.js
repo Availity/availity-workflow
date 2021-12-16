@@ -128,7 +128,13 @@ const plugin = (settings) => {
         },
         loaders.css.development,
         loaders.scss.development,
-        loaders.fonts,
+        {
+          test: /font\.(woff|woff2|eot|ttf|otf|svg)$/i,
+          type: 'asset/resource',
+          generator: {
+            filename: 'fonts/[name].[ext]'
+          }
+        },
         loaders.images
       ]
     },
