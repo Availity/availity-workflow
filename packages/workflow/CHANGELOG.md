@@ -1,3 +1,12 @@
+## [9.0.4](https://github.com/availity/availity-workflow/compare/@availity/workflow@9.0.3...@availity/workflow@9.0.4) (2021-12-16)
+
+
+### Bug Fixes
+
+* **workflow:** uses webpack's asset modules to load fonts ([d83af2c](https://github.com/availity/availity-workflow/commit/d83af2c066d88df2ef4bcf432615addd92cded67)), closes [#568](https://github.com/availity/availity-workflow/issues/568)
+
+
+
 ## [9.0.3](https://github.com/availity/availity-workflow/compare/@availity/workflow@9.0.2...@availity/workflow@9.0.3) (2021-12-06)
 
 ## [9.0.2](https://github.com/availity/availity-workflow/compare/@availity/workflow@9.0.0...@availity/workflow@9.0.2) (2021-12-06)

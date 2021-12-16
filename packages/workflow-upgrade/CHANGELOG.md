@@ -1,3 +1,7 @@
+## [5.6.3](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@5.6.2...@availity/workflow-upgrade@5.6.3) (2021-12-16)
+
+
+
 ## [5.6.2](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@5.6.1...@availity/workflow-upgrade@5.6.2) (2021-12-06)
 
 

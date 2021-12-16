@@ -1,3 +1,7 @@
+## [5.5.12](https://github.com/Availity/availity-workflow/compare/@availity/mock-data@5.5.11...@availity/mock-data@5.5.12) (2021-12-16)
+
+
+
 ## [5.5.11](https://github.com/Availity/availity-workflow/compare/@availity/mock-data@5.5.10...@availity/mock-data@5.5.11) (2021-12-06)
 
 
