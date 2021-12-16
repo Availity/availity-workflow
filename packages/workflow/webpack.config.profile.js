@@ -10,6 +10,11 @@ const babelPreset = require('./babel-preset');
 
 process.noDeprecation = true;
 
+// Override user's potential browserslist config to ensure portal support here
+// This is needed in addition to config.target below so that browserslist queries inside
+// react-app-polyfill/stable and core-js provide everything needed
+process.env.BROWSERSLIST = 'defaults';
+
 const plugin = (settings) => {
   const babelrcPath = path.join(settings.project(), '.babelrc');
   const babelrcExists = existsSync(babelrcPath);
@@ -21,9 +26,28 @@ const plugin = (settings) => {
 
   // TODO: update to production settings or refactor functions to just use production config
   const config = {
+    mode: 'production',
+
+    // Using an explicit browserslist query will override any project configs
+    // This is fine because we need to ensure our targets in the portal
+    target: 'browserslist: defaults',
+
     context: settings.app(),
 
-    mode: 'production',
+    // https://webpack.js.org/configuration/experiments/
+    experiments: settings.experimentalWebpackFeatures(),
+
+    infrastructureLogging: {
+      level: settings.infrastructureLogLevel()
+    },
+
+    entry: {
+      index: [
+        require.resolve('react-app-polyfill/stable'),
+        require.resolve('navigator.sendbeacon'),
+        resolveModule(resolveApp, 'index')
+      ]
+    },
 
     optimization: {
       splitChunks: {
@@ -64,8 +88,13 @@ const plugin = (settings) => {
             idHint: 'vendors',
             chunks: 'all',
             priority: 2
+          },
+          styles: {
+            idHint: 'styles',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true
           }
-          // TODO: re-implement cacheGroups for styles?
           // TODO: Add cacheGroup for Availity packages in node_modules ?
         }
       },
@@ -79,10 +108,6 @@ const plugin = (settings) => {
       // https://webpack.js.org/guides/caching/#module-identifiers
       // https://webpack.js.org/configuration/optimization/#optimizationmoduleids
       moduleIds: 'deterministic'
-    },
-
-    entry: {
-      index: [require.resolve('navigator.sendbeacon'), resolveModule(resolveApp, 'index')]
     },
 
     output: {
@@ -154,7 +179,13 @@ const plugin = (settings) => {
         },
         loaders.css.production,
         loaders.scss.production,
-        loaders.fonts,
+        {
+          test: /font\.(woff|woff2|eot|ttf|otf|svg)$/i,
+          type: 'asset/resource',
+          generator: {
+            filename: 'fonts/[name].[ext]'
+          }
+        },
         loaders.images
       ]
     },
