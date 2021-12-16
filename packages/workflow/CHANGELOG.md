@@ -1,3 +1,12 @@
+## [9.0.6](https://github.com/availity/availity-workflow/compare/@availity/workflow@9.0.5...@availity/workflow@9.0.6) (2021-12-16)
+
+
+### Bug Fixes
+
+* **workflow:** fixes font loader and updates webpack profile config ([5624e7e](https://github.com/availity/availity-workflow/commit/5624e7e35fd712759441c2756033e7a3fabb6b19))
+
+
+
 ## [9.0.5](https://github.com/availity/availity-workflow/compare/@availity/workflow@9.0.4...@availity/workflow@9.0.5) (2021-12-16)
 
 
