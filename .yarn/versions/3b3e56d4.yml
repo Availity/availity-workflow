@@ -1,0 +1,6 @@
+releases:
+  "@availity/mock-data": patch
+  "@availity/mock-server": patch
+  "@availity/workflow": patch
+  "@availity/workflow-logger": patch
+  "@availity/workflow-upgrade": patch
