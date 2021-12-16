@@ -8,10 +8,9 @@ on:
     branches: [master]
 
 jobs:
-  release:
+  setup:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
         with:
@@ -33,12 +32,59 @@ jobs:
             ${{ runner.os }}-14-yarn-
       - run: yarn install --immutable
       - run: yarn constraints
-      - run: yarn version check
       - run: yarn lint
       - run: yarn test
       - run: yarn test:integration
 
-      # TODO: make sure to skip release if no release strategy present
+  version-check:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_TOKEN }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: |
+          echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-14-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-14-yarn-
+      - run: yarn install --immutable
+      - run: yarn version check
+      - run: yarn check:versions
+
+  release:
+    needs: [setup, version-check]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_TOKEN }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: |
+          echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-14-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-14-yarn-
+      - run: yarn install --immutable
       - name: Release
         run: |
           yarn config set npmAuthToken "${{ secrets.NPM_TOKEN }}"

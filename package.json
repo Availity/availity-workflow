@@ -39,6 +39,7 @@
     "changelog:generate": "cd $INIT_CWD && conventional-changelog -p angular -i CHANGELOG.md -s --commit-path=$INIT_CWD --skip-unstable",
     "check:packages": "sh ./scripts/artifactory-check.sh",
     "check:dependencies": "node scripts/check-missing-deps.js",
+    "check:versions": "node scripts/check-version-strategy.js",
     "postinstall": "is-ci || husky install"
   },
   "lint-staged": {
