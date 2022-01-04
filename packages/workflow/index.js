@@ -72,10 +72,12 @@ yargs
         });
     },
     async () => {
-      await settings.init();
-      lint().catch(() => {
+      try {
+        await settings.init();
+        await lint();
+      } catch {
         /* noop */
-      });
+      }
     }
   )
 
@@ -88,26 +90,40 @@ yargs
         describe: 'Watch files for changes and rerun tests related to changed files.'
       }),
     async () => {
-      await settings.init();
-      test.run({ settings }).catch(() => {
+      try {
+        await settings.init();
+        await test.run({ settings });
+      } catch {
         /* noop */
-      });
+      }
     }
   )
 
   .command('profile', `${chalk.dim('Analyze Webpack bundles and find what is contributing their sizes')}`, async () => {
-    await settings.init();
-    await profile(settings);
+    try {
+      await settings.init();
+      await profile(settings);
+    } catch {
+      /* noop */
+    }
   })
 
   .command('build', `${chalk.dim('Bundle project for distribution (production or staging)')}`, async () => {
-    await settings.init({ shouldMimicStaging });
-    await build({ settings });
+    try {
+      await settings.init({ shouldMimicStaging });
+      await build({ settings });
+    } catch {
+      /* noop */
+    }
   })
 
   .command('about', `${chalk.dim('About @availity/workflow')}`, async () => {
-    await settings.init();
-    about({ settings });
+    try {
+      await settings.init();
+      about({ settings });
+    } catch {
+      /* noop */
+    }
   })
 
   .demand(1, chalk.red('Must provide a valid cli command'))
