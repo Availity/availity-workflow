@@ -1,3 +1,12 @@
+## [9.0.7](https://github.com/availity/availity-workflow/compare/@availity/workflow@9.0.6...@availity/workflow@9.0.7) (2022-01-04)
+
+
+### Bug Fixes
+
+* **workflow:** adds try/catch noops around async await to avoid infinite loops when linting ([bed927c](https://github.com/availity/availity-workflow/commit/bed927cb1188d1d0b2a805beec94555ab5e84065))
+
+
+
 ## [9.0.6](https://github.com/availity/availity-workflow/compare/@availity/workflow@9.0.5...@availity/workflow@9.0.6) (2021-12-16)
 
 
