@@ -151,5 +151,5 @@ If we enable `recursive` in the react props, then with the above example we woul
 
 The above examples show example what log calls would look like hitting our `splunk` analytics service. However, if you want to implement your own `analytics` plugin then the `JSON` payload may differ.
 
--   [Analytics React Component](http://availity.github.io/availity-react/components/analytics)
--   [Analytics Core SDK](https://availity.github.io/sdk-js/features/analytics/)
+-   [Analytics React Component](https://availity.github.io/availity-react/components/analytics/analytics)
+-   [Analytics Core SDK](https://availity.github.io/sdk-js/resources/analytics/)
