@@ -1,0 +1,5 @@
+releases:
+  "@availity/workflow": patch
+
+declined:
+  - "@availity/example"
