@@ -184,6 +184,19 @@ When starting the dev server using production settings as a dry run, `yarn start
   };
 ```
 
+#### `development.jestOverrides`
+
+Customize any available jest configuration option. See https://jestjs.io/docs/configuration#reference for list of configuration options. Uses lodash merge to deeply merge user config object with defaults.
+
+**Ex:**:
+
+```js
+{
+    collectCoverageFrom: ['project/app/**/*.{js,jsx,ts,tsx}', '!project/app/**/types'],
+    coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/', '/types'],
+}
+```
+
 #### `development.targets`
 
 Allows developers to override the `webpack` target to match their developer environment. This is beneficial if a developer is doing their primary development environment in a browser like Chrome 57+ that already supports a lot of the ES6 features, therefore, not needing to Babelfy code completely.

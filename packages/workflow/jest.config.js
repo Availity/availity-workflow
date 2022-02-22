@@ -3,7 +3,7 @@
 /* eslint-disable import/no-dynamic-require */
 // https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/scripts/utils/createJestConfig.js
 const path = require('path');
-const _ = require('lodash')
+const _ = require('lodash');
 const jest = require('jest');
 const { existsSync } = require('fs');
 
@@ -21,7 +21,7 @@ function create(settings) {
   const userInclude = settings.configuration.development.babelInclude;
   const includes = ['@av', ...userInclude].join('|');
 
-  const userJestOverrides = settings.configuration.development.jestOverrides
+  const userJestOverrides = settings.configuration.development.jestOverrides;
 
   const config = {
     collectCoverageFrom: ['project/app/**/*.{js,jsx,ts,tsx}'],
@@ -60,8 +60,8 @@ function create(settings) {
   if (rootDir) {
     config.rootDir = rootDir;
   }
-  
-  return _.merge(config, userJestOverrides);
+
+  return _.merge({}, config, userJestOverrides);
 }
 
 function unit(settings) {
