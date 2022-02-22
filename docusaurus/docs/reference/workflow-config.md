@@ -150,6 +150,19 @@ targets: {
 
 Include additional packages from `node_modules` that should be compiled by Babel and Wepback. The default is to compile all packages that are prefixed with `@av/`
 
+#### `development.jestOverrides`
+
+Customize any available jest configuration option. See https://jestjs.io/docs/configuration#reference for list of configuration options. Uses lodash merge to deeply merge user config object with defaults.
+
+**Ex:**:
+
+```js
+{
+    collectCoverageFrom: ['project/app/**/*.{js,jsx,ts,tsx}', '!project/app/**/*.d.ts'],
+    coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/', '/types'],
+}
+```
+
 #### `app.title`
 
 Page title to use for the generated HTML document. Default is `Availity`.
