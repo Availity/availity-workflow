@@ -1,3 +1,12 @@
+# [9.1.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@9.0.7...@availity/workflow@9.1.0) (2022-02-22)
+
+
+### Features
+
+* **workflow:** allow jest config overrides ([17706f9](https://github.com/availity/availity-workflow/commit/17706f9d64683cbed599c1ba4947300a0fe95f5a))
+
+
+
 ## [9.0.7](https://github.com/availity/availity-workflow/compare/@availity/workflow@9.0.6...@availity/workflow@9.0.7) (2022-01-04)
 
 
