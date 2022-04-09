@@ -69,7 +69,7 @@
     "joi": "^17.4.2",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.4.5",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "navigator.sendbeacon": "^0.0.20",
     "open": "^7.4.2",
     "ora": "^5.4.1",
