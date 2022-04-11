@@ -13,17 +13,21 @@
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
+    "@nrwl/cli": "13.10.1",
+    "@nrwl/workspace": "13.10.1",
     "@types/is-ci": "^3.0.0",
     "conventional-changelog-cli": "^2.1.1",
     "conventional-changelog-conventionalcommits": "^4.6.1",
     "dependency-check": "^4.1.0",
-    "eslint-config-availity": "^8.0.5",
+    "eslint-config-availity": "^8.0.7",
     "gh-pages": "^3.2.3",
     "husky": "^7.0.4",
     "is-ci": "^3.0.1",
     "jest": "^27.3.1",
     "lint-staged": "^12.1.2",
-    "prettier": "^2.4.1"
+    "nx": "13.10.1",
+    "prettier": "^2.4.1",
+    "typescript": "^4.6.3"
   },
   "scripts": {
     "build:app": "yarn workspace @availity/example build",
