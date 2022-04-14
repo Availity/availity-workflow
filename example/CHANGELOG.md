@@ -1,7 +1,22 @@
-# Change Log
+# Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+# [3.2.0](https://github.com/Availity/availity-workflow/compare/@availity/example@3.1.2...@availity/example@3.2.0) (2022-04-14)
+
+
+### Bug Fixes
+
+* fixes eslint across monorepo ([5f16cc0](https://github.com/Availity/availity-workflow/commit/5f16cc02eb17754575ae6d59c6025f08aea7a97c))
+
+
+### Features
+
+* adds nx ([7105efa](https://github.com/Availity/availity-workflow/commit/7105efa237b3d1eb25042b275eb05b6f543277f1))
+* adds nx semver plugin for tagging and changelog generation ([990cc5d](https://github.com/Availity/availity-workflow/commit/990cc5d9bc5f24b5058a90c11d05c67d836bbaf1))
+* **workflow:** adds caching for eslint ([3eb5d01](https://github.com/Availity/availity-workflow/commit/3eb5d01acac87f876ff9d7791a0300f95309ebaa))
+
+
 
 ## [3.1.2](https://github.com/Availity/availity-workflow/compare/@availity/example@3.1.1...@availity/example@3.1.2) (2021-04-07)
 
