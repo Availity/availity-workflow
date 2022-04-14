@@ -21,6 +21,8 @@ jobs:
           fetch-depth: 0
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: 'master'
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
@@ -39,6 +41,6 @@ jobs:
 
       - run: yarn install --immutable
       - run: yarn constraints
-      - run: yarn nx affected --base master --target=lint # FIXME: 'node ./node_modules/.bin/eslint .' is mac/linux specific, but 'yarn eslint .' currently broken
-      - run: yarn nx affected --base master --target=test
-      - run: yarn nx affected --base master --target=integration
+      - run: yarn nx affected --target=lint # FIXME: 'node ./node_modules/.bin/eslint .' is mac/linux specific, but 'yarn eslint .' currently broken
+      - run: yarn nx affected --target=test
+      - run: yarn nx affected --target=integration
