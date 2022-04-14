@@ -101,6 +101,9 @@ jobs:
           yarn workspaces foreach -ipv --no-private --since=origin/master npm publish --tolerate-republish --access public
           git push && git push --tags
 
+          # TODO: add nx semver plugin, remove tagging and changelog gen
+          # TODO: do we need ngx-deploy-npm? or could we leverage nx + yarn npm publish command?
+
       - run: yarn build:docs
       - name: Deploy docs
         uses: crazy-max/ghaction-github-pages@v2

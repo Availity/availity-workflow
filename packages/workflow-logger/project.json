@@ -1,5 +1,13 @@
 {
   "root": "packages/workflow-logger",
   "projectType": "library",
-  "targets": {}
+  "targets": {
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version}"
+      }
+    }
+  }
 }

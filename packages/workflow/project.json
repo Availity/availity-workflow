@@ -7,6 +7,13 @@
       "options": {
         "jestConfig": "packages/workflow/jest.config.js"
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version}"
+      }
     }
   }
 }

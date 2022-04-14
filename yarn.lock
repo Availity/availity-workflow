@@ -3002,6 +3002,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@commitlint/config-angular-type-enum@npm:^16.2.1":
+  version: 16.2.1
+  resolution: "@commitlint/config-angular-type-enum@npm:16.2.1"
+  checksum: 15749f4b5143501ffbfc6730bcc283e1398f5b2b83b3d1380892fdf897f9e32239aadc65ff8ea4af303c95da4069c9691c6987cb927687aafa490ef75b17954d
+  languageName: node
+  linkType: hard
+
+"@commitlint/config-angular@npm:^16.2.1":
+  version: 16.2.3
+  resolution: "@commitlint/config-angular@npm:16.2.3"
+  dependencies:
+    "@commitlint/config-angular-type-enum": ^16.2.1
+  checksum: 8a54fa231781d9bb7aedac67386567e84516d588844e5576271f947b346507278732246d7c7df08db343b4f373ed7af07450d4c11eb8e9645b6949f8a81979f7
+  languageName: node
+  linkType: hard
+
 "@commitlint/config-conventional@npm:^15.0.0":
   version: 15.0.0
   resolution: "@commitlint/config-conventional@npm:15.0.0"
@@ -4255,6 +4271,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jscutlery/semver@npm:^2.21.6":
+  version: 2.21.6
+  resolution: "@jscutlery/semver@npm:2.21.6"
+  dependencies:
+    "@nrwl/devkit": 13.9.2
+    "@nrwl/workspace": 13.9.2
+    inquirer: 8.2.2
+    rxjs: 7.5.5
+    standard-version: 9.3.2
+  checksum: bc7c4e70367c3155780638447b07a497b6b06784247d0c91964e8c65eba6e1e54fdea56d5c4d4b90e9d837cc00b7793528e5b07b912fa84af6416dd1a56a4f79
+  languageName: node
+  linkType: hard
+
 "@mdx-js/mdx@npm:^1.6.21":
   version: 1.6.22
   resolution: "@mdx-js/mdx@npm:1.6.22"
@@ -4380,6 +4409,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/cli@npm:13.9.2":
+  version: 13.9.2
+  resolution: "@nrwl/cli@npm:13.9.2"
+  dependencies:
+    nx: 13.9.2
+  bin:
+    nx: bin/nx.js
+  checksum: ce1e577c24a3caf26e2941381e70ea286825a9ee9e61290155e1dc7741c68726eeb475c30825ecf823acafc385b0aae891fee84318c2f98a6683b8fdbfd893aa
+  languageName: node
+  linkType: hard
+
 "@nrwl/devkit@npm:13.10.1":
   version: 13.10.1
   resolution: "@nrwl/devkit@npm:13.10.1"
@@ -4405,6 +4445,20 @@ __metadata:
     semver: 7.3.4
     tslib: ^2.3.0
   checksum: d30426e3046a98ebc56009796a9230f56c767fb49b1e2c4f57efc180667685a8563acf74b29659e7a06a5bd6ac847d3753203d1619a3c6c4c4fc37d962163c83
+  languageName: node
+  linkType: hard
+
+"@nrwl/devkit@npm:13.9.2":
+  version: 13.9.2
+  resolution: "@nrwl/devkit@npm:13.9.2"
+  dependencies:
+    ejs: ^3.1.5
+    ignore: ^5.0.4
+    nx: 13.9.2
+    rxjs: ^6.5.4
+    semver: 7.3.4
+    tslib: ^2.3.0
+  checksum: d87179230358669f3263418e3759a9957c28c4effb78416d1b48a4b9946fb4dd8c9d7f39f4be0725e2e92d5f26b1fa9388a2cf2cea51007e1f882d67dd9ac5df
   languageName: node
   linkType: hard
 
@@ -4443,6 +4497,25 @@ __metadata:
     rxjs: ^6.5.4
     tslib: ^2.3.0
   checksum: 30837b9283c26f5e06f736948e993984cb5be47e7b0841969b1076262b880b4dca3052ba1544314746497a5d5873b3fa54f7d3ca4f97a16a5f31f8b94ac0180c
+  languageName: node
+  linkType: hard
+
+"@nrwl/jest@npm:13.9.2":
+  version: 13.9.2
+  resolution: "@nrwl/jest@npm:13.9.2"
+  dependencies:
+    "@jest/reporters": 27.2.2
+    "@jest/test-result": 27.2.2
+    "@nrwl/devkit": 13.9.2
+    chalk: 4.1.0
+    identity-obj-proxy: 3.0.0
+    jest-config: 27.2.2
+    jest-resolve: 27.2.2
+    jest-util: 27.2.0
+    resolve.exports: 1.1.0
+    rxjs: ^6.5.4
+    tslib: ^2.3.0
+  checksum: 5fe4f6839a5a6797db3772d3501be89f70dd120c3364ccc593aa7cb16bed611bc576b50346350ca65c0cffdee377eef8362770a674ec8b9a5651b90805b32ddb
   languageName: node
   linkType: hard
 
@@ -4503,6 +4576,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/linter@npm:13.9.2":
+  version: 13.9.2
+  resolution: "@nrwl/linter@npm:13.9.2"
+  dependencies:
+    "@nrwl/devkit": 13.9.2
+    "@nrwl/jest": 13.9.2
+    "@phenomnomnominal/tsquery": 4.1.1
+    tmp: ~0.2.1
+    tslib: ^2.3.0
+  peerDependencies:
+    eslint: ^8.0.0
+  peerDependenciesMeta:
+    eslint:
+      optional: true
+  checksum: b7a7d60ee4fbd4b734d2ee2c15ee6ea562e22f9258c8f197687c8d481ead9d610f6a18ef244ba263dcfbca4f7eebe39f23d23f5905873599c336a1e4ba82b03b
+  languageName: node
+  linkType: hard
+
 "@nrwl/tao@npm:13.10.1":
   version: 13.10.1
   resolution: "@nrwl/tao@npm:13.10.1"
@@ -4522,6 +4613,17 @@ __metadata:
   bin:
     tao: index.js
   checksum: 0bdd96c7c689cfd83f7bee1e8d33daa07df8188dfb7902d19121ab7ab505abf50cd3c4dcfb111fda73e1971cb1db3747e511cc51fd11ecda88dafff9818252ae
+  languageName: node
+  linkType: hard
+
+"@nrwl/tao@npm:13.9.2":
+  version: 13.9.2
+  resolution: "@nrwl/tao@npm:13.9.2"
+  dependencies:
+    nx: 13.9.2
+  bin:
+    tao: index.js
+  checksum: af3eb197d2888edfe3d5d29f99915050175df7e1864027d3c209666a2de205b5a095559bdab205ee87da5256e182ded8e17a30f2d0de5705aa4d5c005314beaf
   languageName: node
   linkType: hard
 
@@ -4598,6 +4700,44 @@ __metadata:
     prettier:
       optional: true
   checksum: 5779c559d15163272e63c8b00d2839b08d979a599581708bb092b9a6861c5531ce190e8d033056b8f4f7e92f6baca654c8e5056d7eda859c1076da58b30929d7
+  languageName: node
+  linkType: hard
+
+"@nrwl/workspace@npm:13.9.2":
+  version: 13.9.2
+  resolution: "@nrwl/workspace@npm:13.9.2"
+  dependencies:
+    "@nrwl/devkit": 13.9.2
+    "@nrwl/jest": 13.9.2
+    "@nrwl/linter": 13.9.2
+    "@parcel/watcher": 2.0.4
+    chalk: 4.1.0
+    chokidar: ^3.5.1
+    cli-cursor: 3.1.0
+    cli-spinners: 2.6.1
+    dotenv: ~10.0.0
+    enquirer: ~2.3.6
+    figures: 3.2.0
+    flat: ^5.0.2
+    fs-extra: ^9.1.0
+    glob: 7.1.4
+    ignore: ^5.0.4
+    minimatch: 3.0.4
+    npm-run-path: ^4.0.1
+    nx: 13.9.2
+    open: ^8.4.0
+    rxjs: ^6.5.4
+    semver: 7.3.4
+    tmp: ~0.2.1
+    tslib: ^2.3.0
+    yargs: 15.4.1
+    yargs-parser: 20.0.0
+  peerDependencies:
+    prettier: ^2.5.1
+  peerDependenciesMeta:
+    prettier:
+      optional: true
+  checksum: 7e8fd96d902f34eabbe57dbb24e57a2d8bc08783e2a5b94af1c9c1de121b79238c92b313db7b9518d2ed1696533f440f501b851e27b68702bc57be2911b2fc92
   languageName: node
   linkType: hard
 
@@ -4979,7 +5119,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core@npm:^1.2.119, @swc/core@npm:^1.2.152":
+"@swc/core@npm:^1.2.119, @swc/core@npm:^1.2.146, @swc/core@npm:^1.2.152":
   version: 1.2.165
   resolution: "@swc/core@npm:1.2.165"
   dependencies:
@@ -6962,7 +7102,9 @@ __metadata:
   resolution: "availity-workflow@workspace:."
   dependencies:
     "@commitlint/cli": ^15.0.0
+    "@commitlint/config-angular": ^16.2.1
     "@commitlint/config-conventional": ^15.0.0
+    "@jscutlery/semver": ^2.21.6
     "@nrwl/cli": 13.10.1
     "@nrwl/js": ^13.10.2
     "@nrwl/workspace": 13.10.1
@@ -8576,6 +8718,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cliui@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "cliui@npm:6.0.0"
+  dependencies:
+    string-width: ^4.2.0
+    strip-ansi: ^6.0.0
+    wrap-ansi: ^6.2.0
+  checksum: 4fcfd26d292c9f00238117f39fc797608292ae36bac2168cfee4c85923817d0607fe21b3329a8621e01aedf512c99b7eaa60e363a671ffd378df6649fb48ae42
+  languageName: node
+  linkType: hard
+
 "cliui@npm:^7.0.2":
   version: 7.0.4
   resolution: "cliui@npm:7.0.4"
@@ -8850,6 +9003,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"concat-stream@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "concat-stream@npm:2.0.0"
+  dependencies:
+    buffer-from: ^1.0.0
+    inherits: ^2.0.3
+    readable-stream: ^3.0.2
+    typedarray: ^0.0.6
+  checksum: d7f75d48f0ecd356c1545d87e22f57b488172811b1181d96021c7c4b14ab8855f5313280263dca44bb06e5222f274d047da3e290a38841ef87b59719bde967c7
+  languageName: node
+  linkType: hard
+
 "configstore@npm:^5.0.1":
   version: 5.0.1
   resolution: "configstore@npm:5.0.1"
@@ -8991,6 +9156,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"conventional-changelog-config-spec@npm:2.1.0":
+  version: 2.1.0
+  resolution: "conventional-changelog-config-spec@npm:2.1.0"
+  checksum: 1c3bec23e3558e25ba0f2884ef1c1266afa70084f156b90045dde654504af3d8f3e88ad1c0dd6c1aaf2f394069d6e8b39da8cab319bc2d8ca0c80e8042a8a33c
+  languageName: node
+  linkType: hard
+
+"conventional-changelog-conventionalcommits@npm:4.6.1, conventional-changelog-conventionalcommits@npm:^4.6.1":
+  version: 4.6.1
+  resolution: "conventional-changelog-conventionalcommits@npm:4.6.1"
+  dependencies:
+    compare-func: ^2.0.0
+    lodash: ^4.17.15
+    q: ^1.5.1
+  checksum: f866616c8f6f21cea005b42792451bfbd16bd4d82872867d1218f67a7993a53c5d87e26d6b483d9252e8022f2e4570e6cf9fa2a409aae5a3d73eea92ccf78b13
+  languageName: node
+  linkType: hard
+
 "conventional-changelog-conventionalcommits@npm:^4.3.1":
   version: 4.4.0
   resolution: "conventional-changelog-conventionalcommits@npm:4.4.0"
@@ -9010,17 +9193,6 @@ __metadata:
     lodash: ^4.17.15
     q: ^1.5.1
   checksum: e11944881f123f26a92e823a96e4d921b03203a312da9d539773c424103b49917f59fa717a079738f4d5b0e9709b0336ec323a86a56df7d008663b01e5f8b3b9
-  languageName: node
-  linkType: hard
-
-"conventional-changelog-conventionalcommits@npm:^4.6.1":
-  version: 4.6.1
-  resolution: "conventional-changelog-conventionalcommits@npm:4.6.1"
-  dependencies:
-    compare-func: ^2.0.0
-    lodash: ^4.17.15
-    q: ^1.5.1
-  checksum: f866616c8f6f21cea005b42792451bfbd16bd4d82872867d1218f67a7993a53c5d87e26d6b483d9252e8022f2e4570e6cf9fa2a409aae5a3d73eea92ccf78b13
   languageName: node
   linkType: hard
 
@@ -9120,7 +9292,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog@npm:^3.1.24":
+"conventional-changelog@npm:3.1.24, conventional-changelog@npm:^3.1.24":
   version: 3.1.24
   resolution: "conventional-changelog@npm:3.1.24"
   dependencies:
@@ -9179,6 +9351,24 @@ __metadata:
   bin:
     conventional-commits-parser: cli.js
   checksum: 0f57b5cb7cb359eb49e6807cfd82b27cbe9ac30ec580b20ad7e79575561183110532a6c2e6328ce6c4cd05c01458b9bb781f1f6653b14560f7c509b87b0e9ac7
+  languageName: node
+  linkType: hard
+
+"conventional-recommended-bump@npm:6.1.0":
+  version: 6.1.0
+  resolution: "conventional-recommended-bump@npm:6.1.0"
+  dependencies:
+    concat-stream: ^2.0.0
+    conventional-changelog-preset-loader: ^2.3.4
+    conventional-commits-filter: ^2.0.7
+    conventional-commits-parser: ^3.2.0
+    git-raw-commits: ^2.0.8
+    git-semver-tags: ^4.1.1
+    meow: ^8.0.0
+    q: ^1.5.1
+  bin:
+    conventional-recommended-bump: cli.js
+  checksum: da1d7a5f3b9f7706bede685cdcb3db67997fdaa43c310fd5bf340955c84a4b85dbb9427031522ee06dad290b730a54be987b08629d79c73720dbad3a2531146b
   languageName: node
   linkType: hard
 
@@ -10470,7 +10660,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-newline@npm:^3.0.0":
+"detect-indent@npm:^6.0.0":
+  version: 6.1.0
+  resolution: "detect-indent@npm:6.1.0"
+  checksum: ab953a73c72dbd4e8fc68e4ed4bfd92c97eb6c43734af3900add963fd3a9316f3bc0578b018b24198d4c31a358571eff5f0656e81a1f3b9ad5c547d58b2d093d
+  languageName: node
+  linkType: hard
+
+"detect-newline@npm:^3.0.0, detect-newline@npm:^3.1.0":
   version: 3.1.0
   resolution: "detect-newline@npm:3.1.0"
   checksum: ae6cd429c41ad01b164c59ea36f264a2c479598e61cba7c99da24175a7ab80ddf066420f2bec9a1c57a6bead411b4655ff15ad7d281c000a89791f48cbe939e7
@@ -10835,6 +11032,16 @@ __metadata:
   version: 10.0.0
   resolution: "dotenv@npm:10.0.0"
   checksum: f412c5fe8c24fbe313d302d2500e247ba8a1946492db405a4de4d30dd0eb186a88a43f13c958c5a7de303938949c4231c56994f97d05c4bc1f22478d631b4005
+  languageName: node
+  linkType: hard
+
+"dotgitignore@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "dotgitignore@npm:2.1.0"
+  dependencies:
+    find-up: ^3.0.0
+    minimatch: ^3.0.4
+  checksum: 67589446765ddc25539f414b7649442a649f047343030342f309ba69172beb916b9e54feb7d552db422111265f9e93344f31b5697e8e6c81ffc13d33c0d910a0
   languageName: node
   linkType: hard
 
@@ -12217,7 +12424,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"figures@npm:3.2.0, figures@npm:^3.0.0, figures@npm:^3.2.0":
+"figures@npm:3.2.0, figures@npm:^3.0.0, figures@npm:^3.1.0, figures@npm:^3.2.0":
   version: 3.2.0
   resolution: "figures@npm:3.2.0"
   dependencies:
@@ -12578,6 +12785,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fs-access@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "fs-access@npm:1.0.1"
+  dependencies:
+    null-check: ^1.0.0
+  checksum: 6792b115a5fc5095b3dbc42ea329afff372e0056fde8214a5b0c9c7559806378db9316660bac1682b295cc576bab3c19571f50f8a39ab4605c3d194bee0087c9
+  languageName: node
+  linkType: hard
+
 "fs-constants@npm:^1.0.0":
   version: 1.0.0
   resolution: "fs-constants@npm:1.0.0"
@@ -12924,6 +13140,21 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"git-raw-commits@npm:^2.0.8":
+  version: 2.0.11
+  resolution: "git-raw-commits@npm:2.0.11"
+  dependencies:
+    dargs: ^7.0.0
+    lodash: ^4.17.15
+    meow: ^8.0.0
+    split2: ^3.0.0
+    through2: ^4.0.0
+  bin:
+    git-raw-commits: cli.js
+  checksum: c178af43633684106179793b6e3473e1d2bb50bb41d04e2e285ea4eef342ca4090fee6bc8a737552fde879d22346c90de5c49f18c719a0f38d4c934f258a0f79
+  languageName: node
+  linkType: hard
+
 "git-remote-origin-url@npm:^2.0.0":
   version: 2.0.0
   resolution: "git-remote-origin-url@npm:2.0.0"
@@ -12934,7 +13165,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"git-semver-tags@npm:^4.1.1":
+"git-semver-tags@npm:^4.0.0, git-semver-tags@npm:^4.1.1":
   version: 4.1.1
   resolution: "git-semver-tags@npm:4.1.1"
   dependencies:
@@ -14317,6 +14548,28 @@ fsevents@~2.1.2:
     strip-ansi: ^5.1.0
     through: ^2.3.6
   checksum: 01a87cdbe74e7eb5ca770580f0d6bcad0269e6b0da97107aa9e2b37446a795aac63a63865d33410e964441499f9ac34a84c2e97c40d1abe2e57efc7f0d5b416d
+  languageName: node
+  linkType: hard
+
+"inquirer@npm:8.2.2":
+  version: 8.2.2
+  resolution: "inquirer@npm:8.2.2"
+  dependencies:
+    ansi-escapes: ^4.2.1
+    chalk: ^4.1.1
+    cli-cursor: ^3.1.0
+    cli-width: ^3.0.0
+    external-editor: ^3.0.3
+    figures: ^3.0.0
+    lodash: ^4.17.21
+    mute-stream: 0.0.8
+    ora: ^5.4.1
+    run-async: ^2.4.0
+    rxjs: ^7.5.5
+    string-width: ^4.1.0
+    strip-ansi: ^6.0.0
+    through: ^2.3.6
+  checksum: 69a2cf32f51af0e94dd66c597fdca42b890ff521b537dbfe1fd532c19a751d54893b7896523691ec30357f6212a80a2417fec7bf34411f369bbf151bdbc95ae9
   languageName: node
   linkType: hard
 
@@ -18497,6 +18750,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"null-check@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "null-check@npm:1.0.0"
+  checksum: 6569fb2d74399e436eb4b05c7fdd341f22e87f3e0598a97309681073a364d6684997100cd329f2107d149663c506b2bfa47a0afdff23739ac1ba6ca5c4c6aa19
+  languageName: node
+  linkType: hard
+
 "null-loader@npm:^3.0.0":
   version: 3.0.0
   resolution: "null-loader@npm:3.0.0"
@@ -18609,6 +18869,34 @@ fsevents@~2.1.2:
   bin:
     nx: bin/nx.js
   checksum: 862f8653403a3d6f1d048fbb6979c4d55d65b82e684892d5fba14fd4ebcfad88b61efbc644f55b68cdbda46ac3d1db67ca9906e6572c7b69ab3c49bee4bb672d
+  languageName: node
+  linkType: hard
+
+"nx@npm:13.9.2":
+  version: 13.9.2
+  resolution: "nx@npm:13.9.2"
+  dependencies:
+    "@nrwl/cli": 13.9.2
+    "@nrwl/tao": 13.9.2
+    "@swc-node/register": ^1.4.2
+    "@swc/core": ^1.2.146
+    chalk: 4.1.0
+    enquirer: ~2.3.6
+    fast-glob: 3.2.7
+    fs-extra: ^9.1.0
+    ignore: ^5.0.4
+    jsonc-parser: 3.0.0
+    rxjs: ^6.5.4
+    rxjs-for-await: 0.0.2
+    semver: 7.3.4
+    tmp: ~0.2.1
+    tsconfig-paths: ^3.9.0
+    tslib: ^2.3.0
+    v8-compile-cache: 2.3.0
+    yargs-parser: 20.0.0
+  bin:
+    nx: bin/nx.js
+  checksum: 3c844c30c8801f9fd17d0d10541e833d891a989807d4711599c610b5e5e4731442a44a21d09800d84173b2699ebc16e50d5bce7e375ff03fe58f24562d5432fd
   languageName: node
   linkType: hard
 
@@ -22231,7 +22519,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:2 || 3, readable-stream@npm:3, readable-stream@npm:^3.0.0, readable-stream@npm:^3.0.6, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.6.0":
+"readable-stream@npm:2 || 3, readable-stream@npm:3, readable-stream@npm:^3.0.0, readable-stream@npm:^3.0.2, readable-stream@npm:^3.0.6, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.6.0":
   version: 3.6.0
   resolution: "readable-stream@npm:3.6.0"
   dependencies:
@@ -22993,6 +23281,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"rxjs@npm:7.5.5, rxjs@npm:^7.5.5":
+  version: 7.5.5
+  resolution: "rxjs@npm:7.5.5"
+  dependencies:
+    tslib: ^2.1.0
+  checksum: e034f60805210cce756dd2f49664a8108780b117cf5d0e2281506e9e6387f7b4f1532d974a8c8b09314fa7a16dd2f6cff3462072a5789672b5dcb45c4173f3c6
+  languageName: node
+  linkType: hard
+
 "rxjs@npm:^6.5.3, rxjs@npm:^6.6.0, rxjs@npm:^6.6.3":
   version: 6.6.3
   resolution: "rxjs@npm:6.6.3"
@@ -23262,6 +23559,17 @@ resolve@^2.0.0-next.3:
   bin:
     semver: ./bin/semver.js
   checksum: 1b26ecf6db9e8292dd90df4e781d91875c0dcc1b1909e70f5d12959a23c7eebb8f01ea581c00783bbee72ceeaad9505797c381756326073850dc36ed284b21b9
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.1.1":
+  version: 7.3.7
+  resolution: "semver@npm:7.3.7"
+  dependencies:
+    lru-cache: ^6.0.0
+  bin:
+    semver: bin/semver.js
+  checksum: 2fa3e877568cd6ce769c75c211beaed1f9fce80b28338cadd9d0b6c40f2e2862bafd62c19a6cff42f3d54292b7c623277bcab8816a2b5521cf15210d43e75232
   languageName: node
   linkType: hard
 
@@ -23936,6 +24244,31 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"standard-version@npm:9.3.2":
+  version: 9.3.2
+  resolution: "standard-version@npm:9.3.2"
+  dependencies:
+    chalk: ^2.4.2
+    conventional-changelog: 3.1.24
+    conventional-changelog-config-spec: 2.1.0
+    conventional-changelog-conventionalcommits: 4.6.1
+    conventional-recommended-bump: 6.1.0
+    detect-indent: ^6.0.0
+    detect-newline: ^3.1.0
+    dotgitignore: ^2.1.0
+    figures: ^3.1.0
+    find-up: ^5.0.0
+    fs-access: ^1.0.1
+    git-semver-tags: ^4.0.0
+    semver: ^7.1.1
+    stringify-package: ^1.0.1
+    yargs: ^16.0.0
+  bin:
+    standard-version: bin/cli.js
+  checksum: 40e1105b73e77105338a869096708e15aebf0c1104740f8cbbbb24173f55a8e7f221ff2e4cad4765c230d34094caa4e378ceb74a1ea890709c32f5fb67bd49b7
+  languageName: node
+  linkType: hard
+
 "state-toggle@npm:^1.0.0":
   version: 1.0.3
   resolution: "state-toggle@npm:1.0.3"
@@ -24187,6 +24520,13 @@ resolve@^2.0.0-next.3:
     is-obj: ^1.0.1
     is-regexp: ^1.0.0
   checksum: 6827a3f35975cfa8572e8cd3ed4f7b262def260af18655c6fde549334acdac49ddba69f3c861ea5a6e9c5a4990fe4ae870b9c0e6c31019430504c94a83b7a154
+  languageName: node
+  linkType: hard
+
+"stringify-package@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "stringify-package@npm:1.0.1"
+  checksum: 462036085a0cf7ae073d9b88a2bbf7efb3792e3df3e1fd436851f64196eb0234c8f8ffac436357e355687d6030b7af42e98af9515929e41a6a5c8653aa62a5aa
   languageName: node
   linkType: hard
 
@@ -25124,7 +25464,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2, tslib@npm:^2.3.0, tslib@npm:^2.3.1":
+"tslib@npm:^2, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1":
   version: 2.3.1
   resolution: "tslib@npm:2.3.1"
   checksum: de17a98d4614481f7fcb5cd53ffc1aaf8654313be0291e1bfaee4b4bb31a20494b7d218ff2e15017883e8ea9626599b3b0e0229c18383ba9dce89da2adf15cb9
@@ -26746,6 +27086,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"yargs-parser@npm:20.0.0":
+  version: 20.0.0
+  resolution: "yargs-parser@npm:20.0.0"
+  checksum: 8a5e4bd50c09beb8aeed386b5c81b98310ff34f76cf0c120f7490caf9bb0218648c5cd53973fabb8c39f317f4df4e0318b1823f006be562f7202ce819c1bcc52
+  languageName: node
+  linkType: hard
+
 "yargs-parser@npm:21.0.1, yargs-parser@npm:^21.0.0":
   version: 21.0.1
   resolution: "yargs-parser@npm:21.0.1"
@@ -26763,7 +27110,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:^18.1.3":
+"yargs-parser@npm:^18.1.2, yargs-parser@npm:^18.1.3":
   version: 18.1.3
   resolution: "yargs-parser@npm:18.1.3"
   dependencies:
@@ -26777,6 +27124,25 @@ resolve@^2.0.0-next.3:
   version: 20.2.4
   resolution: "yargs-parser@npm:20.2.4"
   checksum: d251998a374b2743a20271c2fd752b9fbef24eb881d53a3b99a7caa5e8227fcafd9abf1f345ac5de46435821be25ec12189a11030c12ee6481fef6863ed8b924
+  languageName: node
+  linkType: hard
+
+"yargs@npm:15.4.1":
+  version: 15.4.1
+  resolution: "yargs@npm:15.4.1"
+  dependencies:
+    cliui: ^6.0.0
+    decamelize: ^1.2.0
+    find-up: ^4.1.0
+    get-caller-file: ^2.0.1
+    require-directory: ^2.1.1
+    require-main-filename: ^2.0.0
+    set-blocking: ^2.0.0
+    string-width: ^4.2.0
+    which-module: ^2.0.0
+    y18n: ^4.0.0
+    yargs-parser: ^18.1.2
+  checksum: 40b974f508d8aed28598087720e086ecd32a5fd3e945e95ea4457da04ee9bdb8bdd17fd91acff36dc5b7f0595a735929c514c40c402416bbb87c03f6fb782373
   languageName: node
   linkType: hard
 
@@ -26798,7 +27164,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"yargs@npm:^16.2.0":
+"yargs@npm:^16.0.0, yargs@npm:^16.2.0":
   version: 16.2.0
   resolution: "yargs@npm:16.2.0"
   dependencies:
