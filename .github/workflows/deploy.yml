@@ -35,9 +35,9 @@ jobs:
             ${{ runner.os }}-14-yarn-
       - run: yarn install --immutable
       - run: yarn constraints
-      - run: yarn nx affected --target=lint
-      - run: yarn nx affected --target=test
-      - run: yarn nx affected --target=integration
+      - run: yarn nx affected --base master --target=lint
+      - run: yarn nx affected --base master --target=test
+      - run: yarn nx affected --base master --target=integration
 
   # version-check:
   #   needs: setup
@@ -98,9 +98,9 @@ jobs:
           yarn config set npmAuthToken "${{ secrets.NPM_TOKEN }}"
           git config --global user.email ${{ secrets.GH_EMAIL }}
           git config --global user.name ${{ secrets.GH_USER }}
-          yarn nx affected --target version --dryRun --baseBranch master --preid canary
-          yarn nx affected --target publish
-          git push && git push --tags
+          yarn nx affected --base master --target version --dryRun --baseBranch master --preid canary
+          echo 'yarn nx affected --base master --target publish'
+          echo 'git push && git push --tags'
 
       # TODO: nx caching
       - run: yarn nx build docusaurus
