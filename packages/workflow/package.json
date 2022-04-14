@@ -26,7 +26,8 @@
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "scripts": {
     "generateChangelog": "yarn changelog:generate --tag-prefix $npm_package_name --lerna-package $npm_package_name",
-    "generateTag": "yarn exec git tag --message \"${npm_package_name}@${npm_package_version}\" --annotate \"${npm_package_name}@${npm_package_version}\""
+    "generateTag": "yarn exec git tag --message \"${npm_package_name}@${npm_package_version}\" --annotate \"${npm_package_name}@${npm_package_version}\"",
+    "publish": "yarn npm publish --tolerate-republish --access public"
   },
   "dependencies": {
     "@availity/mock-server": "workspace:*",
@@ -52,7 +53,7 @@
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
     "envinfo": "^7.8.1",
     "escape-string-regexp": "^4.0.0",
-    "eslint-config-availity": "^8.0.5",
+    "eslint-config-availity": "^8.0.7",
     "eslint-webpack-plugin": "^3.1.1",
     "execa": "^5.1.1",
     "figures": "^3.2.0",

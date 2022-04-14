@@ -1,0 +1,14 @@
+{
+  "root": "packages/mock-data",
+  "projectType": "library",
+  "targets": {
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version}",
+        "tagPrefix": "@availity/${projectName}@"
+      }
+    }
+  }
+}

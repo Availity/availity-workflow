@@ -1,0 +1,14 @@
+{
+  "root": "example",
+  "projectType": "app",
+  "targets": {
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "angular",
+        "commitMessageFormat": "chore(${projectName}): release version ${version}",
+        "tagPrefix": "@availity/${projectName}@"
+      }
+    }
+  }
+}
