@@ -1,3 +1,16 @@
+# Changelog
+
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+# [7.2.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@7.1.4...@availity/mock-server@7.2.0) (2022-04-14)
+
+
+### Features
+
+* adds nx semver plugin for tagging and changelog generation ([990cc5d](https://github.com/Availity/availity-workflow/commit/990cc5d9bc5f24b5058a90c11d05c67d836bbaf1))
+
+
+
 ## [7.1.4](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@7.1.3...@availity/mock-server@7.1.4) (2021-12-16)
 
 
