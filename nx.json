@@ -1,17 +1,11 @@
 {
   "extends": "@nrwl/workspace/presets/npm.json",
-  "npmScope": "availity-workflow",
+  "npmScope": "availity",
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint",
-          "package",
-          "prepare"
-        ]
+        "cacheableOperations": ["build", "test", "lint", "package", "prepare"]
       }
     }
   },
@@ -40,7 +34,7 @@
   },
   "pluginsConfig": {
     "@nrwl/js": {
-      "analyzeSourceFiles": false
+      "analyzeSourceFiles": true
     }
   }
 }
