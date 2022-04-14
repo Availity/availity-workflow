@@ -17,6 +17,8 @@ jobs:
           token: ${{ secrets.BOT_TOKEN }}
           fetch-depth: 0
           ref: 'master'
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
       - uses: actions/setup-node@v2
         with:
           node-version: 14
@@ -33,36 +35,36 @@ jobs:
             ${{ runner.os }}-14-yarn-
       - run: yarn install --immutable
       - run: yarn constraints
-      - run: yarn lint
-      - run: yarn test
-      - run: yarn test:integration
+      - run: yarn nx affected --target=lint
+      - run: yarn nx affected --target=test
+      - run: yarn nx affected --target=integration
 
-  version-check:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.BOT_TOKEN }}
-          fetch-depth: 0
-          ref: 'master'
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: |
-          echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-14-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-14-yarn-
-      - run: yarn install --immutable
-      - run: yarn version check
-      - run: yarn check:versions
+  # version-check:
+  #   needs: setup
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         token: ${{ secrets.BOT_TOKEN }}
+  #         fetch-depth: 0
+  #         ref: 'master'
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 14
+  #     - name: Get yarn cache directory path
+  #       id: yarn-cache-dir-path
+  #       run: |
+  #         echo "::set-output name=dir::$(yarn config get cacheFolder)"
+  #     - uses: actions/cache@v2
+  #       id: yarn-cache
+  #       with:
+  #         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+  #         key: ${{ runner.os }}-14-yarn-${{ hashFiles('**/yarn.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-14-yarn-
+  #     - run: yarn install --immutable
+  #     - run: yarn version check
+  #     - run: yarn check:versions
 
   release:
     needs: [setup, version-check]
@@ -73,6 +75,8 @@ jobs:
           token: ${{ secrets.BOT_TOKEN }}
           fetch-depth: 0
           ref: 'master'
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
       - uses: actions/setup-node@v2
         with:
           node-version: 14
@@ -88,23 +92,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-14-yarn-
       - run: yarn install --immutable
+      # TODO: ngx-deploy-npm? Or continue to leverage nx + yarn npm publish command?
       - name: Release
         run: |
           yarn config set npmAuthToken "${{ secrets.NPM_TOKEN }}"
           git config --global user.email ${{ secrets.GH_EMAIL }}
           git config --global user.name ${{ secrets.GH_USER }}
-          yarn version apply --all
-          yarn workspaces foreach -ipv --no-private --since=origin/master run generateChangelog
-          git add packages/*/CHANGELOG.md packages/*/package.json .yarn/versions/*
-          git commit -m "chore: publish release [skip ci]"
-          yarn workspaces foreach -ipv --no-private --since=origin/master run generateTag
-          yarn workspaces foreach -ipv --no-private --since=origin/master npm publish --tolerate-republish --access public
+          yarn nx affected --target version --dryRun --baseBranch master --preid canary
+          yarn nx affected --target publish
           git push && git push --tags
 
-          # TODO: add nx semver plugin, remove tagging and changelog gen
-          # TODO: do we need ngx-deploy-npm? or could we leverage nx + yarn npm publish command?
-
-      - run: yarn build:docs
+      # TODO: nx caching
+      - run: yarn nx build docusaurus
       - name: Deploy docs
         uses: crazy-max/ghaction-github-pages@v2
         with:
