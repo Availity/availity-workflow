@@ -4371,6 +4371,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/cli@npm:13.10.2":
+  version: 13.10.2
+  resolution: "@nrwl/cli@npm:13.10.2"
+  dependencies:
+    nx: 13.10.2
+  checksum: 3e2f1232162a09e0b617603d83243b4ebd02c55bc732716d1c47ec5456b13f9bca60d0403197e6087ad689050e4039b482e583853f6a9a0e8f43a0a72100e515
+  languageName: node
+  linkType: hard
+
 "@nrwl/devkit@npm:13.10.1":
   version: 13.10.1
   resolution: "@nrwl/devkit@npm:13.10.1"
@@ -4382,6 +4391,20 @@ __metadata:
     semver: 7.3.4
     tslib: ^2.3.0
   checksum: 8572edb332da90a86193e41790a24d17cdeaedee1dbe1ac62a590dddeb5e89aff1a24d7d444cc6bd8a8ab7d0b3c62c376f9b58559aad0a4c1c7200254388d4b5
+  languageName: node
+  linkType: hard
+
+"@nrwl/devkit@npm:13.10.2":
+  version: 13.10.2
+  resolution: "@nrwl/devkit@npm:13.10.2"
+  dependencies:
+    ejs: ^3.1.5
+    ignore: ^5.0.4
+    nx: 13.10.2
+    rxjs: ^6.5.4
+    semver: 7.3.4
+    tslib: ^2.3.0
+  checksum: d30426e3046a98ebc56009796a9230f56c767fb49b1e2c4f57efc180667685a8563acf74b29659e7a06a5bd6ac847d3753203d1619a3c6c4c4fc37d962163c83
   languageName: node
   linkType: hard
 
@@ -4404,6 +4427,46 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/jest@npm:13.10.2":
+  version: 13.10.2
+  resolution: "@nrwl/jest@npm:13.10.2"
+  dependencies:
+    "@jest/reporters": 27.2.2
+    "@jest/test-result": 27.2.2
+    "@nrwl/devkit": 13.10.2
+    chalk: 4.1.0
+    identity-obj-proxy: 3.0.0
+    jest-config: 27.2.2
+    jest-resolve: 27.2.2
+    jest-util: 27.2.0
+    resolve.exports: 1.1.0
+    rxjs: ^6.5.4
+    tslib: ^2.3.0
+  checksum: 30837b9283c26f5e06f736948e993984cb5be47e7b0841969b1076262b880b4dca3052ba1544314746497a5d5873b3fa54f7d3ca4f97a16a5f31f8b94ac0180c
+  languageName: node
+  linkType: hard
+
+"@nrwl/js@npm:^13.10.2":
+  version: 13.10.2
+  resolution: "@nrwl/js@npm:13.10.2"
+  dependencies:
+    "@nrwl/devkit": 13.10.2
+    "@nrwl/jest": 13.10.2
+    "@nrwl/linter": 13.10.2
+    "@nrwl/workspace": 13.10.2
+    "@parcel/watcher": 2.0.4
+    chalk: 4.1.0
+    fast-glob: 3.2.7
+    fs-extra: ^9.1.0
+    ignore: ^5.0.4
+    js-tokens: ^4.0.0
+    minimatch: 3.0.4
+    source-map-support: 0.5.19
+    tree-kill: 1.2.2
+  checksum: 8bc35c7af4f880c82551dfbbb7d74188b78b81dcfb89093e8999f99867c6cb20935b76970f7f6aa194089bab6e6cbcb75c8056790d1c3a8b8f4441edda60fa3c
+  languageName: node
+  linkType: hard
+
 "@nrwl/linter@npm:13.10.1":
   version: 13.10.1
   resolution: "@nrwl/linter@npm:13.10.1"
@@ -4422,6 +4485,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/linter@npm:13.10.2":
+  version: 13.10.2
+  resolution: "@nrwl/linter@npm:13.10.2"
+  dependencies:
+    "@nrwl/devkit": 13.10.2
+    "@nrwl/jest": 13.10.2
+    "@phenomnomnominal/tsquery": 4.1.1
+    tmp: ~0.2.1
+    tslib: ^2.3.0
+  peerDependencies:
+    eslint: ^8.0.0
+  peerDependenciesMeta:
+    eslint:
+      optional: true
+  checksum: d0497c768279dac7143858ab9853803f8f345cc507a3a7ba1eb0058fd508f76e7ca4fdfcb825e137ee489a6c89a85226f8c2ff60cb103a1f30f9a685194ebd0a
+  languageName: node
+  linkType: hard
+
 "@nrwl/tao@npm:13.10.1":
   version: 13.10.1
   resolution: "@nrwl/tao@npm:13.10.1"
@@ -4430,6 +4511,17 @@ __metadata:
   bin:
     tao: index.js
   checksum: cd6fbef7ad36e0f04f8c00959170d12386a733e6c4adabddc448311db48162ab71807615d9f69ed5cb1cb3e2a629418f224168d035a2a6b4d2b39328760ba878
+  languageName: node
+  linkType: hard
+
+"@nrwl/tao@npm:13.10.2":
+  version: 13.10.2
+  resolution: "@nrwl/tao@npm:13.10.2"
+  dependencies:
+    nx: 13.10.2
+  bin:
+    tao: index.js
+  checksum: 0bdd96c7c689cfd83f7bee1e8d33daa07df8188dfb7902d19121ab7ab505abf50cd3c4dcfb111fda73e1971cb1db3747e511cc51fd11ecda88dafff9818252ae
   languageName: node
   linkType: hard
 
@@ -4468,6 +4560,44 @@ __metadata:
     prettier:
       optional: true
   checksum: e0d2acf46a18d97fded1ea636007e53c29807fa66d3684d0aa09bc0f500900e67afc096d8af11d44f0bf86264618ba791f0e2e5a65a01f65ed050fc6781d4069
+  languageName: node
+  linkType: hard
+
+"@nrwl/workspace@npm:13.10.2":
+  version: 13.10.2
+  resolution: "@nrwl/workspace@npm:13.10.2"
+  dependencies:
+    "@nrwl/devkit": 13.10.2
+    "@nrwl/jest": 13.10.2
+    "@nrwl/linter": 13.10.2
+    "@parcel/watcher": 2.0.4
+    chalk: 4.1.0
+    chokidar: ^3.5.1
+    cli-cursor: 3.1.0
+    cli-spinners: 2.6.1
+    dotenv: ~10.0.0
+    enquirer: ~2.3.6
+    figures: 3.2.0
+    flat: ^5.0.2
+    fs-extra: ^9.1.0
+    glob: 7.1.4
+    ignore: ^5.0.4
+    minimatch: 3.0.4
+    npm-run-path: ^4.0.1
+    nx: 13.10.2
+    open: ^8.4.0
+    rxjs: ^6.5.4
+    semver: 7.3.4
+    tmp: ~0.2.1
+    tslib: ^2.3.0
+    yargs: ^17.4.0
+    yargs-parser: 21.0.1
+  peerDependencies:
+    prettier: ^2.5.1
+  peerDependenciesMeta:
+    prettier:
+      optional: true
+  checksum: 5779c559d15163272e63c8b00d2839b08d979a599581708bb092b9a6861c5531ce190e8d033056b8f4f7e92f6baca654c8e5056d7eda859c1076da58b30929d7
   languageName: node
   linkType: hard
 
@@ -6834,6 +6964,7 @@ __metadata:
     "@commitlint/cli": ^15.0.0
     "@commitlint/config-conventional": ^15.0.0
     "@nrwl/cli": 13.10.1
+    "@nrwl/js": ^13.10.2
     "@nrwl/workspace": 13.10.1
     "@types/is-ci": ^3.0.0
     conventional-changelog-cli: ^2.1.1
@@ -18440,6 +18571,47 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"nx@npm:13.10.2":
+  version: 13.10.2
+  resolution: "nx@npm:13.10.2"
+  dependencies:
+    "@nrwl/cli": 13.10.2
+    "@nrwl/tao": 13.10.2
+    "@parcel/watcher": 2.0.4
+    "@swc-node/register": ^1.4.2
+    "@swc/core": ^1.2.152
+    chalk: 4.1.0
+    chokidar: ^3.5.1
+    cli-cursor: 3.1.0
+    cli-spinners: 2.6.1
+    dotenv: ~10.0.0
+    enquirer: ~2.3.6
+    fast-glob: 3.2.7
+    figures: 3.2.0
+    flat: ^5.0.2
+    fs-extra: ^9.1.0
+    glob: 7.1.4
+    ignore: ^5.0.4
+    jsonc-parser: 3.0.0
+    minimatch: 3.0.4
+    npm-run-path: ^4.0.1
+    open: ^8.4.0
+    rxjs: ^6.5.4
+    rxjs-for-await: 0.0.2
+    semver: 7.3.4
+    tar-stream: ~2.2.0
+    tmp: ~0.2.1
+    tsconfig-paths: ^3.9.0
+    tslib: ^2.3.0
+    v8-compile-cache: 2.3.0
+    yargs: ^17.4.0
+    yargs-parser: 21.0.1
+  bin:
+    nx: bin/nx.js
+  checksum: 862f8653403a3d6f1d048fbb6979c4d55d65b82e684892d5fba14fd4ebcfad88b61efbc644f55b68cdbda46ac3d1db67ca9906e6572c7b69ab3c49bee4bb672d
+  languageName: node
+  linkType: hard
+
 "object-assign@npm:^4, object-assign@npm:^4.0.1, object-assign@npm:^4.1.0, object-assign@npm:^4.1.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
@@ -23554,6 +23726,16 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"source-map-support@npm:0.5.19, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.12, source-map-support@npm:~0.5.19":
+  version: 0.5.19
+  resolution: "source-map-support@npm:0.5.19"
+  dependencies:
+    buffer-from: ^1.0.0
+    source-map: ^0.6.0
+  checksum: c72802fdba9cb62b92baef18cc14cc4047608b77f0353e6c36dd993444149a466a2845332c5540d4a6630957254f0f68f4ef5a0120c33d2e83974c51a05afbac
+  languageName: node
+  linkType: hard
+
 "source-map-support@npm:^0.5.17, source-map-support@npm:~0.5.20":
   version: 0.5.20
   resolution: "source-map-support@npm:0.5.20"
@@ -23571,16 +23753,6 @@ resolve@^2.0.0-next.3:
     buffer-from: ^1.0.0
     source-map: ^0.6.0
   checksum: 43e98d700d79af1d36f859bdb7318e601dfc918c7ba2e98456118ebc4c4872b327773e5a1df09b0524e9e5063bb18f0934538eace60cca2710d1fa687645d137
-  languageName: node
-  linkType: hard
-
-"source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.12, source-map-support@npm:~0.5.19":
-  version: 0.5.19
-  resolution: "source-map-support@npm:0.5.19"
-  dependencies:
-    buffer-from: ^1.0.0
-    source-map: ^0.6.0
-  checksum: c72802fdba9cb62b92baef18cc14cc4047608b77f0353e6c36dd993444149a466a2845332c5540d4a6630957254f0f68f4ef5a0120c33d2e83974c51a05afbac
   languageName: node
   linkType: hard
 
@@ -24813,6 +24985,15 @@ resolve@^2.0.0-next.3:
   dependencies:
     punycode: ^2.1.1
   checksum: ffe6049b9dca3ae329b059aada7f515b0f0064c611b39b51ff6b53897e954650f6f63d9319c6c008d36ead477c7b55e5f64c9dc60588ddc91ff720d64eb710b3
+  languageName: node
+  linkType: hard
+
+"tree-kill@npm:1.2.2":
+  version: 1.2.2
+  resolution: "tree-kill@npm:1.2.2"
+  bin:
+    tree-kill: cli.js
+  checksum: 49117f5f410d19c84b0464d29afb9642c863bc5ba40fcb9a245d474c6d5cc64d1b177a6e6713129eb346b40aebb9d4631d967517f9fbe8251c35b21b13cd96c7
   languageName: node
   linkType: hard
 
