@@ -1,3 +1,17 @@
+# Changelog
+
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+# [9.2.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.1.0...@availity/workflow@9.2.0) (2022-04-14)
+
+
+### Features
+
+* adds nx ([7105efa](https://github.com/Availity/availity-workflow/commit/7105efa237b3d1eb25042b275eb05b6f543277f1))
+* adds nx semver plugin for tagging and changelog generation ([990cc5d](https://github.com/Availity/availity-workflow/commit/990cc5d9bc5f24b5058a90c11d05c67d836bbaf1))
+
+
+
 # [9.1.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@9.0.7...@availity/workflow@9.1.0) (2022-02-22)
 
 
