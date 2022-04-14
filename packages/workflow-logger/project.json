@@ -1,0 +1,5 @@
+{
+  "root": "packages/workflow-logger",
+  "projectType": "library",
+  "targets": {}
+}

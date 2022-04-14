@@ -1,0 +1,5 @@
+{
+  "root": "packages/mock-data",
+  "projectType": "library",
+  "targets": {}
+}

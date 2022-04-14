@@ -1,0 +1,12 @@
+{
+  "root": "packages/workflow",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/workflow/jest.config.js"
+      }
+    }
+  }
+}

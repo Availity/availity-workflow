@@ -1,0 +1,5 @@
+{
+  "root": "packages/mock-server",
+  "projectType": "library",
+  "targets": {}
+}
