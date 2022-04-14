@@ -67,7 +67,7 @@ jobs:
   #     - run: yarn check:versions
 
   release:
-    needs: [setup, version-check]
+    needs: [setup]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
