@@ -1,7 +1,21 @@
-# Change Log
+# Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+# [2.0.0](https://github.com/Availity/availity-workflow/compare/@availity/dinosaurdocs@1.1.1...@availity/dinosaurdocs@2.0.0) (2022-04-14)
+
+
+### Features
+
+* adds nx semver plugin for tagging and changelog generation ([990cc5d](https://github.com/Availity/availity-workflow/commit/990cc5d9bc5f24b5058a90c11d05c67d836bbaf1))
+* **workflow:** removes ie 11 support ([478accb](https://github.com/Availity/availity-workflow/commit/478accb39ba5bc1474a44a8577a10b463888fa5f))
+
+
+### BREAKING CHANGES
+
+* **workflow:** IE 11 is officially no longer supported by Availity
+
+
 
 ## [1.1.1](https://github.com/Availity/availity-workflow/compare/@availity/dinosaurdocs@1.1.0...@availity/dinosaurdocs@1.1.1) (2021-01-08)
 
