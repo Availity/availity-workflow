@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.2.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.2.0...@availity/workflow@9.2.1) (2022-04-20)
+
+
+### Bug Fixes
+
+* **workflow:** upgrade webpack-dev-server, which pulls in a vulnerable version of nForge ([5b0e373](https://github.com/Availity/availity-workflow/commit/5b0e373f5539799cdbe01906549290764275a394))
+* **workflow:** upgrade webpack-dev-server, which pulls in a vulnerable version of nForge ([e3f86b8](https://github.com/Availity/availity-workflow/commit/e3f86b867fe1eb2b297adcabe5a4250f28d56e99))
+* **workflow:** upgrade webpack-dev-server, which pulls in a vulnerable version of nForge ([823a77d](https://github.com/Availity/availity-workflow/commit/823a77d1d5f3d36910c850fadcf131cc44850f7c))
+
+
+
 # [9.2.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.1.0...@availity/workflow@9.2.0) (2022-04-14)
 
 
