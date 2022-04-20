@@ -102,7 +102,7 @@
     "webpack": "^5.64.2",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-bundle-size-analyzer": "^3.1.0",
-    "webpack-dev-server": "^4.7.3",
+    "webpack-dev-server": "^4.8.0",
     "webpack-notifier": "^1.14.1",
     "webpack-sources": "^3.2.2",
     "yargs": "^17.2.1"
