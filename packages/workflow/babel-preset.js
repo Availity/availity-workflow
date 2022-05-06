@@ -16,6 +16,8 @@ module.exports = (_api, opts) => {
   const isEnvProduction = env === 'production';
 
   return {
+    // Don't assume ESM. Check if file is cjs
+    sourceType: 'unambiguous',
     presets: [[require.resolve('babel-preset-react-app')]],
     plugins: [
       isEnvProduction && [
