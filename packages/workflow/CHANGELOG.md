@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.2.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.2.1...@availity/workflow@9.2.2) (2022-05-06)
+
+
+### Bug Fixes
+
+* set sourceType to unambiguous ([dfb1659](https://github.com/Availity/availity-workflow/commit/dfb16596937799b801ec56bdc3214c68a2d0df29))
+
+
+
 ## [9.2.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.2.0...@availity/workflow@9.2.1) (2022-04-20)
 
 
