@@ -166,7 +166,7 @@ Lines        : 27.23% ( 7955/29217 )
 
 ### `about`
 
-Awesomeness.
+WIP
 
 ## Disclaimer
 
