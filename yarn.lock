@@ -405,7 +405,7 @@ __metadata:
     body-parser: ^1.19.0
     chalk: ^4.1.2
     compression: ^1.7.4
-    connect-busboy: 0.0.2
+    connect-busboy: 1.0.0
     cors: ^2.8.5
     delay: ^5.0.0
     errorhandler: ^1.5.1
@@ -8138,12 +8138,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"busboy@npm:*":
-  version: 0.3.1
-  resolution: "busboy@npm:0.3.1"
+"busboy@npm:^1.0.0":
+  version: 1.6.0
+  resolution: "busboy@npm:1.6.0"
   dependencies:
-    dicer: 0.3.0
-  checksum: d2bcb788c4595edca4ea2168ab8bf7f9558b627ddcec2fb6bbaf0aa6a10b63da48dce35ce56936570f330c5268a3204f7037021a310a895a8b1a223568e0cc1b
+    streamsearch: ^1.1.0
+  checksum: 32801e2c0164e12106bf236291a00795c3c4e4b709ae02132883fe8478ba2ae23743b11c5735a0aae8afe65ac4b6ca4568b91f0d9fed1fdbc32ede824a73746e
   languageName: node
   linkType: hard
 
@@ -9209,12 +9209,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"connect-busboy@npm:0.0.2":
-  version: 0.0.2
-  resolution: "connect-busboy@npm:0.0.2"
+"connect-busboy@npm:1.0.0":
+  version: 1.0.0
+  resolution: "connect-busboy@npm:1.0.0"
   dependencies:
-    busboy: "*"
-  checksum: fa3453ca4f0b62d3c6c2348394f1e53846237a960e614ae6f19986e4245758300d0888db925c22ac8ba6ae10713361920852a438b332c05394845249bb5bc441
+    busboy: ^1.0.0
+  checksum: e4a8cece06735e2c3e6ae4d49c61ef96ec28d14f559e9b6cfdea2c4a9be62dbe8f921d361278d426d11836cddf5b2ea32cd3b15870e34d9495f670896178ec1c
   languageName: node
   linkType: hard
 
@@ -10913,15 +10913,6 @@ __metadata:
   bin:
     detective: bin/detective.js
   checksum: 2ab266aecbd695b42e4703cfa560178ceac4308a74baece58185775426e65573d563d84f33e6a3b28ef3a544aa0c039c0730ada939c6458862e6643f66044f32
-  languageName: node
-  linkType: hard
-
-"dicer@npm:0.3.0":
-  version: 0.3.0
-  resolution: "dicer@npm:0.3.0"
-  dependencies:
-    streamsearch: 0.1.2
-  checksum: 9f61aea61fcd81457f1b43967af7e66415b7a31d393336fa05a29b221b5ba065b99e5cac46476b2da36eb7af7665bf8dad6f9500409116dc6a35ada183841598
   languageName: node
   linkType: hard
 
@@ -24684,10 +24675,10 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"streamsearch@npm:0.1.2":
-  version: 0.1.2
-  resolution: "streamsearch@npm:0.1.2"
-  checksum: d2db57cbfbf7947ab9c75a7b4c80a8ef8d24850cf0a1a24258bb6956c97317ce1eab7dbcbf9c5aba3e6198611af1053b02411057bbedb99bf9c64b8275248997
+"streamsearch@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "streamsearch@npm:1.1.0"
+  checksum: 1cce16cea8405d7a233d32ca5e00a00169cc0e19fbc02aa839959985f267335d435c07f96e5e0edd0eadc6d39c98d5435fb5bbbdefc62c41834eadc5622ad942
   languageName: node
   linkType: hard
 

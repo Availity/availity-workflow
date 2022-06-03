@@ -13,14 +13,14 @@ const post = {
         return;
       }
 
-      req.busboy.on('file', (fieldname, file, filename) => {
-        file.on('error', error => {
+      req.busboy.on('file', (fieldname, file, fileParams) => {
+        file.on('error', (error) => {
           logger.error('Something went wrong uploading the file', error);
         });
         file.on('end', () => {
           // Treat the file name as a field so we can match and score
-          logger.info('File finished %s:', filename);
-          req.body[fieldname] = filename;
+          logger.info('File finished %s:', fileParams.filename);
+          req.body[fieldname] = fileParams.filename;
         });
         // `file` is a `ReadableStream`...always do something with it
         // else busboy won't fire the 'finish' even.  At minimum do:
@@ -37,12 +37,12 @@ const post = {
         req.body[key] = value;
       });
 
-      req.busboy.on('error', err => {
+      req.busboy.on('error', (err) => {
         logger.error(err);
         reject(err);
       });
 
-      req.busboy.on('finish', () => {
+      req.busboy.on('close', () => {
         logger.info('finished request');
         resolve(true);
       });
