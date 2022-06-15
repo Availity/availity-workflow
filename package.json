@@ -14,7 +14,7 @@
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-angular": "^16.2.1",
     "@commitlint/config-conventional": "^15.0.0",
-    "@jscutlery/semver": "^2.21.6",
+    "@jscutlery/semver": "^2.25.2",
     "@nrwl/cli": "13.10.1",
     "@nrwl/js": "^13.10.2",
     "@nrwl/workspace": "13.10.1",
