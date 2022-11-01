@@ -273,7 +273,7 @@ __metadata:
     react: ^16.14.0
     react-block-ui: ^1.3.3
     react-dom: ^16.14.0
-    reactstrap: ^8.10.1
+    reactstrap: ^9.1.5
     typescript: ^4.6.3
     yup: ^0.32.11
   languageName: unknown
@@ -5465,6 +5465,13 @@ __metadata:
   version: 1.0.0-next.11
   resolution: "@polka/url@npm:1.0.0-next.11"
   checksum: db1626fb6d7167ce2de6223c95f0a5ff8e1e7c56b2e8709f904f219d8fcc7b075de842ea8bf0ed7af9f5bc350b166b286b241636982f10d0f02964f34215a0e0
+  languageName: node
+  linkType: hard
+
+"@popperjs/core@npm:^2.6.0":
+  version: 2.11.6
+  resolution: "@popperjs/core@npm:2.11.6"
+  checksum: 47fb328cec1924559d759b48235c78574f2d71a8a6c4c03edb6de5d7074078371633b91e39bbf3f901b32aa8af9b9d8f82834856d2f5737a23475036b16817f0
   languageName: node
   linkType: hard
 
@@ -23093,7 +23100,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-fast-compare@npm:^3.1.1":
+"react-fast-compare@npm:^3.0.1, react-fast-compare@npm:^3.1.1":
   version: 3.2.0
   resolution: "react-fast-compare@npm:3.2.0"
   checksum: 8ef272c825ae329f61633ce4ce7f15aa5b84e5214d88bc0823880236e03e985a13195befa2c7a4eda7db3b017dc7985729152d88445823f652403cf36c2b86aa
@@ -23253,6 +23260,20 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"react-popper@npm:^2.2.4":
+  version: 2.3.0
+  resolution: "react-popper@npm:2.3.0"
+  dependencies:
+    react-fast-compare: ^3.0.1
+    warning: ^4.0.2
+  peerDependencies:
+    "@popperjs/core": ^2.0.0
+    react: ^16.8.0 || ^17 || ^18
+    react-dom: ^16.8.0 || ^17 || ^18
+  checksum: 837111c98738011c69b3069a464ea5bdcbf487105b6148e8faf90cb7337e134edb1b98b8824322941c378756cca30a15c18c25f558e53b85ed5762fa0dc8e6b2
+  languageName: node
+  linkType: hard
+
 "react-query@npm:^3.29.0":
   version: 3.33.4
   resolution: "react-query@npm:3.33.4"
@@ -23408,21 +23429,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-transition-group@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "react-transition-group@npm:3.0.0"
-  dependencies:
-    dom-helpers: ^3.4.0
-    loose-envify: ^1.4.0
-    prop-types: ^15.6.2
-    react-lifecycles-compat: ^3.0.4
-  peerDependencies:
-    react: ">=16.6.0"
-    react-dom: ">=16.6.0"
-  checksum: 34605de2d46e5ff31b447dbd59d390f7ec932c18008ce2d784e91d1d01cf0b53070b06cd4d6277b7448a369905048b259154c81c7d7cb46ced5b8a624c457210
-  languageName: node
-  linkType: hard
-
 "react-transition-group@npm:^4.3.0":
   version: 4.4.1
   resolution: "react-transition-group@npm:4.4.1"
@@ -23435,6 +23441,21 @@ fsevents@~2.1.2:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: 0bcd8af483709832e318dcef84c26ebddeb866bf4f58010286367ef0c1e7c5106e00cfc65688b9102414cb3d572c63909c2eb7ea972b4420fc70a78c10b6e8ad
+  languageName: node
+  linkType: hard
+
+"react-transition-group@npm:^4.4.2":
+  version: 4.4.5
+  resolution: "react-transition-group@npm:4.4.5"
+  dependencies:
+    "@babel/runtime": ^7.5.5
+    dom-helpers: ^5.0.1
+    loose-envify: ^1.4.0
+    prop-types: ^15.6.2
+  peerDependencies:
+    react: ">=16.6.0"
+    react-dom: ">=16.6.0"
+  checksum: 75602840106aa9c6545149d6d7ae1502fb7b7abadcce70a6954c4b64a438ff1cd16fc77a0a1e5197cdd72da398f39eb929ea06f9005c45b132ed34e056ebdeb1
   languageName: node
   linkType: hard
 
@@ -23465,19 +23486,20 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"reactstrap@npm:^8.10.1":
-  version: 8.10.1
-  resolution: "reactstrap@npm:8.10.1"
+"reactstrap@npm:^9.1.5":
+  version: 9.1.5
+  resolution: "reactstrap@npm:9.1.5"
   dependencies:
     "@babel/runtime": ^7.12.5
+    "@popperjs/core": ^2.6.0
     classnames: ^2.2.3
     prop-types: ^15.5.8
-    react-popper: ^1.3.6
-    react-transition-group: ^3.0.0
+    react-popper: ^2.2.4
+    react-transition-group: ^4.4.2
   peerDependencies:
-    react: ">=16.3.0"
-    react-dom: ">=16.3.0"
-  checksum: a91750df39158fe5c7a0b2b3517bcd2a7c10948777b2429bbac1f7167e66cfc4d7ec004c939206b40c7edaa28da430f43c286b0de178f9ad5a64eb228e0889c5
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 0bb505211388cadd585aef46eaefdae622ba7e00667eae79ac62c879f2c2388d64c682f49da1d359b7981e9331a1881bee3818d8a141c1168373cb1480b171f2
   languageName: node
   linkType: hard
 
