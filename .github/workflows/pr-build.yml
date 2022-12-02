@@ -44,3 +44,10 @@ jobs:
       - run: yarn nx affected --target=lint # FIXME: 'node ./node_modules/.bin/eslint .' is mac/linux specific, but 'yarn eslint .' currently broken
       - run: yarn nx affected --target=test
       - run: yarn nx affected --target=integration
+
+      - name: Build App
+        run: yarn build:app
+
+      - name: Build Docs
+        if: ${{matrix.node > 14}}
+        run: yarn build:docs
