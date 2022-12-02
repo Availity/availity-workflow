@@ -1,19 +1,19 @@
 module.exports = {
   plugins: [],
-  themes: [['@docusaurus/theme-search-algolia', { id: '01' }]],
+  // themes: [['@docusaurus/theme-search-algolia', { id: '01' }]],
   onBrokenLinks: 'log',
   title: 'Availity Workflow Docs',
   tagline: 'Toolkit for Availity web projects',
-  url: 'https://availity.github.io/availity-workflow',
+  url: 'https://availity.github.io',
   baseUrl: '/availity-workflow/',
   favicon: 'img/favicon.ico',
   organizationName: 'availity',
   projectName: 'availity-workflow',
   themeConfig: {
-    algolia: {
-      apiKey: 'eec0154a008662c32d440b7de7982cd2',
-      indexName: 'availity'
-    },
+    // algolia: {
+    //   apiKey: 'eec0154a008662c32d440b7de7982cd2',
+    //   indexName: 'availity'
+    // },
     // announcementBar: {
     //   id: 'supportus',
     //   backgroundColor: '#e29f0d',
@@ -39,13 +39,13 @@ module.exports = {
       },
       items: [
         {
-          href: 'https://availity.github.io/availity-react',
+          to: 'https://availity.github.io/availity-react',
           target: '_self',
           label: 'React',
           position: 'right'
         },
         {
-          href: 'https://availity.github.io/sdk-js',
+          to: 'https://availity.github.io/sdk-js',
           target: '_self',
           label: 'SDK-JS',
           position: 'right'

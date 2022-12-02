@@ -23,7 +23,7 @@ jobs:
           main-branch-name: 'master'
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: |
@@ -83,7 +83,7 @@ jobs:
           main-branch-name: 'master'
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: |
@@ -92,9 +92,9 @@ jobs:
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-14-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-16-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-14-yarn-
+            ${{ runner.os }}-16-yarn-
       - run: yarn install --immutable
       # TODO: ngx-deploy-npm? Or continue to leverage nx + yarn npm publish command?
       - name: Release
