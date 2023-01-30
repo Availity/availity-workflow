@@ -20,17 +20,17 @@
   "license": "MIT",
   "dependencies": {
     "@availity/mock-data": "workspace:*",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "chalk": "^4.1.2",
     "compression": "^1.7.4",
     "connect-busboy": "1.0.0",
     "cors": "^2.8.5",
     "delay": "^5.0.0",
     "errorhandler": "^1.5.1",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "lodash": "^4.17.21",
     "method-override": "^3.0.0",
-    "on-finished": "^2.3.0"
+    "on-finished": "^2.4.1"
   },
   "devDependencies": {
     "superagent": "^6.1.0"
