@@ -15,10 +15,10 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
       - name: Checkout current repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Checkout shared Availity tools
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: Availity/.github
           token: ${{ secrets.BOT_TOKEN }}
