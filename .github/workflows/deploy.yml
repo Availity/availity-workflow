@@ -12,52 +12,69 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.BOT_TOKEN }}
           fetch-depth: 0
           ref: 'master'
+
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v2
+        uses: nrwl/nx-set-shas@v3
         with:
           main-branch-name: 'master'
-      - uses: actions/setup-node@v2
+
+      - name: Set Node Version
+        uses: actions/setup-node@v3
         with:
           node-version: 16
+
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: |
-          echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/cache@v2
+          echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - name: Restore yarn cache
+        uses: actions/cache@v3
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-14-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-14-yarn-
-      - run: yarn install --immutable
-      - run: yarn constraints
-      - run: yarn nx affected --target=lint
-      - run: yarn nx affected --target=test
-      - run: yarn nx affected --target=integration
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Check Constraints
+        run: yarn constraints
+
+      - name: Lint Affected Code
+        run: yarn nx affected --target=lint
+
+      - name: Unit Test Affected Code
+        run: yarn nx affected --target=test
+
+      - name: Integration Test Affected Code
+        run: yarn nx affected --target=integration
 
   # version-check:
   #   needs: setup
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v3
   #       with:
   #         token: ${{ secrets.BOT_TOKEN }}
   #         fetch-depth: 0
   #         ref: 'master'
-  #     - uses: actions/setup-node@v2
+  #     - uses: actions/setup-node@v3
   #       with:
   #         node-version: 14
   #     - name: Get yarn cache directory path
   #       id: yarn-cache-dir-path
   #       run: |
-  #         echo "::set-output name=dir::$(yarn config get cacheFolder)"
-  #     - uses: actions/cache@v2
+  #         echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+  #     - uses: actions/cache@v3
   #       id: yarn-cache
   #       with:
   #         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -72,30 +89,40 @@ jobs:
     needs: [setup]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.BOT_TOKEN }}
           fetch-depth: 0
           ref: 'master'
+
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v2
+        uses: nrwl/nx-set-shas@v3
         with:
           main-branch-name: 'master'
-      - uses: actions/setup-node@v2
+
+      - name: Set Node Version
+        uses: actions/setup-node@v3
         with:
           node-version: 16
+
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: |
           echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/cache@v2
+
+      - name: Restore yarn cache
+        uses: actions/cache@v3
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-16-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-16-yarn-
-      - run: yarn install --immutable
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
       # TODO: ngx-deploy-npm? Or continue to leverage nx + yarn npm publish command?
       - name: Release
         run: |
@@ -107,9 +134,11 @@ jobs:
           git push && git push --tags
 
       # TODO: nx caching
-      - run: yarn nx build docusaurus
-      - name: Deploy docs
-        uses: crazy-max/ghaction-github-pages@v2
+      - name: Build Docs
+        run: yarn nx build docusaurus
+
+      - name: Deploy Docs
+        uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: gh-pages
           build_dir: docusaurus/build
