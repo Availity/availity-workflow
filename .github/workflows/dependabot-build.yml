@@ -1,16 +1,11 @@
-# This workflow has access to secrets and a read token
+# This job has access to secrets and a read token
 name: Dependabot Build
-on:
-  workflow_run:
-    workflows: ['Dependabot PR Check']
-    types:
-      - completed
-
-permissions: write-all # TODO: figure out appropriate permissions
+on: pull_request
 
 jobs:
   build:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    permissions: write-all # TODO: figure out appropriate permissions
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
