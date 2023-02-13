@@ -1,4 +1,4 @@
-# This job has access to secrets and a read token
+# This workflow has access to dependabot secrets and a read token
 name: Dependabot Build
 on: pull_request
 
