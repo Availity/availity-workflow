@@ -73,7 +73,7 @@
     "moment": "^2.29.4",
     "navigator.sendbeacon": "^0.0.20",
     "open": "^7.4.2",
-    "ora": "^5.4.1",
+    "ora": "^6.1.2",
     "path-browserify": "^1.0.1",
     "postcss": "^8.4.21",
     "postcss-flexbugs-fixes": "^5.0.2",
