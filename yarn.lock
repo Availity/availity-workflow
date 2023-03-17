@@ -21853,7 +21853,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.7.3, source-map@npm:~0.7.2":
+"source-map@npm:^0.7.3":
   version: 0.7.3
   resolution: "source-map@npm:0.7.3"
   checksum: cd24efb3b8fa69b64bf28e3c1b1a500de77e84260c5b7f2b873f88284df17974157cc88d386ee9b6d081f08fdd8242f3fc05c953685a6ad81aad94c7393dedea
@@ -22659,39 +22659,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.10.0":
-  version: 5.10.0
-  resolution: "terser@npm:5.10.0"
-  dependencies:
-    commander: ^2.20.0
-    source-map: ~0.7.2
-    source-map-support: ~0.5.20
-  peerDependencies:
-    acorn: ^8.5.0
-  peerDependenciesMeta:
-    acorn:
-      optional: true
-  bin:
-    terser: bin/terser
-  checksum: 1080faeb6d5cd155bb39d9cc41d20a590eafc9869560d5285f255f6858604dcd135311e344188a106f87fedb12d096ad3799cfc2e65acd470b85d468b1c7bd4c
-  languageName: node
-  linkType: hard
-
-"terser@npm:^5.14.1":
-  version: 5.16.1
-  resolution: "terser@npm:5.16.1"
-  dependencies:
-    "@jridgewell/source-map": ^0.3.2
-    acorn: ^8.5.0
-    commander: ^2.20.0
-    source-map-support: ~0.5.20
-  bin:
-    terser: bin/terser
-  checksum: cb524123504a2f0d9140c1e1a8628c83bba9cacc404c6aca79e2493a38dfdf21275617ba75b91006b3f1ff586e401ab31121160cd253699f334c6340ea2756f5
-  languageName: node
-  linkType: hard
-
-"terser@npm:^5.16.5":
+"terser@npm:^5.10.0, terser@npm:^5.14.1, terser@npm:^5.16.5, terser@npm:^5.7.2":
   version: 5.16.6
   resolution: "terser@npm:5.16.6"
   dependencies:
@@ -22702,19 +22670,6 @@ resolve@^2.0.0-next.3:
   bin:
     terser: bin/terser
   checksum: f763a7bcc7b98cb2bfc41434f7b92bfe8a701a12c92ea6049377736c8e6de328240d654a20dfe15ce170fd783491b9873fad9f4cd8fee4f6c6fb8ca407859dee
-  languageName: node
-  linkType: hard
-
-"terser@npm:^5.7.2":
-  version: 5.9.0
-  resolution: "terser@npm:5.9.0"
-  dependencies:
-    commander: ^2.20.0
-    source-map: ~0.7.2
-    source-map-support: ~0.5.20
-  bin:
-    terser: bin/terser
-  checksum: 11c1246b1991015a8881742878af779e3863fad42f626ffda957dbf28c94bf51e7994cffb9ffbec86ff3c23ab45ffa6d79d453c15e664306e35fc7b2c4eee5f4
   languageName: node
   linkType: hard
 
