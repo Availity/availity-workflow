@@ -25,13 +25,15 @@
     "start:docs": "yarn workspace @availity/dinosaurdocs start",
     "test": "jest --silent",
     "test:app": "yarn workspace @availity/example test",
-    "test:integration": "yarn workspaces foreach -i -v run integration --verbose"
+    "test:integration": "yarn workspaces foreach -i -v run integration --verbose",
+    "version": "nx affected --target version --parallel=1",
+    "version:dry-run": "nx affected --target version --dryRun --parallel=1"
   },
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-angular": "^16.3.0",
     "@commitlint/config-conventional": "^15.0.0",
-    "@jscutlery/semver": "^2.30.1",
+    "@jscutlery/semver": "2.29.3",
     "@nrwl/cli": "13.10.6",
     "@nrwl/js": "^13.10.6",
     "@nrwl/workspace": "13.10.6",
