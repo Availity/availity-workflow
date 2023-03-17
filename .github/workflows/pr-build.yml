@@ -63,6 +63,9 @@ jobs:
       - name: Integration Test Affected Code
         run: yarn nx affected --target=integration
 
+      - name: Version Bump Dry Run
+        run: yarn version:dry-run
+
       - name: Build Docs (Node 16+ only)
         if: ${{matrix.node > 14}}
         run: yarn build:docs
