@@ -5,16 +5,12 @@ module.exports = {
   development: {
     test: /\.css$/,
     use: [
-      'style-loader',
-      {
-        loader: 'css-loader',
-        options: {
-          sourceMap: true,
-          importLoaders: 1
-        }
-      },
+      // set sass-loader options to strip default parameters
+      {loader: 'sass-loader'
+        },
       loaderPostcss
-    ]
+    ],
+    type: 'css'
   },
   production: {
     test: /\.css$/,

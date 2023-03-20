@@ -1,14 +1,14 @@
 const Logger = require('@availity/workflow-logger');
 const chalk = require('chalk');
-const webpack = require('webpack');
+const webpack = require('@rspack/core').rspack;
 const merge = require('lodash/merge');
 const once = require('lodash/once');
-const ProgressPlugin = require('webpack/lib/ProgressPlugin');
-const WebpackDevSever = require('webpack-dev-server');
+const {RspackDevServer: WebpackDevServer} = require('@rspack/dev-server');
 
 const settings = require('../settings');
 const webpackConfigBase = require('../webpack.config');
 const webpackConfigProduction = require('../webpack.config.profile');
+const html = require('../html');
 
 const proxy = require('./proxy');
 const notifier = require('./notifier');
@@ -17,6 +17,28 @@ const formatWebpackMessages = require('./format');
 
 let server;
 let ekko;
+
+function convertWebpackToRspackConfig(webpackConfig, htmlPlugin) {
+  let previousPercent;
+  return {
+   builtins: {
+     html: [htmlPlugin], // html file location relative to config file
+    //  define: globals,
+     progress: true,
+   },
+     entry: webpackConfig.entry,
+     output: webpackConfig.output,
+     resolve: webpackConfig.resolve,
+     module: webpackConfig.module,
+     watchOptions: {
+        ignored: /^\.\/locale$/,
+     },
+     context: webpackConfig.context,
+     devtool: webpackConfig.devtool,
+     mode: webpackConfig.mode,
+     target: webpackConfig.target,
+   }
+ }
 
 const startupMessage = once(() => {
   const wantedPort = settings.config().development.port;
@@ -85,7 +107,6 @@ function rest() {
 
 function web() {
   return new Promise((resolve, reject) => {
-    let previousPercent;
 
     let webpackConfig;
     // Allow production version to run in development
@@ -95,33 +116,27 @@ function web() {
     } else {
       webpackConfig = webpackConfigBase(settings);
     }
-    webpackConfig.plugins.push(
-      new ProgressPlugin((percentage, msg) => {
-        const percent = Math.round(percentage * 100);
-
-        if (previousPercent !== percent && percent % 10 === 0) {
-          Logger.info(`${chalk.dim('Webpack')} ${percent}% ${msg}`);
-          previousPercent = percent;
-        }
-      })
-    );
 
     const { modifyWebpackConfig } = settings.config();
 
     if (typeof modifyWebpackConfig === 'function') {
       webpackConfig = modifyWebpackConfig(webpackConfig, settings) || webpackConfig;
     }
+    const htmlPlugin = html(settings)
 
-    const compiler = webpack(webpackConfig);
+    const globals = settings.globals()
+    const rspackConfig = convertWebpackToRspackConfig(webpackConfig, htmlPlugin, globals);
 
-    compiler.hooks.invalid.tap('invalid', () => {
-      previousPercent = null;
-      Logger.info('Started compiling');
-    });
+    const compiler = webpack(rspackConfig);
+
+    // compiler.hooks.invalid?.tap('invalid', () => {
+    //   previousPercent = null;
+    //   Logger.info('Started compiling');
+    // });
 
     const openBrowser = once(open);
 
-    compiler.hooks.done.tap('done', (stats) => {
+   compiler.hooks.done.tap('done111111', (stats) => {
       const hasErrors = stats.hasErrors();
 
       // https://webpack.js.org/configuration/stats/
@@ -143,7 +158,7 @@ function web() {
 
         Logger.failed('Failed compiling');
         Logger.empty();
-        return reject(json.errors);
+        return reject();
       }
 
       return resolve();
@@ -152,10 +167,8 @@ function web() {
     const defaults = {
       client: {
         logging: settings.infrastructureLogLevel(),
-        overlay: {
-          errors: false,
-          warnings: false
-        }
+        overlay: true,
+        progress: true
       },
 
       port: settings.port(),
@@ -165,7 +178,7 @@ function web() {
       // Enable gzip compression of generated files.
       compress: true,
 
-      hot: settings.enableHotLoader(),
+      hot: true,
 
       static: {
         directory: settings.output(),
@@ -185,7 +198,7 @@ function web() {
       devServerOptions.proxy = proxyConfig;
     }
 
-    server = new WebpackDevSever(devServerOptions, compiler);
+    server = new WebpackDevServer(devServerOptions, compiler);
 
     const runServer = async () => {
       try {

@@ -3,23 +3,14 @@ const loaderPostcss = require('./loader-postcss');
 
 module.exports = {
   development: {
-    test: /\.(scss|sass)$/,
+    test: /\.s[ac]ss$/,
     use: [
-      'style-loader',
-      {
-        loader: 'css-loader',
-        options: {
-          sourceMap: true
-        }
-      },
-      loaderPostcss,
       {
         loader: 'sass-loader',
-        options: {
-          sourceMap: true
-        }
-      }
-    ]
+      },
+      loaderPostcss,
+    ],
+    type: 'css'
   },
   production: {
     test: /\.(scss|sass)$/,

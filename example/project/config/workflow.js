@@ -17,9 +17,9 @@ module.exports = (config) => {
   config.ekko.enabled = false;
 
   // specify how to resolve node_modules since yarn hoists them to top-level
-  config.modifyWebpackConfig = (webpackConfig, settings) => {
-    webpackConfig.resolveLoader.modules.push(path.join(settings.project(), '../node_modules'));
-  };
+  // config.modifyWebpackConfig = (webpackConfig, settings) => {
+  //   webpackConfig.resolveLoader.modules.push(path.join(settings.project(), '../node_modules'));
+  // };
 
   return config;
 };
