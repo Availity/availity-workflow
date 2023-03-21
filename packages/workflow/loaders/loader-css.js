@@ -5,9 +5,21 @@ module.exports = {
   development: {
     test: /\.css$/,
     use: [
-      // set sass-loader options to strip default parameters
-      {loader: 'sass-loader'
-        },
+      'style-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          sourceMap: true,
+          importLoaders: 1
+        }
+      },
+      loaderPostcss
+    ]
+  },
+  rspack: {
+    test: /\.css$/,
+    use: [
+      'sass-loader',
       loaderPostcss
     ],
     type: 'css'

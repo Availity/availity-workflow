@@ -9,6 +9,7 @@ const html = (settings) => {
 
   const config = {
     template: settings.asset(workflowTemplate, projectTemplate),
+    favicon: settings.asset(workflowFavicon, projectFavicon),
     title: settings.title()
   };
 

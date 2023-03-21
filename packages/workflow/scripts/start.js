@@ -1,14 +1,16 @@
 const Logger = require('@availity/workflow-logger');
 const chalk = require('chalk');
-const webpack = require('@rspack/core').rspack;
+const {rspack} = require('@rspack/core');
 const merge = require('lodash/merge');
 const once = require('lodash/once');
-const {RspackDevServer: WebpackDevServer} = require('@rspack/dev-server');
+const {RspackDevServer} = require('@rspack/dev-server');
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
 
 const settings = require('../settings');
 const webpackConfigBase = require('../webpack.config');
 const webpackConfigProduction = require('../webpack.config.profile');
-const html = require('../html');
+const rspackBaseConfig = require('../rspack.config.dev')
 
 const proxy = require('./proxy');
 const notifier = require('./notifier');
@@ -17,28 +19,7 @@ const formatWebpackMessages = require('./format');
 
 let server;
 let ekko;
-
-function convertWebpackToRspackConfig(webpackConfig, htmlPlugin) {
-  let previousPercent;
-  return {
-   builtins: {
-     html: [htmlPlugin], // html file location relative to config file
-    //  define: globals,
-     progress: true,
-   },
-     entry: webpackConfig.entry,
-     output: webpackConfig.output,
-     resolve: webpackConfig.resolve,
-     module: webpackConfig.module,
-     watchOptions: {
-        ignored: /^\.\/locale$/,
-     },
-     context: webpackConfig.context,
-     devtool: webpackConfig.devtool,
-     mode: webpackConfig.mode,
-     target: webpackConfig.target,
-   }
- }
+let previousPercent;
 
 const startupMessage = once(() => {
   const wantedPort = settings.config().development.port;
@@ -113,6 +94,8 @@ function web() {
     if (settings.isDryRun() && settings.isDevelopment()) {
       Logger.message('Using production webpack settings', 'Dry Run');
       webpackConfig = webpackConfigProduction(settings);
+    } else if(settings.__UNSAFE_EXPERIMENTAL_USE_RSPACK_DEV()){
+      webpackConfig = rspackBaseConfig(settings);
     } else {
       webpackConfig = webpackConfigBase(settings);
     }
@@ -122,21 +105,19 @@ function web() {
     if (typeof modifyWebpackConfig === 'function') {
       webpackConfig = modifyWebpackConfig(webpackConfig, settings) || webpackConfig;
     }
-    const htmlPlugin = html(settings)
 
-    const globals = settings.globals()
-    const rspackConfig = convertWebpackToRspackConfig(webpackConfig, htmlPlugin, globals);
+    const compilerBase = settings.__UNSAFE_EXPERIMENTAL_USE_RSPACK_DEV() ? rspack : webpack;
 
-    const compiler = webpack(rspackConfig);
+    const compiler = compilerBase(webpackConfig);
 
-    // compiler.hooks.invalid?.tap('invalid', () => {
-    //   previousPercent = null;
-    //   Logger.info('Started compiling');
-    // });
+    compiler.hooks.invalid.tap('invalid', () => {
+      previousPercent = null;
+      Logger.info('Started compiling');
+    });
 
     const openBrowser = once(open);
 
-   compiler.hooks.done.tap('done111111', (stats) => {
+   compiler.hooks.done.tap('done', (stats) => {
       const hasErrors = stats.hasErrors();
 
       // https://webpack.js.org/configuration/stats/
@@ -167,8 +148,10 @@ function web() {
     const defaults = {
       client: {
         logging: settings.infrastructureLogLevel(),
-        overlay: true,
-        progress: true
+        overlay: {
+          warnings: false,
+          errors: false
+        },
       },
 
       port: settings.port(),
@@ -179,6 +162,8 @@ function web() {
       compress: true,
 
       hot: true,
+      // compile with warnings
+
 
       static: {
         directory: settings.output(),
@@ -198,11 +183,11 @@ function web() {
       devServerOptions.proxy = proxyConfig;
     }
 
-    server = new WebpackDevServer(devServerOptions, compiler);
+    server = settings.__UNSAFE_EXPERIMENTAL_USE_RSPACK_DEV() ? new RspackDevServer(devServerOptions, compiler) : new WebpackDevServer(devServerOptions, compiler);
 
     const runServer = async () => {
       try {
-        Logger.info('Starting development sever');
+        Logger.info('Starting development server');
         await server.start();
         Logger.info('Started development server');
         resolve();

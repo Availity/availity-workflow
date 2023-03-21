@@ -6,11 +6,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 <<<<<<< HEAD
+<<<<<<< HEAD
 const webpack = require('webpack');
 const babelPreset = require('./babel-preset');
 =======
 const webpack = require('@rspack/core').rspack;
 >>>>>>> 6a4c0de (WIP)
+=======
+const webpack = require('webpack');
+const babelPreset = require('./babel-preset');
+>>>>>>> dc270a0 (chore: it's alive)
 const paths = require('./helpers/paths');
 const resolveModule = require('./helpers/resolve-module');
 const html = require('./html');
@@ -24,6 +29,8 @@ process.noDeprecation = true;
 process.env.BROWSERSLIST = 'defaults';
 
 const plugin = (settings) => {
+  const babelrcPath = path.join(settings.project(), '.babelrc');
+  const babelrcExists = fs.existsSync(babelrcPath);
   const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
 
   function getVersion() {
@@ -231,6 +238,9 @@ const plugin = (settings) => {
             // This loader doesn't use a "test" so it will catch all modules
             // that fall through the other loaders.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dc270a0 (chore: it's alive)
             {
               loader: require.resolve('file-loader'),
               // Exclude `js` files to keep "css" loader working as it injects
@@ -245,6 +255,7 @@ const plugin = (settings) => {
           ]
         }
       ]
+<<<<<<< HEAD
 =======
             // {
             //   loader: require.resolve('file-loader'),
@@ -259,6 +270,8 @@ const plugin = (settings) => {
             // }
           ]      
 >>>>>>> 6a4c0de (WIP)
+=======
+>>>>>>> dc270a0 (chore: it's alive)
     },
     plugins: [
       new webpack.DefinePlugin(settings.globals()),

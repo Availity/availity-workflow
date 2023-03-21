@@ -785,7 +785,6 @@ __metadata:
     "@testing-library/react": ^12.1.5
     "@types/sass": ^1.43.1
     babel-jest: ^27.5.1
-    babel-loader: ^8.3.0
     babel-plugin-jsx-remove-data-test-id: 3.0.0
     babel-plugin-root-import: ^6.6.0
     babel-preset-react-app: ^10.0.1
@@ -810,7 +809,6 @@ __metadata:
     globby: ^11.1.0
     hosted-git-info: ^4.1.0
     html-webpack-plugin: 5.5.0
-    imports-loader: ^3.1.1
     inquirer: ^8.2.5
     is-valid-path: ^0.1.1
     jest: ^27.5.1
@@ -825,7 +823,6 @@ __metadata:
     postcss: ^8.4.21
     postcss-flexbugs-fixes: ^5.0.2
     postcss-focus: ^5.0.1
-    postcss-loader: ^6.2.1
     postcss-preset-env: ^7.8.3
     postcss-reporter: ^7.0.5
     pretty-ms: ^7.0.1
@@ -836,7 +833,6 @@ __metadata:
     regenerator-runtime: ^0.13.11
     require-relative: ^0.8.7
     sass: ^1.59.3
-    sass-loader: ^12.6.0
     semver: ^7.3.8
     shelljs: ^0.8.5
     style-loader: ^3.3.2
@@ -8310,17 +8306,21 @@ __metadata:
     "@rspack/dev-server": 0.1.0
     "@rspack/plugin-minify": 0.1.0
     "@types/is-ci": ^3.0.0
+    babel-loader: ^9.1.2
     conventional-changelog-cli: ^2.2.2
     conventional-changelog-conventionalcommits: ^4.6.3
     dependency-check: ^4.1.0
     eslint-config-availity: ^8.0.7
     gh-pages: ^3.2.3
     husky: ^7.0.4
+    imports-loader: ^4.0.1
     is-ci: ^3.0.1
     jest: ^27.5.1
     lint-staged: ^12.5.0
     nx: 13.10.6
+    postcss-loader: ^7.1.0
     prettier: ^2.8.4
+    sass-loader: ^13.2.1
     source-map-loader: ^4.0.1
     typescript: ^4.9.5
   languageName: unknown
@@ -8376,7 +8376,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-loader@npm:^8.2.5, babel-loader@npm:^8.3.0":
+"babel-loader@npm:^8.2.5":
   version: 8.3.0
   resolution: "babel-loader@npm:8.3.0"
   dependencies:
@@ -8388,6 +8388,19 @@ __metadata:
     "@babel/core": ^7.0.0
     webpack: ">=2"
   checksum: d48bcf9e030e598656ad3ff5fb85967db2eaaf38af5b4a4b99d25618a2057f9f100e6b231af2a46c1913206db506115ca7a8cbdf52c9c73d767070dae4352ab5
+  languageName: node
+  linkType: hard
+
+"babel-loader@npm:^9.1.2":
+  version: 9.1.2
+  resolution: "babel-loader@npm:9.1.2"
+  dependencies:
+    find-cache-dir: ^3.3.2
+    schema-utils: ^4.0.0
+  peerDependencies:
+    "@babel/core": ^7.12.0
+    webpack: ">=5"
+  checksum: f0edb8e157f9806b810ba3f2c8ca8fa489d377ae5c2b7b00c2ace900a6925641ce4ec520b9c12f70e37b94aa5366e7003e0f6271b26821643e109966ce741cb7
   languageName: node
   linkType: hard
 
@@ -10360,6 +10373,18 @@ __metadata:
     path-type: ^4.0.0
     yaml: ^1.10.0
   checksum: c53bf7befc1591b2651a22414a5e786cd5f2eeaa87f3678a3d49d6069835a9d8d1aef223728e98aa8fec9a95bf831120d245096db12abe019fecb51f5696c96f
+  languageName: node
+  linkType: hard
+
+"cosmiconfig@npm:^8.0.0":
+  version: 8.1.3
+  resolution: "cosmiconfig@npm:8.1.3"
+  dependencies:
+    import-fresh: ^3.2.1
+    js-yaml: ^4.1.0
+    parse-json: ^5.0.0
+    path-type: ^4.0.0
+  checksum: b3d277bc3a8a9e649bf4c3fc9740f4c52bf07387481302aa79839f595045368903bf26ea24a8f7f7b8b180bf46037b027c5cb63b1391ab099f3f78814a147b2b
   languageName: node
   linkType: hard
 
@@ -12841,6 +12866,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"find-cache-dir@npm:^3.3.2":
+  version: 3.3.2
+  resolution: "find-cache-dir@npm:3.3.2"
+  dependencies:
+    commondir: ^1.0.1
+    make-dir: ^3.0.2
+    pkg-dir: ^4.1.0
+  checksum: 1e61c2e64f5c0b1c535bd85939ae73b0e5773142713273818cc0b393ee3555fb0fd44e1a5b161b8b6c3e03e98c2fcc9c227d784850a13a90a8ab576869576817
+  languageName: node
+  linkType: hard
+
 "find-root@npm:^1.0.0, find-root@npm:^1.1.0":
   version: 1.1.0
   resolution: "find-root@npm:1.1.0"
@@ -14344,15 +14380,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"imports-loader@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "imports-loader@npm:3.1.1"
+"imports-loader@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "imports-loader@npm:4.0.1"
   dependencies:
     source-map: ^0.6.1
     strip-comments: ^2.0.1
   peerDependencies:
     webpack: ^5.0.0
-  checksum: 8d218e6eed8c7667d905594d685cec519d9b0e2f77534c12956c8768a5211188f21921dc136d3923b51e7d4ebb57571de53f403d9624d5874bce7bc920e8d140
+  checksum: 831882988de72f40be8c1177a18ef207a3e351efec088d7ebd94a31583b713c256ce89dd4af87469b77f650ec78e5fd78089d58ef648b20f3f1dc5e437425e03
   languageName: node
   linkType: hard
 
@@ -16180,6 +16216,13 @@ __metadata:
   version: 2.0.5
   resolution: "klona@npm:2.0.5"
   checksum: 8c976126ea252b766e648a4866e1bccff9d3b08432474ad80c559f6c7265cf7caede2498d463754d8c88c4759895edd8210c85c0d3155e6aae4968362889466f
+  languageName: node
+  linkType: hard
+
+"klona@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "klona@npm:2.0.6"
+  checksum: ac9ee3732e42b96feb67faae4d27cf49494e8a3bf3fa7115ce242fe04786788e0aff4741a07a45a2462e2079aa983d73d38519c85d65b70ef11447bbc3c58ce7
   languageName: node
   linkType: hard
 
@@ -18791,20 +18834,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-loader@npm:^6.2.1":
-  version: 6.2.1
-  resolution: "postcss-loader@npm:6.2.1"
-  dependencies:
-    cosmiconfig: ^7.0.0
-    klona: ^2.0.5
-    semver: ^7.3.5
-  peerDependencies:
-    postcss: ^7.0.0 || ^8.0.1
-    webpack: ^5.0.0
-  checksum: e40ae79c3e39df37014677a817b001bd115d8b10dedf53a07b97513d93b1533cd702d7a48831bdd77b9a9484b1ec84a5d4a723f80e83fb28682c75b5e65e8a90
-  languageName: node
-  linkType: hard
-
 "postcss-loader@npm:^7.0.0":
   version: 7.0.2
   resolution: "postcss-loader@npm:7.0.2"
@@ -18816,6 +18845,20 @@ __metadata:
     postcss: ^7.0.0 || ^8.0.1
     webpack: ^5.0.0
   checksum: 2d251537d482eb751f812c96c8b515f46d7c9905cad7afab33f0f34872670619b7440cefc9e2babbf89fb11b4708850d522d79fa5ff788227587645e78f16638
+  languageName: node
+  linkType: hard
+
+"postcss-loader@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "postcss-loader@npm:7.1.0"
+  dependencies:
+    cosmiconfig: ^8.0.0
+    klona: ^2.0.6
+    semver: ^7.3.8
+  peerDependencies:
+    postcss: ^7.0.0 || ^8.0.1
+    webpack: ^5.0.0
+  checksum: 44e4018a8f2f81150f501a5ca56e59571d81c965b5a8581f5dbae5e55a113b79bde33c3de0d4397cbf36a3be0c24b7e7e37f0154b6e63df16185edd086d4e352
   languageName: node
   linkType: hard
 
@@ -21428,6 +21471,31 @@ resolve@^2.0.0-next.3:
     sass-embedded:
       optional: true
   checksum: 5d73a428588150f704016aa27397941bb9246cecd2ee083b573e95d969fc080ac6a16f2fe1cc64aca08f6e70da6f3c586ee68f0efc9f527fecc360e5f1c299ec
+  languageName: node
+  linkType: hard
+
+"sass-loader@npm:^13.2.1":
+  version: 13.2.1
+  resolution: "sass-loader@npm:13.2.1"
+  dependencies:
+    klona: ^2.0.6
+    neo-async: ^2.6.2
+  peerDependencies:
+    fibers: ">= 3.1.0"
+    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+    sass: ^1.3.0
+    sass-embedded: "*"
+    webpack: ^5.0.0
+  peerDependenciesMeta:
+    fibers:
+      optional: true
+    node-sass:
+      optional: true
+    sass:
+      optional: true
+    sass-embedded:
+      optional: true
+  checksum: 5823b5f19d8efefeae6935027f4d5ba29bcd64998692e3ae7ef6684ddf5ef754daf98cdea10ebb61052045486cb62e0e07cc8cc999a52872b0d4da3274ecd493
   languageName: node
   linkType: hard
 

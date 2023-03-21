@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = (config) => {
   // config.development.open = '/';
 
-  config.development.hotLoader = true;
+  // config.development.hotLoader = true;
 
   config.development.stats = {
     level: 'normal',
