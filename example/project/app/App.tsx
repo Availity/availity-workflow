@@ -5,7 +5,7 @@ import { Container, Card } from 'reactstrap';
 import { object, string } from 'yup';
 // eslint-disable-next-line import/extensions
 import Form from '@/components/Form';
-import { chain, nullChain } from '@/chain';
+import { chain, nullChain } from './chain';
 
 const App: React.SFC<Record<string, unknown>> = () => (
   <Container className="container-sm">
