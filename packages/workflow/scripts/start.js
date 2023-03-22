@@ -152,7 +152,7 @@ function web() {
 
         Logger.failed('Failed compiling');
         Logger.empty();
-        return reject(json.errors());
+        return reject(json.errors);
       }
 
       return resolve();
@@ -175,7 +175,7 @@ function web() {
       compress: true,
 
       hot: settings.enableHotLoader(),
-      
+
       static: {
         directory: settings.output(),
 
