@@ -19,7 +19,6 @@ const formatWebpackMessages = require('./format');
 
 let server;
 let ekko;
-let previousPercent;
 
 const startupMessage = once(() => {
   const wantedPort = settings.config().development.port;
@@ -88,7 +87,7 @@ function rest() {
 
 function web() {
   return new Promise((resolve, reject) => {
-
+    let previousPercent;
     let webpackConfig;
     const useRspackDangerously = settings.__UNSAFE_EXPERIMENTAL_USE_RSPACK_DEV()
     // Allow production version to run in development
@@ -105,6 +104,19 @@ function web() {
 
     if (typeof modifyWebpackConfig === 'function' && !useRspackDangerously) {
       webpackConfig = modifyWebpackConfig(webpackConfig, settings) || webpackConfig;
+    }
+
+    if (!useRspackDangerously){
+      webpackConfig.plugins.push(
+        new webpack.ProgressPlugin((percentage, msg) => {
+          const percent = Math.round(percentage * 100);
+
+          if (previousPercent !== percent && percent % 10 === 0) {
+            Logger.info(`${chalk.dim('Webpack')} ${percent}% ${msg}`);
+            previousPercent = percent;
+          }
+        })
+      );
     }
 
     const compilerBase = useRspackDangerously ? rspack : webpack;

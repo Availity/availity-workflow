@@ -5,17 +5,8 @@ const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
-<<<<<<< HEAD
-<<<<<<< HEAD
 const webpack = require('webpack');
 const babelPreset = require('./babel-preset');
-=======
-const webpack = require('@rspack/core').rspack;
->>>>>>> 6a4c0de (WIP)
-=======
-const webpack = require('webpack');
-const babelPreset = require('./babel-preset');
->>>>>>> dc270a0 (chore: it's alive)
 const paths = require('./helpers/paths');
 const resolveModule = require('./helpers/resolve-module');
 const html = require('./html');
@@ -237,10 +228,6 @@ const plugin = (settings) => {
             // In production, they would get copied to the `build` folder.
             // This loader doesn't use a "test" so it will catch all modules
             // that fall through the other loaders.
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> dc270a0 (chore: it's alive)
             {
               loader: require.resolve('file-loader'),
               // Exclude `js` files to keep "css" loader working as it injects
@@ -255,23 +242,6 @@ const plugin = (settings) => {
           ]
         }
       ]
-<<<<<<< HEAD
-=======
-            // {
-            //   loader: require.resolve('file-loader'),
-            //   // Exclude `js` files to keep "css" loader working as it injects
-            //   // its runtime that would otherwise be processed through "file" loader.
-            //   // Also exclude `html` and `json` extensions so they get processed
-            //   // by webpack's internal loaders.
-            //   exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
-            //   options: {
-            //     name: 'static/media/[name].[contenthash:8].[ext]'
-            //   }
-            // }
-          ]      
->>>>>>> 6a4c0de (WIP)
-=======
->>>>>>> dc270a0 (chore: it's alive)
     },
     plugins: [
       new webpack.DefinePlugin(settings.globals()),
