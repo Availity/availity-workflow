@@ -152,7 +152,7 @@ function web() {
 
         Logger.failed('Failed compiling');
         Logger.empty();
-        return reject();
+        return reject(json.errors());
       }
 
       return resolve();
@@ -174,10 +174,8 @@ function web() {
       // Enable gzip compression of generated files.
       compress: true,
 
-      hot: true,
-      // compile with warnings
-
-
+      hot: settings.enableHotLoader(),
+      
       static: {
         directory: settings.output(),
 
