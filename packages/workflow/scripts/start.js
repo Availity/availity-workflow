@@ -90,11 +90,12 @@ function web() {
   return new Promise((resolve, reject) => {
 
     let webpackConfig;
+    const useRspackDangerously = settings.__UNSAFE_EXPERIMENTAL_USE_RSPACK_DEV()
     // Allow production version to run in development
     if (settings.isDryRun() && settings.isDevelopment()) {
       Logger.message('Using production webpack settings', 'Dry Run');
       webpackConfig = webpackConfigProduction(settings);
-    } else if(settings.__UNSAFE_EXPERIMENTAL_USE_RSPACK_DEV()){
+    } else if(useRspackDangerously){
       webpackConfig = rspackBaseConfig(settings);
     } else {
       webpackConfig = webpackConfigBase(settings);
@@ -102,11 +103,11 @@ function web() {
 
     const { modifyWebpackConfig } = settings.config();
 
-    if (typeof modifyWebpackConfig === 'function') {
+    if (typeof modifyWebpackConfig === 'function' && !useRspackDangerously) {
       webpackConfig = modifyWebpackConfig(webpackConfig, settings) || webpackConfig;
     }
 
-    const compilerBase = settings.__UNSAFE_EXPERIMENTAL_USE_RSPACK_DEV() ? rspack : webpack;
+    const compilerBase = useRspackDangerously ? rspack : webpack;
 
     const compiler = compilerBase(webpackConfig);
 

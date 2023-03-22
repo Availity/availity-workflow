@@ -35,7 +35,7 @@ const plugin = (settings) => {
 
   const config = {
     builtins: {
-        html: html(settings),
+        html: [html(settings)],
         define: settings.globals(),
     },
         
@@ -141,7 +141,7 @@ const plugin = (settings) => {
        
  
 
-    plugins: [
+    // plugins: [
 
       // new webpack.BannerPlugin({
       //   banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
@@ -154,50 +154,50 @@ const plugin = (settings) => {
       //   banner: `v${getVersion()} - ${new Date().toJSON()}`
       // }),
 
-      new DuplicatePackageCheckerPlugin({
-        verbose: true,
-        exclude(instance) {
-          return (
-            instance.name === 'regenerator-runtime' ||
-            instance.name === 'unist-util-visit-parents' ||
-            instance.name === 'scheduler' ||
-            instance.name === '@babel/runtime'
-          );
-        }
-      }),
+      // new DuplicatePackageCheckerPlugin({
+      //   verbose: true,
+      //   exclude(instance) {
+      //     return (
+      //       instance.name === 'regenerator-runtime' ||
+      //       instance.name === 'unist-util-visit-parents' ||
+      //       instance.name === 'scheduler' ||
+      //       instance.name === '@babel/runtime'
+      //     );
+      //   }
+      // }),
 
       // Ignore all the moment local files
       // new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
 
-      new ESLintPlugin({
-        cache: true,
-        cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
-        quiet: false,
-        emitWarning: true,
-        extensions: ['js', 'jsx', 'ts', 'tsx', 'mjs'],
-        baseConfig: {
-          extends: 'availity/workflow'
-        }
-      }),
-      new CaseSensitivePathsPlugin(),
+      // new ESLintPlugin({
+      //   cache: true,
+      //   cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
+      //   quiet: false,
+      //   emitWarning: true,
+      //   extensions: ['js', 'jsx', 'ts', 'tsx', 'mjs'],
+      //   baseConfig: {
+      //     extends: 'availity/workflow'
+      //   }
+      // }),
+      // new CaseSensitivePathsPlugin(),
 
-    ]
+    // ]
   };
 
-  if (fs.existsSync(paths.appStatic)) {
-    config.plugins.push(
-      new CopyWebpackPlugin({
-        patterns: [
-          {
-            context: paths.appStatic, // copy from this directory
-            from: '**/*', // copy all files
-            to: 'static', // copy into {output}/static folder
-            noErrorOnMissing: false
-          }
-        ]
-      })
-    );
-  }
+  // if (fs.existsSync(paths.appStatic)) {
+  //   config.plugins.push(
+  //     new CopyWebpackPlugin({
+  //       patterns: [
+  //         {
+  //           context: paths.appStatic, // copy from this directory
+  //           from: '**/*', // copy all files
+  //           to: 'static', // copy into {output}/static folder
+  //           noErrorOnMissing: false
+  //         }
+  //       ]
+  //     })
+  //   );
+  // }
 
   // config.plugins.push(new ReactRefreshWebpackPlugin());
 

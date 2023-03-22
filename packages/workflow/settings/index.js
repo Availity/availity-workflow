@@ -423,7 +423,7 @@ const settings = {
     return get(this.configuration, 'experiments', {});
   },
   __UNSAFE_EXPERIMENTAL_USE_RSPACK_DEV() {
-    return argv().useRsPackDev;
+    return argv().useRspackDev;
   }
 };
 
