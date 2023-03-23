@@ -169,7 +169,17 @@ const plugin = (settings) => {
       // Ignore all the moment local files
       new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
 
-      new CaseSensitivePathsPlugin()
+      new CaseSensitivePathsPlugin(),
+      new ESLintPlugin({
+        cache: true,
+        cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
+        quiet: false,
+        emitWarning: true,
+        extensions: ['js', 'jsx', 'ts', 'tsx', 'mjs'],
+        baseConfig: {
+          extends: 'availity/workflow'
+        }
+      })
     ]
   };
 

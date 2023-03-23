@@ -1,7 +1,7 @@
 {
   "name": "example",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "app",
+  "root": "example",
   "targets": {
     "version": {
       "executor": "@jscutlery/semver:version",
@@ -9,38 +9,6 @@
         "preset": "angular",
         "commitMessageFormat": "chore(${projectName}): release version ${version}",
         "tagPrefix": "@availity/${projectName}@"
-      }
-    },
-    "build": {
-      "executor": "@nrwl/rspack:rspack",
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
-      "options": {
-        "target": "web",
-        "outputPath": "dist/example",
-        "main": "example/src/main.ts",
-        "tsConfig": "example/tsconfig.json",
-        "rspackConfig": "example/rspack.config.js",
-        "assets": ["example/src/favicon.ico", "example/src/assets"]
-      },
-      "configurations": {
-        "development": {},
-        "production": {
-          "optimization": true,
-          "sourceMap": false
-        }
-      }
-    },
-    "serve": {
-      "executor": "@nrwl/rspack:dev-server",
-      "options": {
-        "buildTarget": "example:build:development"
-      },
-      "configurations": {
-        "development": {},
-        "production": {
-          "buildTarget": "example:build:production"
-        }
       }
     }
   }
