@@ -2,6 +2,22 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [3.3.0](https://github.com/Availity/availity-workflow/compare/@availity/example@3.2.2...@availity/example@3.3.0) (2023-03-24)
+
+
+### Bug Fixes
+
+* **workflow:** more cleanup ([97fe5f0](https://github.com/Availity/availity-workflow/commit/97fe5f07c751a717cbdab19fe2b347ff5c414a58))
+
+
+### Features
+
+* **example:** update example with esbuild-loader config example and basic tsconfig ([ed11f47](https://github.com/Availity/availity-workflow/commit/ed11f479bcbcb44a1bc568cbe5790d0f80ec63a4))
+* **workflow:** experimental support for rspack as dropin replacement for webpack begins ([79f4faa](https://github.com/Availity/availity-workflow/commit/79f4faa3a6104e7ae59277332855d867268fcc81))
+* **workflow:** rspack is alive ([14eb16b](https://github.com/Availity/availity-workflow/commit/14eb16bcf492dd50f5250854bcf06768a5dc29f9))
+
+
+
 ## [3.2.2](https://github.com/Availity/availity-workflow/compare/@availity/example@3.2.1...@availity/example@3.2.2) (2023-03-17)
 
 
