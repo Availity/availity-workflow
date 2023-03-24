@@ -1,14 +1,16 @@
 const Logger = require('@availity/workflow-logger');
 const chalk = require('chalk');
-const webpack = require('webpack');
+const {rspack} = require('@rspack/core');
 const merge = require('lodash/merge');
 const once = require('lodash/once');
-const ProgressPlugin = require('webpack/lib/ProgressPlugin');
-const WebpackDevSever = require('webpack-dev-server');
+const {RspackDevServer} = require('@rspack/dev-server');
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
 
 const settings = require('../settings');
 const webpackConfigBase = require('../webpack.config');
 const webpackConfigProduction = require('../webpack.config.profile');
+const rspackBaseConfig = require('../rspack.config.dev')
 
 const proxy = require('./proxy');
 const notifier = require('./notifier');
@@ -86,33 +88,40 @@ function rest() {
 function web() {
   return new Promise((resolve, reject) => {
     let previousPercent;
-
     let webpackConfig;
+    const useRspackDangerously = settings.__UNSAFE_EXPERIMENTAL_USE_RSPACK_DEV()
     // Allow production version to run in development
     if (settings.isDryRun() && settings.isDevelopment()) {
       Logger.message('Using production webpack settings', 'Dry Run');
       webpackConfig = webpackConfigProduction(settings);
+    } else if(useRspackDangerously){
+      webpackConfig = rspackBaseConfig(settings);
     } else {
       webpackConfig = webpackConfigBase(settings);
     }
-    webpackConfig.plugins.push(
-      new ProgressPlugin((percentage, msg) => {
-        const percent = Math.round(percentage * 100);
-
-        if (previousPercent !== percent && percent % 10 === 0) {
-          Logger.info(`${chalk.dim('Webpack')} ${percent}% ${msg}`);
-          previousPercent = percent;
-        }
-      })
-    );
 
     const { modifyWebpackConfig } = settings.config();
 
-    if (typeof modifyWebpackConfig === 'function') {
+    if (typeof modifyWebpackConfig === 'function' && !useRspackDangerously) {
       webpackConfig = modifyWebpackConfig(webpackConfig, settings) || webpackConfig;
     }
 
-    const compiler = webpack(webpackConfig);
+    if (!useRspackDangerously){
+      webpackConfig.plugins.push(
+        new webpack.ProgressPlugin((percentage, msg) => {
+          const percent = Math.round(percentage * 100);
+
+          if (previousPercent !== percent && percent % 10 === 0) {
+            Logger.info(`${chalk.dim('Webpack')} ${percent}% ${msg}`);
+            previousPercent = percent;
+          }
+        })
+      );
+    }
+
+    const compilerBase = useRspackDangerously ? rspack : webpack;
+
+    const compiler = compilerBase(webpackConfig);
 
     compiler.hooks.invalid.tap('invalid', () => {
       previousPercent = null;
@@ -121,7 +130,7 @@ function web() {
 
     const openBrowser = once(open);
 
-    compiler.hooks.done.tap('done', (stats) => {
+   compiler.hooks.done.tap('done', (stats) => {
       const hasErrors = stats.hasErrors();
 
       // https://webpack.js.org/configuration/stats/
@@ -153,9 +162,9 @@ function web() {
       client: {
         logging: settings.infrastructureLogLevel(),
         overlay: {
-          errors: false,
-          warnings: false
-        }
+          warnings: false,
+          errors: false
+        },
       },
 
       port: settings.port(),
@@ -185,11 +194,11 @@ function web() {
       devServerOptions.proxy = proxyConfig;
     }
 
-    server = new WebpackDevSever(devServerOptions, compiler);
+    server = settings.__UNSAFE_EXPERIMENTAL_USE_RSPACK_DEV() ? new RspackDevServer(devServerOptions, compiler) : new WebpackDevServer(devServerOptions, compiler);
 
     const runServer = async () => {
       try {
-        Logger.info('Starting development sever');
+        Logger.info('Starting development server');
         await server.start();
         Logger.info('Started development server');
         resolve();

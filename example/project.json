@@ -1,6 +1,7 @@
 {
-  "root": "example",
+  "name": "example",
   "projectType": "app",
+  "root": "example",
   "targets": {
     "version": {
       "executor": "@jscutlery/semver:version",

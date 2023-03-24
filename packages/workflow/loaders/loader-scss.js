@@ -21,6 +21,16 @@ module.exports = {
       }
     ]
   },
+  rspack: {
+    test: /\.s[ac]ss$/,
+    use: [
+      {
+        loader: 'sass-loader',
+      },
+      loaderPostcss,
+    ],
+    type: 'css'
+  },
   production: {
     test: /\.(scss|sass)$/,
     use: [
