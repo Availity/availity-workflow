@@ -2,6 +2,24 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [9.3.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.2.6...@availity/workflow@9.3.0) (2023-03-24)
+
+
+### Bug Fixes
+
+* **workflow:** more cleanup ([97fe5f0](https://github.com/Availity/availity-workflow/commit/97fe5f07c751a717cbdab19fe2b347ff5c414a58))
+
+
+### Features
+
+* **workflow:** experimental support for rspack as dropin replacement for webpack begins ([79f4faa](https://github.com/Availity/availity-workflow/commit/79f4faa3a6104e7ae59277332855d867268fcc81))
+* **workflow:** minor cleanup ([82e0578](https://github.com/Availity/availity-workflow/commit/82e057841da1088f76bd0d64c76f92616b67cfd4))
+* **workflow:** replace dependencies ([1475788](https://github.com/Availity/availity-workflow/commit/14757883d6568ecebb0973daf8440e1ef501ff3e))
+* **workflow:** rspack experimentally working ([20af035](https://github.com/Availity/availity-workflow/commit/20af035ac506c3ee64eab0d8262bbfa3dca81335))
+* **workflow:** rspack is alive ([14eb16b](https://github.com/Availity/availity-workflow/commit/14eb16bcf492dd50f5250854bcf06768a5dc29f9))
+
+
+
 ## [9.2.6](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.2.5...@availity/workflow@9.2.6) (2023-03-17)
 
 
