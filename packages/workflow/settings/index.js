@@ -185,7 +185,7 @@ const settings = {
   },
 
   infrastructureLogLevel() {
-    const level = get(this.configuration, 'development.infrastructureLogging.level', 'warn');
+    const level = get(this.configuration, 'development.infrastructureLogging.level', 'normal');
     return get(argv(), 'development.infrastructureLogging.level', level);
   },
 
