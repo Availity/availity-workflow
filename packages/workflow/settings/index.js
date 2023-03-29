@@ -180,7 +180,7 @@ const settings = {
   },
 
   statsLogLevel() {
-    const level = get(this.configuration, 'development.stats.level', 'minimal');
+    const level = get(this.configuration, 'development.stats.level', 'normal');
     return get(argv(), 'development.stats.level', level);
   },
 

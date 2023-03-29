@@ -36,7 +36,9 @@ const plugin = (settings) => {
     //   level: settings.infrastructureLogLevel()
     // },
 
-    stats: settings.statsLogLevel(),
+    stats: {
+      level: settings.statsLogLevel(),
+    },
 
     entry: {
       index: [
