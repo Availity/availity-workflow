@@ -45,13 +45,13 @@ function about() {
   Logger.simple(message);
   envinfo.run(
     {
-        System: ['OS', 'CPU'],
-        Binaries: ['Node', 'Yarn', 'npm'],
-        Browsers: ['Chrome', 'Firefox', 'Safari'],
-        npmPackages: ['@availity/workflow'],
+      System: ['OS', 'CPU'],
+      Binaries: ['Node', 'Yarn', 'npm'],
+      Browsers: ['Chrome', 'Firefox', 'Safari'],
+      npmPackages: ['@availity/workflow']
     },
     { console: true, showNotFound: true }
-);
+  );
 }
 
 module.exports = about;
