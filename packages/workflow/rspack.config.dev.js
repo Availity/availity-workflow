@@ -20,7 +20,7 @@ const plugin = (settings) => {
             context: paths.appStatic, // copy from this directory
             from: '**/*', // copy all files
             to: 'static', // copy into {output}/static folder
-            noErrorOnMissing: false
+            noErrorOnMissing: true
           }
         ]
       }
@@ -42,7 +42,6 @@ const plugin = (settings) => {
 
     entry: {
       index: [
-        resolveModule(resolveApp, 'shims'),
         resolveModule(resolveApp, 'index')
       ]
     },
