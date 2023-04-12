@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [9.4.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.3.1...@availity/workflow@9.4.0) (2023-04-12)
+
+
+### Bug Fixes
+
+* **workflow:** minor config bug fixes ([7981ba7](https://github.com/Availity/availity-workflow/commit/7981ba7da4eff930edbf0032e7c9ae4edfff5005))
+
+
+### Features
+
+* **workflow:** bump rspack and minor config updates ([b845fd7](https://github.com/Availity/availity-workflow/commit/b845fd7a2c0075f46bca5ef684217dc299dc30f3))
+
+
+
 ## [9.3.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.3.0...@availity/workflow@9.3.1) (2023-03-29)
 
 
