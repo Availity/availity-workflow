@@ -33,7 +33,7 @@
   "dependencies": {
     "@availity/api-axios": "^6.0.8",
     "@availity/breadcrumbs": "^3.3.3",
-    "@availity/favorites": "^2.3.4",
+    "@availity/favorites": "^3.4.3",
     "@availity/form": "^1.7.2",
     "@availity/icon": "^0.11.3",
     "@availity/localstorage-core": "^3.0.0",
