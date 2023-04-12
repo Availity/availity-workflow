@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [3.4.0](https://github.com/Availity/availity-workflow/compare/@availity/example@3.3.0...@availity/example@3.4.0) (2023-04-12)
+
+
+### Features
+
+* **example:** update example workflow config to use rspack safely ([990dc48](https://github.com/Availity/availity-workflow/commit/990dc4832c3f9944b7e46b2a8f82dbe552990400))
+
+
+
 # [3.3.0](https://github.com/Availity/availity-workflow/compare/@availity/example@3.2.2...@availity/example@3.3.0) (2023-03-24)
 
 
