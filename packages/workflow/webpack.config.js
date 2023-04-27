@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const { existsSync } = require('fs');
+const {mergeWith: _mergeWith, uniq: _uniq} = require('lodash');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -17,32 +18,29 @@ const html = require('./html');
 
 process.noDeprecation = true;
 
-const plugin = (settings) => {
-  const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
+// lodash expects customizer to return undefined to let lodash handle the merge
+// eslint-disable-next-line consistent-return
+function customizer(objValue, srcValue) {
+  if (Array.isArray(objValue) && Array.isArray(srcValue)) {
+    // merge and dedup arrays
+    return _uniq([...objValue, ...srcValue]);
+  }
+}
 
-  const babelrcPath = path.join(settings.project(), '.babelrc');
-  const babelrcExists = existsSync(babelrcPath);
+const buildBaseConfig = (settings) => {
+  const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
 
   function getVersion() {
     return settings.pkg().version || 'N/A';
   }
 
   const config = {
-    mode: 'development',
-
-    target: settings.developmentTargets(),
-
-    context: settings.app(),
-
-    // https://webpack.js.org/configuration/experiments/
+      context: settings.app(),
+        // https://webpack.js.org/configuration/experiments/
     experiments: settings.experimentalWebpackFeatures(),
-
     infrastructureLogging: {
       level: settings.infrastructureLogLevel()
     },
-
-    stats: settings.statsLogLevel(),
-
     entry: {
       index: [
         require.resolve('react-app-polyfill/stable'),
@@ -50,15 +48,12 @@ const plugin = (settings) => {
         resolveModule(resolveApp, 'index')
       ]
     },
-
     output: {
       path: settings.output(),
       filename: settings.fileName(),
       chunkFilename: settings.chunkFileName()
     },
-
     devtool: settings.sourceMap(),
-
     resolve: {
       // Tell webpack what directories should be searched when resolving modules
       modules: [
@@ -73,13 +68,47 @@ const plugin = (settings) => {
         path: require.resolve('path-browserify')
       }
     },
-
-    // This set of options is identical to the resolve property set above,
+     // This set of options is identical to the resolve property set above,
     // but is used only to resolve webpack's loader packages.
     resolveLoader: {
       modules: [path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
       symlinks: true
     },
+    plugins: [
+      new webpack.DefinePlugin(settings.globals()),
+
+      new webpack.BannerPlugin({
+        banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
+        test: /\.(js|mjs|jsx|ts|tsx)$/,
+        raw: true,
+        entryOnly: true
+      }),
+
+      new webpack.BannerPlugin({
+        banner: `v${getVersion()} - ${new Date().toJSON()}`
+      }),
+
+      new HtmlWebpackPlugin(html(settings)),
+        // Ignore all the moment local files
+        new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
+
+        new CaseSensitivePathsPlugin(),
+    ]
+  }
+  return config
+}
+const plugin = (settings) => {
+
+  const babelrcPath = path.join(settings.project(), '.babelrc');
+  const babelrcExists = existsSync(babelrcPath);
+  const configBase = buildBaseConfig(settings)
+
+  const overrides = {
+    mode: 'development',
+
+    target: settings.developmentTargets(),
+
+    stats: settings.statsLogLevel(),   
 
     module: {
       rules: [
@@ -140,20 +169,7 @@ const plugin = (settings) => {
     },
 
     plugins: [
-      new webpack.DefinePlugin(settings.globals()),
-
-      new webpack.BannerPlugin({
-        banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
-        test: /\.(js|mjs|jsx|ts|tsx)$/,
-        raw: true,
-        entryOnly: true
-      }),
-
-      new webpack.BannerPlugin({
-        banner: `v${getVersion()} - ${new Date().toJSON()}`
-      }),
-
-      new HtmlWebpackPlugin(html(settings)),
+   
       new DuplicatePackageCheckerPlugin({
         verbose: true,
         exclude(instance) {
@@ -166,10 +182,7 @@ const plugin = (settings) => {
         }
       }),
 
-      // Ignore all the moment local files
-      new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
-
-      new CaseSensitivePathsPlugin(),
+    
       new ESLintPlugin({
         cache: true,
         cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
@@ -184,7 +197,7 @@ const plugin = (settings) => {
   };
 
   if (fs.existsSync(paths.appStatic)) {
-    config.plugins.push(
+    overrides.plugins.push(
       new CopyWebpackPlugin({
         patterns: [
           {
@@ -198,10 +211,10 @@ const plugin = (settings) => {
     );
   }
 
-  config.plugins.push(new ReactRefreshWebpackPlugin());
+  overrides.plugins.push(new ReactRefreshWebpackPlugin());
 
   if (settings.isNotifications()) {
-    config.plugins.push(
+    overrides.plugins.push(
       new WebpackNotifierPlugin({
         contentImage: path.join(__dirname, './public/availity.png'),
         excludeWarnings: true
@@ -211,7 +224,14 @@ const plugin = (settings) => {
 
   // TODO: set up persistent cache options https://webpack.js.org/guides/build-performance/#persistent-cache
 
-  return config;
+  // create configg loop through overrides, check if property exists in base config, if not in base config, add it
+  // if already exists safely and deeply merge the two properties so that for example, if we are merging objects a and b
+  // if a.c is an array and b.c is an array then we merge the two arrays and deduplicate them, if they are objects then we
+  // recursively merge the two objects, etc.
+  return _mergeWith(configBase, overrides, customizer);
+ 
 };
 
-module.exports = plugin;
+exports.default = plugin
+exports.buildBaseConfig = buildBaseConfig
+exports.customizer = customizer

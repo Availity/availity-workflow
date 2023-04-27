@@ -1,16 +1,13 @@
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const fs = require('fs');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {mergeWith: _mergeWith} = require('lodash')
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
-const webpack = require('webpack');
 const babelPreset = require('./babel-preset');
 const paths = require('./helpers/paths');
-const resolveModule = require('./helpers/resolve-module');
-const html = require('./html');
 const loaders = require('./loaders');
+const {buildBaseConfig, customizer} = require('./webpack.config'); 
 
 process.noDeprecation = true;
 
@@ -22,35 +19,15 @@ process.env.BROWSERSLIST = 'defaults';
 const plugin = (settings) => {
   const babelrcPath = path.join(settings.project(), '.babelrc');
   const babelrcExists = fs.existsSync(babelrcPath);
-  const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
 
-  function getVersion() {
-    return settings.pkg().version || 'N/A';
-  }
-
-  const config = {
+  const baseConfig = buildBaseConfig(settings)
+  
+  const overrides = {
     mode: 'production',
 
     // Using an explicit browserslist query will override any project configs
     // This is fine because we need to ensure our targets in the portal
     target: 'browserslist: defaults',
-
-    context: settings.app(),
-
-    // https://webpack.js.org/configuration/experiments/
-    experiments: settings.experimentalWebpackFeatures(),
-
-    infrastructureLogging: {
-      level: settings.infrastructureLogLevel()
-    },
-
-    entry: {
-      index: [
-        require.resolve('react-app-polyfill/stable'),
-        require.resolve('navigator.sendbeacon'),
-        resolveModule(resolveApp, 'index')
-      ]
-    },
 
     optimization: {
       splitChunks: {
@@ -116,37 +93,10 @@ const plugin = (settings) => {
     },
 
     output: {
-      path: settings.output(),
-      filename: settings.fileName(),
-      chunkFilename: settings.chunkFileName(),
       devtoolModuleFilenameTemplate: (info) =>
         `webpack:///${path.relative(settings.project(), info.absoluteResourcePath)}${
           info.loaders ? `?${info.loaders}` : ''
         }`
-    },
-
-    devtool: settings.sourceMap(),
-
-    resolve: {
-      // Tell webpack what directories should be searched when resolving modules
-      modules: [
-        settings.app(),
-        'node_modules',
-        path.join(settings.project(), 'node_modules'),
-        path.join(__dirname, 'node_modules')
-      ],
-      symlinks: true,
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss'],
-      fallback: {
-        path: require.resolve('path-browserify')
-      }
-    },
-
-    // This set of options is identical to the resolve property set above,
-    // but is used only to resolve webpack's loader packages.
-    resolveLoader: {
-      modules: [path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
-      symlinks: true
     },
 
     module: {
@@ -244,25 +194,6 @@ const plugin = (settings) => {
       ]
     },
     plugins: [
-      new webpack.DefinePlugin(settings.globals()),
-
-      new webpack.BannerPlugin({
-        banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
-        test: /\.jsx?/,
-        raw: true,
-        entryOnly: true
-      }),
-
-      new webpack.BannerPlugin({
-        banner: `v${getVersion()} - ${new Date().toJSON()}`
-      }),
-
-      new HtmlWebpackPlugin(html(settings)),
-
-      // Ignore all the moment local files
-      new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
-
-      new CaseSensitivePathsPlugin(),
 
       new loaders.MiniCssExtractPlugin({
         filename: 'css/[name]-[contenthash:8].chunk.css'
@@ -271,7 +202,7 @@ const plugin = (settings) => {
   };
 
   if (fs.existsSync(paths.appStatic)) {
-    config.plugins.push(
+    overrides.plugins.push(
       new CopyWebpackPlugin({
         patterns: [
           {
@@ -286,7 +217,7 @@ const plugin = (settings) => {
   }
 
   if (settings.isProduction() && !settings.shouldMimicStaging) {
-    config.optimization.minimizer.push(
+    overrides.optimization.minimizer.push(
       new TerserPlugin({
         terserOptions: {
           parse: {
@@ -329,6 +260,8 @@ const plugin = (settings) => {
       new CssMinimizerPlugin()
     );
   }
+
+  const config = _mergeWith(baseConfig, overrides, customizer)
 
   return config;
 };
