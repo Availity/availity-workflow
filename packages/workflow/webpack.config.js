@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const { existsSync } = require('fs');
-const {mergeWith: _mergeWith, uniq: _uniq} = require('lodash');
+const {merge: _merge} = require('lodash');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -17,15 +17,6 @@ const resolveModule = require('./helpers/resolve-module');
 const html = require('./html');
 
 process.noDeprecation = true;
-
-// lodash expects customizer to return undefined to let lodash handle the merge
-// eslint-disable-next-line consistent-return
-function customizer(objValue, srcValue) {
-  if (Array.isArray(objValue) && Array.isArray(srcValue)) {
-    // merge and dedup arrays
-    return _uniq([...objValue, ...srcValue]);
-  }
-}
 
 const buildBaseConfig = (settings) => {
   const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
@@ -169,6 +160,7 @@ const plugin = (settings) => {
     },
 
     plugins: [
+      ...configBase.plugins,
    
       new DuplicatePackageCheckerPlugin({
         verbose: true,
@@ -223,15 +215,9 @@ const plugin = (settings) => {
   }
 
   // TODO: set up persistent cache options https://webpack.js.org/guides/build-performance/#persistent-cache
-
-  // create configg loop through overrides, check if property exists in base config, if not in base config, add it
-  // if already exists safely and deeply merge the two properties so that for example, if we are merging objects a and b
-  // if a.c is an array and b.c is an array then we merge the two arrays and deduplicate them, if they are objects then we
-  // recursively merge the two objects, etc.
-  return _mergeWith(configBase, overrides, customizer);
+  return _merge(configBase, overrides);
  
 };
 
-exports.default = plugin
-exports.buildBaseConfig = buildBaseConfig
-exports.customizer = customizer
+module.exports = plugin
+module.exports.buildBaseConfig = buildBaseConfig

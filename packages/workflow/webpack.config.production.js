@@ -1,13 +1,16 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const fs = require('fs');
-const {mergeWith: _mergeWith} = require('lodash')
+const webpack = require('webpack');
+const {merge: _merge} = require('lodash')
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const babelPreset = require('./babel-preset');
 const paths = require('./helpers/paths');
 const loaders = require('./loaders');
-const {buildBaseConfig, customizer} = require('./webpack.config'); 
+const conf = require('./webpack.config');
+
+const {buildBaseConfig} = conf;
 
 process.noDeprecation = true;
 
@@ -21,6 +24,9 @@ const plugin = (settings) => {
   const babelrcExists = fs.existsSync(babelrcPath);
 
   const baseConfig = buildBaseConfig(settings)
+  function getVersion() {
+    return settings.pkg().version || 'N/A';
+  }
   
   const overrides = {
     mode: 'production',
@@ -93,6 +99,7 @@ const plugin = (settings) => {
     },
 
     output: {
+      ...baseConfig.output,
       devtoolModuleFilenameTemplate: (info) =>
         `webpack:///${path.relative(settings.project(), info.absoluteResourcePath)}${
           info.loaders ? `?${info.loaders}` : ''
@@ -194,12 +201,19 @@ const plugin = (settings) => {
       ]
     },
     plugins: [
-
+      ...baseConfig.plugins,
       new loaders.MiniCssExtractPlugin({
         filename: 'css/[name]-[contenthash:8].chunk.css'
       })
     ]
   };
+
+  overrides.plugins[1] = new webpack.BannerPlugin({
+    banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
+    test: /\.(jsx|tsx)?/,
+    raw: true,
+    entryOnly: true
+  });
 
   if (fs.existsSync(paths.appStatic)) {
     overrides.plugins.push(
@@ -261,7 +275,7 @@ const plugin = (settings) => {
     );
   }
 
-  const config = _mergeWith(baseConfig, overrides, customizer)
+  const config = _merge(baseConfig, overrides)
 
   return config;
 };
