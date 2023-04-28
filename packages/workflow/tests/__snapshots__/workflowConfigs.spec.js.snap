@@ -297,15 +297,6 @@ Object {
       },
       "version": 5,
     },
-    DuplicatePackageCheckerPlugin {
-      "options": Object {
-        "emitError": false,
-        "exclude": [Function],
-        "showHelp": true,
-        "strict": true,
-        "verbose": true,
-      },
-    },
     IgnorePlugin {
       "checkIgnore": [Function],
       "options": Object {
@@ -552,6 +543,15 @@ Object {
       "options": Object {},
       "pathCache": Map {},
       "primed": false,
+    },
+    DuplicatePackageCheckerPlugin {
+      "options": Object {
+        "emitError": false,
+        "exclude": [Function],
+        "showHelp": true,
+        "strict": true,
+        "verbose": true,
+      },
     },
     ESLintWebpackPlugin {
       "key": "ESLintWebpackPlugin",
@@ -995,7 +995,7 @@ Object {
         "banner": "APP_VERSION=\\"N/A\\";",
         "entryOnly": true,
         "raw": true,
-        "test": /\\\\\\.jsx\\?/,
+        "test": /\\\\\\.\\(jsx\\|tsx\\)\\?/,
       },
     },
     BannerPlugin {
@@ -1310,7 +1310,7 @@ Object {
 exports[`webpack configs sets up the profile config with default settings 1`] = `
 Object {
   "context": "/Users/bnewman/repositories/availity-workflow/project/app",
-  "devtool": "cheap-module-source-map",
+  "devtool": "source-map",
   "entry": Object {
     "index": Array [
       "/Users/bnewman/repositories/availity-workflow/node_modules/react-app-polyfill/stable.js",
@@ -1326,243 +1326,283 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "test": /node_modules\\\\/vfile\\\\/core\\\\\\.js/,
-        "use": Array [
+        "oneOf": Array [
           Object {
-            "loader": "imports-loader",
-            "options": Object {
-              "imports": Array [
-                "single process/browser process",
-              ],
-              "type": "commonjs",
-            },
+            "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]vfile\\[/\\\\\\\\\\]core\\\\\\.js/,
+            "use": Array [
+              Object {
+                "loader": "imports-loader",
+                "options": Object {
+                  "imports": Array [
+                    "single process/browser process",
+                  ],
+                  "type": "commonjs",
+                },
+              },
+            ],
           },
-        ],
-      },
-      Object {
-        "include": Array [
-          "/Users/bnewman/repositories/availity-workflow/project/app",
-          /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
-        ],
-        "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
-        "use": Array [
           Object {
+            "include": Array [
+              "/Users/bnewman/repositories/availity-workflow/project/app",
+              /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
+            ],
+            "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
+            "use": Array [
+              Object {
+                "loader": "babel-loader",
+                "options": Object {
+                  "babelrc": false,
+                  "cacheCompression": false,
+                  "cacheDirectory": true,
+                  "presets": Array [
+                    [Function],
+                  ],
+                },
+              },
+            ],
+          },
+          Object {
+            "exclude": Array [
+              "/Users/bnewman/repositories/availity-workflow/project/app",
+              /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
+              /@babel\\(\\?:\\\\/\\|\\\\\\\\\\{1,2\\}\\)runtime/,
+            ],
             "loader": "babel-loader",
             "options": Object {
               "babelrc": false,
-              "cacheDirectory": false,
+              "cacheCompression": false,
+              "cacheDirectory": true,
+              "compact": false,
+              "configFile": false,
               "presets": Array [
-                [Function],
+                Array [
+                  "/Users/bnewman/repositories/availity-workflow/node_modules/babel-preset-react-app/dependencies.js",
+                  Object {
+                    "helpers": true,
+                  },
+                ],
               ],
             },
+            "test": /\\\\\\.\\(js\\|mjs\\)\\$/,
           },
-        ],
-      },
-      Object {
-        "resolve": Object {
-          "fullySpecified": false,
-        },
-        "test": /\\\\\\.m\\?js/,
-      },
-      Object {
-        "test": /\\\\\\.css\\$/,
-        "use": Array [
           Object {
-            "loader": "/Users/bnewman/repositories/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
-            "options": Object {
-              "publicPath": "auto",
+            "resolve": Object {
+              "fullySpecified": false,
             },
+            "test": /\\\\\\.m\\?js/,
           },
           Object {
-            "loader": "css-loader",
-            "options": Object {
-              "importLoaders": 1,
-              "sourceMap": true,
-            },
-          },
-          Object {
-            "loader": "postcss-loader",
-            "options": Object {
-              "postcssOptions": Object {
-                "plugins": Array [
-                  Object {
-                    "Rule": [Function],
-                    "postcssPlugin": "postcss-focus",
-                  },
-                  Object {
-                    "Once": [Function],
-                    "postcssPlugin": "postcss-flexbugs-fixes",
-                  },
-                  Object {
+            "test": /\\\\\\.css\\$/,
+            "use": Array [
+              Object {
+                "loader": "/Users/bnewman/repositories/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "options": Object {
+                  "publicPath": "auto",
+                },
+              },
+              Object {
+                "loader": "css-loader",
+                "options": Object {
+                  "importLoaders": 1,
+                  "sourceMap": true,
+                },
+              },
+              Object {
+                "loader": "postcss-loader",
+                "options": Object {
+                  "postcssOptions": Object {
                     "plugins": Array [
                       Object {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-unset-value",
-                      },
-                      Object {
-                        "postcssPlugin": "postcss-custom-properties",
-                        "prepare": [Function],
-                      },
-                      Object {
-                        "AtRule": Object {
-                          "custom-media": [Function],
-                          "media": [Function],
-                        },
-                        "postcssPlugin": "postcss-media-minmax",
-                      },
-                      Object {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-initial",
-                      },
-                      Object {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-page-break",
+                        "Rule": [Function],
+                        "postcssPlugin": "postcss-focus",
                       },
                       Object {
                         "Once": [Function],
-                        "postcssPlugin": "postcss-font-variant",
+                        "postcssPlugin": "postcss-flexbugs-fixes",
                       },
                       Object {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-gap-properties",
-                      },
-                      Object {
-                        "browsers": undefined,
-                        "info": [Function],
-                        "options": Object {
-                          "flexbox": "no-2009",
-                          "overrideBrowserslist": undefined,
-                        },
-                        "postcssPlugin": "autoprefixer",
-                        "prepare": [Function],
-                      },
-                      Object {
-                        "RuleExit": [Function],
-                        "postcssPlugin": "postcss-progressive-custom-properties",
+                        "plugins": Array [
+                          Object {
+                            "Declaration": [Function],
+                            "postcssPlugin": "postcss-unset-value",
+                          },
+                          Object {
+                            "postcssPlugin": "postcss-custom-properties",
+                            "prepare": [Function],
+                          },
+                          Object {
+                            "AtRule": Object {
+                              "custom-media": [Function],
+                              "media": [Function],
+                            },
+                            "postcssPlugin": "postcss-media-minmax",
+                          },
+                          Object {
+                            "Declaration": [Function],
+                            "postcssPlugin": "postcss-initial",
+                          },
+                          Object {
+                            "Declaration": [Function],
+                            "postcssPlugin": "postcss-page-break",
+                          },
+                          Object {
+                            "Once": [Function],
+                            "postcssPlugin": "postcss-font-variant",
+                          },
+                          Object {
+                            "Declaration": [Function],
+                            "postcssPlugin": "postcss-gap-properties",
+                          },
+                          Object {
+                            "browsers": undefined,
+                            "info": [Function],
+                            "options": Object {
+                              "flexbox": "no-2009",
+                              "overrideBrowserslist": undefined,
+                            },
+                            "postcssPlugin": "autoprefixer",
+                            "prepare": [Function],
+                          },
+                          Object {
+                            "RuleExit": [Function],
+                            "postcssPlugin": "postcss-progressive-custom-properties",
+                          },
+                          Object {
+                            "OnceExit": [Function],
+                            "postcssPlugin": "postcss-preset-env",
+                          },
+                        ],
+                        "postcssPlugin": "postcss-preset-env",
                       },
                       Object {
                         "OnceExit": [Function],
-                        "postcssPlugin": "postcss-preset-env",
+                        "postcssPlugin": "postcss-reporter",
                       },
                     ],
-                    "postcssPlugin": "postcss-preset-env",
                   },
-                  Object {
-                    "OnceExit": [Function],
-                    "postcssPlugin": "postcss-reporter",
-                  },
-                ],
+                  "sourceMap": true,
+                },
               },
-              "sourceMap": true,
-            },
+            ],
           },
-        ],
-      },
-      Object {
-        "test": /\\\\\\.\\(scss\\|sass\\)\\$/,
-        "use": Array [
           Object {
-            "loader": "/Users/bnewman/repositories/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
-            "options": Object {
-              "publicPath": "auto",
-            },
-          },
-          "css-loader",
-          Object {
-            "loader": "postcss-loader",
-            "options": Object {
-              "postcssOptions": Object {
-                "plugins": Array [
-                  Object {
-                    "Rule": [Function],
-                    "postcssPlugin": "postcss-focus",
-                  },
-                  Object {
-                    "Once": [Function],
-                    "postcssPlugin": "postcss-flexbugs-fixes",
-                  },
-                  Object {
+            "test": /\\\\\\.\\(scss\\|sass\\)\\$/,
+            "use": Array [
+              Object {
+                "loader": "/Users/bnewman/repositories/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "options": Object {
+                  "publicPath": "auto",
+                },
+              },
+              "css-loader",
+              Object {
+                "loader": "postcss-loader",
+                "options": Object {
+                  "postcssOptions": Object {
                     "plugins": Array [
                       Object {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-unset-value",
-                      },
-                      Object {
-                        "postcssPlugin": "postcss-custom-properties",
-                        "prepare": [Function],
-                      },
-                      Object {
-                        "AtRule": Object {
-                          "custom-media": [Function],
-                          "media": [Function],
-                        },
-                        "postcssPlugin": "postcss-media-minmax",
-                      },
-                      Object {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-initial",
-                      },
-                      Object {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-page-break",
+                        "Rule": [Function],
+                        "postcssPlugin": "postcss-focus",
                       },
                       Object {
                         "Once": [Function],
-                        "postcssPlugin": "postcss-font-variant",
+                        "postcssPlugin": "postcss-flexbugs-fixes",
                       },
                       Object {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-gap-properties",
-                      },
-                      Object {
-                        "browsers": undefined,
-                        "info": [Function],
-                        "options": Object {
-                          "flexbox": "no-2009",
-                          "overrideBrowserslist": undefined,
-                        },
-                        "postcssPlugin": "autoprefixer",
-                        "prepare": [Function],
-                      },
-                      Object {
-                        "RuleExit": [Function],
-                        "postcssPlugin": "postcss-progressive-custom-properties",
+                        "plugins": Array [
+                          Object {
+                            "Declaration": [Function],
+                            "postcssPlugin": "postcss-unset-value",
+                          },
+                          Object {
+                            "postcssPlugin": "postcss-custom-properties",
+                            "prepare": [Function],
+                          },
+                          Object {
+                            "AtRule": Object {
+                              "custom-media": [Function],
+                              "media": [Function],
+                            },
+                            "postcssPlugin": "postcss-media-minmax",
+                          },
+                          Object {
+                            "Declaration": [Function],
+                            "postcssPlugin": "postcss-initial",
+                          },
+                          Object {
+                            "Declaration": [Function],
+                            "postcssPlugin": "postcss-page-break",
+                          },
+                          Object {
+                            "Once": [Function],
+                            "postcssPlugin": "postcss-font-variant",
+                          },
+                          Object {
+                            "Declaration": [Function],
+                            "postcssPlugin": "postcss-gap-properties",
+                          },
+                          Object {
+                            "browsers": undefined,
+                            "info": [Function],
+                            "options": Object {
+                              "flexbox": "no-2009",
+                              "overrideBrowserslist": undefined,
+                            },
+                            "postcssPlugin": "autoprefixer",
+                            "prepare": [Function],
+                          },
+                          Object {
+                            "RuleExit": [Function],
+                            "postcssPlugin": "postcss-progressive-custom-properties",
+                          },
+                          Object {
+                            "OnceExit": [Function],
+                            "postcssPlugin": "postcss-preset-env",
+                          },
+                        ],
+                        "postcssPlugin": "postcss-preset-env",
                       },
                       Object {
                         "OnceExit": [Function],
-                        "postcssPlugin": "postcss-preset-env",
+                        "postcssPlugin": "postcss-reporter",
                       },
                     ],
-                    "postcssPlugin": "postcss-preset-env",
                   },
-                  Object {
-                    "OnceExit": [Function],
-                    "postcssPlugin": "postcss-reporter",
-                  },
-                ],
+                  "sourceMap": true,
+                },
               },
-              "sourceMap": true,
-            },
+              Object {
+                "loader": "sass-loader",
+                "options": Object {
+                  "sourceMap": true,
+                },
+              },
+            ],
           },
           Object {
-            "loader": "sass-loader",
+            "generator": Object {
+              "filename": "fonts/[name].[ext]",
+            },
+            "test": /font\\\\\\.\\(woff\\|woff2\\|eot\\|ttf\\|otf\\|svg\\)\\$/i,
+            "type": "asset/resource",
+          },
+          Object {
+            "test": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\)\\$/i,
+            "use": Array [
+              "url-loader?name=images/[name].[ext]&limit=10000",
+            ],
+          },
+          Object {
+            "exclude": Array [
+              /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
+              /\\\\\\.html\\$/,
+              /\\\\\\.json\\$/,
+            ],
+            "loader": "/Users/bnewman/repositories/availity-workflow/node_modules/file-loader/dist/cjs.js",
             "options": Object {
-              "sourceMap": true,
+              "name": "static/media/[name].[contenthash:8].[ext]",
             },
           },
-        ],
-      },
-      Object {
-        "generator": Object {
-          "filename": "fonts/[name].[ext]",
-        },
-        "test": /font\\\\\\.\\(woff\\|woff2\\|eot\\|ttf\\|otf\\|svg\\)\\$/i,
-        "type": "asset/resource",
-      },
-      Object {
-        "test": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\)\\$/i,
-        "use": Array [
-          "url-loader?name=images/[name].[ext]&limit=10000",
         ],
       },
     ],
@@ -1579,6 +1619,8 @@ Object {
           "reuseExistingChunk": true,
         },
         "defaultVendors": Object {
+          "chunks": "all",
+          "idHint": "defaultVendors",
           "priority": -10,
           "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]/,
         },
@@ -1610,6 +1652,8 @@ Object {
     },
   },
   "output": Object {
+    "chunkFilename": "[name].chunk.js",
+    "devtoolModuleFilenameTemplate": [Function],
     "filename": "[name].js",
     "path": "/Users/bnewman/repositories/availity-workflow/build",
   },
@@ -1629,7 +1673,7 @@ Object {
         "banner": "APP_VERSION=\\"N/A\\";",
         "entryOnly": true,
         "raw": true,
-        "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
+        "test": /\\\\\\.\\(jsx\\|tsx\\)\\?/,
       },
     },
     BannerPlugin {
@@ -1638,56 +1682,13 @@ Object {
         "banner": "vN/A - 2023-03-28T16:07:07.909Z",
       },
     },
-    BundleAnalyzerPlugin {
-      "logger": Logger {
-        "activeLevels": Set {
-          "info",
-          "warn",
-          "error",
-          "silent",
-        },
+    HtmlWebpackPlugin {
+      "userOptions": Object {
+        "favicon": "../../packages/workflow/public/favicon.ico",
+        "template": "../../packages/workflow/public/index.html",
+        "title": "Availity",
       },
-      "opts": Object {
-        "analyzerHost": "127.0.0.1",
-        "analyzerMode": "static",
-        "analyzerPort": 8888,
-        "analyzerUrl": [Function],
-        "defaultSizes": "parsed",
-        "excludeAssets": null,
-        "generateStatsFile": false,
-        "logLevel": "info",
-        "openAnalyzer": true,
-        "reportFilename": "profile.html",
-        "reportTitle": [Function],
-        "startAnalyzer": true,
-        "statsFilename": "stats.json",
-        "statsOptions": null,
-      },
-      "server": null,
-    },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": Object {
-        "chunkFilename": "css/[name]-[contenthash:8].chunk.css",
-        "experimentalUseImportModule": undefined,
-        "filename": "css/[name]-[contenthash:8].chunk.css",
-        "ignoreOrder": false,
-        "runtime": true,
-      },
-      "runtimeOptions": Object {
-        "attributes": undefined,
-        "insert": undefined,
-        "linkType": "text/css",
-      },
-    },
-    DuplicatePackageCheckerPlugin {
-      "options": Object {
-        "emitError": false,
-        "exclude": [Function],
-        "showHelp": true,
-        "strict": true,
-        "verbose": false,
-      },
+      "version": 5,
     },
     IgnorePlugin {
       "checkIgnore": [Function],
@@ -1935,6 +1936,57 @@ Object {
       "options": Object {},
       "pathCache": Map {},
       "primed": false,
+    },
+    MiniCssExtractPlugin {
+      "_sortedModulesCache": WeakMap {},
+      "options": Object {
+        "chunkFilename": "css/[name]-[contenthash:8].chunk.css",
+        "experimentalUseImportModule": undefined,
+        "filename": "css/[name]-[contenthash:8].chunk.css",
+        "ignoreOrder": false,
+        "runtime": true,
+      },
+      "runtimeOptions": Object {
+        "attributes": undefined,
+        "insert": undefined,
+        "linkType": "text/css",
+      },
+    },
+    BundleAnalyzerPlugin {
+      "logger": Logger {
+        "activeLevels": Set {
+          "info",
+          "warn",
+          "error",
+          "silent",
+        },
+      },
+      "opts": Object {
+        "analyzerHost": "127.0.0.1",
+        "analyzerMode": "static",
+        "analyzerPort": 8888,
+        "analyzerUrl": [Function],
+        "defaultSizes": "parsed",
+        "excludeAssets": null,
+        "generateStatsFile": false,
+        "logLevel": "info",
+        "openAnalyzer": true,
+        "reportFilename": "profile.html",
+        "reportTitle": [Function],
+        "startAnalyzer": true,
+        "statsFilename": "stats.json",
+        "statsOptions": null,
+      },
+      "server": null,
+    },
+    DuplicatePackageCheckerPlugin {
+      "options": Object {
+        "emitError": false,
+        "exclude": [Function],
+        "showHelp": true,
+        "strict": true,
+        "verbose": false,
+      },
     },
   ],
   "resolve": Object {
