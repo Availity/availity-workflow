@@ -16,7 +16,7 @@ const Form: React.SFC<FormikProps<FormValues>> = ({ handleSubmit, handleReset })
       <Button color="secondary" onClick={handleReset}>
         Reset
       </Button>
-      <Button color="primary" className="ml-2">
+      <Button type="submit" color="primary" className="ml-2">
         Submit
       </Button>
     </CardFooter>

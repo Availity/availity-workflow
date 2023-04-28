@@ -24,7 +24,7 @@ const App: React.SFC<Record<string, unknown>> = () => (
         nullishCoalescedField: string().required('This field is required.'),
       })}
     >
-      {Form}
+      <Form />
     </Card>
   </Container>
 );
