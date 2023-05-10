@@ -236,7 +236,7 @@ const plugin = (settings) => {
               // by webpack's internal loaders.
               exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
               options: {
-                name: 'static/media/[name].[contenthash:8].[ext]'
+                name: 'static/media/[name:200].[contenthash:8].[ext]'
               }
             }
           ]
