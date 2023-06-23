@@ -1,7 +1,7 @@
 
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const {merge: _merge} =require('lodash');
+const _merge =require('lodash/merge');
 const buildProdConfig = require('./webpack.config.production')
 
 process.noDeprecation = true;
@@ -34,7 +34,7 @@ const plugin = (settings) => {
     ]
   };
 
-  return _merge(baseProdConfig, overrides)
+  return _merge({}, baseProdConfig, overrides)
 };
 
 module.exports = plugin;

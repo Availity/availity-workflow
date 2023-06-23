@@ -2,7 +2,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const fs = require('fs');
 const webpack = require('webpack');
-const {merge: _merge} = require('lodash')
+const _merge = require('lodash/merge')
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const babelPreset = require('./babel-preset');
@@ -275,7 +275,7 @@ const plugin = (settings) => {
     );
   }
 
-  const config = _merge(baseConfig, overrides)
+  const config = _merge({}, baseConfig, overrides)
 
   return config;
 };

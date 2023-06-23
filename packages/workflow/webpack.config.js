@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const { existsSync } = require('fs');
-const {merge: _merge} = require('lodash');
+const _merge = require('lodash/merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -215,7 +215,7 @@ const plugin = (settings) => {
   }
 
   // TODO: set up persistent cache options https://webpack.js.org/guides/build-performance/#persistent-cache
-  return _merge(configBase, overrides);
+  return _merge({}, configBase, overrides);
  
 };
 
