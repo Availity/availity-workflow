@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.4.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.4.2...@availity/workflow@9.4.3) (2023-06-23)
+
+
+### Bug Fixes
+
+* **workflow:** fix lodash merge issues ([7cc8bbc](https://github.com/Availity/availity-workflow/commit/7cc8bbc1c67fa758b50248af4c9a8594e8302ef5))
+
+
+
 ## [9.4.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.4.1...@availity/workflow@9.4.2) (2023-05-11)
 
 
