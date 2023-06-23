@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [9.5.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.4.3...@availity/workflow@9.5.0) (2023-06-23)
+
+
+### Features
+
+* **workflow:** add axios to default jest transform ignore after they switched to ESM ([d375a67](https://github.com/Availity/availity-workflow/commit/d375a67cafcc69ec59c91414ca5f29c026632b72))
+
+
+
 ## [9.4.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.4.2...@availity/workflow@9.4.3) (2023-06-23)
 
 
