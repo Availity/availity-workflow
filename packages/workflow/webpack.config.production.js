@@ -208,13 +208,6 @@ const plugin = (settings) => {
     ]
   };
 
-  overrides.plugins[1] = new webpack.BannerPlugin({
-    banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
-    test: /\.(jsx|tsx)?/,
-    raw: true,
-    entryOnly: true
-  });
-
   if (fs.existsSync(paths.appStatic)) {
     overrides.plugins.push(
       new CopyWebpackPlugin({
