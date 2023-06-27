@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.5.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.0...@availity/workflow@9.5.1) (2023-06-27)
+
+
+### Bug Fixes
+
+* **workflow:** fix prod webpack config ([3432fb0](https://github.com/Availity/availity-workflow/commit/3432fb00f1421b7f66d25a7b1ac78831993f498d))
+
+
+
 # [9.5.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.4.3...@availity/workflow@9.5.0) (2023-06-23)
 
 
