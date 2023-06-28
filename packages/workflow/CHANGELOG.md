@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.5.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.1...@availity/workflow@9.5.2) (2023-06-28)
+
+
+### Bug Fixes
+
+* **workflow:** typo fix ([36c5080](https://github.com/Availity/availity-workflow/commit/36c5080fa5957bbac753f319a86d4abbc512aebb))
+
+
+
 ## [9.5.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.0...@availity/workflow@9.5.1) (2023-06-27)
 
 
