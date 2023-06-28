@@ -54,7 +54,7 @@ const buildBaseConfig = (settings) => {
         path.join(__dirname, 'node_modules')
       ],
       symlinks: true,
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', 'scss'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', '.scss'],
       fallback: {
         path: require.resolve('path-browserify')
       }
