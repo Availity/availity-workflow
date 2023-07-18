@@ -15,7 +15,7 @@
     "api"
   ],
   "engines": {
-    "node": ">=10.0.0"
+    "node": "^16.0.0 || ^18.0.0"
   },
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "license": "MIT",
