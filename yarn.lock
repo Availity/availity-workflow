@@ -395,7 +395,7 @@ __metadata:
     "@docusaurus/core": ^2.4.1
     "@docusaurus/preset-classic": ^2.4.1
     "@mdx-js/react": ^2.3.0
-    clsx: ^1.2.1
+    clsx: ^2.0.0
     react: ^16.14.0
     react-dom: ^16.14.0
   languageName: unknown
@@ -417,11 +417,11 @@ __metadata:
     "@availity/yup": ^5.1.2
     "@testing-library/react": ^12.1.5
     "@types/jest": ^27.5.2
-    "@types/node": ^16.18.11
+    "@types/node": ^20.4.5
     "@types/react": ^16.14.35
     "@types/react-dom": ^16.9.17
     "@types/reactstrap": ^8.7.2
-    "@types/yup": ^0.29.14
+    "@types/yup": ^0.32.0
     availity-uikit: ^4.4.0
     axios: ^1.4.0
     classnames: ^2.3.2
@@ -441,7 +441,7 @@ __metadata:
     reactstrap: ^8.10.1
     tsconfig-paths-webpack-plugin: ^4.1.0
     typescript: ^4.9.5
-    yup: ^0.32.11
+    yup: ^1.2.0
   languageName: unknown
   linkType: soft
 
@@ -799,7 +799,7 @@ __metadata:
     "@rspack/dev-server": ^0.2.9
     "@testing-library/jest-dom": ^5.17.0
     "@testing-library/react": ^12.1.5
-    "@types/sass": ^1.43.1
+    "@types/sass": ^1.45.0
     babel-jest: ^29.6.1
     babel-loader: ^9.1.3
     babel-plugin-jsx-remove-data-test-id: 3.0.0
@@ -8451,17 +8451,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.18.11":
-  version: 16.18.11
-  resolution: "@types/node@npm:16.18.11"
-  checksum: 2a3b1da13063debe6e26f732defb5f03ef4ef732c3e08daba838d8850433bd00e537ce1a97ce9bcfc4b15db5218d701d1265fae94e0d6926906bec157e6b46e0
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:^17.0.5":
   version: 17.0.45
   resolution: "@types/node@npm:17.0.45"
   checksum: aa04366b9103b7d6cfd6b2ef64182e0eaa7d4462c3f817618486ea0422984c51fc69fd0d436eae6c9e696ddfdbec9ccaa27a917f7c2e8c75c5d57827fe3d95e8
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.4.5":
+  version: 20.4.5
+  resolution: "@types/node@npm:20.4.5"
+  checksum: 36a0304a8dc346a1b2d2edac4c4633eecf70875793d61a5274d0df052d7a7af7a8e34f29884eac4fbd094c4f0201477dcb39c0ecd3307ca141688806538d1138
   languageName: node
   linkType: hard
 
@@ -8651,12 +8651,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/sass@npm:^1.43.1":
-  version: 1.43.1
-  resolution: "@types/sass@npm:1.43.1"
+"@types/sass@npm:^1.45.0":
+  version: 1.45.0
+  resolution: "@types/sass@npm:1.45.0"
   dependencies:
-    "@types/node": "*"
-  checksum: 19eb71acc4b0d7db2170732a51ad18a34007021f42069652a5be8a3e3a448a470d2f970b9e85f734d1896bf3a25e48fb5132b4a989c101eb5df21cc171d426c5
+    sass: "*"
+  checksum: 806b5ade9b331b838b41648e0f60aed5b7706f9d1ff5745ba7f244d4a8bfff45e64187be89952982d5d73af599c878baaeda45009d61773eb530b811970b1255
   languageName: node
   linkType: hard
 
@@ -8789,10 +8789,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/yup@npm:^0.29.14":
-  version: 0.29.14
-  resolution: "@types/yup@npm:0.29.14"
-  checksum: 291b6c2f06761bfb2be4c551e2c675a0b48512192850ca547837389de8422707b2a2cf50f50e64ea3caf5ddf41cfa36f0ce4bdb820f86ba1f074eabd0e272c2b
+"@types/yup@npm:^0.32.0":
+  version: 0.32.0
+  resolution: "@types/yup@npm:0.32.0"
+  dependencies:
+    yup: "*"
+  checksum: 5b30f1118bca288d949bcd4c7e17d1425ffa320eddd751a78c895b158fae0b6cbf242ced45ad47e9e70643c9475da09a7ad004192fb6f2111791d37e6a627e73
   languageName: node
   linkType: hard
 
@@ -11547,6 +11549,13 @@ __metadata:
   version: 1.2.1
   resolution: "clsx@npm:1.2.1"
   checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "clsx@npm:2.0.0"
+  checksum: a2cfb2351b254611acf92faa0daf15220f4cd648bdf96ce369d729813b85336993871a4bf6978ddea2b81b5a130478339c20d9d0b5c6fc287e5147f0c059276e
   languageName: node
   linkType: hard
 
@@ -22612,6 +22621,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"property-expr@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "property-expr@npm:2.0.5"
+  checksum: 4ebe82ce45aaf1527e96e2ab84d75d25217167ec3ff6378cf83a84fb4abc746e7c65768a79d275881602ae82f168f9a6dfaa7f5e331d0fcc83d692770bcce5f1
+  languageName: node
+  linkType: hard
+
 "property-information@npm:^5.0.0, property-information@npm:^5.3.0":
   version: 5.6.0
   resolution: "property-information@npm:5.6.0"
@@ -24256,7 +24272,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.64.1":
+"sass@npm:*, sass@npm:^1.64.1":
   version: 1.64.1
   resolution: "sass@npm:1.64.1"
   dependencies:
@@ -25897,6 +25913,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"tiny-case@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "tiny-case@npm:1.0.3"
+  checksum: 3f7a30c39d5b0e1bc097b0b271bec14eb5b836093db034f35a0de26c14422380b50dc12bfd37498cf35b192f5df06f28a710712c87ead68872a9e37ad6f6049d
+  languageName: node
+  linkType: hard
+
 "tiny-invariant@npm:^1.0.2":
   version: 1.1.0
   resolution: "tiny-invariant@npm:1.1.0"
@@ -26294,7 +26317,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^2.5.0":
+"type-fest@npm:^2.19.0, type-fest@npm:^2.5.0":
   version: 2.19.0
   resolution: "type-fest@npm:2.19.0"
   checksum: a4ef07ece297c9fba78fc1bd6d85dff4472fe043ede98bd4710d2615d15776902b595abf62bd78339ed6278f021235fb28a96361f8be86ed754f778973a0d278
@@ -28007,7 +28030,19 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"yup@npm:^0.32.0, yup@npm:^0.32.11, yup@npm:^0.32.9":
+"yup@npm:*, yup@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "yup@npm:1.2.0"
+  dependencies:
+    property-expr: ^2.0.5
+    tiny-case: ^1.0.3
+    toposort: ^2.0.2
+    type-fest: ^2.19.0
+  checksum: f0cdceb144e358c6155670f3e27404b65b090cc12594fde6db2699523661e13542aaf87ebe8e542b67f29a5f3f9bc5f23a3a3bb09e17f10d125353d35b841fac
+  languageName: node
+  linkType: hard
+
+"yup@npm:^0.32.0, yup@npm:^0.32.9":
   version: 0.32.11
   resolution: "yup@npm:0.32.11"
   dependencies:

@@ -14,7 +14,7 @@
     "@docusaurus/core": "^2.4.1",
     "@docusaurus/preset-classic": "^2.4.1",
     "@mdx-js/react": "^2.3.0",
-    "clsx": "^1.2.1",
+    "clsx": "^2.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   },

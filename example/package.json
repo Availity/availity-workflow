@@ -50,17 +50,17 @@
     "react-dom": "^16.14.0",
     "react-query": "^3.34.8",
     "reactstrap": "^8.10.1",
-    "yup": "^0.32.11"
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@availity/workflow": "workspace:*",
     "@testing-library/react": "^12.1.5",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.11",
+    "@types/node": "^20.4.5",
     "@types/react": "^16.14.35",
     "@types/react-dom": "^16.9.17",
     "@types/reactstrap": "^8.7.2",
-    "@types/yup": "^0.29.14",
+    "@types/yup": "^0.32.0",
     "cross-env": "^7.0.3",
     "esbuild-loader": "^3.0.1",
     "eslint-config-availity": "^8.0.9",
