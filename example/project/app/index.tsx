@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import './index.scss';
 import 'react-block-ui/style.css';
 import '@availity/yup';
 import App from './App';
 
-render(<App />, document.querySelector('#root'));
+const container = document.getElementById('app');
+const root = createRoot(container);
+
+root.render(<App />);
