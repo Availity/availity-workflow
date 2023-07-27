@@ -40,6 +40,6 @@
   "dependencies": {
     "@availity/workflow-logger": "workspace:*",
     "read-pkg": "^5.2.0",
-    "rimraf": "^3.0.2"
+    "rimraf": "^5.0.1"
   }
 }
