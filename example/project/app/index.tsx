@@ -5,7 +5,7 @@ import 'react-block-ui/style.css';
 import '@availity/yup';
 import App from './App';
 
-const container = document.getElementById('app');
+const container = document.getElementById('root');
 const root = createRoot(container);
 
 root.render(<App />);
