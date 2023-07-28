@@ -72,6 +72,8 @@
     "inquirer": "^8.2.5",
     "is-valid-path": "^0.1.1",
     "jest": "^29.6.2",
+    "jest-environment-jsdom": "28.1.1",
+    "jest-environment-jsdom-global": "^4.0.0",
     "joi": "^17.8.4",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.7.6",

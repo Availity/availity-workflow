@@ -26,7 +26,7 @@ function create(settings) {
   const config = {
     collectCoverageFrom: ['project/app/**/*.{js,jsx,ts,tsx}'],
     coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/'],
-    testEnvironment: 'node',
+    testEnvironment: 'jest-environment-jsdom-global',
     testURL: 'http://localhost',
     transform: {
       // Jest and Babel don't allow functions in the options so we just return their values here
