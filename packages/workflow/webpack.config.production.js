@@ -1,11 +1,9 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const fs = require('fs');
-const webpack = require('webpack');
 const _merge = require('lodash/merge')
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
-const babelPreset = require('./babel-preset');
 const paths = require('./helpers/paths');
 const loaders = require('./loaders');
 const conf = require('./webpack.config');
@@ -20,14 +18,9 @@ process.noDeprecation = true;
 process.env.BROWSERSLIST = 'defaults';
 
 const plugin = (settings) => {
-  const babelrcPath = path.join(settings.project(), '.babelrc');
-  const babelrcExists = fs.existsSync(babelrcPath);
 
   const baseConfig = buildBaseConfig(settings)
-  function getVersion() {
-    return settings.pkg().version || 'N/A';
-  }
-  
+
   const overrides = {
     mode: 'production',
 
@@ -127,41 +120,18 @@ const plugin = (settings) => {
                 }
               ]
             },
-            // Process application JS and user-specified paths with Babel.
             {
-              test: /\.(js|mjs|jsx|ts|tsx)$/,
+              test: /\.(js|jsx|ts|tsx)$/,
               include: settings.include(),
               use: [
                 {
-                  loader: 'babel-loader',
+                  loader: 'esbuild-loader',
                   options: {
-                    presets: [babelPreset],
-                    // This is a feature of `babel-loader` for webpack (not Babel itself).
-                    // It enables caching results in ./node_modules/.cache/babel-loader/
-                    // directory for faster rebuilds.
-                    cacheDirectory: true,
-                    // See https://github.com/facebook/create-react-app/issues/6846 for context on why cacheCompression is disabled
-                    cacheCompression: false,
-                    babelrc: babelrcExists
+                    loader: 'tsx',
+                    target: 'es2015',
                   }
                 }
-              ]
-            },
-            // Process any JS outside of the app with Babel.
-            // Unlike the application JS, we only compile the standard ES features.
-            {
-              test: /\.(js|mjs)$/,
-              exclude: [...settings.include(), /@babel(?:\/|\\{1,2})runtime/],
-              loader: 'babel-loader',
-              options: {
-                babelrc: false,
-                configFile: false,
-                compact: false,
-                presets: [[require.resolve('babel-preset-react-app/dependencies'), { helpers: true }]],
-                cacheDirectory: true,
-                // See https://github.com/facebook/create-react-app/issues/6846 for context on why cacheCompression is disabled
-                cacheCompression: false
-              }
+              ],
             },
             // Allows .mjs and .js files from packages of type "module" to be required without the extension
             {
