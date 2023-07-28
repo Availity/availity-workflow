@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.5.3-alpha.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.1...@availity/workflow@9.5.3-alpha.2) (2023-07-28)
+
+
+### Performance Improvements
+
+* **workflow:** replace babel-loader with esbuild-loader ([3336b17](https://github.com/Availity/availity-workflow/commit/3336b1723f00e87d19d09cb5cd5e501012d42632))
+
+
+
 ## [9.5.3-alpha.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.0...@availity/workflow@9.5.3-alpha.1) (2023-07-28)
 
 
