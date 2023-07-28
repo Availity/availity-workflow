@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.7.3-alpha.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow-logger@5.7.2...@availity/workflow-logger@5.7.3-alpha.0) (2023-07-28)
+
+
+### Build System
+
+* drop support for node 12 and node 14 ([6090a36](https://github.com/Availity/availity-workflow/commit/6090a36329132c09fadea261211395e2b87deb24))
+
+
+### BREAKING CHANGES
+
+* drop support for node 12 and node 14
+
+
+
 ## [5.7.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow-logger@5.7.1...@availity/workflow-logger@5.7.2) (2023-05-03)
 
 
