@@ -840,7 +840,7 @@ __metadata:
     path-browserify: ^1.0.1
     postcss: ^8.4.27
     postcss-flexbugs-fixes: ^5.0.2
-    postcss-focus: ^7.0.0
+    postcss-focus: ^6.0.0
     postcss-loader: ^7.3.3
     postcss-preset-env: ^9.1.0
     postcss-reporter: ^7.0.5
@@ -21503,12 +21503,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-focus@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "postcss-focus@npm:7.0.0"
+"postcss-focus@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "postcss-focus@npm:6.0.0"
   peerDependencies:
     postcss: ^8.1.0
-  checksum: bb09c3569cc98cc8b639ef9f1d5b53ec332311543391873d6047cf6a6615577746f3b4bd6734f76f6dd999d1cc33cd6470d24f367ca3786431f1b108d5009330
+  checksum: 07340c4ca988e0c1617653bfef4f9aa2dd73fcebc58618c9b5ab7ac53490c0afc4d15302ffb51808ae2d9f1b701ab7c9d6dd48337c2d4c98ee9a470ecf9a090c
   languageName: node
   linkType: hard
 
