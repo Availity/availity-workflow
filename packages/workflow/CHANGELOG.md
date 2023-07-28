@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.5.3-alpha.4](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.3...@availity/workflow@9.5.3-alpha.4) (2023-07-28)
+
+
+### Bug Fixes
+
+* **workflow:** jest transformer return value ([4f112de](https://github.com/Availity/availity-workflow/commit/4f112de75df78b25d05f51ba30b685bea3cbba9a))
+
+
+
 ## [9.5.3-alpha.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.2...@availity/workflow@9.5.3-alpha.3) (2023-07-28)
 
 
