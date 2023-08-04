@@ -587,6 +587,8 @@ The configuration above does the following:
 -   Run `yarn` to install all dependencies
 -   Use `yarn start` to use the React sample application
 
+If you need to test changes to the template, you can use the `--branchOverride` command when running `npx @availity/workflow init`.
+
 ## Disclaimer
 
 Open source software components distributed or made available in the Availity Materials are licensed to Company under the terms of the applicable open source license agreements, which may be found in text files included in the Availity Materials.
