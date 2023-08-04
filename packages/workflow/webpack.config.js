@@ -57,7 +57,7 @@ const buildBaseConfig = (settings) => {
       fallback: {
         path: require.resolve('path-browserify')
       },
-      plugins: [new TsconfigPathsPlugin()]
+      plugins: [new TsconfigPathsPlugin({extensions: [".js", ".jsx", ".ts", ".tsx"]})]
     },
      // This set of options is identical to the resolve property set above,
     // but is used only to resolve webpack's loader packages.
