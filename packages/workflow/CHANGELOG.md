@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.5.3-alpha.8](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.7...@availity/workflow@9.5.3-alpha.8) (2023-08-04)
+
+
+### Bug Fixes
+
+* **workflow:** branchOverride command param ([129a414](https://github.com/Availity/availity-workflow/commit/129a414d2eeb8c68af4545e50a107670d7dbab9e))
+
+
+
 ## [9.5.3-alpha.7](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.6...@availity/workflow@9.5.3-alpha.7) (2023-08-04)
 
 
