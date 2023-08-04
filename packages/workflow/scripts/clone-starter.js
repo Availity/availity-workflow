@@ -28,11 +28,17 @@ const clone = async (hostInfo, appPath, branchOverride) => {
     url = hostInfo.https({ noCommittish: true, noGitPlus: true });
   }
 
-  const branch = hostInfo.committish ? `-b ${hostInfo.committish}` : ``;
+  let branch = ``;
+
+  if (branchOverride) {
+    branch = `-b ${branchOverride}`
+  } else if (hostInfo.committish) {
+    branch = `-b ${hostInfo.committish}`
+  }
 
   Logger.info(`Creating new site from git: ${url}`);
 
-  await spawn(`git clone ${branchOverride || branch} ${url} ${appPath} --single-branch`);
+  await spawn(`git clone ${branch} ${url} ${appPath} --single-branch`);
 
   Logger.success(`Created starter directory layout`);
 
