@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.5.3-alpha.7](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.6...@availity/workflow@9.5.3-alpha.7) (2023-08-04)
+
+
+### Features
+
+* **workflow:** add the ability to override the template branch ([eb63b35](https://github.com/Availity/availity-workflow/commit/eb63b35bea0cf5770b2141fcf7069c751c4b4844))
+
+
+
 ## [9.5.3-alpha.6](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.5...@availity/workflow@9.5.3-alpha.6) (2023-08-03)
 
 
