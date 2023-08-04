@@ -9,6 +9,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const loaders = require('./loaders');
 const paths = require('./helpers/paths');
 const resolveModule = require('./helpers/resolve-module');
