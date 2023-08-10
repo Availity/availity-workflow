@@ -23,4 +23,3 @@ If you can't find what you are looking for on any of the left sub menus try out 
 - Google Chrome
 - Mozilla Firefox
 - Microsoft Edge
-- Internet Explorer 11+ (Internet Explorer will no longer be supported starting August 21st, 2021)

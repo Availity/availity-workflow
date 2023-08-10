@@ -50,6 +50,10 @@ Runs the integration command on each workspace in this repo. Generally, it will 
 
 Builds the example application
 
+### Testing Template Changes
+
+If you need to test changes to the template, you can use the `--branchOverride` command when running `npx @availity/workflow init`.
+
 ## Versioning
 
 This repo uses the [yarn release workflow](https://yarnpkg.com/features/release-workflow) for managing versions and releases. We expect you to follow the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type) since it will help when determining an appropriate version bump for your PR.
