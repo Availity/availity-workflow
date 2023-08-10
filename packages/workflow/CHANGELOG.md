@@ -2,6 +2,36 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [10.0.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.2...@availity/workflow@10.0.0) (2023-08-10)
+
+
+### Bug Fixes
+
+* **workflow:** branchOverride command param ([129a414](https://github.com/Availity/availity-workflow/commit/129a414d2eeb8c68af4545e50a107670d7dbab9e))
+* **workflow:** jest transformer return value ([4f112de](https://github.com/Availity/availity-workflow/commit/4f112de75df78b25d05f51ba30b685bea3cbba9a))
+
+
+### Build System
+
+* drop support for node 12 and node 14 ([6090a36](https://github.com/Availity/availity-workflow/commit/6090a36329132c09fadea261211395e2b87deb24))
+
+
+### Features
+
+* **workflow:** add the ability to override the template branch ([eb63b35](https://github.com/Availity/availity-workflow/commit/eb63b35bea0cf5770b2141fcf7069c751c4b4844))
+
+
+### Performance Improvements
+
+* **workflow:** replace babel-loader with esbuild-loader ([3336b17](https://github.com/Availity/availity-workflow/commit/3336b1723f00e87d19d09cb5cd5e501012d42632))
+
+
+### BREAKING CHANGES
+
+* drop support for node 12 and node 14
+
+
+
 ## [9.5.3-alpha.11](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.10...@availity/workflow@9.5.3-alpha.11) (2023-08-04)
 
 
