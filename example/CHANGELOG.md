@@ -2,6 +2,30 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [4.0.0](https://github.com/Availity/availity-workflow/compare/@availity/example@3.4.1...@availity/example@4.0.0) (2023-08-10)
+
+
+### Bug Fixes
+
+* **example:** use root to get container ([60c2229](https://github.com/Availity/availity-workflow/commit/60c22294ee791a2c51e52b9051f51483b38178b7))
+
+
+### Build System
+
+* upgrade to react 18 ([25a4d85](https://github.com/Availity/availity-workflow/commit/25a4d85716c3444e9d97a4664f5fbcd526e17bea))
+
+
+### Performance Improvements
+
+* **workflow:** replace babel-loader with esbuild-loader ([3336b17](https://github.com/Availity/availity-workflow/commit/3336b1723f00e87d19d09cb5cd5e501012d42632))
+
+
+### BREAKING CHANGES
+
+* see https://react.dev/blog/2022/03/08/react-18-upgrade-guide
+
+
+
 ## [3.4.1](https://github.com/Availity/availity-workflow/compare/@availity/example@3.4.0...@availity/example@3.4.1) (2023-06-23)
 
 
