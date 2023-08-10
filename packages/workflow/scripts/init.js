@@ -126,13 +126,14 @@ function installDeps(installer) {
   }
 }
 
-async function run({ appPath, appName, originalDirectory, template, installer }) {
+async function run({ appPath, appName, originalDirectory, template, installer, branchOverride }) {
   try {
     await cloneStarter({
       template,
       appName,
       appPath,
-      originalDirectory
+      originalDirectory,
+      branchOverride
     });
 
     // Update the Package JSON with correct deps and name/versions
@@ -202,7 +203,7 @@ async function run({ appPath, appName, originalDirectory, template, installer })
   }
 }
 
-function createApp({ projectName: name, currentDir, template, useNpm }) {
+function createApp({ projectName: name, currentDir, template, useNpm, branchOverride }) {
   const appPath = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(appPath);
   const installer = useNpm ? 'npm' : 'yarn';
@@ -222,7 +223,7 @@ function createApp({ projectName: name, currentDir, template, useNpm }) {
     process.exit(1);
   }
 
-  run({ appPath, appName, originalDirectory, template, installer });
+  run({ appPath, appName, originalDirectory, template, installer, branchOverride });
 }
 /* eslint-disable no-unused-expressions */
 yargs
@@ -244,6 +245,10 @@ yargs
           alias: 't',
           describe: 'The availity template to initialize the project with. ( Git Repo )',
           default: 'https://github.com/Availity/availity-starter-react'
+        })
+        .option('branchOverride', {
+          alias: 'b',
+          describe: 'The branch of the availity template to initialize the project with.'
         })
         .option('useNpm', {
           alias: 'n',

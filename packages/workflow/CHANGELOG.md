@@ -2,6 +2,84 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.5.3-alpha.11](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.10...@availity/workflow@9.5.3-alpha.11) (2023-08-04)
+
+
+
+## [9.5.3-alpha.10](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.9...@availity/workflow@9.5.3-alpha.10) (2023-08-04)
+
+
+
+## [9.5.3-alpha.9](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.8...@availity/workflow@9.5.3-alpha.9) (2023-08-04)
+
+
+
+## [9.5.3-alpha.8](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.7...@availity/workflow@9.5.3-alpha.8) (2023-08-04)
+
+
+### Bug Fixes
+
+* **workflow:** branchOverride command param ([129a414](https://github.com/Availity/availity-workflow/commit/129a414d2eeb8c68af4545e50a107670d7dbab9e))
+
+
+
+## [9.5.3-alpha.7](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.6...@availity/workflow@9.5.3-alpha.7) (2023-08-04)
+
+
+### Features
+
+* **workflow:** add the ability to override the template branch ([eb63b35](https://github.com/Availity/availity-workflow/commit/eb63b35bea0cf5770b2141fcf7069c751c4b4844))
+
+
+
+## [9.5.3-alpha.6](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.5...@availity/workflow@9.5.3-alpha.6) (2023-08-03)
+
+
+
+## [9.5.3-alpha.5](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.4...@availity/workflow@9.5.3-alpha.5) (2023-07-28)
+
+
+
+## [9.5.3-alpha.4](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.3...@availity/workflow@9.5.3-alpha.4) (2023-07-28)
+
+
+### Bug Fixes
+
+* **workflow:** jest transformer return value ([4f112de](https://github.com/Availity/availity-workflow/commit/4f112de75df78b25d05f51ba30b685bea3cbba9a))
+
+
+
+## [9.5.3-alpha.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.2...@availity/workflow@9.5.3-alpha.3) (2023-07-28)
+
+
+
+## [9.5.3-alpha.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.1...@availity/workflow@9.5.3-alpha.2) (2023-07-28)
+
+
+### Performance Improvements
+
+* **workflow:** replace babel-loader with esbuild-loader ([3336b17](https://github.com/Availity/availity-workflow/commit/3336b1723f00e87d19d09cb5cd5e501012d42632))
+
+
+
+## [9.5.3-alpha.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.3-alpha.0...@availity/workflow@9.5.3-alpha.1) (2023-07-28)
+
+
+
+## [9.5.3-alpha.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.2...@availity/workflow@9.5.3-alpha.0) (2023-07-28)
+
+
+### Build System
+
+* drop support for node 12 and node 14 ([6090a36](https://github.com/Availity/availity-workflow/commit/6090a36329132c09fadea261211395e2b87deb24))
+
+
+### BREAKING CHANGES
+
+* drop support for node 12 and node 14
+
+
+
 ## [9.5.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@9.5.1...@availity/workflow@9.5.2) (2023-06-28)
 
 

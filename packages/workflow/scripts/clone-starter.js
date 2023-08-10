@@ -17,7 +17,7 @@ const spawn = (cmd, options) => {
 };
 
 // Clones starter from URI.
-const clone = async (hostInfo, appPath) => {
+const clone = async (hostInfo, appPath, branchOverride) => {
   let url;
   // Let people use private repos accessed over SSH.
   // eslint-disable-next-line unicorn/prefer-ternary
@@ -28,7 +28,13 @@ const clone = async (hostInfo, appPath) => {
     url = hostInfo.https({ noCommittish: true, noGitPlus: true });
   }
 
-  const branch = hostInfo.committish ? `-b ${hostInfo.committish}` : ``;
+  let branch = ``;
+
+  if (branchOverride) {
+    branch = `-b ${branchOverride}`
+  } else if (hostInfo.committish) {
+    branch = `-b ${hostInfo.committish}`
+  }
 
   Logger.info(`Creating new site from git: ${url}`);
 
@@ -42,7 +48,7 @@ const clone = async (hostInfo, appPath) => {
 /**
  * Main function that clones or copies the starter.
  */
-module.exports = async ({ template: templateUrl, appPath }) => {
+module.exports = async ({ template: templateUrl, appPath, branchOverride }) => {
   const urlObject = url.parse(appPath);
   if (urlObject.protocol && urlObject.host) {
     Logger.failed(
@@ -59,7 +65,7 @@ module.exports = async ({ template: templateUrl, appPath }) => {
   const hostedInfo = hostedGitInfo.fromUrl(templateUrl);
 
   if (hostedInfo) {
-    await clone(hostedInfo, appPath);
+    await clone(hostedInfo, appPath, branchOverride);
   } else {
     Logger.failed('Could not find Hosted Git Info for the Project.', hostedInfo);
   }

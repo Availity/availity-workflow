@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const { existsSync } = require('fs');
 const _merge = require('lodash/merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
@@ -10,8 +9,8 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const loaders = require('./loaders');
-const babelPreset = require('./babel-preset');
 const paths = require('./helpers/paths');
 const resolveModule = require('./helpers/resolve-module');
 const html = require('./html');
@@ -57,7 +56,8 @@ const buildBaseConfig = (settings) => {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', '.scss'],
       fallback: {
         path: require.resolve('path-browserify')
-      }
+      },
+      plugins: [new TsconfigPathsPlugin({extensions: [".js", ".jsx", ".ts", ".tsx"]})]
     },
      // This set of options is identical to the resolve property set above,
     // but is used only to resolve webpack's loader packages.
@@ -90,8 +90,6 @@ const buildBaseConfig = (settings) => {
 }
 const plugin = (settings) => {
 
-  const babelrcPath = path.join(settings.project(), '.babelrc');
-  const babelrcExists = existsSync(babelrcPath);
   const configBase = buildBaseConfig(settings)
 
   const overrides = {
@@ -99,7 +97,7 @@ const plugin = (settings) => {
 
     target: settings.developmentTargets(),
 
-    stats: settings.statsLogLevel(),   
+    stats: settings.statsLogLevel(),
 
     module: {
       rules: [
@@ -123,18 +121,10 @@ const plugin = (settings) => {
           include: settings.include(),
           use: [
             {
-              loader: 'babel-loader',
+              loader: 'esbuild-loader',
               options: {
-                presets: [babelPreset],
-                // This is a feature of `babel-loader` for webpack (not Babel itself).
-                // It enables caching results in ./node_modules/.cache/babel-loader/
-                // directory for faster rebuilds.
-                cacheDirectory: settings.isDevelopment(),
-                // See https://github.com/facebook/create-react-app/issues/6846 for context on why cacheCompression is disabled
-                cacheCompression: false,
-                babelrc: babelrcExists,
-                // TODO: why disable hot loader if babelrc exists?
-                plugins: [babelrcExists ? null : require.resolve(settings.getHotLoaderName())]
+                loader: 'tsx',
+                target: 'es2015',
               }
             }
           ]
@@ -161,7 +151,7 @@ const plugin = (settings) => {
 
     plugins: [
       ...configBase.plugins,
-   
+
       new DuplicatePackageCheckerPlugin({
         verbose: true,
         exclude(instance) {
@@ -174,7 +164,7 @@ const plugin = (settings) => {
         }
       }),
 
-    
+
       new ESLintPlugin({
         cache: true,
         cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
@@ -216,7 +206,7 @@ const plugin = (settings) => {
 
   // TODO: set up persistent cache options https://webpack.js.org/guides/build-performance/#persistent-cache
   return _merge({}, configBase, overrides);
- 
+
 };
 
 module.exports = plugin

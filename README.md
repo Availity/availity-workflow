@@ -38,7 +38,6 @@ npx @availity/workflow init <your-project-name> --template https://github.com/Av
 #### Availity Templates
 
 -   [React Starter (default)](https://github.com/Availity/availity-starter-react)
--   [Wizard Starter (React)](https://github.com/Availity/availity-starter-wizard)
 -   [TypeScript Starter (React)](https://github.com/Availity/availity-starter-typescript)
 
 <small>Note: use `-t` or `--template` to specify a template</small>
@@ -586,6 +585,8 @@ The configuration above does the following:
 
 -   Run `yarn` to install all dependencies
 -   Use `yarn start` to use the React sample application
+
+If you need to test changes to the template, you can use the `--branchOverride` command when running `npx @availity/workflow init`.
 
 ## Disclaimer
 

@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-upgrade",
-  "version": "5.7.1",
+  "version": "5.7.2-alpha.0",
   "bin": {
     "upgrade-workflow": "./bin.js"
   },
@@ -14,7 +14,8 @@
     "generateChangelog": "yarn changelog:generate --tag-prefix $npm_package_name --lerna-package $npm_package_name",
     "generateTag": "yarn exec git tag --message \"${npm_package_name}@${npm_package_version}\" --annotate \"${npm_package_name}@${npm_package_version}\"",
     "start": "node bin.js",
-    "publish": "yarn npm publish --tolerate-republish --access public"
+    "publish": "yarn npm publish --tolerate-republish --access public",
+    "publish:canary": "yarn npm publish --access public --tag canary"
   },
   "keywords": [
     "upgrade",
@@ -30,8 +31,8 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "engines": {
-    "node": "^12.0.0 || ^14.0.0 || ^16.0.0 || ^18.0.0",
-    "npm": "^6.4.1 || ^7.0.0 || ^8.0.0 || ^9.0.0",
+    "node": "^16.0.0 || ^18.0.0",
+    "npm": "^8.0.0 || ^9.0.0",
     "yarn": "^1.19.1 || ^2.0.0 || ^3.0.0"
   },
   "publishConfig": {
@@ -40,6 +41,6 @@
   "dependencies": {
     "@availity/workflow-logger": "workspace:*",
     "read-pkg": "^5.2.0",
-    "rimraf": "^3.0.2"
+    "rimraf": "^5.0.1"
   }
 }

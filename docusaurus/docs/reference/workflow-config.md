@@ -113,10 +113,7 @@ ex.
 
 ```json
 {
-    "hotLoader": {
-        "enabled": true,
-        "experimental": true
-    }
+    "hotLoader": true
 }
 ```
 

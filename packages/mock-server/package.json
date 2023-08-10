@@ -1,12 +1,13 @@
 {
   "name": "@availity/mock-server",
-  "version": "7.2.3",
+  "version": "7.2.4-alpha.0",
   "description": "Mock server simulating Availity API rest services",
   "main": "index.js",
   "scripts": {
     "generateChangelog": "yarn changelog:generate --tag-prefix $npm_package_name --lerna-package $npm_package_name",
     "generateTag": "yarn exec git tag --message \"${npm_package_name}@${npm_package_version}\" --annotate \"${npm_package_name}@${npm_package_version}\"",
-    "publish": "yarn npm publish --tolerate-republish --access public"
+    "publish": "yarn npm publish --tolerate-republish --access public",
+    "publish:canary": "yarn npm publish --access public --tag canary"
   },
   "keywords": [
     "mock",
@@ -14,7 +15,7 @@
     "availity"
   ],
   "engines": {
-    "node": ">=10.0.0"
+    "node": "^16.0.0 || ^18.0.0"
   },
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "license": "MIT",
@@ -33,7 +34,7 @@
     "on-finished": "^2.4.1"
   },
   "devDependencies": {
-    "superagent": "^6.1.0"
+    "superagent": "^8.0.9"
   },
   "publishConfig": {
     "access": "public"

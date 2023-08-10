@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-logger",
-  "version": "5.7.2",
+  "version": "5.7.3-alpha.0",
   "description": "Simple colorized logger for @availity/workflow",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "generateTag": "yarn exec git tag --message \"${npm_package_name}@${npm_package_version}\" --annotate \"${npm_package_name}@${npm_package_version}\"",
     "test": "echo \"No test specified\" && exit 0",
     "test:integration": "echo \"No test specified\" && exit 0",
-    "publish": "yarn npm publish --tolerate-republish --access public"
+    "publish": "yarn npm publish --tolerate-republish --access public",
+    "publish:canary": "yarn npm publish --access public --tag canary"
   },
   "repository": {
     "type": "git",
@@ -31,8 +32,8 @@
     "figures": "^3.2.0"
   },
   "engines": {
-    "node": "^12.0.0 || ^14.0.0 || ^16.0.0 || ^18.0.0",
-    "npm": "^6.4.1 || ^7.0.0 || ^8.0.0 || ^9.0.0",
+    "node": "^16.0.0 || ^18.0.0",
+    "npm": "^8.0.0 || ^9.0.0",
     "yarn": ">=1.19.1"
   },
   "publishConfig": {

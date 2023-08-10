@@ -37,14 +37,17 @@ For this example we will assume we are rendering at the root `index.js`
 
 ```jsx
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { avLogMessagesApi } from '@availity/api-axios';
 import { AvSplunkAnalytics } from '@availity/analytics-core';
 import App from './App';
 
 const splunkAnalytics = new AvSplunkAnalytics(avLogMessagesApi, true);
 
-render(
+const container = document.getElementById('app');
+const root = createRoot(container);
+
+root.render(
     <Analytics plugins={[splunkAnalytics]} attributePrefix="data-av-analytics" pageTracking recursive>
         <App />
     </Analytics>,
