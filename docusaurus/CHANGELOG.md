@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [3.0.0](https://github.com/Availity/availity-workflow/compare/@availity/dinosaurdocs@2.1.1...@availity/dinosaurdocs@3.0.0) (2023-08-10)
+
+
+### Build System
+
+* upgrade to react 18 ([25a4d85](https://github.com/Availity/availity-workflow/commit/25a4d85716c3444e9d97a4664f5fbcd526e17bea))
+
+
+### BREAKING CHANGES
+
+* see https://react.dev/blog/2022/03/08/react-18-upgrade-guide
+
+
+
 ## [2.1.1](https://github.com/Availity/availity-workflow/compare/@availity/dinosaurdocs@2.1.0...@availity/dinosaurdocs@2.1.1) (2023-02-01)
 
 
