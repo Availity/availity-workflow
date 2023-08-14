@@ -19,7 +19,7 @@ Availity creates open source projects that follow [Semantic Versioning](https://
     -   Bug fix
     -   Backwards compatible
 
-For example, one of the libraries created and maintained by Availity is [availity-workflow](https://github.com/Availity/availity-workflow). This library is used by developers to create web applications using React or Angular. There have been [many releases](https://github.com/Availity/availity-workflow/tags) for `availity-workflow` and they follow semantic versioning.
+For example, one of the libraries created and maintained by Availity is [availity-workflow](https://github.com/Availity/availity-workflow). This library is used by developers to create web applications using React. There have been [many releases](https://github.com/Availity/availity-workflow/tags) for `availity-workflow` and they follow semantic versioning.
 
 The `1.x.x` versions are fully compatible with each other. For example, if a project is using `v1.0.0`, a developer can be confident that upgrading to `v1.0.1` or `v1.1.0` it will not break their application.
 
@@ -53,8 +53,6 @@ It is up to the development team to decide if they want or need to upgrade any l
 ```bash
 ❯ npm outdated --depth=0
 Package                                 Current            Wanted        Latest  Location
-@uirouter/angularjs                       1.0.4             1.0.4        1.0.15  availity-toolkit > availity-angular
-bootstrap-datepicker                      1.7.0             1.7.0         1.7.1  availity-toolkit > availity-angular
 awesome-bootstrap-checkbox                0.3.7             0.3.7         1.0.0  availity-toolkit > availity-uikit
 bootstrap                                 3.3.7             3.3.7         4.0.0  availity-toolkit > availity-uikit
 ```
