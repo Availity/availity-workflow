@@ -7,7 +7,7 @@ Full list of Workflow Commands
 When inside of the current working directory of your application, you can run any of the below commands by running:
 
 ```bash
-yarn run <command-name>
+yarn <command-name>
 ```
 
 ## `help`
@@ -38,7 +38,6 @@ Options:
 
 Examples:
   av init my-app-name
-  av init my-app-name -p angular
   av start
   av lint
 
@@ -53,7 +52,7 @@ Initializes a new project. Typically this is used in unison with `npx` for kicks
 
 - `--version`, `-v`: Specify which version of the project you want. [default: "latest"]
 - `--current-dir`, `-c`: If you want the project to be created in the current directory
-- `--template`, `-t`: The template you want to initialize the project with)
+- `--template`, `-t`: The template you want to initialize the project with
 
 #### Availity Templates
 
@@ -67,7 +66,7 @@ npx @availity/workflow init my-package-name --template https://github.com/Availi
 
 ## `start`
 
-Start the development server and watches for file changes. Hot-reloading is enabled for React projects. Angular projects hot reload CSS only.
+Start the development server and watches for file changes. Hot-reloading can be toggled via workflow settings.
 
 ```bash
 yarn start
@@ -131,7 +130,7 @@ Run the tests for your project. (Jest)
 
 #### `--coverage`
 
-Indicates that test coverage information should be collected and reported in the output. React project leverage the `--coverage` option from Jest. Angular projects use Instanbul to collect coverage metrics. Angular projects output coverage statistics to the console as well as html files in the `{workspaces}/coverage` folder.
+Indicates that test coverage information should be collected and reported in the output. You can leverage the `--coverage` option from Jest.
 
 ```shell hideCopy=true
 > yarn test --coverage
@@ -152,5 +151,5 @@ Lines        : 27.23% ( 7955/29217 )
 Upgrades the workflow dependencies to the latest version and in some cases will attempt to fix the breaking chnages.
 
 ```bash
-npx @availity/workflow upgrade
+npx @availity/workflow-upgrade
 ```

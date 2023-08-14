@@ -256,15 +256,11 @@ yargs
           default: false
         })
         .usage(`\nUsage: ${chalk.yellow('av init')} ${chalk.green('<projectName>')} ${chalk.magenta('[options]')}`)
-        .example(chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')}`))
-        .example(
-          chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')} ${chalk.magenta('-p angular')}`)
-        );
+        .example(chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')}`));
     },
     createApp
   )
-  .example(chalk.yellow('av init my-app-name'))
-  .example(chalk.yellow('av init my-app-name -p angular'));
+  .example(chalk.yellow('av init my-app-name'));
 
 module.exports = {
   createApp

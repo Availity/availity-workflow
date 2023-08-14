@@ -27,20 +27,20 @@ npx @availity/workflow init <your-project-name>
 
 <small>Note: `<your-project-name>` is the name of your project following the npm package naming standard</small>
 
-### Angular
-
-> ⚠️ Note we have dropped angular support, this is issuing a legacy version of workflow ⚠️
-
-```bash
-npx @availity/workflow init <your-project-name> --template https://github.com/Availity/availity-starter-angular
-```
-
 #### Availity Templates
 
 -   [React Starter (default)](https://github.com/Availity/availity-starter-react)
 -   [TypeScript Starter (React)](https://github.com/Availity/availity-starter-typescript)
 
-<small>Note: use `-t` or `--template` to specify a template</small>
+Use either of the flags `-t` or `--template` to specify a template
+
+```bash
+npx @availity/workflow init <your-project-name> --template https://github.com/Availity/availity-starter-typescript
+```
+
+### Angular
+
+> ⚠️ Note we have dropped support for Angular ⚠️
 
 ## Features
 
@@ -209,15 +209,21 @@ If your project's `package.json` contains a `browserslist` entry, that will be u
 **Examples:**
 
 ```js
-targets: 'web';
+{
+    targets: 'web';
+}
 ```
 
 ```js
-targets: ['web', 'es5];
+{
+    targets: ['web', 'es5'];
+}
 ```
 
 ```js
-targets: 'browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version';
+{
+    targets: 'browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version';
+}
 ```
 
 #### `development.babelInclude`
@@ -363,7 +369,7 @@ modifyWebpackConfig: (webpackConfig, settings) => {
 
 ## Upgrading
 
-[[Credit](https://github.com/typicode/husky/tree/master/src/upgrader)]
+[Credit](https://github.com/typicode/husky/tree/master/src/upgrader)
 
 Change to the directory you want to upgrade the workflow for and run the below command.
 

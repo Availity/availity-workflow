@@ -41,7 +41,7 @@ Show help menu for all CLI options.
 #### Examples
 
 -   `npx @availity/workflow init my-package-name`
--   `npx @availity/workflow init my-package-name --template https://github.com/Availity/availity-starter-angular`
+-   `npx @availity/workflow init my-package-name --template https://github.com/Availity/availity-starter-typescript`
 -   `npx @availity/workflow init my-package-name --version 4.0.0-alpha.4`
 
 ### `start`
