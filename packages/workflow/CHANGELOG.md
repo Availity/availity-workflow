@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [10.0.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow@10.0.2...@availity/workflow@10.0.3) (2023-08-29)
+
+
+### Bug Fixes
+
+* **workflow:** replace file-loader with asset/resource ([fbce5dd](https://github.com/Availity/availity-workflow/commit/fbce5dd6b62c0f425078aefb6493e5544205b7b3))
+
+
+
 ## [10.0.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@10.0.1...@availity/workflow@10.0.2) (2023-08-14)
 
 
