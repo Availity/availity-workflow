@@ -146,7 +146,7 @@ const plugin = (settings) => {
               test: /font\.(woff|woff2|eot|ttf|otf|svg)$/i,
               type: 'asset/resource',
               generator: {
-                filename: 'fonts/[name].[ext]'
+                filename: 'fonts/[name][ext]'
               }
             },
             loaders.images,
@@ -156,14 +156,14 @@ const plugin = (settings) => {
             // This loader doesn't use a "test" so it will catch all modules
             // that fall through the other loaders.
             {
-              loader: require.resolve('file-loader'),
+              type: 'asset/resource',
               // Exclude `js` files to keep "css" loader working as it injects
               // its runtime that would otherwise be processed through "file" loader.
               // Also exclude `html` and `json` extensions so they get processed
               // by webpack's internal loaders.
               exclude: [/\.(js|cjs|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
-              options: {
-                name: 'static/media/[name:200].[contenthash:8].[ext]'
+              generator: {
+                filename: 'static/media/[contenthash:8][ext]'
               }
             }
           ]
