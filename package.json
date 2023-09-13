@@ -41,7 +41,7 @@
     "conventional-changelog-cli": "^3.0.0",
     "conventional-changelog-conventionalcommits": "^6.1.0",
     "dependency-check": "^4.1.0",
-    "eslint-config-availity": "^8.0.9",
+    "eslint-config-availity": "^9.0.0",
     "gh-pages": "^5.0.0",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",
