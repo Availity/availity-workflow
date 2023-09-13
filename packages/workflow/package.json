@@ -57,7 +57,7 @@
     "envinfo": "^7.10.0",
     "esbuild-loader": "^3.0.1",
     "escape-string-regexp": "^4.0.0",
-    "eslint-config-availity": "^8.0.9",
+    "eslint-config-availity": "^9.0.0",
     "eslint-webpack-plugin": "^4.0.1",
     "execa": "^5.1.1",
     "figures": "^3.2.0",
