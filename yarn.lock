@@ -5248,6 +5248,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@commitlint/config-nx-scopes@npm:^17.6.4":
+  version: 17.6.4
+  resolution: "@commitlint/config-nx-scopes@npm:17.6.4"
+  peerDependencies:
+    nx: ^14.0.0 || ^15.0.0 || ^16.0.0
+  peerDependenciesMeta:
+    nx:
+      optional: true
+  checksum: 8ab240b7f864de3df9a1f3a8c7924951933a7f262425c43131627a9262634ef9841c73ec1bec80542b46395919ebff559402e7510e0e9d2d88c24c31e095a495
+  languageName: node
+  linkType: hard
+
 "@commitlint/config-validator@npm:^17.6.7":
   version: 17.6.7
   resolution: "@commitlint/config-validator@npm:17.6.7"
@@ -10526,6 +10538,7 @@ __metadata:
     "@commitlint/cli": ^17.6.7
     "@commitlint/config-angular": ^17.6.7
     "@commitlint/config-conventional": ^17.6.7
+    "@commitlint/config-nx-scopes": ^17.6.4
     "@jscutlery/semver": 3.0.0
     "@nrwl/cli": 15.9.4
     "@nrwl/js": ^16.5.5
