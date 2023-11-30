@@ -41,7 +41,7 @@
     "@availity/spaces": "6.6.0",
     "@availity/yup": "^5.1.2",
     "availity-uikit": "^4.4.0",
-    "axios": "^1.4.0",
+    "axios": "^1.6.2",
     "classnames": "^2.3.2",
     "formik": "^2.4.2",
     "prop-types": "^15.8.1",
