@@ -19,7 +19,7 @@ function create(settings) {
 
   // Allow developers to add their own node_modules include path
   const userInclude = settings.configuration.development.babelInclude;
-  const includes = ['@av','axios', ...userInclude].join('|');
+  const includes = ['@av','axios', '@tanstack', 'is-what', 'copy-anything', ...userInclude].join('|');
 
   const userJestOverrides = settings.configuration.development.jestOverrides;
 
