@@ -41,7 +41,7 @@ module.exports = async (cwd) => {
     scripts['upgrade:workflow'] = './node_modules/.bin/upgrade-workflow';
 
     // Check for deprecated workflow features
-    if (availityWorkflow.plugin) {
+    if (availityWorkflow?.plugin) {
       Logger.warn(`Deprecated plugin feature detected, removing availityWorkflow.plugin entry.`);
       delete availityWorkflow.plugin;
     }
