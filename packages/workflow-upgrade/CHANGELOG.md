@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow-upgrade@6.0.1...@availity/workflow-upgrade@6.0.2) (2024-02-12)
+
+
+### Bug Fixes
+
+* **workflow-upgrade:** add null check for availityWorkflow.plugin ([5977697](https://github.com/Availity/availity-workflow/commit/59776974afa3f2128f09fd0de1f58138ad03f24f))
+
+
+
 ## [6.0.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow-upgrade@6.0.0...@availity/workflow-upgrade@6.0.1) (2023-08-14)
 
 
