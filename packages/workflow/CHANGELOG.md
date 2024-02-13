@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [10.0.6](https://github.com/Availity/availity-workflow/compare/@availity/workflow@10.0.5...@availity/workflow@10.0.6) (2024-02-13)
+
+
+### Bug Fixes
+
+* **workflow:** surface errors in logger ([d61ee37](https://github.com/Availity/availity-workflow/commit/d61ee3719b58b4e57620ac329388bf8973b83db9))
+
+
+
 ## [10.0.5](https://github.com/Availity/availity-workflow/compare/@availity/workflow@10.0.4...@availity/workflow@10.0.5) (2024-01-23)
 
 
