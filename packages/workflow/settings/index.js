@@ -211,10 +211,16 @@ const settings = {
     }
 
     // Merge in ./schema.js defaults with overrides from developer config
-    if (typeof developerConfig === 'function') {
-      config = developerConfig(defaultConfig);
-    } else {
-      merge(config, defaultConfig, this.pkg().availityWorkflow, developerConfig);
+    try {
+      if (typeof developerConfig === 'function') {
+        config = developerConfig(defaultConfig);
+      } else {
+        merge(config, defaultConfig, this.pkg().availityWorkflow, developerConfig);
+      }
+    } catch (error) {
+      const message = `There was an error merging the local config. See details below:\n\n${error.message}`;
+      Logger.failed(message);
+      throw error;
     }
 
     // Validate workflow.js settings
@@ -223,7 +229,7 @@ const settings = {
       this.configuration = config;
     } catch (error) {
       const details = JSON.stringify(error.details, null, 2);
-      const message = `Your workflow.js settings are invalid. See details below:\n${details}`;
+      const message = `Your workflow.js settings are invalid. See details below:\n\n${details}`;
       Logger.failed(message);
       throw error;
     }
@@ -242,33 +248,55 @@ const settings = {
       globals: args.globals
     });
 
-    this.globals();
-
-    this.devServerPort = get(this.configuration, 'development.port', 3000);
-    const availablePort = await getPort({
-      port: getPort.makeRange(this.devServerPort, this.devServerPort + 1000),
-      host: this.host()
-    });
-
-    if (availablePort !== this.devServerPort) {
-      this.devServerPort = availablePort;
+    try {
+      this.globals();
+    } catch (error) {
+      const message = `There was an error initializing globals. See details below:\n\n${error.message}`;
+      Logger.failed(message);
+      throw error;
     }
 
-    const wantedEkkoPort = get(this.configuration, 'ekko.port', 9999);
-    this.ekkoServerPort = await getPort({
-      port: getPort.makeRange(wantedEkkoPort, wantedEkkoPort + 1000),
-      host: this.host()
-    });
-    if (wantedEkkoPort !== this.ekkoServerPort) {
-      this.configuration.ekko.pluginContext = this.configuration.ekko.pluginContext.replace(
-        `:${wantedEkkoPort}`,
-        `:${this.ekkoServerPort}`
-      );
-      if (Array.isArray(this.configuration.proxies)) {
-        for (const proxy of this.configuration.proxies) {
-          proxy.target = proxy.target.replace(`:${wantedEkkoPort}`, `:${this.ekkoServerPort}`);
+    // Setup dev port
+    try {
+      this.devServerPort = get(this.configuration, 'development.port', 3000);
+      const availablePort = await getPort({
+        port: getPort.makeRange(this.devServerPort, this.devServerPort + 1000),
+        host: this.host()
+      });
+
+      if (availablePort !== this.devServerPort) {
+        this.devServerPort = availablePort;
+      }
+    } catch (error) {
+      const message = `There was an error setting up the dev port. See details below:\n\n${error.message}`;
+      Logger.failed(message);
+      throw error;
+    }
+
+    // Setup ekko port
+    try {
+      const wantedEkkoPort = get(this.configuration, 'ekko.port', 9999);
+      this.ekkoServerPort = await getPort({
+        port: getPort.makeRange(wantedEkkoPort, wantedEkkoPort + 1000),
+        host: this.host()
+      });
+
+      if (wantedEkkoPort !== this.ekkoServerPort) {
+        this.configuration.ekko.pluginContext = this.configuration.ekko.pluginContext.replace(
+          `:${wantedEkkoPort}`,
+          `:${this.ekkoServerPort}`
+        );
+
+        if (Array.isArray(this.configuration.proxies)) {
+          for (const proxy of this.configuration.proxies) {
+            proxy.target = proxy.target.replace(`:${wantedEkkoPort}`, `:${this.ekkoServerPort}`);
+          }
         }
       }
+    } catch (error) {
+      const message = `There was an error setting up the dev port. See details below:\n\n${error.message}`;
+      Logger.failed(message);
+      throw error;
     }
   },
 

@@ -14,7 +14,7 @@ const schema = Joi.object()
           .default(true)
           .description('Whether to send webpack build status system notifications'),
         host: Joi.string().default('localhost').description('Webpack dev server host'),
-        port: Joi.number().integer().default(3000).description('Webpack dev server port'),
+        port: Joi.number().integer().min(1024).max(65535).default(3000).description('Webpack dev server port'),
         stats: Joi.object()
           .keys({
             level: Joi.string()
@@ -96,7 +96,7 @@ const schema = Joi.object()
     ekko: Joi.object()
       .keys({
         enabled: Joi.boolean().description('Enables or disables Ekko'),
-        port: Joi.number().integer().description('The port to run Ekko on'),
+        port: Joi.number().integer().min(1024).max(65535).description('The port to run Ekko on'),
         latency: Joi.number().description('Set a latency for all route responses'),
         data: Joi.string().description('Folder that contains the mock data files'),
         routes: Joi.string().description('Path to route configuration file used by Ekko to build Express routes'),
