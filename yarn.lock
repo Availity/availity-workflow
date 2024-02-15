@@ -20427,30 +20427,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.1.30":
-  version: 3.1.30
-  resolution: "nanoid@npm:3.1.30"
+"nanoid@npm:^3.1.30, nanoid@npm:^3.3.4, nanoid@npm:^3.3.6":
+  version: 3.3.7
+  resolution: "nanoid@npm:3.3.7"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: 276d0d4b0c41c46aeefec5f09f093e4085a2352d06881c845db22b84f8ef72cc8defae6d76bfb1d8a2a128eb2dec42ab148d16582be4e7754c97905806ef57b6
-  languageName: node
-  linkType: hard
-
-"nanoid@npm:^3.3.4":
-  version: 3.3.4
-  resolution: "nanoid@npm:3.3.4"
-  bin:
-    nanoid: bin/nanoid.cjs
-  checksum: 2fddd6dee994b7676f008d3ffa4ab16035a754f4bb586c61df5a22cf8c8c94017aadd360368f47d653829e0569a92b129979152ff97af23a558331e47e37cd9c
-  languageName: node
-  linkType: hard
-
-"nanoid@npm:^3.3.6":
-  version: 3.3.6
-  resolution: "nanoid@npm:3.3.6"
-  bin:
-    nanoid: bin/nanoid.cjs
-  checksum: 7d0eda657002738aa5206107bd0580aead6c95c460ef1bdd0b1a87a9c7ae6277ac2e9b945306aaa5b32c6dcb7feaf462d0f552e7f8b5718abfc6ead5c94a71b3
+  checksum: d36c427e530713e4ac6567d488b489a36582ef89da1d6d4e3b87eded11eb10d7042a877958c6f104929809b2ab0bafa17652b076cdf84324aa75b30b722204f2
   languageName: node
   linkType: hard
 
@@ -26528,9 +26510,9 @@ resolve@^2.0.0-next.3:
   linkType: hard
 
 "trim-off-newlines@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "trim-off-newlines@npm:1.0.1"
-  checksum: ca644908cace3d91b4c5b0fee0224640fed34a4503583e542db3f2dbec95246f2dc0f1bdfc5169e95f244f2613c0256ccc0c594ebe678fd9afdd9c5cf424562f
+  version: 1.0.3
+  resolution: "trim-off-newlines@npm:1.0.3"
+  checksum: faf042bb7dd4cb097ab6d358cd51012a9ff5e06f7f2c6570da2ef6f01da9da3ff22ab01080866815e3927ffbf367d57c6aab4c275c67662676b60c563142a558
   languageName: node
   linkType: hard
 
