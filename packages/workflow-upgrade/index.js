@@ -5,6 +5,7 @@ const path = require('path');
 const readPkg = require('read-pkg');
 const rimraf = require('rimraf');
 const Logger = require('@availity/workflow-logger');
+const inquirer = require('inquirer');
 
 const asyncExec = promisify(exec);
 
@@ -55,13 +56,20 @@ module.exports = async (cwd) => {
     let installer = '';
     let peerInfoReceived = false;
 
-    // Get latest verison of packages
-    let latestWorkflowVersion = await getLatestNpmVersion('@availity/workflow', '10.0.0');
-    let latestEslintVersion = await getLatestNpmVersion('eslint-config-availity', '9.0.0');
-
     // Determine which pkg manager is used
-    Logger.info('Determining which package manager is being used...');
-    if (hasPkgLock) {
+    Logger.info('Looking for lockfiles to determine which package manager is being used...');
+    if (hasPkgLock && hasYarnLock) {
+      Logger.warn('We found package-lock.json and yarn.lock files.');
+      const response = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'installer',
+          message: 'Which package manager would you like to use? (We recommend yarn)',
+          choices: ['yarn', 'npm']
+        }
+      ]);
+      installer = response.installer;
+    } else if (hasPkgLock) {
       Logger.info('package-lock.json detected. Using NPM as installer.');
       installer = 'npm';
     } else if (hasYarnLock) {
@@ -71,6 +79,10 @@ module.exports = async (cwd) => {
       Logger.warn('No lockfile detected. Using Yarn as default installer.');
       installer = 'yarn';
     }
+
+    // Get latest verison of packages
+    let latestWorkflowVersion = await getLatestNpmVersion('@availity/workflow', '10.0.6');
+    let latestEslintVersion = await getLatestNpmVersion('eslint-config-availity', '9.0.0');
 
     if (devDependencies) {
       Logger.info(`Setting version of @availity/workflow to ${latestWorkflowVersion}`);
@@ -140,11 +152,12 @@ module.exports = async (cwd) => {
     Logger.info('Updating package.json...');
     fs.writeFileSync(pkgFile, `${JSON.stringify(pkg, null, 2)}\n`, 'utf-8');
 
-    // Delete lockfile
+    // Delete each lockfile in case both exist
     if (hasPkgLock) {
       Logger.info('Deleting package-lock.json...');
       fs.unlinkSync(pkgLock);
-    } else if (hasYarnLock) {
+    }
+    if (hasYarnLock) {
       Logger.info('Deleting yarn.lock...');
       fs.unlinkSync(yarnLock);
     }
