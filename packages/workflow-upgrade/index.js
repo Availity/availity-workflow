@@ -7,7 +7,34 @@ const rimraf = require('rimraf');
 const Logger = require('@availity/workflow-logger');
 
 const asyncExec = promisify(exec);
-const reinstallTimeout = 30 * 1000 * 60; // 30 minutes
+
+const REINSTALL_TIMEOUT = 30 * 1000 * 60; // 30 minutes
+const MAX_BUFFER_SIZE = 1024 * 5000; // 5MB
+
+const reinstallNodeModules = async (installer, peerInfoReceived) => {
+  Logger.info('Reinstalling packages..');
+
+  // Run install command
+  await asyncExec(`${installer} install`, { timeout: REINSTALL_TIMEOUT, maxBuffer: MAX_BUFFER_SIZE }, () => {
+    Logger.success('\nCongratulations! Welcome to the new @availity/workflow.');
+
+    if (!peerInfoReceived) {
+      Logger.warn(
+        'To complete your upgrade, please install the peerDependencies from eslint-config-availity as devDependencies in your project.'
+      );
+    }
+  });
+};
+
+const getLatestNpmVersion = async (pkgName, defaultVersion) => {
+  try {
+    let { stdout } = await asyncExec(`npm view ${pkgName} version`);
+    return stdout.trim();
+  } catch {
+    Logger.warn(`There was an error getting the latest ${pkgName} version. Defaulting to ${defaultVersion}`);
+    latestWorkflowVersion = defaultVersion;
+  }
+};
 
 module.exports = async (cwd) => {
   Logger.info('Upgrading @availity/workflow');
@@ -15,44 +42,43 @@ module.exports = async (cwd) => {
 
   if (fs.existsSync(pkgFile)) {
     // Read Package File to JSON
+    Logger.info('Reading package.json...');
     const pkg = readPkg.sync({ cwd, normalize: false });
     const { devDependencies, scripts, availityWorkflow } = pkg;
+
     const pkgLock = path.join(cwd, 'package-lock.json');
     const yarnLock = path.join(cwd, 'yarn.lock');
+
+    const hasPkgLock = fs.existsSync(pkgLock);
+    const hasYarnLock = fs.existsSync(yarnLock);
+
     let installer = '';
     let peerInfoReceived = false;
 
-    if (fs.existsSync(pkgLock)) {
-      // delete package lock, set npm as installer
-      Logger.info('Deleting Package-Lock');
-      fs.unlinkSync(pkgLock);
+    // Get latest verison of packages
+    let latestWorkflowVersion = await getLatestNpmVersion('@availity/workflow', '10.0.0');
+    let latestEslintVersion = await getLatestNpmVersion('eslint-config-availity', '9.0.0');
+
+    // Determine which pkg manager is used
+    Logger.info('Determining which package manager is being used...');
+    if (hasPkgLock) {
+      Logger.info('package-lock.json detected. Using NPM as installer.');
       installer = 'npm';
-    } else if (fs.existsSync(yarnLock)) {
-      // delete yarn lock, set yarn as installer
-      Logger.info('Deleting yarn.lock');
-      fs.unlinkSync(yarnLock);
+    } else if (hasYarnLock) {
+      Logger.info('yarn.lock detected. Using Yarn as installer.');
       installer = 'yarn';
     } else {
-      Logger.warn('No lockfile detected, using yarn as default installer.');
+      Logger.warn('No lockfile detected. Using Yarn as default installer.');
       installer = 'yarn';
-    }
-
-    // Add this script into the new workflow scripts for the future
-    scripts['upgrade:workflow'] = './node_modules/.bin/upgrade-workflow';
-
-    // Check for deprecated workflow features
-    if (availityWorkflow?.plugin) {
-      Logger.warn(`Deprecated plugin feature detected, removing availityWorkflow.plugin entry.`);
-      delete availityWorkflow.plugin;
-    }
-
-    // If workflow entry didn't exist, or plugin was its only key
-    if (!availityWorkflow || Object.keys(availityWorkflow).length === 0) {
-      Logger.info(`Adding '"availityWorkflow": true' to package.json`);
-      Object.assign(pkg, { availityWorkflow: true });
     }
 
     if (devDependencies) {
+      Logger.info(`Setting version of @availity/workflow to ${latestWorkflowVersion}`);
+      devDependencies['@availity/workflow'] = `^${latestWorkflowVersion}`;
+
+      Logger.info(`Setting version of eslint-config-availity to ${latestEslintVersion}`);
+      devDependencies['eslint-config-availity'] = `^${latestEslintVersion}`;
+
       Logger.info('Removing devDependencies that are no longer needed...');
 
       // Delete all deps that were previously required
@@ -69,67 +95,66 @@ module.exports = async (cwd) => {
       delete devDependencies['availity-workflow-angular'];
       delete devDependencies['@availity/workflow-plugin-react'];
       delete devDependencies['@availity/workflow-plugin-angular'];
+      delete devDependencies['@typescript-eslint/eslint-plugin'];
+      delete devDependencies['@typescript-eslint/parser'];
 
       // Get needed dependencies from eslint-config-availity
-      Logger.info('Adding peerDependencies from eslint-config-availity to devDependencies in project');
+      Logger.info('Adding peerDependencies from eslint-config-availity to devDependencies in project...');
 
-      const { error, stdout, stderr } = await asyncExec(
-        `${installer} info eslint-config-availity peerDependencies --json`
-      );
-      if (!error && !stderr && stdout) {
-        // Both npm and yarn will return an object containing key/value pairs of dependencies
-        // npm will return only the peerDependencies object, but yarn nests them inside a data key
-        const eslintPkg = JSON.parse(stdout);
-        const peerDependencies = installer === 'npm' ? eslintPkg : eslintPkg.data;
+      try {
+        const { error, stdout, stderr } = await asyncExec(
+          `${installer} info eslint-config-availity peerDependencies --json`
+        );
+        if (!error && !stderr && stdout) {
+          // Both npm and yarn will return an object containing key/value pairs of dependencies
+          // npm will return only the peerDependencies object, but yarn nests them inside a data key
+          const eslintPkg = JSON.parse(stdout);
+          const peerDependencies = installer === 'npm' ? eslintPkg : eslintPkg.data;
 
-        Object.assign(devDependencies, peerDependencies);
-        peerInfoReceived = true;
-      } else {
+          Object.assign(devDependencies, peerDependencies);
+          peerInfoReceived = true;
+        } else {
+          Logger.warn('Failed to get peerDependencies from eslint-config-availity');
+        }
+      } catch (error) {
         Logger.warn('Failed to get peerDependencies from eslint-config-availity');
       }
     }
 
+    // Add this script into the new workflow scripts for the future
+    scripts['upgrade:workflow'] = './node_modules/.bin/upgrade-workflow';
+
+    // Check for deprecated workflow features
+    if (availityWorkflow?.plugin) {
+      Logger.warn(`Deprecated plugin feature detected. Removing "availityWorkflow.plugin" entry from package.json`);
+      delete availityWorkflow.plugin;
+    }
+
+    // If workflow entry didn't exist or plugin was its only key
+    if (!availityWorkflow || Object.keys(availityWorkflow).length === 0) {
+      Logger.info(`Adding '"availityWorkflow": true' to package.json`);
+      Object.assign(pkg, { availityWorkflow: true });
+    }
+
     // Update package.json
+    Logger.info('Updating package.json...');
     fs.writeFileSync(pkgFile, `${JSON.stringify(pkg, null, 2)}\n`, 'utf-8');
 
+    // Delete lockfile
+    if (hasPkgLock) {
+      Logger.info('Deleting package-lock.json...');
+      fs.unlinkSync(pkgLock);
+    } else if (hasYarnLock) {
+      Logger.info('Deleting yarn.lock...');
+      fs.unlinkSync(yarnLock);
+    }
+
+    // Delete node_modules
     Logger.info('Deleting node_modules...');
-    // Delete Node Modules
     rimraf.sync(path.join(cwd, 'node_modules'));
 
-    const reinstallNodeModules = async () => {
-      Logger.info('Reinstalling packages..');
-
-      // Run install command
-      await asyncExec(`${installer} install`, { timeout: reinstallTimeout }, () => {
-        Logger.success('\nCongratulations! Welcome to the new @availity/workflow.');
-        if (!peerInfoReceived) {
-          Logger.warn(
-            'To complete your upgrade, please install the peerDependencies from eslint-config-availity as devDependencies in your project.'
-          );
-        }
-      });
-    };
-
-    Logger.info('Adding latest versions of @availity/workflow and eslint-config-availity');
-
-    if (installer === 'yarn') {
-      // yarn add package will grab the latest version of a package by default
-      await asyncExec(
-        `${installer} add @availity/workflow eslint-config-availity --dev`,
-        { timeout: reinstallTimeout },
-        async () => {
-          await reinstallNodeModules();
-        }
-      );
-    } else if (installer === 'npm') {
-      // npm install package will respect semver if a package is already listed in project
-      await asyncExec(
-        `${installer} install @availity/workflow@latest eslint-config-availity@latest --save-dev`,
-        { timeout: reinstallTimeout },
-        async () => {
-          await reinstallNodeModules();
-        }
-      );
-    }
+    await reinstallNodeModules(installer, peerInfoReceived);
+  } else {
+    Logger.failed('Could not find package.json');
   }
 };
