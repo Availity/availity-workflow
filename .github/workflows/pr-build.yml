@@ -66,8 +66,8 @@ jobs:
       - name: Version Bump Dry Run
         run: yarn version:dry-run
 
-      - name: Build Docs (Node 16+ only)
-        if: ${{matrix.node > 14}}
+      - name: Build Docs (Node 18+ only)
+        if: ${{matrix.node > 16}}
         run: yarn build:docs
 
       - name: Build App

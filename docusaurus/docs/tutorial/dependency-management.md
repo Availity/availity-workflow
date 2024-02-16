@@ -29,20 +29,13 @@ Availity released `availity-workflow@3.0.0` to modernize the stack even further 
 
 ## Changelog
 
-All Availity open-source projects maintain a changelog. Each project maintains it's own changelog. The changelog can be found either in the `releases` link on GitHub or as a `CHANGELOG.md` at the root of the project.
-
-### Releases Examples
-
--   <https://github.com/Availity/availity-workflow/releases>
--   <https://github.com/Availity/sdk-js/releases>
--   <https://github.com/Availity/availity-uikit/releases>
--   <https://github.com/Availity/sdk-js/releases>
+All Availity open-source projects maintain a changelog. Each project maintains it's own changelog. The changelog can be found in `CHANGELOG.md` for each package within a project.
 
 ### Changelog.md Examples
 
--   <https://github.com/Availity/sdk-js/blob/master/CHANGELOG.md>
--   <https://github.com/Availity/availity-workflow/blob/master/CHANGELOG.md>
--   <https://github.com/Availity/availity-react/blob/master/CHANGELOG.md>
+-   [`availity-workflow` changelog](https://github.com/Availity/availity-workflow/blob/master/packages/workflow/CHANGELOG.md)
+-   [`sdk-js/analytics-core` changelog](https://github.com/Availity/sdk-js/blob/master/packages/analytics-core/CHANGELOG.md)
+-   [`availity-react/analytics` changelog](https://github.com/Availity/availity-react/blob/master/packages/analytics/CHANGELOG.md)
 
 ## Tools
 
@@ -57,20 +50,20 @@ awesome-bootstrap-checkbox                0.3.7             0.3.7         1.0.0 
 bootstrap                                 3.3.7             3.3.7         4.0.0  availity-toolkit > availity-uikit
 ```
 
-### `npm-check`
-
-<https://www.npmjs.com/package/npm-check>
+### `yarn upgrade-interactive --latest`
 
 ```bash
- npm-check -u
-? Choose which packages to update.
-
- Major Update Potentially breaking API changes. Use caution.
-❯◉ bootstrap           3.3.7             ❯  4.0.0  <https://getbootstrap.com>
- ◯ select2             3.5.2-browserify  ❯  4.0.5  <https://select2.org>
- ◯ lint-staged devDep  6.1.1             ❯  7.0.0  <https://github.com/okonet/lint-staged#readme>
-
- Space to select. Enter to start upgrading. Control-C to cancel.
+❯ yarn upgrade-interactive --latest
+yarn upgrade-interactive v1.22.19
+info Color legend :
+ "<red>"    : Major Update backward-incompatible updates
+ "<yellow>" : Minor Update backward-compatible features
+ "<green>"  : Patch Update backward-compatible bug fixes
+? Choose which packages to update. (Press <space> to select, <a> to toggle all, <i> to invert selection)
+ dependencies
+   name                    range   from             to            url
+❯◯ @availity/favorites     latest  3.4.3         ❯  5.0.1         https://availity.github.io/availity-react/components/favorites/index
+ ◯ @availity/spaces        latest  6.6.1         ❯  8.0.1         https://availity.github.io/availity-react/components/spaces/index
 ```
 
 ## FAQ

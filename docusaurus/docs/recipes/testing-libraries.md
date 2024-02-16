@@ -2,7 +2,7 @@
 title: Testing Libraries
 ---
 
-By default `@testing-library/react` and `@testing-library/jest-dom/extend-expect` are added to the project. Some of their scripts are also automatically added to the `setupFilesAfterEnv` param for jest [here](https://github.com/Availity/availity-workflow/blob/master/packages/workflow/jest.config.js#L42).
+By default `@testing-library/react` and `@testing-library/jest-dom/extend-expect` are added to the project. Some of their scripts are also automatically added to the `setupFilesAfterEnv` param for jest [here](https://github.com/Availity/availity-workflow/blob/master/packages/workflow/jest.config.js#L38).
 
 -   `@testing-library/react/cleanup-after-each` - Will clean up the DOM after each test has ran.
 -   `@testing-library/jest-dom/extend-expect` - Custom jest matchers that you can use to extend jest
