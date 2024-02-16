@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow-upgrade@6.0.2...@availity/workflow-upgrade@6.0.3) (2024-02-16)
+
+
+### Bug Fixes
+
+* **workflow-upgrade:** fix error getting peerDeps and buffer overflow ([cd066a3](https://github.com/Availity/availity-workflow/commit/cd066a37c9861bf1b8951a23dc0a7878ac2e8688))
+* **workflow-upgrade:** prompt for input if both lockfiles are present ([774fe15](https://github.com/Availity/availity-workflow/commit/774fe157c96d09c1a788526ba4c2df12d98e10f0))
+
+
+
 ## [6.0.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow-upgrade@6.0.1...@availity/workflow-upgrade@6.0.2) (2024-02-12)
 
 
