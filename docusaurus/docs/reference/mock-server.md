@@ -65,7 +65,7 @@ app.listen(3001);
 -   **port**: Server binds and listens for connections on the specified port. Default is `9999`.
 -   **data**: Path to folder that contains the json mock responses.
 -   **routes**: Path(s) to configuration file that contains a mapping of the request/response routes. Multiple paths can be passed in with an array of strings.
--   **plugins**: Array of NPM module names that enhance `@availity/mock-server` with additional data and routes. @See [@availity/mock-data](https://github.com/Availity/@availity/mock-data)
+-   **plugins**: Array of NPM module names that enhance `@availity/mock-server` with additional data and routes. @See [@availity/mock-data](https://github.com/Availity/availity-workflow/tree/master/packages/mock-data)
 -   **logProvider**: Function that returns a logger that is used in place of the default logger. Inspired by the log provider in [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
 -   **pluginContext**: A url context value which is used to rewrite every instance of `${context}` variable in mock data responses. This can be useful for HATEOS links.
 

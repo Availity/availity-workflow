@@ -52,8 +52,6 @@ bootstrap                                 3.3.7             3.3.7         4.0.0 
 
 ### `yarn upgrade-interactive --latest`
 
-[`npm-check` on npm](https://www.npmjs.com/package/npm-check)
-
 ```bash
 ❯ yarn upgrade-interactive --latest
 yarn upgrade-interactive v1.22.19
