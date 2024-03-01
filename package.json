@@ -37,7 +37,7 @@
     "@nrwl/cli": "15.9.4",
     "@nrwl/js": "^16.5.5",
     "@nrwl/workspace": "16.5.5",
-    "@types/is-ci": "^3.0.0",
+    "@types/is-ci": "^3.0.4",
     "conventional-changelog-cli": "^4.1.0",
     "conventional-changelog-conventionalcommits": "^7.0.2",
     "dependency-check": "^4.1.0",
@@ -48,8 +48,8 @@
     "jest": "^27.5.1",
     "lint-staged": "^13.2.3",
     "nx": "16.5.3",
-    "prettier": "^3.0.0",
-    "typescript": "^5.1.6"
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
   },
   "resolutions": {
     "nx": "16.5.3",
