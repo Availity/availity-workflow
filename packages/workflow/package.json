@@ -113,7 +113,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@testing-library/react": "^14.0.0",
+    "@testing-library/react": "^14.2.1",
     "@types/sass": "^1.45.0"
   },
   "engines": {

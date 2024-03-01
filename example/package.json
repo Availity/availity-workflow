@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@availity/workflow": "workspace:*",
-    "@testing-library/react": "^14.0.0",
+    "@testing-library/react": "^14.2.1",
     "@types/jest": "^27.5.1",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.17",
