@@ -297,7 +297,7 @@ __metadata:
     "@availity/page-header": ^11.3.4
     "@availity/spaces": 6.6.0
     "@availity/workflow": "workspace:*"
-    "@availity/yup": ^5.1.2
+    "@availity/yup": ^5.1.5
     "@testing-library/react": ^14.0.0
     "@types/jest": ^27.5.1
     "@types/node": ^20.11.24
@@ -762,15 +762,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@availity/yup@npm:^5.1.2":
-  version: 5.1.2
-  resolution: "@availity/yup@npm:5.1.2"
+"@availity/yup@npm:^5.1.5":
+  version: 5.1.5
+  resolution: "@availity/yup@npm:5.1.5"
   dependencies:
     lodash: ^4.17.21
-    yup: ^0.32.0
+    yup: ^0.32.11
   peerDependencies:
     moment: ^2.24.0
-  checksum: a49615f3824d010d89e2513a4423ceec077fd99cef246bc2a54cb075a037984085d8b3eeea99177f42b1fb6285dde0b84854911493d9c4f5f4a6930fdbc48208
+  checksum: 9f689e65afe6de1cb8f6b7fec125445b9e2b9210a97ef3ef55c1121b2f931826c4dd7fc0c795665adb321d0e6672ab89190e5dd13745fcd763b2307d04ea866c
   languageName: node
   linkType: hard
 
@@ -29429,7 +29429,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"yup@npm:^0.32.0, yup@npm:^0.32.9":
+"yup@npm:^0.32.11, yup@npm:^0.32.9":
   version: 0.32.11
   resolution: "yup@npm:0.32.11"
   dependencies:
