@@ -32,9 +32,9 @@
   "dependencies": {
     "@availity/mock-server": "workspace:*",
     "@availity/workflow-logger": "workspace:*",
-    "@babel/core": "^7.22.9",
-    "@babel/plugin-proposal-decorators": "^7.22.7",
-    "@babel/runtime": "^7.22.6",
+    "@babel/core": "^7.24.0",
+    "@babel/plugin-proposal-decorators": "^7.24.0",
+    "@babel/runtime": "^7.24.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@rspack/cli": "^0.3.4",
     "@rspack/core": "^0.3.4",
