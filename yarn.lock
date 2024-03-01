@@ -226,16 +226,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@availity/api-axios@npm:^8.0.2":
-  version: 8.0.2
-  resolution: "@availity/api-axios@npm:8.0.2"
+"@availity/api-axios@npm:^8.0.5":
+  version: 8.0.5
+  resolution: "@availity/api-axios@npm:8.0.5"
   dependencies:
-    "@availity/resolve-url": 2.0.3
+    "@availity/resolve-url": 2.0.5
     lodash: ^4.17.21
-    qs: ^6.10.1
+    qs: ^6.11.2
   peerDependencies:
     axios: ^1.4.0
-  checksum: 7556e5c75b50e4124b556365d02d8b42a19fedd4ba95d659a50ba761ac60aff515a9e735061a7cff282942ac9ddc4047904583a74b9050239269c89f2a57dc1e
+  checksum: c228b8963f4fbad06ea3012134d71df0433b3ec0274f5dd3a6a4ddf7de9a14a6923c470a700a8475181b93c367ae4ac7e3ab6b0a573406c898ca3f86700df552
   languageName: node
   linkType: hard
 
@@ -259,7 +259,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@availity/breadcrumbs@npm:3.3.3, @availity/breadcrumbs@npm:^3.3.3":
+"@availity/breadcrumbs@npm:3.3.3":
   version: 3.3.3
   resolution: "@availity/breadcrumbs@npm:3.3.3"
   dependencies:
@@ -268,6 +268,18 @@ __metadata:
     react: ">=16.3.0"
     reactstrap: ^8.0.0
   checksum: 988fd5268caf888c32cf85c25c7864fd76f636f15563c0445261bf8c8b7ab570dd87b8ed5826572dadd15239166608e2ce6743a103c4143fde6c0c52fbf3177b
+  languageName: node
+  linkType: hard
+
+"@availity/breadcrumbs@npm:^3.3.5":
+  version: 3.3.5
+  resolution: "@availity/breadcrumbs@npm:3.3.5"
+  dependencies:
+    prop-types: ^15.8.1
+  peerDependencies:
+    react: ">=16.3.0"
+    reactstrap: ^8.0.0
+  checksum: fb8d3692f63d71e9eee28318b529bb76c2d8b6492d7ff37a19d939476ccb42837516fe27b6cabb5376941046dcff39852987d55f7ac7272e9820d06f469b8531
   languageName: node
   linkType: hard
 
@@ -288,11 +300,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@availity/example@workspace:example"
   dependencies:
-    "@availity/api-axios": ^8.0.2
-    "@availity/breadcrumbs": ^3.3.3
+    "@availity/api-axios": ^8.0.5
+    "@availity/breadcrumbs": ^3.3.5
     "@availity/favorites": ^3.4.3
-    "@availity/form": ^1.7.4
-    "@availity/icon": ^0.11.3
+    "@availity/form": ^1.8.1
+    "@availity/icon": ^0.11.7
     "@availity/localstorage-core": ^3.0.0
     "@availity/page-header": ^11.3.4
     "@availity/spaces": 6.6.0
@@ -369,7 +381,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@availity/form@npm:1.7.4, @availity/form@npm:^1.7.4":
+"@availity/form@npm:1.7.4":
   version: 1.7.4
   resolution: "@availity/form@npm:1.7.4"
   dependencies:
@@ -383,6 +395,24 @@ __metadata:
     react: ">=16.8.3"
     reactstrap: ^8.0.0
   checksum: 5ba3f69e2600bd45f565ff21c5adfb62e2f2a26f48cf0c8f1f9bb65804f6127cb286fa75a812aba23cb0e0576e51727f93c6153c8aada993ff2f0ae9690a71af
+  languageName: node
+  linkType: hard
+
+"@availity/form@npm:^1.8.1":
+  version: 1.8.1
+  resolution: "@availity/form@npm:1.8.1"
+  dependencies:
+    "@availity/icon": 0.11.7
+    "@availity/message-core": ^6.1.2
+    classnames: ^2.3.2
+    prop-types: ^15.8.1
+    react-currency-input-field: ^3.6.11
+    uuid: ^9.0.1
+  peerDependencies:
+    formik: ^2.0.1
+    react: ">=16.8.3"
+    reactstrap: ^8.0.0
+  checksum: ccb2a358a787aeaf1b1d725e1ef46a8f6812faa6d0cffe5e0e58e587bb349b7323ff48001499b26ef03e2d8e10e18d6026959417f04c705fa749b5f3c048e1c9
   languageName: node
   linkType: hard
 
@@ -451,7 +481,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@availity/icon@npm:0.11.3, @availity/icon@npm:^0.11.3":
+"@availity/icon@npm:0.11.3":
   version: 0.11.3
   resolution: "@availity/icon@npm:0.11.3"
   dependencies:
@@ -459,6 +489,17 @@ __metadata:
   peerDependencies:
     react: ">=16.3.0"
   checksum: 308114eae09c4118f7c1f6735e609cf4cce41b98056f7d1dbd9716bbfac12aa08bcc2fa8f1e2cc86762ef8b21acf46a9eeff7618bfdebc84b1d913738ed6a448
+  languageName: node
+  linkType: hard
+
+"@availity/icon@npm:0.11.7, @availity/icon@npm:^0.11.7":
+  version: 0.11.7
+  resolution: "@availity/icon@npm:0.11.7"
+  dependencies:
+    classnames: ^2.3.2
+  peerDependencies:
+    react: ">=16.3.0"
+  checksum: 2f13c5b888c4c08314eb37a77e84ce6f3cfff33ef9014b6623c3aa15c0de050e3caa4b62b009a10713eaab5883349d53df8e5305f9821e362ed903db57170a71
   languageName: node
   linkType: hard
 
@@ -498,6 +539,13 @@ __metadata:
   version: 6.1.0
   resolution: "@availity/message-core@npm:6.1.0"
   checksum: c6ef958a5c90b1fdeae119990530aeb10e9a017d27bd556cd1b9331b55913be53acf4c4bbfda5d0201d762970b23ea46e317944ef2933bca0158db00119e5df1
+  languageName: node
+  linkType: hard
+
+"@availity/message-core@npm:^6.1.2":
+  version: 6.1.2
+  resolution: "@availity/message-core@npm:6.1.2"
+  checksum: 1fd135ff1dc8db99442a5b1691f017e61377b88334e62eae1f3a6509706b3285d99d20f161275b3cfe0dac0870034be3d1bf8e0d573d151ded7447056edee4b3
   languageName: node
   linkType: hard
 
@@ -577,6 +625,13 @@ __metadata:
   version: 2.0.3
   resolution: "@availity/resolve-url@npm:2.0.3"
   checksum: 280f7ad7c0f769c5431e78b1f7f775b08216f4374988c15b3ad98ab8e9ed46baba2de3aa2fe66810f99af1a8eea084cfbfaed1ebbf50a3ef26e5343cca4aeb45
+  languageName: node
+  linkType: hard
+
+"@availity/resolve-url@npm:2.0.5":
+  version: 2.0.5
+  resolution: "@availity/resolve-url@npm:2.0.5"
+  checksum: 59980fbd26173a91872c435d7e8617e45049de50d3f67710a1dc845b7740908309dd8b324189f4479d99a18deae013abc7c0e9b87f7bac8d7080123693bfd396
   languageName: node
   linkType: hard
 
@@ -24252,7 +24307,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.10.1, qs@npm:^6.10.3, qs@npm:^6.11.0":
+"qs@npm:^6.10.1, qs@npm:^6.10.3, qs@npm:^6.11.0, qs@npm:^6.11.2":
   version: 6.11.2
   resolution: "qs@npm:6.11.2"
   dependencies:
@@ -24412,6 +24467,15 @@ __metadata:
   peerDependencies:
     react: ^16.9.0 || ^17.0.0 || ^18.0.0
   checksum: d13016069cde18193724fa4640fb84aa5541dbba643b59c4896819508de2f0d1c8f2d87eaf6ede11ed55547d22cc3a04edecd0c52b015ca4fbe3fdf1ba2fb380
+  languageName: node
+  linkType: hard
+
+"react-currency-input-field@npm:^3.6.11":
+  version: 3.8.0
+  resolution: "react-currency-input-field@npm:3.8.0"
+  peerDependencies:
+    react: ^16.9.0 || ^17.0.0 || ^18.0.0
+  checksum: 7c6acb472b0823b103d1477dae9b9fdc49d48bffe963e7f1e0808da83793ddc8c7b151775ca76a4681e090816eef8a0b98f728e45061031ab98bfa750b8a30fb
   languageName: node
   linkType: hard
 
@@ -28442,6 +28506,15 @@ resolve@^2.0.0-next.3:
   bin:
     uuid: dist/bin/uuid
   checksum: 8dd2c83c43ddc7e1c71e36b60aea40030a6505139af6bee0f382ebcd1a56f6cd3028f7f06ffb07f8cf6ced320b76aea275284b224b002b289f89fe89c389b028
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "uuid@npm:9.0.1"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 39931f6da74e307f51c0fb463dc2462807531dc80760a9bff1e35af4316131b4fc3203d16da60ae33f07fdca5b56f3f1dd662da0c99fea9aaeab2004780cc5f4
   languageName: node
   linkType: hard
 
