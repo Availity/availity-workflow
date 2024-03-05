@@ -12,7 +12,7 @@ import trimStart from 'lodash/trimStart';
 import chalk from 'chalk';
 import fs from 'node:fs';
 import yargs from 'yargs';
-import getPort from 'get-port';
+import getPort, { portNumbers } from 'get-port';
 import Joi from 'joi';
 import paths from '../helpers/paths';
 
@@ -260,7 +260,7 @@ export default settings = {
     try {
       this.devServerPort = get(this.configuration, 'development.port', 3000);
       const availablePort = await getPort({
-        port: getPort.makeRange(this.devServerPort, this.devServerPort + 1000),
+        port: portNumbers(this.devServerPort, this.devServerPort + 1000),
         host: this.host()
       });
 
@@ -277,7 +277,7 @@ export default settings = {
     try {
       const wantedEkkoPort = get(this.configuration, 'ekko.port', 9999);
       this.ekkoServerPort = await getPort({
-        port: getPort.makeRange(wantedEkkoPort, wantedEkkoPort + 1000),
+        port: portNumbers(wantedEkkoPort, wantedEkkoPort + 1000),
         host: this.host()
       });
 
