@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import check from 'dependency-check';
-import globby from 'globby';
+import { globby } from 'globby';
 
 const dependencyAnalyzer = async (args = {}) => {
   let { ignorePaths = [] } = args;

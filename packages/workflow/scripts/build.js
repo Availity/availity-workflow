@@ -1,4 +1,4 @@
-import del from 'del';
+import {deleteSync} from 'del';
 import webpack from 'webpack';
 import ProgressPlugin from 'webpack/lib/ProgressPlugin';
 import ora from 'ora';
@@ -14,7 +14,7 @@ export default function bundle({ profile, settings }) {
   return new Promise(async (resolve, reject) => {
     if (!settings.isDryRun()) {
       Logger.success(`Cleaning directories ${settings.output()}`);
-      del.sync([settings.output()]);
+      deleteSync([settings.output()]);
     }
 
     // Lazy load this else yargs loads too early https://github.com/Availity/@availity/workflow/issues/133

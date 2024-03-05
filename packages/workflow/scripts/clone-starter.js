@@ -3,7 +3,7 @@
  * Motivation
  * https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-cli/src/init-starter.js
  */
-import execa from `execa`;
+import { execa } from `execa`;
 import hostedGitInfo from `hosted-git-info`;
 import fs from `fs-extra`;
 import sysPath from `node:path`;

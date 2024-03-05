@@ -1,4 +1,4 @@
-import globby from 'globby';
+import { globby } from 'globby';
 import ora from 'ora';
 import chalk from 'chalk';
 import Logger from '@availity/workflow-logger';

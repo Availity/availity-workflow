@@ -2,7 +2,7 @@ import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 import fs from 'node:fs';
 import path from 'node:path';
-import readPkg from 'read-pkg';
+import { readPackage } from 'read-pkg';
 import rimraf from 'rimraf';
 import Logger from '@availity/workflow-logger';
 import inquirer from 'inquirer';
@@ -44,7 +44,7 @@ export default async (cwd) => {
   if (fs.existsSync(pkgFile)) {
     // Read Package File to JSON
     Logger.info('Reading package.json...');
-    const pkg = readPkg.sync({ cwd, normalize: false });
+    const pkg = readPackage.sync({ cwd, normalize: false });
     const { devDependencies, scripts, availityWorkflow } = pkg;
 
     const pkgLock = path.join(cwd, 'package-lock.json');
