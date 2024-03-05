@@ -1,11 +1,9 @@
-const match = require('./match');
-const result = require('./result');
+import match from './match';
+import result from './result';
 
-const get = {
+export default get = {
   send(req, res) {
     match.set(req, res);
     result.send(req, res);
   }
 };
-
-module.exports = get;

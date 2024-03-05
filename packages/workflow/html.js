@@ -1,6 +1,6 @@
-const path = require('path');
+import path from 'node:path';
 
-const html = (settings) => {
+export default html = (settings) => {
   const workflowTemplate = path.join(__dirname, './public/index.html');
   const projectTemplate = path.join(settings.app(), 'index.html');
 
@@ -15,5 +15,3 @@ const html = (settings) => {
 
   return config;
 };
-
-module.exports = html;

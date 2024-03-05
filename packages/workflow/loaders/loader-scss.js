@@ -1,7 +1,7 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const loaderPostcss = require('./loader-postcss');
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import loaderPostcss from './loader-postcss';
 
-module.exports = {
+export default {
   development: {
     test: /\.(scss|sass)$/,
     use: [

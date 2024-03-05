@@ -5,7 +5,8 @@
     "upgrade-workflow": "./bin.js"
   },
   "description": "Package to upgrade availity-workflow projects",
-  "main": "bin.js",
+  "type": "module",
+  "exports": "./bin.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/availity/availity-workflow.git"

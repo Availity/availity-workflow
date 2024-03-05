@@ -1,6 +1,6 @@
-const path = require('path');
+import path from 'node:path';
 
-const config = {
+export default config = {
   latency: 0,
   user: null,
   cache: 0,
@@ -11,5 +11,3 @@ const config = {
   data: path.join(__dirname, '/data'),
   routes: path.join(__dirname, '/dummy.routes.config.json')
 };
-
-module.exports = config;

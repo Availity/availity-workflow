@@ -1,9 +1,9 @@
 /* eslint-disable global-require */
-module.exports = {
-  css: require('./loader-css'),
-  less: require('./loader-less'),
-  scss: require('./loader-scss'),
-  postcss: require('./loader-postcss'),
-  images: require('./rule-images'),
-  MiniCssExtractPlugin: require('mini-css-extract-plugin')
+export default {
+  css: import('./loader-css'),
+  less: import('./loader-less'),
+  scss: import('./loader-scss'),
+  postcss: import('./loader-postcss'),
+  images: import('./rule-images'),
+  MiniCssExtractPlugin: import('mini-css-extract-plugin')
 };

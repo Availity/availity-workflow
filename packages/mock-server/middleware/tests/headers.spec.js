@@ -1,6 +1,6 @@
-const request = require('superagent');
-const _ = require('lodash');
-const helper = require('../../tests/helpers');
+import request from 'superagent';
+import _ from 'lodash';
+import helper from '../../tests/helpers';
 
 describe('Headers', () => {
   helper.serverSpecHelper();

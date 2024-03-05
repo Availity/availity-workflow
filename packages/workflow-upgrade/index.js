@@ -1,11 +1,11 @@
-const { exec } = require('child_process');
-const { promisify } = require('util');
-const fs = require('fs');
-const path = require('path');
-const readPkg = require('read-pkg');
-const rimraf = require('rimraf');
-const Logger = require('@availity/workflow-logger');
-const inquirer = require('inquirer');
+import { exec } from 'node:child_process';
+import { promisify } from 'node:util';
+import fs from 'node:fs';
+import path from 'node:path';
+import readPkg from 'read-pkg';
+import rimraf from 'rimraf';
+import Logger from '@availity/workflow-logger';
+import inquirer from 'inquirer';
 
 const asyncExec = promisify(exec);
 
@@ -37,7 +37,7 @@ const getLatestNpmVersion = async (pkgName, defaultVersion) => {
   }
 };
 
-module.exports = async (cwd) => {
+export default async (cwd) => {
   Logger.info('Upgrading @availity/workflow');
   const pkgFile = path.join(cwd, 'package.json');
 

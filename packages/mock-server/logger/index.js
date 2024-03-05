@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 /* eslint no-console:0 */
-const chalk = require('chalk');
+import chalk from 'chalk';
 
 let loggerInstance;
 
@@ -85,7 +85,7 @@ class Logger {
   }
 }
 
-module.exports = {
+export default {
   // singleton
   getInstance() {
     if (!loggerInstance) {

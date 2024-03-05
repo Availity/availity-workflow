@@ -12,7 +12,7 @@ If you want to override this you can create a file in the `/app` directory calle
 ## Example
 
 ```javascript
-module.exports = ['@testing-library/react/cleanup-after-each', '@testing-library/jest-dom/extend-expect'];
+export default ['@testing-library/react/cleanup-after-each', '@testing-library/jest-dom/extend-expect'];
 ```
 
 More Info on Jest `setupFilesAfterEnv` [here](https://jestjs.io/docs/en/configuration#setupfilesafterenv-array)

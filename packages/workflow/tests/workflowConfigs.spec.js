@@ -1,7 +1,7 @@
-const settings = require('../settings');
-const baseConfig = require('../webpack.config')
-const prodConfig = require('../webpack.config.production')
-const profileConfig = require('../webpack.config.profile')
+import settings from '../settings';
+import baseConfig from '../webpack.config';
+import prodConfig from '../webpack.config.production';
+import profileConfig from '../webpack.config.profile';
 
 const NOW = '2023-03-28T16:07:07.909Z';
 
@@ -10,7 +10,7 @@ describe('webpack configs', () => {
         jest.spyOn(global.Date.prototype, 'toJSON').mockImplementation(() => NOW);
         await settings.init()
     });
-   
+
     it('sets up the default config with default settings', () => {
         expect(new Date().toJSON()).toBe(NOW);
         const config = baseConfig(settings)

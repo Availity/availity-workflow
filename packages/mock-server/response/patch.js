@@ -1,7 +1,7 @@
-const match = require('./match');
-const result = require('./result');
+import match from './match';
+import result from './result';
 
-const patch = {
+export default patch = {
   tus(req, res) {
     if (req.is('application/offset+octet-stream') && req.headers['tus-resumable']) {
       res.set('upload-offset', req.headers['content-length']);
@@ -18,5 +18,3 @@ const patch = {
     }
   }
 };
-
-module.exports = patch;

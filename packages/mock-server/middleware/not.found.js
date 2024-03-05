@@ -1,4 +1,4 @@
-module.exports = function notfound() {
+export default function notfound() {
   return (req, res) => {
     res.status(404);
 

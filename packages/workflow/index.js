@@ -5,17 +5,17 @@ if (process.env.NODE_ENV === 'staging') {
 }
 const shouldMimicStaging = process.argv.includes('--no-optimize');
 
-const yargs = require('yargs');
-const chalk = require('chalk');
-const start = require('./scripts/start');
-const test = require('./scripts/test');
-const lint = require('./scripts/lint');
-const about = require('./scripts/about');
-const build = require('./scripts/build');
-const release = require('./scripts/release');
-const profile = require('./scripts/profile');
-const settings = require('./settings');
-require('./scripts/init');
+import yargs from 'yargs';
+import chalk from 'chalk';
+import start from './scripts/start';
+import test from './scripts/test';
+import lint from './scripts/lint';
+import about from './scripts/about';
+import build from './scripts/build';
+import release from './scripts/release';
+import profile from './scripts/profile';
+import settings from './settings';
+await import('./scripts/init');
 
 yargs.command(
   'release',

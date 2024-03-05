@@ -59,7 +59,7 @@ Inside of the `config` folder there is a file titled `workflow.js`. You can use 
 Let's open the current file and see what we got.
 
 ```js header=workflow.js
-module.exports = (config) => {
+export default (config) => {
     config.development.open = '#/?spaceId=48C607A70B5A46A3864A34E2BDDDEA04';
 
     config.development.hotLoader = true;

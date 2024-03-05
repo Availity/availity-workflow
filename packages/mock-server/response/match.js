@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-this-assignment */
-const _ = require('lodash');
+import _ from 'lodash';
 
-const match = {
+export default match = {
   scoreHeaders(score, _request, headers) {
     // Note: variables prefixed with "_" underscore signify config object|key|value
 
@@ -142,5 +142,3 @@ const match = {
     });
   }
 };
-
-module.exports = match;

@@ -1,6 +1,6 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
-class Request {
+export default class Request {
   constructor() {
     this.params = null;
     this.headers = null;
@@ -12,5 +12,3 @@ class Request {
     this.responses.push(response);
   }
 }
-
-module.exports = Request;

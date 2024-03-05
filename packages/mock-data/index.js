@@ -1,6 +1,4 @@
-const path = require('path');
+import path from 'node:path';
 
-module.exports = {
-  data: path.join(__dirname, './data'),
-  routes: path.join(__dirname, './routes.json')
-};
+export const data = path.join(__dirname, './data');
+export const routes = path.join(__dirname, './routes.json')

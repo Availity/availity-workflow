@@ -21,8 +21,8 @@ This server can return other file types besides XML or JSON (PDFs, images, etc).
 The default server configuration can be found in [config.js](https://github.com/Availity/availity-workflow/blob/master/packages/mock-server/config/index.js). Pass a different configuration file to the `availity-mock-server` server to override the defaults.
 
 ```javascript
-const path = require('path');
-const MockServer = require('@availity/mock-server');
+import path from 'node:path';
+import MockServer from '@availity/mock-server';
 
 const configPath = path.join(__dirname, 'path/to/config.js');
 const server = new MockServer(configPath);
@@ -45,11 +45,11 @@ const  = new MockServer();
 ### Express Middleware
 
 ```js
-const express = require('express');
+import express from 'express';
 const app = express();
 
 // This is the same as the stand-alone server use.
-const MockServer = require('@availity/mock-server');
+import MockServer from '@availity/mock-server';
 const server = new MockServer({/* options */});
 
 app.use(server.middleware(/* options, same as `start` */);
@@ -73,7 +73,7 @@ app.listen(3001);
 
 ```js
 function logProvider(provider) {
-    return require('winston');
+    return import('winston');
 }
 ```
 
@@ -81,7 +81,7 @@ function logProvider(provider) {
 
 ```js
 function logProvider(provider) {
-    var logger = new (require('winston').Logger)();
+    var logger = new (import('winston')).Logger();
 
     var myCustomProvider = {
         log: logger.log,

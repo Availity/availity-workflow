@@ -1,11 +1,11 @@
-const chalk = require('chalk');
-const debug = require('debug')('workflow:proxy');
-const get = require('lodash/get');
-const merge = require('lodash/merge');
-const urlJoin = require('url-join');
-const Logger = require('@availity/workflow-logger');
-const escapeStringRegexp = require('escape-string-regexp');
-const settings = require('../settings');
+import chalk from 'chalk';
+import debug from 'debug'('workflow:proxy');
+import get from 'lodash/get';
+import merge from 'lodash/merge';
+import urlJoin from 'url-join';
+import Logger from '@availity/workflow-logger';
+import escapeStringRegexp from 'escape-string-regexp';
+import settings from '../settings';
 
 // Clean up HPM messages so they appear more @availity/workflow like ;)
 function proxyLogRewrite(daArgs) {
@@ -109,7 +109,7 @@ function onProxyError(proxyConfiguration, err, req, res) {
 }
 
 // https://github.com/chimurai/http-proxy-middleware/tree/master/recipes
-function proxy() {
+export default function proxy() {
   const defaultProxy = {
     changeOrigin: true,
     ws: true,
@@ -187,5 +187,3 @@ function proxy() {
   // return null if the array is 0 to make the checks easier upstream
   return config.length === 0 ? null : config;
 }
-
-module.exports = proxy;

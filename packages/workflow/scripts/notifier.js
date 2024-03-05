@@ -1,8 +1,8 @@
-const updateNotifier = require('update-notifier');
-const chalk = require('chalk');
-const Logger = require('@availity/workflow-logger');
+import updateNotifier from 'update-notifier';
+import chalk from 'chalk';
+import Logger from '@availity/workflow-logger';
 
-const pkg = require('../package.json');
+import pkg from '../package.json';
 
 const options = {
   pkg,
@@ -22,6 +22,6 @@ const options = {
   }
 };
 
-module.exports = function notifier() {
+export default function notifier() {
   return new updateNotifier.UpdateNotifier(options);
 };

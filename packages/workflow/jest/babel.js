@@ -1,13 +1,9 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/config/jest/babelTransform.js
-const babelJest = require('babel-jest').default;
-const babelPreset = require('../babel-preset');
+import babelJest from 'babel-jest';
+import babelPreset from '../babel-preset';
 
-const createTransformer = () =>
+export const createTransformer = () =>
   babelJest.createTransformer({
     presets: [babelPreset],
     babelrc: false
   });
-
-module.exports = {
-  createTransformer
-};

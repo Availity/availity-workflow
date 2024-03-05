@@ -1,4 +1,4 @@
-module.exports = (stats, options = {}) => {
+export default (stats, options = {}) => {
   const { errorDetails = true, warnings = true } = options;
 
   // https://webpack.js.org/configuration/stats/#stats-options

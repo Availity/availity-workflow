@@ -1,9 +1,9 @@
-const path = require('path');
-const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const webpack = require('webpack');
+import path from 'node:path';
+import TsConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import webpack from 'webpack';
 
 // TODO: add more complex workflow features for building/testing
-module.exports = (config) => {
+export default workflow = (config) => {
   config.development.open = '/';
 
   config.development.hotLoader = true;

@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-const index = require('./index');
+import index from './index';
 
 index(process.cwd())

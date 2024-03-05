@@ -1,6 +1,7 @@
-const _ = require('lodash');
-const chalk = require('chalk');
-const logger = require('../logger').getInstance();
+import _ from 'lodash';
+import chalk from 'chalk';
+
+const logger = import('../logger').then(getInstance());
 
 class Configuration {
   constructor() {
@@ -21,7 +22,7 @@ class Configuration {
    */
 
   defaultConfig(path) {
-    return this.path ? require(path) : this;
+    return this.path ? import(path) : this;
   }
 
   /**
@@ -38,7 +39,7 @@ class Configuration {
     if (this.path) {
       logger.info(`Using ${chalk.blue(this.path)}`);
     }
-    let config = this.path ? require(this.path) : this.defaultConfig();
+    let config = this.path ? import(this.path) : this.defaultConfig();
 
     // Allow programmatic overrides for environment
     config = _.merge(config, options);
@@ -48,4 +49,4 @@ class Configuration {
   }
 }
 
-module.exports = new Configuration();
+export default new Configuration();

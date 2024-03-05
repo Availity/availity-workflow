@@ -1,10 +1,10 @@
-const opn = require('open');
-const chalk = require('chalk');
-const urlJoin = require('url-join');
-const Logger = require('@availity/workflow-logger');
-const settings = require('../settings');
+import opn from 'open';
+import chalk from 'chalk';
+import urlJoin from 'url-join';
+import Logger from '@availity/workflow-logger';
+import settings from '../settings';
 
-function open() {
+export default function open() {
   if (settings.open()) {
     try {
       const port = settings.port();
@@ -21,5 +21,3 @@ function open() {
 
   return Promise.resolve(true);
 }
-
-module.exports = open;

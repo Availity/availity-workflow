@@ -2,10 +2,10 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 // https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/scripts/utils/createJestConfig.js
-const path = require('path');
-const _ = require('lodash');
-const jest = require('jest');
-const { existsSync } = require('fs');
+import path from 'node:path';
+import _ from 'lodash';
+import jest from 'jest';
+import { existsSync } from 'node:fs';
 
 function create(settings) {
   settings.init();
@@ -36,7 +36,7 @@ function create(settings) {
     },
     setupFiles: [require.resolve('raf/polyfill'), ...setupFiles],
     setupFilesAfterEnv: jestInitExists
-      ? require(path.join(settings.app(), 'jest.init.js'))
+      ? import(path.join(settings.app(), 'jest.init.js'))
       : ['@testing-library/jest-dom/extend-expect'],
     transformIgnorePatterns: [`[/\\\\]node_modules[/\\\\](?!(${includes})).+\\.(js|jsx|ts|tsx)$`],
     testMatch: [
@@ -74,7 +74,7 @@ function unit(settings) {
   return Promise.resolve();
 }
 
-module.exports = (settings) => ({
+export default (settings) => ({
   run: () => unit(settings),
   description: 'Run your tests using Jest'
 });

@@ -1,7 +1,7 @@
-const Joi = require('joi');
-const path = require('path');
+import Joi from 'joi';
+import path from 'node:path';
 
-const schema = Joi.object()
+export default schema = Joi.object()
   .keys({
     development: Joi.object()
       .keys({
@@ -158,5 +158,3 @@ const schema = Joi.object()
       .default({})
   })
   .unknown();
-
-module.exports = schema;

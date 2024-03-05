@@ -1,12 +1,12 @@
 /* eslint-disable promise/avoid-new */
-const express = require('express');
-const http = require('http');
-const chalk = require('chalk');
-const logger = require('./logger');
-const config = require('./config');
-const middleware = require('./middleware');
+import express from 'express';
+import http from 'node:http';
+import chalk from 'chalk';
+import logger from './logger';
+import config from './config';
+import middleware from './middleware';
 
-class Ekko {
+export default class Ekko {
   constructor(ekkoConfig) {
     if (ekkoConfig) {
       const isString = typeof ekkoConfig === 'string';
@@ -77,5 +77,3 @@ class Ekko {
     return config;
   }
 }
-
-module.exports = Ekko;

@@ -1,10 +1,11 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
-const logger = require('../logger').getInstance();
-const match = require('./match');
-const result = require('./result');
+import match from './match';
+import result from './result';
 
-const post = {
+const logger = import('../logger').then(getInstance());
+
+export default post = {
   multipart(req) {
     /* eslint-disable promise/avoid-new */
     return new Promise((resolve, reject) => {
@@ -64,5 +65,3 @@ const post = {
     );
   }
 };
-
-module.exports = post;

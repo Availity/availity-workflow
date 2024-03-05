@@ -1,8 +1,8 @@
 
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const _merge =require('lodash/merge');
-const buildProdConfig = require('./webpack.config.production')
+import DuplicatePackageCheckerPlugin  from 'duplicate-package-checker-webpack-plugin';
+import { BundleAnalyzerPlugin }  from 'webpack-bundle-analyzer';
+import _merge from 'lodash/merge';
+import buildProdConfig from './webpack.config.production';
 
 process.noDeprecation = true;
 
@@ -11,7 +11,7 @@ process.noDeprecation = true;
 // react-app-polyfill/stable and core-js provide everything needed
 process.env.BROWSERSLIST = 'defaults';
 
-const plugin = (settings) => {
+export default plugin = (settings) => {
 
   // const baseConfig = buildBaseConfig(settings)
   const baseProdConfig = buildProdConfig(settings)
@@ -36,5 +36,3 @@ const plugin = (settings) => {
 
   return _merge({}, baseProdConfig, overrides)
 };
-
-module.exports = plugin;

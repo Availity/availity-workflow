@@ -1,4 +1,4 @@
-const mocks = require('.');
+import mocks from '.';
 
 describe('mock data', () => {
   it('should be defined', () => {

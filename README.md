@@ -60,7 +60,7 @@ CLI options are documented in it's [README](./packages/workflow/README.md)
 **Example:**
 
 ```js
-module.exports = {
+export default {
     development: {
         notification: true
         hotLoader: true
@@ -109,18 +109,16 @@ module.exports = {
 If `workflow.js` exports a function it can be used to override properties from the default configuration. The function must return a configuration.
 
 ```js
-function merge(config) {
+export default function merge(config) {
     config.development.open = '#/foo';
     return config;
 }
-
-module.exports = merge;
 ```
 
 or
 
 ```js
-module.exports = (config) => {
+export default = (config) => {
     config.development.open = '/';
     config.development.hotLoader = true;
 
@@ -474,14 +472,12 @@ const modifyWebpackConfig = (webpackConfig) => {
     return webpackConfig;
 };
 
-function config(config) {
+export default function config(config) {
     config.modifyWebpackConfig = modifyWebpackConfig;
     // ...rest of custom workflow config
 
     return config;
 }
-
-module.exports = config;
 ```
 
 Now the runtime issue has been resolved! Note that this only polyfills `process` for the one package that needs it, instead of all packages. Some packages may rely on the existence of `process` to determine what type of environment they are running in, in those cases we probably wouldn't want to make `process` available to them.
@@ -507,7 +503,7 @@ Most packages will ship transpiled, but more and more are starting to drop IE 11
 This approach, requiring the least amount of investigating, is to develop locally against modern targets, then use a combination of `yarn build:production`, `yarn start --dry-run`, and something like below inside `workflow.js` to allow you to test what the production-like code will look like in IE 11.
 
 ```js
-const path = require('path');
+import path  from 'node:path';
 
 // ...
 
@@ -547,7 +543,7 @@ Create `./vscode/settings.json` file with the following configuration:
 Update `workflow.js` using the configuration below:
 
 ```js
-module.exports = (config) => {
+export default (config) => {
     config.proxies = [
         {
             context: ['/api/**', '/ms/**', '!/api/v1/proxy/healthplan/**'],

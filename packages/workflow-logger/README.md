@@ -10,7 +10,7 @@
 ## Usage
 
 ```js
-const Logger = require('@availity/workflow-logger);
+import Logger from '@availity/workflow-logger';
 Logger.warn('Caution: Here be dragons.');
 ```
 

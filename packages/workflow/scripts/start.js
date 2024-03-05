@@ -1,21 +1,21 @@
-const Logger = require('@availity/workflow-logger');
-const chalk = require('chalk');
-const { rspack } = require('@rspack/core');
-const merge = require('lodash/merge');
-const once = require('lodash/once');
-const { RspackDevServer } = require('@rspack/dev-server');
-const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
+import Logger from '@availity/workflow-logger';
+import chalk from 'chalk';
+import { rspack } from '@rspack/core';
+import merge from 'lodash/merge';
+import once from 'lodash/once';
+import { RspackDevServer } from '@rspack/dev-server';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
 
-const settings = require('../settings');
-const webpackConfigBase = require('../webpack.config');
-const webpackConfigProduction = require('../webpack.config.profile');
-const rspackBaseConfig = require('../rspack.config.dev');
+import settings from '../settings';
+import webpackConfigBase from '../webpack.config';
+import webpackConfigProduction from '../webpack.config.profile';
+import rspackBaseConfig from '../rspack.config.dev';
 
-const proxy = require('./proxy');
-const notifier = require('./notifier');
-const open = require('./open');
-const formatWebpackMessages = require('./format');
+import proxy from './proxy';
+import notifier from './notifier';
+import open  from './open';
+import formatWebpackMessages from './format';
 
 let server;
 let ekko;
@@ -41,7 +41,7 @@ function init() {
   settings.log();
 }
 
-function rest() {
+async function rest() {
   if (settings.isEkko()) {
     const ekkoOptions = {
       data: settings.config().ekko.data,
@@ -72,7 +72,7 @@ function rest() {
     };
 
     try {
-      const Ekko = require('@availity/mock-server');
+      const Ekko = await import('@availity/mock-server');
       ekko = new Ekko();
       return ekko.start(ekkoOptions);
     } catch {
@@ -219,7 +219,7 @@ function web() {
   });
 }
 
-async function start() {
+export default async function start() {
   process.on('unhandledRejection', (reason) => {
     if (reason && reason.stack) {
       Logger.error(reason.stack);
@@ -238,5 +238,3 @@ async function start() {
     Stack: ${error.stack}`);
   }
 }
-
-module.exports = start;

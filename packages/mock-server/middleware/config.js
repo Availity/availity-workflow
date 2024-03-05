@@ -1,22 +1,23 @@
-const errorhandler = require('errorhandler');
-const compression = require('compression');
-const methodOverride = require('method-override');
-const cors = require('cors');
-const path = require('path');
-const bodyParser = require('body-parser');
-const busboy = require('connect-busboy');
-const _ = require('lodash');
-const onFinished = require('on-finished');
-const chalk = require('chalk');
+import errorhandler from 'errorhandler';
+import compression from 'compression';
+import methodOverride from 'method-override';
+import cors from 'cors';
+import path from 'node:path';
+import bodyParser from 'body-parser';
+import busboy from 'connect-busboy';
+import _ from 'lodash';
+import onFinished from 'on-finished';
+import chalk from 'chalk';
 
-const config = require('../config');
-const routes = require('../routes');
-const logger = require('../logger').getInstance();
+import config from '../config';
+import routes from '../routes';
 
-const notFoundHandler = require('./not.found');
+import notFoundHandler from './not.found';
+
+const logger = import('../logger').then(getInstance());
 
 // Custom request logger
-module.exports = function development() {
+export default function development() {
   if (logger.canLog()) {
     config.router.use((req, res, next) => {
       function logRequest() {

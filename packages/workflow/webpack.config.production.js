@@ -1,12 +1,12 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const fs = require('fs');
-const _merge = require('lodash/merge')
-const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
-const paths = require('./helpers/paths');
-const loaders = require('./loaders');
-const conf = require('./webpack.config');
+import CopyWebpackPlugin from'copy-webpack-plugin';
+import CssMinimizerPlugin from'css-minimizer-webpack-plugin';
+import fs from'node:fs';
+import _merge from 'lodash/merge';
+import path from'node:path';
+import TerserPlugin from'terser-webpack-plugin';
+import paths from'./helpers/paths';
+import loaders from'./loaders';
+import conf from'./webpack.config';
 
 const {buildBaseConfig} = conf;
 
@@ -17,7 +17,7 @@ process.noDeprecation = true;
 // react-app-polyfill/stable and core-js provide everything needed
 process.env.BROWSERSLIST = 'defaults';
 
-const plugin = (settings) => {
+export default plugin = (settings) => {
 
   const baseConfig = buildBaseConfig(settings)
 
@@ -242,5 +242,3 @@ const plugin = (settings) => {
 
   return config;
 };
-
-module.exports = plugin;

@@ -1,8 +1,8 @@
-const Logger = require('@availity/workflow-logger');
-const chalk = require('chalk');
-const envinfo = require('envinfo');
-const notifier = require('./notifier');
-const pkg = require('../package.json');
+import Logger from '@availity/workflow-logger';
+import chalk from 'chalk';
+import envinfo from 'envinfo';
+import notifier from './notifier';
+import pkg from '../package.json';
 
 const version = chalk.bold.yellow(`v${pkg.version}`);
 
@@ -40,7 +40,7 @@ ${chalk.yellow(logo)}
 ${chalk.bold('@availity/workflow')} ${version}
  `;
 
-function about() {
+export default function about() {
   notifier();
   Logger.simple(message);
   envinfo.run(
@@ -53,5 +53,3 @@ function about() {
     { console: true, showNotFound: true }
   );
 }
-
-module.exports = about;

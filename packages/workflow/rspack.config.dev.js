@@ -1,13 +1,13 @@
-const path = require('path');
+import path from 'node:path';
 
-const html = require('./html');
-const resolveModule = require('./helpers/resolve-module');
-const paths = require('./helpers/paths');
-const loaders = require('./loaders');
+import html from './html';
+import resolveModule from './helpers/resolve-module';
+import paths from './helpers/paths';
+import loaders from './loaders';
 
 process.noDeprecation = true;
 
-const plugin = (settings) => {
+export default plugin = (settings) => {
   const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
 
   const config = {
@@ -182,5 +182,3 @@ const plugin = (settings) => {
 
   return config;
 };
-
-module.exports = plugin;

@@ -1,13 +1,13 @@
-const globby = require('globby');
-const ora = require('ora');
-const chalk = require('chalk');
-const Logger = require('@availity/workflow-logger');
-const requireRelative = require('require-relative');
-const path = require('path');
-const { spawnSync } = require('child_process');
-const settings = require('../settings');
+import globby from 'globby';
+import ora from 'ora';
+import chalk from 'chalk';
+import Logger from '@availity/workflow-logger';
+import requireRelative from 'require-relative';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import settings from '../settings';
 
-function lint() {
+export default async function lint() {
   let engine;
 
   if (settings.isLinterDisabled()) {
@@ -24,7 +24,7 @@ function lint() {
 
   if (!eslint) {
     // eslint-disable-next-line global-require
-    eslint = require('eslint');
+    eslint = await import('eslint');
   }
 
   let future;
@@ -92,5 +92,3 @@ function lint() {
 
   return future;
 }
-
-module.exports = lint;

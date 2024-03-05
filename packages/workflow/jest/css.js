@@ -1,8 +1,8 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/config/jest/cssTransform.js
 
-module.exports = {
+export default {
   process() {
-    return 'module.exports = {};';
+    return 'export default {};';
   },
   getCacheKey() {
     // The output is always the same.

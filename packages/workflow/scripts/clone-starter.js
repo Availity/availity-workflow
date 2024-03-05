@@ -3,13 +3,13 @@
  * Motivation
  * https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-cli/src/init-starter.js
  */
-const execa = require(`execa`);
-const hostedGitInfo = require(`hosted-git-info`);
-const fs = require(`fs-extra`);
-const sysPath = require(`path`);
-const Logger = require('@availity/workflow-logger');
-const url = require(`url`);
-const isValid = require(`is-valid-path`);
+import execa from `execa`;
+import hostedGitInfo from `hosted-git-info`;
+import fs from `fs-extra`;
+import sysPath from `node:path`;
+import Logger from '@availity/workflow-logger';
+import url from `node:url`;
+import isValid from `is-valid-path`;
 
 const spawn = (cmd, options) => {
   const [file, ...args] = cmd.split(/\s+/);
@@ -48,7 +48,7 @@ const clone = async (hostInfo, appPath, branchOverride) => {
 /**
  * Main function that clones or copies the starter.
  */
-module.exports = async ({ template: templateUrl, appPath, branchOverride }) => {
+export default async ({ template: templateUrl, appPath, branchOverride }) => {
   const urlObject = url.parse(appPath);
   if (urlObject.protocol && urlObject.host) {
     Logger.failed(

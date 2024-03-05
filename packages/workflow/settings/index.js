@@ -1,20 +1,20 @@
 /* eslint-disable import/no-dynamic-require */
-const path = require('path');
-const Logger = require('@availity/workflow-logger');
-const { existsSync } = require('fs');
-const each = require('lodash/forEach');
-const get = require('lodash/get');
-const isFunction = require('lodash/isFunction');
-const isObject = require('lodash/isObject');
-const isString = require('lodash/isString');
-const merge = require('lodash/merge');
-const trimStart = require('lodash/trimStart');
-const chalk = require('chalk');
-const fs = require('fs');
-const yargs = require('yargs');
-const getPort = require('get-port');
-const Joi = require('joi');
-const paths = require('../helpers/paths');
+import path from 'node:path';
+import Logger from '@availity/workflow-logger';
+import { existsSync } from 'node:fs';
+import each from 'lodash/forEach';
+import get from 'lodash/get';
+import isFunction from 'lodash/isFunction';
+import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
+import merge from 'lodash/merge';
+import trimStart from 'lodash/trimStart';
+import chalk from 'chalk';
+import fs from 'node:fs';
+import yargs from 'yargs';
+import getPort from 'get-port';
+import Joi from 'joi';
+import paths from '../helpers/paths';
 
 function argv() {
   return yargs.argv;
@@ -36,7 +36,7 @@ function stringify(obj) {
   return obj;
 }
 
-const settings = {
+export default settings = {
   // Cache these values
   configuration: null,
   workflowConfigPath: null,
@@ -78,7 +78,7 @@ const settings = {
       return JSON.parse(contents || this.raw());
     }
 
-    return require(path.join(this.project(), 'package.json'));
+    return import(path.join(this.project(), 'package.json'));
   },
 
   // [contenthash] generates unique hashes depending on the file contents
@@ -191,7 +191,7 @@ const settings = {
 
   async init({ shouldMimicStaging } = {}) {
     let config = {};
-    const schema = require('./schema');
+    const schema = await import('./schema');
     let developerConfig = {};
 
     this.shouldMimicStaging = shouldMimicStaging;
@@ -204,7 +204,7 @@ const settings = {
     if (existsSync(jsWorkflowConfig)) {
       // Try project's workflow.js
       this.workflowConfigPath = jsWorkflowConfig;
-      developerConfig = require(this.workflowConfigPath);
+      developerConfig = await import(this.workflowConfigPath);
     } else {
       // fall back to default ./schema.js
       this.workflowConfigPath = defaultWorkflowConfig;
@@ -454,5 +454,3 @@ const settings = {
     return argv().useRspackDev;
   }
 };
-
-module.exports = settings;

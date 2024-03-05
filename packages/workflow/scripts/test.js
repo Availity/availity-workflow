@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/no-process-exit */
 
 // eslint-disable-next-line import/extensions
-const webpackConfig = require('../jest.config.js');
+import webpackConfig from '../jest.config.js';
 
-module.exports = {
+export default {
   description: 'Run your tests',
   run: ({ settings }) => {
     const tester = webpackConfig(settings);

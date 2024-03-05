@@ -1,14 +1,14 @@
 /* eslint-disable unicorn/explicit-length-check */
-const fs = require('fs');
-const path = require('path');
-const shell = require('shelljs');
-const semver = require('semver');
-const inquirer = require('inquirer');
-const merge = require('lodash/merge');
-const moment = require('moment');
-const yargs = require('yargs');
-const Logger = require('@availity/workflow-logger');
-const settings = require('../settings');
+import fs from 'node:fs';
+import path from 'node:path';
+import shell from 'shelljs';
+import semver from 'semver';
+import inquirer from 'inquirer';
+import merge from 'lodash/merge';
+import moment from 'moment';
+import yargs from 'yargs';
+import Logger from '@availity/workflow-logger';
+import settings from '../settings';
 
 // Add a new line character to end of contents
 function newLine(contents) {
@@ -16,7 +16,7 @@ function newLine(contents) {
   return contents + lastChar;
 }
 
-function tag() {
+export function tag() {
   if (settings.isDistribution() && !settings.isDryRun()) {
     const message = settings.commitMessage()
       ? `${settings.commitMessage()} v${settings.version}`
@@ -31,7 +31,7 @@ function tag() {
   return Promise.resolve(true);
 }
 
-function bump() {
+export function bump() {
   Logger.info('Starting version bump');
 
   if (!settings.isDistribution()) {
@@ -59,7 +59,7 @@ function bump() {
   return Promise.resolve(true);
 }
 
-function prompt() {
+export function prompt() {
   if (!settings.isDistribution()) {
     return Promise.resolve(true);
   }
@@ -154,9 +154,3 @@ function prompt() {
     return settings.version;
   });
 }
-
-module.exports = {
-  tag,
-  prompt,
-  bump
-};

@@ -1,12 +1,13 @@
-const path = require('path');
-const fs = require('fs');
-const chalk = require('chalk');
-const delay = require('delay');
+import path from 'node:path';
+import fs from 'node:fs';
+import chalk from 'chalk';
+import delay from 'delay';
 
-const config = require('../config');
-const logger = require('../logger').getInstance();
+import config from '../config';
 
-const result = {
+const logger = import('../logger').then(getInstance());
+
+export default result = {
   cache: {},
 
   sendFile(req, res, status, response, filePath) {
@@ -145,5 +146,3 @@ const result = {
     res.sendStatus(404);
   }
 };
-
-module.exports = result;

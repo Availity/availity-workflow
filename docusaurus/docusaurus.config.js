@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   plugins: [],
   // themes: [['@docusaurus/theme-search-algolia', { id: '01' }]],
   onBrokenLinks: 'log',

@@ -1,8 +1,8 @@
-const path = require('path');
-const config = require('../config');
-const Ekko = require('../index');
+import path from 'node:path';
+import config from '../config';
+import Ekko from '../index';
 
-const test = {
+export default test = {
   ekko: null,
 
   serverSpecHelper() {
@@ -26,5 +26,3 @@ const test = {
     return filePath;
   }
 };
-
-module.exports = test;
