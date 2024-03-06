@@ -31,8 +31,8 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "engines": {
-    "node": "^16.0.0 || ^18.0.0",
-    "npm": "^8.0.0 || ^9.0.0",
+    "node": "^18.0.0 || ^20.0.0",
+    "npm": "^8.0.0 || ^9.0.0 || ^10.0.0",
     "yarn": "^1.19.1 || ^2.0.0 || ^3.0.0"
   },
   "publishConfig": {
