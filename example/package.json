@@ -63,7 +63,7 @@
     "@types/yup": "^0.32.0",
     "cross-env": "^7.0.3",
     "esbuild-loader": "^3.0.1",
-    "eslint-config-availity": "^9.0.0",
+    "eslint-config-availity": "^9.0.1",
     "eslint-import-resolver-root-import": "^1.0.4",
     "eslint-import-resolver-typescript": "^3.5.5",
     "jest": "^27.5.1",

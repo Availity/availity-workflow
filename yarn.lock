@@ -310,7 +310,7 @@ __metadata:
     classnames: ^2.3.2
     cross-env: ^7.0.3
     esbuild-loader: ^3.0.1
-    eslint-config-availity: ^9.0.0
+    eslint-config-availity: ^9.0.1
     eslint-import-resolver-root-import: ^1.0.4
     eslint-import-resolver-typescript: ^3.5.5
     formik: ^2.4.2
@@ -702,8 +702,8 @@ __metadata:
     envinfo: ^7.10.0
     esbuild-loader: ^3.0.1
     escape-string-regexp: ^4.0.0
-    eslint-config-availity: ^9.0.0
-    eslint-webpack-plugin: ^4.0.1
+    eslint-config-availity: ^9.0.1
+    eslint-webpack-plugin: ^3.2.0
     execa: ^5.1.1
     figures: ^3.2.0
     file-loader: ^6.2.0
@@ -8677,13 +8677,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:^8.37.0":
-  version: 8.44.0
-  resolution: "@types/eslint@npm:8.44.0"
+"@types/eslint@npm:^7.29.0 || ^8.4.1":
+  version: 8.56.5
+  resolution: "@types/eslint@npm:8.56.5"
   dependencies:
     "@types/estree": "*"
     "@types/json-schema": "*"
-  checksum: 2655f409a4ecdd64bb9dd9eb6715e7a2ac30c0e7f902b414e10dbe9d6d497baa5a0f13105e1f7bd5ad7a913338e2ab4bed1faf192a7a0d27d1acd45ba79d3f69
+  checksum: 95a7a23ca38c78e5c27a2ed36ef60f094d5e6589e3473c320b6ff69eb3ca6333d5b7f0d5053416369f5ab2fb86874df19562d4d67a98237c17def6e30abff540
   languageName: node
   linkType: hard
 
@@ -10696,7 +10696,7 @@ __metadata:
     conventional-changelog-cli: ^4.1.0
     conventional-changelog-conventionalcommits: ^7.0.2
     dependency-check: ^4.1.0
-    eslint-config-availity: ^9.0.0
+    eslint-config-availity: ^9.0.1
     gh-pages: ^5.0.0
     husky: ^8.0.3
     is-ci: ^3.0.1
@@ -14783,9 +14783,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-availity@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "eslint-config-availity@npm:9.0.0"
+"eslint-config-availity@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "eslint-config-availity@npm:9.0.1"
   dependencies:
     "@babel/core": ^7.22.15
     "@babel/eslint-parser": ^7.22.15
@@ -14807,8 +14807,8 @@ __metadata:
     eslint-plugin-react-hooks: ^4.2.0
     eslint-plugin-unicorn: ^34.0.1
   peerDependencies:
-    typescript: ^4.5.5
-  checksum: 19ecba4954ef5a67f1a852bdc13277a452652585816a0399d2cc7ebc1fe9934080449bf771348b8571150a051ecb3da2a8303a7dcfa3cd7c96ad919299126ec9
+    typescript: ^5.2.2
+  checksum: 2a9f6487ce1787ad181a29bbb908931a1a8e8ef6ca763cd4bc42a3ba7f28d97f01c1bf410a35c830fa8ef17892be8365b8546e2b86b203a3bcb7d5d6056b9478
   languageName: node
   linkType: hard
 
@@ -15117,19 +15117,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-webpack-plugin@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "eslint-webpack-plugin@npm:4.0.1"
+"eslint-webpack-plugin@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "eslint-webpack-plugin@npm:3.2.0"
   dependencies:
-    "@types/eslint": ^8.37.0
-    jest-worker: ^29.5.0
+    "@types/eslint": ^7.29.0 || ^8.4.1
+    jest-worker: ^28.0.2
     micromatch: ^4.0.5
     normalize-path: ^3.0.0
     schema-utils: ^4.0.0
   peerDependencies:
-    eslint: ^8.0.0
+    eslint: ^7.0.0 || ^8.0.0
     webpack: ^5.0.0
-  checksum: 94fe0817fc580729dc6edc4a31c9f7dbeb97ad134c6c4192feab66aae711ed5afe35c5bc8d5e99b39626b469300196df72e631f5e53c55723adbf850765924e5
+  checksum: 095034c35e773fdb21ec7e597ae1f8a6899679c290db29d8568ca94619e8c7f4971f0f9edccc8a965322ab8af9286c87205985a38f4fdcf17654aee7cd8bb7b5
   languageName: node
   linkType: hard
 
@@ -19241,6 +19241,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-worker@npm:^28.0.2":
+  version: 28.1.3
+  resolution: "jest-worker@npm:28.1.3"
+  dependencies:
+    "@types/node": "*"
+    merge-stream: ^2.0.0
+    supports-color: ^8.0.0
+  checksum: e921c9a1b8f0909da9ea07dbf3592f95b653aef3a8bb0cbcd20fc7f9a795a1304adecac31eecb308992c167e8d7e75c522061fec38a5928ace0f9571c90169ca
+  languageName: node
+  linkType: hard
+
 "jest-worker@npm:^29.1.2":
   version: 29.3.1
   resolution: "jest-worker@npm:29.3.1"
@@ -19253,7 +19264,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-worker@npm:^29.4.3, jest-worker@npm:^29.5.0":
+"jest-worker@npm:^29.4.3":
   version: 29.6.1
   resolution: "jest-worker@npm:29.6.1"
   dependencies:
