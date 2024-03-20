@@ -1,4 +1,7 @@
 module.exports = {
   test: /\.(jpe?g|png|gif|svg)$/i,
-  use: ['url-loader?name=images/[name].[ext]&limit=10000']
+  type: 'asset/resource',
+  generator: {
+    filename: 'images/[name].[ext]'
+  }
 };
