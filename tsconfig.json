@@ -6,7 +6,7 @@
     "paths": {
       "@/*": ["./project/app/*"]
     },
-    "target": "es5",
+    "target": "ESNEXT",
     "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
     "esModuleInterop": true,

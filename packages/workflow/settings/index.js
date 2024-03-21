@@ -36,7 +36,7 @@ function stringify(obj) {
   return obj;
 }
 
-export default settings = {
+const settings = {
   // Cache these values
   configuration: null,
   workflowConfigPath: null,
@@ -454,3 +454,5 @@ export default settings = {
     return argv().useRspackDev;
   }
 };
+
+export default settings;

@@ -2,7 +2,7 @@
 
 export default {
   process() {
-    return 'export default {};';
+    return {code: 'export default {};'};
   },
   getCacheKey() {
     // The output is always the same.

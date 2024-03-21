@@ -54,8 +54,8 @@
   },
   "devDependencies": {
     "@availity/workflow": "workspace:*",
-    "@testing-library/react": "^14.2.1",
-    "@types/jest": "^27.5.1",
+    "@testing-library/react": "^14.2.2",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.11.25",
     "@types/react": "^18.2.63",
     "@types/react-dom": "^18.2.20",
@@ -66,7 +66,7 @@
     "eslint-config-availity": "^9.0.0",
     "eslint-import-resolver-root-import": "^1.0.4",
     "eslint-import-resolver-typescript": "^3.6.1",
-    "jest": "^27.5.1",
+    "jest": "^29.7.0",
     "jest-dom": "^4.0.0",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5.3.3"

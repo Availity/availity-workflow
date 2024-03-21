@@ -27,17 +27,23 @@ function create(settings) {
     collectCoverageFrom: ['project/app/**/*.{js,jsx,ts,tsx}'],
     coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/'],
     testEnvironment: 'node',
-    testURL: 'http://localhost',
+    testEnvironmentOptions: {
+      url: 'http://localhost'
+    },
     transform: {
       // Jest and Babel don't allow functions in the options so we just return their values here
-      '^.+\\.(js|jsx|ts|tsx)$': `${require.resolve('./jest/babel.js')}`,
+       '^.+\\.(js|jsx|ts|tsx)$': `${require.resolve('./jest/babel.js')}`,
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
       '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
     setupFiles: [require.resolve('raf/polyfill'), ...setupFiles],
     setupFilesAfterEnv: jestInitExists
       ? import(path.join(settings.app(), 'jest.init.js'))
-      : ['@testing-library/jest-dom/extend-expect'],
+      : ['@testing-library/jest-dom'],
+    snapshotFormat: {
+      escapeString: true,
+      printBasicPrototype: true,
+    },
     transformIgnorePatterns: [`[/\\\\]node_modules[/\\\\](?!(${includes})).+\\.(js|jsx|ts|tsx)$`],
     testMatch: [
       // Ignore the following directories:
