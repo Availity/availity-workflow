@@ -1,1 +1,7 @@
 extends: availity/workflow
+rules:
+  # TODO: update eslint-config-availity
+  'import/extensions': 0
+  'import/no-unresolved': 0
+parserOptions:
+   sourceType: "module",
