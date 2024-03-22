@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import chalk from 'chalk';
 
-const logger = import('../logger').then(getInstance());
+import logger from '../logger';
 
 class Configuration {
   constructor() {
@@ -17,12 +17,16 @@ class Configuration {
   /**
    * Set the path of the configuration object
    *
-   * @param  {Sring} path full path to configuration. Ex: path.join(__dirname, 'config.js')
+   * @param  {String} path full path to configuration. Ex: path.join(__dirname, 'config.js')
 
    */
 
-  defaultConfig(path) {
-    return this.path ? import(path) : this;
+  async defaultConfig(path) {
+    if (this.path) {
+      const { default: json } = await import(path);
+      return json;
+    }
+    return this;
   }
 
   /**
@@ -30,16 +34,27 @@ class Configuration {
    *
    * @param {Object} options configuration object with production|development|testing settings.
    */
-  set(_options) {
+  async set(_options) {
     const options = _options || {};
 
-    logger.setProvider(options.logProvider);
+    logger.getInstance().setProvider(options.logProvider);
 
     // Get the config object by path or from root
     if (this.path) {
-      logger.info(`Using ${chalk.blue(this.path)}`);
+      logger.getInstance().info(`Using ${chalk.blue(this.path)}`);
     }
-    let config = this.path ? import(this.path) : this.defaultConfig();
+
+    let config;
+
+    if (this.path) {
+      const { default: json } = await import(this.path);
+
+      config = json;
+    } else {
+      config = await this.defaultConfig();
+    }
+
+    // let config = this.path ? await import(this.path, { assert: { type: "json" } }).default : this.defaultConfig();
 
     // Allow programmatic overrides for environment
     config = _.merge(config, options);

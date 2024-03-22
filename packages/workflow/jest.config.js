@@ -6,6 +6,9 @@ import path from 'node:path';
 import _ from 'lodash';
 import jest from 'jest';
 import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 function create(settings) {
   settings.init();

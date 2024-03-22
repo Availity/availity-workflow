@@ -1,7 +1,7 @@
 import match from './match';
 import result from './result';
 
-export default patch = {
+const patch = {
   tus(req, res) {
     if (req.is('application/offset+octet-stream') && req.headers['tus-resumable']) {
       res.set('upload-offset', req.headers['content-length']);
@@ -18,3 +18,5 @@ export default patch = {
     }
   }
 };
+
+export default patch;

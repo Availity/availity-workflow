@@ -8,13 +8,11 @@ import chalk from 'chalk';
 
 import config from '../config';
 import response from '../response';
-import models from '../models';
+import { Route } from '../models';
 
-import { Route } from models;
+import logger from '../logger';
 
-const logger = import('../logger').then(getInstance());
-
-export default routes = {
+const routes = {
   /**
    * Initialize the Express routes from the endpoints in the configurations file.
    */
@@ -25,7 +23,7 @@ export default routes = {
 
     // Add default route.  Configurations should be allowed to override this if needed.
     router.get('/', async (req, res) => {
-      const pkg = await import('../package.json');
+      const pkg = await import('../package.json').default;
       res.send({
         name: pkg.name,
         description: pkg.description,
@@ -75,7 +73,7 @@ export default routes = {
       let pluginConfig = null;
 
       pluginConfig = await import(plugin);
-      logger.info(`Loading plugin ${chalk.blue(plugin)}`);
+      logger.getInstance().info(`Loading plugin ${chalk.blue(plugin)}`);
       this.routes(pluginConfig.routes, pluginConfig.data);
     });
   },
@@ -104,3 +102,5 @@ export default routes = {
     });
   }
 };
+
+export default routes;

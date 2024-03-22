@@ -1,4 +1,7 @@
+import headers from './headers';
+import config from './config';
+
 export default {
-  headers: import('./headers'),
-  config: import('./config')
+  headers,
+  config
 }

@@ -1,6 +1,9 @@
 import path from 'node:path';
+import * as url from 'node:url';
 
-export default config = {
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+const config = {
   latency: 0,
   user: null,
   cache: 0,
@@ -11,3 +14,5 @@ export default config = {
   data: path.join(__dirname, '/data'),
   routes: path.join(__dirname, '/dummy.routes.config.json')
 };
+
+export default config;

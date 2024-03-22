@@ -15,9 +15,14 @@ import yargs from 'yargs';
 import getPort, { portNumbers } from 'get-port';
 import Joi from 'joi';
 import paths from '../helpers/paths';
+import * as url from 'node:url';
+import schema from './schema';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 function argv() {
-  return yargs.argv;
+  const instance = yargs()
+  return instance.argv;
 }
 
 function stringify(obj) {
@@ -191,7 +196,6 @@ const settings = {
 
   async init({ shouldMimicStaging } = {}) {
     let config = {};
-    const schema = await import('./schema');
     let developerConfig = {};
 
     this.shouldMimicStaging = shouldMimicStaging;

@@ -3,9 +3,9 @@ import _ from 'lodash';
 import match from './match';
 import result from './result';
 
-const logger = import('../logger').then(getInstance());
+import logger from '../logger';
 
-export default post = {
+const post = {
   multipart(req) {
     /* eslint-disable promise/avoid-new */
     return new Promise((resolve, reject) => {
@@ -16,11 +16,11 @@ export default post = {
 
       req.busboy.on('file', (fieldname, file, fileParams) => {
         file.on('error', (error) => {
-          logger.error('Something went wrong uploading the file', error);
+          logger.getInstance().error('Something went wrong uploading the file', error);
         });
         file.on('end', () => {
           // Treat the file name as a field so we can match and score
-          logger.info('File finished %s:', fileParams.filename);
+          logger.getInstance().info('File finished %s:', fileParams.filename);
           req.body[fieldname] = fileParams.filename;
         });
         // `file` is a `ReadableStream`...always do something with it
@@ -33,18 +33,18 @@ export default post = {
           return;
         }
 
-        logger.info(`${key}, ${value}`);
+        logger.getInstance().info(`${key}, ${value}`);
 
         req.body[key] = value;
       });
 
       req.busboy.on('error', (err) => {
-        logger.error(err);
+        logger.getInstance().error(err);
         reject(err);
       });
 
       req.busboy.on('close', () => {
-        logger.info('finished request');
+        logger.getInstance().info('finished request');
         resolve(true);
       });
 
@@ -65,3 +65,5 @@ export default post = {
     );
   }
 };
+
+export default post;

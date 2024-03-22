@@ -2,7 +2,7 @@ import get from './get';
 import post from './post';
 import patch from './patch';
 
-export default response = {
+const response = {
   get: get.send,
 
   head: get.send,
@@ -26,3 +26,5 @@ export default response = {
     next();
   }
 };
+
+export default response;

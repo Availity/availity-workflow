@@ -14,11 +14,11 @@ import routes from '../routes';
 
 import notFoundHandler from './not.found';
 
-const logger = import('../logger').then(getInstance());
+import logger from '../logger';
 
 // Custom request logger
 export default function development() {
-  if (logger.canLog()) {
+  if (logger.getInstance().canLog()) {
     config.router.use((req, res, next) => {
       function logRequest() {
         const method = `${chalk.white(req.method)}`;
@@ -27,7 +27,7 @@ export default function development() {
         const code = res._header ? String(res.statusCode) : '';
         const file = chalk.dim(res.avFile || '');
 
-        logger.log(`${method} ${url} ${chalk.white(code)} ${chalk.blue(path.basename(file))}`);
+        logger.getInstance().log(`${method} ${url} ${chalk.white(code)} ${chalk.blue(path.basename(file))}`);
       }
 
       // Callback is called at the end of request cycle after headers are set

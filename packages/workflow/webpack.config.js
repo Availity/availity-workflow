@@ -14,6 +14,12 @@ import loaders from './loaders';
 import paths from './helpers/paths';
 import resolveModule from './helpers/resolve-module';
 import html from './html';
+import * as url from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 process.noDeprecation = true;
 

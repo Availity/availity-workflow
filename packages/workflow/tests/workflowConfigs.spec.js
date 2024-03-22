@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import settings from '../settings';
 import baseConfig from '../webpack.config';
 import prodConfig from '../webpack.config.production';

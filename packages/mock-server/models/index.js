@@ -1,5 +1,9 @@
-export default {
-  Request: import('./request'),
-  Response: import('./response'),
-  Route: import('./route')
+import Request from './request';
+import Response from './response';
+import Route from './route';
+
+export {
+  Request,
+  Response,
+  Route
 }

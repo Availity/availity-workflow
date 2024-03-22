@@ -5,15 +5,15 @@ import delay from 'delay';
 
 import config from '../config';
 
-const logger = import('../logger').then(getInstance());
+import logger from '../logger';
 
-export default result = {
+const result = {
   cache: {},
 
   sendFile(req, res, status, response, filePath) {
     res.status(status).sendFile(filePath, (err) => {
       if (err) {
-        logger.error(`NOT FOUND ${filePath} `);
+        logger.getInstance().error(`NOT FOUND ${filePath} `);
 
         res.sendStatus(404);
       } else {
@@ -50,7 +50,7 @@ export default result = {
 
       res.status(status).json(json);
     } catch {
-      logger.error(`NOT FOUND ${filePath} `);
+      logger.getInstance().error(`NOT FOUND ${filePath} `);
       res.sendStatus(404);
     }
   },
@@ -146,3 +146,5 @@ export default result = {
     res.sendStatus(404);
   }
 };
+
+export default result;

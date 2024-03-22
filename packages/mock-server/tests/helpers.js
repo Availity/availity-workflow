@@ -1,6 +1,9 @@
 import path from 'node:path';
 import config from '../config';
 import Ekko from '../index';
+import * as url from 'node:url';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 export default test = {
   ekko: null,

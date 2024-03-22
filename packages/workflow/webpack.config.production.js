@@ -6,9 +6,9 @@ import path from'node:path';
 import TerserPlugin from'terser-webpack-plugin';
 import paths from'./helpers/paths';
 import loaders from'./loaders';
-import conf from'./webpack.config';
+import { buildBaseConfig } from'./webpack.config';
 
-const {buildBaseConfig} = conf;
+
 
 process.noDeprecation = true;
 

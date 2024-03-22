@@ -19,9 +19,9 @@ export default class Ekko {
     }
   }
 
-  middleware(options) {
+  async middleware(options) {
     config.path = this.configPath;
-    config.set(options);
+    await config.set(options);
 
     config.app = express();
     config.router = new express.Router();
@@ -33,7 +33,7 @@ export default class Ekko {
   }
 
   async start(options) {
-    this.middleware(options);
+    await this.middleware(options);
 
     const port = config.options.port || 0;
     const host = config.options.host || 'localhost';

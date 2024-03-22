@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import path from 'node:path';
 
-export default schema = Joi.object()
+const schema = Joi.object()
   .keys({
     development: Joi.object()
       .keys({
@@ -158,3 +158,5 @@ export default schema = Joi.object()
       .default({})
   })
   .unknown();
+
+export default schema;

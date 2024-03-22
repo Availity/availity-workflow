@@ -4,6 +4,12 @@ import html from './html';
 import resolveModule from './helpers/resolve-module';
 import paths from './helpers/paths';
 import loaders from './loaders';
+import * as url from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 process.noDeprecation = true;
 
