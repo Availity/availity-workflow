@@ -1,11 +1,13 @@
 import chalk from 'chalk';
-import debug from 'debug'('workflow:proxy');
+import createDebug from 'debug';
 import get from 'lodash/get';
 import merge from 'lodash/merge';
 import urlJoin from 'url-join';
 import Logger from '@availity/workflow-logger';
 import escapeStringRegexp from 'escape-string-regexp';
 import settings from '../settings';
+
+const debug = createDebug('workflow:proxy');
 
 // Clean up HPM messages so they appear more @availity/workflow like ;)
 function proxyLogRewrite(daArgs) {

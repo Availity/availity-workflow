@@ -2,8 +2,10 @@
 import babelJest from 'babel-jest';
 import babelPreset from '../babel-preset';
 
-export const createTransformer = () =>
+const createTransformer = () =>
   babelJest.createTransformer({
     presets: [babelPreset],
     babelrc: false
   });
+
+export default createTransformer;

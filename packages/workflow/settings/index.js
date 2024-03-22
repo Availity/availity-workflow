@@ -1,7 +1,8 @@
 /* eslint-disable import/no-dynamic-require */
 import path from 'node:path';
 import Logger from '@availity/workflow-logger';
-import { existsSync } from 'node:fs';
+import fs, { existsSync } from 'node:fs';
+import * as url from 'node:url';
 import each from 'lodash/forEach';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
@@ -10,12 +11,10 @@ import isString from 'lodash/isString';
 import merge from 'lodash/merge';
 import trimStart from 'lodash/trimStart';
 import chalk from 'chalk';
-import fs from 'node:fs';
 import yargs from 'yargs';
 import getPort, { portNumbers } from 'get-port';
 import Joi from 'joi';
 import paths from '../helpers/paths';
-import * as url from 'node:url';
 import schema from './schema';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));

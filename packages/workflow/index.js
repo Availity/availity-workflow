@@ -1,10 +1,4 @@
 #!/usr/bin/env node
-if (process.env.NODE_ENV === 'staging') {
-  process.argv.push('--no-optimize');
-  process.env.NODE_ENV = 'production';
-}
-const shouldMimicStaging = process.argv.includes('--no-optimize');
-
 import yargs from 'yargs';
 import chalk from 'chalk';
 import start from './scripts/start';
@@ -15,6 +9,13 @@ import build from './scripts/build';
 import release from './scripts/release';
 import profile from './scripts/profile';
 import settings from './settings';
+
+if (process.env.NODE_ENV === 'staging') {
+  process.argv.push('--no-optimize');
+  process.env.NODE_ENV = 'production';
+}
+const shouldMimicStaging = process.argv.includes('--no-optimize');
+
 await import('./scripts/init');
 
 yargs.command(

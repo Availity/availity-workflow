@@ -3,7 +3,7 @@ import TsConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import webpack from 'webpack';
 
 // TODO: add more complex workflow features for building/testing
-export default workflow = (config) => {
+const workflow = (config) => {
   config.development.open = '/';
 
   config.development.hotLoader = true;
@@ -34,3 +34,5 @@ export default workflow = (config) => {
 
   return config;
 };
+
+export default workflow;

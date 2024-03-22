@@ -203,7 +203,7 @@ async function run({ appPath, appName, originalDirectory, template, installer, b
   }
 }
 
-export function createApp({ projectName: name, currentDir, template, useNpm, branchOverride }) {
+export default function createApp({ projectName: name, currentDir, template, useNpm, branchOverride }) {
   const appPath = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(appPath);
   const installer = useNpm ? 'npm' : 'yarn';

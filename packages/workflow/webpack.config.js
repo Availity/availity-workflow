@@ -1,5 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import * as url from 'node:url';
+import { createRequire } from 'node:module';
 import webpack from 'webpack';
 import _merge from 'lodash/merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -14,8 +16,6 @@ import loaders from './loaders';
 import paths from './helpers/paths';
 import resolveModule from './helpers/resolve-module';
 import html from './html';
-import * as url from 'node:url';
-import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
 
@@ -94,7 +94,8 @@ export const buildBaseConfig = (settings) => {
   }
   return config
 }
-export default plugin = (settings) => {
+
+const plugin = (settings) => {
 
   const configBase = buildBaseConfig(settings)
 
@@ -214,3 +215,5 @@ export default plugin = (settings) => {
   return _merge({}, configBase, overrides);
 
 };
+
+export default plugin;

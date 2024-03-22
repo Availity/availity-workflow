@@ -3,7 +3,7 @@ import * as url from 'node:url';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-export default html = (settings) => {
+const html = (settings) => {
   const workflowTemplate = path.join(__dirname, './public/index.html');
   const projectTemplate = path.join(settings.app(), 'index.html');
 
@@ -18,3 +18,5 @@ export default html = (settings) => {
 
   return config;
 };
+
+export default html;

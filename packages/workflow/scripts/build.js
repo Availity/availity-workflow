@@ -1,4 +1,4 @@
-import {deleteSync} from 'del';
+import { deleteSync } from 'del';
 import webpack from 'webpack';
 import ProgressPlugin from 'webpack/lib/ProgressPlugin';
 import ora from 'ora';
@@ -11,7 +11,7 @@ import webpackConfigProduction from '../webpack.config.production';
 import customStats from './stats';
 
 export default function bundle({ profile, settings }) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     if (!settings.isDryRun()) {
       Logger.success(`Cleaning directories ${settings.output()}`);
       deleteSync([settings.output()]);
@@ -19,7 +19,7 @@ export default function bundle({ profile, settings }) {
 
     // Lazy load this else yargs loads too early https://github.com/Availity/@availity/workflow/issues/133
     // eslint-disable-next-line global-require
-    const { argv } = await import('yargs');
+    const { argv } = import('yargs');
 
     // Check argument or CLI arg or default to false
     const shouldProfile = profile || argv.profile || false;

@@ -11,7 +11,7 @@ process.noDeprecation = true;
 // react-app-polyfill/stable and core-js provide everything needed
 process.env.BROWSERSLIST = 'defaults';
 
-export default plugin = (settings) => {
+const plugin = (settings) => {
 
   // const baseConfig = buildBaseConfig(settings)
   const baseProdConfig = buildProdConfig(settings)
@@ -36,3 +36,5 @@ export default plugin = (settings) => {
 
   return _merge({}, baseProdConfig, overrides)
 };
+
+export default plugin;

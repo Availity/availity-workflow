@@ -1,11 +1,11 @@
 import path from 'node:path';
+import * as url from 'node:url';
 import config from '../config';
 import Ekko from '../index';
-import * as url from 'node:url';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-export default test = {
+const test = {
   ekko: null,
 
   serverSpecHelper() {
@@ -29,3 +29,5 @@ export default test = {
     return filePath;
   }
 };
+
+export default test;

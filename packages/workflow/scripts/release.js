@@ -1,18 +1,18 @@
 import Logger from '@availity/workflow-logger';
 
-import version from './version';
+import { prompt, bump, tag } from './version';
 import lint from './lint';
 import build from './build';
 
 export default async function release({ settings }) {
   try {
-    await version.prompt();
+    await prompt();
     Logger.info('Started releasing');
 
     await lint();
-    await version.bump();
+    await bump();
     await build({ settings });
-    await version.tag();
+    await tag();
     Logger.success('Finished releasing');
   } catch (error) {
     Logger.failed(
