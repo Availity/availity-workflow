@@ -29,11 +29,11 @@ const reinstallNodeModules = async (installer, peerInfoReceived) => {
 
 const getLatestNpmVersion = async (pkgName, defaultVersion) => {
   try {
-    let { stdout } = await asyncExec(`npm view ${pkgName} version`);
+    const { stdout } = await asyncExec(`npm view ${pkgName} version`);
     return stdout.trim();
   } catch {
     Logger.warn(`There was an error getting the latest ${pkgName} version. Defaulting to ${defaultVersion}`);
-    latestWorkflowVersion = defaultVersion;
+    return defaultVersion;
   }
 };
 
@@ -68,6 +68,7 @@ export default async (cwd) => {
           choices: ['yarn', 'npm']
         }
       ]);
+      // eslint-disable-next-line prefer-destructuring
       installer = response.installer;
     } else if (hasPkgLock) {
       Logger.info('package-lock.json detected. Using NPM as installer.');
@@ -81,8 +82,8 @@ export default async (cwd) => {
     }
 
     // Get latest verison of packages
-    let latestWorkflowVersion = await getLatestNpmVersion('@availity/workflow', '10.0.6');
-    let latestEslintVersion = await getLatestNpmVersion('eslint-config-availity', '9.0.0');
+    const latestWorkflowVersion = await getLatestNpmVersion('@availity/workflow', '10.0.6');
+    const latestEslintVersion = await getLatestNpmVersion('eslint-config-availity', '9.0.0');
 
     if (devDependencies) {
       Logger.info(`Setting version of @availity/workflow to ${latestWorkflowVersion}`);
@@ -128,7 +129,7 @@ export default async (cwd) => {
         } else {
           Logger.warn('Failed to get peerDependencies from eslint-config-availity');
         }
-      } catch (error) {
+      } catch {
         Logger.warn('Failed to get peerDependencies from eslint-config-availity');
       }
     }
