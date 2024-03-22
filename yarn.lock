@@ -802,7 +802,6 @@ __metadata:
     type-is: ^1.6.18
     update-notifier: ^7.0.0
     url-join: ^5.0.0
-    url-loader: ^4.1.1
     validate-npm-package-name: ^5.0.0
     webpack: ^5.90.3
     webpack-bundle-analyzer: ^4.10.1
