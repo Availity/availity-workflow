@@ -18,7 +18,7 @@
     "check:dependencies": "node scripts/check-missing-deps.js",
     "check:versions": "node scripts/check-version-strategy.js",
     "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
-    "lint": "node ./node_modules/.bin/eslint .",
+    "lint": "nx affected --target=lint --parallel=5 --exclude=workspace",
     "postinstall": "is-ci || husky install",
     "start": "yarn workspace @availity/dinosaurdocs start --no-open",
     "start:app": "yarn workspace @availity/example start",
