@@ -16141,13 +16141,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-monkey@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "fs-monkey@npm:1.0.3"
-  checksum: cf50804833f9b88a476911ae911fe50f61a98d986df52f890bd97e7262796d023698cb2309fa9b74fdd8974f04315b648748a0a8ee059e7d5257b293bfc409c0
-  languageName: node
-  linkType: hard
-
 "fs-monkey@npm:^1.0.4":
   version: 1.0.5
   resolution: "fs-monkey@npm:1.0.5"
@@ -20483,25 +20476,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^3.1.2":
-  version: 3.4.12
-  resolution: "memfs@npm:3.4.12"
-  dependencies:
-    fs-monkey: ^1.0.3
-  checksum: dab8dec1ae0b2a92e4d563ac86846047cd7aeb17cde4ad51da85cff6e580c32d12b886354527788e36eb75f733dd8edbaf174476b7cea73fed9c5a0e45a6b428
-  languageName: node
-  linkType: hard
-
-"memfs@npm:^3.4.12":
-  version: 3.4.13
-  resolution: "memfs@npm:3.4.13"
-  dependencies:
-    fs-monkey: ^1.0.3
-  checksum: 3f9717d6f060919d53f211acb6096a0ea2f566a8cbcc4ef7e1f2561e31e33dc456053fdf951c90a49c8ec55402de7f01b006b81683ab7bd4bdbbd8c9b9cdae5f
-  languageName: node
-  linkType: hard
-
-"memfs@npm:^3.4.3":
+"memfs@npm:^3.1.2, memfs@npm:^3.4.12, memfs@npm:^3.4.3":
   version: 3.5.3
   resolution: "memfs@npm:3.5.3"
   dependencies:
