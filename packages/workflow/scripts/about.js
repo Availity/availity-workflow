@@ -1,8 +1,8 @@
 import Logger from '@availity/workflow-logger';
 import chalk from 'chalk';
 import envinfo from 'envinfo';
-import notifier from './notifier';
-import pkg from '../package.json';
+import notifier from './notifier.js';
+import pkg from '../package.json' with { type: "json" };
 
 const version = chalk.bold.yellow(`v${pkg.version}`);
 

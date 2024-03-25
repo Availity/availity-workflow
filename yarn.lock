@@ -7647,15 +7647,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/cli@npm:15.9.4":
-  version: 15.9.4
-  resolution: "@nrwl/cli@npm:15.9.4"
-  dependencies:
-    nx: 15.9.4
-  checksum: 039df998bbc56cc6d506a4c07500c97ce6662dff1ed0756d893d48398ffbfcfc9a1c274914011dbe331c0663b5c3e6de496ad6cdd05180ea0505fdcee19c67ff
-  languageName: node
-  linkType: hard
-
 "@nrwl/devkit@npm:16.5.5":
   version: 16.5.5
   resolution: "@nrwl/devkit@npm:16.5.5"
@@ -10993,7 +10984,6 @@ __metadata:
     "@commitlint/config-angular": ^19.0.3
     "@commitlint/config-conventional": ^19.0.3
     "@jscutlery/semver": 3.0.0
-    "@nrwl/cli": 15.9.4
     "@nrwl/js": ^16.5.5
     "@nrwl/workspace": 16.5.5
     "@types/is-ci": ^3.0.4

@@ -1,21 +1,21 @@
 import Logger from '@availity/workflow-logger';
 import chalk from 'chalk';
 import { rspack } from '@rspack/core';
-import merge from 'lodash/merge';
-import once from 'lodash/once';
+import merge from 'lodash/merge.js';
+import once from 'lodash/once.js';
 import { RspackDevServer } from '@rspack/dev-server';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 
-import settings from '../settings';
-import webpackConfigBase from '../webpack.config';
-import webpackConfigProduction from '../webpack.config.profile';
-import rspackBaseConfig from '../rspack.config.dev';
+import settings from '../settings/index.js';
+import webpackConfigBase from '../webpack.config.js';
+import webpackConfigProduction from '../webpack.config.profile.js';
+import rspackBaseConfig from '../rspack.config.dev.js';
 
-import proxy from './proxy';
-import notifier from './notifier';
-import open  from './open';
-import formatWebpackMessages from './format';
+import proxy from './proxy.js';
+import notifier from './notifier.js';
+import open  from './open.js';
+import formatWebpackMessages from './format.js';
 
 let server;
 let ekko;

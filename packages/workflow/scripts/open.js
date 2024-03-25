@@ -2,7 +2,7 @@ import opn from 'open';
 import chalk from 'chalk';
 import urlJoin from 'url-join';
 import Logger from '@availity/workflow-logger';
-import settings from '../settings';
+import settings from '../settings/index.js';
 
 export default function open() {
   if (settings.open()) {

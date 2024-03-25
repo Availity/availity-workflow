@@ -1,8 +1,8 @@
 
 import DuplicatePackageCheckerPlugin  from 'duplicate-package-checker-webpack-plugin';
 import { BundleAnalyzerPlugin }  from 'webpack-bundle-analyzer';
-import _merge from 'lodash/merge';
-import buildProdConfig from './webpack.config.production';
+import _merge from 'lodash/merge.js';
+import buildProdConfig from './webpack.config.production.js';
 
 process.noDeprecation = true;
 

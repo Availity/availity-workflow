@@ -13,7 +13,9 @@ import path from 'node:path'
 import spawn from 'cross-spawn'
 import os from 'node:os'
 import Logger from '@availity/workflow-logger'
-import cloneStarter from './clone-starter';
+import cloneStarter from './clone-starter.js';
+
+const instance = yargs()
 
 function printValidationResults(results) {
   if (typeof results !== 'undefined') {
@@ -225,9 +227,8 @@ export default function createApp({ projectName: name, currentDir, template, use
 
   run({ appPath, appName, originalDirectory, template, installer, branchOverride });
 }
-/* eslint-disable no-unused-expressions */
-yargs
-  .command(
+
+instance.command(
     'init <projectName> [options]',
     `${chalk.dim('Initialize your project from scratch.')}`,
     (yyargs) => {

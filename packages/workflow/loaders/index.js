@@ -1,10 +1,10 @@
 /* eslint-disable global-require */
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import css from './loader-css';
-import less from './loader-less';
-import scss from './loader-scss';
-import postcss from './loader-postcss';
-import images from './rule-images';
+import css from './loader-css.js';
+import less from './loader-less.js';
+import scss from './loader-scss.js';
+import postcss from './loader-postcss.js';
+import images from './rule-images.js';
 
 export default {
   css,

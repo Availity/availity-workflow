@@ -2,10 +2,10 @@ import path from 'node:path';
 import * as url from 'node:url';
 import { createRequire } from 'node:module';
 
-import html from './html';
-import resolveModule from './helpers/resolve-module';
-import paths from './helpers/paths';
-import loaders from './loaders';
+import html from './html.js';
+import resolveModule from './helpers/resolve-module.js';
+import paths from './helpers/paths.js';
+import loaders from './loaders/index.js';
 
 const require = createRequire(import.meta.url);
 

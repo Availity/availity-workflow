@@ -4,11 +4,13 @@ import path from 'node:path';
 import shell from 'shelljs';
 import semver from 'semver';
 import inquirer from 'inquirer';
-import merge from 'lodash/merge';
+import merge from 'lodash/merge.js';
 import moment from 'moment';
 import yargs from 'yargs';
 import Logger from '@availity/workflow-logger';
-import settings from '../settings';
+import settings from '../settings/index.js';
+
+const instance = yargs()
 
 // Add a new line character to end of contents
 function newLine(contents) {
@@ -66,7 +68,7 @@ export function prompt() {
 
   const { version } = settings.pkg();
   const parsed = semver.parse(version);
-  const versionArg = yargs.argv.version || yargs.argv._[1];
+  const versionArg = instance.argv.version || instance.argv._[1];
 
   if (versionArg) {
     let error;

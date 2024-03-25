@@ -5,7 +5,7 @@ import Logger from '@availity/workflow-logger';
 import requireRelative from 'require-relative';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import settings from '../settings';
+import settings from '../settings/index.js';
 
 export default async function lint() {
   let engine;

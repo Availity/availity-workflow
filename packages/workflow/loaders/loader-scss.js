@@ -1,5 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import loaderPostcss from './loader-postcss';
+import loaderPostcss from './loader-postcss.js';
 
 export default {
   development: {

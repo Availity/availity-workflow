@@ -3,19 +3,19 @@ import path from 'node:path';
 import Logger from '@availity/workflow-logger';
 import fs, { existsSync } from 'node:fs';
 import * as url from 'node:url';
-import each from 'lodash/forEach';
-import get from 'lodash/get';
-import isFunction from 'lodash/isFunction';
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
-import merge from 'lodash/merge';
-import trimStart from 'lodash/trimStart';
+import each from 'lodash/forEach.js';
+import get from 'lodash/get.js';
+import isFunction from 'lodash/isFunction.js';
+import isObject from 'lodash/isObject.js';
+import isString from 'lodash/isString.js';
+import merge from 'lodash/merge.js';
+import trimStart from 'lodash/trimStart.js';
 import chalk from 'chalk';
 import yargs from 'yargs';
 import getPort, { portNumbers } from 'get-port';
 import Joi from 'joi';
-import paths from '../helpers/paths';
-import schema from './schema';
+import paths from '../helpers/paths.js';
+import schema from './schema.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 

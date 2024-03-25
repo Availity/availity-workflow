@@ -3,7 +3,7 @@
   "name": "availity-workflow",
   "engines": {
     "yarn": "^3.0.0",
-    "node": "^16.0.0 || ^18.0.0"
+    "node": "^18.0.0 || ^20.0.0"
   },
   "workspaces": [
     "packages/*",
@@ -34,7 +34,6 @@
     "@commitlint/config-angular": "^19.0.3",
     "@commitlint/config-conventional": "^19.0.3",
     "@jscutlery/semver": "3.0.0",
-    "@nrwl/cli": "15.9.4",
     "@nrwl/js": "^16.5.5",
     "@nrwl/workspace": "16.5.5",
     "@types/is-ci": "^3.0.4",

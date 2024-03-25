@@ -3,7 +3,7 @@ import path from 'node:path';
 import * as url from 'node:url';
 import { createRequire } from 'node:module';
 import webpack from 'webpack';
-import _merge from 'lodash/merge';
+import _merge from 'lodash/merge.js';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
@@ -12,10 +12,10 @@ import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plu
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-import loaders from './loaders';
-import paths from './helpers/paths';
-import resolveModule from './helpers/resolve-module';
-import html from './html';
+import loaders from './loaders/index.js';
+import paths from './helpers/paths.js';
+import resolveModule from './helpers/resolve-module.js';
+import html from './html.js';
 
 const require = createRequire(import.meta.url);
 

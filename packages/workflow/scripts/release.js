@@ -1,8 +1,8 @@
 import Logger from '@availity/workflow-logger';
 
-import { prompt, bump, tag } from './version';
-import lint from './lint';
-import build from './build';
+import { prompt, bump, tag } from './version.js';
+import lint from './lint.js';
+import build from './build.js';
 
 export default async function release({ settings }) {
   try {

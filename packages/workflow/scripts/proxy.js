@@ -1,11 +1,11 @@
 import chalk from 'chalk';
 import createDebug from 'debug';
-import get from 'lodash/get';
-import merge from 'lodash/merge';
+import get from 'lodash/get.js';
+import merge from 'lodash/merge.js';
 import urlJoin from 'url-join';
 import Logger from '@availity/workflow-logger';
 import escapeStringRegexp from 'escape-string-regexp';
-import settings from '../settings';
+import settings from '../settings/index.js';
 
 const debug = createDebug('workflow:proxy');
 

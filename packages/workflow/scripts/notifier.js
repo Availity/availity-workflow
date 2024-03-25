@@ -1,8 +1,7 @@
 import updateNotifier from 'update-notifier';
 import chalk from 'chalk';
 import Logger from '@availity/workflow-logger';
-
-import pkg from '../package.json';
+import pkg from '../package.json' with { type: "json" };
 
 const options = {
   pkg,

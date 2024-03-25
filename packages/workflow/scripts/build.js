@@ -1,14 +1,13 @@
 import { deleteSync } from 'del';
 import webpack from 'webpack';
-import ProgressPlugin from 'webpack/lib/ProgressPlugin';
 import ora from 'ora';
 import chalk from 'chalk';
 import Logger from '@availity/workflow-logger';
-import sizeTree from 'webpack-bundle-size-analyzer/build/src/size_tree';
+import sizeTree from 'webpack-bundle-size-analyzer/build/src/size_tree.js';
 
-import webpackConfigProfile from '../webpack.config.profile';
-import webpackConfigProduction from '../webpack.config.production';
-import customStats from './stats';
+import webpackConfigProfile from '../webpack.config.profile.js';
+import webpackConfigProduction from '../webpack.config.production.js';
+import customStats from './stats.js';
 
 export default function bundle({ profile, settings }) {
   return new Promise((resolve, reject) => {
@@ -34,7 +33,7 @@ export default function bundle({ profile, settings }) {
     let previousPercent;
 
     webpackConfig.plugins.push(
-      new ProgressPlugin((percentage, msg) => {
+      new webpack.ProgressPlugin((percentage, msg) => {
         const percent = Math.round(percentage * 100);
 
         if (previousPercent === percent) {
