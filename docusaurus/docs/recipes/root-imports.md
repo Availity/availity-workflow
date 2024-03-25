@@ -38,7 +38,7 @@ If you want intellisense in vscode to pick up the root imports and allow you to 
 ```json
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "ES2020",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -46,8 +46,8 @@ If you want intellisense in vscode to pick up the root imports and allow you to 
         "allowSyntheticDefaultImports": true,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
-        "module": "esnext",
-        "moduleResolution": "node",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,

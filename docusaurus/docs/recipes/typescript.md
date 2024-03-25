@@ -23,7 +23,7 @@ Also noted on the previous section. We use the tsconfig for vscode to let us int
 ```json header=tsconfig.json
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "ES2020",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -31,8 +31,8 @@ Also noted on the previous section. We use the tsconfig for vscode to let us int
         "allowSyntheticDefaultImports": true,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
-        "module": "esnext",
-        "moduleResolution": "node",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
