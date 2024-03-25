@@ -1,14 +1,22 @@
 {
-  "extends": "@nrwl/workspace/presets/npm.json",
-  "npmScope": "availity",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "test", "lint", "package", "prepare"]
-      }
+  "targetDefaults": {
+    "build": {
+      "cache": true
+    },
+    "test": {
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "package": {
+      "cache": true
+    },
+    "prepare": {
+      "cache": true
     }
   },
+  "extends": "@nrwl/workspace/presets/npm.json",
   "targetDependencies": {
     "build": [
       {
@@ -29,12 +37,11 @@
       }
     ]
   },
-  "affected": {
-    "defaultBase": "master"
-  },
   "pluginsConfig": {
     "@nrwl/js": {
       "analyzeSourceFiles": true
     }
-  }
+  },
+  "useInferencePlugins": false,
+  "defaultBase": "master"
 }
