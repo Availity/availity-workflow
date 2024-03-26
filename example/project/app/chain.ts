@@ -1,6 +1,16 @@
 // Simple .js file to test compiling and linting for @babel/plugin-proposal-optional-chaining and @babel/plugin-proposal-nullish-coalescing-operator
+type ChainObject = {
+  org: {
+    types: [
+      {
+        name: string;
+        value?: string;
+      },
+    ];
+  };
+};
 
-const chainObject = {
+const chainObject: ChainObject = {
   org: {
     types: [
       {

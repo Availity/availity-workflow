@@ -7,7 +7,7 @@
   "scripts": {
     "start": "av start",
     "av": "av",
-    "test": "av test",
+    "test": "node --experimental-vm-modules ../node_modules/.bin/jest --silent",
     "test:watch": "av test --watch",
     "integration": "yarn lint && yarn test && yarn build && yarn build:production",
     "about": "av about",

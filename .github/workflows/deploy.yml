@@ -50,10 +50,10 @@ jobs:
         run: yarn constraints
 
       - name: Lint Affected Code
-        run: yarn nx affected --target=lint
+        run: yarn lint
 
       - name: Unit Test Affected Code
-        run: yarn nx affected --target=test
+        run: yarn test
 
       - name: Integration Test Affected Code
         run: yarn nx affected --target=integration
