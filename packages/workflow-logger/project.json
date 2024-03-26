@@ -17,6 +17,11 @@
         "cacheStrategy": "metadata"
       }
     },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/packages/workflow-logger"],
+      "options": { "jestConfig": "packages/workflow-logger/jest.config.js", "passWithNoTests": true }
+    },
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {

@@ -17,6 +17,11 @@
         "cacheStrategy": "metadata"
       }
     },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/packages/mock-data"],
+      "options": { "jestConfig": "packages/mock-data/jest.config.js" }
+    },
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
