@@ -54,8 +54,6 @@ class Configuration {
       config = await this.defaultConfig();
     }
 
-    // let config = this.path ? await import(this.path, { assert: { type: "json" } }).default : this.defaultConfig();
-
     // Allow programmatic overrides for environment
     config = _.merge(config, options);
 
