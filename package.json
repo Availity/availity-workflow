@@ -25,14 +25,14 @@
     "start:docs": "yarn workspace @availity/dinosaurdocs start",
     "test": "nx affected --target=test --parallel=5 -- --runInBand",
     "test:app": "yarn workspace @availity/example test",
-    "version": "nx affected --target version --parallel=1",
-    "version:dry-run": "nx affected --target version --dryRun --parallel=1"
+    "version": "nx affected --target=version --parallel=1",
+    "version:dry-run": "nx affected --target=version --dryRun --verbose --parallel=1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.0.3",
     "@commitlint/config-angular": "^19.0.3",
     "@commitlint/config-conventional": "^19.0.3",
-    "@jscutlery/semver": "3.0.0",
+    "@jscutlery/semver": "5.2.2",
     "@nx/eslint": "18.1.3",
     "@nx/jest": "18.1.3",
     "@nx/js": "18.1.3",

@@ -22,8 +22,10 @@
       "executor": "@jscutlery/semver:version",
       "options": {
         "preset": "angular",
-        "commitMessageFormat": "chore(${projectName}): release version ${version}",
-        "tagPrefix": "@availity/${projectName}@"
+        "commitMessageFormat": "chore({projectName}): release version ${version}",
+        "tagPrefix": "@availity/{projectName}@",
+        "baseBranch": "master",
+        "trackDeps": true
       }
     }
   }
