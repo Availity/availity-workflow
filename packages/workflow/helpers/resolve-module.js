@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'node:fs';
 
 const moduleFileExtensions = [
   'web.mjs',
@@ -25,4 +25,4 @@ const resolveModule = (resolveFn, filePath) => {
   return resolveFn(`${filePath}.js`);
 };
 
-module.exports = resolveModule;
+export default resolveModule;

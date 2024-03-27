@@ -22,3 +22,5 @@ reports/
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+
+.nx/cache

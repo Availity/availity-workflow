@@ -1,5 +1,5 @@
-const match = require('./match');
-const result = require('./result');
+import match from './match';
+import result from './result';
 
 const get = {
   send(req, res) {
@@ -8,4 +8,4 @@ const get = {
   }
 };
 
-module.exports = get;
+export default get;

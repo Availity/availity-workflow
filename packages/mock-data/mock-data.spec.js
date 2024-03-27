@@ -1,8 +1,8 @@
-const mocks = require('.');
+import { data, routes } from '.';
 
 describe('mock data', () => {
   it('should be defined', () => {
-    expect(mocks.data).toBeDefined();
-    expect(mocks.routes).toBeDefined();
+    expect(data).toBeDefined();
+    expect(routes).toBeDefined();
   });
 });

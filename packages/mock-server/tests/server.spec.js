@@ -1,4 +1,4 @@
-const Ekko = require('../index');
+import Ekko from '../index';
 
 describe('Ekko', () => {
   it('should be defined', () => {

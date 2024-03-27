@@ -1,5 +1,5 @@
-const match = require('./match');
-const result = require('./result');
+import match from './match';
+import result from './result';
 
 const patch = {
   tus(req, res) {
@@ -19,4 +19,4 @@ const patch = {
   }
 };
 
-module.exports = patch;
+export default patch;

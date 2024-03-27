@@ -1,23 +1,27 @@
 /* eslint-disable import/no-dynamic-require */
-const path = require('path');
-const Logger = require('@availity/workflow-logger');
-const { existsSync } = require('fs');
-const each = require('lodash/forEach');
-const get = require('lodash/get');
-const isFunction = require('lodash/isFunction');
-const isObject = require('lodash/isObject');
-const isString = require('lodash/isString');
-const merge = require('lodash/merge');
-const trimStart = require('lodash/trimStart');
-const chalk = require('chalk');
-const fs = require('fs');
-const yargs = require('yargs');
-const getPort = require('get-port');
-const Joi = require('joi');
-const paths = require('../helpers/paths');
+import path from 'node:path';
+import Logger from '@availity/workflow-logger';
+import fs, { existsSync } from 'node:fs';
+import * as url from 'node:url';
+import each from 'lodash/forEach.js';
+import get from 'lodash/get.js';
+import isFunction from 'lodash/isFunction.js';
+import isObject from 'lodash/isObject.js';
+import isString from 'lodash/isString.js';
+import merge from 'lodash/merge.js';
+import trimStart from 'lodash/trimStart.js';
+import chalk from 'chalk';
+import yargs from 'yargs';
+import getPort, { portNumbers } from 'get-port';
+import Joi from 'joi';
+import paths from '../helpers/paths.js';
+import schema from './schema.js';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 function argv() {
-  return yargs.argv;
+  const instance = yargs()
+  return instance.argv;
 }
 
 function stringify(obj) {
@@ -78,7 +82,7 @@ const settings = {
       return JSON.parse(contents || this.raw());
     }
 
-    return require(path.join(this.project(), 'package.json'));
+    return import(path.join(this.project(), 'package.json'));
   },
 
   // [contenthash] generates unique hashes depending on the file contents
@@ -191,7 +195,6 @@ const settings = {
 
   async init({ shouldMimicStaging } = {}) {
     let config = {};
-    const schema = require('./schema');
     let developerConfig = {};
 
     this.shouldMimicStaging = shouldMimicStaging;
@@ -204,7 +207,7 @@ const settings = {
     if (existsSync(jsWorkflowConfig)) {
       // Try project's workflow.js
       this.workflowConfigPath = jsWorkflowConfig;
-      developerConfig = require(this.workflowConfigPath);
+      developerConfig = await import(this.workflowConfigPath);
     } else {
       // fall back to default ./schema.js
       this.workflowConfigPath = defaultWorkflowConfig;
@@ -260,7 +263,7 @@ const settings = {
     try {
       this.devServerPort = get(this.configuration, 'development.port', 3000);
       const availablePort = await getPort({
-        port: getPort.makeRange(this.devServerPort, this.devServerPort + 1000),
+        port: portNumbers(this.devServerPort, this.devServerPort + 1000),
         host: this.host()
       });
 
@@ -277,7 +280,7 @@ const settings = {
     try {
       const wantedEkkoPort = get(this.configuration, 'ekko.port', 9999);
       this.ekkoServerPort = await getPort({
-        port: getPort.makeRange(wantedEkkoPort, wantedEkkoPort + 1000),
+        port: portNumbers(wantedEkkoPort, wantedEkkoPort + 1000),
         host: this.host()
       });
 
@@ -455,4 +458,4 @@ const settings = {
   }
 };
 
-module.exports = settings;
+export default settings;

@@ -1,23 +1,27 @@
 #!/usr/bin/env node
+import yargs from 'yargs';
+import chalk from 'chalk';
+import start from './scripts/start.js';
+import test from './scripts/test.js';
+import lint from './scripts/lint.js';
+import about from './scripts/about.js';
+import build from './scripts/build.js';
+import release from './scripts/release.js';
+import profile from './scripts/profile.js';
+import settings from './settings/index.js';
+
+
 if (process.env.NODE_ENV === 'staging') {
   process.argv.push('--no-optimize');
   process.env.NODE_ENV = 'production';
 }
 const shouldMimicStaging = process.argv.includes('--no-optimize');
 
-const yargs = require('yargs');
-const chalk = require('chalk');
-const start = require('./scripts/start');
-const test = require('./scripts/test');
-const lint = require('./scripts/lint');
-const about = require('./scripts/about');
-const build = require('./scripts/build');
-const release = require('./scripts/release');
-const profile = require('./scripts/profile');
-const settings = require('./settings');
-require('./scripts/init');
+await import('./scripts/init.js');
 
-yargs.command(
+const instance = yargs()
+
+instance.command(
   'release',
   `${chalk.dim('Bundle project for distribution (production or staging) and create a git tag')}`,
   (yyargs) => {
@@ -37,7 +41,7 @@ yargs.command(
 );
 
 /* eslint-disable no-unused-expressions */
-yargs
+instance
 
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
 

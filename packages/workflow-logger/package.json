@@ -2,7 +2,8 @@
   "name": "@availity/workflow-logger",
   "version": "6.0.0",
   "description": "Simple colorized logger for @availity/workflow",
-  "main": "index.js",
+  "type": "module",
+  "exports": "./index.js",
   "scripts": {
     "generateChangelog": "yarn changelog:generate --tag-prefix $npm_package_name --lerna-package $npm_package_name",
     "generateTag": "yarn exec git tag --message \"${npm_package_name}@${npm_package_version}\" --annotate \"${npm_package_name}@${npm_package_version}\"",
@@ -26,14 +27,14 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "boxen": "^5.1.2",
-    "chalk": "^4.1.2",
-    "dateformat": "^4.6.3",
-    "figures": "^3.2.0"
+    "boxen": "^7.1.1",
+    "chalk": "^5.3.0",
+    "dateformat": "^5.0.3",
+    "figures": "^6.1.0"
   },
   "engines": {
-    "node": "^16.0.0 || ^18.0.0",
-    "npm": "^8.0.0 || ^9.0.0",
+    "node": "^18.0.0 || ^20.0.0",
+    "npm": "^8.0.0 || ^9.0.0 || ^10.0.0",
     "yarn": ">=1.19.1"
   },
   "publishConfig": {

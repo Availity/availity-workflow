@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   someSidebar: {
     'Workflow CLI Docs': ['index', 'quick-start', 'upgrading-workflow'],
     Tutorial: ['tutorial/index', 'tutorial/mocks', 'tutorial/deploy', 'tutorial/dependency-management'],

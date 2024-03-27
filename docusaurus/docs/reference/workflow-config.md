@@ -18,7 +18,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 **Example:**
 
 ```js
-module.exports = {
+export default {
     development: {
         notification: true
         hot: true
@@ -67,12 +67,10 @@ module.exports = {
 If `workflow.js` exports a function it can be used to override properties from the default configuration. The function must return a configuration.
 
 ```js
-function merge(config) {
+export default function merge(config) {
     config.development.open = '#/foo';
     return config;
 }
-
-module.exports = merge;
 ```
 
 ### Options
@@ -336,7 +334,7 @@ Then you will be able to debug Jest tests like this:
 Update `workflow.js` using the configuration below:
 
 ```js
-module.exports = (config) => {
+export default (config) => {
     config.proxies = [
         {
             context: ['/api/**', '/ms/**', '!/api/v1/proxy/healthplan/**'],

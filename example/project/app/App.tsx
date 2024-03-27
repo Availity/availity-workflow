@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
 import { Formik } from 'formik';
 import PageHeader from '@availity/page-header';
 import { Container, Card } from 'reactstrap';
 import { object, string } from 'yup';
 // eslint-disable-next-line import/extensions
-import Form from '@/components/Form';
+import Form from './components/Form';
 import { chain, nullChain } from './chain';
 
-const App: React.SFC<Record<string, unknown>> = () => (
+const App: React.FunctionComponent<Record<string, unknown>> = () => (
   <Container className="container-sm">
     <PageHeader appName="Sample Project" appAbbr="SP" feedback />
     <Card

@@ -2,10 +2,13 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 // https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/scripts/utils/createJestConfig.js
-const path = require('path');
-const _ = require('lodash');
-const jest = require('jest');
-const { existsSync } = require('fs');
+import path from 'node:path';
+import _ from 'lodash';
+import jest from 'jest';
+import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 function create(settings) {
   settings.init();
@@ -27,17 +30,23 @@ function create(settings) {
     collectCoverageFrom: ['project/app/**/*.{js,jsx,ts,tsx}'],
     coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/'],
     testEnvironment: 'node',
-    testURL: 'http://localhost',
+    testEnvironmentOptions: {
+      url: 'http://localhost'
+    },
     transform: {
       // Jest and Babel don't allow functions in the options so we just return their values here
-      '^.+\\.(js|jsx|ts|tsx)$': `${require.resolve('./jest/babel.js')}`,
+       '^.+\\.(js|jsx|ts|tsx)$': `${require.resolve('./jest/babel.js')}`,
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
       '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
     setupFiles: [require.resolve('raf/polyfill'), ...setupFiles],
     setupFilesAfterEnv: jestInitExists
-      ? require(path.join(settings.app(), 'jest.init.js'))
-      : ['@testing-library/jest-dom/extend-expect'],
+      ? import(path.join(settings.app(), 'jest.init.js'))
+      : ['@testing-library/jest-dom'],
+    snapshotFormat: {
+      escapeString: true,
+      printBasicPrototype: true,
+    },
     transformIgnorePatterns: [`[/\\\\]node_modules[/\\\\](?!(${includes})).+\\.(js|jsx|ts|tsx)$`],
     testMatch: [
       // Ignore the following directories:
@@ -74,7 +83,7 @@ function unit(settings) {
   return Promise.resolve();
 }
 
-module.exports = (settings) => ({
+export default (settings) => ({
   run: () => unit(settings),
   description: 'Run your tests using Jest'
 });

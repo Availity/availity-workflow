@@ -1,4 +1,7 @@
-const path = require('path');
+import path from 'node:path';
+import * as url from 'node:url';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const html = (settings) => {
   const workflowTemplate = path.join(__dirname, './public/index.html');
@@ -16,4 +19,4 @@ const html = (settings) => {
   return config;
 };
 
-module.exports = html;
+export default html;

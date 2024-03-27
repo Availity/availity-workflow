@@ -1,6 +1,6 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
-class Response {
+export default class Response {
   constructor(response) {
     this.headers = null;
     this.file = null;
@@ -26,5 +26,3 @@ class Response {
     this.repeat = response.repeat || this.repeat;
   }
 }
-
-module.exports = Response;

@@ -2,7 +2,8 @@
   "name": "@availity/mock-data",
   "version": "6.0.0",
   "description": "Mock data for Availity API rest services",
-  "main": "index.js",
+  "type": "module",
+  "exports": "./index.js",
   "scripts": {
     "generateChangelog": "yarn changelog:generate --tag-prefix $npm_package_name --lerna-package $npm_package_name",
     "generateTag": "yarn exec git tag --message \"${npm_package_name}@${npm_package_version}\" --annotate \"${npm_package_name}@${npm_package_version}\"",
@@ -16,7 +17,7 @@
     "api"
   ],
   "engines": {
-    "node": "^16.0.0 || ^18.0.0"
+    "node": "^18.0.0 || ^20.0.0"
   },
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "license": "MIT",

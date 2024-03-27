@@ -1,14 +1,31 @@
 {
   "name": "example",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "app",
-  "root": "example",
   "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "eslintConfig": ".eslintrc.yaml",
+        "silent": false,
+        "fix": false,
+        "cache": true,
+        "cacheLocation": "./node_modules/.cache/example/.eslintcache",
+        "maxWarnings": -1,
+        "quiet": false,
+        "noEslintrc": false,
+        "hasTypeAwareRules": true,
+        "cacheStrategy": "metadata"
+      }
+    },
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
         "preset": "angular",
-        "commitMessageFormat": "chore(${projectName}): release version ${version}",
-        "tagPrefix": "@availity/${projectName}@"
+        "commitMessageFormat": "chore({projectName}): release version ${version}",
+        "tagPrefix": "@availity/{projectName}@",
+        "baseBranch": "master",
+        "trackDeps": true
       }
     }
   }

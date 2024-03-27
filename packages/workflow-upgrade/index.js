@@ -1,11 +1,11 @@
-const { exec } = require('child_process');
-const { promisify } = require('util');
-const fs = require('fs');
-const path = require('path');
-const readPkg = require('read-pkg');
-const rimraf = require('rimraf');
-const Logger = require('@availity/workflow-logger');
-const inquirer = require('inquirer');
+import { exec } from 'node:child_process';
+import { promisify } from 'node:util';
+import fs from 'node:fs';
+import path from 'node:path';
+import { readPackage } from 'read-pkg';
+import rimraf from 'rimraf';
+import Logger from '@availity/workflow-logger';
+import inquirer from 'inquirer';
 
 const asyncExec = promisify(exec);
 
@@ -29,22 +29,22 @@ const reinstallNodeModules = async (installer, peerInfoReceived) => {
 
 const getLatestNpmVersion = async (pkgName, defaultVersion) => {
   try {
-    let { stdout } = await asyncExec(`npm view ${pkgName} version`);
+    const { stdout } = await asyncExec(`npm view ${pkgName} version`);
     return stdout.trim();
   } catch {
     Logger.warn(`There was an error getting the latest ${pkgName} version. Defaulting to ${defaultVersion}`);
-    latestWorkflowVersion = defaultVersion;
+    return defaultVersion;
   }
 };
 
-module.exports = async (cwd) => {
+export default async (cwd) => {
   Logger.info('Upgrading @availity/workflow');
   const pkgFile = path.join(cwd, 'package.json');
 
   if (fs.existsSync(pkgFile)) {
     // Read Package File to JSON
     Logger.info('Reading package.json...');
-    const pkg = readPkg.sync({ cwd, normalize: false });
+    const pkg = readPackage.sync({ cwd, normalize: false });
     const { devDependencies, scripts, availityWorkflow } = pkg;
 
     const pkgLock = path.join(cwd, 'package-lock.json');
@@ -68,6 +68,7 @@ module.exports = async (cwd) => {
           choices: ['yarn', 'npm']
         }
       ]);
+      // eslint-disable-next-line prefer-destructuring
       installer = response.installer;
     } else if (hasPkgLock) {
       Logger.info('package-lock.json detected. Using NPM as installer.');
@@ -81,8 +82,8 @@ module.exports = async (cwd) => {
     }
 
     // Get latest verison of packages
-    let latestWorkflowVersion = await getLatestNpmVersion('@availity/workflow', '10.0.6');
-    let latestEslintVersion = await getLatestNpmVersion('eslint-config-availity', '9.0.0');
+    const latestWorkflowVersion = await getLatestNpmVersion('@availity/workflow', '10.0.6');
+    const latestEslintVersion = await getLatestNpmVersion('eslint-config-availity', '9.0.0');
 
     if (devDependencies) {
       Logger.info(`Setting version of @availity/workflow to ${latestWorkflowVersion}`);
@@ -128,7 +129,7 @@ module.exports = async (cwd) => {
         } else {
           Logger.warn('Failed to get peerDependencies from eslint-config-availity');
         }
-      } catch (error) {
+      } catch {
         Logger.warn('Failed to get peerDependencies from eslint-config-availity');
       }
     }

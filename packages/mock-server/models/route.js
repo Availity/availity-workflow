@@ -1,9 +1,9 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
-const Request = require('./request');
-const Response = require('./response');
+import Request from './request';
+import Response from './response';
 
-class Route {
+export default class Route {
   constructor(url, endpoint, dataPath) {
     this.url = url;
     this.methods = {};
@@ -138,5 +138,3 @@ class Route {
     }
   }
 }
-
-module.exports = Route;

@@ -2,16 +2,15 @@
 /* eslint-disable unicorn/consistent-destructuring */
 /* eslint-disable unicorn/no-this-assignment */
 /* eslint-disable import/no-dynamic-require */
-const _ = require('lodash');
-const fs = require('fs');
-const chalk = require('chalk');
+import _ from 'lodash';
+import fs from 'node:fs';
+import chalk from 'chalk';
 
-const config = require('../config');
-const response = require('../response');
-const models = require('../models');
-const logger = require('../logger').getInstance();
+import config from '../config';
+import response from '../response';
+import { Route } from '../models';
 
-const { Route } = models;
+import logger from '../logger';
 
 const routes = {
   /**
@@ -23,8 +22,8 @@ const routes = {
     const { router } = config;
 
     // Add default route.  Configurations should be allowed to override this if needed.
-    router.get('/', (req, res) => {
-      const pkg = require('../package.json');
+    router.get('/', async (req, res) => {
+      const pkg = await import('../package.json').default;
       res.send({
         name: pkg.name,
         description: pkg.description,
@@ -70,11 +69,11 @@ const routes = {
   plugins() {
     const plugins = config.options.plugins || [];
 
-    _.forEach(plugins, (plugin) => {
+    _.forEach(plugins, async (plugin) => {
       let pluginConfig = null;
 
-      pluginConfig = require(plugin);
-      logger.info(`Loading plugin ${chalk.blue(plugin)}`);
+      pluginConfig = await import(plugin);
+      logger.getInstance().info(`Loading plugin ${chalk.blue(plugin)}`);
       this.routes(pluginConfig.routes, pluginConfig.data);
     });
   },
@@ -104,4 +103,4 @@ const routes = {
   }
 };
 
-module.exports = routes;
+export default routes;

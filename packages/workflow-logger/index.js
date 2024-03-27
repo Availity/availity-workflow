@@ -1,9 +1,9 @@
 /* eslint no-console:0 */
-const chalk = require('chalk');
-const figures = require('figures');
-const boxen = require('boxen');
+import chalk from 'chalk';
+import figures from 'figures';
+import boxen from 'boxen';
 
-class Logger {
+export default class Logger {
   constructor(options) {
     this.options = options;
   }
@@ -86,5 +86,3 @@ class Logger {
     );
   }
 }
-
-module.exports = Logger;

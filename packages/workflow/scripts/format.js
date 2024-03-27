@@ -65,7 +65,7 @@ function formatMessage(message) {
   return message;
 }
 
-function formatWebpackMessages(json) {
+export default function formatWebpackMessages(json) {
   const formattedErrors = json.errors.map((message) => `Error in ${formatMessage(message.message)}`);
   const formattedWarnings = json.warnings.map((message) => `Warning in ${formatMessage(message.message)}`);
   const result = {
@@ -90,5 +90,3 @@ function formatWebpackMessages(json) {
 
   return result;
 }
-
-module.exports = formatWebpackMessages;

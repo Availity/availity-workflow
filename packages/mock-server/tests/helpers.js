@@ -1,6 +1,9 @@
-const path = require('path');
-const config = require('../config');
-const Ekko = require('../index');
+import path from 'node:path';
+import * as url from 'node:url';
+import config from '../config';
+import Ekko from '../index';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const test = {
   ekko: null,
@@ -27,4 +30,4 @@ const test = {
   }
 };
 
-module.exports = test;
+export default test;

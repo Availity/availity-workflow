@@ -8,7 +8,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 Throughout the documentation you will see [yarn](https://yarnpkg.com/) used. You are not required to use this however it is our package manager of choice. If you are still wanting to use npm then just note the subtle differences in the commands. `yarn start` would be the same `npm start`.
 
-The minimum required [Nodejs](https://nodejs.org/) version to run and use our toolkit is `v16.0.0`, but using `v18.0.0` or higher is recommended.
+The minimum required [Nodejs](https://nodejs.org/) version to run and use our toolkit is `v18.0.0`, but using `v20.0.0` or higher is recommended.
 
 ## Creating a new App Using the Workflow CLI
 
@@ -59,7 +59,7 @@ Inside of the `config` folder there is a file titled `workflow.js`. You can use 
 Let's open the current file and see what we got.
 
 ```js header=workflow.js
-module.exports = (config) => {
+export default (config) => {
     config.development.open = '#/?spaceId=48C607A70B5A46A3864A34E2BDDDEA04';
 
     config.development.hotLoader = true;

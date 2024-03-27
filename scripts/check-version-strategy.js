@@ -1,4 +1,4 @@
-const { accessSync, constants } = require('fs');
+import { accessSync, constants } from 'node:fs';
 
 // Checks for existence of .yarn/versions directory
 // If not present then there is no release strategy and no need to run release scripts

@@ -1,12 +1,12 @@
 /* eslint-disable promise/avoid-new */
-const express = require('express');
-const http = require('http');
-const chalk = require('chalk');
-const logger = require('./logger');
-const config = require('./config');
-const middleware = require('./middleware');
+import express from 'express';
+import http from 'node:http';
+import chalk from 'chalk';
+import logger from './logger';
+import config from './config';
+import middleware from './middleware';
 
-class Ekko {
+export default class Ekko {
   constructor(ekkoConfig) {
     if (ekkoConfig) {
       const isString = typeof ekkoConfig === 'string';
@@ -19,9 +19,9 @@ class Ekko {
     }
   }
 
-  middleware(options) {
+  async middleware(options) {
     config.path = this.configPath;
-    config.set(options);
+    await config.set(options);
 
     config.app = express();
     config.router = new express.Router();
@@ -33,7 +33,7 @@ class Ekko {
   }
 
   async start(options) {
-    this.middleware(options);
+    await this.middleware(options);
 
     const port = config.options.port || 0;
     const host = config.options.host || 'localhost';
@@ -77,5 +77,3 @@ class Ekko {
     return config;
   }
 }
-
-module.exports = Ekko;

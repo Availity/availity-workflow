@@ -1,7 +1,7 @@
-const headers = require('./headers');
-const config = require('./config');
+import headers from './headers';
+import config from './config';
 
-module.exports = {
+export default {
   headers,
   config
-};
+}

@@ -1,25 +1,24 @@
-const del = require('del');
-const webpack = require('webpack');
-const ProgressPlugin = require('webpack/lib/ProgressPlugin');
-const ora = require('ora');
-const chalk = require('chalk');
-const Logger = require('@availity/workflow-logger');
-const sizeTree = require('webpack-bundle-size-analyzer/build/src/size_tree');
+import { deleteSync } from 'del';
+import webpack from 'webpack';
+import ora from 'ora';
+import chalk from 'chalk';
+import Logger from '@availity/workflow-logger';
+import sizeTree from 'webpack-bundle-size-analyzer/build/src/size_tree.js';
 
-const webpackConfigProfile = require('../webpack.config.profile');
-const webpackConfigProduction = require('../webpack.config.production');
-const customStats = require('./stats');
+import webpackConfigProfile from '../webpack.config.profile.js';
+import webpackConfigProduction from '../webpack.config.production.js';
+import customStats from './stats.js';
 
-function bundle({ profile, settings }) {
+export default function bundle({ profile, settings }) {
   return new Promise((resolve, reject) => {
     if (!settings.isDryRun()) {
       Logger.success(`Cleaning directories ${settings.output()}`);
-      del.sync([settings.output()]);
+      deleteSync([settings.output()]);
     }
 
     // Lazy load this else yargs loads too early https://github.com/Availity/@availity/workflow/issues/133
     // eslint-disable-next-line global-require
-    const { argv } = require('yargs');
+    const { argv } = import('yargs');
 
     // Check argument or CLI arg or default to false
     const shouldProfile = profile || argv.profile || false;
@@ -34,7 +33,7 @@ function bundle({ profile, settings }) {
     let previousPercent;
 
     webpackConfig.plugins.push(
-      new ProgressPlugin((percentage, msg) => {
+      new webpack.ProgressPlugin((percentage, msg) => {
         const percent = Math.round(percentage * 100);
 
         if (previousPercent === percent) {
@@ -93,5 +92,3 @@ ${statistics}
     });
   });
 }
-
-module.exports = bundle;

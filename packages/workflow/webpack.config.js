@@ -1,23 +1,29 @@
-const fs = require('fs');
-const path = require('path');
-const webpack = require('webpack');
-const _merge = require('lodash/merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackNotifierPlugin = require('webpack-notifier');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const loaders = require('./loaders');
-const paths = require('./helpers/paths');
-const resolveModule = require('./helpers/resolve-module');
-const html = require('./html');
+import fs from 'node:fs';
+import path from 'node:path';
+import * as url from 'node:url';
+import { createRequire } from 'node:module';
+import webpack from 'webpack';
+import _merge from 'lodash/merge.js';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WebpackNotifierPlugin from 'webpack-notifier';
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import ESLintPlugin from 'eslint-webpack-plugin';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import loaders from './loaders/index.js';
+import paths from './helpers/paths.js';
+import resolveModule from './helpers/resolve-module.js';
+import html from './html.js';
+
+const require = createRequire(import.meta.url);
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 process.noDeprecation = true;
 
-const buildBaseConfig = (settings) => {
+export const buildBaseConfig = (settings) => {
   const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
 
   function getVersion() {
@@ -88,6 +94,7 @@ const buildBaseConfig = (settings) => {
   }
   return config
 }
+
 const plugin = (settings) => {
 
   const configBase = buildBaseConfig(settings)
@@ -209,5 +216,4 @@ const plugin = (settings) => {
 
 };
 
-module.exports = plugin
-module.exports.buildBaseConfig = buildBaseConfig
+export default plugin;

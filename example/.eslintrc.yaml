@@ -13,3 +13,5 @@ settings:
         - .jsx
         - .tsx
         - .ts
+parserOptions:
+  sourceType: 'browser'

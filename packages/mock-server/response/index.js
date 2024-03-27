@@ -1,10 +1,10 @@
-const get = require('./get');
-const post = require('./post');
-const patch = require('./patch');
+import get from './get';
+import post from './post';
+import patch from './patch';
 
 const response = {
   get: get.send,
-  
+
   head: get.send,
 
   delete: get.send,
@@ -27,4 +27,4 @@ const response = {
   }
 };
 
-module.exports = response;
+export default response;

@@ -1,18 +1,18 @@
-const Logger = require('@availity/workflow-logger');
+import Logger from '@availity/workflow-logger';
 
-const version = require('./version');
-const lint = require('./lint');
-const build = require('./build');
+import { prompt, bump, tag } from './version.js';
+import lint from './lint.js';
+import build from './build.js';
 
-async function release({ settings }) {
+export default async function release({ settings }) {
   try {
-    await version.prompt();
+    await prompt();
     Logger.info('Started releasing');
 
     await lint();
-    await version.bump();
+    await bump();
     await build({ settings });
-    await version.tag();
+    await tag();
     Logger.success('Finished releasing');
   } catch (error) {
     Logger.failed(
@@ -21,5 +21,3 @@ async function release({ settings }) {
     throw error;
   }
 }
-
-module.exports = release;

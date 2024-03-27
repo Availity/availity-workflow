@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { chain, nullChain } from '@/chain';
+import { chain, nullChain } from '../app/chain';
 // eslint-disable-next-line import/extensions
 import App from '../app/App';
 

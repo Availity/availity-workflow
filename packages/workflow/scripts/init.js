@@ -5,15 +5,17 @@
 /* eslint-disable unicorn/prefer-starts-ends-with */
 /* eslint-disable unicorn/no-process-exit */
 /* eslint-disable import/no-dynamic-require, prefer-promise-reject-errors */
-const validateProjectName = require('validate-npm-package-name');
-const yargs = require('yargs');
-const chalk = require('chalk');
-const fs = require('fs-extra');
-const path = require('path');
-const spawn = require('cross-spawn');
-const os = require('os');
-const Logger = require('@availity/workflow-logger');
-const cloneStarter = require('./clone-starter');
+import validateProjectName from 'validate-npm-package-name'
+import yargs from 'yargs'
+import chalk from 'chalk'
+import fs from 'fs-extra'
+import path from 'node:path'
+import spawn from 'cross-spawn'
+import os from 'node:os'
+import Logger from '@availity/workflow-logger'
+import cloneStarter from './clone-starter.js';
+
+const instance = yargs()
 
 function printValidationResults(results) {
   if (typeof results !== 'undefined') {
@@ -94,8 +96,8 @@ function checkThatWeCanReadCwd(installer) {
   return false;
 }
 
-function updatePackageJson({ appName, appPath }) {
-  const appPackage = require(path.join(appPath, 'package.json'));
+async function updatePackageJson({ appName, appPath }) {
+  const appPackage = await import(path.join(appPath, 'package.json'));
 
   appPackage.name = appName;
   appPackage.version = '0.1.0';
@@ -203,7 +205,7 @@ async function run({ appPath, appName, originalDirectory, template, installer, b
   }
 }
 
-function createApp({ projectName: name, currentDir, template, useNpm, branchOverride }) {
+export default function createApp({ projectName: name, currentDir, template, useNpm, branchOverride }) {
   const appPath = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(appPath);
   const installer = useNpm ? 'npm' : 'yarn';
@@ -225,9 +227,8 @@ function createApp({ projectName: name, currentDir, template, useNpm, branchOver
 
   run({ appPath, appName, originalDirectory, template, installer, branchOverride });
 }
-/* eslint-disable no-unused-expressions */
-yargs
-  .command(
+
+instance.command(
     'init <projectName> [options]',
     `${chalk.dim('Initialize your project from scratch.')}`,
     (yyargs) => {
@@ -261,7 +262,3 @@ yargs
     createApp
   )
   .example(chalk.yellow('av init my-app-name'));
-
-module.exports = {
-  createApp
-};

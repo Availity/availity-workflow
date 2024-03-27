@@ -1,6 +1,6 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/config/jest/babelTransform.js
-const babelJest = require('babel-jest').default;
-const babelPreset = require('../babel-preset');
+import babelJest from 'babel-jest';
+import babelPreset from '../babel-preset';
 
 const createTransformer = () =>
   babelJest.createTransformer({
@@ -8,6 +8,4 @@ const createTransformer = () =>
     babelrc: false
   });
 
-module.exports = {
-  createTransformer
-};
+export default createTransformer;

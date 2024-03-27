@@ -1,7 +1,5 @@
-const build = require('./build');
+import build from './build.js';
 
-function profile(settings) {
+export default function profile(settings) {
   return build({ profile: true, settings });
 }
-
-module.exports = profile;

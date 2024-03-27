@@ -5,7 +5,8 @@
     "upgrade-workflow": "./bin.js"
   },
   "description": "Package to upgrade availity-workflow projects",
-  "main": "bin.js",
+  "type": "module",
+  "exports": "./bin.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/availity/availity-workflow.git"
@@ -30,8 +31,8 @@
   },
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "engines": {
-    "node": "^16.0.0 || ^18.0.0",
-    "npm": "^8.0.0 || ^9.0.0",
+    "node": "^18.0.0 || ^20.0.0",
+    "npm": "^8.0.0 || ^9.0.0 || ^10.0.0",
     "yarn": "^1.19.1 || ^2.0.0 || ^3.0.0"
   },
   "publishConfig": {
@@ -39,11 +40,11 @@
   },
   "dependencies": {
     "@availity/workflow-logger": "workspace:*",
-    "inquirer": "^8.2.5",
-    "read-pkg": "^5.2.0",
-    "rimraf": "^5.0.1"
+    "inquirer": "^9.2.15",
+    "read-pkg": "^9.0.1",
+    "rimraf": "^5.0.5"
   },
   "devDependencies": {
-    "@types/inquirer": "^8"
+    "@types/inquirer": "^9.0.7"
   }
 }

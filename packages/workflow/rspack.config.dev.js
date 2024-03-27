@@ -1,9 +1,15 @@
-const path = require('path');
+import path from 'node:path';
+import * as url from 'node:url';
+import { createRequire } from 'node:module';
 
-const html = require('./html');
-const resolveModule = require('./helpers/resolve-module');
-const paths = require('./helpers/paths');
-const loaders = require('./loaders');
+import html from './html.js';
+import resolveModule from './helpers/resolve-module.js';
+import paths from './helpers/paths.js';
+import loaders from './loaders/index.js';
+
+const require = createRequire(import.meta.url);
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 process.noDeprecation = true;
 
@@ -183,4 +189,4 @@ const plugin = (settings) => {
   return config;
 };
 
-module.exports = plugin;
+export default plugin;

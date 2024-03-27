@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-this-assignment */
-const _ = require('lodash');
+import _ from 'lodash';
 
 const match = {
   scoreHeaders(score, _request, headers) {
@@ -143,4 +143,4 @@ const match = {
   }
 };
 
-module.exports = match;
+export default match;

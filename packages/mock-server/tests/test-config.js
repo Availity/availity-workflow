@@ -1,4 +1,7 @@
-const path = require('path');
+import path from 'node:path';
+import * as url from 'node:url';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const config = {
   latency: 0,
@@ -12,4 +15,4 @@ const config = {
   routes: path.join(__dirname, '/dummy.routes.config.json')
 };
 
-module.exports = config;
+export default config;

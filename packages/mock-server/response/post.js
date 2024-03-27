@@ -1,8 +1,9 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
-const logger = require('../logger').getInstance();
-const match = require('./match');
-const result = require('./result');
+import match from './match';
+import result from './result';
+
+import logger from '../logger';
 
 const post = {
   multipart(req) {
@@ -15,11 +16,11 @@ const post = {
 
       req.busboy.on('file', (fieldname, file, fileParams) => {
         file.on('error', (error) => {
-          logger.error('Something went wrong uploading the file', error);
+          logger.getInstance().error('Something went wrong uploading the file', error);
         });
         file.on('end', () => {
           // Treat the file name as a field so we can match and score
-          logger.info('File finished %s:', fileParams.filename);
+          logger.getInstance().info('File finished %s:', fileParams.filename);
           req.body[fieldname] = fileParams.filename;
         });
         // `file` is a `ReadableStream`...always do something with it
@@ -32,18 +33,18 @@ const post = {
           return;
         }
 
-        logger.info(`${key}, ${value}`);
+        logger.getInstance().info(`${key}, ${value}`);
 
         req.body[key] = value;
       });
 
       req.busboy.on('error', (err) => {
-        logger.error(err);
+        logger.getInstance().error(err);
         reject(err);
       });
 
       req.busboy.on('close', () => {
-        logger.info('finished request');
+        logger.getInstance().info('finished request');
         resolve(true);
       });
 
@@ -65,4 +66,4 @@ const post = {
   }
 };
 
-module.exports = post;
+export default post;
