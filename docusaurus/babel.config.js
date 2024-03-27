@@ -1,7 +1,3 @@
-import { createRequire } from 'node:module';
-
-const require = createRequire(import.meta.url);
-
-export default {
+module.exports = {
   presets: [require.resolve('@docusaurus/core/lib/babel/preset')]
 };
