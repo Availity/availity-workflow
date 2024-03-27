@@ -1,5 +1,6 @@
 {
-  "root": "packages/workflow",
+  "name": "workflow",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "lint": {
@@ -20,7 +21,9 @@
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/packages/workflow"],
-      "options": { "jestConfig": "packages/workflow/jest.config.js" }
+      "options": {
+        "jestConfig": "packages/workflow/jest.config.js"
+      }
     },
     "version": {
       "executor": "@jscutlery/semver:version",

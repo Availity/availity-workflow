@@ -1,7 +1,7 @@
 {
   "name": "example",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "app",
-  "root": "example",
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
