@@ -300,7 +300,7 @@ __metadata:
     "@availity/yup": ^5.1.5
     "@testing-library/react": ^14.2.1
     "@types/jest": ^27.5.1
-    "@types/node": ^20.11.24
+    "@types/node": ^20.12.2
     "@types/react": ^18.2.17
     "@types/react-dom": ^18.2.7
     "@types/reactstrap": ^8.7.2
@@ -9002,12 +9002,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.11.24":
-  version: 20.11.24
-  resolution: "@types/node@npm:20.11.24"
+"@types/node@npm:^20.12.2":
+  version: 20.12.2
+  resolution: "@types/node@npm:20.12.2"
   dependencies:
     undici-types: ~5.26.4
-  checksum: b11a650e09e254f4725c94f226752b69949a9ac4a5e004e98f109437ac50b02df3ab4d12b2086722fedf2cb62e68b9e723abd3f358a7d7d90d741a0d3bee90c2
+  checksum: 3242ab04fe69ae32a2da29a7a2fce41fccb370bc1189de43d2dfbb491bd3253d3ee2070cbb5613061148e4862fdaa9cf62722c43128ce5c7d33fe83750956613
   languageName: node
   linkType: hard
 
