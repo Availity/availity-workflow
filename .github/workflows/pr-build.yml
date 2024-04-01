@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest] # TODO: re-enable windows-latest after yarn lint fixed
-        node: [16, 18]
+        node: [18, 20]
 
     steps:
       - name: Checkout Code
@@ -66,8 +66,7 @@ jobs:
       - name: Version Bump Dry Run
         run: yarn version:dry-run
 
-      - name: Build Docs (Node 18+ only)
-        if: ${{matrix.node > 16}}
+      - name: Build Docs
         run: yarn build:docs
 
       - name: Build App

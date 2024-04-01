@@ -27,7 +27,7 @@ jobs:
       - name: Set Node Version
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -39,9 +39,9 @@ jobs:
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-14-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-20-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-14-yarn-
+            ${{ runner.os }}-20-yarn-
 
       - name: Install Dependencies
         run: yarn install --immutable
@@ -104,7 +104,7 @@ jobs:
       - name: Set Node Version
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -116,9 +116,9 @@ jobs:
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-18-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-20-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-18-yarn-
+            ${{ runner.os }}-20-yarn-
 
       - name: Install Dependencies
         run: yarn install --immutable
