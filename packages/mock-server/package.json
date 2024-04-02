@@ -1,6 +1,6 @@
 {
   "name": "@availity/mock-server",
-  "version": "8.0.0",
+  "version": "9.0.0-alpha.0",
   "description": "Mock server simulating Availity API rest services",
   "main": "index.js",
   "scripts": {
