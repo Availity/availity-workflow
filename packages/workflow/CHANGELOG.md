@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [11.0.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@10.0.9...@availity/workflow@11.0.0) (2024-04-02)
+
+
+### chore
+
+* drop node 16 support and add node 20 support ([bd0a0f7](https://github.com/Availity/availity-workflow/commit/bd0a0f7600b6792c672314fd8a26fcb3aa5d2881))
+
+
+### BREAKING CHANGES
+
+* Dropped support for Node 16
+
+
+
 ## [10.0.9](https://github.com/Availity/availity-workflow/compare/@availity/workflow@10.0.8...@availity/workflow@10.0.9) (2024-03-21)
 
 
