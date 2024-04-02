@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.0.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-data@6.0.0...@availity/mock-data@7.0.0) (2024-04-02)
+
+
+### chore
+
+* drop node 16 support and add node 20 support ([bd0a0f7](https://github.com/Availity/availity-workflow/commit/bd0a0f7600b6792c672314fd8a26fcb3aa5d2881))
+
+
+### BREAKING CHANGES
+
+* Dropped support for Node 16
+
+
+
 # [6.0.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-data@5.6.1...@availity/mock-data@6.0.0) (2023-08-10)
 
 
