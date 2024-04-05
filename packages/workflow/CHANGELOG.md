@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [11.1.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@11.0.0...@availity/workflow@11.1.0) (2024-04-05)
+
+
+### Features
+
+* **workflow:** remove experimental rspack support ([935104d](https://github.com/Availity/availity-workflow/commit/935104d3a727244330957f55b016bf44ca8eb2ff))
+
+
+
 # [11.0.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@10.0.9...@availity/workflow@11.0.0) (2024-04-02)
 
 
