@@ -449,9 +449,6 @@ const settings = {
   // webpack docs default experiments to false, but that causes build errors
   experimentalWebpackFeatures() {
     return get(this.configuration, 'experiments', {});
-  },
-  __UNSAFE_EXPERIMENTAL_USE_RSPACK_DEV() {
-    return argv().useRspackDev;
   }
 };
 
