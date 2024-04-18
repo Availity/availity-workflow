@@ -519,7 +519,7 @@ __metadata:
     cors: ^2.8.5
     delay: ^5.0.0
     errorhandler: ^1.5.1
-    express: ^4.18.2
+    express: ^4.19.2
     lodash: ^4.17.21
     method-override: ^3.0.0
     on-finished: ^2.4.1
@@ -14975,7 +14975,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:^4.17.3, express@npm:^4.18.2":
+"express@npm:^4.17.3, express@npm:^4.19.2":
   version: 4.19.2
   resolution: "express@npm:4.19.2"
   dependencies:
