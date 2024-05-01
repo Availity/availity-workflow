@@ -278,7 +278,7 @@ __metadata:
     "@docusaurus/core": ^3.1.1
     "@docusaurus/preset-classic": ^3.1.1
     "@mdx-js/react": ^3.0.1
-    clsx: ^2.0.0
+    clsx: ^2.1.1
     react: ^18.2.0
     react-dom: ^18.2.0
   languageName: unknown
@@ -11612,6 +11612,13 @@ __metadata:
   version: 2.0.0
   resolution: "clsx@npm:2.0.0"
   checksum: a2cfb2351b254611acf92faa0daf15220f4cd648bdf96ce369d729813b85336993871a4bf6978ddea2b81b5a130478339c20d9d0b5c6fc287e5147f0c059276e
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: acd3e1ab9d8a433ecb3cc2f6a05ab95fe50b4a3cfc5ba47abb6cbf3754585fcb87b84e90c822a1f256c4198e3b41c7f6c391577ffc8678ad587fc0976b24fd57
   languageName: node
   linkType: hard
 
