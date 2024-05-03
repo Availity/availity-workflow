@@ -1,7 +1,7 @@
 const postcssFocus = require('postcss-focus');
 const postcssReporter = require('postcss-reporter');
 const postcssFlexBugs = require('postcss-flexbugs-fixes');
-const postCssEnv = require('postcss-preset-env'); // TODO: latest release two years ago, keep?
+const postCssEnv = require('postcss-preset-env');
 
 module.exports = {
   loader: 'postcss-loader',

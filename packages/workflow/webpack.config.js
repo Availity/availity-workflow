@@ -203,8 +203,6 @@ const plugin = (settings) => {
       })
     );
   }
-
-  // TODO: set up persistent cache options https://webpack.js.org/guides/build-performance/#persistent-cache
   return _merge({}, configBase, overrides);
 
 };
