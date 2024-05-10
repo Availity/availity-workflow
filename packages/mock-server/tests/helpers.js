@@ -17,7 +17,7 @@ const test = {
   },
 
   getUrl(endpoint) {
-    const url = [':', config.server.address().port, endpoint].join('');
+    const url = ['http://localhost:', config.server.address().port, endpoint].join('');
     return url;
   },
 

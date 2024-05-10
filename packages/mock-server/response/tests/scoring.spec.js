@@ -1,5 +1,6 @@
 const request = require('superagent');
-const _ = require('lodash');
+const isEqual = require('lodash/isEqual');
+
 const helper = require('../../tests/helpers');
 
 describe('Scoring', () => {
@@ -10,7 +11,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/v1/route3?param1=1'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           b: 2
         })
       ).toBeTruthy();
@@ -20,7 +21,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/v1/route3?param1=1&param2=2'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           b: 2
         })
       ).toBeTruthy();
@@ -30,7 +31,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/v1/route3?param1=1&param2=2&param3=3'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           c: 3
         })
       ).toBeTruthy();
@@ -40,7 +41,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/v1/route3?param1.2=abc'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           c: 3
         })
       ).toBeTruthy();
@@ -50,7 +51,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/v1/route3?param1=452'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           d: 4
         })
       ).toBeTruthy();
@@ -60,7 +61,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/internal/v2/route2?dummy=true'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           b: 2
         })
       ).toBeTruthy();
@@ -72,7 +73,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/v1/route4?param1=a&param2=c&param2=d'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           b: 2
         })
       ).toBeTruthy();
@@ -82,7 +83,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/v1/route4?param1=a&param1=b&param2=c&param2=d'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           c: 3
         })
       ).toBeTruthy();
@@ -92,7 +93,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/v1/route4?param2=c&param2=d'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           d: 4
         })
       ).toBeTruthy();
@@ -102,7 +103,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/no/params?param1=a&param2=b'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           d: 4
         })
       ).toBeTruthy();
@@ -114,7 +115,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/v1/route10?a=1'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           b: 2
         })
       ).toBeTruthy();
@@ -124,7 +125,7 @@ describe('Scoring', () => {
       const res = await request.get(helper.getUrl('/v1/route10?a=4'));
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           b: 2
         })
       ).toBeFalsy();
@@ -137,7 +138,7 @@ describe('Scoring', () => {
 
       expect(res.status).toBe(200);
       expect(
-        _.isEqual(res.body, {
+        isEqual(res.body, {
           a: 1
         })
       ).toBeTruthy();

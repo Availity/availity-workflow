@@ -1,5 +1,12 @@
 /* eslint-disable unicorn/no-this-assignment */
-const _ = require('lodash');
+const difference = require('lodash/difference');
+const each = require('lodash/each');
+const get = require('lodash/get');
+const intersection = require('lodash/intersection');
+const isArray = require('lodash/isArray');
+const isEmpty = require('lodash/isEmpty');
+const isObject = require('lodash/isObject');
+const toArray = require('lodash/toArray');
 
 const match = {
   scoreHeaders(score, _request, headers) {
@@ -7,8 +14,8 @@ const match = {
 
     const reqHeaders = _request.headers;
 
-    _.each(reqHeaders, (_headerValue, _headerKey) => {
-      const headerValue = _.get(headers, _headerKey);
+    each(reqHeaders, (_headerValue, _headerKey) => {
+      const headerValue = get(headers, _headerKey);
 
       if (_headerValue === headerValue) {
         score.hits += 1; // values are equal
@@ -51,12 +58,12 @@ const match = {
   scoreArray(score, _paramValue, __paramValue) {
     // Note: variables prefixed with "_" underscore signify config object|key|value
 
-    const paramValue = _.toArray(__paramValue);
+    const paramValue = toArray(__paramValue);
 
-    const hits = _.intersection(_paramValue, paramValue);
+    const hits = intersection(_paramValue, paramValue);
     score.hits += hits.length;
 
-    const misses = _.difference(_paramValue, paramValue);
+    const misses = difference(_paramValue, paramValue);
     score.misses += misses.length;
 
     return score;
@@ -75,12 +82,12 @@ const match = {
 
     const reqParams = _request.params;
 
-    _.each(reqParams, (value, key) => {
-      const paramValue = method === 'get' ? params[key] : _.get(params, key);
+    each(reqParams, (value, key) => {
+      const paramValue = method === 'get' ? params[key] : get(params, key);
 
-      if (_.isArray(value)) {
+      if (isArray(value)) {
         self.scoreArray(score, value, paramValue);
-      } else if (_.isObject(value) && value.pattern) {
+      } else if (isObject(value) && value.pattern) {
         self.scorePattern(score, value, paramValue);
       } else {
         self.scoreParam(score, value, paramValue);
@@ -105,7 +112,7 @@ const match = {
     const method = req.method.toLowerCase();
     const requests = route.methods[method];
 
-    const params = _.isEmpty(req.query) ? req.body : req.query;
+    const params = isEmpty(req.query) ? req.body : req.query;
     // const headers = req.headers;
 
     const topScore = {
@@ -114,10 +121,9 @@ const match = {
     };
 
     // set the default request
-    // eslint-disable-next-line unicorn/consistent-destructuring
     [res.locals.request] = requests;
 
-    _.each(requests, (_request) => {
+    each(requests, (_request) => {
       const score = self.scoreParams(_request, params, method);
       self.scoreHeaders(score, _request, req.headers);
 

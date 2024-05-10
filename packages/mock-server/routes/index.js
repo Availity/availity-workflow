@@ -1,8 +1,8 @@
-/* eslint-disable unicorn/no-array-for-each */
-/* eslint-disable unicorn/consistent-destructuring */
-/* eslint-disable unicorn/no-this-assignment */
-/* eslint-disable import/no-dynamic-require */
-const _ = require('lodash');
+const each = require('lodash/each');
+const forEach = require('lodash/forEach');
+const isArray = require('lodash/isArray');
+const keys = require('lodash/keys');
+const merge = require('lodash/merge');
 const fs = require('fs');
 const chalk = require('chalk');
 
@@ -18,6 +18,7 @@ const routes = {
    * Initialize the Express routes from the endpoints in the configurations file.
    */
   init() {
+    // eslint-disable-next-line unicorn/no-this-assignment
     const self = this;
 
     const { router } = config;
@@ -46,7 +47,7 @@ const routes = {
       this.routes(routePaths, dataPath);
     }
 
-    _.each(config.options.endpoints, (endpoint, url) => {
+    each(config.options.endpoints, (endpoint, url) => {
       const route = new Route(url, endpoint, endpoint.dataPath);
       self.add(route);
     });
@@ -54,23 +55,23 @@ const routes = {
 
   routes(routePaths, dataPath) {
     // support multiple directories for routes
-    routePaths = _.isArray(routePaths) ? routePaths : [routePaths];
+    routePaths = isArray(routePaths) ? routePaths : [routePaths];
 
-    _.forEach(routePaths, (routePath) => {
+    forEach(routePaths, (routePath) => {
       const contents = fs.readFileSync(routePath, 'utf8');
       const routeConfig = JSON.parse(contents);
 
-      _.each(routeConfig, (route) => {
+      each(routeConfig, (route) => {
         route.dataPath = dataPath;
       });
-      _.merge(config.options.endpoints, routeConfig);
+      merge(config.options.endpoints, routeConfig);
     });
   },
 
   plugins() {
     const plugins = config.options.plugins || [];
 
-    _.forEach(plugins, (plugin) => {
+    forEach(plugins, (plugin) => {
       let pluginConfig = null;
 
       pluginConfig = require(plugin);
@@ -90,10 +91,10 @@ const routes = {
     // cache the route configuration
     config.cache[route.id] = route;
 
-    const methods = _.keys(route.methods);
+    const methods = keys(route.methods);
     const { router } = config;
 
-    _.each(methods, (method) => {
+    each(methods, (method) => {
       // builds get|post|put|delete routes like /v1/payers
       router[method](route.url, (req, res, next) => {
         // get from cache and attach to request local

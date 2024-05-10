@@ -1,6 +1,3 @@
-/* eslint-disable jest/no-try-expect */
-/* eslint-disable jest/no-conditional-expect */
-
 const request = require('superagent');
 const helper = require('../../tests/helpers');
 
@@ -8,18 +5,10 @@ describe('Behavior', () => {
   helper.serverSpecHelper();
 
   it('should respond with 404 for undefined route', async () => {
-    try {
-      await request.get(helper.getUrl('/dummy/route'));
-    } catch (err) {
-      expect(err.status).toBe(404);
-    }
+    await expect(request.get(helper.getUrl('/dummy/route'))).rejects.toThrow('Not Found');
   });
 
   it('should respond with 404 when file does not exist', async () => {
-    try {
-      await request.get(helper.getUrl('/bad/file'));
-    } catch (err) {
-      expect(err.status).toBe(404);
-    }
+    await expect(request.get(helper.getUrl('/bad/file'))).rejects.toThrow('Not Found');
   });
 });

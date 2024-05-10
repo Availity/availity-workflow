@@ -1,4 +1,8 @@
-const _ = require('lodash');
+const each = require('lodash/each');
+const isArray = require('lodash/isArray');
+const isPlainObject = require('lodash/isPlainObject');
+const isString = require('lodash/isString');
+const uniqueId = require('lodash/uniqueId');
 
 const Request = require('./request');
 const Response = require('./response');
@@ -7,7 +11,7 @@ class Route {
   constructor(url, endpoint, dataPath) {
     this.url = url;
     this.methods = {};
-    this.id = _.uniqueId('route');
+    this.id = uniqueId('route');
     this.dataPath = dataPath;
 
     this.init(endpoint);
@@ -19,7 +23,7 @@ class Route {
     this.url = this.url.charAt(0) !== '/' ? `/${this.url}` : this.url;
 
     // Attach default file response for each http method
-    _.each(['get', 'post', 'put', 'delete', 'head', 'patch'], method => {
+    each(['get', 'post', 'put', 'delete', 'head', 'patch'], (method) => {
       this.addMethod(method, endpoint);
     });
   }
@@ -52,7 +56,7 @@ class Route {
     //   "post": "example3.json",
     //   "delete": "example4.json"
     // }
-    if (_.isString(endpoint[method])) {
+    if (isString(endpoint[method])) {
       response.file = endpoint[method];
     }
 
@@ -62,7 +66,7 @@ class Route {
     //   "post": "example3.json",
     //   "delete": "example4.json"
     // }
-    if (_.isPlainObject(endpoint[method])) {
+    if (isPlainObject(endpoint[method])) {
       const config = endpoint[method];
       endpoint[method] = [config];
     }
@@ -76,8 +80,8 @@ class Route {
     //     "file": "example2.json",
     //     ...
     //   }...
-    if (_.isArray(endpoint[method])) {
-      _.each(endpoint[method], _request => {
+    if (isArray(endpoint[method])) {
+      each(endpoint[method], (_request) => {
         // Handle default response.
         //
         // EX:
@@ -87,7 +91,7 @@ class Route {
         //     "file": "example2.json"
         //   }
         // ]
-        if (!_request.params && !_request.headers && !_.isArray(_request.response)) {
+        if (!_request.params && !_request.headers && !isArray(_request.response)) {
           // If necessary, override the default response from the routes global response.
           if (this.methods[method][0]) {
             this.methods[method][0].responses[0].set(_request);
@@ -110,7 +114,7 @@ class Route {
         request.headers = _request.headers;
         // if a request configuration has both a file and response attribute defined, ignore the file
         // attribute and continue...this is most likely an async configuration
-        if ((_request.file || _request.url || _request.status) && !_.isArray(_request.response)) {
+        if ((_request.file || _request.url || _request.status) && !isArray(_request.response)) {
           response = new Response(_request);
           request.responses.push(response);
         }
@@ -125,8 +129,8 @@ class Route {
         //     "file": "example2.json"
         //   }
         // ]...
-        if (_.isArray(_request.response)) {
-          _.each(_request.response, _response => {
+        if (isArray(_request.response)) {
+          each(_request.response, (_response) => {
             const res = new Response(_request);
             res.set(_response);
             request.responses.push(res);

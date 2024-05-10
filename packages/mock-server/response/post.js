@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const isEmpty = require('lodash/isEmpty');
 
 const logger = require('../logger').getInstance();
 const match = require('./match');
@@ -6,7 +6,6 @@ const result = require('./result');
 
 const post = {
   multipart(req) {
-    /* eslint-disable promise/avoid-new */
     return new Promise((resolve, reject) => {
       if (!req.is('multipart')) {
         resolve(true);
@@ -28,7 +27,7 @@ const post = {
       });
 
       req.busboy.on('field', (key, value) => {
-        if (_.isEmpty(value)) {
+        if (isEmpty(value)) {
           return;
         }
 

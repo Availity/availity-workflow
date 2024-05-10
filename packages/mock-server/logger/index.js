@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-/* eslint no-console:0 */
+/* eslint-disable no-console */
 const chalk = require('chalk');
 
 let loggerInstance;
