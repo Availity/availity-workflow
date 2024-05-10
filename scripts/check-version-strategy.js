@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { accessSync, constants } = require('fs');
 
 // Checks for existence of .yarn/versions directory
