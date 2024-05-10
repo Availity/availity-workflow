@@ -39,11 +39,11 @@
   },
   "dependencies": {
     "@availity/workflow-logger": "workspace:*",
-    "inquirer": "^8.2.5",
+    "inquirer": "^8.2.6",
     "read-pkg": "^5.2.0",
-    "rimraf": "^5.0.1"
+    "rimraf": "^5.0.6"
   },
   "devDependencies": {
-    "@types/inquirer": "^8"
+    "@types/inquirer": "^8.2.10"
   }
 }

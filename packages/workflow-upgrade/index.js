@@ -29,11 +29,11 @@ const reinstallNodeModules = async (installer, peerInfoReceived) => {
 
 const getLatestNpmVersion = async (pkgName, defaultVersion) => {
   try {
-    let { stdout } = await asyncExec(`npm view ${pkgName} version`);
+    const { stdout } = await asyncExec(`npm view ${pkgName} version`);
     return stdout.trim();
   } catch {
     Logger.warn(`There was an error getting the latest ${pkgName} version. Defaulting to ${defaultVersion}`);
-    latestWorkflowVersion = defaultVersion;
+    return defaultVersion;
   }
 };
 
@@ -68,7 +68,7 @@ module.exports = async (cwd) => {
           choices: ['yarn', 'npm']
         }
       ]);
-      installer = response.installer;
+      ({ installer } = response);
     } else if (hasPkgLock) {
       Logger.info('package-lock.json detected. Using NPM as installer.');
       installer = 'npm';
@@ -81,8 +81,8 @@ module.exports = async (cwd) => {
     }
 
     // Get latest verison of packages
-    let latestWorkflowVersion = await getLatestNpmVersion('@availity/workflow', '10.0.6');
-    let latestEslintVersion = await getLatestNpmVersion('eslint-config-availity', '9.0.0');
+    const latestWorkflowVersion = await getLatestNpmVersion('@availity/workflow', '11.1.1');
+    const latestEslintVersion = await getLatestNpmVersion('eslint-config-availity', '10.0.1');
 
     if (devDependencies) {
       Logger.info(`Setting version of @availity/workflow to ${latestWorkflowVersion}`);
@@ -128,7 +128,7 @@ module.exports = async (cwd) => {
         } else {
           Logger.warn('Failed to get peerDependencies from eslint-config-availity');
         }
-      } catch (error) {
+      } catch {
         Logger.warn('Failed to get peerDependencies from eslint-config-availity');
       }
     }
@@ -150,7 +150,7 @@ module.exports = async (cwd) => {
 
     // Update package.json
     Logger.info('Updating package.json...');
-    fs.writeFileSync(pkgFile, `${JSON.stringify(pkg, null, 2)}\n`, 'utf-8');
+    fs.writeFileSync(pkgFile, `${JSON.stringify(pkg, null, 2)}\n`, 'utf8');
 
     // Delete each lockfile in case both exist
     if (hasPkgLock) {
