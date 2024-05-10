@@ -1,32 +1,20 @@
-import React from 'react';
-import { Formik } from 'formik';
 import PageHeader from '@availity/page-header';
 import { Container, Card } from 'reactstrap';
-import { object, string } from 'yup';
-// eslint-disable-next-line import/extensions
-import Form from '@/components/Form';
-import { chain, nullChain } from './chain';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
-const App: React.SFC<Record<string, unknown>> = () => (
-  <Container className="container-sm">
-    <PageHeader appName="Sample Project" appAbbr="SP" feedback />
-    <Card
-      tag={Formik}
-      initialValues={{
-        formField: '',
-        chainedField: chain,
-        nullishCoalescedField: nullChain,
-      }}
-      // onSubmit={() => {}}
-      validationSchema={object().shape({
-        formField: string().required('This field is required.'),
-        chainedField: string().required('This field is required.'),
-        nullishCoalescedField: string().required('This field is required.'),
-      })}
-    >
-      <Form />
-    </Card>
-  </Container>
+import { SearchForm } from '@/components/Form';
+
+const client = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={client}>
+    <Container className="container-sm">
+      <PageHeader appName="Sample Project" appAbbr="SP" feedback />
+      <Card>
+        <SearchForm />
+      </Card>
+    </Container>
+  </QueryClientProvider>
 );
 
 export default App;

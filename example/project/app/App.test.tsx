@@ -1,8 +1,8 @@
-import React from 'react';
 import { render } from '@testing-library/react';
+
 import { chain, nullChain } from '@/chain';
-// eslint-disable-next-line import/extensions
-import App from '../app/App';
+
+import App from './App';
 
 describe('App', () => {
   test('renders without error', () => {
