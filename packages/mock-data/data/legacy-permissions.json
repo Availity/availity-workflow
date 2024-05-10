@@ -7,84 +7,102 @@
     {
       "id": "6292",
       "description": "Claim Research Tool",
-      "organizations": [{
-        "id": "1111",
-        "name":"Acme Medical Center",
-        "customerId":"2222"
-      }],
+      "organizations": [
+        {
+          "id": "1111",
+          "name": "Acme Medical Center",
+          "customerId": "2222"
+        }
+      ],
       "geographies": ["OK", "IL", "NM", "TX"]
     },
     {
       "id": "7078",
       "description": "Reporting and Analytics",
-      "organizations": [{
-        "id": "1111",
-        "name":"Acme Medical Center",
-        "customerId":"2222"
-      }]
+      "organizations": [
+        {
+          "id": "1111",
+          "name": "Acme Medical Center",
+          "customerId": "2222"
+        }
+      ]
     },
     {
       "id": "7050",
       "description": "Care Reminders",
-      "organizations": [{
-        "id": "1111",
-        "name":"Acme Medical Center",
-        "customerId":"2222"
-      }]
+      "organizations": [
+        {
+          "id": "1111",
+          "name": "Acme Medical Center",
+          "customerId": "2222"
+        }
+      ]
     },
     {
       "id": "1250",
       "description": "Authorization Request",
-      "organizations": [{
-        "id": "1111",
-        "name":"Acme Medical Center",
-        "customerId":"2222"
-      }]
+      "organizations": [
+        {
+          "id": "1111",
+          "name": "Acme Medical Center",
+          "customerId": "2222"
+        }
+      ]
     },
     {
       "id": "2139",
       "description": "Fee Schedules",
-      "organizations": [{
-        "id": "1111",
-        "name":"Acme Medical Center",
-        "customerId":"2222"
-      }]
+      "organizations": [
+        {
+          "id": "1111",
+          "name": "Acme Medical Center",
+          "customerId": "2222"
+        }
+      ]
     },
     {
       "id": "7105",
       "description": "Referral Request",
-      "organizations": [{
-        "id": "1111",
-        "name":"Acme Medical Center",
-        "customerId":"2222"
-      }]
+      "organizations": [
+        {
+          "id": "1111",
+          "name": "Acme Medical Center",
+          "customerId": "2222"
+        }
+      ]
     },
     {
       "id": "484",
       "description": "Claim Status Inquiry",
-      "organizations": [{
-        "id": "1111",
-        "name":"Acme Medical Center",
-        "customerId":"2222"
-      }]
+      "organizations": [
+        {
+          "id": "1111",
+          "name": "Acme Medical Center",
+          "customerId": "2222"
+        }
+      ]
     },
     {
       "id": "472",
       "description": "Authorization and Referral Inquiry",
-      "organizations": [{
-        "id": "1111",
-        "name":"Acme Medical Center",
-        "customerId":"2222"
-      }]
+      "organizations": [
+        {
+          "id": "1111",
+          "name": "Acme Medical Center",
+          "customerId": "2222"
+        }
+      ]
     },
     {
       "id": "7166",
       "description": "Eligibility and Benefits Inquiry",
-      "organizations": [{
-        "id": "1111",
-        "name":"Acme Medical Center",
-        "customerId":"2222"
-      }]
+      "organizations": [
+        {
+          "id": "1111",
+          "name": "Acme Medical Center",
+          "customerId": "2222"
+        }
+      ]
     }
   ]
 }

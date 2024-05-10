@@ -21,9 +21,7 @@
       "uiDisplayName": "Acme Provider LLC",
       "atypical": false,
       "npi": "1234567893",
-      "customerIds": [
-        "2222"
-      ],
+      "customerIds": ["2222"],
       "roles": [
         {
           "code": "BILL",
@@ -92,9 +90,7 @@
       "uiDisplayName": "Joe L. Farrell",
       "atypical": false,
       "npi": "1770889999",
-      "customerIds": [
-        "2222"
-      ],
+      "customerIds": ["2222"],
       "roles": [
         {
           "code": "BILL",
