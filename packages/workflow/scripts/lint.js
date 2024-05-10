@@ -7,12 +7,10 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 const settings = require('../settings');
 
-function lint() {
-  let engine;
-
+async function lint() {
   if (settings.isLinterDisabled()) {
     Logger.warn('Linting is disabled');
-    return Promise.resolve(true);
+    return true;
   }
 
   let eslint;
@@ -23,74 +21,81 @@ function lint() {
   }
 
   if (!eslint) {
-    // eslint-disable-next-line global-require
-    eslint = require('eslint');
+    try {
+      eslint = require('eslint');
+    } catch {
+      Logger.failed('Failed linting. Unable to load eslint.');
+      throw new Error('Unable to load eslint.');
+    }
   }
 
-  let future;
-
+  let engine;
   try {
-    engine = new eslint.CLIEngine({
+    engine = new eslint.ESLint({
       useEslintrc: true
     });
-  } catch {
-    future = Promise.reject(new Error('ESLint configuration error in @availity/workflow'));
+  } catch (error) {
+    Logger.failed(`ESLint configuration error in @availity/workflow. "${error.message}"`);
+    throw new Error(`ESLint configuration error in @availity/workflow. "${error.message}"`);
   }
 
-  if (future) {
-    return future;
-  }
+  Logger.info('Started linting');
+  const spinner = ora('running linter rules');
+  spinner.color = 'yellow';
+  spinner.start();
 
-  future = new Promise((resolve, reject) => {
-    Logger.info('Started linting');
-    const spinner = ora('running linter rules');
-    spinner.color = 'yellow';
-    spinner.start();
+  // Files tracked by git
+  let gitTrackedFiles;
+  if (settings.isIgnoreUntracked()) {
+    const gitRootCmd = spawnSync('git', ['rev-parse', '--show-toplevel']);
+    if (gitRootCmd.status) {
+      // Non-zero exit code; assume git repository absent
+      gitTrackedFiles = null;
+    } else {
+      const gitLsFiles = spawnSync('git', ['ls-files']);
+      gitTrackedFiles = gitLsFiles.stdout.toString().trim().split('\n');
 
-    // files tracked by git
-    let gitTrackedFiles;
-    if (settings.isIgnoreUntracked()) {
-      const gitRootCmd = spawnSync('git', ['rev-parse', '--show-toplevel']);
-      if (gitRootCmd.status) {
-        // non-zero exit code; assume git repository absent
-        gitTrackedFiles = null;
-      } else {
-        const gitLsFiles = spawnSync('git', ['ls-files']);
-        gitTrackedFiles = gitLsFiles.stdout.toString().trim().split('\n');
-        const gitRoot = gitRootCmd.stdout.toString().trim();
-        gitTrackedFiles = gitTrackedFiles.map((f) => path.join(gitRoot, f));
-      }
+      const gitRoot = gitRootCmd.stdout.toString().trim();
+      gitTrackedFiles = gitTrackedFiles.map((file) => path.join(gitRoot, file));
     }
+  }
 
-    // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
-    /* eslint-disable promise/catch-or-return */
-    globby(settings.js().map((path) => path.replace(/\\/g, '/'))).then((paths) => {
-      spinner.stop();
-      const filesToLint = gitTrackedFiles
-        ? // git repository present
-          paths.filter((f) => gitTrackedFiles.indexOf(f) > 0)
-        : paths;
+  // Uses globby. Defaults to process.cwd() and path.resolve(options.cwd, "/")
+  const paths = await globby(settings.js().map((path) => path.replaceAll('\\', '/')));
 
-      const report = engine.executeOnFiles(filesToLint);
+  // Git repository present
+  const filesToLint = gitTrackedFiles ? paths.filter((file) => gitTrackedFiles.indexOf(file) > 0) : paths;
 
-      /* eslint-disable promise/always-return */
-      if (report.errorCount || report.warningCount) {
-        const formatter = engine.getFormatter();
-        Logger.simple(`${formatter(report.results)}`);
-        Logger.failed('Failed linting');
-        reject(report.results);
-        if (settings.isFail()) {
-          // eslint-disable-next-line unicorn/no-process-exit
-          process.exit(1);
-        }
-      } else {
-        Logger.success(`Finished linting ${chalk.magenta(paths.length)} file(s)`);
-        resolve('Finished linting');
-      }
-    });
-  });
+  const report = await engine.lintFiles(filesToLint);
 
-  return future;
+  const status = { error: false, warning: false };
+  for (const result of report) {
+    if (result.errorCount) status.error = true;
+    if (result.warningCount) status.warning = true;
+
+    // If we have error and warning already then no need to check more
+    if (status.error && status.warning) {
+      break;
+    }
+  }
+
+  spinner.stop();
+
+  if (status.error || status.warning) {
+    const formatter = await engine.loadFormatter();
+
+    Logger.simple(`${formatter.format(report)}`);
+    Logger.failed('Failed linting');
+
+    // eslint-disable-next-line unicorn/no-process-exit
+    if (settings.isFail()) process.exit(1);
+
+    if (status.error) throw new Error('Failed linting');
+  } else {
+    Logger.success(`Finished linting ${chalk.magenta(paths.length)} file(s)`);
+  }
+
+  return true;
 }
 
 module.exports = lint;

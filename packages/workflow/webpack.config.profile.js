@@ -1,8 +1,8 @@
-
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const _merge =require('lodash/merge');
-const buildProdConfig = require('./webpack.config.production')
+const merge = require('lodash/merge');
+
+const buildProdConfig = require('./webpack.config.production');
 
 process.noDeprecation = true;
 
@@ -12,12 +12,10 @@ process.noDeprecation = true;
 process.env.BROWSERSLIST = 'defaults';
 
 const plugin = (settings) => {
-
   // const baseConfig = buildBaseConfig(settings)
-  const baseProdConfig = buildProdConfig(settings)
+  const baseProdConfig = buildProdConfig(settings);
 
   const overrides = {
-
     plugins: [
       ...baseProdConfig.plugins,
 
@@ -30,11 +28,11 @@ const plugin = (settings) => {
         exclude(instance) {
           return instance.name === 'regenerator-runtime';
         }
-      }),
+      })
     ]
   };
 
-  return _merge({}, baseProdConfig, overrides)
+  return merge({}, baseProdConfig, overrides);
 };
 
 module.exports = plugin;

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const _merge = require('lodash/merge');
+const merge = require('lodash/merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -10,6 +10,7 @@ const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
 const loaders = require('./loaders');
 const paths = require('./helpers/paths');
 const resolveModule = require('./helpers/resolve-module');
@@ -25,8 +26,8 @@ const buildBaseConfig = (settings) => {
   }
 
   const config = {
-      context: settings.app(),
-        // https://webpack.js.org/configuration/experiments/
+    context: settings.app(),
+    // https://webpack.js.org/configuration/experiments/
     experiments: settings.experimentalWebpackFeatures(),
     infrastructureLogging: {
       level: settings.infrastructureLogLevel()
@@ -57,9 +58,9 @@ const buildBaseConfig = (settings) => {
       fallback: {
         path: require.resolve('path-browserify')
       },
-      plugins: [new TsconfigPathsPlugin({extensions: [".js", ".jsx", ".ts", ".tsx"]})]
+      plugins: [new TsconfigPathsPlugin({ extensions: ['.js', '.jsx', '.ts', '.tsx'] })]
     },
-     // This set of options is identical to the resolve property set above,
+    // This set of options is identical to the resolve property set above,
     // but is used only to resolve webpack's loader packages.
     resolveLoader: {
       modules: [path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
@@ -80,17 +81,17 @@ const buildBaseConfig = (settings) => {
       }),
 
       new HtmlWebpackPlugin(html(settings)),
-        // Ignore all the moment local files
-        new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
+      // Ignore all the moment local files
+      new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
 
-        new CaseSensitivePathsPlugin(),
+      new CaseSensitivePathsPlugin()
     ]
-  }
-  return config
-}
-const plugin = (settings) => {
+  };
+  return config;
+};
 
-  const configBase = buildBaseConfig(settings)
+const plugin = (settings) => {
+  const configBase = buildBaseConfig(settings);
 
   const overrides = {
     mode: 'development',
@@ -124,7 +125,7 @@ const plugin = (settings) => {
               loader: 'esbuild-loader',
               options: {
                 loader: 'tsx',
-                target: 'es2015',
+                target: 'es2015'
               }
             }
           ]
@@ -164,16 +165,11 @@ const plugin = (settings) => {
         }
       }),
 
-
       new ESLintPlugin({
         cache: true,
         cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
-        quiet: false,
-        emitWarning: true,
         extensions: ['js', 'jsx', 'ts', 'tsx', 'mjs'],
-        baseConfig: {
-          extends: 'availity/workflow'
-        }
+        ...settings.eslint()
       })
     ]
   };
@@ -203,9 +199,9 @@ const plugin = (settings) => {
       })
     );
   }
-  return _merge({}, configBase, overrides);
 
+  return merge({}, configBase, overrides);
 };
 
-module.exports = plugin
-module.exports.buildBaseConfig = buildBaseConfig
+module.exports = plugin;
+module.exports.buildBaseConfig = buildBaseConfig;

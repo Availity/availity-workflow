@@ -1,9 +1,7 @@
-/* eslint-disable jest/no-jest-import */
-/* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 // https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/scripts/utils/createJestConfig.js
 const path = require('path');
-const _ = require('lodash');
+const merge = require('lodash/merge');
 const jest = require('jest');
 const { existsSync } = require('fs');
 
@@ -19,7 +17,7 @@ function create(settings) {
 
   // Allow developers to add their own node_modules include path
   const userInclude = settings.configuration.development.babelInclude;
-  const includes = ['@av','axios', '@tanstack', 'is-what', 'copy-anything', ...userInclude].join('|');
+  const includes = ['@av', 'axios', '@tanstack', 'is-what', 'copy-anything', ...userInclude].join('|');
 
   const userJestOverrides = settings.configuration.development.jestOverrides;
 
@@ -61,7 +59,7 @@ function create(settings) {
     config.rootDir = rootDir;
   }
 
-  return _.merge({}, config, userJestOverrides);
+  return merge({}, config, userJestOverrides);
 }
 
 function unit(settings) {

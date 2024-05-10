@@ -2,13 +2,13 @@
 
 exports[`webpack configs sets up the default config with default settings 1`] = `
 Object {
-  "context": "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+  "context": "/Users/jyoung/Workspaces/availity-workflow/project/app",
   "devtool": "source-map",
   "entry": Object {
     "index": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/react-app-polyfill/stable.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app/index.js",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules/react-app-polyfill/stable.js",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
+      "/Users/jyoung/Workspaces/availity-workflow/project/app/index.js",
     ],
   },
   "experiments": Object {},
@@ -34,7 +34,7 @@ Object {
       },
       Object {
         "include": Array [
-          "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+          "/Users/jyoung/Workspaces/availity-workflow/project/app",
           /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
         ],
         "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
@@ -82,6 +82,7 @@ Object {
                     "plugins": Array [
                       Object {
                         "AtRule": Object {
+                          "custom-media": [Function],
                           "media": [Function],
                         },
                         "postcssPlugin": "postcss-media-minmax",
@@ -111,6 +112,10 @@ Object {
                         "prepare": [Function],
                       },
                       Object {
+                        "postcssPlugin": "postcss-progressive-custom-properties",
+                        "prepare": [Function],
+                      },
+                      Object {
                         "browsers": undefined,
                         "info": [Function],
                         "options": Object {
@@ -120,10 +125,6 @@ Object {
                         },
                         "postcssPlugin": "autoprefixer",
                         "prepare": [Function],
-                      },
-                      Object {
-                        "RuleExit": [Function],
-                        "postcssPlugin": "postcss-progressive-custom-properties",
                       },
                       Object {
                         "OnceExit": [Function],
@@ -170,6 +171,7 @@ Object {
                     "plugins": Array [
                       Object {
                         "AtRule": Object {
+                          "custom-media": [Function],
                           "media": [Function],
                         },
                         "postcssPlugin": "postcss-media-minmax",
@@ -199,6 +201,10 @@ Object {
                         "prepare": [Function],
                       },
                       Object {
+                        "postcssPlugin": "postcss-progressive-custom-properties",
+                        "prepare": [Function],
+                      },
+                      Object {
                         "browsers": undefined,
                         "info": [Function],
                         "options": Object {
@@ -208,10 +214,6 @@ Object {
                         },
                         "postcssPlugin": "autoprefixer",
                         "prepare": [Function],
-                      },
-                      Object {
-                        "RuleExit": [Function],
-                        "postcssPlugin": "postcss-progressive-custom-properties",
                       },
                       Object {
                         "OnceExit": [Function],
@@ -256,7 +258,7 @@ Object {
   "output": Object {
     "chunkFilename": "[name].chunk.js",
     "filename": "[name].js",
-    "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/build",
+    "path": "/Users/jyoung/Workspaces/availity-workflow/build",
   },
   "plugins": Array [
     DefinePlugin {
@@ -284,6 +286,28 @@ Object {
       },
     },
     HtmlWebpackPlugin {
+      "options": Object {
+        "base": false,
+        "cache": true,
+        "chunks": "all",
+        "chunksSortMode": "auto",
+        "compile": true,
+        "excludeChunks": Array [],
+        "favicon": "../../packages/workflow/public/favicon.ico",
+        "filename": "index.html",
+        "hash": false,
+        "inject": "head",
+        "meta": Object {},
+        "minify": "auto",
+        "publicPath": "auto",
+        "scriptLoading": "defer",
+        "showErrors": true,
+        "template": "../../packages/workflow/public/index.html",
+        "templateContent": false,
+        "templateParameters": [Function],
+        "title": "Availity",
+        "xhtml": false,
+      },
       "userOptions": Object {
         "favicon": "../../packages/workflow/public/favicon.ico",
         "template": "../../packages/workflow/public/index.html",
@@ -476,11 +500,8 @@ Object {
     ESLintWebpackPlugin {
       "key": "ESLintWebpackPlugin",
       "options": Object {
-        "baseConfig": Object {
-          "extends": "availity/workflow",
-        },
         "cache": true,
-        "cacheLocation": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/.cache/.eslintcache",
+        "cacheLocation": "/Users/jyoung/Workspaces/availity-workflow/node_modules/.cache/.eslintcache",
         "emitError": true,
         "emitWarning": true,
         "extensions": Array [
@@ -491,7 +512,6 @@ Object {
           "mjs",
         ],
         "failOnError": true,
-        "quiet": false,
         "resourceQueryExclude": Array [],
       },
       "run": [Function],
@@ -501,8 +521,8 @@ Object {
         "exclude": /node_modules/i,
         "include": /\\\\\\.\\(\\[cm\\]js\\|\\[jt\\]sx\\?\\|flow\\)\\$/i,
         "overlay": Object {
-          "entry": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js",
-          "module": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js",
+          "entry": "/Users/jyoung/Workspaces/availity-workflow/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js",
+          "module": "/Users/jyoung/Workspaces/availity-workflow/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js",
           "sockIntegration": "wds",
         },
       },
@@ -511,7 +531,7 @@ Object {
       "isFirstBuild": true,
       "lastBuildSucceeded": false,
       "options": Object {
-        "contentImage": "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/public/availity.png",
+        "contentImage": "/Users/jyoung/Workspaces/availity-workflow/packages/workflow/public/availity.png",
         "excludeWarnings": true,
       },
     },
@@ -527,17 +547,17 @@ Object {
       ".scss",
     ],
     "fallback": Object {
-      "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/path-browserify/index.js",
+      "path": "/Users/jyoung/Workspaces/availity-workflow/node_modules/path-browserify/index.js",
     },
     "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+      "/Users/jyoung/Workspaces/availity-workflow/project/app",
       "node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/packages/workflow/node_modules",
     ],
     "plugins": Array [
       TsconfigPathsPlugin {
-        "absoluteBaseUrl": "/Users/lyoung/Workspaces/@availity/availity-workflow/example",
+        "absoluteBaseUrl": "/Users/jyoung/Workspaces/availity-workflow/example",
         "baseUrl": "./example/",
         "extensions": Array [
           ".js",
@@ -561,8 +581,8 @@ Object {
   },
   "resolveLoader": Object {
     "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/packages/workflow/node_modules",
     ],
     "symlinks": true,
   },
@@ -573,13 +593,13 @@ Object {
 
 exports[`webpack configs sets up the production config with default settings 1`] = `
 Object {
-  "context": "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+  "context": "/Users/jyoung/Workspaces/availity-workflow/project/app",
   "devtool": "source-map",
   "entry": Object {
     "index": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/react-app-polyfill/stable.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app/index.js",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules/react-app-polyfill/stable.js",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
+      "/Users/jyoung/Workspaces/availity-workflow/project/app/index.js",
     ],
   },
   "experiments": Object {},
@@ -607,7 +627,7 @@ Object {
           },
           Object {
             "include": Array [
-              "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+              "/Users/jyoung/Workspaces/availity-workflow/project/app",
               /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
             ],
             "test": /\\\\\\.\\(js\\|jsx\\|ts\\|tsx\\)\\$/,
@@ -631,7 +651,7 @@ Object {
             "test": /\\\\\\.css\\$/,
             "use": Array [
               Object {
-                "loader": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "loader": "/Users/jyoung/Workspaces/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
                 "options": Object {
                   "publicPath": "auto",
                 },
@@ -660,6 +680,7 @@ Object {
                         "plugins": Array [
                           Object {
                             "AtRule": Object {
+                              "custom-media": [Function],
                               "media": [Function],
                             },
                             "postcssPlugin": "postcss-media-minmax",
@@ -689,6 +710,10 @@ Object {
                             "prepare": [Function],
                           },
                           Object {
+                            "postcssPlugin": "postcss-progressive-custom-properties",
+                            "prepare": [Function],
+                          },
+                          Object {
                             "browsers": undefined,
                             "info": [Function],
                             "options": Object {
@@ -698,10 +723,6 @@ Object {
                             },
                             "postcssPlugin": "autoprefixer",
                             "prepare": [Function],
-                          },
-                          Object {
-                            "RuleExit": [Function],
-                            "postcssPlugin": "postcss-progressive-custom-properties",
                           },
                           Object {
                             "OnceExit": [Function],
@@ -725,7 +746,7 @@ Object {
             "test": /\\\\\\.\\(scss\\|sass\\)\\$/,
             "use": Array [
               Object {
-                "loader": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "loader": "/Users/jyoung/Workspaces/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
                 "options": Object {
                   "publicPath": "auto",
                 },
@@ -748,6 +769,7 @@ Object {
                         "plugins": Array [
                           Object {
                             "AtRule": Object {
+                              "custom-media": [Function],
                               "media": [Function],
                             },
                             "postcssPlugin": "postcss-media-minmax",
@@ -777,6 +799,10 @@ Object {
                             "prepare": [Function],
                           },
                           Object {
+                            "postcssPlugin": "postcss-progressive-custom-properties",
+                            "prepare": [Function],
+                          },
+                          Object {
                             "browsers": undefined,
                             "info": [Function],
                             "options": Object {
@@ -786,10 +812,6 @@ Object {
                             },
                             "postcssPlugin": "autoprefixer",
                             "prepare": [Function],
-                          },
-                          Object {
-                            "RuleExit": [Function],
-                            "postcssPlugin": "postcss-progressive-custom-properties",
                           },
                           Object {
                             "OnceExit": [Function],
@@ -892,7 +914,7 @@ Object {
     "chunkFilename": "[name].chunk.js",
     "devtoolModuleFilenameTemplate": [Function],
     "filename": "[name].js",
-    "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/build",
+    "path": "/Users/jyoung/Workspaces/availity-workflow/build",
   },
   "plugins": Array [
     DefinePlugin {
@@ -920,6 +942,28 @@ Object {
       },
     },
     HtmlWebpackPlugin {
+      "options": Object {
+        "base": false,
+        "cache": true,
+        "chunks": "all",
+        "chunksSortMode": "auto",
+        "compile": true,
+        "excludeChunks": Array [],
+        "favicon": "../../packages/workflow/public/favicon.ico",
+        "filename": "index.html",
+        "hash": false,
+        "inject": "head",
+        "meta": Object {},
+        "minify": "auto",
+        "publicPath": "auto",
+        "scriptLoading": "defer",
+        "showErrors": true,
+        "template": "../../packages/workflow/public/index.html",
+        "templateContent": false,
+        "templateParameters": [Function],
+        "title": "Availity",
+        "xhtml": false,
+      },
       "userOptions": Object {
         "favicon": "../../packages/workflow/public/favicon.ico",
         "template": "../../packages/workflow/public/index.html",
@@ -1127,17 +1171,17 @@ Object {
       ".scss",
     ],
     "fallback": Object {
-      "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/path-browserify/index.js",
+      "path": "/Users/jyoung/Workspaces/availity-workflow/node_modules/path-browserify/index.js",
     },
     "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+      "/Users/jyoung/Workspaces/availity-workflow/project/app",
       "node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/packages/workflow/node_modules",
     ],
     "plugins": Array [
       TsconfigPathsPlugin {
-        "absoluteBaseUrl": "/Users/lyoung/Workspaces/@availity/availity-workflow/example",
+        "absoluteBaseUrl": "/Users/jyoung/Workspaces/availity-workflow/example",
         "baseUrl": "./example/",
         "extensions": Array [
           ".js",
@@ -1161,8 +1205,8 @@ Object {
   },
   "resolveLoader": Object {
     "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/packages/workflow/node_modules",
     ],
     "symlinks": true,
   },
@@ -1172,13 +1216,13 @@ Object {
 
 exports[`webpack configs sets up the profile config with default settings 1`] = `
 Object {
-  "context": "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+  "context": "/Users/jyoung/Workspaces/availity-workflow/project/app",
   "devtool": "source-map",
   "entry": Object {
     "index": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/react-app-polyfill/stable.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app/index.js",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules/react-app-polyfill/stable.js",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
+      "/Users/jyoung/Workspaces/availity-workflow/project/app/index.js",
     ],
   },
   "experiments": Object {},
@@ -1206,7 +1250,7 @@ Object {
           },
           Object {
             "include": Array [
-              "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+              "/Users/jyoung/Workspaces/availity-workflow/project/app",
               /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
             ],
             "test": /\\\\\\.\\(js\\|jsx\\|ts\\|tsx\\)\\$/,
@@ -1230,7 +1274,7 @@ Object {
             "test": /\\\\\\.css\\$/,
             "use": Array [
               Object {
-                "loader": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "loader": "/Users/jyoung/Workspaces/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
                 "options": Object {
                   "publicPath": "auto",
                 },
@@ -1259,6 +1303,7 @@ Object {
                         "plugins": Array [
                           Object {
                             "AtRule": Object {
+                              "custom-media": [Function],
                               "media": [Function],
                             },
                             "postcssPlugin": "postcss-media-minmax",
@@ -1288,6 +1333,10 @@ Object {
                             "prepare": [Function],
                           },
                           Object {
+                            "postcssPlugin": "postcss-progressive-custom-properties",
+                            "prepare": [Function],
+                          },
+                          Object {
                             "browsers": undefined,
                             "info": [Function],
                             "options": Object {
@@ -1297,10 +1346,6 @@ Object {
                             },
                             "postcssPlugin": "autoprefixer",
                             "prepare": [Function],
-                          },
-                          Object {
-                            "RuleExit": [Function],
-                            "postcssPlugin": "postcss-progressive-custom-properties",
                           },
                           Object {
                             "OnceExit": [Function],
@@ -1324,7 +1369,7 @@ Object {
             "test": /\\\\\\.\\(scss\\|sass\\)\\$/,
             "use": Array [
               Object {
-                "loader": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "loader": "/Users/jyoung/Workspaces/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
                 "options": Object {
                   "publicPath": "auto",
                 },
@@ -1347,6 +1392,7 @@ Object {
                         "plugins": Array [
                           Object {
                             "AtRule": Object {
+                              "custom-media": [Function],
                               "media": [Function],
                             },
                             "postcssPlugin": "postcss-media-minmax",
@@ -1376,6 +1422,10 @@ Object {
                             "prepare": [Function],
                           },
                           Object {
+                            "postcssPlugin": "postcss-progressive-custom-properties",
+                            "prepare": [Function],
+                          },
+                          Object {
                             "browsers": undefined,
                             "info": [Function],
                             "options": Object {
@@ -1385,10 +1435,6 @@ Object {
                             },
                             "postcssPlugin": "autoprefixer",
                             "prepare": [Function],
-                          },
-                          Object {
-                            "RuleExit": [Function],
-                            "postcssPlugin": "postcss-progressive-custom-properties",
                           },
                           Object {
                             "OnceExit": [Function],
@@ -1491,7 +1537,7 @@ Object {
     "chunkFilename": "[name].chunk.js",
     "devtoolModuleFilenameTemplate": [Function],
     "filename": "[name].js",
-    "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/build",
+    "path": "/Users/jyoung/Workspaces/availity-workflow/build",
   },
   "plugins": Array [
     DefinePlugin {
@@ -1519,6 +1565,28 @@ Object {
       },
     },
     HtmlWebpackPlugin {
+      "options": Object {
+        "base": false,
+        "cache": true,
+        "chunks": "all",
+        "chunksSortMode": "auto",
+        "compile": true,
+        "excludeChunks": Array [],
+        "favicon": "../../packages/workflow/public/favicon.ico",
+        "filename": "index.html",
+        "hash": false,
+        "inject": "head",
+        "meta": Object {},
+        "minify": "auto",
+        "publicPath": "auto",
+        "scriptLoading": "defer",
+        "showErrors": true,
+        "template": "../../packages/workflow/public/index.html",
+        "templateContent": false,
+        "templateParameters": [Function],
+        "title": "Availity",
+        "xhtml": false,
+      },
       "userOptions": Object {
         "favicon": "../../packages/workflow/public/favicon.ico",
         "template": "../../packages/workflow/public/index.html",
@@ -1762,17 +1830,17 @@ Object {
       ".scss",
     ],
     "fallback": Object {
-      "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/path-browserify/index.js",
+      "path": "/Users/jyoung/Workspaces/availity-workflow/node_modules/path-browserify/index.js",
     },
     "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+      "/Users/jyoung/Workspaces/availity-workflow/project/app",
       "node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/packages/workflow/node_modules",
     ],
     "plugins": Array [
       TsconfigPathsPlugin {
-        "absoluteBaseUrl": "/Users/lyoung/Workspaces/@availity/availity-workflow/example",
+        "absoluteBaseUrl": "/Users/jyoung/Workspaces/availity-workflow/example",
         "baseUrl": "./example/",
         "extensions": Array [
           ".js",
@@ -1796,8 +1864,8 @@ Object {
   },
   "resolveLoader": Object {
     "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/node_modules",
+      "/Users/jyoung/Workspaces/availity-workflow/packages/workflow/node_modules",
     ],
     "symlinks": true,
   },

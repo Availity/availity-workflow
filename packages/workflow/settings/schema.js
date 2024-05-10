@@ -155,7 +155,13 @@ const schema = Joi.object()
       .example({
         lazyCompilation: true
       })
-      .default({})
+      .default({}),
+    eslint: Joi.object()
+      .keys({
+        failOnError: Joi.boolean()
+      })
+      .unknown()
+      .default({ failOnError: true })
   })
   .unknown();
 

@@ -13,6 +13,7 @@ function proxyLogRewrite(daArgs) {
 
   return args.map((arg) => {
     if (typeof arg === 'string') {
+      // eslint-disable-next-line unicorn/prefer-string-replace-all
       return arg.replace(/\[HPM] /g, '').replace(/ {2}/g, ' ');
     }
 

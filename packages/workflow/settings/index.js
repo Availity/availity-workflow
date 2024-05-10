@@ -135,7 +135,6 @@ const settings = {
     //   capabilities
     const parsedGlobals = Object.keys(process.env)
       .filter((key) => key in configGlobals)
-      // eslint-disable-next-line unicorn/no-reduce
       .reduce(
         (result, key) => {
           result[key] = JSON.stringify(process.env[key]);
@@ -444,6 +443,10 @@ const settings = {
 
   commitMessage() {
     return argv().message;
+  },
+
+  eslint() {
+    return this.configuration.eslint;
   },
 
   // webpack docs default experiments to false, but that causes build errors
