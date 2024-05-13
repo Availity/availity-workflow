@@ -5,7 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 const busboy = require('connect-busboy');
-const _ = require('lodash');
+const get = require('lodash/get');
 const onFinished = require('on-finished');
 const chalk = require('chalk');
 
@@ -22,7 +22,6 @@ module.exports = function development() {
       function logRequest() {
         const method = `${chalk.white(req.method)}`;
         const url = `${chalk.dim(req.originalUrl || req.url)}`;
-        // eslint-disable-next-line no-underscore-dangle
         const code = res._header ? String(res.statusCode) : '';
         const file = chalk.dim(res.avFile || '');
 
@@ -47,7 +46,7 @@ module.exports = function development() {
 
   config.router.use(
     bodyParser.json({
-      limit: _.get(config, 'options.limit', '50mb')
+      limit: get(config, 'options.limit', '50mb')
     })
   ); // parse application/json
 

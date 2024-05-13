@@ -1,4 +1,3 @@
-/* eslint-disable promise/avoid-new */
 const express = require('express');
 const http = require('http');
 const chalk = require('chalk');
@@ -47,7 +46,7 @@ class Ekko {
         resolve(true);
       });
 
-      config.server.on('error', e => {
+      config.server.on('error', (e) => {
         if (e.errno === 'EADDRINUSE') {
           logger
             .getInstance()
@@ -62,7 +61,7 @@ class Ekko {
   }
 
   async stop() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       if (config.server && config.server.close) {
         config.server.close(() => {
           resolve(true);

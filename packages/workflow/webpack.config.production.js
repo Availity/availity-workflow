@@ -1,14 +1,15 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const fs = require('fs');
-const _merge = require('lodash/merge')
+const merge = require('lodash/merge');
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const paths = require('./helpers/paths');
+
 const loaders = require('./loaders');
 const conf = require('./webpack.config');
 
-const {buildBaseConfig} = conf;
+const { buildBaseConfig } = conf;
 
 process.noDeprecation = true;
 
@@ -18,8 +19,7 @@ process.noDeprecation = true;
 process.env.BROWSERSLIST = 'defaults';
 
 const plugin = (settings) => {
-
-  const baseConfig = buildBaseConfig(settings)
+  const baseConfig = buildBaseConfig(settings);
 
   const overrides = {
     mode: 'production',
@@ -128,10 +128,10 @@ const plugin = (settings) => {
                   loader: 'esbuild-loader',
                   options: {
                     loader: 'tsx',
-                    target: 'es2015',
+                    target: 'es2015'
                   }
                 }
-              ],
+              ]
             },
             // Allows .mjs and .js files from packages of type "module" to be required without the extension
             {
@@ -238,7 +238,7 @@ const plugin = (settings) => {
     );
   }
 
-  const config = _merge({}, baseConfig, overrides)
+  const config = merge({}, baseConfig, overrides);
 
   return config;
 };

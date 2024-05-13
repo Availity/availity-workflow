@@ -1,5 +1,4 @@
 /* eslint-disable unicorn/no-process-exit */
-
 // eslint-disable-next-line import/extensions
 const webpackConfig = require('../jest.config.js');
 

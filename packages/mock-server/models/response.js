@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const uniqueId = require('lodash/uniqueId');
 
 class Response {
   constructor(response) {
@@ -13,7 +13,7 @@ class Response {
       this.set(response);
     }
 
-    this.id = _.uniqueId('response');
+    this.id = uniqueId('response');
   }
 
   set(response) {

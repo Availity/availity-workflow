@@ -1,5 +1,4 @@
 {
-
   "v1/route1": {
     "file": "dummy-response-1.json"
   },
@@ -46,8 +45,8 @@
       },
       {
         "file": "dummy-response-3.json",
-        "params":{
-          "param1.2" : "abc"
+        "params": {
+          "param1.2": "abc"
         }
       }
     ]
@@ -66,7 +65,7 @@
       {
         "file": "dummy-response-3.json",
         "params": {
-          "param1": ["a","b"],
+          "param1": ["a", "b"],
           "param2": ["c", "d"]
         }
       },
@@ -181,7 +180,7 @@
   },
 
   "v1/route9": {
-    "get" : [
+    "get": [
       {
         "latency": 1000,
         "status": 201,
@@ -192,13 +191,13 @@
       {
         "status": 203,
         "latency": 500,
-        "file" : "dummy-response-2.json"
+        "file": "dummy-response-2.json"
       }
     ]
   },
 
   "v1/route10": {
-    "get" : [
+    "get": [
       {
         "file": "dummy-response-1.json",
         "headers": {
@@ -241,5 +240,4 @@
   "v1/external/route1": {
     "file": "dummy-response-1.json"
   }
-
 }

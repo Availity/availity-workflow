@@ -4,7 +4,7 @@ const patch = require('./patch');
 
 const response = {
   get: get.send,
-  
+
   head: get.send,
 
   delete: get.send,

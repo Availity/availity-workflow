@@ -1,5 +1,6 @@
-const _ = require('lodash');
+const merge = require('lodash/merge');
 const chalk = require('chalk');
+
 const logger = require('../logger').getInstance();
 
 class Configuration {
@@ -41,7 +42,7 @@ class Configuration {
     let config = this.path ? require(this.path) : this.defaultConfig();
 
     // Allow programmatic overrides for environment
-    config = _.merge(config, options);
+    config = merge(config, options);
 
     // Save to `this.options`
     this.options = config;

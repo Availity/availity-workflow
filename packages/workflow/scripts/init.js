@@ -1,10 +1,5 @@
-/* eslint-disable unicorn/no-null */
-/* eslint-disable unicorn/prefer-string-slice */
-/* eslint-disable unicorn/explicit-length-check */
-/* eslint-disable global-require */
-/* eslint-disable unicorn/prefer-starts-ends-with */
 /* eslint-disable unicorn/no-process-exit */
-/* eslint-disable import/no-dynamic-require, prefer-promise-reject-errors */
+/* eslint-disable import/no-dynamic-require */
 const validateProjectName = require('validate-npm-package-name');
 const yargs = require('yargs');
 const chalk = require('chalk');
@@ -16,7 +11,7 @@ const Logger = require('@availity/workflow-logger');
 const cloneStarter = require('./clone-starter');
 
 function printValidationResults(results) {
-  if (typeof results !== 'undefined') {
+  if (results !== undefined) {
     for (const error of results) {
       Logger.error(`  *  ${error}`);
     }
@@ -72,7 +67,7 @@ function checkThatWeCanReadCwd(installer) {
     // Fail gracefully. They could remove it.
     return true;
   }
-  const npmCWD = line.substring(prefix.length);
+  const npmCWD = line.slice(prefix.length);
   if (npmCWD === cwd) {
     return true;
   }
@@ -192,7 +187,7 @@ async function run({ appPath, appName, originalDirectory, template, installer, b
       }
     }
     const remainingFiles = fs.readdirSync(path.join(appPath));
-    if (!remainingFiles.length) {
+    if (remainingFiles.length === 0) {
       // Delete target folder if empty
       Logger.info(`Deleting ${chalk.cyan(`${appName}/`)} from ${chalk.cyan(path.resolve(appPath, '..'))}`);
       process.chdir(path.resolve(appPath, '..'));

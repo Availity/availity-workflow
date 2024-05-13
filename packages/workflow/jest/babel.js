@@ -1,10 +1,28 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/config/jest/babelTransform.js
 const babelJest = require('babel-jest').default;
-const babelPreset = require('../babel-preset');
 
 const createTransformer = () =>
   babelJest.createTransformer({
-    presets: [babelPreset],
+    presets: [
+      [
+        '@babel/preset-react',
+        {
+          runtime: 'automatic'
+        }
+      ],
+      '@babel/preset-env',
+      '@babel/preset-typescript'
+    ],
+    plugins: [
+      [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
+      [
+        'babel-plugin-root-import',
+        {
+          rootPathSuffix: 'project/app',
+          rootPathPrefix: '@/'
+        }
+      ]
+    ],
     babelrc: false
   });
 

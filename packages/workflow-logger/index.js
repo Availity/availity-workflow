@@ -1,4 +1,4 @@
-/* eslint no-console:0 */
+/* eslint-disable no-console */
 const chalk = require('chalk');
 const figures = require('figures');
 const boxen = require('boxen');
@@ -29,7 +29,7 @@ class Logger {
   }
 
   // › Started dev server
-  static record(entry = '', color) {
+  static record(entry = '', color = '') {
     const defaultColor = entry instanceof Error ? 'red' : 'gray';
     const crayoloa = color || defaultColor;
 

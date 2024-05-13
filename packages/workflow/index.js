@@ -36,7 +36,7 @@ yargs.command(
   }
 );
 
-/* eslint-disable no-unused-expressions */
+// eslint-disable-next-line no-unused-expressions
 yargs
 
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)

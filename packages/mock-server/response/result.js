@@ -40,6 +40,7 @@ const result = {
     try {
       const contents = fs.readFileSync(filePath, 'utf8');
       const regex = /\${context}/g;
+      // eslint-disable-next-line unicorn/prefer-string-replace-all
       const replacedContents = contents.replace(regex, config.options.pluginContext);
       const json = this.parseJSON(replacedContents);
 
@@ -55,7 +56,7 @@ const result = {
   },
 
   file(req, res, response, dataPath) {
-    /* eslint-disable promise/catch-or-return */
+    // eslint-disable-next-line promise/catch-or-return
     delay(response.latency || 200).then(() => {
       const filePath = path.join(dataPath, response.file);
       const status = response.status || 200;
@@ -65,7 +66,7 @@ const result = {
         res.set(key, response.responseHeaders[key]);
       }
 
-      /* eslint-disable promise/always-return */
+      // eslint-disable-next-line promise/always-return
       if (path.extname(filePath) === '.json') {
         this.sendJson(req, res, status, response, filePath);
       } else if (path.extname(filePath) === '.js') {

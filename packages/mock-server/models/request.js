@@ -1,11 +1,11 @@
-const _ = require('lodash');
+const uniqueId = require('lodash/uniqueId');
 
 class Request {
   constructor() {
     this.params = null;
     this.headers = null;
     this.responses = [];
-    this.id = _.uniqueId('request');
+    this.id = uniqueId('request');
   }
 
   addResponse(response) {

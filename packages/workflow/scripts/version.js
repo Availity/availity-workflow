@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/explicit-length-check */
 const fs = require('fs');
 const path = require('path');
 const shell = require('shelljs');
@@ -105,7 +104,7 @@ function prompt() {
   ];
 
   // pre-release
-  if (parsed.prerelease && parsed.prerelease.length) {
+  if (parsed.prerelease && parsed.prerelease.length > 0) {
     choices = [
       {
         name: `prerelease ( ${version} => ${semver.inc(version, 'prerelease', parsed[0])} )`,
