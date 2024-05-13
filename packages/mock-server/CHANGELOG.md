@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.0.3](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@9.0.2...@availity/mock-server@9.0.3) (2024-05-13)
+
+
+### Bug Fixes
+
+* **mock-server:** fix lint errors and lodash imports ([b5ac977](https://github.com/Availity/availity-workflow/commit/b5ac9775986f474b68f20cbc71ddcfa9134b3387))
+
+
+
 ## [9.0.2](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@9.0.1...@availity/mock-server@9.0.2) (2024-04-24)
 
 
