@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [4.2.0](https://github.com/Availity/availity-workflow/compare/@availity/example@4.1.0...@availity/example@4.2.0) (2024-05-13)
+
+
+### Features
+
+* **example:** update deps and refactor code ([ccad395](https://github.com/Availity/availity-workflow/commit/ccad39580dafe2ff4ce19252ac0252f659e1412b))
+
+
+
 # [4.1.0](https://github.com/Availity/availity-workflow/compare/@availity/example@4.0.7...@availity/example@4.1.0) (2024-04-05)
 
 
