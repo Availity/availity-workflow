@@ -43,7 +43,7 @@
     "@availity/yup": "^5.1.5",
     "@tanstack/react-query": "^4.36.1",
     "availity-uikit": "^4.6.3",
-    "axios": "^1.6.8",
+    "axios": "^1.7.2",
     "classnames": "^2.5.1",
     "formik": "^2.4.6",
     "prop-types": "^15.8.1",
