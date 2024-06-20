@@ -4527,19 +4527,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-angular-type-enum@npm:^17.8.1":
-  version: 17.8.1
-  resolution: "@commitlint/config-angular-type-enum@npm:17.8.1"
-  checksum: 1082bc68f320c34ab93aa52b91e3efeeee772775329714d7dcd88171cde81092053cc4d8d9f9d9ed1eae282df7eead1859af64a4c5db310c2753bd3ce380f2a0
+"@commitlint/config-angular-type-enum@npm:^19.1.0":
+  version: 19.1.0
+  resolution: "@commitlint/config-angular-type-enum@npm:19.1.0"
+  checksum: a0e23cca719b5d656e3bf6819d048b0a9de9a9ff7cb332c80c9aaa143119d7429f06be93fe2d9c602b6131bf29b12709edfce29d86d567c41711495d59a3432f
   languageName: node
   linkType: hard
 
-"@commitlint/config-angular@npm:^17.8.1":
-  version: 17.8.1
-  resolution: "@commitlint/config-angular@npm:17.8.1"
+"@commitlint/config-angular@npm:^19.3.0":
+  version: 19.3.0
+  resolution: "@commitlint/config-angular@npm:19.3.0"
   dependencies:
-    "@commitlint/config-angular-type-enum": ^17.8.1
-  checksum: ab1c7b16443d75421779f76585f7ec4947751c0c72889430f47d566c20f052a308a1cad570f47f169402df287e6fcbd983ebf8b78f8aa955ec30b2519127e974
+    "@commitlint/config-angular-type-enum": ^19.1.0
+  checksum: 61b1240c833dfefb4b25e57a5c35d6d13ab92336e9456ceb9561334cc1475ed33703fa2ce4aaee638fabdde228b127a532d3d3568913260e6f295a28df17e447
   languageName: node
   linkType: hard
 
@@ -9957,7 +9957,7 @@ __metadata:
   resolution: "availity-workflow@workspace:."
   dependencies:
     "@commitlint/cli": ^17.8.1
-    "@commitlint/config-angular": ^17.8.1
+    "@commitlint/config-angular": ^19.3.0
     "@commitlint/config-conventional": ^17.8.1
     "@jscutlery/semver": 3.0.0
     "@nrwl/cli": 15.9.4
