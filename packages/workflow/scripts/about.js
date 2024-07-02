@@ -1,7 +1,6 @@
 const Logger = require('@availity/workflow-logger');
 const chalk = require('chalk');
 const envinfo = require('envinfo');
-const notifier = require('./notifier');
 const pkg = require('../package.json');
 
 const version = chalk.bold.yellow(`v${pkg.version}`);
@@ -41,7 +40,8 @@ ${chalk.bold('@availity/workflow')} ${version}
  `;
 
 function about() {
-  notifier();
+  // TODO: Implement an update-notifier
+  // notifier();
   Logger.simple(message);
   envinfo.run(
     {

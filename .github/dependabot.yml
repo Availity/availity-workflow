@@ -1,26 +1,23 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: monthly
-    time: "10:00"
-  open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: "@testing-library/react"
-    versions:
-    - 11.2.3
-    - 11.2.5
-  - dependency-name: elliptic
-    versions:
-    - 6.5.4
-  - dependency-name: webpack
-    versions:
-    - 5.11.1
-    - 5.19.0
-  - dependency-name: update-notifier
-    versions:
-    - 5.1.0
-  - dependency-name: copy-webpack-plugin
-    versions:
-    - 7.0.0
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: monthly
+      time: '10:00'
+    open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: '@testing-library/react'
+        versions:
+          - 11.2.3
+          - 11.2.5
+      - dependency-name: elliptic
+        versions:
+          - 6.5.4
+      - dependency-name: webpack
+        versions:
+          - 5.11.1
+          - 5.19.0
+      - dependency-name: copy-webpack-plugin
+        versions:
+          - 7.0.0

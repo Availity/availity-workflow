@@ -10,7 +10,6 @@ const webpackConfigBase = require('../webpack.config');
 const webpackConfigProduction = require('../webpack.config.profile');
 
 const proxy = require('./proxy');
-const notifier = require('./notifier');
 const open = require('./open');
 const formatWebpackMessages = require('./format');
 
@@ -218,7 +217,8 @@ async function start() {
   try {
     init();
     await web();
-    await notifier();
+    // TODO: implement an update-notifier
+    // await notifier();
     await rest();
   } catch (error) {
     Logger.failed(`${error}
