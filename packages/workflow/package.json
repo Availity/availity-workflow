@@ -99,7 +99,6 @@
     "terser-webpack-plugin": "^5.3.10",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "type-is": "^1.6.18",
-    "update-notifier": "^5.1.0",
     "url-join": "^4.0.1",
     "validate-npm-package-name": "^5.0.1",
     "webpack": "^5.91.0",
