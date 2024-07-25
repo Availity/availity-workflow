@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [12.0.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@12.0.1...@availity/workflow@12.0.2) (2024-07-25)
+
+
+### Bug Fixes
+
+* **workflow:** enable class elements transform for @babel/preset-env to allow legacy decorators ([ee5e986](https://github.com/Availity/availity-workflow/commit/ee5e9863232013316d17b02662674989ccbbbf10))
+
+
+
 ## [12.0.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@12.0.0...@availity/workflow@12.0.1) (2024-07-02)
 
 
