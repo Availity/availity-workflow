@@ -10,7 +10,12 @@ const createTransformer = () =>
           runtime: 'automatic'
         }
       ],
-      '@babel/preset-env',
+      [
+        '@babel/preset-env',
+        {
+          include: ['@babel/plugin-transform-class-properties']
+        }
+      ],
       '@babel/preset-typescript'
     ],
     plugins: [
