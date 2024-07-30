@@ -23,7 +23,14 @@ function bundle({ profile, settings }) {
     // Check argument or CLI arg or default to false
     const shouldProfile = profile || argv.profile || false;
 
-    let webpackConfig = shouldProfile ? webpackConfigProfile(settings) : webpackConfigProduction(settings);
+    let webpackConfig;
+    try {
+      webpackConfig = shouldProfile ? webpackConfigProfile(settings) : webpackConfigProduction(settings);
+    } catch (error) {
+      Logger.error(`There was an error creating the Webpack config: ${error.message}`);
+      reject(error.message);
+      return;
+    }
 
     Logger.info('Started compiling');
     const spinner = ora('Running webpack');
