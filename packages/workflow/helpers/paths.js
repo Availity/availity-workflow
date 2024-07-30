@@ -10,5 +10,6 @@ module.exports = {
   project: resolveApp(''),
   app: resolveApp('project/app'),
   appNodeModules: resolveApp('node_modules'),
-  appStatic: resolveApp('project/app/static')
+  appStatic: resolveApp('project/app/static'),
+  tsconfig: resolveApp('tsconfig.json')
 };

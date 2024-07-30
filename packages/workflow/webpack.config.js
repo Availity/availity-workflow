@@ -21,8 +21,12 @@ process.noDeprecation = true;
 const buildBaseConfig = (settings) => {
   const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
 
-  function getVersion() {
-    return settings.pkg().version || 'N/A';
+  const getVersion = () => settings.pkg().version || 'N/A';
+
+  // Check for tsconfig.json
+  const resolvePlugins = [];
+  if (fs.existsSync(paths.tsconfig)) {
+    resolvePlugins.push(new TsconfigPathsPlugin({ extensions: ['.js', '.jsx', '.ts', '.tsx'] }));
   }
 
   const config = {
@@ -58,7 +62,7 @@ const buildBaseConfig = (settings) => {
       fallback: {
         path: require.resolve('path-browserify')
       },
-      plugins: [new TsconfigPathsPlugin({ extensions: ['.js', '.jsx', '.ts', '.tsx'] })]
+      plugins: resolvePlugins
     },
     // This set of options is identical to the resolve property set above,
     // but is used only to resolve webpack's loader packages.
