@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [12.0.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow@12.0.2...@availity/workflow@12.0.3) (2024-07-30)
+
+
+### Bug Fixes
+
+* **workflow:** check for tsconfig.json before adding plugin ([2caadcb](https://github.com/Availity/availity-workflow/commit/2caadcbadc9939a8377408ee13d0dda0c2b7acec))
+
+
+
 ## [12.0.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@12.0.1...@availity/workflow@12.0.2) (2024-07-25)
 
 
