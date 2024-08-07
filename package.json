@@ -33,7 +33,7 @@
     "@commitlint/cli": "^17.8.1",
     "@commitlint/config-angular": "^17.8.1",
     "@commitlint/config-conventional": "^17.8.1",
-    "@jscutlery/semver": "3.0.0",
+    "@jscutlery/semver": "3.4.1",
     "@nrwl/cli": "15.9.4",
     "@nrwl/js": "^16.5.5",
     "@nrwl/workspace": "16.5.5",
@@ -41,15 +41,15 @@
     "conventional-changelog-cli": "^4.1.0",
     "conventional-changelog-conventionalcommits": "^7.0.2",
     "dependency-check": "^4.1.0",
-    "eslint-config-availity": "^10.0.1",
+    "eslint-config-availity": "^10.0.2",
     "gh-pages": "^5.0.0",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",
     "jest": "^27.5.1",
     "lint-staged": "^13.3.0",
     "nx": "16.5.3",
-    "prettier": "^3.2.5",
-    "typescript": "^5.4.5"
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
   },
   "resolutions": {
     "nx": "16.5.3",
