@@ -6,6 +6,23 @@ updates:
       interval: monthly
       time: '10:00'
     open-pull-requests-limit: 10
+    groups:
+      dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      nx:
+        patterns:
+          - "nx"
+          - "@nx/*"
+        update-types:
+          - "major"
     ignore:
       - dependency-name: '@testing-library/react'
         versions:
