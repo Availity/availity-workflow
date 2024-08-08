@@ -17,6 +17,16 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      commitlint:
+        patterns:
+          - "@commitlint/*"
+        update-types:
+          - "major"
+      conventional-changelog:
+        patterns:
+          - "conventional-changelog-*"
+        update-types:
+          - "major"
       nx:
         patterns:
           - "nx"
