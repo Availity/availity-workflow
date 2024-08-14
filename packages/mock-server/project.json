@@ -1,13 +1,15 @@
 {
-  "root": "packages/mock-server",
+  "name": "mock-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
         "preset": "angular",
-        "commitMessageFormat": "chore(${projectName}): release version ${version}",
-        "tagPrefix": "@availity/${projectName}@"
+        "commitMessageFormat": "chore({projectName}): release version ${version}",
+        "tagPrefix": "@availity/{projectName}@",
+        "trackDeps": true
       }
     }
   }

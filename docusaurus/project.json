@@ -1,13 +1,15 @@
 {
-  "root": "docusaurus",
+  "name": "docusaurus",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
         "preset": "angular",
-        "commitMessageFormat": "chore(${projectName}): release version ${version}",
-        "tagPrefix": "@availity/dinosaurdocs@"
+        "commitMessageFormat": "chore({projectName}): release version ${version}",
+        "tagPrefix": "@availity/dinosaurdocs@",
+        "trackDeps": true
       }
     }
   }
