@@ -1,8 +1,13 @@
 {
-  "extends": "@nx/workspace/presets/npm.json",
   "targetDefaults": {
     "build": {
-      "cache": true
+      "cache": true,
+      "dependsOn": [
+        {
+          "target": "build",
+          "dependencies": true
+        }
+      ]
     },
     "test": {
       "cache": true
@@ -11,15 +16,27 @@
       "cache": true
     },
     "package": {
-      "cache": true
+      "cache": true,
+      "dependsOn": [
+        {
+          "target": "package",
+          "dependencies": true
+        }
+      ]
     },
     "prepare": {
-      "cache": true
+      "cache": true,
+      "dependsOn": [
+        {
+          "target": "prepare",
+          "dependencies": true
+        }
+      ]
     }
   },
-  "affected": {
-    "defaultBase": "master"
-  },
+  "extends": "@nx/workspace/presets/npm.json",
+  "useInferencePlugins": false,
+  "defaultBase": "master",
   "pluginsConfig": {
     "@nx/js": {
       "analyzeSourceFiles": true
