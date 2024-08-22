@@ -24,3 +24,4 @@ reports/
 .pnp.*
 
 .nx/cache
+.nx/workspace-data
