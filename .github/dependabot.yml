@@ -6,6 +6,39 @@ updates:
       interval: monthly
       time: '10:00'
     open-pull-requests-limit: 10
+    groups:
+      dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      commitlint:
+        patterns:
+          - "@commitlint/*"
+        update-types:
+          - "major"
+      conventional-changelog:
+        patterns:
+          - "conventional-changelog-*"
+        update-types:
+          - "major"
+      jest:
+        patterns:
+          - "jest"
+          - "*jest*"
+        update-types:
+          - "major"
+      nx:
+        patterns:
+          - "nx"
+          - "@nx/*"
+        update-types:
+          - "major"
     ignore:
       - dependency-name: '@testing-library/react'
         versions:
@@ -21,3 +54,6 @@ updates:
       - dependency-name: copy-webpack-plugin
         versions:
           - 7.0.0
+      - dependency-name: boxen
+      - dependency-name: chalk
+      - dependency-name: figures

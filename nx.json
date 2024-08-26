@@ -1,39 +1,44 @@
 {
-  "extends": "@nrwl/workspace/presets/npm.json",
-  "npmScope": "availity",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "test", "lint", "package", "prepare"]
-      }
+  "targetDefaults": {
+    "build": {
+      "cache": true,
+      "dependsOn": [
+        {
+          "target": "build",
+          "dependencies": true
+        }
+      ]
+    },
+    "test": {
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "package": {
+      "cache": true,
+      "dependsOn": [
+        {
+          "target": "package",
+          "dependencies": true
+        }
+      ]
+    },
+    "prepare": {
+      "cache": true,
+      "dependsOn": [
+        {
+          "target": "prepare",
+          "dependencies": true
+        }
+      ]
     }
   },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ],
-    "prepare": [
-      {
-        "target": "prepare",
-        "projects": "dependencies"
-      }
-    ],
-    "package": [
-      {
-        "target": "package",
-        "projects": "dependencies"
-      }
-    ]
-  },
-  "affected": {
-    "defaultBase": "master"
-  },
+  "extends": "@nx/workspace/presets/npm.json",
+  "useInferencePlugins": false,
+  "defaultBase": "master",
   "pluginsConfig": {
-    "@nrwl/js": {
+    "@nx/js": {
       "analyzeSourceFiles": true
     }
   }

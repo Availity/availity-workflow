@@ -1,14 +1,15 @@
 {
   "name": "example",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "app",
-  "root": "example",
   "targets": {
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
         "preset": "angular",
-        "commitMessageFormat": "chore(${projectName}): release version ${version}",
-        "tagPrefix": "@availity/${projectName}@"
+        "commitMessageFormat": "chore({projectName}): release version ${version}",
+        "tagPrefix": "@availity/{projectName}@",
+        "trackDeps": true
       }
     }
   }
