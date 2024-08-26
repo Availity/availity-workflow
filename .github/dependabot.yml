@@ -27,6 +27,12 @@ updates:
           - "conventional-changelog-*"
         update-types:
           - "major"
+      jest:
+        patterns:
+          - "jest"
+          - "*jest*"
+        update-types:
+          - "major"
       nx:
         patterns:
           - "nx"
@@ -48,3 +54,6 @@ updates:
       - dependency-name: copy-webpack-plugin
         versions:
           - 7.0.0
+      - dependency-name: boxen
+      - dependency-name: chalk
+      - dependency-name: figures
