@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [4.2.2](https://github.com/Availity/availity-workflow/compare/@availity/example@4.2.1...@availity/example@4.2.2) (2024-08-28)
+
+### Dependency Updates
+
+* `workflow` updated to version `4.2.1`
+
+
 ## [4.2.1](https://github.com/Availity/availity-workflow/compare/@availity/example@4.2.0...@availity/example@4.2.1) (2024-08-26)
 
 ### Dependency Updates
