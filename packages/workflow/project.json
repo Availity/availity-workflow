@@ -12,5 +12,6 @@
         "trackDeps": true
       }
     }
-  }
+  },
+  "implicitDependencies": ["!example"]
 }
