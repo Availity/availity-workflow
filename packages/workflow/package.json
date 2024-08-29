@@ -101,7 +101,7 @@
     "type-is": "^1.6.18",
     "url-join": "^4.0.1",
     "validate-npm-package-name": "^5.0.1",
-    "webpack": "^5.93.0",
+    "webpack": "^5.94.0",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-bundle-size-analyzer": "^3.1.0",
     "webpack-dev-server": "^4.15.2",
