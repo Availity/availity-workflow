@@ -30,12 +30,12 @@
     "version:dry-run": "nx affected --target version --dryRun --verbose --parallel=1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.4.0",
-    "@commitlint/config-angular": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/cli": "^19.4.1",
+    "@commitlint/config-angular": "^19.4.1",
+    "@commitlint/config-conventional": "^19.4.1",
     "@jscutlery/semver": "^5.3.1",
-    "@nx/js": "^19.6.2",
-    "@nx/workspace": "^19.6.2",
+    "@nx/js": "^19.6.4",
+    "@nx/workspace": "^19.6.4",
     "@types/is-ci": "^3.0.4",
     "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^8.0.0",
@@ -45,8 +45,8 @@
     "husky": "^9.1.5",
     "is-ci": "^3.0.1",
     "jest": "^27.5.1",
-    "lint-staged": "^15.2.8",
-    "nx": "^19.6.2",
+    "lint-staged": "^15.2.9",
+    "nx": "^19.6.4",
     "prettier": "^3.3.3",
     "typescript": "^5.5.4"
   },
