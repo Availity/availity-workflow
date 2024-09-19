@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [9.0.5](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@9.0.4...@availity/mock-server@9.0.5) (2024-09-19)
+
+
+
 ## [9.0.4](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@9.0.3...@availity/mock-server@9.0.4) (2024-08-26)
 
 ### Dependency Updates
