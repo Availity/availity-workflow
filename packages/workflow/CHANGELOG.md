@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [12.0.19](https://github.com/availity/availity-workflow/compare/@availity/workflow@12.0.18...@availity/workflow@12.0.19) (2024-11-07)
+
+
+### Bug Fixes
+
+* **workflow:** add check for installer when adding args ([275479c](https://github.com/availity/availity-workflow/commit/275479c889c551bdbf32bca4fb1e1887a9f7c319))
+
+
+
 ## [12.0.18](https://github.com/availity/availity-workflow/compare/@availity/workflow@12.0.17...@availity/workflow@12.0.18) (2024-09-19)
 
 ### Dependency Updates
