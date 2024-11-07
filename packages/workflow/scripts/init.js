@@ -110,12 +110,25 @@ function updatePackageJson({ appName, appPath }) {
   fs.writeFileSync(path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2) + os.EOL);
 }
 
+const NPM = 'npm'
+const YARN = 'yarn'
+
+function isNpm(installer) {
+  return installer === NPM;
+}
+
 function installDeps(installer) {
   Logger.info(`Installing dependencies using ${installer}...`);
   Logger.empty();
 
+  const installArgs = ['install' ]
+  // Add npm specific args to suppress log output
+  if (isNpm(installer)) {
+    installArgs.push('--loglevel', 'error')
+  }
+
   // Install Dependencies
-  const proc = spawn.sync(`${installer}`, ['install', '--loglevel', 'error'], { stdio: 'inherit' });
+  const proc = spawn.sync(`${installer}`, installArgs, { stdio: 'inherit' });
   if (proc.status !== 0) {
     Logger.failed(`${installer} install failed`);
   }
@@ -201,7 +214,7 @@ async function run({ appPath, appName, originalDirectory, template, installer, b
 function createApp({ projectName: name, currentDir, template, useNpm, branchOverride }) {
   const appPath = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(appPath);
-  const installer = useNpm ? 'npm' : 'yarn';
+  const installer = useNpm ? NPM : YARN
 
   checkAppName(appName);
 
