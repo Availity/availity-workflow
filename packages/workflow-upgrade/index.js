@@ -162,6 +162,18 @@ module.exports = async (cwd) => {
       fs.unlinkSync(yarnLock);
     }
 
+    const jsconfigPath = path.join(cwd, 'jsconfig.json');
+    const hasJsconfig = fs.existsSync(jsconfigPath);
+
+    if (hasJsconfig) {
+      // Copy jsconfig into tsconfig
+      const jsconfigData = fs.readFileSync(jsconfigPath);
+      fs.writeFileSync(jsconfigData, `${JSON.stringify(pkg, null, 2)}\n`, 'utf8');
+
+      // Delete jsconfig
+      fs.unlinkSync(jsconfigPath);
+    }
+
     // Delete node_modules
     Logger.info('Deleting node_modules...');
     rimraf.sync(path.join(cwd, 'node_modules'));
