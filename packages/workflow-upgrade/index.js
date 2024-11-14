@@ -166,13 +166,8 @@ module.exports = async (cwd) => {
     const hasJsconfig = fs.existsSync(jsconfigPath);
 
     if (hasJsconfig) {
-      // Copy jsconfig into tsconfig
-      const jsconfigData = fs.readFileSync(jsconfigPath);
       const tsconfigPath = path.join(cwd, 'tsconfig.json');
-      fs.writeFileSync(tsconfigPath, `${JSON.stringify(jsconfigData, null, 2)}\n`, 'utf8');
-
-      // Delete jsconfig
-      fs.unlinkSync(jsconfigPath);
+      fs.renameSync(jsconfigPath, tsconfigPath);
     }
 
     // Delete node_modules

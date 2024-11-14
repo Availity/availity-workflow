@@ -283,6 +283,7 @@ __metadata:
     "@availity/page-header": ^14.0.2
     "@availity/spaces": 8.0.8
     "@availity/workflow": "workspace:*"
+    "@availity/workflow-upgrade": "*"
     "@availity/yup": ^6.0.0
     "@tanstack/react-query": ^4.36.1
     "@testing-library/react": ^14.3.1
@@ -593,7 +594,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@availity/workflow-upgrade@workspace:packages/workflow-upgrade":
+"@availity/workflow-upgrade@*, @availity/workflow-upgrade@workspace:packages/workflow-upgrade":
   version: 0.0.0-use.local
   resolution: "@availity/workflow-upgrade@workspace:packages/workflow-upgrade"
   dependencies:
