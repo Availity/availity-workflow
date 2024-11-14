@@ -168,7 +168,8 @@ module.exports = async (cwd) => {
     if (hasJsconfig) {
       // Copy jsconfig into tsconfig
       const jsconfigData = fs.readFileSync(jsconfigPath);
-      fs.writeFileSync(jsconfigData, `${JSON.stringify(pkg, null, 2)}\n`, 'utf8');
+      const tsconfigPath = path.join(cwd, 'tsconfig.json');
+      fs.writeFileSync(tsconfigPath, `${JSON.stringify(jsconfigData, null, 2)}\n`, 'utf8');
 
       // Delete jsconfig
       fs.unlinkSync(jsconfigPath);
