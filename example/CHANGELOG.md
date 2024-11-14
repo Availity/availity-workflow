@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [4.3.0](https://github.com/Availity/availity-workflow/compare/@availity/example@4.2.16...@availity/example@4.3.0) (2024-11-14)
+
+
+### Features
+
+* add rewriting jsconfig to tsconfig ([d2e8a63](https://github.com/Availity/availity-workflow/commit/d2e8a6365682fb5083e3fcabaade8417f1b409e4))
+
+
+
 ## [4.2.16](https://github.com/Availity/availity-workflow/compare/@availity/example@4.2.15...@availity/example@4.2.16) (2024-11-07)
 
 ### Dependency Updates
