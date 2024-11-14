@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.1.0](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@7.0.2...@availity/workflow-upgrade@7.1.0) (2024-11-14)
+
+
+### Features
+
+* add rewriting jsconfig to tsconfig ([d2e8a63](https://github.com/availity/availity-workflow/commit/d2e8a6365682fb5083e3fcabaade8417f1b409e4))
+* add rewriting jsconfig to tsconfig ([38aac0e](https://github.com/availity/availity-workflow/commit/38aac0e10371fed88c6bce958ba2a3b6c49f948a))
+* add rewriting jsconfig to tsconfig ([7942f81](https://github.com/availity/availity-workflow/commit/7942f81998fe8de268942a94e25d777e55e2033b))
+
+
+
 ## [7.0.2](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@7.0.1...@availity/workflow-upgrade@7.0.2) (2024-08-26)
 
 ### Dependency Updates
