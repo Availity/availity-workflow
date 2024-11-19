@@ -47,7 +47,7 @@
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "chalk": "^4.1.2",
     "copy-webpack-plugin": "^11.0.0",
-    "cross-spawn": "^7.0.3",
+    "cross-spawn": "^7.0.5",
     "css-loader": "^6.11.0",
     "css-minimizer-webpack-plugin": "^5.0.1",
     "debug": "^4.3.6",
