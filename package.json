@@ -25,6 +25,7 @@
     "start:docs": "yarn workspace @availity/dinosaurdocs start",
     "test": "jest --silent",
     "test:app": "yarn workspace @availity/example test",
+    "test:coverage": "nx run-many --target=test --all --parallel=3 --runInBand --coverage --no-cache  && node ./scripts/merge-coverage.js",
     "test:integration": "yarn workspaces foreach -i -v run integration --verbose",
     "version": "nx affected --target version --parallel=1",
     "version:dry-run": "nx affected --target version --dryRun --verbose --parallel=1"
