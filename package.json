@@ -34,8 +34,8 @@
     "@commitlint/config-angular": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@jscutlery/semver": "^5.3.1",
-    "@nx/js": "^19.6.2",
-    "@nx/workspace": "^19.6.2",
+    "@nx/js": "20.7.2",
+    "@nx/workspace": "20.7.2",
     "@types/is-ci": "^3.0.4",
     "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^8.0.0",
@@ -46,9 +46,9 @@
     "is-ci": "^3.0.1",
     "jest": "^27.5.1",
     "lint-staged": "^15.5.0",
-    "nx": "^19.6.2",
+    "nx": "20.7.2",
     "prettier": "^3.5.3",
-    "typescript": "^5.5.4"
+    "typescript": "5.7.3"
   },
   "resolutions": {
     "socks": "2.7.3"
