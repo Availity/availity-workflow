@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [12.0.21](https://github.com/availity/availity-workflow/compare/@availity/workflow@12.0.20...@availity/workflow@12.0.21) (2025-04-11)
+
+### Dependency Updates
+
+* `mock-server` updated to version `12.0.20`
+* `mock-server` updated to version `12.0.20`
+
+
 ## [12.0.20](https://github.com/availity/availity-workflow/compare/@availity/workflow@12.0.19...@availity/workflow@12.0.20) (2024-11-19)
 
 
