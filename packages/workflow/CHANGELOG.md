@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [12.1.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@12.0.21...@availity/workflow@12.1.0) (2025-04-28)
+
+### Dependency Updates
+
+* `mock-server` updated to version `12.0.21`
+* `mock-server` updated to version `12.0.21`
+* `workflow-logger` updated to version `12.0.21`
+
+### Features
+
+* add node 22 support ([d737c43](https://github.com/availity/availity-workflow/commit/d737c4392a4a167f65228c6f58e84773a6595a97))
+* **example:** switch to element ([276c76e](https://github.com/availity/availity-workflow/commit/276c76e2961ca18c68b356df4bab3554daec205e))
+
+
+
 ## [12.0.21](https://github.com/availity/availity-workflow/compare/@availity/workflow@12.0.20...@availity/workflow@12.0.21) (2025-04-11)
 
 ### Dependency Updates
