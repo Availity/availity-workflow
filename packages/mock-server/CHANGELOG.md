@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [9.1.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@9.0.6...@availity/mock-server@9.1.0) (2025-04-28)
+
+### Dependency Updates
+
+* `mock-data` updated to version `9.0.6`
+
+### Features
+
+* add node 22 support ([d737c43](https://github.com/Availity/availity-workflow/commit/d737c4392a4a167f65228c6f58e84773a6595a97))
+
+
+
 ## [9.0.6](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@9.0.5...@availity/mock-server@9.0.6) (2025-04-11)
 
 
