@@ -1,7 +1,17 @@
 import { useState } from 'react';
-import BlockUi from '@availity/block-ui';
-import { Form, Field } from '@availity/form';
-import { Alert, Button, CardBody, CardFooter, CardHeader } from 'reactstrap';
+import {
+  Alert,
+  BlockUi,
+  Button,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Collapse,
+  FormProvider,
+  ControlledTextField,
+  useForm,
+} from '@availity/element';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { object, string } from 'yup';
 
 import { chain, nullChain } from '@/chain';
@@ -37,27 +47,38 @@ export function SearchForm() {
     setIsSubmitted(true);
   };
 
+  const methods = useForm({
+    defaultValues: initialValues,
+    mode: 'onBlur',
+    resolver: yupResolver(schema),
+  });
+
   return (
-    <Form onSubmit={handleOnSubmit} initialValues={initialValues} validationSchema={schema}>
-      <CardHeader className="h4" tag="h3">
-        {config.header}
-      </CardHeader>
-      <BlockUi tag={CardBody} blocking={loading}>
-        <Alert isOpen={isSubmitted} toggle={() => setIsSubmitted(false)} color="success">
-          Form submitted!
-        </Alert>
-        {config.fields.map((fieldProps) => (
-          <Field key={fieldProps.name} {...fieldProps} />
-        ))}
-      </BlockUi>
-      <CardFooter className="d-flex justify-content-end">
-        <Button color="secondary" type="reset">
-          Reset
-        </Button>
-        <Button type="submit" color="primary" className="ml-2">
-          Submit
-        </Button>
-      </CardFooter>
-    </Form>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(handleOnSubmit)}>
+        <CardHeader title={config.header} />
+        <BlockUi blocking={loading}>
+          <CardContent>
+            <Collapse in={isSubmitted}>
+              <Alert onClose={() => setIsSubmitted(false)} severity="success">
+                Form submitted!
+              </Alert>
+            </Collapse>
+
+            {config.fields.map((fieldProps) => (
+              <ControlledTextField key={fieldProps.name} {...fieldProps} />
+            ))}
+          </CardContent>
+        </BlockUi>
+        <CardActions>
+          <Button color="secondary" type="reset" onClick={() => methods.reset()}>
+            Reset
+          </Button>
+          <Button type="submit" color="primary" className="ml-2">
+            Submit
+          </Button>
+        </CardActions>
+      </form>
+    </FormProvider>
   );
 }
