@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [7.2.0](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@7.1.0...@availity/workflow-upgrade@7.2.0) (2025-04-28)
+
+### Dependency Updates
+
+* `workflow-logger` updated to version `7.1.0`
+
+### Features
+
+* add node 22 support ([d737c43](https://github.com/availity/availity-workflow/commit/d737c4392a4a167f65228c6f58e84773a6595a97))
+
+
+
 # [7.1.0](https://github.com/availity/availity-workflow/compare/@availity/workflow-upgrade@7.0.2...@availity/workflow-upgrade@7.1.0) (2024-11-14)
 
 
