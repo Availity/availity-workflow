@@ -33,9 +33,9 @@
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-angular": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
-    "@jscutlery/semver": "^5.3.1",
-    "@nx/js": "20.7.2",
-    "@nx/workspace": "20.7.2",
+    "@jscutlery/semver": "^5.6.0",
+    "@nx/js": "20.8.1",
+    "@nx/workspace": "20.8.1",
     "@types/is-ci": "^3.0.4",
     "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^8.0.0",
@@ -45,10 +45,10 @@
     "husky": "^9.1.7",
     "is-ci": "^3.0.1",
     "jest": "^27.5.1",
-    "lint-staged": "^15.5.0",
-    "nx": "20.7.2",
+    "lint-staged": "^15.5.1",
+    "nx": "20.8.1",
     "prettier": "^3.5.3",
-    "typescript": "5.7.3"
+    "typescript": "5.8.3"
   },
   "resolutions": {
     "socks": "2.7.3"
