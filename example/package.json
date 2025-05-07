@@ -8,6 +8,7 @@
     "start": "av start",
     "av": "av",
     "test": "av test",
+    "test:coverage": "av test --coverage",
     "test:watch": "av test --watch",
     "integration": "yarn lint && yarn test && yarn build && yarn build:production",
     "about": "av about",
@@ -60,6 +61,7 @@
     "eslint-config-availity": "^10.0.7",
     "jest": "^27.5.1",
     "jest-dom": "^4.0.0",
+    "jest-junit": "^16.0.0",
     "typescript": "5.7.3"
   },
   "lint-staged": {
