@@ -354,7 +354,7 @@ __metadata:
     "@tanstack/react-query": ^4.36.1
     "@testing-library/react": ^14.3.1
     "@types/jest": ^27.5.2
-    "@types/node": ^22.14.1
+    "@types/node": ^22.15.15
     "@types/react": ^18.3.21
     "@types/react-dom": ^18.3.7
     "@types/reactstrap": ^8.7.2
@@ -373,7 +373,7 @@ __metadata:
     react-dom: ^18.3.1
     react-hook-form: ^7.56.1
     reactstrap: ^8.10.1
-    typescript: 5.7.3
+    typescript: 5.8.3
     yup: ^1.6.1
   languageName: unknown
   linkType: soft
@@ -8091,7 +8091,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^22.14.1":
+"@types/node@npm:*":
   version: 22.15.2
   resolution: "@types/node@npm:22.15.2"
   dependencies:
@@ -8104,6 +8104,15 @@ __metadata:
   version: 17.0.45
   resolution: "@types/node@npm:17.0.45"
   checksum: aa04366b9103b7d6cfd6b2ef64182e0eaa7d4462c3f817618486ea0422984c51fc69fd0d436eae6c9e696ddfdbec9ccaa27a917f7c2e8c75c5d57827fe3d95e8
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^22.15.15":
+  version: 22.15.15
+  resolution: "@types/node@npm:22.15.15"
+  dependencies:
+    undici-types: ~6.21.0
+  checksum: 6e1d1c55728a25dd4268aaac62d1a4a6dd3355a9cb76300a9d44f88a3894f39210a4eff471f6ef79c0ae759049a512582e5ca21fe344c6a02e553d02e8d43835
   languageName: node
   linkType: hard
 
@@ -9548,7 +9557,7 @@ __metadata:
     lint-staged: ^15.5.2
     nx: 20.8.1
     prettier: ^3.5.3
-    typescript: 5.7.3
+    typescript: 5.8.3
   languageName: unknown
   linkType: soft
 
@@ -24412,23 +24421,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.7.3":
-  version: 5.7.3
-  resolution: "typescript@npm:5.7.3"
+"typescript@npm:5.8.3":
+  version: 5.8.3
+  resolution: "typescript@npm:5.8.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 6c38b1e989918e576f0307e6ee013522ea480dfce5f3ca85c9b2d8adb1edeffd37f4f30cd68de0c38a44563d12ba922bdb7e36aa2dac9c51de5d561e6e9a2e9c
+  checksum: cb1d081c889a288b962d3c8ae18d337ad6ee88a8e81ae0103fa1fecbe923737f3ba1dbdb3e6d8b776c72bc73bfa6d8d850c0306eed1a51377d2fccdfd75d92c4
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@5.7.3#~builtin<compat/typescript>":
-  version: 5.7.3
-  resolution: "typescript@patch:typescript@npm%3A5.7.3#~builtin<compat/typescript>::version=5.7.3&hash=bda367"
+"typescript@patch:typescript@5.8.3#~builtin<compat/typescript>":
+  version: 5.8.3
+  resolution: "typescript@patch:typescript@npm%3A5.8.3#~builtin<compat/typescript>::version=5.8.3&hash=bda367"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 633cd749d6cd7bc842c6b6245847173bba99742a60776fae3c0fbcc0d1733cd51a733995e5f4dadd8afb0e64e57d3c7dbbeae953a072ee303940eca69e22f311
+  checksum: 1b503525a88ff0ff5952e95870971c4fb2118c17364d60302c21935dedcd6c37e6a0a692f350892bafcef6f4a16d09073fe461158547978d2f16fbe4cb18581c
   languageName: node
   linkType: hard
 

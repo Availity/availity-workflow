@@ -51,7 +51,7 @@
     "@availity/workflow": "workspace:*",
     "@testing-library/react": "^14.3.1",
     "@types/jest": "^27.5.2",
-    "@types/node": "^22.14.1",
+    "@types/node": "^22.15.15",
     "@types/react": "^18.3.21",
     "@types/react-dom": "^18.3.7",
     "@types/reactstrap": "^8.7.2",
@@ -62,7 +62,7 @@
     "jest": "^27.5.1",
     "jest-dom": "^4.0.0",
     "jest-junit": "^16.0.0",
-    "typescript": "5.7.3"
+    "typescript": "5.8.3"
   },
   "lint-staged": {
     "*.(js|ts|jsx|tsx)": [
