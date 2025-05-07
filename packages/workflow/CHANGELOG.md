@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [12.2.0](https://github.com/availity/availity-workflow/compare/@availity/workflow@12.1.1...@availity/workflow@12.2.0) (2025-05-07)
+
+
+### Features
+
+* add jest coverage defaults ([dd945bf](https://github.com/availity/availity-workflow/commit/dd945bf566ece81e1a7f03c50a37525d88587429))
+
+
+
 ## [12.1.1](https://github.com/availity/availity-workflow/compare/@availity/workflow@12.1.0...@availity/workflow@12.1.1) (2025-05-07)
 
 
