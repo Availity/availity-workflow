@@ -22,8 +22,23 @@ function create(settings) {
   const userJestOverrides = settings.configuration.development.jestOverrides;
 
   const config = {
+    cache: false,
+    clearMocks: true,
     collectCoverageFrom: ['project/app/**/*.{js,jsx,ts,tsx}'],
-    coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/'],
+    coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/', '/build/'],
+    coverageDirectory: './reports',
+    coverageProvider: 'v8',
+    coverageReporters: ['text', 'text-summary', 'cobertura'],
+    reporters: [
+      'default',
+      [
+        'jest-junit',
+        {
+          outputDirectory: 'reports/junit-test-results',
+          outputName: 'junit-report.xml'
+        }
+      ]
+    ],
     testEnvironment: 'node',
     testURL: 'http://localhost',
     transform: {
@@ -51,6 +66,18 @@ function create(settings) {
       //   - the dist output directory
       '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/__tests__/**/*.(js|ts|tsx)?(x)',
       '<rootDir>/!(build|docs|dist|node_modules|scripts)/**/*(*.)(spec|test).(js|ts|tsx)?(x)'
+    ],
+    testPathIgnorePatterns: [
+      '<rootDir>/.vscode/',
+      '<rootDir>/.yarn/',
+      '<rootDir>/automated-tests/',
+      '<rootDir>/dist/',
+      '<rootDir>/infra/',
+      '<rootDir>/node_modules/',
+      '<rootDir>/observability/',
+      '<rootDir>/scripts/',
+      '<rootDir>/static/',
+      '<rootDir>/wiremock/'
     ],
     globals: settings.globals()
   };
