@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [4.5.0](https://github.com/Availity/availity-workflow/compare/@availity/example@4.4.1...@availity/example@4.5.0) (2025-05-07)
+
+### Dependency Updates
+
+* `workflow` updated to version `4.4.1`
+
+### Features
+
+* add jest coverage defaults ([dd945bf](https://github.com/Availity/availity-workflow/commit/dd945bf566ece81e1a7f03c50a37525d88587429))
+
+
+
 ## [4.4.1](https://github.com/Availity/availity-workflow/compare/@availity/example@4.4.0...@availity/example@4.4.1) (2025-05-07)
 
 ### Dependency Updates
