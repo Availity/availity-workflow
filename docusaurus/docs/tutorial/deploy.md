@@ -50,4 +50,4 @@ git push && git push --tags
 
 Congratulations! You successfully created your first deployment artifact! You can choose to read more about the additional features that our Workflow toolkit provides in the `Recipes` section.
 
-Checkout our [React Component Library](https://availity.github.io/availity-react/) for some pre-built reactstrap components to assist in building solid web applications.
+Checkout our [React Component Library](https://availity.github.io/element/) for some pre-built Material UI components to assist in building solid web applications.
