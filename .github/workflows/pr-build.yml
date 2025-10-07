@@ -4,7 +4,7 @@
 # If adding a step that requires SECRETS or WRITE ACCESS be sure to have dependabot skip it.
 # > if: ${{ github.actor != 'dependabot[bot]' }}
 
-name: Node.js CI
+name: Pull Request Build
 
 on:
   pull_request:
@@ -15,22 +15,22 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest] # TODO: re-enable windows-latest after yarn lint fixed
+        os: [ubuntu-latest, macos-latest]
         node: [18, 20, 22]
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           fetch-depth: 0
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v3
+        uses: nrwl/nx-set-shas@826660b82addbef3abff5fa871492ebad618c9e1 # v4.3.3
         with:
           main-branch-name: 'master'
 
       - name: Set Node Version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: ${{ matrix.node }}
 
@@ -40,7 +40,7 @@ jobs:
           echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
       - name: Restore yarn cache
-        uses: actions/cache@v3
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -55,7 +55,7 @@ jobs:
         run: yarn constraints
 
       - name: Lint Affected Code
-        run: yarn nx affected --target=lint # FIXME: 'node ./node_modules/.bin/eslint .' is mac/linux specific, but 'yarn eslint .' currently broken
+        run: yarn nx affected --target=lint
 
       - name: Unit Test Affected Code
         run: yarn nx affected --target=test
@@ -67,6 +67,7 @@ jobs:
         run: yarn version:dry-run
 
       - name: Build Docs
+        if: ${{ matrix.node == 22 }}
         run: yarn build:docs
 
       - name: Build App
