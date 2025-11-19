@@ -94,6 +94,7 @@ jobs:
     permissions:
       contents: write # Required for git push and creating tags
       pull-requests: write # Required for creating pull requests
+      id-token: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
@@ -111,6 +112,7 @@ jobs:
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -131,7 +133,6 @@ jobs:
 
       - name: Setup Publish Config
         run: |
-          yarn config set npmAuthToken "${{ secrets.NPM_TOKEN }}"
           git config user.email ${{ secrets.GH_EMAIL }}
           git config user.name ${{ secrets.GH_USER }}
           # Reset .yarnrc.yml to prevent committing
