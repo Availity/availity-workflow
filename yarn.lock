@@ -4990,6 +4990,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@inquirer/external-editor@npm:^1.0.0":
+  version: 1.0.3
+  resolution: "@inquirer/external-editor@npm:1.0.3"
+  dependencies:
+    chardet: ^2.1.1
+    iconv-lite: ^0.7.0
+  peerDependencies:
+    "@types/node": ">=18"
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+  checksum: 9bd7a05247a00408c194648c74046d8a212df1e6b9fe0879b945ebfc35c2524e995e43f7ecd83f14d0bd4e31f985d18819efc31c27810e2c2b838ded7261431f
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -9124,6 +9139,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chardet@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "chardet@npm:2.1.1"
+  checksum: 4e3dba2699018b79bb90a9562b5e5be27fcaab55250c12fa72f026b859fb24846396c346968546c14efc69b9f23aca3ef2b9816775012d08a4686ce3c362415c
+  languageName: node
+  linkType: hard
+
 "cheerio-select@npm:^2.1.0":
   version: 2.1.0
   resolution: "cheerio-select@npm:2.1.0"
@@ -13251,17 +13273,18 @@ __metadata:
   linkType: hard
 
 "glob@npm:^10.3.7":
-  version: 10.3.14
-  resolution: "glob@npm:10.3.14"
+  version: 10.5.0
+  resolution: "glob@npm:10.5.0"
   dependencies:
     foreground-child: ^3.1.0
-    jackspeak: ^2.3.6
-    minimatch: ^9.0.1
-    minipass: ^7.0.4
-    path-scurry: ^1.11.0
+    jackspeak: ^3.1.2
+    minimatch: ^9.0.4
+    minipass: ^7.1.2
+    package-json-from-dist: ^1.0.0
+    path-scurry: ^1.11.1
   bin:
     glob: dist/esm/bin.mjs
-  checksum: 6fb26013e6ee1cc0fe099c746f5870783612082342eeeca80031446ca8839acc13243015056e4f3158d7c4260d32f37ff1c2aad9c273672ed0911c8262316041
+  checksum: cda96c074878abca9657bd984d2396945cf0d64283f6feeb40d738fe2da642be0010ad5210a1646244a5fc3511b0cab5a374569b3de5a12b8a63d392f18c6043
   languageName: node
   linkType: hard
 
@@ -14048,6 +14071,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"iconv-lite@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "iconv-lite@npm:0.7.0"
+  dependencies:
+    safer-buffer: ">= 2.1.2 < 3.0.0"
+  checksum: f362a8befb95e37f29be1d1290c17e0c9d0d4ad4fa62fcfd813cc9c937ab89401abed9a011f83e10651a267abb2aa231ec7da91d843570bec873bd98489b5bf8
+  languageName: node
+  linkType: hard
+
 "icss-utils@npm:^5.0.0, icss-utils@npm:^5.1.0":
   version: 5.1.0
   resolution: "icss-utils@npm:5.1.0"
@@ -14238,7 +14270,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:8.2.6, inquirer@npm:^8.2.6":
+"inquirer@npm:8.2.6":
   version: 8.2.6
   resolution: "inquirer@npm:8.2.6"
   dependencies:
@@ -14258,6 +14290,29 @@ __metadata:
     through: ^2.3.6
     wrap-ansi: ^6.0.1
   checksum: 387ffb0a513559cc7414eb42c57556a60e302f820d6960e89d376d092e257a919961cd485a1b4de693dbb5c0de8bc58320bfd6247dfd827a873aa82a4215a240
+  languageName: node
+  linkType: hard
+
+"inquirer@npm:^8.2.6":
+  version: 8.2.7
+  resolution: "inquirer@npm:8.2.7"
+  dependencies:
+    "@inquirer/external-editor": ^1.0.0
+    ansi-escapes: ^4.2.1
+    chalk: ^4.1.1
+    cli-cursor: ^3.1.0
+    cli-width: ^3.0.0
+    figures: ^3.0.0
+    lodash: ^4.17.21
+    mute-stream: 0.0.8
+    ora: ^5.4.1
+    run-async: ^2.4.0
+    rxjs: ^7.5.5
+    string-width: ^4.1.0
+    strip-ansi: ^6.0.0
+    through: ^2.3.6
+    wrap-ansi: ^6.0.1
+  checksum: b7e39a04da31207826f675e2ff491bd35bb28efbe336e8fb49641d8353d4a312943514452fb0a23702e64f70c7e44188586880c902d67541aae579cd6564c3fb
   languageName: node
   linkType: hard
 
@@ -15041,16 +15096,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jackspeak@npm:^2.3.6":
-  version: 2.3.6
-  resolution: "jackspeak@npm:2.3.6"
+"jackspeak@npm:^3.1.2":
+  version: 3.4.3
+  resolution: "jackspeak@npm:3.4.3"
   dependencies:
     "@isaacs/cliui": ^8.0.2
     "@pkgjs/parseargs": ^0.11.0
   dependenciesMeta:
     "@pkgjs/parseargs":
       optional: true
-  checksum: 57d43ad11eadc98cdfe7496612f6bbb5255ea69fe51ea431162db302c2a11011642f50cfad57288bd0aea78384a0612b16e131944ad8ecd09d619041c8531b54
+  checksum: be31027fc72e7cc726206b9f560395604b82e0fddb46c4cbf9f97d049bcef607491a5afc0699612eaa4213ca5be8fd3e1e7cd187b3040988b65c9489838a7c00
   languageName: node
   linkType: hard
 
@@ -15696,25 +15751,25 @@ __metadata:
   linkType: hard
 
 "js-yaml@npm:^3.10.0, js-yaml@npm:^3.13.1":
-  version: 3.14.1
-  resolution: "js-yaml@npm:3.14.1"
+  version: 3.14.2
+  resolution: "js-yaml@npm:3.14.2"
   dependencies:
     argparse: ^1.0.7
     esprima: ^4.0.0
   bin:
     js-yaml: bin/js-yaml.js
-  checksum: bef146085f472d44dee30ec34e5cf36bf89164f5d585435a3d3da89e52622dff0b188a580e4ad091c3341889e14cb88cac6e4deb16dc5b1e9623bb0601fc255c
+  checksum: 626fc207734a3452d6ba84e1c8c226240e6d431426ed94d0ab043c50926d97c509629c08b1d636f5d27815833b7cfd225865631da9fb33cb957374490bf3e90b
   languageName: node
   linkType: hard
 
 "js-yaml@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "js-yaml@npm:4.1.0"
+  version: 4.1.1
+  resolution: "js-yaml@npm:4.1.1"
   dependencies:
     argparse: ^2.0.1
   bin:
     js-yaml: bin/js-yaml.js
-  checksum: c7830dfd456c3ef2c6e355cc5a92e6700ceafa1d14bba54497b34a99f0376cecbb3e9ac14d3e5849b426d5a5140709a66237a8c991c675431271c4ce5504151a
+  checksum: ea2339c6930fe048ec31b007b3c90be2714ab3e7defcc2c27ebf30c74fd940358f29070b4345af0019ef151875bf3bc3f8644bea1bab0372652b5044813ac02d
   languageName: node
   linkType: hard
 
@@ -17472,7 +17527,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:9.0.3, minimatch@npm:^9.0.1":
+"minimatch@npm:9.0.3":
   version: 9.0.3
   resolution: "minimatch@npm:9.0.3"
   dependencies:
@@ -17573,7 +17628,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minipass@npm:^5.0.0 || ^6.0.2 || ^7.0.0, minipass@npm:^7.0.4":
+"minipass@npm:^5.0.0 || ^6.0.2 || ^7.0.0, minipass@npm:^7.1.2":
   version: 7.1.2
   resolution: "minipass@npm:7.1.2"
   checksum: 2bfd325b95c555f2b4d2814d49325691c7bee937d753814861b0b49d5edcda55cbbf22b6b6a60bb91eddac8668771f03c5ff647dcd9d0f798e9548b9cdc46ee3
@@ -18363,6 +18418,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"package-json-from-dist@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "package-json-from-dist@npm:1.0.1"
+  checksum: 58ee9538f2f762988433da00e26acc788036914d57c71c246bf0be1b60cdbd77dd60b6a3e1a30465f0b248aeb80079e0b34cb6050b1dfa18c06953bb1cbc7602
+  languageName: node
+  linkType: hard
+
 "package-json@npm:^8.1.0":
   version: 8.1.1
   resolution: "package-json@npm:8.1.1"
@@ -18580,13 +18642,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-scurry@npm:^1.11.0":
-  version: 1.11.0
-  resolution: "path-scurry@npm:1.11.0"
+"path-scurry@npm:^1.11.1":
+  version: 1.11.1
+  resolution: "path-scurry@npm:1.11.1"
   dependencies:
     lru-cache: ^10.2.0
     minipass: ^5.0.0 || ^6.0.2 || ^7.0.0
-  checksum: 79732c6a4d989846632d3ff8a441fabb8ea197ecdc7f328ea0f1694d611ed9bd3f0c940582d91c7dd108a29898866212a359d1a9b92ca69c4dbb16ebeae86b73
+  checksum: 890d5abcd593a7912dcce7cf7c6bf7a0b5648e3dee6caf0712c126ca0a65c7f3d7b9d769072a4d1baf370f61ce493ab5b038d59988688e0c5f3f646ee3c69023
   languageName: node
   linkType: hard
 
