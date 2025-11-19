@@ -135,8 +135,6 @@ jobs:
         run: |
           git config user.email ${{ secrets.GH_EMAIL }}
           git config user.name ${{ secrets.GH_USER }}
-          # Reset .yarnrc.yml to prevent committing
-          git checkout -- .yarnrc.yml
 
       - name: Store initial commit SHA
         id: initial-sha
