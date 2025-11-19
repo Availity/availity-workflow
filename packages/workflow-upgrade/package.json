@@ -8,7 +8,7 @@
   "main": "bin.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/availity/availity-workflow.git"
+    "url": "git+https://github.com/Availity/availity-workflow.git"
   },
   "scripts": {
     "generateChangelog": "yarn changelog:generate --tag-prefix $npm_package_name --lerna-package $npm_package_name",

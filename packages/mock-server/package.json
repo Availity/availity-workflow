@@ -3,6 +3,10 @@
   "version": "9.1.0",
   "description": "Mock server simulating Availity API rest services",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Availity/availity-workflow.git"
+  },
   "scripts": {
     "generateChangelog": "yarn changelog:generate --tag-prefix $npm_package_name --lerna-package $npm_package_name",
     "generateTag": "yarn exec git tag --message \"${npm_package_name}@${npm_package_version}\" --annotate \"${npm_package_name}@${npm_package_version}\"",
