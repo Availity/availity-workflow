@@ -163,6 +163,7 @@ jobs:
       - name: Publish
         if: steps.changes.outputs.has_changes == 'true'
         run: |
+          yarn config set npmAuthToken "${NODE_AUTH_TOKEN}"
           yarn nx affected --target publish --parallel=1
 
       - name: Create Release PR
