@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.2.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow-upgrade@7.2.2...@availity/workflow-upgrade@7.2.3) (2025-11-21)
+
+### Dependency Updates
+
+* `workflow-logger` updated to version `7.2.2`
+
+
 ## [7.2.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow-upgrade@7.2.1...@availity/workflow-upgrade@7.2.2) (2025-11-21)
 
 ### Dependency Updates
