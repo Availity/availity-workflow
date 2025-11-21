@@ -14,7 +14,7 @@
     "generateChangelog": "yarn changelog:generate --tag-prefix $npm_package_name --lerna-package $npm_package_name",
     "generateTag": "yarn exec git tag --message \"${npm_package_name}@${npm_package_version}\" --annotate \"${npm_package_name}@${npm_package_version}\"",
     "start": "node bin.js",
-    "publish": "yarn npm publish --tolerate-republish --access public",
+    "publish": "npm view $npm_package_name@$npm_package_version >/dev/null 2>&1 || npm publish --access public",
     "publish:canary": "yarn npm publish --access public --tag canary"
   },
   "keywords": [
