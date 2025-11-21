@@ -160,10 +160,15 @@ jobs:
             echo "New commits created by version step"
           fi
 
+      - name: Setup NPM Auth for Yarn
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          echo "::add-mask::${NODE_AUTH_TOKEN}"
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+          
       - name: Publish
         if: steps.changes.outputs.has_changes == 'true'
-        env:
-          YARN_NPM_AUTH_TOKEN: ${{ env.NODE_AUTH_TOKEN }}
         run: |
           yarn nx affected --target publish --parallel=1
 
