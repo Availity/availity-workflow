@@ -1,6 +1,6 @@
 {
   "name": "@availity/workflow-logger",
-  "version": "7.1.1",
+  "version": "7.1.2",
   "description": "Simple colorized logger for @availity/workflow",
   "main": "index.js",
   "scripts": {
