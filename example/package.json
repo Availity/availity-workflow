@@ -39,12 +39,12 @@
     "@tanstack/react-query": "^4.36.1",
     "axios": "^1.13.2",
     "classnames": "^2.5.1",
-    "formik": "^2.4.6",
+    "formik": "^2.4.9",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-hook-form": "^7.56.1",
-    "yup": "^1.6.1"
+    "react-hook-form": "^7.67.0",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@availity/workflow": "workspace:*",
@@ -56,7 +56,7 @@
     "@types/yup": "^0.32.0",
     "cross-env": "^7.0.3",
     "esbuild-loader": "^3.2.0",
-    "eslint-config-availity": "^10.0.7",
+    "eslint-config-availity": "^10.0.9",
     "jest": "^27.5.1",
     "jest-dom": "^4.0.0",
     "jest-junit": "^16.0.0",
