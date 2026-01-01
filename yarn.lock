@@ -376,7 +376,7 @@ __metadata:
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     react-hook-form: "npm:^7.56.1"
-    typescript: "npm:5.7.3"
+    typescript: "npm:5.9.3"
     yup: "npm:^1.6.1"
   languageName: unknown
   linkType: soft
@@ -5342,9 +5342,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jscutlery/semver@npm:^5.6.0":
-  version: 5.6.0
-  resolution: "@jscutlery/semver@npm:5.6.0"
+"@jscutlery/semver@npm:^5.7.1":
+  version: 5.7.1
+  resolution: "@jscutlery/semver@npm:5.7.1"
   dependencies:
     chalk: "npm:4.1.2"
     conventional-changelog: "npm:^5.1.0"
@@ -5362,10 +5362,10 @@ __metadata:
     detect-indent: "npm:6.1.0"
     git-semver-tags: "npm:^7.0.1"
     inquirer: "npm:8.2.6"
-    rxjs: "npm:7.8.1"
+    rxjs: "npm:7.8.2"
   peerDependencies:
-    "@nx/devkit": ^18.0.0 || ^19.0.0 || ^20.0.0
-  checksum: 10/6ff7d8b98ac1ba0f403f8275ed02763213e236e65be8918cec017a6f848e32566b46ed629a089303bd5d650bfc5f530113157805cf535082761d47dff45d49d2
+    "@nx/devkit": ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
+  checksum: 10/ca6f008e8a12c3847a1386d3d92dbab27a615c416acfb7b5db5c3d68eaf0a06e38656a1e9f8153cab59eccda9417a2b939822af5f95da3347668a7eef2e04ca1
   languageName: node
   linkType: hard
 
@@ -8414,7 +8414,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.8.0"
     "@commitlint/config-angular": "npm:^19.8.0"
     "@commitlint/config-conventional": "npm:^19.8.0"
-    "@jscutlery/semver": "npm:^5.6.0"
+    "@jscutlery/semver": "npm:^5.7.1"
     "@nx/js": "npm:20.8.1"
     "@nx/workspace": "npm:20.8.1"
     "@types/is-ci": "npm:^3.0.4"
@@ -8428,8 +8428,8 @@ __metadata:
     jest: "npm:^27.5.1"
     lint-staged: "npm:^15.5.2"
     nx: "npm:20.8.1"
-    prettier: "npm:^3.5.3"
-    typescript: "npm:5.7.3"
+    prettier: "npm:^3.7.4"
+    typescript: "npm:5.9.3"
   languageName: unknown
   linkType: soft
 
@@ -19996,12 +19996,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.5.3":
-  version: 3.5.3
-  resolution: "prettier@npm:3.5.3"
+"prettier@npm:^3.7.4":
+  version: 3.7.4
+  resolution: "prettier@npm:3.7.4"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/7050c08f674d9e49fbd9a4c008291d0715471f64e94cc5e4b01729affce221dfc6875c8de7e66b728c64abc9352eefb7eaae071b5f79d30081be207b53774b78
+  checksum: 10/b4d00ea13baed813cb777c444506632fb10faaef52dea526cacd03085f01f6db11fc969ccebedf05bf7d93c3960900994c6adf1b150e28a31afd5cfe7089b313
   languageName: node
   linkType: hard
 
@@ -21321,16 +21321,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:7.8.1":
-  version: 7.8.1
-  resolution: "rxjs@npm:7.8.1"
-  dependencies:
-    tslib: "npm:^2.1.0"
-  checksum: 10/b10cac1a5258f885e9dd1b70d23c34daeb21b61222ee735d2ec40a8685bdca40429000703a44f0e638c27a684ac139e1c37e835d2a0dc16f6fc061a138ae3abb
-  languageName: node
-  linkType: hard
-
-"rxjs@npm:^7.2.0, rxjs@npm:^7.5.5":
+"rxjs@npm:7.8.2, rxjs@npm:^7.2.0, rxjs@npm:^7.5.5":
   version: 7.8.2
   resolution: "rxjs@npm:7.8.2"
   dependencies:
@@ -23158,23 +23149,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.7.3":
-  version: 5.7.3
-  resolution: "typescript@npm:5.7.3"
+"typescript@npm:5.9.3":
+  version: 5.9.3
+  resolution: "typescript@npm:5.9.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10/6a7e556de91db3d34dc51cd2600e8e91f4c312acd8e52792f243c7818dfadb27bae677175fad6947f9c81efb6c57eb6b2d0c736f196a6ee2f1f7d57b74fc92fa
+  checksum: 10/c089d9d3da2729fd4ac517f9b0e0485914c4b3c26f80dc0cffcb5de1719a17951e92425d55db59515c1a7ddab65808466debb864d0d56dcf43f27007d0709594
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>":
-  version: 5.7.3
-  resolution: "typescript@patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>::version=5.7.3&hash=5786d5"
+"typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>":
+  version: 5.9.3
+  resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10/dc58d777eb4c01973f7fbf1fd808aad49a0efdf545528dab9b07d94fdcb65b8751742804c3057e9619a4627f2d9cc85547fdd49d9f4326992ad0181b49e61d81
+  checksum: 10/696e1b017bc2635f4e0c94eb4435357701008e2f272f553d06e35b494b8ddc60aa221145e286c28ace0c89ee32827a28c2040e3a69bdc108b1a5dc8fb40b72e3
   languageName: node
   linkType: hard
 
