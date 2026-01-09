@@ -39,8 +39,9 @@
     "@babel/preset-typescript": "^7.28.5",
     "@babel/runtime": "^7.28.4",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.16",
-    "@testing-library/jest-dom": "^5.17.0",
-    "babel-jest": "^27.5.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "babel-jest": "^30.2.0",
     "babel-loader": "^9.2.1",
     "babel-plugin-jsx-remove-data-test-id": "3.0.0",
     "babel-plugin-root-import": "^6.6.0",
@@ -69,7 +70,7 @@
     "imports-loader": "^4.0.1",
     "inquirer": "^8.2.6",
     "is-valid-path": "^0.1.1",
-    "jest": "^27.5.1",
+    "jest": "^30.2.0",
     "joi": "^17.13.3",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.9.2",
@@ -110,7 +111,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@testing-library/react": "^14.3.1",
+    "@testing-library/react": "^16.3.1",
     "@types/babel__preset-env": "^7.10.0",
     "@types/sass": "^1.45.0"
   },
