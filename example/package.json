@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@availity/workflow": "workspace:*",
-    "@testing-library/react": "^16.3.1",
+    "@testing-library/react": "^16.3.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.14.1",
     "@types/react": "^18.3.21",
@@ -61,7 +61,7 @@
     "jest-dom": "^4.0.0",
     "jest-environment-jsdom": "^30.2.0",
     "jest-junit": "^16.0.0",
-    "typescript": "5.7.3"
+    "typescript": "5.9.3"
   },
   "lint-staged": {
     "*.(js|ts|jsx|tsx)": [
