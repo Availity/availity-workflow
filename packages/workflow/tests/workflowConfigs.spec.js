@@ -1,3 +1,5 @@
+import { vi } from 'vitest';
+
 const settings = require('../settings');
 const baseConfig = require('../webpack.config');
 const prodConfig = require('../webpack.config.production');
@@ -7,7 +9,7 @@ const NOW = '2023-03-28T16:07:07.909Z';
 
 describe('webpack configs', () => {
   beforeAll(async () => {
-    jest.spyOn(global.Date.prototype, 'toJSON').mockImplementation(() => NOW);
+    vi.spyOn(global.Date.prototype, 'toJSON').mockImplementation(() => NOW);
     await settings.init();
   });
 

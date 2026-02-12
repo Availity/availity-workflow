@@ -8,37 +8,31 @@ updates:
     open-pull-requests-limit: 10
     groups:
       dependencies:
-        dependency-type: "production"
+        dependency-type: 'production'
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'
       dev-dependencies:
-        dependency-type: "development"
+        dependency-type: 'development'
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'
       commitlint:
         patterns:
-          - "@commitlint/*"
+          - '@commitlint/*'
         update-types:
-          - "major"
+          - 'major'
       conventional-changelog:
         patterns:
-          - "conventional-changelog-*"
+          - 'conventional-changelog-*'
         update-types:
-          - "major"
-      jest:
-        patterns:
-          - "jest"
-          - "*jest*"
-        update-types:
-          - "major"
+          - 'major'
       nx:
         patterns:
-          - "nx"
-          - "@nx/*"
+          - 'nx'
+          - '@nx/*'
         update-types:
-          - "major"
+          - 'major'
     ignore:
       - dependency-name: '@testing-library/react'
         versions:
