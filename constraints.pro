@@ -11,5 +11,5 @@ gen_enforced_dependency(WorkspaceCwd, DependencyIdent, DependencyRange2, Depende
   workspace_has_dependency(OtherWorkspaceCwd, DependencyIdent, DependencyRange2, DependencyType2),
   DependencyRange \= DependencyRange2.
 
-gen_enforced_dependency(WorkspaceCwd, 'lodash', '^4.17.21', DependencyType) :-
+gen_enforced_dependency(WorkspaceCwd, 'lodash', '^4.17.23', DependencyType) :-
   workspace_has_dependency(WorkspaceCwd, 'lodash', _, DependencyType).
