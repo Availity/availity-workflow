@@ -247,6 +247,19 @@ const settings = {
       globals: args.globals
     });
 
+    // Handle --bundler and --test-runner CLI args
+    if (args.bundler) {
+      this.configuration.bundler = args.bundler;
+    }
+    if (args.testRunner) {
+      this.configuration.testRunner = args.testRunner;
+    }
+
+    // Auto-set testRunner to vitest when bundler is vite (unless explicitly overridden)
+    if (this.configuration.bundler === 'vite' && !args.testRunner && this.configuration.testRunner === 'jest') {
+      this.configuration.testRunner = 'vitest';
+    }
+
     try {
       this.globals();
     } catch (error) {
@@ -452,6 +465,22 @@ const settings = {
   // webpack docs default experiments to false, but that causes build errors
   experimentalWebpackFeatures() {
     return get(this.configuration, 'experiments', {});
+  },
+
+  bundler() {
+    return get(this.configuration, 'bundler', 'webpack');
+  },
+
+  testRunner() {
+    return get(this.configuration, 'testRunner', 'jest');
+  },
+
+  isVite() {
+    return this.bundler() === 'vite';
+  },
+
+  isWebpack() {
+    return this.bundler() === 'webpack';
   }
 };
 

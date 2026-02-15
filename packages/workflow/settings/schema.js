@@ -161,7 +161,18 @@ const schema = Joi.object()
         failOnError: Joi.boolean()
       })
       .unknown()
-      .default({ failOnError: true })
+      .default({ failOnError: true }),
+    bundler: Joi.string()
+      .valid('webpack', 'vite')
+      .default('webpack')
+      .description('Which bundler to use: webpack (default) or vite'),
+    testRunner: Joi.string()
+      .valid('jest', 'vitest')
+      .default('jest')
+      .description('Which test runner to use: jest (default) or vitest. Auto-set to vitest when bundler is vite'),
+    modifyViteConfig: Joi.function()
+      .optional()
+      .description('Function to modify the Vite configuration. Receives (viteConfig, settings) and should return modified config')
   })
   .unknown();
 

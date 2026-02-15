@@ -41,6 +41,18 @@ yargs
 
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
 
+  .option('bundler', {
+    describe: 'Which bundler to use',
+    choices: ['webpack', 'vite'],
+    global: true
+  })
+
+  .option('test-runner', {
+    describe: 'Which test runner to use',
+    choices: ['jest', 'vitest'],
+    global: true
+  })
+
   .command('start', `${chalk.dim('Start the development server')}`, async () => {
     try {
       await settings.init();

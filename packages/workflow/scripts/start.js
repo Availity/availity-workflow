@@ -206,6 +206,44 @@ function web() {
   });
 }
 
+async function webVite() {
+  const { createServer } = require('vite');
+  const buildViteConfig = require('../vite.config');
+
+  let viteConfig = buildViteConfig(settings);
+
+  const { modifyViteConfig } = settings.config();
+  if (typeof modifyViteConfig === 'function') {
+    viteConfig = modifyViteConfig(viteConfig, settings) || viteConfig;
+  }
+
+  try {
+    Logger.info('Starting Vite development server');
+    const viteServer = await createServer(viteConfig);
+    await viteServer.listen();
+
+    const wantedPort = settings.config().development.port;
+    const actualPort = settings.port();
+    const differentPort = wantedPort !== actualPort;
+    const uri = `http://${settings.host()}:${actualPort}/`;
+
+    Logger.box(
+      `The app ${chalk.yellow(settings.pkg().name)} is running at ${chalk.green(uri)}${
+        differentPort
+          ? `\n${chalk.yellow.bold('Warning:')} Port ${chalk.blue(wantedPort)} was already in use so we used ${chalk.blue(actualPort)}.`
+          : ''
+      }`
+    );
+
+    viteServer.printUrls();
+    Logger.info('Started Vite development server');
+  } catch (error) {
+    Logger.failed('Failed to start Vite development server');
+    Logger.failed(error);
+    throw error;
+  }
+}
+
 async function start() {
   process.on('unhandledRejection', (reason) => {
     if (reason && reason.stack) {
@@ -216,7 +254,11 @@ async function start() {
 
   try {
     init();
-    await web();
+    if (settings.isVite()) {
+      await webVite();
+    } else {
+      await web();
+    }
     // TODO: implement an update-notifier
     // await notifier();
     await rest();

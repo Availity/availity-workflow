@@ -10,7 +10,7 @@ const webpackConfigProfile = require('../webpack.config.profile');
 const webpackConfigProduction = require('../webpack.config.production');
 const customStats = require('./stats');
 
-function bundle({ profile, settings }) {
+function bundleWebpack({ profile, settings }) {
   return new Promise((resolve, reject) => {
     if (!settings.isDryRun()) {
       Logger.success(`Cleaning directories ${settings.output()}`);
@@ -98,6 +98,45 @@ ${statistics}
       resolve();
     });
   });
+}
+
+async function bundleVite({ settings }) {
+  const { build } = require('vite');
+  const buildViteProductionConfig = require('../vite.config.production');
+
+  if (!settings.isDryRun()) {
+    Logger.success(`Cleaning directories ${settings.output()}`);
+    del.sync([settings.output()]);
+  }
+
+  let viteConfig = buildViteProductionConfig(settings);
+
+  const { modifyViteConfig } = settings.config();
+  if (typeof modifyViteConfig === 'function') {
+    viteConfig = modifyViteConfig(viteConfig, settings) || viteConfig;
+  }
+
+  Logger.info('Started compiling with Vite');
+  const spinner = ora('Running Vite build');
+  spinner.color = 'yellow';
+  spinner.start();
+
+  try {
+    await build(viteConfig);
+    spinner.stop();
+    Logger.success('Finished compiling with Vite');
+  } catch (error) {
+    spinner.stop();
+    Logger.failed('Failed to build with Vite');
+    throw error;
+  }
+}
+
+function bundle({ profile, settings }) {
+  if (settings.isVite()) {
+    return bundleVite({ settings });
+  }
+  return bundleWebpack({ profile, settings });
 }
 
 module.exports = bundle;
