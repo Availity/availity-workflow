@@ -1,9 +1,9 @@
-const express = require('express');
-const http = require('http');
-const chalk = require('chalk');
-const logger = require('./logger');
-const config = require('./config');
-const middleware = require('./middleware');
+import express from 'express';
+import http from 'http';
+import chalk from 'chalk';
+import logger from './logger/index.js';
+import config from './config/index.js';
+import middleware from './middleware/index.js';
 
 class Ekko {
   constructor(ekkoConfig) {
@@ -18,9 +18,9 @@ class Ekko {
     }
   }
 
-  middleware(options) {
+  async middleware(options) {
     config.path = this.configPath;
-    config.set(options);
+    await config.set(options);
 
     config.app = express();
     config.router = new express.Router();
@@ -32,7 +32,7 @@ class Ekko {
   }
 
   async start(options) {
-    this.middleware(options);
+    await this.middleware(options);
 
     const port = config.options.port || 0;
     const host = config.options.host || 'localhost';
@@ -77,4 +77,4 @@ class Ekko {
   }
 }
 
-module.exports = Ekko;
+export default Ekko;

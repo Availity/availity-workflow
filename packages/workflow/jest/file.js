@@ -1,8 +1,8 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/config/jest/fileTransform.js
 
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+export default {
   process(src, filename) {
     return {
       code: `module.exports = ${JSON.stringify(path.basename(filename))};`

@@ -1,5 +1,5 @@
-const request = require('superagent');
-const helper = require('../../tests/helpers');
+import request from 'superagent';
+import helper from '../../tests/helpers.js';
 
 describe('Behavior', () => {
   helper.serverSpecHelper();

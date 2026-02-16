@@ -1,14 +1,17 @@
 /* eslint-disable unicorn/no-process-exit */
 /* eslint-disable import/no-dynamic-require */
-const validateProjectName = require('validate-npm-package-name');
-const yargs = require('yargs');
-const chalk = require('chalk');
-const fs = require('fs-extra');
-const path = require('path');
-const spawn = require('cross-spawn');
-const os = require('os');
-const Logger = require('@availity/workflow-logger');
-const cloneStarter = require('./clone-starter');
+import { createRequire } from 'module';
+import validateProjectName from 'validate-npm-package-name';
+import yargsFactory from 'yargs';
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
+import { spawnSync } from 'child_process';
+import os from 'os';
+import Logger from '@availity/workflow-logger';
+import cloneStarter from './clone-starter.js';
+
+const require = createRequire(import.meta.url);
 
 function printValidationResults(results) {
   if (results !== undefined) {
@@ -47,7 +50,7 @@ function checkThatWeCanReadCwd(installer) {
     // `npm config list` is the only reliable way I could find
     // to reproduce the wrong path. Just printing process.cwd()
     // in a Node process was not enough.
-    childOutput = spawn.sync(`${installer}`, ['config', 'list']).output.join('');
+    childOutput = spawnSync(installer, ['config', 'list'], { shell: true }).output.join('');
   } catch {
     // Something went wrong spawning node.
     // Not great, but it means we can't do this check.
@@ -128,7 +131,7 @@ function installDeps(installer) {
   }
 
   // Install Dependencies
-  const proc = spawn.sync(`${installer}`, installArgs, { stdio: 'inherit' });
+  const proc = spawnSync(installer, installArgs, { stdio: 'inherit', shell: true });
   if (proc.status !== 0) {
     Logger.failed(`${installer} install failed`);
   }
@@ -195,7 +198,7 @@ async function run({ appPath, appName, originalDirectory, template, installer, b
         // This remove all of knownGeneratedFiles.
         if (file === fileToMatch) {
           Logger.info(`Deleting generated file... ${chalk.cyan(file)}`);
-          fs.removeSync(path.join(appPath, file));
+          fs.rmSync(path.join(appPath, file), { recursive: true, force: true });
         }
       }
     }
@@ -204,7 +207,7 @@ async function run({ appPath, appName, originalDirectory, template, installer, b
       // Delete target folder if empty
       Logger.info(`Deleting ${chalk.cyan(`${appName}/`)} from ${chalk.cyan(path.resolve(appPath, '..'))}`);
       process.chdir(path.resolve(appPath, '..'));
-      fs.removeSync(path.join(appPath));
+      fs.rmSync(path.join(appPath), { recursive: true, force: true });
     }
     Logger.info('Done.');
     process.exit(1);
@@ -219,7 +222,7 @@ function createApp({ projectName: name, currentDir, template, useNpm, branchOver
   checkAppName(appName);
 
   if (!currentDir) {
-    fs.ensureDirSync(name);
+    fs.mkdirSync(name, { recursive: true });
   }
 
   Logger.info(`Creating a new Availity app in ${chalk.green(appPath)}.`);
@@ -234,6 +237,7 @@ function createApp({ projectName: name, currentDir, template, useNpm, branchOver
   run({ appPath, appName, originalDirectory, template, installer, branchOverride });
 }
 /* eslint-disable no-unused-expressions */
+const yargs = yargsFactory(process.argv.slice(2));
 yargs
   .command(
     'init <projectName> [options]',
@@ -270,6 +274,4 @@ yargs
   )
   .example(chalk.yellow('av init my-app-name'));
 
-module.exports = {
-  createApp
-};
+export { createApp };

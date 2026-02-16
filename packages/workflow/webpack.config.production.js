@@ -1,21 +1,16 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const fs = require('fs');
-const merge = require('lodash/merge');
-const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
-const paths = require('./helpers/paths');
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import fs from 'fs';
+import deepMerge from './helpers/deep-merge.js';
+import path from 'path';
+import TerserPlugin from 'terser-webpack-plugin';
+import paths from './helpers/paths.js';
 
-const loaders = require('./loaders');
-const conf = require('./webpack.config');
-
-const { buildBaseConfig } = conf;
+import loaders from './loaders/index.js';
+import { buildBaseConfig } from './webpack.config.js';
 
 process.noDeprecation = true;
 
-// Override user's potential browserslist config to ensure portal support here
-// This is needed in addition to config.target below so that browserslist queries inside
-// react-app-polyfill/stable and core-js provide everything needed
 process.env.BROWSERSLIST = 'defaults';
 
 const plugin = (settings) => {
@@ -238,9 +233,9 @@ const plugin = (settings) => {
     );
   }
 
-  const config = merge({}, baseConfig, overrides);
+  const config = deepMerge({}, baseConfig, overrides);
 
   return config;
 };
 
-module.exports = plugin;
+export default plugin;

@@ -1,6 +1,9 @@
-const Logger = require('@availity/workflow-logger');
-const chalk = require('chalk');
-const envinfo = require('envinfo');
+import { createRequire } from 'module';
+import Logger from '@availity/workflow-logger';
+import chalk from 'chalk';
+import envinfo from 'envinfo';
+
+const require = createRequire(import.meta.url);
 const pkg = require('../package.json');
 
 const version = chalk.bold.yellow(`v${pkg.version}`);
@@ -54,4 +57,4 @@ function about() {
   );
 }
 
-module.exports = about;
+export default about;

@@ -1,12 +1,8 @@
 /* eslint-disable unicorn/no-this-assignment */
-const difference = require('lodash/difference');
-const each = require('lodash/each');
-const get = require('lodash/get');
-const intersection = require('lodash/intersection');
-const isArray = require('lodash/isArray');
-const isEmpty = require('lodash/isEmpty');
-const isObject = require('lodash/isObject');
-const toArray = require('lodash/toArray');
+
+function getByPath(obj, path) {
+  return path.split('.').reduce((acc, key) => acc?.[key], obj);
+}
 
 const match = {
   scoreHeaders(score, _request, headers) {
@@ -14,8 +10,10 @@ const match = {
 
     const reqHeaders = _request.headers;
 
-    each(reqHeaders, (_headerValue, _headerKey) => {
-      const headerValue = get(headers, _headerKey);
+    if (!reqHeaders) return score;
+
+    for (const [_headerKey, _headerValue] of Object.entries(reqHeaders)) {
+      const headerValue = headers[_headerKey];
 
       if (_headerValue === headerValue) {
         score.hits += 1; // values are equal
@@ -24,7 +22,7 @@ const match = {
       } else {
         score.valid = false;
       }
-    });
+    }
 
     return score;
   },
@@ -58,12 +56,12 @@ const match = {
   scoreArray(score, _paramValue, __paramValue) {
     // Note: variables prefixed with "_" underscore signify config object|key|value
 
-    const paramValue = toArray(__paramValue);
+    const paramValue = __paramValue == null ? [] : Array.from(__paramValue);
 
-    const hits = intersection(_paramValue, paramValue);
+    const hits = _paramValue.filter(x => paramValue.includes(x));
     score.hits += hits.length;
 
-    const misses = difference(_paramValue, paramValue);
+    const misses = _paramValue.filter(x => !paramValue.includes(x));
     score.misses += misses.length;
 
     return score;
@@ -82,17 +80,19 @@ const match = {
 
     const reqParams = _request.params;
 
-    each(reqParams, (value, key) => {
-      const paramValue = method === 'get' ? params[key] : get(params, key);
+    if (!reqParams) return score;
 
-      if (isArray(value)) {
+    for (const [key, value] of Object.entries(reqParams)) {
+      const paramValue = method === 'get' ? params[key] : getByPath(params, key);
+
+      if (Array.isArray(value)) {
         self.scoreArray(score, value, paramValue);
-      } else if (isObject(value) && value.pattern) {
+      } else if (typeof value === 'object' && value !== null && value.pattern) {
         self.scorePattern(score, value, paramValue);
       } else {
         self.scoreParam(score, value, paramValue);
       }
-    });
+    }
 
     return score;
   },
@@ -112,7 +112,7 @@ const match = {
     const method = req.method.toLowerCase();
     const requests = route.methods[method];
 
-    const params = isEmpty(req.query) ? req.body : req.query;
+    const params = Object.keys(req.query).length === 0 ? req.body : req.query;
     // const headers = req.headers;
 
     const topScore = {
@@ -123,12 +123,12 @@ const match = {
     // set the default request
     [res.locals.request] = requests;
 
-    each(requests, (_request) => {
+    for (const _request of requests) {
       const score = self.scoreParams(_request, params, method);
       self.scoreHeaders(score, _request, req.headers);
 
       if (!score.valid) {
-        return;
+        continue;
       }
 
       // Top Score:
@@ -145,8 +145,8 @@ const match = {
         topScore.misses = score.misses;
         res.locals.request = _request;
       }
-    });
+    }
   }
 };
 
-module.exports = match;
+export default match;

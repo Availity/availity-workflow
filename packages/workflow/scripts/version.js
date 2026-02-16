@@ -1,13 +1,12 @@
-const fs = require('fs');
-const path = require('path');
-const shell = require('shelljs');
-const semver = require('semver');
-const inquirer = require('inquirer');
-const merge = require('lodash/merge');
-const moment = require('moment');
-const yargs = require('yargs');
-const Logger = require('@availity/workflow-logger');
-const settings = require('../settings');
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import semver from 'semver';
+import { rawlist, input, Separator } from '@inquirer/prompts';
+import deepMerge from '../helpers/deep-merge.js';
+import yargs from 'yargs';
+import Logger from '@availity/workflow-logger';
+import settings from '../settings/index.js';
 
 // Add a new line character to end of contents
 function newLine(contents) {
@@ -20,9 +19,9 @@ function tag() {
     const message = settings.commitMessage()
       ? `${settings.commitMessage()} v${settings.version}`
       : `v${settings.version}`;
-    shell.exec('git add --all');
-    shell.exec(`git commit -m "${message}"`);
-    shell.exec(`git tag -a "${message}" -m "${message}"`);
+    execSync('git add --all', { stdio: 'inherit' });
+    execSync(`git commit -m "${message}"`, { stdio: 'inherit' });
+    execSync(`git tag -a "${message}" -m "${message}"`, { stdio: 'inherit' });
   } else {
     Logger.message('Skipping git commands', 'Dry Run');
   }
@@ -34,7 +33,7 @@ function bump() {
   Logger.info('Starting version bump');
 
   if (!settings.isDistribution()) {
-    settings.version = moment().format();
+    settings.version = new Date().toISOString();
   }
 
   if (!settings.version) {
@@ -42,7 +41,7 @@ function bump() {
   }
 
   const pkg = settings.pkg();
-  merge(pkg, { version: settings.version });
+  pkg.version = settings.version;
 
   let contents = JSON.stringify(pkg, null, 2);
   contents = newLine(contents);
@@ -58,14 +57,15 @@ function bump() {
   return Promise.resolve(true);
 }
 
-function prompt() {
+async function prompt() {
   if (!settings.isDistribution()) {
     return Promise.resolve(true);
   }
 
   const { version } = settings.pkg();
   const parsed = semver.parse(version);
-  const versionArg = yargs.argv.version || yargs.argv._[1];
+  const yargsArgv = yargs(process.argv.slice(2)).argv;
+  const versionArg = yargsArgv.version || yargsArgv._[1];
 
   if (versionArg) {
     let error;
@@ -99,7 +99,7 @@ function prompt() {
       name: `major ( ${version} => ${semver.inc(simpleVersion, 'major')} )`,
       value: semver.inc(simpleVersion, 'major')
     },
-    new inquirer.Separator(),
+    new Separator(),
     { name: 'other', value: 'other' }
   ];
 
@@ -114,48 +114,33 @@ function prompt() {
         name: `release ( ${version} => ${simpleVersion} )`,
         value: simpleVersion
       },
-      new inquirer.Separator(),
+      new Separator(),
       { name: 'other', value: 'other' }
     ];
   }
 
-  const questions = [
-    {
-      type: 'rawlist',
-      name: 'bump',
-      message: 'What type of version bump would you like to do?',
-      choices
-    },
-    {
-      type: 'input',
-      name: 'version',
-      message: `version (current version is ${settings.pkg().version})`,
-      when(answer) {
-        return answer.bump === 'other';
-      },
-      filter(value) {
-        return semver.clean(value);
-      },
-      validate(value) {
-        const valid = semver.valid(value);
+  const bumpChoice = await rawlist({
+    message: 'What type of version bump would you like to do?',
+    choices
+  });
 
+  if (bumpChoice === 'other') {
+    const customVersion = await input({
+      message: `version (current version is ${settings.pkg().version})`,
+      validate(value) {
+        const valid = semver.valid(semver.clean(value));
         if (valid) {
           return true;
         }
-
         return 'Enter valid semver version. See https://docs.npmjs.com/misc/semver for more details.';
       }
-    }
-  ];
+    });
+    settings.version = semver.clean(customVersion);
+  } else {
+    settings.version = bumpChoice;
+  }
 
-  return inquirer.prompt(questions).then((answers) => {
-    settings.version = answers.bump !== 'other' ? answers.bump : answers.version;
-    return settings.version;
-  });
+  return settings.version;
 }
 
-module.exports = {
-  tag,
-  prompt,
-  bump
-};
+export { tag, prompt, bump };

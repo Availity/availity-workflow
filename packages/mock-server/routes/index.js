@@ -1,15 +1,17 @@
-const each = require('lodash/each');
-const forEach = require('lodash/forEach');
-const isArray = require('lodash/isArray');
-const keys = require('lodash/keys');
-const merge = require('lodash/merge');
-const fs = require('fs');
-const chalk = require('chalk');
+import deepMerge from '../helpers/deep-merge.js';
+import fs from 'fs';
+import chalk from 'chalk';
 
-const config = require('../config');
-const response = require('../response');
-const models = require('../models');
-const logger = require('../logger').getInstance();
+import { createRequire } from 'module';
+import config from '../config/index.js';
+import response from '../response/index.js';
+import models from '../models/index.js';
+import logger from '../logger/index.js';
+
+const require = createRequire(import.meta.url);
+const pkg = require('../package.json');
+
+const log = logger.getInstance();
 
 const { Route } = models;
 
@@ -25,7 +27,6 @@ const routes = {
 
     // Add default route.  Configurations should be allowed to override this if needed.
     router.get('/', (req, res) => {
-      const pkg = require('../package.json');
       res.send({
         name: pkg.name,
         description: pkg.description,
@@ -47,37 +48,36 @@ const routes = {
       this.routes(routePaths, dataPath);
     }
 
-    each(config.options.endpoints, (endpoint, url) => {
+    for (const [url, endpoint] of Object.entries(config.options.endpoints)) {
       const route = new Route(url, endpoint, endpoint.dataPath);
       self.add(route);
-    });
+    }
   },
 
   routes(routePaths, dataPath) {
     // support multiple directories for routes
-    routePaths = isArray(routePaths) ? routePaths : [routePaths];
+    routePaths = Array.isArray(routePaths) ? routePaths : [routePaths];
 
-    forEach(routePaths, (routePath) => {
+    for (const routePath of routePaths) {
       const contents = fs.readFileSync(routePath, 'utf8');
       const routeConfig = JSON.parse(contents);
 
-      each(routeConfig, (route) => {
+      for (const route of Object.values(routeConfig)) {
         route.dataPath = dataPath;
-      });
-      merge(config.options.endpoints, routeConfig);
-    });
+      }
+      deepMerge(config.options.endpoints, routeConfig);
+    }
   },
 
-  plugins() {
+  async plugins() {
     const plugins = config.options.plugins || [];
 
-    forEach(plugins, (plugin) => {
-      let pluginConfig = null;
-
-      pluginConfig = require(plugin);
-      logger.info(`Loading plugin ${chalk.blue(plugin)}`);
+    for (const plugin of plugins) {
+      const mod = await import(plugin);
+      const pluginConfig = mod.default;
+      log.info(`Loading plugin ${chalk.blue(plugin)}`);
       this.routes(pluginConfig.routes, pluginConfig.data);
-    });
+    }
   },
 
   /**
@@ -91,18 +91,18 @@ const routes = {
     // cache the route configuration
     config.cache[route.id] = route;
 
-    const methods = keys(route.methods);
+    const methods = Object.keys(route.methods);
     const { router } = config;
 
-    each(methods, (method) => {
+    for (const method of methods) {
       // builds get|post|put|delete routes like /v1/payers
       router[method](route.url, (req, res, next) => {
         // get from cache and attach to request local
         res.locals.route = config.cache[route.id];
         response.send(req, res, next);
       });
-    });
+    }
   }
 };
 
-module.exports = routes;
+export default routes;

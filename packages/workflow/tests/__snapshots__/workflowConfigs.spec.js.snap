@@ -1,30 +1,28 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`webpack configs sets up the default config with default settings 1`] = `
-Object {
-  "context": "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+exports[`webpack configs > sets up the default config with default settings 1`] = `
+{
+  "context": "<ROOT>/project/app",
   "devtool": "source-map",
-  "entry": Object {
-    "index": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/react-app-polyfill/stable.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app/index.js",
+  "entry": {
+    "index": [
+      "<ROOT>/project/app/index.js",
     ],
   },
-  "experiments": Object {},
-  "infrastructureLogging": Object {
+  "experiments": {},
+  "infrastructureLogging": {
     "level": "warn",
   },
   "mode": "development",
-  "module": Object {
-    "rules": Array [
-      Object {
-        "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]vfile\\[/\\\\\\\\\\]core\\\\\\.js/,
-        "use": Array [
-          Object {
+  "module": {
+    "rules": [
+      {
+        "test": {},
+        "use": [
+          {
             "loader": "imports-loader",
-            "options": Object {
-              "imports": Array [
+            "options": {
+              "imports": [
                 "single process/browser process",
               ],
               "type": "commonjs",
@@ -32,109 +30,90 @@ Object {
           },
         ],
       },
-      Object {
-        "include": Array [
-          "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
-          /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
+      {
+        "include": [
+          "<ROOT>/project/app",
+          {},
         ],
-        "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
-        "use": Array [
-          Object {
+        "test": {},
+        "use": [
+          {
             "loader": "esbuild-loader",
-            "options": Object {
+            "options": {
               "loader": "tsx",
               "target": "es2015",
             },
           },
         ],
       },
-      Object {
-        "resolve": Object {
+      {
+        "resolve": {
           "fullySpecified": false,
         },
-        "test": /\\\\\\.m\\?js/,
+        "test": {},
       },
-      Object {
-        "test": /\\\\\\.css\\$/,
-        "use": Array [
+      {
+        "test": {},
+        "use": [
           "style-loader",
-          Object {
+          {
             "loader": "css-loader",
-            "options": Object {
+            "options": {
               "importLoaders": 1,
               "sourceMap": true,
             },
           },
-          Object {
+          {
             "loader": "postcss-loader",
-            "options": Object {
-              "postcssOptions": Object {
-                "plugins": Array [
-                  Object {
-                    "Rule": [Function],
+            "options": {
+              "postcssOptions": {
+                "plugins": [
+                  {
                     "postcssPlugin": "postcss-focus",
                   },
-                  Object {
-                    "Once": [Function],
+                  {
                     "postcssPlugin": "postcss-flexbugs-fixes",
                   },
-                  Object {
-                    "plugins": Array [
-                      Object {
-                        "AtRule": Object {
-                          "custom-media": [Function],
-                          "media": [Function],
-                        },
+                  {
+                    "plugins": [
+                      {
+                        "AtRule": {},
                         "postcssPlugin": "postcss-media-minmax",
                       },
-                      Object {
-                        "Declaration": [Function],
+                      {
                         "postcssPlugin": "postcss-initial",
                       },
-                      Object {
-                        "Declaration": [Function],
+                      {
                         "postcssPlugin": "postcss-page-break",
                       },
-                      Object {
-                        "Once": [Function],
+                      {
                         "postcssPlugin": "postcss-font-variant",
                       },
-                      Object {
-                        "Declaration": [Function],
+                      {
                         "postcssPlugin": "postcss-gap-properties",
                       },
-                      Object {
-                        "Declaration": [Function],
+                      {
                         "postcssPlugin": "postcss-unset-value",
                       },
-                      Object {
+                      {
                         "postcssPlugin": "postcss-custom-properties",
-                        "prepare": [Function],
                       },
-                      Object {
+                      {
                         "postcssPlugin": "postcss-progressive-custom-properties",
-                        "prepare": [Function],
                       },
-                      Object {
-                        "browsers": undefined,
-                        "info": [Function],
-                        "options": Object {
-                          "env": undefined,
+                      {
+                        "options": {
                           "flexbox": "no-2009",
-                          "overrideBrowserslist": undefined,
                         },
                         "postcssPlugin": "autoprefixer",
-                        "prepare": [Function],
                       },
-                      Object {
-                        "OnceExit": [Function],
+                      {
                         "postcssPlugin": "postcss-preset-env",
                       },
                     ],
                     "postcssPlugin": "postcss-preset-env",
                   },
-                  Object {
-                    "OnceExit": [Function],
+                  {
                     "postcssPlugin": "postcss-reporter",
                   },
                 ],
@@ -144,86 +123,67 @@ Object {
           },
         ],
       },
-      Object {
-        "test": /\\\\\\.\\(scss\\|sass\\)\\$/,
-        "use": Array [
+      {
+        "test": {},
+        "use": [
           "style-loader",
-          Object {
+          {
             "loader": "css-loader",
-            "options": Object {
+            "options": {
               "sourceMap": true,
             },
           },
-          Object {
+          {
             "loader": "postcss-loader",
-            "options": Object {
-              "postcssOptions": Object {
-                "plugins": Array [
-                  Object {
-                    "Rule": [Function],
+            "options": {
+              "postcssOptions": {
+                "plugins": [
+                  {
                     "postcssPlugin": "postcss-focus",
                   },
-                  Object {
-                    "Once": [Function],
+                  {
                     "postcssPlugin": "postcss-flexbugs-fixes",
                   },
-                  Object {
-                    "plugins": Array [
-                      Object {
-                        "AtRule": Object {
-                          "custom-media": [Function],
-                          "media": [Function],
-                        },
+                  {
+                    "plugins": [
+                      {
+                        "AtRule": {},
                         "postcssPlugin": "postcss-media-minmax",
                       },
-                      Object {
-                        "Declaration": [Function],
+                      {
                         "postcssPlugin": "postcss-initial",
                       },
-                      Object {
-                        "Declaration": [Function],
+                      {
                         "postcssPlugin": "postcss-page-break",
                       },
-                      Object {
-                        "Once": [Function],
+                      {
                         "postcssPlugin": "postcss-font-variant",
                       },
-                      Object {
-                        "Declaration": [Function],
+                      {
                         "postcssPlugin": "postcss-gap-properties",
                       },
-                      Object {
-                        "Declaration": [Function],
+                      {
                         "postcssPlugin": "postcss-unset-value",
                       },
-                      Object {
+                      {
                         "postcssPlugin": "postcss-custom-properties",
-                        "prepare": [Function],
                       },
-                      Object {
+                      {
                         "postcssPlugin": "postcss-progressive-custom-properties",
-                        "prepare": [Function],
                       },
-                      Object {
-                        "browsers": undefined,
-                        "info": [Function],
-                        "options": Object {
-                          "env": undefined,
+                      {
+                        "options": {
                           "flexbox": "no-2009",
-                          "overrideBrowserslist": undefined,
                         },
                         "postcssPlugin": "autoprefixer",
-                        "prepare": [Function],
                       },
-                      Object {
-                        "OnceExit": [Function],
+                      {
                         "postcssPlugin": "postcss-preset-env",
                       },
                     ],
                     "postcssPlugin": "postcss-preset-env",
                   },
-                  Object {
-                    "OnceExit": [Function],
+                  {
                     "postcssPlugin": "postcss-reporter",
                   },
                 ],
@@ -231,280 +191,116 @@ Object {
               "sourceMap": true,
             },
           },
-          Object {
+          {
             "loader": "sass-loader",
-            "options": Object {
+            "options": {
               "sourceMap": true,
             },
           },
         ],
       },
-      Object {
-        "generator": Object {
+      {
+        "generator": {
           "filename": "fonts/[name].[ext]",
         },
-        "test": /font\\\\\\.\\(woff\\|woff2\\|eot\\|ttf\\|otf\\|svg\\)\\$/i,
+        "test": {},
         "type": "asset/resource",
       },
-      Object {
-        "generator": Object {
+      {
+        "generator": {
           "filename": "images/[name].[ext]",
         },
-        "test": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\)\\$/i,
+        "test": {},
         "type": "asset/resource",
       },
     ],
   },
-  "output": Object {
+  "output": {
     "chunkFilename": "[name].chunk.js",
     "filename": "[name].js",
-    "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/build",
+    "path": "<ROOT>/build",
   },
-  "plugins": Array [
-    DefinePlugin {
-      "definitions": Object {
+  "plugins": [
+    {
+      "definitions": {
         "__DEV__": false,
         "__PROD__": false,
         "__STAGING__": false,
         "__TEST__": true,
-        "process.env.NODE_ENV": "\\"test\\"",
+        "process.env.NODE_ENV": ""test"",
       },
     },
-    BannerPlugin {
-      "banner": [Function],
-      "options": Object {
-        "banner": "APP_VERSION=\\"N/A\\";",
+    {
+      "options": {
+        "banner": "APP_VERSION="N/A";",
         "entryOnly": true,
         "raw": true,
-        "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
+        "test": {},
       },
     },
-    BannerPlugin {
-      "banner": [Function],
-      "options": Object {
+    {
+      "options": {
         "banner": "vN/A - 2023-03-28T16:07:07.909Z",
       },
     },
-    HtmlWebpackPlugin {
-      "options": Object {
+    {
+      "options": {
         "base": false,
         "cache": true,
         "chunks": "all",
         "chunksSortMode": "auto",
         "compile": true,
-        "excludeChunks": Array [],
+        "excludeChunks": [],
         "favicon": "../../packages/workflow/public/favicon.ico",
         "filename": "index.html",
         "hash": false,
         "inject": "head",
-        "meta": Object {},
+        "meta": {},
         "minify": "auto",
         "publicPath": "auto",
         "scriptLoading": "defer",
         "showErrors": true,
         "template": "../../packages/workflow/public/index.html",
         "templateContent": false,
-        "templateParameters": [Function],
         "title": "Availity",
         "xhtml": false,
       },
-      "userOptions": Object {
+      "userOptions": {
         "favicon": "../../packages/workflow/public/favicon.ico",
         "template": "../../packages/workflow/public/index.html",
         "title": "Availity",
       },
       "version": 5,
     },
-    IgnorePlugin {
-      "checkIgnore": [Function],
-      "options": Object {
-        "contextRegExp": /moment\\$/,
-        "resourceRegExp": /\\^\\\\\\.\\\\/locale\\$/,
+    {
+      "options": {
+        "contextRegExp": {},
+        "resourceRegExp": {},
       },
     },
-    CaseSensitivePathsPlugin {
+    {
       "fsOperations": 0,
-      "logger": NullConsole {
-        "Console": [Function],
-        "_counters": Object {},
-        "_formatBuffer": [Function],
-        "_groupDepth": 0,
-        "_stderr": Socket {
-          "_closeAfterHandlingError": false,
-          "_destroy": [Function],
-          "_events": Object {
-            "close": undefined,
-            "data": undefined,
-            "drain": undefined,
-            "end": [Function],
-            "error": undefined,
-            "finish": undefined,
-            "prefinish": undefined,
-            "readable": undefined,
-          },
-          "_eventsCount": 1,
-          "_hadError": false,
-          "_host": null,
-          "_isStdio": true,
-          "_maxListeners": undefined,
-          "_parent": null,
-          "_pendingData": null,
-          "_pendingEncoding": "",
-          "_readableState": ReadableState {
-            "awaitDrainWriters": null,
-            "buffer": Array [],
-            "bufferIndex": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "pipes": Array [],
-            "readable": false,
-            Symbol(kState): 1054468,
-          },
-          "_server": null,
-          "_sockname": null,
-          "_type": "pipe",
-          "_writableState": WritableState {
-            "bufferedIndex": 0,
-            "corked": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "onwrite": [Function],
-            "pendingcb": 0,
-            "writelen": 0,
-            Symbol(kState): 17564420,
-            Symbol(kBufferedValue): null,
-          },
-          "allowHalfOpen": false,
-          "connecting": false,
-          "destroySoon": [Function],
-          "fd": 1,
-          "server": null,
-          Symbol(async_id_symbol): 10,
-          Symbol(kHandle): Pipe {
-            Symbol(owner_symbol): [Circular],
-          },
-          Symbol(lastWriteQueueSize): 0,
-          Symbol(timeout): null,
-          Symbol(kBuffer): null,
-          Symbol(kBufferCb): null,
-          Symbol(kBufferGen): null,
-          Symbol(shapeMode): true,
-          Symbol(kCapture): false,
-          Symbol(kSetNoDelay): false,
-          Symbol(kSetKeepAlive): false,
-          Symbol(kSetKeepAliveInitialDelay): 0,
-          Symbol(kBytesRead): 0,
-          Symbol(kBytesWritten): 0,
-        },
-        "_stdout": Socket {
-          "_closeAfterHandlingError": false,
-          "_destroy": [Function],
-          "_events": Object {
-            "close": undefined,
-            "data": undefined,
-            "drain": undefined,
-            "end": [Function],
-            "error": undefined,
-            "finish": undefined,
-            "prefinish": undefined,
-            "readable": undefined,
-          },
-          "_eventsCount": 1,
-          "_hadError": false,
-          "_host": null,
-          "_isStdio": true,
-          "_maxListeners": undefined,
-          "_parent": null,
-          "_pendingData": null,
-          "_pendingEncoding": "",
-          "_readableState": ReadableState {
-            "awaitDrainWriters": null,
-            "buffer": Array [],
-            "bufferIndex": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "pipes": Array [],
-            "readable": false,
-            Symbol(kState): 1054468,
-          },
-          "_server": null,
-          "_sockname": null,
-          "_type": "pipe",
-          "_writableState": WritableState {
-            "bufferedIndex": 0,
-            "corked": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "onwrite": [Function],
-            "pendingcb": 0,
-            "writelen": 0,
-            Symbol(kState): 17564420,
-            Symbol(kBufferedValue): null,
-          },
-          "allowHalfOpen": false,
-          "connecting": false,
-          "destroySoon": [Function],
-          "fd": 1,
-          "server": null,
-          Symbol(async_id_symbol): 10,
-          Symbol(kHandle): Pipe {
-            Symbol(owner_symbol): [Circular],
-          },
-          Symbol(lastWriteQueueSize): 0,
-          Symbol(timeout): null,
-          Symbol(kBuffer): null,
-          Symbol(kBufferCb): null,
-          Symbol(kBufferGen): null,
-          Symbol(shapeMode): true,
-          Symbol(kCapture): false,
-          Symbol(kSetNoDelay): false,
-          Symbol(kSetKeepAlive): false,
-          Symbol(kSetKeepAliveInitialDelay): 0,
-          Symbol(kBytesRead): 0,
-          Symbol(kBytesWritten): 0,
-        },
-        "_timers": Object {},
-        "assert": [Function],
-        "clear": [Function],
-        "count": [Function],
-        "countReset": [Function],
-        "debug": [Function],
-        "dir": [Function],
-        "dirxml": [Function],
-        "error": [Function],
-        "group": [Function],
-        "groupCollapsed": [Function],
-        "groupEnd": [Function],
-        "info": [Function],
-        "log": [Function],
-        "table": [Function],
-        "time": [Function],
-        "timeEnd": [Function],
-        "timeLog": [Function],
-        "trace": [Function],
-        "warn": [Function],
-      },
-      "options": Object {},
-      "pathCache": Map {},
+      "logger": {},
+      "options": {},
+      "pathCache": {},
       "primed": false,
     },
-    DuplicatePackageCheckerPlugin {
-      "options": Object {
+    {
+      "options": {
         "emitError": false,
-        "exclude": [Function],
         "showHelp": true,
         "strict": true,
         "verbose": true,
       },
     },
-    ESLintWebpackPlugin {
+    {
       "key": "ESLintWebpackPlugin",
-      "options": Object {
+      "options": {
         "cache": true,
-        "cacheLocation": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/.cache/.eslintcache",
+        "cacheLocation": "<ROOT>/node_modules/.cache/.eslintcache",
         "emitError": true,
         "emitWarning": true,
-        "extensions": Array [
+        "extensions": [
           "js",
           "jsx",
           "ts",
@@ -512,32 +308,31 @@ Object {
           "mjs",
         ],
         "failOnError": true,
-        "resourceQueryExclude": Array [],
+        "resourceQueryExclude": [],
       },
-      "run": [Function],
     },
-    ReactRefreshPlugin {
-      "options": Object {
-        "exclude": /node_modules/i,
-        "include": /\\\\\\.\\(\\[cm\\]js\\|\\[jt\\]sx\\?\\|flow\\)\\$/i,
-        "overlay": Object {
-          "entry": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js",
-          "module": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js",
+    {
+      "options": {
+        "exclude": {},
+        "include": {},
+        "overlay": {
+          "entry": "<ROOT>/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js",
+          "module": "<ROOT>/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js",
           "sockIntegration": "wds",
         },
       },
     },
-    WebpackNotifierPlugin {
+    {
       "isFirstBuild": true,
       "lastBuildSucceeded": false,
-      "options": Object {
-        "contentImage": "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/public/availity.png",
+      "options": {
+        "contentImage": "<ROOT>/packages/workflow/public/availity.png",
         "excludeWarnings": true,
       },
     },
   ],
-  "resolve": Object {
-    "extensions": Array [
+  "resolve": {
+    "extensions": [
       ".js",
       ".jsx",
       ".ts",
@@ -546,43 +341,37 @@ Object {
       ".css",
       ".scss",
     ],
-    "fallback": Object {
-      "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/path-browserify/index.js",
+    "fallback": {
+      "path": "<ROOT>/node_modules/path-browserify/index.js",
     },
-    "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+    "modules": [
+      "<ROOT>/project/app",
       "node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+      "<ROOT>/node_modules",
+      "<ROOT>/packages/workflow/node_modules",
     ],
-    "plugins": Array [
-      TsconfigPathsPlugin {
-        "absoluteBaseUrl": "/Users/lyoung/Workspaces/@availity/availity-workflow/example",
+    "plugins": [
+      {
+        "absoluteBaseUrl": "<ROOT>/example",
         "baseUrl": "./example/",
-        "extensions": Array [
+        "extensions": [
           ".js",
           ".jsx",
           ".ts",
           ".tsx",
         ],
-        "log": Object {
-          "log": [Function],
-          "logError": [Function],
-          "logInfo": [Function],
-          "logWarning": [Function],
-        },
-        "matchPath": [Function],
-        "referenceMatchMap": Object {},
+        "log": {},
+        "referenceMatchMap": {},
         "source": "described-resolve",
         "target": "resolve",
       },
     ],
     "symlinks": true,
   },
-  "resolveLoader": Object {
-    "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+  "resolveLoader": {
+    "modules": [
+      "<ROOT>/node_modules",
+      "<ROOT>/packages/workflow/node_modules",
     ],
     "symlinks": true,
   },
@@ -591,33 +380,31 @@ Object {
 }
 `;
 
-exports[`webpack configs sets up the production config with default settings 1`] = `
-Object {
-  "context": "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+exports[`webpack configs > sets up the production config with default settings 1`] = `
+{
+  "context": "<ROOT>/project/app",
   "devtool": "source-map",
-  "entry": Object {
-    "index": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/react-app-polyfill/stable.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app/index.js",
+  "entry": {
+    "index": [
+      "<ROOT>/project/app/index.js",
     ],
   },
-  "experiments": Object {},
-  "infrastructureLogging": Object {
+  "experiments": {},
+  "infrastructureLogging": {
     "level": "warn",
   },
   "mode": "production",
-  "module": Object {
-    "rules": Array [
-      Object {
-        "oneOf": Array [
-          Object {
-            "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]vfile\\[/\\\\\\\\\\]core\\\\\\.js/,
-            "use": Array [
-              Object {
+  "module": {
+    "rules": [
+      {
+        "oneOf": [
+          {
+            "test": {},
+            "use": [
+              {
                 "loader": "imports-loader",
-                "options": Object {
-                  "imports": Array [
+                "options": {
+                  "imports": [
                     "single process/browser process",
                   ],
                   "type": "commonjs",
@@ -625,114 +412,95 @@ Object {
               },
             ],
           },
-          Object {
-            "include": Array [
-              "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
-              /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
+          {
+            "include": [
+              "<ROOT>/project/app",
+              {},
             ],
-            "test": /\\\\\\.\\(js\\|jsx\\|ts\\|tsx\\)\\$/,
-            "use": Array [
-              Object {
+            "test": {},
+            "use": [
+              {
                 "loader": "esbuild-loader",
-                "options": Object {
+                "options": {
                   "loader": "tsx",
                   "target": "es2015",
                 },
               },
             ],
           },
-          Object {
-            "resolve": Object {
+          {
+            "resolve": {
               "fullySpecified": false,
             },
-            "test": /\\\\\\.m\\?js/,
+            "test": {},
           },
-          Object {
-            "test": /\\\\\\.css\\$/,
-            "use": Array [
-              Object {
-                "loader": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
-                "options": Object {
+          {
+            "test": {},
+            "use": [
+              {
+                "loader": "<ROOT>/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "options": {
                   "publicPath": "auto",
                 },
               },
-              Object {
+              {
                 "loader": "css-loader",
-                "options": Object {
+                "options": {
                   "importLoaders": 1,
                   "sourceMap": true,
                 },
               },
-              Object {
+              {
                 "loader": "postcss-loader",
-                "options": Object {
-                  "postcssOptions": Object {
-                    "plugins": Array [
-                      Object {
-                        "Rule": [Function],
+                "options": {
+                  "postcssOptions": {
+                    "plugins": [
+                      {
                         "postcssPlugin": "postcss-focus",
                       },
-                      Object {
-                        "Once": [Function],
+                      {
                         "postcssPlugin": "postcss-flexbugs-fixes",
                       },
-                      Object {
-                        "plugins": Array [
-                          Object {
-                            "AtRule": Object {
-                              "custom-media": [Function],
-                              "media": [Function],
-                            },
+                      {
+                        "plugins": [
+                          {
+                            "AtRule": {},
                             "postcssPlugin": "postcss-media-minmax",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-initial",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-page-break",
                           },
-                          Object {
-                            "Once": [Function],
+                          {
                             "postcssPlugin": "postcss-font-variant",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-gap-properties",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-unset-value",
                           },
-                          Object {
+                          {
                             "postcssPlugin": "postcss-custom-properties",
-                            "prepare": [Function],
                           },
-                          Object {
+                          {
                             "postcssPlugin": "postcss-progressive-custom-properties",
-                            "prepare": [Function],
                           },
-                          Object {
-                            "browsers": undefined,
-                            "info": [Function],
-                            "options": Object {
-                              "env": undefined,
+                          {
+                            "options": {
                               "flexbox": "no-2009",
-                              "overrideBrowserslist": undefined,
                             },
                             "postcssPlugin": "autoprefixer",
-                            "prepare": [Function],
                           },
-                          Object {
-                            "OnceExit": [Function],
+                          {
                             "postcssPlugin": "postcss-preset-env",
                           },
                         ],
                         "postcssPlugin": "postcss-preset-env",
                       },
-                      Object {
-                        "OnceExit": [Function],
+                      {
                         "postcssPlugin": "postcss-reporter",
                       },
                     ],
@@ -742,86 +510,67 @@ Object {
               },
             ],
           },
-          Object {
-            "test": /\\\\\\.\\(scss\\|sass\\)\\$/,
-            "use": Array [
-              Object {
-                "loader": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
-                "options": Object {
+          {
+            "test": {},
+            "use": [
+              {
+                "loader": "<ROOT>/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "options": {
                   "publicPath": "auto",
                 },
               },
               "css-loader",
-              Object {
+              {
                 "loader": "postcss-loader",
-                "options": Object {
-                  "postcssOptions": Object {
-                    "plugins": Array [
-                      Object {
-                        "Rule": [Function],
+                "options": {
+                  "postcssOptions": {
+                    "plugins": [
+                      {
                         "postcssPlugin": "postcss-focus",
                       },
-                      Object {
-                        "Once": [Function],
+                      {
                         "postcssPlugin": "postcss-flexbugs-fixes",
                       },
-                      Object {
-                        "plugins": Array [
-                          Object {
-                            "AtRule": Object {
-                              "custom-media": [Function],
-                              "media": [Function],
-                            },
+                      {
+                        "plugins": [
+                          {
+                            "AtRule": {},
                             "postcssPlugin": "postcss-media-minmax",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-initial",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-page-break",
                           },
-                          Object {
-                            "Once": [Function],
+                          {
                             "postcssPlugin": "postcss-font-variant",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-gap-properties",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-unset-value",
                           },
-                          Object {
+                          {
                             "postcssPlugin": "postcss-custom-properties",
-                            "prepare": [Function],
                           },
-                          Object {
+                          {
                             "postcssPlugin": "postcss-progressive-custom-properties",
-                            "prepare": [Function],
                           },
-                          Object {
-                            "browsers": undefined,
-                            "info": [Function],
-                            "options": Object {
-                              "env": undefined,
+                          {
+                            "options": {
                               "flexbox": "no-2009",
-                              "overrideBrowserslist": undefined,
                             },
                             "postcssPlugin": "autoprefixer",
-                            "prepare": [Function],
                           },
-                          Object {
-                            "OnceExit": [Function],
+                          {
                             "postcssPlugin": "postcss-preset-env",
                           },
                         ],
                         "postcssPlugin": "postcss-preset-env",
                       },
-                      Object {
-                        "OnceExit": [Function],
+                      {
                         "postcssPlugin": "postcss-reporter",
                       },
                     ],
@@ -829,35 +578,35 @@ Object {
                   "sourceMap": true,
                 },
               },
-              Object {
+              {
                 "loader": "sass-loader",
-                "options": Object {
+                "options": {
                   "sourceMap": true,
                 },
               },
             ],
           },
-          Object {
-            "generator": Object {
+          {
+            "generator": {
               "filename": "fonts/[name][ext]",
             },
-            "test": /font\\\\\\.\\(woff\\|woff2\\|eot\\|ttf\\|otf\\|svg\\)\\$/i,
+            "test": {},
             "type": "asset/resource",
           },
-          Object {
-            "generator": Object {
+          {
+            "generator": {
               "filename": "images/[name].[ext]",
             },
-            "test": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\)\\$/i,
+            "test": {},
             "type": "asset/resource",
           },
-          Object {
-            "exclude": Array [
-              /\\\\\\.\\(js\\|cjs\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
-              /\\\\\\.html\\$/,
-              /\\\\\\.json\\$/,
+          {
+            "exclude": [
+              {},
+              {},
+              {},
             ],
-            "generator": Object {
+            "generator": {
               "filename": "static/media/[contenthash:8][ext]",
             },
             "type": "asset/resource",
@@ -866,302 +615,135 @@ Object {
       },
     ],
   },
-  "optimization": Object {
-    "minimizer": Array [],
+  "optimization": {
+    "minimizer": [],
     "moduleIds": "deterministic",
     "runtimeChunk": "single",
-    "splitChunks": Object {
-      "cacheGroups": Object {
-        "default": Object {
+    "splitChunks": {
+      "cacheGroups": {
+        "default": {
           "minChunks": 2,
           "priority": -20,
           "reuseExistingChunk": true,
         },
-        "defaultVendors": Object {
+        "defaultVendors": {
           "chunks": "all",
           "idHint": "defaultVendors",
           "priority": -10,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]/,
+          "test": {},
         },
-        "lodash": Object {
+        "lodash": {
           "chunks": "all",
           "idHint": "vendors",
           "priority": 1,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(lodash\\(\\[\\.-\\]\\)\\?\\\\w\\*\\?\\)\\[/\\\\\\\\\\]/,
+          "test": {},
         },
-        "moment": Object {
+        "moment": {
           "chunks": "all",
           "idHint": "vendors",
           "priority": 2,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(moment\\)\\[/\\\\\\\\\\]/,
+          "test": {},
         },
-        "react": Object {
+        "react": {
           "chunks": "all",
           "idHint": "vendors",
           "priority": 10,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(react\\|react-dom\\)\\[/\\\\\\\\\\]/,
+          "test": {},
         },
-        "styles": Object {
+        "styles": {
           "chunks": "all",
           "enforce": true,
           "idHint": "styles",
-          "test": /\\\\\\.css\\$/,
+          "test": {},
         },
       },
     },
   },
-  "output": Object {
+  "output": {
     "chunkFilename": "[name].chunk.js",
-    "devtoolModuleFilenameTemplate": [Function],
     "filename": "[name].js",
-    "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/build",
+    "path": "<ROOT>/build",
   },
-  "plugins": Array [
-    DefinePlugin {
-      "definitions": Object {
+  "plugins": [
+    {
+      "definitions": {
         "__DEV__": false,
         "__PROD__": false,
         "__STAGING__": false,
         "__TEST__": true,
-        "process.env.NODE_ENV": "\\"test\\"",
+        "process.env.NODE_ENV": ""test"",
       },
     },
-    BannerPlugin {
-      "banner": [Function],
-      "options": Object {
-        "banner": "APP_VERSION=\\"N/A\\";",
+    {
+      "options": {
+        "banner": "APP_VERSION="N/A";",
         "entryOnly": true,
         "raw": true,
-        "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
+        "test": {},
       },
     },
-    BannerPlugin {
-      "banner": [Function],
-      "options": Object {
+    {
+      "options": {
         "banner": "vN/A - 2023-03-28T16:07:07.909Z",
       },
     },
-    HtmlWebpackPlugin {
-      "options": Object {
+    {
+      "options": {
         "base": false,
         "cache": true,
         "chunks": "all",
         "chunksSortMode": "auto",
         "compile": true,
-        "excludeChunks": Array [],
+        "excludeChunks": [],
         "favicon": "../../packages/workflow/public/favicon.ico",
         "filename": "index.html",
         "hash": false,
         "inject": "head",
-        "meta": Object {},
+        "meta": {},
         "minify": "auto",
         "publicPath": "auto",
         "scriptLoading": "defer",
         "showErrors": true,
         "template": "../../packages/workflow/public/index.html",
         "templateContent": false,
-        "templateParameters": [Function],
         "title": "Availity",
         "xhtml": false,
       },
-      "userOptions": Object {
+      "userOptions": {
         "favicon": "../../packages/workflow/public/favicon.ico",
         "template": "../../packages/workflow/public/index.html",
         "title": "Availity",
       },
       "version": 5,
     },
-    IgnorePlugin {
-      "checkIgnore": [Function],
-      "options": Object {
-        "contextRegExp": /moment\\$/,
-        "resourceRegExp": /\\^\\\\\\.\\\\/locale\\$/,
+    {
+      "options": {
+        "contextRegExp": {},
+        "resourceRegExp": {},
       },
     },
-    CaseSensitivePathsPlugin {
+    {
       "fsOperations": 0,
-      "logger": NullConsole {
-        "Console": [Function],
-        "_counters": Object {},
-        "_formatBuffer": [Function],
-        "_groupDepth": 0,
-        "_stderr": Socket {
-          "_closeAfterHandlingError": false,
-          "_destroy": [Function],
-          "_events": Object {
-            "close": undefined,
-            "data": undefined,
-            "drain": undefined,
-            "end": [Function],
-            "error": undefined,
-            "finish": undefined,
-            "prefinish": undefined,
-            "readable": undefined,
-          },
-          "_eventsCount": 1,
-          "_hadError": false,
-          "_host": null,
-          "_isStdio": true,
-          "_maxListeners": undefined,
-          "_parent": null,
-          "_pendingData": null,
-          "_pendingEncoding": "",
-          "_readableState": ReadableState {
-            "awaitDrainWriters": null,
-            "buffer": Array [],
-            "bufferIndex": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "pipes": Array [],
-            "readable": false,
-            Symbol(kState): 1054468,
-          },
-          "_server": null,
-          "_sockname": null,
-          "_type": "pipe",
-          "_writableState": WritableState {
-            "bufferedIndex": 0,
-            "corked": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "onwrite": [Function],
-            "pendingcb": 0,
-            "writelen": 0,
-            Symbol(kState): 17564420,
-            Symbol(kBufferedValue): null,
-          },
-          "allowHalfOpen": false,
-          "connecting": false,
-          "destroySoon": [Function],
-          "fd": 1,
-          "server": null,
-          Symbol(async_id_symbol): 10,
-          Symbol(kHandle): Pipe {
-            Symbol(owner_symbol): [Circular],
-          },
-          Symbol(lastWriteQueueSize): 0,
-          Symbol(timeout): null,
-          Symbol(kBuffer): null,
-          Symbol(kBufferCb): null,
-          Symbol(kBufferGen): null,
-          Symbol(shapeMode): true,
-          Symbol(kCapture): false,
-          Symbol(kSetNoDelay): false,
-          Symbol(kSetKeepAlive): false,
-          Symbol(kSetKeepAliveInitialDelay): 0,
-          Symbol(kBytesRead): 0,
-          Symbol(kBytesWritten): 0,
-        },
-        "_stdout": Socket {
-          "_closeAfterHandlingError": false,
-          "_destroy": [Function],
-          "_events": Object {
-            "close": undefined,
-            "data": undefined,
-            "drain": undefined,
-            "end": [Function],
-            "error": undefined,
-            "finish": undefined,
-            "prefinish": undefined,
-            "readable": undefined,
-          },
-          "_eventsCount": 1,
-          "_hadError": false,
-          "_host": null,
-          "_isStdio": true,
-          "_maxListeners": undefined,
-          "_parent": null,
-          "_pendingData": null,
-          "_pendingEncoding": "",
-          "_readableState": ReadableState {
-            "awaitDrainWriters": null,
-            "buffer": Array [],
-            "bufferIndex": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "pipes": Array [],
-            "readable": false,
-            Symbol(kState): 1054468,
-          },
-          "_server": null,
-          "_sockname": null,
-          "_type": "pipe",
-          "_writableState": WritableState {
-            "bufferedIndex": 0,
-            "corked": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "onwrite": [Function],
-            "pendingcb": 0,
-            "writelen": 0,
-            Symbol(kState): 17564420,
-            Symbol(kBufferedValue): null,
-          },
-          "allowHalfOpen": false,
-          "connecting": false,
-          "destroySoon": [Function],
-          "fd": 1,
-          "server": null,
-          Symbol(async_id_symbol): 10,
-          Symbol(kHandle): Pipe {
-            Symbol(owner_symbol): [Circular],
-          },
-          Symbol(lastWriteQueueSize): 0,
-          Symbol(timeout): null,
-          Symbol(kBuffer): null,
-          Symbol(kBufferCb): null,
-          Symbol(kBufferGen): null,
-          Symbol(shapeMode): true,
-          Symbol(kCapture): false,
-          Symbol(kSetNoDelay): false,
-          Symbol(kSetKeepAlive): false,
-          Symbol(kSetKeepAliveInitialDelay): 0,
-          Symbol(kBytesRead): 0,
-          Symbol(kBytesWritten): 0,
-        },
-        "_timers": Object {},
-        "assert": [Function],
-        "clear": [Function],
-        "count": [Function],
-        "countReset": [Function],
-        "debug": [Function],
-        "dir": [Function],
-        "dirxml": [Function],
-        "error": [Function],
-        "group": [Function],
-        "groupCollapsed": [Function],
-        "groupEnd": [Function],
-        "info": [Function],
-        "log": [Function],
-        "table": [Function],
-        "time": [Function],
-        "timeEnd": [Function],
-        "timeLog": [Function],
-        "trace": [Function],
-        "warn": [Function],
-      },
-      "options": Object {},
-      "pathCache": Map {},
+      "logger": {},
+      "options": {},
+      "pathCache": {},
       "primed": false,
     },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": Object {
+    {
+      "_sortedModulesCache": {},
+      "options": {
         "chunkFilename": "css/[name]-[contenthash:8].chunk.css",
-        "experimentalUseImportModule": undefined,
         "filename": "css/[name]-[contenthash:8].chunk.css",
         "ignoreOrder": false,
         "runtime": true,
       },
-      "runtimeOptions": Object {
-        "attributes": undefined,
-        "insert": undefined,
+      "runtimeOptions": {
         "linkType": "text/css",
       },
     },
   ],
-  "resolve": Object {
-    "extensions": Array [
+  "resolve": {
+    "extensions": [
       ".js",
       ".jsx",
       ".ts",
@@ -1170,43 +752,37 @@ Object {
       ".css",
       ".scss",
     ],
-    "fallback": Object {
-      "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/path-browserify/index.js",
+    "fallback": {
+      "path": "<ROOT>/node_modules/path-browserify/index.js",
     },
-    "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+    "modules": [
+      "<ROOT>/project/app",
       "node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+      "<ROOT>/node_modules",
+      "<ROOT>/packages/workflow/node_modules",
     ],
-    "plugins": Array [
-      TsconfigPathsPlugin {
-        "absoluteBaseUrl": "/Users/lyoung/Workspaces/@availity/availity-workflow/example",
+    "plugins": [
+      {
+        "absoluteBaseUrl": "<ROOT>/example",
         "baseUrl": "./example/",
-        "extensions": Array [
+        "extensions": [
           ".js",
           ".jsx",
           ".ts",
           ".tsx",
         ],
-        "log": Object {
-          "log": [Function],
-          "logError": [Function],
-          "logInfo": [Function],
-          "logWarning": [Function],
-        },
-        "matchPath": [Function],
-        "referenceMatchMap": Object {},
+        "log": {},
+        "referenceMatchMap": {},
         "source": "described-resolve",
         "target": "resolve",
       },
     ],
     "symlinks": true,
   },
-  "resolveLoader": Object {
-    "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+  "resolveLoader": {
+    "modules": [
+      "<ROOT>/node_modules",
+      "<ROOT>/packages/workflow/node_modules",
     ],
     "symlinks": true,
   },
@@ -1214,33 +790,31 @@ Object {
 }
 `;
 
-exports[`webpack configs sets up the profile config with default settings 1`] = `
-Object {
-  "context": "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+exports[`webpack configs > sets up the profile config with default settings 1`] = `
+{
+  "context": "<ROOT>/project/app",
   "devtool": "source-map",
-  "entry": Object {
-    "index": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/react-app-polyfill/stable.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app/index.js",
+  "entry": {
+    "index": [
+      "<ROOT>/project/app/index.js",
     ],
   },
-  "experiments": Object {},
-  "infrastructureLogging": Object {
+  "experiments": {},
+  "infrastructureLogging": {
     "level": "warn",
   },
   "mode": "production",
-  "module": Object {
-    "rules": Array [
-      Object {
-        "oneOf": Array [
-          Object {
-            "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]vfile\\[/\\\\\\\\\\]core\\\\\\.js/,
-            "use": Array [
-              Object {
+  "module": {
+    "rules": [
+      {
+        "oneOf": [
+          {
+            "test": {},
+            "use": [
+              {
                 "loader": "imports-loader",
-                "options": Object {
-                  "imports": Array [
+                "options": {
+                  "imports": [
                     "single process/browser process",
                   ],
                   "type": "commonjs",
@@ -1248,114 +822,95 @@ Object {
               },
             ],
           },
-          Object {
-            "include": Array [
-              "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
-              /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
+          {
+            "include": [
+              "<ROOT>/project/app",
+              {},
             ],
-            "test": /\\\\\\.\\(js\\|jsx\\|ts\\|tsx\\)\\$/,
-            "use": Array [
-              Object {
+            "test": {},
+            "use": [
+              {
                 "loader": "esbuild-loader",
-                "options": Object {
+                "options": {
                   "loader": "tsx",
                   "target": "es2015",
                 },
               },
             ],
           },
-          Object {
-            "resolve": Object {
+          {
+            "resolve": {
               "fullySpecified": false,
             },
-            "test": /\\\\\\.m\\?js/,
+            "test": {},
           },
-          Object {
-            "test": /\\\\\\.css\\$/,
-            "use": Array [
-              Object {
-                "loader": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
-                "options": Object {
+          {
+            "test": {},
+            "use": [
+              {
+                "loader": "<ROOT>/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "options": {
                   "publicPath": "auto",
                 },
               },
-              Object {
+              {
                 "loader": "css-loader",
-                "options": Object {
+                "options": {
                   "importLoaders": 1,
                   "sourceMap": true,
                 },
               },
-              Object {
+              {
                 "loader": "postcss-loader",
-                "options": Object {
-                  "postcssOptions": Object {
-                    "plugins": Array [
-                      Object {
-                        "Rule": [Function],
+                "options": {
+                  "postcssOptions": {
+                    "plugins": [
+                      {
                         "postcssPlugin": "postcss-focus",
                       },
-                      Object {
-                        "Once": [Function],
+                      {
                         "postcssPlugin": "postcss-flexbugs-fixes",
                       },
-                      Object {
-                        "plugins": Array [
-                          Object {
-                            "AtRule": Object {
-                              "custom-media": [Function],
-                              "media": [Function],
-                            },
+                      {
+                        "plugins": [
+                          {
+                            "AtRule": {},
                             "postcssPlugin": "postcss-media-minmax",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-initial",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-page-break",
                           },
-                          Object {
-                            "Once": [Function],
+                          {
                             "postcssPlugin": "postcss-font-variant",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-gap-properties",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-unset-value",
                           },
-                          Object {
+                          {
                             "postcssPlugin": "postcss-custom-properties",
-                            "prepare": [Function],
                           },
-                          Object {
+                          {
                             "postcssPlugin": "postcss-progressive-custom-properties",
-                            "prepare": [Function],
                           },
-                          Object {
-                            "browsers": undefined,
-                            "info": [Function],
-                            "options": Object {
-                              "env": undefined,
+                          {
+                            "options": {
                               "flexbox": "no-2009",
-                              "overrideBrowserslist": undefined,
                             },
                             "postcssPlugin": "autoprefixer",
-                            "prepare": [Function],
                           },
-                          Object {
-                            "OnceExit": [Function],
+                          {
                             "postcssPlugin": "postcss-preset-env",
                           },
                         ],
                         "postcssPlugin": "postcss-preset-env",
                       },
-                      Object {
-                        "OnceExit": [Function],
+                      {
                         "postcssPlugin": "postcss-reporter",
                       },
                     ],
@@ -1365,86 +920,67 @@ Object {
               },
             ],
           },
-          Object {
-            "test": /\\\\\\.\\(scss\\|sass\\)\\$/,
-            "use": Array [
-              Object {
-                "loader": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
-                "options": Object {
+          {
+            "test": {},
+            "use": [
+              {
+                "loader": "<ROOT>/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "options": {
                   "publicPath": "auto",
                 },
               },
               "css-loader",
-              Object {
+              {
                 "loader": "postcss-loader",
-                "options": Object {
-                  "postcssOptions": Object {
-                    "plugins": Array [
-                      Object {
-                        "Rule": [Function],
+                "options": {
+                  "postcssOptions": {
+                    "plugins": [
+                      {
                         "postcssPlugin": "postcss-focus",
                       },
-                      Object {
-                        "Once": [Function],
+                      {
                         "postcssPlugin": "postcss-flexbugs-fixes",
                       },
-                      Object {
-                        "plugins": Array [
-                          Object {
-                            "AtRule": Object {
-                              "custom-media": [Function],
-                              "media": [Function],
-                            },
+                      {
+                        "plugins": [
+                          {
+                            "AtRule": {},
                             "postcssPlugin": "postcss-media-minmax",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-initial",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-page-break",
                           },
-                          Object {
-                            "Once": [Function],
+                          {
                             "postcssPlugin": "postcss-font-variant",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-gap-properties",
                           },
-                          Object {
-                            "Declaration": [Function],
+                          {
                             "postcssPlugin": "postcss-unset-value",
                           },
-                          Object {
+                          {
                             "postcssPlugin": "postcss-custom-properties",
-                            "prepare": [Function],
                           },
-                          Object {
+                          {
                             "postcssPlugin": "postcss-progressive-custom-properties",
-                            "prepare": [Function],
                           },
-                          Object {
-                            "browsers": undefined,
-                            "info": [Function],
-                            "options": Object {
-                              "env": undefined,
+                          {
+                            "options": {
                               "flexbox": "no-2009",
-                              "overrideBrowserslist": undefined,
                             },
                             "postcssPlugin": "autoprefixer",
-                            "prepare": [Function],
                           },
-                          Object {
-                            "OnceExit": [Function],
+                          {
                             "postcssPlugin": "postcss-preset-env",
                           },
                         ],
                         "postcssPlugin": "postcss-preset-env",
                       },
-                      Object {
-                        "OnceExit": [Function],
+                      {
                         "postcssPlugin": "postcss-reporter",
                       },
                     ],
@@ -1452,35 +988,35 @@ Object {
                   "sourceMap": true,
                 },
               },
-              Object {
+              {
                 "loader": "sass-loader",
-                "options": Object {
+                "options": {
                   "sourceMap": true,
                 },
               },
             ],
           },
-          Object {
-            "generator": Object {
+          {
+            "generator": {
               "filename": "fonts/[name][ext]",
             },
-            "test": /font\\\\\\.\\(woff\\|woff2\\|eot\\|ttf\\|otf\\|svg\\)\\$/i,
+            "test": {},
             "type": "asset/resource",
           },
-          Object {
-            "generator": Object {
+          {
+            "generator": {
               "filename": "images/[name].[ext]",
             },
-            "test": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\)\\$/i,
+            "test": {},
             "type": "asset/resource",
           },
-          Object {
-            "exclude": Array [
-              /\\\\\\.\\(js\\|cjs\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
-              /\\\\\\.html\\$/,
-              /\\\\\\.json\\$/,
+          {
+            "exclude": [
+              {},
+              {},
+              {},
             ],
-            "generator": Object {
+            "generator": {
               "filename": "static/media/[contenthash:8][ext]",
             },
             "type": "asset/resource",
@@ -1489,338 +1025,163 @@ Object {
       },
     ],
   },
-  "optimization": Object {
-    "minimizer": Array [],
+  "optimization": {
+    "minimizer": [],
     "moduleIds": "deterministic",
     "runtimeChunk": "single",
-    "splitChunks": Object {
-      "cacheGroups": Object {
-        "default": Object {
+    "splitChunks": {
+      "cacheGroups": {
+        "default": {
           "minChunks": 2,
           "priority": -20,
           "reuseExistingChunk": true,
         },
-        "defaultVendors": Object {
+        "defaultVendors": {
           "chunks": "all",
           "idHint": "defaultVendors",
           "priority": -10,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]/,
+          "test": {},
         },
-        "lodash": Object {
+        "lodash": {
           "chunks": "all",
           "idHint": "vendors",
           "priority": 1,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(lodash\\(\\[\\.-\\]\\)\\?\\\\w\\*\\?\\)\\[/\\\\\\\\\\]/,
+          "test": {},
         },
-        "moment": Object {
+        "moment": {
           "chunks": "all",
           "idHint": "vendors",
           "priority": 2,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(moment\\)\\[/\\\\\\\\\\]/,
+          "test": {},
         },
-        "react": Object {
+        "react": {
           "chunks": "all",
           "idHint": "vendors",
           "priority": 10,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(react\\|react-dom\\)\\[/\\\\\\\\\\]/,
+          "test": {},
         },
-        "styles": Object {
+        "styles": {
           "chunks": "all",
           "enforce": true,
           "idHint": "styles",
-          "test": /\\\\\\.css\\$/,
+          "test": {},
         },
       },
     },
   },
-  "output": Object {
+  "output": {
     "chunkFilename": "[name].chunk.js",
-    "devtoolModuleFilenameTemplate": [Function],
     "filename": "[name].js",
-    "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/build",
+    "path": "<ROOT>/build",
   },
-  "plugins": Array [
-    DefinePlugin {
-      "definitions": Object {
+  "plugins": [
+    {
+      "definitions": {
         "__DEV__": false,
         "__PROD__": false,
         "__STAGING__": false,
         "__TEST__": true,
-        "process.env.NODE_ENV": "\\"test\\"",
+        "process.env.NODE_ENV": ""test"",
       },
     },
-    BannerPlugin {
-      "banner": [Function],
-      "options": Object {
-        "banner": "APP_VERSION=\\"N/A\\";",
+    {
+      "options": {
+        "banner": "APP_VERSION="N/A";",
         "entryOnly": true,
         "raw": true,
-        "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
+        "test": {},
       },
     },
-    BannerPlugin {
-      "banner": [Function],
-      "options": Object {
+    {
+      "options": {
         "banner": "vN/A - 2023-03-28T16:07:07.909Z",
       },
     },
-    HtmlWebpackPlugin {
-      "options": Object {
+    {
+      "options": {
         "base": false,
         "cache": true,
         "chunks": "all",
         "chunksSortMode": "auto",
         "compile": true,
-        "excludeChunks": Array [],
+        "excludeChunks": [],
         "favicon": "../../packages/workflow/public/favicon.ico",
         "filename": "index.html",
         "hash": false,
         "inject": "head",
-        "meta": Object {},
+        "meta": {},
         "minify": "auto",
         "publicPath": "auto",
         "scriptLoading": "defer",
         "showErrors": true,
         "template": "../../packages/workflow/public/index.html",
         "templateContent": false,
-        "templateParameters": [Function],
         "title": "Availity",
         "xhtml": false,
       },
-      "userOptions": Object {
+      "userOptions": {
         "favicon": "../../packages/workflow/public/favicon.ico",
         "template": "../../packages/workflow/public/index.html",
         "title": "Availity",
       },
       "version": 5,
     },
-    IgnorePlugin {
-      "checkIgnore": [Function],
-      "options": Object {
-        "contextRegExp": /moment\\$/,
-        "resourceRegExp": /\\^\\\\\\.\\\\/locale\\$/,
+    {
+      "options": {
+        "contextRegExp": {},
+        "resourceRegExp": {},
       },
     },
-    CaseSensitivePathsPlugin {
+    {
       "fsOperations": 0,
-      "logger": NullConsole {
-        "Console": [Function],
-        "_counters": Object {},
-        "_formatBuffer": [Function],
-        "_groupDepth": 0,
-        "_stderr": Socket {
-          "_closeAfterHandlingError": false,
-          "_destroy": [Function],
-          "_events": Object {
-            "close": undefined,
-            "data": undefined,
-            "drain": undefined,
-            "end": [Function],
-            "error": undefined,
-            "finish": undefined,
-            "prefinish": undefined,
-            "readable": undefined,
-          },
-          "_eventsCount": 1,
-          "_hadError": false,
-          "_host": null,
-          "_isStdio": true,
-          "_maxListeners": undefined,
-          "_parent": null,
-          "_pendingData": null,
-          "_pendingEncoding": "",
-          "_readableState": ReadableState {
-            "awaitDrainWriters": null,
-            "buffer": Array [],
-            "bufferIndex": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "pipes": Array [],
-            "readable": false,
-            Symbol(kState): 1054468,
-          },
-          "_server": null,
-          "_sockname": null,
-          "_type": "pipe",
-          "_writableState": WritableState {
-            "bufferedIndex": 0,
-            "corked": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "onwrite": [Function],
-            "pendingcb": 0,
-            "writelen": 0,
-            Symbol(kState): 17564420,
-            Symbol(kBufferedValue): null,
-          },
-          "allowHalfOpen": false,
-          "connecting": false,
-          "destroySoon": [Function],
-          "fd": 1,
-          "server": null,
-          Symbol(async_id_symbol): 10,
-          Symbol(kHandle): Pipe {
-            Symbol(owner_symbol): [Circular],
-          },
-          Symbol(lastWriteQueueSize): 0,
-          Symbol(timeout): null,
-          Symbol(kBuffer): null,
-          Symbol(kBufferCb): null,
-          Symbol(kBufferGen): null,
-          Symbol(shapeMode): true,
-          Symbol(kCapture): false,
-          Symbol(kSetNoDelay): false,
-          Symbol(kSetKeepAlive): false,
-          Symbol(kSetKeepAliveInitialDelay): 0,
-          Symbol(kBytesRead): 0,
-          Symbol(kBytesWritten): 0,
-        },
-        "_stdout": Socket {
-          "_closeAfterHandlingError": false,
-          "_destroy": [Function],
-          "_events": Object {
-            "close": undefined,
-            "data": undefined,
-            "drain": undefined,
-            "end": [Function],
-            "error": undefined,
-            "finish": undefined,
-            "prefinish": undefined,
-            "readable": undefined,
-          },
-          "_eventsCount": 1,
-          "_hadError": false,
-          "_host": null,
-          "_isStdio": true,
-          "_maxListeners": undefined,
-          "_parent": null,
-          "_pendingData": null,
-          "_pendingEncoding": "",
-          "_readableState": ReadableState {
-            "awaitDrainWriters": null,
-            "buffer": Array [],
-            "bufferIndex": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "pipes": Array [],
-            "readable": false,
-            Symbol(kState): 1054468,
-          },
-          "_server": null,
-          "_sockname": null,
-          "_type": "pipe",
-          "_writableState": WritableState {
-            "bufferedIndex": 0,
-            "corked": 0,
-            "highWaterMark": 16384,
-            "length": 0,
-            "onwrite": [Function],
-            "pendingcb": 0,
-            "writelen": 0,
-            Symbol(kState): 17564420,
-            Symbol(kBufferedValue): null,
-          },
-          "allowHalfOpen": false,
-          "connecting": false,
-          "destroySoon": [Function],
-          "fd": 1,
-          "server": null,
-          Symbol(async_id_symbol): 10,
-          Symbol(kHandle): Pipe {
-            Symbol(owner_symbol): [Circular],
-          },
-          Symbol(lastWriteQueueSize): 0,
-          Symbol(timeout): null,
-          Symbol(kBuffer): null,
-          Symbol(kBufferCb): null,
-          Symbol(kBufferGen): null,
-          Symbol(shapeMode): true,
-          Symbol(kCapture): false,
-          Symbol(kSetNoDelay): false,
-          Symbol(kSetKeepAlive): false,
-          Symbol(kSetKeepAliveInitialDelay): 0,
-          Symbol(kBytesRead): 0,
-          Symbol(kBytesWritten): 0,
-        },
-        "_timers": Object {},
-        "assert": [Function],
-        "clear": [Function],
-        "count": [Function],
-        "countReset": [Function],
-        "debug": [Function],
-        "dir": [Function],
-        "dirxml": [Function],
-        "error": [Function],
-        "group": [Function],
-        "groupCollapsed": [Function],
-        "groupEnd": [Function],
-        "info": [Function],
-        "log": [Function],
-        "table": [Function],
-        "time": [Function],
-        "timeEnd": [Function],
-        "timeLog": [Function],
-        "trace": [Function],
-        "warn": [Function],
-      },
-      "options": Object {},
-      "pathCache": Map {},
+      "logger": {},
+      "options": {},
+      "pathCache": {},
       "primed": false,
     },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": Object {
+    {
+      "_sortedModulesCache": {},
+      "options": {
         "chunkFilename": "css/[name]-[contenthash:8].chunk.css",
-        "experimentalUseImportModule": undefined,
         "filename": "css/[name]-[contenthash:8].chunk.css",
         "ignoreOrder": false,
         "runtime": true,
       },
-      "runtimeOptions": Object {
-        "attributes": undefined,
-        "insert": undefined,
+      "runtimeOptions": {
         "linkType": "text/css",
       },
     },
-    BundleAnalyzerPlugin {
-      "logger": Logger {
-        "activeLevels": Set {
-          "info",
-          "warn",
-          "error",
-          "silent",
-        },
+    {
+      "logger": {
+        "activeLevels": {},
       },
-      "opts": Object {
+      "opts": {
         "analyzerHost": "127.0.0.1",
         "analyzerMode": "static",
         "analyzerPort": 8888,
-        "analyzerUrl": [Function],
         "defaultSizes": "parsed",
         "excludeAssets": null,
         "generateStatsFile": false,
         "logLevel": "info",
         "openAnalyzer": true,
         "reportFilename": "profile.html",
-        "reportTitle": [Function],
         "startAnalyzer": true,
         "statsFilename": "stats.json",
         "statsOptions": null,
       },
       "server": null,
     },
-    DuplicatePackageCheckerPlugin {
-      "options": Object {
+    {
+      "options": {
         "emitError": false,
-        "exclude": [Function],
         "showHelp": true,
         "strict": true,
         "verbose": false,
       },
     },
   ],
-  "resolve": Object {
-    "extensions": Array [
+  "resolve": {
+    "extensions": [
       ".js",
       ".jsx",
       ".ts",
@@ -1829,43 +1190,37 @@ Object {
       ".css",
       ".scss",
     ],
-    "fallback": Object {
-      "path": "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules/path-browserify/index.js",
+    "fallback": {
+      "path": "<ROOT>/node_modules/path-browserify/index.js",
     },
-    "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/project/app",
+    "modules": [
+      "<ROOT>/project/app",
       "node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+      "<ROOT>/node_modules",
+      "<ROOT>/packages/workflow/node_modules",
     ],
-    "plugins": Array [
-      TsconfigPathsPlugin {
-        "absoluteBaseUrl": "/Users/lyoung/Workspaces/@availity/availity-workflow/example",
+    "plugins": [
+      {
+        "absoluteBaseUrl": "<ROOT>/example",
         "baseUrl": "./example/",
-        "extensions": Array [
+        "extensions": [
           ".js",
           ".jsx",
           ".ts",
           ".tsx",
         ],
-        "log": Object {
-          "log": [Function],
-          "logError": [Function],
-          "logInfo": [Function],
-          "logWarning": [Function],
-        },
-        "matchPath": [Function],
-        "referenceMatchMap": Object {},
+        "log": {},
+        "referenceMatchMap": {},
         "source": "described-resolve",
         "target": "resolve",
       },
     ],
     "symlinks": true,
   },
-  "resolveLoader": Object {
-    "modules": Array [
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/node_modules",
-      "/Users/lyoung/Workspaces/@availity/availity-workflow/packages/workflow/node_modules",
+  "resolveLoader": {
+    "modules": [
+      "<ROOT>/node_modules",
+      "<ROOT>/packages/workflow/node_modules",
     ],
     "symlinks": true,
   },

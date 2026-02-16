@@ -1,38 +1,36 @@
 /* eslint-disable import/no-dynamic-require */
-const path = require('path');
-const Logger = require('@availity/workflow-logger');
-const { existsSync } = require('fs');
-const each = require('lodash/forEach');
-const get = require('lodash/get');
-const isFunction = require('lodash/isFunction');
-const isObject = require('lodash/isObject');
-const isString = require('lodash/isString');
-const merge = require('lodash/merge');
-const trimStart = require('lodash/trimStart');
-const chalk = require('chalk');
-const fs = require('fs');
-const yargs = require('yargs');
-const getPort = require('get-port');
-const Joi = require('joi');
-const paths = require('../helpers/paths');
+import { createRequire } from 'module';
+import path from 'path';
+import Logger from '@availity/workflow-logger';
+import { existsSync } from 'fs';
+import deepMerge from '../helpers/deep-merge.js';
+import chalk from 'chalk';
+import fs from 'fs';
+import yargs from 'yargs';
+import getPort, { portNumbers } from 'get-port';
+import Joi from 'joi';
+import paths from '../helpers/paths.js';
+import schema from './schema.js';
+
+const require = createRequire(import.meta.url);
 
 function argv() {
-  return yargs.argv;
+  return yargs(process.argv.slice(2)).argv;
 }
 
 function stringify(obj) {
-  each(obj, (value, key) => {
-    if (isString(value)) {
+  for (const [key, value] of Object.entries(obj)) {
+    if (typeof value === 'string') {
       try {
         JSON.parse(value);
         obj[key] = value;
       } catch {
         obj[key] = JSON.stringify(value);
       }
-    } else if (isObject(value) && !isFunction(value)) {
+    } else if (typeof value === 'object' && value !== null && typeof value !== 'function') {
       stringify(value);
     }
-  });
+  }
   return obj;
 }
 
@@ -58,13 +56,13 @@ const settings = {
   // https://webpack.js.org/configuration/devtool/
   sourceMap() {
     // Get sourcemap from command line or developer config else "source-map"
-    const sourceMap = get(this.configuration, 'development.sourceMap', 'cheap-module-source-map');
+    const sourceMap = this.configuration?.development?.sourceMap ?? 'cheap-module-source-map';
 
     return this.isDistribution() || this.isDryRun() ? 'source-map' : sourceMap;
   },
 
   coverage() {
-    return get(this.configuration, 'development.coverage', path.join(this.project(), 'coverage'));
+    return this.configuration?.development?.coverage ?? path.join(this.project(), 'coverage');
   },
 
   css() {
@@ -101,7 +99,7 @@ const settings = {
   },
 
   host() {
-    return get(this.configuration, 'development.host', '0.0.0.0');
+    return this.configuration?.development?.host ?? '0.0.0.0';
   },
 
   ekkoPort() {
@@ -109,14 +107,14 @@ const settings = {
   },
 
   open() {
-    return get(this.configuration, 'development.open');
+    return this.configuration?.development?.open;
   },
 
   developmentTargets() {
     const defaultTargets = 'browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version';
     const { browserslist } = this.pkg();
 
-    const developmentTargets = get(this.configuration, 'development.targets', defaultTargets);
+    const developmentTargets = this.configuration?.development?.targets ?? defaultTargets;
 
     // If project has a browserslist entry, webpack will use that as its development target
     // https://webpack.js.org/configuration/target/#target
@@ -124,7 +122,7 @@ const settings = {
   },
 
   globals() {
-    const configGlobals = stringify(get(this.configuration, 'globals', {}));
+    const configGlobals = stringify(this.configuration?.globals ?? {});
 
     const env = this.environment();
 
@@ -149,7 +147,7 @@ const settings = {
         }
       );
 
-    return merge(configGlobals, parsedGlobals);
+    return deepMerge(configGlobals, parsedGlobals);
   },
 
   project() {
@@ -165,7 +163,7 @@ const settings = {
   },
 
   title() {
-    return get(this.configuration, 'app.title', 'Availity');
+    return this.configuration?.app?.title ?? 'Availity';
   },
 
   log() {
@@ -173,31 +171,30 @@ const settings = {
 
     if (!this.isTesting()) {
       Logger.info(
-        `Using ${chalk.blue(trimStart(path.relative(process.cwd(), this.workflowConfigPath), 'node_modules/'))}`
+        `Using ${chalk.blue(path.relative(process.cwd(), this.workflowConfigPath).replace(/^node_modules\//, ''))}`
       );
     }
   },
 
   statsLogLevel() {
-    const level = get(this.configuration, 'development.stats.level', 'normal');
-    return get(argv(), 'development.stats.level', level);
+    const level = this.configuration?.development?.stats?.level ?? 'normal';
+    return argv()?.development?.stats?.level ?? level;
   },
 
   infrastructureLogLevel() {
-    const level = get(this.configuration, 'development.infrastructureLogging.level', 'normal');
-    return get(argv(), 'development.infrastructureLogging.level', level);
+    const level = this.configuration?.development?.infrastructureLogging?.level ?? 'normal';
+    return argv()?.development?.infrastructureLogging?.level ?? level;
   },
 
   async init({ shouldMimicStaging } = {}) {
     let config = {};
-    const schema = require('./schema');
     let developerConfig = {};
 
     this.shouldMimicStaging = shouldMimicStaging;
 
     const { value: defaultConfig } = schema.validate({});
 
-    const defaultWorkflowConfig = path.join(__dirname, 'schema.js');
+    const defaultWorkflowConfig = path.join(import.meta.dirname, 'schema.js');
     const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
 
     if (existsSync(jsWorkflowConfig)) {
@@ -214,7 +211,7 @@ const settings = {
       if (typeof developerConfig === 'function') {
         config = developerConfig(defaultConfig);
       } else {
-        merge(config, defaultConfig, this.pkg().availityWorkflow, developerConfig);
+        deepMerge(config, defaultConfig, this.pkg().availityWorkflow, developerConfig);
       }
     } catch (error) {
       const message = `There was an error merging the local config. See details below:\n\n${error.message}`;
@@ -241,11 +238,24 @@ const settings = {
     // are interested in and merge into the default configuration.
     //
     const args = argv();
-    merge(this.configuration, {
+    deepMerge(this.configuration, {
       development: args.development,
       ekko: args.ekko,
       globals: args.globals
     });
+
+    // Handle --bundler and --test-runner CLI args
+    if (args.bundler) {
+      this.configuration.bundler = args.bundler;
+    }
+    if (args.testRunner) {
+      this.configuration.testRunner = args.testRunner;
+    }
+
+    // Auto-set testRunner to vitest when bundler is vite (unless explicitly overridden)
+    if (this.configuration.bundler === 'vite' && !args.testRunner && this.configuration.testRunner === 'jest') {
+      this.configuration.testRunner = 'vitest';
+    }
 
     try {
       this.globals();
@@ -257,9 +267,9 @@ const settings = {
 
     // Setup dev port
     try {
-      this.devServerPort = get(this.configuration, 'development.port', 3000);
+      this.devServerPort = this.configuration?.development?.port ?? 3000;
       const availablePort = await getPort({
-        port: getPort.makeRange(this.devServerPort, this.devServerPort + 1000),
+        port: portNumbers(this.devServerPort, this.devServerPort + 1000),
         host: this.host()
       });
 
@@ -274,9 +284,9 @@ const settings = {
 
     // Setup ekko port
     try {
-      const wantedEkkoPort = get(this.configuration, 'ekko.port', 9999);
+      const wantedEkkoPort = this.configuration?.ekko?.port ?? 9999;
       this.ekkoServerPort = await getPort({
-        port: getPort.makeRange(wantedEkkoPort, wantedEkkoPort + 1000),
+        port: portNumbers(wantedEkkoPort, wantedEkkoPort + 1000),
         host: this.host()
       });
 
@@ -312,7 +322,7 @@ const settings = {
     const filePath = hasProjectFile ? projectFilePath : workflowFilePath;
 
     if (!this.isTesting()) {
-      const message = trimStart(path.relative(process.cwd(), filePath), 'node_modules/');
+      const message = path.relative(process.cwd(), filePath).replace(/^node_modules\//, '');
       Logger.info(`Using ${chalk.blue(message)}`);
     }
 
@@ -368,7 +378,7 @@ const settings = {
   },
 
   isNotifications() {
-    return get(this.configuration, 'development.notification', true);
+    return this.configuration?.development?.notification ?? true;
   },
 
   isDevelopment() {
@@ -412,7 +422,7 @@ const settings = {
   },
 
   historyFallback() {
-    return get(this.configuration, 'development.historyFallback', true);
+    return this.configuration?.development?.historyFallback ?? true;
   },
 
   isLinterDisabled() {
@@ -420,7 +430,7 @@ const settings = {
   },
 
   enableHotLoader() {
-    const isHot = get(this.configuration, 'development.hotLoader', true);
+    const isHot = this.configuration?.development?.hotLoader ?? true;
 
     if (typeof isHot === 'object') {
       return isHot.enabled || false;
@@ -434,11 +444,11 @@ const settings = {
   },
 
   getHotLoaderEntry() {
-    return get(this.configuration, 'development.hotLoaderEntry', /\/App\.jsx?/);
+    return this.configuration?.development?.hotLoaderEntry ?? /\/App\.jsx?/;
   },
 
   isEkko() {
-    return get(this.configuration, 'ekko.enabled', true);
+    return this.configuration?.ekko?.enabled ?? true;
   },
 
   commitMessage() {
@@ -451,8 +461,24 @@ const settings = {
 
   // webpack docs default experiments to false, but that causes build errors
   experimentalWebpackFeatures() {
-    return get(this.configuration, 'experiments', {});
+    return this.configuration?.experiments ?? {};
+  },
+
+  bundler() {
+    return this.configuration?.bundler ?? 'webpack';
+  },
+
+  testRunner() {
+    return this.configuration?.testRunner ?? 'jest';
+  },
+
+  isVite() {
+    return this.bundler() === 'vite';
+  },
+
+  isWebpack() {
+    return this.bundler() === 'webpack';
   }
 };
 
-module.exports = settings;
+export default settings;

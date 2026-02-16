@@ -1,13 +1,13 @@
-const path = require('path');
-const config = require('../config');
-const Ekko = require('../index');
+import path from 'path';
+import config from '../config/index.js';
+import Ekko from '../index.js';
 
 const test = {
   ekko: null,
 
   serverSpecHelper() {
     beforeEach(async () => {
-      test.ekko = new Ekko(path.join(__dirname, 'test-config.js'));
+      test.ekko = new Ekko(path.join(import.meta.dirname, 'test-config.js'));
       await test.ekko.start();
     });
 
@@ -22,9 +22,9 @@ const test = {
   },
 
   getFile(name) {
-    const filePath = path.join(__dirname, 'data', name);
+    const filePath = path.join(import.meta.dirname, 'data', name);
     return filePath;
   }
 };
 
-module.exports = test;
+export default test;

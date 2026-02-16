@@ -1,4 +1,4 @@
-const uniqueId = require('lodash/uniqueId');
+let _id = 0;
 
 class Response {
   constructor(response) {
@@ -13,7 +13,7 @@ class Response {
       this.set(response);
     }
 
-    this.id = uniqueId('response');
+    this.id = `response${++_id}`;
   }
 
   set(response) {
@@ -27,4 +27,4 @@ class Response {
   }
 }
 
-module.exports = Response;
+export default Response;

@@ -2,8 +2,8 @@
   "private": true,
   "name": "availity-workflow",
   "engines": {
-    "yarn": "^3.0.0",
-    "node": "^18.0.0 || ^20.0.0 || ^22.0.0"
+    "yarn": "^3.0.0 || ^4.0.0",
+    "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
   },
   "workspaces": [
     "packages/*",
@@ -23,7 +23,7 @@
     "start": "yarn workspace @availity/dinosaurdocs start --no-open",
     "start:app": "yarn workspace @availity/example start",
     "start:docs": "yarn workspace @availity/dinosaurdocs start",
-    "test": "jest --silent",
+    "test": "vitest run",
     "test:app": "yarn workspace @availity/example test",
     "test:integration": "yarn workspaces foreach -i -v run integration --verbose",
     "version": "nx affected --target version --parallel=1",
@@ -44,11 +44,11 @@
     "gh-pages": "^5.0.0",
     "husky": "^9.1.7",
     "is-ci": "^3.0.1",
-    "jest": "^30.2.0",
     "lint-staged": "^15.5.2",
     "nx": "20.8.1",
     "prettier": "^3.5.3",
-    "typescript": "5.7.3"
+    "typescript": "5.7.3",
+    "vitest": "^4.0.18"
   },
   "resolutions": {
     "socks": "2.7.3"
@@ -69,16 +69,6 @@
     "printWidth": 120,
     "singleQuote": true,
     "trailingComma": "none"
-  },
-  "jest": {
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\](?!@availity).+\\.(js|jsx|ts|tsx)$"
-    ],
-    "testPathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/docusaurus/"
-    ],
-    "testRegex": ".*.spec.js$"
   },
   "packageManager": "yarn@4.11.0"
 }

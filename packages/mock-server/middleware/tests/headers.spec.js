@@ -1,6 +1,5 @@
-const request = require('superagent');
-const isEqual = require('lodash/isEqual');
-const helper = require('../../tests/helpers');
+import request from 'superagent';
+import helper from '../../tests/helpers.js';
 
 describe('Headers', () => {
   helper.serverSpecHelper();
@@ -8,7 +7,7 @@ describe('Headers', () => {
   it('should respond with custom headers', async () => {
     const res = await request.get(helper.getUrl('/v1/route7'));
     expect(res.status).toBe(200);
-    expect(isEqual(res.body, { b: 2 })).toBeTruthy();
+    expect(res.body).toEqual({ b: 2 });
     expect(res.header.ping).toBe('pong');
   });
 
@@ -19,6 +18,6 @@ describe('Headers', () => {
       .send({ bar: 'baz' });
 
     expect(res.status).toBe(200);
-    expect(isEqual(res.body, { b: 2 })).toBeTruthy();
+    expect(res.body).toEqual({ b: 2 });
   });
 });

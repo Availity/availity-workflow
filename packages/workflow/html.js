@@ -1,10 +1,10 @@
-const path = require('path');
+import path from 'path';
 
 const html = (settings) => {
-  const workflowTemplate = path.join(__dirname, './public/index.html');
+  const workflowTemplate = path.join(import.meta.dirname, './public/index.html');
   const projectTemplate = path.join(settings.app(), 'index.html');
 
-  const workflowFavicon = path.join(__dirname, './public/favicon.ico');
+  const workflowFavicon = path.join(import.meta.dirname, './public/favicon.ico');
   const projectFavicon = path.join(settings.app(), 'favicon.ico');
 
   const config = {
@@ -16,4 +16,4 @@ const html = (settings) => {
   return config;
 };
 
-module.exports = html;
+export default html;

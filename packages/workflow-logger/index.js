@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
-const chalk = require('chalk');
-const figures = require('figures');
-const boxen = require('boxen');
+import chalk from 'chalk';
+import boxen from 'boxen';
 
 class Logger {
   constructor(options) {
@@ -34,7 +33,7 @@ class Logger {
     const crayoloa = color || defaultColor;
 
     // Determine color of prefix log
-    let delimeter = chalk.bold[crayoloa](figures.pointerSmall);
+    let delimeter = chalk.bold[crayoloa]('›');
     delimeter = `${delimeter}`;
 
     console.log(`${delimeter} ${chalk[crayoloa](entry)}`);
@@ -50,20 +49,20 @@ class Logger {
 
   // ✖ [ ERROR] Failed linting
   static failed(entry) {
-    const prefix = chalk.red(figures.cross);
+    const prefix = chalk.red('✖');
     const label = chalk.white.bold(' ERROR ');
     console.log(`${prefix} ${chalk.bgRed(label)} ${chalk.red(entry)}`);
   }
 
   // ★ [ WARNING] Compiled with warnings
   static alert(entry) {
-    const prefix = chalk.yellow(figures.star);
+    const prefix = chalk.yellow('★');
     const label = chalk.black.bold(' WARNING ');
     console.log(`${prefix} ${chalk.bgYellow(label)} ${chalk.yellow(entry)}`);
   }
 
   static message(entry, entryLabel) {
-    const prefix = chalk.blue(figures.info);
+    const prefix = chalk.blue('ℹ');
     entryLabel = entryLabel || 'INFO';
     const label = chalk.white.bold(` ${entryLabel} `);
     console.log(`${prefix} ${chalk.bgBlue(label)} ${chalk.blue(entry)}`);
@@ -71,7 +70,7 @@ class Logger {
 
   // ✔︎ Finished linting
   static success(entry) {
-    const prefix = chalk.green.bold(figures.tick);
+    const prefix = chalk.green.bold('✔');
     console.log(`${prefix} ${chalk.gray(entry)}`);
   }
 
@@ -87,4 +86,4 @@ class Logger {
   }
 }
 
-module.exports = Logger;
+export default Logger;

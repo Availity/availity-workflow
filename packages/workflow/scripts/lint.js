@@ -1,11 +1,36 @@
-const globby = require('globby');
-const ora = require('ora');
-const chalk = require('chalk');
-const Logger = require('@availity/workflow-logger');
-const requireRelative = require('require-relative');
-const path = require('path');
-const { spawnSync } = require('child_process');
-const settings = require('../settings');
+import { readdir } from 'fs/promises';
+import ora from 'ora';
+import chalk from 'chalk';
+import Logger from '@availity/workflow-logger';
+import { createRequire } from 'module';
+import path from 'path';
+import { spawnSync } from 'child_process';
+import settings from '../settings/index.js';
+
+// Expand glob patterns like "dir/**/*.ext" using native fs
+async function expandGlobs(patterns) {
+  const results = new Set();
+  for (const pattern of patterns) {
+    const doubleStarIdx = pattern.indexOf('**');
+    if (doubleStarIdx === -1) {
+      results.add(pattern);
+      continue;
+    }
+    const baseDir = pattern.slice(0, doubleStarIdx).replace(/\/$/, '') || '.';
+    const ext = path.extname(pattern);
+    try {
+      const entries = await readdir(baseDir, { recursive: true });
+      for (const entry of entries) {
+        if (path.extname(entry) === ext) {
+          results.add(path.join(baseDir, entry));
+        }
+      }
+    } catch {
+      // directory not found, skip
+    }
+  }
+  return [...results];
+}
 
 async function lint() {
   if (settings.isLinterDisabled()) {
@@ -15,14 +40,16 @@ async function lint() {
 
   let eslint;
   try {
-    eslint = requireRelative('eslint', settings.project());
+    const projectRequire = createRequire(path.join(settings.project(), 'package.json'));
+    eslint = projectRequire('eslint');
   } catch {
     // no op
   }
 
   if (!eslint) {
     try {
-      eslint = require('eslint');
+      eslint = await import('eslint');
+      eslint = eslint.default || eslint;
     } catch {
       Logger.failed('Failed linting. Unable to load eslint.');
       throw new Error('Unable to load eslint.');
@@ -31,9 +58,7 @@ async function lint() {
 
   let engine;
   try {
-    engine = new eslint.ESLint({
-      useEslintrc: true
-    });
+    engine = new eslint.ESLint({});
   } catch (error) {
     Logger.failed(`ESLint configuration error in @availity/workflow. "${error.message}"`);
     throw new Error(`ESLint configuration error in @availity/workflow. "${error.message}"`);
@@ -60,8 +85,8 @@ async function lint() {
     }
   }
 
-  // Uses globby. Defaults to process.cwd() and path.resolve(options.cwd, "/")
-  const paths = await globby(settings.js().map((path) => path.replaceAll('\\', '/')));
+  // Uses expandGlobs which defaults to process.cwd() and path.resolve(options.cwd, "/")
+  const paths = await expandGlobs(settings.js().map((p) => p.replaceAll('\\', '/')));
 
   // Git repository present
   const filesToLint = gitTrackedFiles ? paths.filter((file) => gitTrackedFiles.indexOf(file) > 0) : paths;
@@ -98,4 +123,4 @@ async function lint() {
   return true;
 }
 
-module.exports = lint;
+export default lint;

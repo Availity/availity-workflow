@@ -1,6 +1,6 @@
-const get = require('./get');
-const post = require('./post');
-const patch = require('./patch');
+import get from './get.js';
+import post from './post.js';
+import patch from './patch.js';
 
 const response = {
   get: get.send,
@@ -27,4 +27,4 @@ const response = {
   }
 };
 
-module.exports = response;
+export default response;

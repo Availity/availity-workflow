@@ -1,23 +1,23 @@
-const errorhandler = require('errorhandler');
-const compression = require('compression');
-const methodOverride = require('method-override');
-const cors = require('cors');
-const path = require('path');
-const bodyParser = require('body-parser');
-const busboy = require('connect-busboy');
-const get = require('lodash/get');
-const onFinished = require('on-finished');
-const chalk = require('chalk');
+import errorhandler from 'errorhandler';
+import compression from 'compression';
+import methodOverride from 'method-override';
+import cors from 'cors';
+import path from 'path';
+import express from 'express';
+import busboy from 'connect-busboy';
+import chalk from 'chalk';
 
-const config = require('../config');
-const routes = require('../routes');
-const logger = require('../logger').getInstance();
+import config from '../config/index.js';
+import routes from '../routes/index.js';
+import logger from '../logger/index.js';
 
-const notFoundHandler = require('./not.found');
+import notFoundHandler from './not.found.js';
+
+const log = logger.getInstance();
 
 // Custom request logger
-module.exports = function development() {
-  if (logger.canLog()) {
+export default function development() {
+  if (log.canLog()) {
     config.router.use((req, res, next) => {
       function logRequest() {
         const method = `${chalk.white(req.method)}`;
@@ -25,11 +25,11 @@ module.exports = function development() {
         const code = res._header ? String(res.statusCode) : '';
         const file = chalk.dim(res.avFile || '');
 
-        logger.log(`${method} ${url} ${chalk.white(code)} ${chalk.blue(path.basename(file))}`);
+        log.log(`${method} ${url} ${chalk.white(code)} ${chalk.blue(path.basename(file))}`);
       }
 
       // Callback is called at the end of request cycle after headers are set
-      onFinished(res, logRequest);
+      res.on('finish', logRequest);
 
       next();
     });
@@ -45,17 +45,17 @@ module.exports = function development() {
   config.router.use(methodOverride('X-HTTP-Method-Override'));
 
   config.router.use(
-    bodyParser.json({
-      limit: get(config, 'options.limit', '50mb')
+    express.json({
+      limit: config?.options?.limit ?? '50mb'
     })
   ); // parse application/json
 
   config.router.use(
-    bodyParser.urlencoded({
+    express.urlencoded({
       extended: true,
       limit: config.options.limit
     })
-  ); // // parse application/x-www-form-urlencoded
+  ); // parse application/x-www-form-urlencoded
 
   config.router.use(busboy({ immediate: false }));
 
@@ -63,4 +63,4 @@ module.exports = function development() {
   routes.init();
 
   config.app.use(notFoundHandler());
-};
+}

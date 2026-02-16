@@ -1,8 +1,8 @@
-const Request = require('./request');
-const Response = require('./response');
-const Route = require('./route');
+import Request from './request.js';
+import Response from './response.js';
+import Route from './route.js';
 
-module.exports = {
+export default {
   Request,
   Response,
   Route

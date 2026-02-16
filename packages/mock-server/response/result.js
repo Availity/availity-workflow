@@ -1,10 +1,12 @@
-const path = require('path');
-const fs = require('fs');
-const chalk = require('chalk');
-const delay = require('delay');
+import path from 'path';
+import fs from 'fs';
+import chalk from 'chalk';
+import { setTimeout as delay } from 'timers/promises';
 
-const config = require('../config');
-const logger = require('../logger').getInstance();
+import config from '../config/index.js';
+import logger from '../logger/index.js';
+
+const log = logger.getInstance();
 
 const result = {
   cache: {},
@@ -12,7 +14,7 @@ const result = {
   sendFile(req, res, status, response, filePath) {
     res.status(status).sendFile(filePath, (err) => {
       if (err) {
-        logger.error(`NOT FOUND ${filePath} `);
+        log.error(`NOT FOUND ${filePath} `);
 
         res.sendStatus(404);
       } else {
@@ -50,7 +52,7 @@ const result = {
 
       res.status(status).json(json);
     } catch {
-      logger.error(`NOT FOUND ${filePath} `);
+      log.error(`NOT FOUND ${filePath} `);
       res.sendStatus(404);
     }
   },
@@ -147,4 +149,4 @@ const result = {
   }
 };
 
-module.exports = result;
+export default result;
