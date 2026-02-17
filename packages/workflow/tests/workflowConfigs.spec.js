@@ -7,6 +7,12 @@ const profileConfig = require('../webpack.config.profile');
 
 const NOW = '2023-03-28T16:07:07.909Z';
 
+const normalizePaths = (obj) => {
+  const serialized = JSON.stringify(obj, null, 2);
+  const projectRoot = process.cwd().replace(/\\/g, '/');
+  return serialized.replace(new RegExp(projectRoot.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), '<PROJECT_ROOT>');
+};
+
 describe('webpack configs', () => {
   beforeAll(async () => {
     vi.spyOn(global.Date.prototype, 'toJSON').mockImplementation(() => NOW);
@@ -16,16 +22,16 @@ describe('webpack configs', () => {
   it('sets up the default config with default settings', () => {
     expect(new Date().toJSON()).toBe(NOW);
     const config = baseConfig(settings);
-    expect(config).toMatchSnapshot();
+    expect(normalizePaths(config)).toMatchSnapshot();
   });
 
   it('sets up the production config with default settings', () => {
     const config = prodConfig(settings);
-    expect(config).toMatchSnapshot();
+    expect(normalizePaths(config)).toMatchSnapshot();
   });
 
   it('sets up the profile config with default settings', () => {
     const config = profileConfig(settings);
-    expect(config).toMatchSnapshot();
+    expect(normalizePaths(config)).toMatchSnapshot();
   });
 });

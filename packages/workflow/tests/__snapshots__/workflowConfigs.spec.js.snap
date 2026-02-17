@@ -1,888 +1,415 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`webpack configs > sets up the default config with default settings 1`] = `
-{
-  "context": "/Users/greg.martin/workspaces/availity-workflow/project/app",
-  "devtool": "source-map",
-  "entry": {
-    "index": [
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules/react-app-polyfill/stable.js",
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
-      "/Users/greg.martin/workspaces/availity-workflow/project/app/index.js",
-    ],
-  },
+"{
+  "context": "<PROJECT_ROOT>/project/app",
   "experiments": {},
   "infrastructureLogging": {
-    "level": "warn",
+    "level": "warn"
   },
-  "mode": "development",
-  "module": {
-    "rules": [
-      {
-        "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]vfile\\[/\\\\\\\\\\]core\\\\\\.js/,
-        "use": [
-          {
-            "loader": "imports-loader",
-            "options": {
-              "imports": [
-                "single process/browser process",
-              ],
-              "type": "commonjs",
-            },
-          },
-        ],
-      },
-      {
-        "include": [
-          "/Users/greg.martin/workspaces/availity-workflow/project/app",
-          /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
-        ],
-        "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
-        "use": [
-          {
-            "loader": "esbuild-loader",
-            "options": {
-              "loader": "tsx",
-              "target": "es2015",
-            },
-          },
-        ],
-      },
-      {
-        "resolve": {
-          "fullySpecified": false,
-        },
-        "test": /\\\\\\.m\\?js/,
-      },
-      {
-        "test": /\\\\\\.css\\$/,
-        "use": [
-          "style-loader",
-          {
-            "loader": "css-loader",
-            "options": {
-              "importLoaders": 1,
-              "sourceMap": true,
-            },
-          },
-          {
-            "loader": "postcss-loader",
-            "options": {
-              "postcssOptions": {
-                "plugins": [
-                  {
-                    "Rule": [Function],
-                    "postcssPlugin": "postcss-focus",
-                  },
-                  {
-                    "Once": [Function],
-                    "postcssPlugin": "postcss-flexbugs-fixes",
-                  },
-                  {
-                    "plugins": [
-                      {
-                        "AtRule": {
-                          "custom-media": [Function],
-                          "media": [Function],
-                        },
-                        "postcssPlugin": "postcss-media-minmax",
-                      },
-                      {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-initial",
-                      },
-                      {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-page-break",
-                      },
-                      {
-                        "Once": [Function],
-                        "postcssPlugin": "postcss-font-variant",
-                      },
-                      {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-gap-properties",
-                      },
-                      {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-unset-value",
-                      },
-                      {
-                        "postcssPlugin": "postcss-custom-properties",
-                        "prepare": [Function],
-                      },
-                      {
-                        "postcssPlugin": "postcss-progressive-custom-properties",
-                        "prepare": [Function],
-                      },
-                      {
-                        "browsers": undefined,
-                        "info": [Function],
-                        "options": {
-                          "env": undefined,
-                          "flexbox": "no-2009",
-                          "overrideBrowserslist": undefined,
-                        },
-                        "postcssPlugin": "autoprefixer",
-                        "prepare": [Function],
-                      },
-                      {
-                        "OnceExit": [Function],
-                        "postcssPlugin": "postcss-preset-env",
-                      },
-                    ],
-                    "postcssPlugin": "postcss-preset-env",
-                  },
-                  {
-                    "OnceExit": [Function],
-                    "postcssPlugin": "postcss-reporter",
-                  },
-                ],
-              },
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.\\(scss\\|sass\\)\\$/,
-        "use": [
-          "style-loader",
-          {
-            "loader": "css-loader",
-            "options": {
-              "sourceMap": true,
-            },
-          },
-          {
-            "loader": "postcss-loader",
-            "options": {
-              "postcssOptions": {
-                "plugins": [
-                  {
-                    "Rule": [Function],
-                    "postcssPlugin": "postcss-focus",
-                  },
-                  {
-                    "Once": [Function],
-                    "postcssPlugin": "postcss-flexbugs-fixes",
-                  },
-                  {
-                    "plugins": [
-                      {
-                        "AtRule": {
-                          "custom-media": [Function],
-                          "media": [Function],
-                        },
-                        "postcssPlugin": "postcss-media-minmax",
-                      },
-                      {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-initial",
-                      },
-                      {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-page-break",
-                      },
-                      {
-                        "Once": [Function],
-                        "postcssPlugin": "postcss-font-variant",
-                      },
-                      {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-gap-properties",
-                      },
-                      {
-                        "Declaration": [Function],
-                        "postcssPlugin": "postcss-unset-value",
-                      },
-                      {
-                        "postcssPlugin": "postcss-custom-properties",
-                        "prepare": [Function],
-                      },
-                      {
-                        "postcssPlugin": "postcss-progressive-custom-properties",
-                        "prepare": [Function],
-                      },
-                      {
-                        "browsers": undefined,
-                        "info": [Function],
-                        "options": {
-                          "env": undefined,
-                          "flexbox": "no-2009",
-                          "overrideBrowserslist": undefined,
-                        },
-                        "postcssPlugin": "autoprefixer",
-                        "prepare": [Function],
-                      },
-                      {
-                        "OnceExit": [Function],
-                        "postcssPlugin": "postcss-preset-env",
-                      },
-                    ],
-                    "postcssPlugin": "postcss-preset-env",
-                  },
-                  {
-                    "OnceExit": [Function],
-                    "postcssPlugin": "postcss-reporter",
-                  },
-                ],
-              },
-              "sourceMap": true,
-            },
-          },
-          {
-            "loader": "sass-loader",
-            "options": {
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "generator": {
-          "filename": "fonts/[name].[ext]",
-        },
-        "test": /font\\\\\\.\\(woff\\|woff2\\|eot\\|ttf\\|otf\\|svg\\)\\$/i,
-        "type": "asset/resource",
-      },
-      {
-        "generator": {
-          "filename": "images/[name].[ext]",
-        },
-        "test": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\)\\$/i,
-        "type": "asset/resource",
-      },
-    ],
+  "entry": {
+    "index": [
+      "<PROJECT_ROOT>/node_modules/react-app-polyfill/stable.js",
+      "<PROJECT_ROOT>/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
+      "<PROJECT_ROOT>/project/app/index.js"
+    ]
   },
   "output": {
-    "chunkFilename": "[name].chunk.js",
+    "path": "<PROJECT_ROOT>/build",
     "filename": "[name].js",
-    "path": "/Users/greg.martin/workspaces/availity-workflow/build",
+    "chunkFilename": "[name].chunk.js"
+  },
+  "devtool": "source-map",
+  "resolve": {
+    "modules": [
+      "<PROJECT_ROOT>/project/app",
+      "node_modules",
+      "<PROJECT_ROOT>/node_modules",
+      "<PROJECT_ROOT>/packages/workflow/node_modules"
+    ],
+    "symlinks": true,
+    "extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx",
+      ".json",
+      ".css",
+      ".scss"
+    ],
+    "fallback": {
+      "path": "<PROJECT_ROOT>/node_modules/path-browserify/index.js"
+    },
+    "plugins": [
+      {
+        "source": "described-resolve",
+        "target": "resolve",
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ],
+        "referenceMatchMap": {},
+        "log": {},
+        "baseUrl": "./example/",
+        "absoluteBaseUrl": "<PROJECT_ROOT>/example"
+      }
+    ]
+  },
+  "resolveLoader": {
+    "modules": [
+      "<PROJECT_ROOT>/node_modules",
+      "<PROJECT_ROOT>/packages/workflow/node_modules"
+    ],
+    "symlinks": true
   },
   "plugins": [
-    DefinePlugin {
+    {
       "definitions": {
         "__DEV__": false,
+        "__TEST__": true,
         "__PROD__": false,
         "__STAGING__": false,
-        "__TEST__": true,
-        "process.env.NODE_ENV": ""test"",
-      },
+        "process.env.NODE_ENV": "\\"test\\""
+      }
     },
-    BannerPlugin {
-      "banner": [Function],
+    {
       "options": {
-        "banner": "APP_VERSION="N/A";",
-        "entryOnly": true,
+        "banner": "APP_VERSION=\\"N/A\\";",
+        "test": {},
         "raw": true,
-        "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
-      },
+        "entryOnly": true
+      }
     },
-    BannerPlugin {
-      "banner": [Function],
+    {
       "options": {
-        "banner": "vN/A - 2023-03-28T16:07:07.909Z",
-      },
+        "banner": "vN/A - 2023-03-28T16:07:07.909Z"
+      }
     },
-    HtmlWebpackPlugin {
-      "options": {
-        "base": false,
-        "cache": true,
-        "chunks": "all",
-        "chunksSortMode": "auto",
-        "compile": true,
-        "excludeChunks": [],
-        "favicon": "../../packages/workflow/public/favicon.ico",
-        "filename": "index.html",
-        "hash": false,
-        "inject": "head",
-        "meta": {},
-        "minify": "auto",
-        "publicPath": "auto",
-        "scriptLoading": "defer",
-        "showErrors": true,
-        "template": "../../packages/workflow/public/index.html",
-        "templateContent": false,
-        "templateParameters": [Function],
-        "title": "Availity",
-        "xhtml": false,
-      },
+    {
       "userOptions": {
-        "favicon": "../../packages/workflow/public/favicon.ico",
         "template": "../../packages/workflow/public/index.html",
-        "title": "Availity",
+        "favicon": "../../packages/workflow/public/favicon.ico",
+        "title": "Availity"
       },
       "version": 5,
-    },
-    IgnorePlugin {
-      "checkIgnore": [Function],
       "options": {
-        "contextRegExp": /moment\\$/,
-        "resourceRegExp": /\\^\\\\\\.\\\\/locale\\$/,
-      },
+        "template": "../../packages/workflow/public/index.html",
+        "templateContent": false,
+        "filename": "index.html",
+        "publicPath": "auto",
+        "hash": false,
+        "inject": "head",
+        "scriptLoading": "defer",
+        "compile": true,
+        "favicon": "../../packages/workflow/public/favicon.ico",
+        "minify": "auto",
+        "cache": true,
+        "showErrors": true,
+        "chunks": "all",
+        "excludeChunks": [],
+        "chunksSortMode": "auto",
+        "meta": {},
+        "base": false,
+        "title": "Availity",
+        "xhtml": false
+      }
     },
-    CaseSensitivePathsPlugin {
-      "fsOperations": 0,
-      "logger": Console {
-        "assert": [Function],
-        "clear": [Function],
-        "count": [Function],
-        "countReset": [Function],
-        "debug": [Function],
-        "dir": [Function],
-        "dirxml": [Function],
-        "error": [Function],
-        "group": [Function],
-        "groupCollapsed": [Function],
-        "groupEnd": [Function],
-        "info": [Function],
-        "log": [Function],
-        "table": [Function],
-        "time": [Function],
-        "timeEnd": [Function],
-        "timeLog": [Function],
-        "trace": [Function],
-        "warn": [Function],
-      },
+    {
+      "options": {
+        "resourceRegExp": {},
+        "contextRegExp": {}
+      }
+    },
+    {
       "options": {},
-      "pathCache": Map {},
-      "primed": false,
+      "logger": {},
+      "pathCache": {},
+      "fsOperations": 0,
+      "primed": false
     },
-    DuplicatePackageCheckerPlugin {
+    {
       "options": {
-        "emitError": false,
-        "exclude": [Function],
-        "showHelp": true,
-        "strict": true,
         "verbose": true,
-      },
+        "showHelp": true,
+        "emitError": false,
+        "strict": true
+      }
     },
-    ESLintWebpackPlugin {
+    {
       "key": "ESLintWebpackPlugin",
       "options": {
         "cache": true,
-        "cacheLocation": "/Users/greg.martin/workspaces/availity-workflow/node_modules/.cache/.eslintcache",
-        "emitError": true,
-        "emitWarning": true,
+        "cacheLocation": "<PROJECT_ROOT>/node_modules/.cache/.eslintcache",
         "extensions": [
           "js",
           "jsx",
           "ts",
           "tsx",
-          "mjs",
+          "mjs"
         ],
+        "emitError": true,
+        "emitWarning": true,
         "failOnError": true,
-        "resourceQueryExclude": [],
-      },
-      "run": [Function],
+        "resourceQueryExclude": []
+      }
     },
-    ReactRefreshPlugin {
+    {
       "options": {
-        "exclude": /node_modules/i,
-        "include": /\\\\\\.\\(\\[cm\\]js\\|\\[jt\\]sx\\?\\|flow\\)\\$/i,
+        "exclude": {},
+        "include": {},
         "overlay": {
-          "entry": "/Users/greg.martin/workspaces/availity-workflow/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js",
-          "module": "/Users/greg.martin/workspaces/availity-workflow/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js",
-          "sockIntegration": "wds",
-        },
-      },
+          "entry": "<PROJECT_ROOT>/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js",
+          "module": "<PROJECT_ROOT>/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js",
+          "sockIntegration": "wds"
+        }
+      }
     },
-    WebpackNotifierPlugin {
-      "isFirstBuild": true,
-      "lastBuildSucceeded": false,
+    {
       "options": {
-        "contentImage": "/Users/greg.martin/workspaces/availity-workflow/packages/workflow/public/availity.png",
-        "excludeWarnings": true,
+        "contentImage": "<PROJECT_ROOT>/packages/workflow/public/availity.png",
+        "excludeWarnings": true
       },
-    },
+      "lastBuildSucceeded": false,
+      "isFirstBuild": true
+    }
   ],
-  "resolve": {
-    "extensions": [
-      ".js",
-      ".jsx",
-      ".ts",
-      ".tsx",
-      ".json",
-      ".css",
-      ".scss",
-    ],
-    "fallback": {
-      "path": "/Users/greg.martin/workspaces/availity-workflow/node_modules/path-browserify/index.js",
-    },
-    "modules": [
-      "/Users/greg.martin/workspaces/availity-workflow/project/app",
-      "node_modules",
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules",
-      "/Users/greg.martin/workspaces/availity-workflow/packages/workflow/node_modules",
-    ],
-    "plugins": [
-      TsconfigPathsPlugin {
-        "absoluteBaseUrl": "/Users/greg.martin/workspaces/availity-workflow/example",
-        "baseUrl": "./example/",
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx",
-        ],
-        "log": {
-          "log": [Function],
-          "logError": [Function],
-          "logInfo": [Function],
-          "logWarning": [Function],
-        },
-        "matchPath": [Function],
-        "referenceMatchMap": {},
-        "source": "described-resolve",
-        "target": "resolve",
-      },
-    ],
-    "symlinks": true,
-  },
-  "resolveLoader": {
-    "modules": [
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules",
-      "/Users/greg.martin/workspaces/availity-workflow/packages/workflow/node_modules",
-    ],
-    "symlinks": true,
-  },
-  "stats": "minimal",
+  "mode": "development",
   "target": "browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version",
-}
+  "stats": "minimal",
+  "module": {
+    "rules": [
+      {
+        "test": {},
+        "use": [
+          {
+            "loader": "imports-loader",
+            "options": {
+              "type": "commonjs",
+              "imports": [
+                "single process/browser process"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "test": {},
+        "include": [
+          "<PROJECT_ROOT>/project/app",
+          {}
+        ],
+        "use": [
+          {
+            "loader": "esbuild-loader",
+            "options": {
+              "loader": "tsx",
+              "target": "es2015"
+            }
+          }
+        ]
+      },
+      {
+        "test": {},
+        "resolve": {
+          "fullySpecified": false
+        }
+      },
+      {
+        "test": {},
+        "use": [
+          "style-loader",
+          {
+            "loader": "css-loader",
+            "options": {
+              "sourceMap": true,
+              "importLoaders": 1
+            }
+          },
+          {
+            "loader": "postcss-loader",
+            "options": {
+              "sourceMap": true,
+              "postcssOptions": {
+                "plugins": [
+                  {
+                    "postcssPlugin": "postcss-focus"
+                  },
+                  {
+                    "postcssPlugin": "postcss-flexbugs-fixes"
+                  },
+                  {
+                    "postcssPlugin": "postcss-preset-env",
+                    "plugins": [
+                      {
+                        "postcssPlugin": "postcss-media-minmax",
+                        "AtRule": {}
+                      },
+                      {
+                        "postcssPlugin": "postcss-initial"
+                      },
+                      {
+                        "postcssPlugin": "postcss-page-break"
+                      },
+                      {
+                        "postcssPlugin": "postcss-font-variant"
+                      },
+                      {
+                        "postcssPlugin": "postcss-gap-properties"
+                      },
+                      {
+                        "postcssPlugin": "postcss-unset-value"
+                      },
+                      {
+                        "postcssPlugin": "postcss-custom-properties"
+                      },
+                      {
+                        "postcssPlugin": "postcss-progressive-custom-properties"
+                      },
+                      {
+                        "options": {
+                          "flexbox": "no-2009"
+                        },
+                        "postcssPlugin": "autoprefixer"
+                      },
+                      {
+                        "postcssPlugin": "postcss-preset-env"
+                      }
+                    ]
+                  },
+                  {
+                    "postcssPlugin": "postcss-reporter"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "test": {},
+        "use": [
+          "style-loader",
+          {
+            "loader": "css-loader",
+            "options": {
+              "sourceMap": true
+            }
+          },
+          {
+            "loader": "postcss-loader",
+            "options": {
+              "sourceMap": true,
+              "postcssOptions": {
+                "plugins": [
+                  {
+                    "postcssPlugin": "postcss-focus"
+                  },
+                  {
+                    "postcssPlugin": "postcss-flexbugs-fixes"
+                  },
+                  {
+                    "postcssPlugin": "postcss-preset-env",
+                    "plugins": [
+                      {
+                        "postcssPlugin": "postcss-media-minmax",
+                        "AtRule": {}
+                      },
+                      {
+                        "postcssPlugin": "postcss-initial"
+                      },
+                      {
+                        "postcssPlugin": "postcss-page-break"
+                      },
+                      {
+                        "postcssPlugin": "postcss-font-variant"
+                      },
+                      {
+                        "postcssPlugin": "postcss-gap-properties"
+                      },
+                      {
+                        "postcssPlugin": "postcss-unset-value"
+                      },
+                      {
+                        "postcssPlugin": "postcss-custom-properties"
+                      },
+                      {
+                        "postcssPlugin": "postcss-progressive-custom-properties"
+                      },
+                      {
+                        "options": {
+                          "flexbox": "no-2009"
+                        },
+                        "postcssPlugin": "autoprefixer"
+                      },
+                      {
+                        "postcssPlugin": "postcss-preset-env"
+                      }
+                    ]
+                  },
+                  {
+                    "postcssPlugin": "postcss-reporter"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "loader": "sass-loader",
+            "options": {
+              "sourceMap": true
+            }
+          }
+        ]
+      },
+      {
+        "test": {},
+        "type": "asset/resource",
+        "generator": {
+          "filename": "fonts/[name].[ext]"
+        }
+      },
+      {
+        "test": {},
+        "type": "asset/resource",
+        "generator": {
+          "filename": "images/[name].[ext]"
+        }
+      }
+    ]
+  }
+}"
 `;
 
 exports[`webpack configs > sets up the production config with default settings 1`] = `
-{
-  "context": "/Users/greg.martin/workspaces/availity-workflow/project/app",
-  "devtool": "source-map",
-  "entry": {
-    "index": [
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules/react-app-polyfill/stable.js",
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
-      "/Users/greg.martin/workspaces/availity-workflow/project/app/index.js",
-    ],
-  },
+"{
+  "context": "<PROJECT_ROOT>/project/app",
   "experiments": {},
   "infrastructureLogging": {
-    "level": "warn",
+    "level": "warn"
   },
-  "mode": "production",
-  "module": {
-    "rules": [
-      {
-        "oneOf": [
-          {
-            "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]vfile\\[/\\\\\\\\\\]core\\\\\\.js/,
-            "use": [
-              {
-                "loader": "imports-loader",
-                "options": {
-                  "imports": [
-                    "single process/browser process",
-                  ],
-                  "type": "commonjs",
-                },
-              },
-            ],
-          },
-          {
-            "include": [
-              "/Users/greg.martin/workspaces/availity-workflow/project/app",
-              /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
-            ],
-            "test": /\\\\\\.\\(js\\|jsx\\|ts\\|tsx\\)\\$/,
-            "use": [
-              {
-                "loader": "esbuild-loader",
-                "options": {
-                  "loader": "tsx",
-                  "target": "es2015",
-                },
-              },
-            ],
-          },
-          {
-            "resolve": {
-              "fullySpecified": false,
-            },
-            "test": /\\\\\\.m\\?js/,
-          },
-          {
-            "test": /\\\\\\.css\\$/,
-            "use": [
-              {
-                "loader": "/Users/greg.martin/workspaces/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
-                "options": {
-                  "publicPath": "auto",
-                },
-              },
-              {
-                "loader": "css-loader",
-                "options": {
-                  "importLoaders": 1,
-                  "sourceMap": true,
-                },
-              },
-              {
-                "loader": "postcss-loader",
-                "options": {
-                  "postcssOptions": {
-                    "plugins": [
-                      {
-                        "Rule": [Function],
-                        "postcssPlugin": "postcss-focus",
-                      },
-                      {
-                        "Once": [Function],
-                        "postcssPlugin": "postcss-flexbugs-fixes",
-                      },
-                      {
-                        "plugins": [
-                          {
-                            "AtRule": {
-                              "custom-media": [Function],
-                              "media": [Function],
-                            },
-                            "postcssPlugin": "postcss-media-minmax",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-initial",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-page-break",
-                          },
-                          {
-                            "Once": [Function],
-                            "postcssPlugin": "postcss-font-variant",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-gap-properties",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-unset-value",
-                          },
-                          {
-                            "postcssPlugin": "postcss-custom-properties",
-                            "prepare": [Function],
-                          },
-                          {
-                            "postcssPlugin": "postcss-progressive-custom-properties",
-                            "prepare": [Function],
-                          },
-                          {
-                            "browsers": undefined,
-                            "info": [Function],
-                            "options": {
-                              "env": undefined,
-                              "flexbox": "no-2009",
-                              "overrideBrowserslist": undefined,
-                            },
-                            "postcssPlugin": "autoprefixer",
-                            "prepare": [Function],
-                          },
-                          {
-                            "OnceExit": [Function],
-                            "postcssPlugin": "postcss-preset-env",
-                          },
-                        ],
-                        "postcssPlugin": "postcss-preset-env",
-                      },
-                      {
-                        "OnceExit": [Function],
-                        "postcssPlugin": "postcss-reporter",
-                      },
-                    ],
-                  },
-                  "sourceMap": true,
-                },
-              },
-            ],
-          },
-          {
-            "test": /\\\\\\.\\(scss\\|sass\\)\\$/,
-            "use": [
-              {
-                "loader": "/Users/greg.martin/workspaces/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
-                "options": {
-                  "publicPath": "auto",
-                },
-              },
-              "css-loader",
-              {
-                "loader": "postcss-loader",
-                "options": {
-                  "postcssOptions": {
-                    "plugins": [
-                      {
-                        "Rule": [Function],
-                        "postcssPlugin": "postcss-focus",
-                      },
-                      {
-                        "Once": [Function],
-                        "postcssPlugin": "postcss-flexbugs-fixes",
-                      },
-                      {
-                        "plugins": [
-                          {
-                            "AtRule": {
-                              "custom-media": [Function],
-                              "media": [Function],
-                            },
-                            "postcssPlugin": "postcss-media-minmax",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-initial",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-page-break",
-                          },
-                          {
-                            "Once": [Function],
-                            "postcssPlugin": "postcss-font-variant",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-gap-properties",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-unset-value",
-                          },
-                          {
-                            "postcssPlugin": "postcss-custom-properties",
-                            "prepare": [Function],
-                          },
-                          {
-                            "postcssPlugin": "postcss-progressive-custom-properties",
-                            "prepare": [Function],
-                          },
-                          {
-                            "browsers": undefined,
-                            "info": [Function],
-                            "options": {
-                              "env": undefined,
-                              "flexbox": "no-2009",
-                              "overrideBrowserslist": undefined,
-                            },
-                            "postcssPlugin": "autoprefixer",
-                            "prepare": [Function],
-                          },
-                          {
-                            "OnceExit": [Function],
-                            "postcssPlugin": "postcss-preset-env",
-                          },
-                        ],
-                        "postcssPlugin": "postcss-preset-env",
-                      },
-                      {
-                        "OnceExit": [Function],
-                        "postcssPlugin": "postcss-reporter",
-                      },
-                    ],
-                  },
-                  "sourceMap": true,
-                },
-              },
-              {
-                "loader": "sass-loader",
-                "options": {
-                  "sourceMap": true,
-                },
-              },
-            ],
-          },
-          {
-            "generator": {
-              "filename": "fonts/[name][ext]",
-            },
-            "test": /font\\\\\\.\\(woff\\|woff2\\|eot\\|ttf\\|otf\\|svg\\)\\$/i,
-            "type": "asset/resource",
-          },
-          {
-            "generator": {
-              "filename": "images/[name].[ext]",
-            },
-            "test": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\)\\$/i,
-            "type": "asset/resource",
-          },
-          {
-            "exclude": [
-              /\\\\\\.\\(js\\|cjs\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
-              /\\\\\\.html\\$/,
-              /\\\\\\.json\\$/,
-            ],
-            "generator": {
-              "filename": "static/media/[contenthash:8][ext]",
-            },
-            "type": "asset/resource",
-          },
-        ],
-      },
-    ],
-  },
-  "optimization": {
-    "minimizer": [],
-    "moduleIds": "deterministic",
-    "runtimeChunk": "single",
-    "splitChunks": {
-      "cacheGroups": {
-        "default": {
-          "minChunks": 2,
-          "priority": -20,
-          "reuseExistingChunk": true,
-        },
-        "defaultVendors": {
-          "chunks": "all",
-          "idHint": "defaultVendors",
-          "priority": -10,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]/,
-        },
-        "lodash": {
-          "chunks": "all",
-          "idHint": "vendors",
-          "priority": 1,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(lodash\\(\\[\\.-\\]\\)\\?\\\\w\\*\\?\\)\\[/\\\\\\\\\\]/,
-        },
-        "moment": {
-          "chunks": "all",
-          "idHint": "vendors",
-          "priority": 2,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(moment\\)\\[/\\\\\\\\\\]/,
-        },
-        "react": {
-          "chunks": "all",
-          "idHint": "vendors",
-          "priority": 10,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(react\\|react-dom\\)\\[/\\\\\\\\\\]/,
-        },
-        "styles": {
-          "chunks": "all",
-          "enforce": true,
-          "idHint": "styles",
-          "test": /\\\\\\.css\\$/,
-        },
-      },
-    },
+  "entry": {
+    "index": [
+      "<PROJECT_ROOT>/node_modules/react-app-polyfill/stable.js",
+      "<PROJECT_ROOT>/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
+      "<PROJECT_ROOT>/project/app/index.js"
+    ]
   },
   "output": {
-    "chunkFilename": "[name].chunk.js",
-    "devtoolModuleFilenameTemplate": [Function],
+    "path": "<PROJECT_ROOT>/build",
     "filename": "[name].js",
-    "path": "/Users/greg.martin/workspaces/availity-workflow/build",
+    "chunkFilename": "[name].chunk.js"
   },
-  "plugins": [
-    DefinePlugin {
-      "definitions": {
-        "__DEV__": false,
-        "__PROD__": false,
-        "__STAGING__": false,
-        "__TEST__": true,
-        "process.env.NODE_ENV": ""test"",
-      },
-    },
-    BannerPlugin {
-      "banner": [Function],
-      "options": {
-        "banner": "APP_VERSION="N/A";",
-        "entryOnly": true,
-        "raw": true,
-        "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
-      },
-    },
-    BannerPlugin {
-      "banner": [Function],
-      "options": {
-        "banner": "vN/A - 2023-03-28T16:07:07.909Z",
-      },
-    },
-    HtmlWebpackPlugin {
-      "options": {
-        "base": false,
-        "cache": true,
-        "chunks": "all",
-        "chunksSortMode": "auto",
-        "compile": true,
-        "excludeChunks": [],
-        "favicon": "../../packages/workflow/public/favicon.ico",
-        "filename": "index.html",
-        "hash": false,
-        "inject": "head",
-        "meta": {},
-        "minify": "auto",
-        "publicPath": "auto",
-        "scriptLoading": "defer",
-        "showErrors": true,
-        "template": "../../packages/workflow/public/index.html",
-        "templateContent": false,
-        "templateParameters": [Function],
-        "title": "Availity",
-        "xhtml": false,
-      },
-      "userOptions": {
-        "favicon": "../../packages/workflow/public/favicon.ico",
-        "template": "../../packages/workflow/public/index.html",
-        "title": "Availity",
-      },
-      "version": 5,
-    },
-    IgnorePlugin {
-      "checkIgnore": [Function],
-      "options": {
-        "contextRegExp": /moment\\$/,
-        "resourceRegExp": /\\^\\\\\\.\\\\/locale\\$/,
-      },
-    },
-    CaseSensitivePathsPlugin {
-      "fsOperations": 0,
-      "logger": Console {
-        "assert": [Function],
-        "clear": [Function],
-        "count": [Function],
-        "countReset": [Function],
-        "debug": [Function],
-        "dir": [Function],
-        "dirxml": [Function],
-        "error": [Function],
-        "group": [Function],
-        "groupCollapsed": [Function],
-        "groupEnd": [Function],
-        "info": [Function],
-        "log": [Function],
-        "table": [Function],
-        "time": [Function],
-        "timeEnd": [Function],
-        "timeLog": [Function],
-        "trace": [Function],
-        "warn": [Function],
-      },
-      "options": {},
-      "pathCache": Map {},
-      "primed": false,
-    },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": {
-        "chunkFilename": "css/[name]-[contenthash:8].chunk.css",
-        "experimentalUseImportModule": undefined,
-        "filename": "css/[name]-[contenthash:8].chunk.css",
-        "ignoreOrder": false,
-        "runtime": true,
-      },
-      "runtimeOptions": {
-        "attributes": undefined,
-        "insert": undefined,
-        "linkType": "text/css",
-      },
-    },
-  ],
+  "devtool": "source-map",
   "resolve": {
+    "modules": [
+      "<PROJECT_ROOT>/project/app",
+      "node_modules",
+      "<PROJECT_ROOT>/node_modules",
+      "<PROJECT_ROOT>/packages/workflow/node_modules"
+    ],
+    "symlinks": true,
     "extensions": [
       ".js",
       ".jsx",
@@ -890,519 +417,411 @@ exports[`webpack configs > sets up the production config with default settings 1
       ".tsx",
       ".json",
       ".css",
-      ".scss",
+      ".scss"
     ],
     "fallback": {
-      "path": "/Users/greg.martin/workspaces/availity-workflow/node_modules/path-browserify/index.js",
+      "path": "<PROJECT_ROOT>/node_modules/path-browserify/index.js"
     },
-    "modules": [
-      "/Users/greg.martin/workspaces/availity-workflow/project/app",
-      "node_modules",
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules",
-      "/Users/greg.martin/workspaces/availity-workflow/packages/workflow/node_modules",
-    ],
     "plugins": [
-      TsconfigPathsPlugin {
-        "absoluteBaseUrl": "/Users/greg.martin/workspaces/availity-workflow/example",
-        "baseUrl": "./example/",
+      {
+        "source": "described-resolve",
+        "target": "resolve",
         "extensions": [
           ".js",
           ".jsx",
           ".ts",
-          ".tsx",
+          ".tsx"
         ],
-        "log": {
-          "log": [Function],
-          "logError": [Function],
-          "logInfo": [Function],
-          "logWarning": [Function],
-        },
-        "matchPath": [Function],
         "referenceMatchMap": {},
-        "source": "described-resolve",
-        "target": "resolve",
-      },
-    ],
-    "symlinks": true,
+        "log": {},
+        "baseUrl": "./example/",
+        "absoluteBaseUrl": "<PROJECT_ROOT>/example"
+      }
+    ]
   },
   "resolveLoader": {
     "modules": [
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules",
-      "/Users/greg.martin/workspaces/availity-workflow/packages/workflow/node_modules",
+      "<PROJECT_ROOT>/node_modules",
+      "<PROJECT_ROOT>/packages/workflow/node_modules"
     ],
-    "symlinks": true,
+    "symlinks": true
   },
+  "plugins": [
+    {
+      "definitions": {
+        "__DEV__": false,
+        "__TEST__": true,
+        "__PROD__": false,
+        "__STAGING__": false,
+        "process.env.NODE_ENV": "\\"test\\""
+      }
+    },
+    {
+      "options": {
+        "banner": "APP_VERSION=\\"N/A\\";",
+        "test": {},
+        "raw": true,
+        "entryOnly": true
+      }
+    },
+    {
+      "options": {
+        "banner": "vN/A - 2023-03-28T16:07:07.909Z"
+      }
+    },
+    {
+      "userOptions": {
+        "template": "../../packages/workflow/public/index.html",
+        "favicon": "../../packages/workflow/public/favicon.ico",
+        "title": "Availity"
+      },
+      "version": 5,
+      "options": {
+        "template": "../../packages/workflow/public/index.html",
+        "templateContent": false,
+        "filename": "index.html",
+        "publicPath": "auto",
+        "hash": false,
+        "inject": "head",
+        "scriptLoading": "defer",
+        "compile": true,
+        "favicon": "../../packages/workflow/public/favicon.ico",
+        "minify": "auto",
+        "cache": true,
+        "showErrors": true,
+        "chunks": "all",
+        "excludeChunks": [],
+        "chunksSortMode": "auto",
+        "meta": {},
+        "base": false,
+        "title": "Availity",
+        "xhtml": false
+      }
+    },
+    {
+      "options": {
+        "resourceRegExp": {},
+        "contextRegExp": {}
+      }
+    },
+    {
+      "options": {},
+      "logger": {},
+      "pathCache": {},
+      "fsOperations": 0,
+      "primed": false
+    },
+    {
+      "_sortedModulesCache": {},
+      "options": {
+        "filename": "css/[name]-[contenthash:8].chunk.css",
+        "ignoreOrder": false,
+        "runtime": true,
+        "chunkFilename": "css/[name]-[contenthash:8].chunk.css"
+      },
+      "runtimeOptions": {
+        "linkType": "text/css"
+      }
+    }
+  ],
+  "mode": "production",
   "target": "browserslist: defaults",
-}
+  "optimization": {
+    "splitChunks": {
+      "cacheGroups": {
+        "defaultVendors": {
+          "test": {},
+          "idHint": "defaultVendors",
+          "chunks": "all",
+          "priority": -10
+        },
+        "default": {
+          "minChunks": 2,
+          "priority": -20,
+          "reuseExistingChunk": true
+        },
+        "react": {
+          "test": {},
+          "idHint": "vendors",
+          "chunks": "all",
+          "priority": 10
+        },
+        "lodash": {
+          "test": {},
+          "idHint": "vendors",
+          "chunks": "all",
+          "priority": 1
+        },
+        "moment": {
+          "test": {},
+          "idHint": "vendors",
+          "chunks": "all",
+          "priority": 2
+        },
+        "styles": {
+          "idHint": "styles",
+          "test": {},
+          "chunks": "all",
+          "enforce": true
+        }
+      }
+    },
+    "minimizer": [],
+    "runtimeChunk": "single",
+    "moduleIds": "deterministic"
+  },
+  "module": {
+    "rules": [
+      {
+        "oneOf": [
+          {
+            "test": {},
+            "use": [
+              {
+                "loader": "imports-loader",
+                "options": {
+                  "type": "commonjs",
+                  "imports": [
+                    "single process/browser process"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "test": {},
+            "include": [
+              "<PROJECT_ROOT>/project/app",
+              {}
+            ],
+            "use": [
+              {
+                "loader": "esbuild-loader",
+                "options": {
+                  "loader": "tsx",
+                  "target": "es2015"
+                }
+              }
+            ]
+          },
+          {
+            "test": {},
+            "resolve": {
+              "fullySpecified": false
+            }
+          },
+          {
+            "test": {},
+            "use": [
+              {
+                "loader": "<PROJECT_ROOT>/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "options": {
+                  "publicPath": "auto"
+                }
+              },
+              {
+                "loader": "css-loader",
+                "options": {
+                  "sourceMap": true,
+                  "importLoaders": 1
+                }
+              },
+              {
+                "loader": "postcss-loader",
+                "options": {
+                  "sourceMap": true,
+                  "postcssOptions": {
+                    "plugins": [
+                      {
+                        "postcssPlugin": "postcss-focus"
+                      },
+                      {
+                        "postcssPlugin": "postcss-flexbugs-fixes"
+                      },
+                      {
+                        "postcssPlugin": "postcss-preset-env",
+                        "plugins": [
+                          {
+                            "postcssPlugin": "postcss-media-minmax",
+                            "AtRule": {}
+                          },
+                          {
+                            "postcssPlugin": "postcss-initial"
+                          },
+                          {
+                            "postcssPlugin": "postcss-page-break"
+                          },
+                          {
+                            "postcssPlugin": "postcss-font-variant"
+                          },
+                          {
+                            "postcssPlugin": "postcss-gap-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-unset-value"
+                          },
+                          {
+                            "postcssPlugin": "postcss-custom-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-progressive-custom-properties"
+                          },
+                          {
+                            "options": {
+                              "flexbox": "no-2009"
+                            },
+                            "postcssPlugin": "autoprefixer"
+                          },
+                          {
+                            "postcssPlugin": "postcss-preset-env"
+                          }
+                        ]
+                      },
+                      {
+                        "postcssPlugin": "postcss-reporter"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "test": {},
+            "use": [
+              {
+                "loader": "<PROJECT_ROOT>/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "options": {
+                  "publicPath": "auto"
+                }
+              },
+              "css-loader",
+              {
+                "loader": "postcss-loader",
+                "options": {
+                  "sourceMap": true,
+                  "postcssOptions": {
+                    "plugins": [
+                      {
+                        "postcssPlugin": "postcss-focus"
+                      },
+                      {
+                        "postcssPlugin": "postcss-flexbugs-fixes"
+                      },
+                      {
+                        "postcssPlugin": "postcss-preset-env",
+                        "plugins": [
+                          {
+                            "postcssPlugin": "postcss-media-minmax",
+                            "AtRule": {}
+                          },
+                          {
+                            "postcssPlugin": "postcss-initial"
+                          },
+                          {
+                            "postcssPlugin": "postcss-page-break"
+                          },
+                          {
+                            "postcssPlugin": "postcss-font-variant"
+                          },
+                          {
+                            "postcssPlugin": "postcss-gap-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-unset-value"
+                          },
+                          {
+                            "postcssPlugin": "postcss-custom-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-progressive-custom-properties"
+                          },
+                          {
+                            "options": {
+                              "flexbox": "no-2009"
+                            },
+                            "postcssPlugin": "autoprefixer"
+                          },
+                          {
+                            "postcssPlugin": "postcss-preset-env"
+                          }
+                        ]
+                      },
+                      {
+                        "postcssPlugin": "postcss-reporter"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "loader": "sass-loader",
+                "options": {
+                  "sourceMap": true
+                }
+              }
+            ]
+          },
+          {
+            "test": {},
+            "type": "asset/resource",
+            "generator": {
+              "filename": "fonts/[name][ext]"
+            }
+          },
+          {
+            "test": {},
+            "type": "asset/resource",
+            "generator": {
+              "filename": "images/[name].[ext]"
+            }
+          },
+          {
+            "type": "asset/resource",
+            "exclude": [
+              {},
+              {},
+              {}
+            ],
+            "generator": {
+              "filename": "static/media/[contenthash:8][ext]"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}"
 `;
 
 exports[`webpack configs > sets up the profile config with default settings 1`] = `
-{
-  "context": "/Users/greg.martin/workspaces/availity-workflow/project/app",
-  "devtool": "source-map",
-  "entry": {
-    "index": [
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules/react-app-polyfill/stable.js",
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
-      "/Users/greg.martin/workspaces/availity-workflow/project/app/index.js",
-    ],
-  },
+"{
+  "context": "<PROJECT_ROOT>/project/app",
   "experiments": {},
   "infrastructureLogging": {
-    "level": "warn",
+    "level": "warn"
   },
-  "mode": "production",
-  "module": {
-    "rules": [
-      {
-        "oneOf": [
-          {
-            "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]vfile\\[/\\\\\\\\\\]core\\\\\\.js/,
-            "use": [
-              {
-                "loader": "imports-loader",
-                "options": {
-                  "imports": [
-                    "single process/browser process",
-                  ],
-                  "type": "commonjs",
-                },
-              },
-            ],
-          },
-          {
-            "include": [
-              "/Users/greg.martin/workspaces/availity-workflow/project/app",
-              /node_modules\\[/\\\\\\\\\\]\\(\\?=\\(@av\\)\\)\\.\\*/,
-            ],
-            "test": /\\\\\\.\\(js\\|jsx\\|ts\\|tsx\\)\\$/,
-            "use": [
-              {
-                "loader": "esbuild-loader",
-                "options": {
-                  "loader": "tsx",
-                  "target": "es2015",
-                },
-              },
-            ],
-          },
-          {
-            "resolve": {
-              "fullySpecified": false,
-            },
-            "test": /\\\\\\.m\\?js/,
-          },
-          {
-            "test": /\\\\\\.css\\$/,
-            "use": [
-              {
-                "loader": "/Users/greg.martin/workspaces/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
-                "options": {
-                  "publicPath": "auto",
-                },
-              },
-              {
-                "loader": "css-loader",
-                "options": {
-                  "importLoaders": 1,
-                  "sourceMap": true,
-                },
-              },
-              {
-                "loader": "postcss-loader",
-                "options": {
-                  "postcssOptions": {
-                    "plugins": [
-                      {
-                        "Rule": [Function],
-                        "postcssPlugin": "postcss-focus",
-                      },
-                      {
-                        "Once": [Function],
-                        "postcssPlugin": "postcss-flexbugs-fixes",
-                      },
-                      {
-                        "plugins": [
-                          {
-                            "AtRule": {
-                              "custom-media": [Function],
-                              "media": [Function],
-                            },
-                            "postcssPlugin": "postcss-media-minmax",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-initial",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-page-break",
-                          },
-                          {
-                            "Once": [Function],
-                            "postcssPlugin": "postcss-font-variant",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-gap-properties",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-unset-value",
-                          },
-                          {
-                            "postcssPlugin": "postcss-custom-properties",
-                            "prepare": [Function],
-                          },
-                          {
-                            "postcssPlugin": "postcss-progressive-custom-properties",
-                            "prepare": [Function],
-                          },
-                          {
-                            "browsers": undefined,
-                            "info": [Function],
-                            "options": {
-                              "env": undefined,
-                              "flexbox": "no-2009",
-                              "overrideBrowserslist": undefined,
-                            },
-                            "postcssPlugin": "autoprefixer",
-                            "prepare": [Function],
-                          },
-                          {
-                            "OnceExit": [Function],
-                            "postcssPlugin": "postcss-preset-env",
-                          },
-                        ],
-                        "postcssPlugin": "postcss-preset-env",
-                      },
-                      {
-                        "OnceExit": [Function],
-                        "postcssPlugin": "postcss-reporter",
-                      },
-                    ],
-                  },
-                  "sourceMap": true,
-                },
-              },
-            ],
-          },
-          {
-            "test": /\\\\\\.\\(scss\\|sass\\)\\$/,
-            "use": [
-              {
-                "loader": "/Users/greg.martin/workspaces/availity-workflow/node_modules/mini-css-extract-plugin/dist/loader.js",
-                "options": {
-                  "publicPath": "auto",
-                },
-              },
-              "css-loader",
-              {
-                "loader": "postcss-loader",
-                "options": {
-                  "postcssOptions": {
-                    "plugins": [
-                      {
-                        "Rule": [Function],
-                        "postcssPlugin": "postcss-focus",
-                      },
-                      {
-                        "Once": [Function],
-                        "postcssPlugin": "postcss-flexbugs-fixes",
-                      },
-                      {
-                        "plugins": [
-                          {
-                            "AtRule": {
-                              "custom-media": [Function],
-                              "media": [Function],
-                            },
-                            "postcssPlugin": "postcss-media-minmax",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-initial",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-page-break",
-                          },
-                          {
-                            "Once": [Function],
-                            "postcssPlugin": "postcss-font-variant",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-gap-properties",
-                          },
-                          {
-                            "Declaration": [Function],
-                            "postcssPlugin": "postcss-unset-value",
-                          },
-                          {
-                            "postcssPlugin": "postcss-custom-properties",
-                            "prepare": [Function],
-                          },
-                          {
-                            "postcssPlugin": "postcss-progressive-custom-properties",
-                            "prepare": [Function],
-                          },
-                          {
-                            "browsers": undefined,
-                            "info": [Function],
-                            "options": {
-                              "env": undefined,
-                              "flexbox": "no-2009",
-                              "overrideBrowserslist": undefined,
-                            },
-                            "postcssPlugin": "autoprefixer",
-                            "prepare": [Function],
-                          },
-                          {
-                            "OnceExit": [Function],
-                            "postcssPlugin": "postcss-preset-env",
-                          },
-                        ],
-                        "postcssPlugin": "postcss-preset-env",
-                      },
-                      {
-                        "OnceExit": [Function],
-                        "postcssPlugin": "postcss-reporter",
-                      },
-                    ],
-                  },
-                  "sourceMap": true,
-                },
-              },
-              {
-                "loader": "sass-loader",
-                "options": {
-                  "sourceMap": true,
-                },
-              },
-            ],
-          },
-          {
-            "generator": {
-              "filename": "fonts/[name][ext]",
-            },
-            "test": /font\\\\\\.\\(woff\\|woff2\\|eot\\|ttf\\|otf\\|svg\\)\\$/i,
-            "type": "asset/resource",
-          },
-          {
-            "generator": {
-              "filename": "images/[name].[ext]",
-            },
-            "test": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\)\\$/i,
-            "type": "asset/resource",
-          },
-          {
-            "exclude": [
-              /\\\\\\.\\(js\\|cjs\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
-              /\\\\\\.html\\$/,
-              /\\\\\\.json\\$/,
-            ],
-            "generator": {
-              "filename": "static/media/[contenthash:8][ext]",
-            },
-            "type": "asset/resource",
-          },
-        ],
-      },
-    ],
-  },
-  "optimization": {
-    "minimizer": [],
-    "moduleIds": "deterministic",
-    "runtimeChunk": "single",
-    "splitChunks": {
-      "cacheGroups": {
-        "default": {
-          "minChunks": 2,
-          "priority": -20,
-          "reuseExistingChunk": true,
-        },
-        "defaultVendors": {
-          "chunks": "all",
-          "idHint": "defaultVendors",
-          "priority": -10,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]/,
-        },
-        "lodash": {
-          "chunks": "all",
-          "idHint": "vendors",
-          "priority": 1,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(lodash\\(\\[\\.-\\]\\)\\?\\\\w\\*\\?\\)\\[/\\\\\\\\\\]/,
-        },
-        "moment": {
-          "chunks": "all",
-          "idHint": "vendors",
-          "priority": 2,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(moment\\)\\[/\\\\\\\\\\]/,
-        },
-        "react": {
-          "chunks": "all",
-          "idHint": "vendors",
-          "priority": 10,
-          "test": /\\[/\\\\\\\\\\]node_modules\\[/\\\\\\\\\\]\\(react\\|react-dom\\)\\[/\\\\\\\\\\]/,
-        },
-        "styles": {
-          "chunks": "all",
-          "enforce": true,
-          "idHint": "styles",
-          "test": /\\\\\\.css\\$/,
-        },
-      },
-    },
+  "entry": {
+    "index": [
+      "<PROJECT_ROOT>/node_modules/react-app-polyfill/stable.js",
+      "<PROJECT_ROOT>/node_modules/navigator.sendbeacon/dist/navigator.sendbeacon.cjs.js",
+      "<PROJECT_ROOT>/project/app/index.js"
+    ]
   },
   "output": {
-    "chunkFilename": "[name].chunk.js",
-    "devtoolModuleFilenameTemplate": [Function],
+    "path": "<PROJECT_ROOT>/build",
     "filename": "[name].js",
-    "path": "/Users/greg.martin/workspaces/availity-workflow/build",
+    "chunkFilename": "[name].chunk.js"
   },
-  "plugins": [
-    DefinePlugin {
-      "definitions": {
-        "__DEV__": false,
-        "__PROD__": false,
-        "__STAGING__": false,
-        "__TEST__": true,
-        "process.env.NODE_ENV": ""test"",
-      },
-    },
-    BannerPlugin {
-      "banner": [Function],
-      "options": {
-        "banner": "APP_VERSION="N/A";",
-        "entryOnly": true,
-        "raw": true,
-        "test": /\\\\\\.\\(js\\|mjs\\|jsx\\|ts\\|tsx\\)\\$/,
-      },
-    },
-    BannerPlugin {
-      "banner": [Function],
-      "options": {
-        "banner": "vN/A - 2023-03-28T16:07:07.909Z",
-      },
-    },
-    HtmlWebpackPlugin {
-      "options": {
-        "base": false,
-        "cache": true,
-        "chunks": "all",
-        "chunksSortMode": "auto",
-        "compile": true,
-        "excludeChunks": [],
-        "favicon": "../../packages/workflow/public/favicon.ico",
-        "filename": "index.html",
-        "hash": false,
-        "inject": "head",
-        "meta": {},
-        "minify": "auto",
-        "publicPath": "auto",
-        "scriptLoading": "defer",
-        "showErrors": true,
-        "template": "../../packages/workflow/public/index.html",
-        "templateContent": false,
-        "templateParameters": [Function],
-        "title": "Availity",
-        "xhtml": false,
-      },
-      "userOptions": {
-        "favicon": "../../packages/workflow/public/favicon.ico",
-        "template": "../../packages/workflow/public/index.html",
-        "title": "Availity",
-      },
-      "version": 5,
-    },
-    IgnorePlugin {
-      "checkIgnore": [Function],
-      "options": {
-        "contextRegExp": /moment\\$/,
-        "resourceRegExp": /\\^\\\\\\.\\\\/locale\\$/,
-      },
-    },
-    CaseSensitivePathsPlugin {
-      "fsOperations": 0,
-      "logger": Console {
-        "assert": [Function],
-        "clear": [Function],
-        "count": [Function],
-        "countReset": [Function],
-        "debug": [Function],
-        "dir": [Function],
-        "dirxml": [Function],
-        "error": [Function],
-        "group": [Function],
-        "groupCollapsed": [Function],
-        "groupEnd": [Function],
-        "info": [Function],
-        "log": [Function],
-        "table": [Function],
-        "time": [Function],
-        "timeEnd": [Function],
-        "timeLog": [Function],
-        "trace": [Function],
-        "warn": [Function],
-      },
-      "options": {},
-      "pathCache": Map {},
-      "primed": false,
-    },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": {
-        "chunkFilename": "css/[name]-[contenthash:8].chunk.css",
-        "experimentalUseImportModule": undefined,
-        "filename": "css/[name]-[contenthash:8].chunk.css",
-        "ignoreOrder": false,
-        "runtime": true,
-      },
-      "runtimeOptions": {
-        "attributes": undefined,
-        "insert": undefined,
-        "linkType": "text/css",
-      },
-    },
-    BundleAnalyzerPlugin {
-      "logger": Logger {
-        "activeLevels": Set {
-          "info",
-          "warn",
-          "error",
-          "silent",
-        },
-      },
-      "opts": {
-        "analyzerHost": "127.0.0.1",
-        "analyzerMode": "static",
-        "analyzerPort": 8888,
-        "analyzerUrl": [Function],
-        "defaultSizes": "parsed",
-        "excludeAssets": null,
-        "generateStatsFile": false,
-        "logLevel": "info",
-        "openAnalyzer": true,
-        "reportFilename": "profile.html",
-        "reportTitle": [Function],
-        "startAnalyzer": true,
-        "statsFilename": "stats.json",
-        "statsOptions": null,
-      },
-      "server": null,
-    },
-    DuplicatePackageCheckerPlugin {
-      "options": {
-        "emitError": false,
-        "exclude": [Function],
-        "showHelp": true,
-        "strict": true,
-        "verbose": false,
-      },
-    },
-  ],
+  "devtool": "source-map",
   "resolve": {
+    "modules": [
+      "<PROJECT_ROOT>/project/app",
+      "node_modules",
+      "<PROJECT_ROOT>/node_modules",
+      "<PROJECT_ROOT>/packages/workflow/node_modules"
+    ],
+    "symlinks": true,
     "extensions": [
       ".js",
       ".jsx",
@@ -1410,48 +829,407 @@ exports[`webpack configs > sets up the profile config with default settings 1`] 
       ".tsx",
       ".json",
       ".css",
-      ".scss",
+      ".scss"
     ],
     "fallback": {
-      "path": "/Users/greg.martin/workspaces/availity-workflow/node_modules/path-browserify/index.js",
+      "path": "<PROJECT_ROOT>/node_modules/path-browserify/index.js"
     },
-    "modules": [
-      "/Users/greg.martin/workspaces/availity-workflow/project/app",
-      "node_modules",
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules",
-      "/Users/greg.martin/workspaces/availity-workflow/packages/workflow/node_modules",
-    ],
     "plugins": [
-      TsconfigPathsPlugin {
-        "absoluteBaseUrl": "/Users/greg.martin/workspaces/availity-workflow/example",
-        "baseUrl": "./example/",
+      {
+        "source": "described-resolve",
+        "target": "resolve",
         "extensions": [
           ".js",
           ".jsx",
           ".ts",
-          ".tsx",
+          ".tsx"
         ],
-        "log": {
-          "log": [Function],
-          "logError": [Function],
-          "logInfo": [Function],
-          "logWarning": [Function],
-        },
-        "matchPath": [Function],
         "referenceMatchMap": {},
-        "source": "described-resolve",
-        "target": "resolve",
-      },
-    ],
-    "symlinks": true,
+        "log": {},
+        "baseUrl": "./example/",
+        "absoluteBaseUrl": "<PROJECT_ROOT>/example"
+      }
+    ]
   },
   "resolveLoader": {
     "modules": [
-      "/Users/greg.martin/workspaces/availity-workflow/node_modules",
-      "/Users/greg.martin/workspaces/availity-workflow/packages/workflow/node_modules",
+      "<PROJECT_ROOT>/node_modules",
+      "<PROJECT_ROOT>/packages/workflow/node_modules"
     ],
-    "symlinks": true,
+    "symlinks": true
   },
+  "plugins": [
+    {
+      "definitions": {
+        "__DEV__": false,
+        "__TEST__": true,
+        "__PROD__": false,
+        "__STAGING__": false,
+        "process.env.NODE_ENV": "\\"test\\""
+      }
+    },
+    {
+      "options": {
+        "banner": "APP_VERSION=\\"N/A\\";",
+        "test": {},
+        "raw": true,
+        "entryOnly": true
+      }
+    },
+    {
+      "options": {
+        "banner": "vN/A - 2023-03-28T16:07:07.909Z"
+      }
+    },
+    {
+      "userOptions": {
+        "template": "../../packages/workflow/public/index.html",
+        "favicon": "../../packages/workflow/public/favicon.ico",
+        "title": "Availity"
+      },
+      "version": 5,
+      "options": {
+        "template": "../../packages/workflow/public/index.html",
+        "templateContent": false,
+        "filename": "index.html",
+        "publicPath": "auto",
+        "hash": false,
+        "inject": "head",
+        "scriptLoading": "defer",
+        "compile": true,
+        "favicon": "../../packages/workflow/public/favicon.ico",
+        "minify": "auto",
+        "cache": true,
+        "showErrors": true,
+        "chunks": "all",
+        "excludeChunks": [],
+        "chunksSortMode": "auto",
+        "meta": {},
+        "base": false,
+        "title": "Availity",
+        "xhtml": false
+      }
+    },
+    {
+      "options": {
+        "resourceRegExp": {},
+        "contextRegExp": {}
+      }
+    },
+    {
+      "options": {},
+      "logger": {},
+      "pathCache": {},
+      "fsOperations": 0,
+      "primed": false
+    },
+    {
+      "_sortedModulesCache": {},
+      "options": {
+        "filename": "css/[name]-[contenthash:8].chunk.css",
+        "ignoreOrder": false,
+        "runtime": true,
+        "chunkFilename": "css/[name]-[contenthash:8].chunk.css"
+      },
+      "runtimeOptions": {
+        "linkType": "text/css"
+      }
+    },
+    {
+      "opts": {
+        "analyzerMode": "static",
+        "analyzerHost": "127.0.0.1",
+        "reportFilename": "profile.html",
+        "defaultSizes": "parsed",
+        "openAnalyzer": true,
+        "generateStatsFile": false,
+        "statsFilename": "stats.json",
+        "statsOptions": null,
+        "excludeAssets": null,
+        "logLevel": "info",
+        "startAnalyzer": true,
+        "analyzerPort": 8888
+      },
+      "server": null,
+      "logger": {
+        "activeLevels": {}
+      }
+    },
+    {
+      "options": {
+        "verbose": false,
+        "showHelp": true,
+        "emitError": false,
+        "strict": true
+      }
+    }
+  ],
+  "mode": "production",
   "target": "browserslist: defaults",
-}
+  "optimization": {
+    "splitChunks": {
+      "cacheGroups": {
+        "defaultVendors": {
+          "test": {},
+          "idHint": "defaultVendors",
+          "chunks": "all",
+          "priority": -10
+        },
+        "default": {
+          "minChunks": 2,
+          "priority": -20,
+          "reuseExistingChunk": true
+        },
+        "react": {
+          "test": {},
+          "idHint": "vendors",
+          "chunks": "all",
+          "priority": 10
+        },
+        "lodash": {
+          "test": {},
+          "idHint": "vendors",
+          "chunks": "all",
+          "priority": 1
+        },
+        "moment": {
+          "test": {},
+          "idHint": "vendors",
+          "chunks": "all",
+          "priority": 2
+        },
+        "styles": {
+          "idHint": "styles",
+          "test": {},
+          "chunks": "all",
+          "enforce": true
+        }
+      }
+    },
+    "minimizer": [],
+    "runtimeChunk": "single",
+    "moduleIds": "deterministic"
+  },
+  "module": {
+    "rules": [
+      {
+        "oneOf": [
+          {
+            "test": {},
+            "use": [
+              {
+                "loader": "imports-loader",
+                "options": {
+                  "type": "commonjs",
+                  "imports": [
+                    "single process/browser process"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "test": {},
+            "include": [
+              "<PROJECT_ROOT>/project/app",
+              {}
+            ],
+            "use": [
+              {
+                "loader": "esbuild-loader",
+                "options": {
+                  "loader": "tsx",
+                  "target": "es2015"
+                }
+              }
+            ]
+          },
+          {
+            "test": {},
+            "resolve": {
+              "fullySpecified": false
+            }
+          },
+          {
+            "test": {},
+            "use": [
+              {
+                "loader": "<PROJECT_ROOT>/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "options": {
+                  "publicPath": "auto"
+                }
+              },
+              {
+                "loader": "css-loader",
+                "options": {
+                  "sourceMap": true,
+                  "importLoaders": 1
+                }
+              },
+              {
+                "loader": "postcss-loader",
+                "options": {
+                  "sourceMap": true,
+                  "postcssOptions": {
+                    "plugins": [
+                      {
+                        "postcssPlugin": "postcss-focus"
+                      },
+                      {
+                        "postcssPlugin": "postcss-flexbugs-fixes"
+                      },
+                      {
+                        "postcssPlugin": "postcss-preset-env",
+                        "plugins": [
+                          {
+                            "postcssPlugin": "postcss-media-minmax",
+                            "AtRule": {}
+                          },
+                          {
+                            "postcssPlugin": "postcss-initial"
+                          },
+                          {
+                            "postcssPlugin": "postcss-page-break"
+                          },
+                          {
+                            "postcssPlugin": "postcss-font-variant"
+                          },
+                          {
+                            "postcssPlugin": "postcss-gap-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-unset-value"
+                          },
+                          {
+                            "postcssPlugin": "postcss-custom-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-progressive-custom-properties"
+                          },
+                          {
+                            "options": {
+                              "flexbox": "no-2009"
+                            },
+                            "postcssPlugin": "autoprefixer"
+                          },
+                          {
+                            "postcssPlugin": "postcss-preset-env"
+                          }
+                        ]
+                      },
+                      {
+                        "postcssPlugin": "postcss-reporter"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "test": {},
+            "use": [
+              {
+                "loader": "<PROJECT_ROOT>/node_modules/mini-css-extract-plugin/dist/loader.js",
+                "options": {
+                  "publicPath": "auto"
+                }
+              },
+              "css-loader",
+              {
+                "loader": "postcss-loader",
+                "options": {
+                  "sourceMap": true,
+                  "postcssOptions": {
+                    "plugins": [
+                      {
+                        "postcssPlugin": "postcss-focus"
+                      },
+                      {
+                        "postcssPlugin": "postcss-flexbugs-fixes"
+                      },
+                      {
+                        "postcssPlugin": "postcss-preset-env",
+                        "plugins": [
+                          {
+                            "postcssPlugin": "postcss-media-minmax",
+                            "AtRule": {}
+                          },
+                          {
+                            "postcssPlugin": "postcss-initial"
+                          },
+                          {
+                            "postcssPlugin": "postcss-page-break"
+                          },
+                          {
+                            "postcssPlugin": "postcss-font-variant"
+                          },
+                          {
+                            "postcssPlugin": "postcss-gap-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-unset-value"
+                          },
+                          {
+                            "postcssPlugin": "postcss-custom-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-progressive-custom-properties"
+                          },
+                          {
+                            "options": {
+                              "flexbox": "no-2009"
+                            },
+                            "postcssPlugin": "autoprefixer"
+                          },
+                          {
+                            "postcssPlugin": "postcss-preset-env"
+                          }
+                        ]
+                      },
+                      {
+                        "postcssPlugin": "postcss-reporter"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "loader": "sass-loader",
+                "options": {
+                  "sourceMap": true
+                }
+              }
+            ]
+          },
+          {
+            "test": {},
+            "type": "asset/resource",
+            "generator": {
+              "filename": "fonts/[name][ext]"
+            }
+          },
+          {
+            "test": {},
+            "type": "asset/resource",
+            "generator": {
+              "filename": "images/[name].[ext]"
+            }
+          },
+          {
+            "type": "asset/resource",
+            "exclude": [
+              {},
+              {},
+              {}
+            ],
+            "generator": {
+              "filename": "static/media/[contenthash:8][ext]"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}"
 `;
