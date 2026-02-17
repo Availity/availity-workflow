@@ -9,10 +9,11 @@ const NOW = '2023-03-28T16:07:07.909Z';
 
 const normalizePaths = (obj) => {
   const serialized = JSON.stringify(obj, null, 2);
-  // Normalize both Unix and Windows absolute paths (non-greedy to handle duplicate folder names)
+  // Normalize both Unix and Windows absolute paths
+  // Match any absolute path up to and including /availity-workflow/
   return serialized
-    .replace(/"\/[^"]+?\/availity-workflow\//g, '"<PROJECT_ROOT>/')
-    .replace(/"[A-Z]:\\[^"]+?\\availity-workflow\\/g, '"<PROJECT_ROOT>/');
+    .replace(/"(?:\/[^\/"]+)+\/availity-workflow\//g, '"<PROJECT_ROOT>/')
+    .replace(/"(?:[A-Z]:\\[^\\"]+)+\\availity-workflow\\/g, '"<PROJECT_ROOT>/');
 };
 
 describe('webpack configs', () => {
