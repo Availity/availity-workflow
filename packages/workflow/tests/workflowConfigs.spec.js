@@ -9,8 +9,10 @@ const NOW = '2023-03-28T16:07:07.909Z';
 
 const normalizePaths = (obj) => {
   const serialized = JSON.stringify(obj, null, 2);
-  const projectRoot = process.cwd().replace(/\\/g, '/');
-  return serialized.replace(new RegExp(projectRoot.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), '<PROJECT_ROOT>');
+  // Normalize both Unix and Windows absolute paths
+  return serialized
+    .replace(/"\/[^"]+\/availity-workflow\//g, '"<PROJECT_ROOT>/')
+    .replace(/"[A-Z]:\\[^"]+\\availity-workflow\\/g, '"<PROJECT_ROOT>/');
 };
 
 describe('webpack configs', () => {
