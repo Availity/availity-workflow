@@ -15,7 +15,6 @@
     "build:docs": "yarn workspace @availity/dinosaurdocs build",
     "changelog:generate": "cd $INIT_CWD && conventional-changelog -p angular -i CHANGELOG.md -s --commit-path=$INIT_CWD --skip-unstable",
     "check:packages": "sh ./scripts/artifactory-check.sh",
-    "check:dependencies": "node scripts/check-missing-deps.js",
     "check:versions": "node scripts/check-version-strategy.js",
     "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
     "lint": "node ./node_modules/.bin/eslint .",
@@ -39,8 +38,7 @@
     "@types/is-ci": "^3.0.4",
     "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^8.0.0",
-    "dependency-check": "^4.1.0",
-    "eslint-config-availity": "^10.0.7",
+    "eslint-config-availity": "^10.0.10",
     "gh-pages": "^5.0.0",
     "husky": "^9.1.7",
     "is-ci": "^3.0.1",
@@ -51,7 +49,8 @@
     "typescript": "5.7.3"
   },
   "resolutions": {
-    "socks": "2.7.3"
+    "socks": "2.7.3",
+    "tar": "7.5.7"
   },
   "commitlint": {
     "extends": [
