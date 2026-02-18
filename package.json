@@ -13,9 +13,7 @@
   "scripts": {
     "build:app": "yarn workspace @availity/example build",
     "build:docs": "yarn workspace @availity/dinosaurdocs build",
-    "changelog:generate": "cd $INIT_CWD && conventional-changelog -p angular -i CHANGELOG.md -s --commit-path=$INIT_CWD --skip-unstable",
     "check:packages": "sh ./scripts/artifactory-check.sh",
-    "check:dependencies": "node scripts/check-missing-deps.js",
     "check:versions": "node scripts/check-version-strategy.js",
     "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
     "lint": "node ./node_modules/.bin/eslint .",
@@ -33,22 +31,20 @@
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-angular": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
-    "@jscutlery/semver": "^5.6.0",
-    "@nx/js": "20.8.1",
-    "@nx/workspace": "20.8.1",
+    "@jscutlery/semver": "~5.7.0",
+    "@nx/js": "22.5.1",
+    "@nx/workspace": "22.5.1",
     "@types/is-ci": "^3.0.4",
-    "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^8.0.0",
-    "dependency-check": "^4.1.0",
-    "eslint-config-availity": "^10.0.7",
+    "eslint-config-availity": "^10.0.10",
     "gh-pages": "^5.0.0",
     "husky": "^9.1.7",
     "is-ci": "^3.0.1",
     "jest": "^30.2.0",
     "lint-staged": "^15.5.2",
-    "nx": "20.8.1",
+    "nx": "22.5.1",
     "prettier": "^3.5.3",
-    "typescript": "5.7.3"
+    "typescript": "5.9.3"
   },
   "resolutions": {
     "socks": "2.7.3"
