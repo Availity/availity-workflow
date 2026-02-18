@@ -43,7 +43,7 @@
     "jest": "^30.2.0",
     "lint-staged": "^15.5.2",
     "nx": "22.5.1",
-    "prettier": "^3.5.3",
+    "prettier": "^3.8.1",
     "typescript": "5.9.3"
   },
   "resolutions": {
