@@ -1,7 +1,9 @@
 import path from 'path';
+import { fileURLToPath } from 'url';
 import html from '../html.js';
 
-const htmlDir = path.dirname(new URL(import.meta.resolve('../html.js')).pathname);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const htmlDir = path.resolve(__dirname, '..');
 
 describe('html', () => {
   let mockSettings;
