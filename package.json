@@ -47,7 +47,8 @@
     "vitest": "^4.0.18"
   },
   "resolutions": {
-    "socks": "2.7.3"
+    "socks": "2.7.3",
+    "vite": "^6.3.5"
   },
   "commitlint": {
     "extends": [
