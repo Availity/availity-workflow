@@ -32,19 +32,19 @@
   "license": "MIT",
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/api-axios": "^12.0.3",
+    "@availity/api-axios": "^12.0.4",
     "@availity/element": "^2.2.2",
     "@availity/yup": "^7.0.1",
     "@hookform/resolvers": "^5.2.2",
     "@tanstack/react-query": "^4.36.1",
-    "axios": "^1.13.2",
+    "axios": "^1.13.6",
     "classnames": "^2.5.1",
-    "formik": "^2.4.6",
+    "formik": "^2.4.9",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-hook-form": "^7.56.1",
-    "yup": "^1.6.1"
+    "react-hook-form": "^7.71.2",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@availity/workflow": "workspace:*",
