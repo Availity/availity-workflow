@@ -41,3 +41,25 @@ axiosMock.mockResolvedValue({
 ```
 
 More info on using mocks in Jest [here](https://jestjs.io/docs/en/mock-functions)
+
+## Vite Support
+
+Vite and Vitest are available as an alternative to Webpack and Jest. Jest tests are generally compatible with vitest tests. For more information, see [Vitest's migration documentation](https://vitest.dev/guide/migration.html#jest). 
+
+### Opting into Vite + Vitest
+
+To opt in, set `bundler: 'vite'` in your `project/config/workflow.js`:
+
+```js
+module.exports = (config) => {
+  config.bundler = 'vite';
+  // testRunner is automatically set to 'vitest' when bundler is 'vite'
+
+  // Modify Vite config if needed (equivalent to modifyWebpackConfig)
+  config.modifyViteConfig = (viteConfig, settings) => {
+    return viteConfig;
+  };
+
+  return config;
+};
+```
