@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import yargsFactory from 'yargs';
 import chalk from 'chalk';
+import Logger from '@availity/workflow-logger';
 import start from './scripts/start.js';
 import test from './scripts/test.js';
 import lint from './scripts/lint.js';
@@ -8,7 +9,6 @@ import about from './scripts/about.js';
 import build from './scripts/build.js';
 import release from './scripts/release.js';
 import profile from './scripts/profile.js';
-import Logger from '@availity/workflow-logger';
 import settings from './settings/index.js';
 import './scripts/init.js';
 

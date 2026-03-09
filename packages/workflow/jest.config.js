@@ -2,8 +2,8 @@
 import { createRequire } from 'module';
 import path from 'path';
 import { existsSync } from 'fs';
-import deepMerge from './helpers/deep-merge.js';
 import * as jest from 'jest';
+import deepMerge from './helpers/deep-merge.js';
 
 const require = createRequire(import.meta.url);
 

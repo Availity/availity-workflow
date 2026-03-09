@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import Debug from 'debug';
-import deepMerge from '../helpers/deep-merge.js';
 import Logger from '@availity/workflow-logger';
+import deepMerge from '../helpers/deep-merge.js';
 import settings from '../settings/index.js';
 
 function escapeRegExp(s) {

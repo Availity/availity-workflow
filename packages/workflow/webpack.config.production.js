@@ -1,11 +1,10 @@
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import fs from 'fs';
-import deepMerge from './helpers/deep-merge.js';
 import path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
+import deepMerge from './helpers/deep-merge.js';
 import paths from './helpers/paths.js';
-
 import loaders from './loaders/index.js';
 import { buildBaseConfig } from './webpack.config.js';
 

@@ -1,8 +1,7 @@
-import deepMerge from '../helpers/deep-merge.js';
 import fs from 'fs';
 import chalk from 'chalk';
-
 import { createRequire } from 'module';
+import deepMerge from '../helpers/deep-merge.js';
 import config from '../config/index.js';
 import response from '../response/index.js';
 import models from '../models/index.js';

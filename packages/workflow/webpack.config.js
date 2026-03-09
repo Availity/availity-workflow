@@ -2,7 +2,6 @@ import { createRequire } from 'module';
 import fs from 'fs';
 import path from 'path';
 import webpack from 'webpack';
-import deepMerge from './helpers/deep-merge.js';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
@@ -12,6 +11,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
+import deepMerge from './helpers/deep-merge.js';
 import loaders from './loaders/index.js';
 import paths from './helpers/paths.js';
 import resolveModule from './helpers/resolve-module.js';

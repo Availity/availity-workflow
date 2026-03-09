@@ -1,3 +1,5 @@
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable func-names */
 describe('lint', () => {
   let lint;
   let mockReaddir;

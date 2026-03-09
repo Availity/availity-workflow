@@ -3,14 +3,14 @@ import build from './build.js';
 async function profileVite(settings) {
   const { build: viteBuild } = await import('vite');
   const { visualizer } = await import('rollup-plugin-visualizer');
-  const { default: del } = await import('del');
+  const del = await import('del');
   const { default: Logger } = await import('@availity/workflow-logger');
   const { default: ora } = await import('ora');
   const { default: buildViteProductionConfig } = await import('../vite.config.production.js');
 
   if (!settings.isDryRun()) {
     Logger.success(`Cleaning directories ${settings.output()}`);
-    del.sync([settings.output()]);
+    del.deleteSync([settings.output()]);
   }
 
   let viteConfig = buildViteProductionConfig(settings);

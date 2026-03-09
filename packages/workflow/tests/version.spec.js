@@ -1,5 +1,8 @@
+/* eslint-disable prefer-destructuring */
 describe('version', () => {
-  let tag, prompt, bump;
+  let tag;
+  let prompt;
+  let bump;
 
   let mockExecSync;
   let mockWriteFileSync;

@@ -34,6 +34,7 @@ const buildViteProductionConfig = (settings) => {
                 return 'vendor-moment';
               }
             }
+            return undefined;
           }
         }
       }

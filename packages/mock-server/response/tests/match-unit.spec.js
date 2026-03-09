@@ -1,4 +1,4 @@
-import match from '../../response/match.js';
+import match from "../match.js";
 
 const freshScore = () => ({ hits: 0, misses: 0, valid: true });
 

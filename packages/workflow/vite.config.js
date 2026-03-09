@@ -182,9 +182,9 @@ const buildViteConfig = (settings) => {
         if (locations.size > 1) {
           const Logger = require('@availity/workflow-logger');
           Logger.warn(
-            `Duplicate package: ${pkgName} bundled from ${locations.size} locations:\n` +
-            [...locations].map((loc) => `  - ${loc}`).join('\n') +
-            `\nFix with yarn resolutions in package.json: https://yarnpkg.com/configuration/manifest#resolutions`
+            `Duplicate package: ${pkgName} bundled from ${locations.size} locations:\n${
+            [...locations].map((loc) => `  - ${loc}`).join('\n')
+            }\nFix with yarn resolutions in package.json: https://yarnpkg.com/configuration/manifest#resolutions`
           );
         }
       }

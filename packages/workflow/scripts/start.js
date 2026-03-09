@@ -1,6 +1,19 @@
+/* eslint-disable unicorn/no-useless-promise-resolve-reject */
 import Logger from '@availity/workflow-logger';
 import chalk from 'chalk';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
 import deepMerge from '../helpers/deep-merge.js';
+import settings from '../settings/index.js';
+import webpackConfigBase from '../webpack.config.js';
+import webpackConfigProduction from '../webpack.config.profile.js';
+
+import proxy from './proxy.js';
+import open from './open.js';
+import formatWebpackMessages from './format.js';
+
+let server;
+let ekko;
 
 function once(fn) {
   let called = false;
@@ -13,19 +26,6 @@ function once(fn) {
     return result;
   };
 }
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
-
-import settings from '../settings/index.js';
-import webpackConfigBase from '../webpack.config.js';
-import webpackConfigProduction from '../webpack.config.profile.js';
-
-import proxy from './proxy.js';
-import open from './open.js';
-import formatWebpackMessages from './format.js';
-
-let server;
-let ekko;
 
 const startupMessage = once(() => {
   const wantedPort = settings.config().development.port;

@@ -2,13 +2,12 @@
 import { createRequire } from 'module';
 import path from 'path';
 import Logger from '@availity/workflow-logger';
-import { existsSync } from 'fs';
-import deepMerge from '../helpers/deep-merge.js';
 import chalk from 'chalk';
-import fs from 'fs';
+import fs, { existsSync } from 'fs';
 import yargs from 'yargs';
 import getPort, { portNumbers } from 'get-port';
 import Joi from 'joi';
+import deepMerge from '../helpers/deep-merge.js';
 import paths from '../helpers/paths.js';
 import schema from './schema.js';
 

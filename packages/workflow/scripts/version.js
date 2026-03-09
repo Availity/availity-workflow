@@ -1,9 +1,9 @@
+/* eslint-disable unicorn/no-useless-promise-resolve-reject */
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import semver from 'semver';
 import { rawlist, input, Separator } from '@inquirer/prompts';
-import deepMerge from '../helpers/deep-merge.js';
 import yargs from 'yargs';
 import Logger from '@availity/workflow-logger';
 import settings from '../settings/index.js';

@@ -104,6 +104,7 @@ function create(settings) {
   const userJestOverrides = settings.configuration.development.jestOverrides;
   if (userJestOverrides && Object.keys(userJestOverrides).length > 0) {
     // Only merge test-related overrides that are vitest-compatible
+    // eslint-disable-next-line no-unused-vars
     const { collectCoverageFrom, coveragePathIgnorePatterns, testTimeout, ...rest } = userJestOverrides;
     if (collectCoverageFrom) {
       config.test.coverage.include = collectCoverageFrom;

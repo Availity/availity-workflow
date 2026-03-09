@@ -1,6 +1,5 @@
-import deepMerge from '../helpers/deep-merge.js';
 import chalk from 'chalk';
-
+import deepMerge from '../helpers/deep-merge.js';
 import logger from '../logger/index.js';
 
 const log = logger.getInstance();

@@ -131,7 +131,7 @@ export default async (cwd) => {
     const versionPath = path.join(cwd, versionFile);
     if (fs.existsSync(versionPath)) {
       const current = fs.readFileSync(versionPath, 'utf8').trim();
-      const major = parseInt(current, 10);
+      const major = Number.parseInt(current, 10);
       if (major && major < 20) {
         fs.writeFileSync(versionPath, '20\n', 'utf8');
         Logger.info(`Updated ${versionFile} from ${current} to 20 (minimum supported version)`);

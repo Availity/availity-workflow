@@ -22,7 +22,7 @@ describe('Ekko', () => {
       ekko = new Ekko(path.join(import.meta.dirname, 'test-config.js'));
       await ekko.start();
 
-      const port = config.server.address().port;
+      const { port } = config.server.address();
       expect(port).toBeGreaterThan(0);
     });
 
@@ -30,7 +30,7 @@ describe('Ekko', () => {
       ekko = new Ekko(path.join(import.meta.dirname, 'test-config.js'));
       await ekko.start();
 
-      const port = config.server.address().port;
+      const { port } = config.server.address();
       const res = await request.get(`http://127.0.0.1:${port}/v1/route1`);
 
       expect(res.status).toBe(200);
@@ -41,7 +41,7 @@ describe('Ekko', () => {
       ekko = new Ekko(path.join(import.meta.dirname, 'test-config.js'));
       await ekko.start();
 
-      const port = config.server.address().port;
+      const { port } = config.server.address();
       await ekko.stop();
       ekko = null;
 
@@ -64,7 +64,7 @@ describe('Ekko', () => {
         routes: path.join(import.meta.dirname, 'dummy.routes.config.json')
       });
 
-      const port = config.server.address().port;
+      const { port } = config.server.address();
       expect(port).toBeGreaterThan(0);
 
       const res = await request.get(`http://127.0.0.1:${port}/v1/route1`);
