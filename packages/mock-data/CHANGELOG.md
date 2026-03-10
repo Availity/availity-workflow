@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [8.0.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-data@7.1.3...@availity/mock-data@8.0.0) (2026-03-10)
+
+
+* feat!: esm, eslint 9, jest 30, vite/vitest opt-in, node 20+ ([28bf5cc](https://github.com/Availity/availity-workflow/commit/28bf5cc361992199d37c35d279fb7bae7dd4b629))
+
+
+### BREAKING CHANGES
+
+* - Node 18 no longer supported
+- ESLint flat config only
+- ESM packages
+- core-js polyfills no longer injected
+
+
+
 ## [7.1.3](https://github.com/Availity/availity-workflow/compare/@availity/mock-data@7.1.2...@availity/mock-data@7.1.3) (2025-11-21)
 
 
