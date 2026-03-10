@@ -1,8 +1,7 @@
-const opn = require('open');
-const chalk = require('chalk');
-const urlJoin = require('url-join');
-const Logger = require('@availity/workflow-logger');
-const settings = require('../settings');
+import opn from 'open';
+import chalk from 'chalk';
+import Logger from '@availity/workflow-logger';
+import settings from '../settings/index.js';
 
 function open() {
   if (settings.open()) {
@@ -11,7 +10,7 @@ function open() {
       const url = settings.open() || '';
       const host = settings.host();
 
-      const uri = urlJoin(`http://${host}:${port}/`, url);
+      const uri = new URL(url, `http://${host}:${port}/`).href;
       opn(uri);
       Logger.info(`Opening browser at ${chalk.green(uri)}`);
     } catch {
@@ -22,4 +21,4 @@ function open() {
   return Promise.resolve(true);
 }
 
-module.exports = open;
+export default open;

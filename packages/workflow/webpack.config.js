@@ -1,20 +1,23 @@
-const fs = require('fs');
-const path = require('path');
-const webpack = require('webpack');
-const merge = require('lodash/merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackNotifierPlugin = require('webpack-notifier');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+import { createRequire } from 'module';
+import fs from 'fs';
+import path from 'path';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WebpackNotifierPlugin from 'webpack-notifier';
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import ESLintPlugin from 'eslint-webpack-plugin';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
-const loaders = require('./loaders');
-const paths = require('./helpers/paths');
-const resolveModule = require('./helpers/resolve-module');
-const html = require('./html');
+import deepMerge from './helpers/deep-merge.js';
+import loaders from './loaders/index.js';
+import paths from './helpers/paths.js';
+import resolveModule from './helpers/resolve-module.js';
+import html from './html.js';
+
+const require = createRequire(import.meta.url);
 
 process.noDeprecation = true;
 
@@ -37,11 +40,7 @@ const buildBaseConfig = (settings) => {
       level: settings.infrastructureLogLevel()
     },
     entry: {
-      index: [
-        require.resolve('react-app-polyfill/stable'),
-        require.resolve('navigator.sendbeacon'),
-        resolveModule(resolveApp, 'index')
-      ]
+      index: [resolveModule(resolveApp, 'index')]
     },
     output: {
       path: settings.output(),
@@ -55,7 +54,7 @@ const buildBaseConfig = (settings) => {
         settings.app(),
         'node_modules',
         path.join(settings.project(), 'node_modules'),
-        path.join(__dirname, 'node_modules')
+        path.join(import.meta.dirname, 'node_modules')
       ],
       symlinks: true,
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', '.scss'],
@@ -67,7 +66,7 @@ const buildBaseConfig = (settings) => {
     // This set of options is identical to the resolve property set above,
     // but is used only to resolve webpack's loader packages.
     resolveLoader: {
-      modules: [path.join(settings.project(), 'node_modules'), path.join(__dirname, 'node_modules')],
+      modules: [path.join(settings.project(), 'node_modules'), path.join(import.meta.dirname, 'node_modules')],
       symlinks: true
     },
     plugins: [
@@ -198,14 +197,14 @@ const plugin = (settings) => {
   if (settings.isNotifications()) {
     overrides.plugins.push(
       new WebpackNotifierPlugin({
-        contentImage: path.join(__dirname, './public/availity.png'),
+        contentImage: path.join(import.meta.dirname, './public/availity.png'),
         excludeWarnings: true
       })
     );
   }
 
-  return merge({}, configBase, overrides);
+  return deepMerge({}, configBase, overrides);
 };
 
-module.exports = plugin;
-module.exports.buildBaseConfig = buildBaseConfig;
+export default plugin;
+export { buildBaseConfig };

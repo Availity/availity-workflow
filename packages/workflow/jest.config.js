@@ -1,9 +1,11 @@
-/* eslint-disable import/no-dynamic-require */
 // https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/scripts/utils/createJestConfig.js
-const path = require('path');
-const merge = require('lodash/merge');
-const jest = require('jest');
-const { existsSync } = require('fs');
+import { createRequire } from 'module';
+import path from 'path';
+import { existsSync } from 'fs';
+import * as jest from 'jest';
+import deepMerge from './helpers/deep-merge.js';
+
+const require = createRequire(import.meta.url);
 
 function create(settings) {
   settings.init();
@@ -39,15 +41,17 @@ function create(settings) {
         }
       ]
     ],
-    testEnvironment: 'node',
-    testURL: 'http://localhost',
+    testEnvironment: 'jsdom',
+    testEnvironmentOptions: {
+      url: 'http://localhost',
+    },
     transform: {
       // Jest and Babel don't allow functions in the options so we just return their values here
       '^.+\\.(js|jsx|ts|tsx)$': `${require.resolve('./jest/babel.js')}`,
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
       '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
-    setupFiles: [require.resolve('raf/polyfill'), ...setupFiles],
+    setupFiles: [...setupFiles],
     setupFilesAfterEnv: jestInitExists
       ? require(path.join(settings.app(), 'jest.init.js'))
       : ['@testing-library/jest-dom'],
@@ -86,7 +90,7 @@ function create(settings) {
     config.rootDir = rootDir;
   }
 
-  return merge({}, config, userJestOverrides);
+  return deepMerge({}, config, userJestOverrides);
 }
 
 function unit(settings) {
@@ -99,7 +103,7 @@ function unit(settings) {
   return Promise.resolve();
 }
 
-module.exports = (settings) => ({
+export default (settings) => ({
   run: () => unit(settings),
   description: 'Run your tests using Jest'
 });

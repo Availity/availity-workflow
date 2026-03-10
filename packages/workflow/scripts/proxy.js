@@ -1,15 +1,18 @@
-const chalk = require('chalk');
-const debug = require('debug')('workflow:proxy');
-const get = require('lodash/get');
-const merge = require('lodash/merge');
-const urlJoin = require('url-join');
-const Logger = require('@availity/workflow-logger');
-const escapeStringRegexp = require('escape-string-regexp');
-const settings = require('../settings');
+import chalk from 'chalk';
+import Debug from 'debug';
+import Logger from '@availity/workflow-logger';
+import deepMerge from '../helpers/deep-merge.js';
+import settings from '../settings/index.js';
+
+function escapeRegExp(s) {
+  return s.replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+
+const debug = Debug('workflow:proxy');
 
 // Clean up HPM messages so they appear more @availity/workflow like ;)
 function proxyLogRewrite(daArgs) {
-  const args = Array.prototype.slice.call(daArgs);
+  const args = [...daArgs];
 
   return args.map((arg) => {
     if (typeof arg === 'string') {
@@ -22,7 +25,7 @@ function proxyLogRewrite(daArgs) {
 }
 
 function onRequest(proxyConfig, proxyObject) {
-  if (!get(proxyConfig, 'contextRewrite', true)) {
+  if (!(proxyConfig?.contextRewrite ?? true)) {
     return;
   }
 
@@ -32,7 +35,7 @@ function onRequest(proxyConfig, proxyObject) {
   const local = `http://${host}:${port}`;
   const { target } = proxyConfig;
 
-  const regexer = new RegExp(escapeStringRegexp(local, 'g'));
+  const regexer = new RegExp(escapeRegExp(local, 'g'));
 
   for (const header of ['referer', 'origin']) {
     const requestHeader = proxyObject.getHeader(header);
@@ -45,7 +48,7 @@ function onRequest(proxyConfig, proxyObject) {
 }
 
 function onResponse(proxyConfig, proxyObject) {
-  if (!get(proxyConfig, 'contextRewrite', true)) {
+  if (!(proxyConfig?.contextRewrite ?? true)) {
     return;
   }
 
@@ -57,14 +60,14 @@ function onResponse(proxyConfig, proxyObject) {
 
   const proxyContext = Array.isArray(proxyConfig.context) ? proxyConfig.context[0] : proxyConfig.context;
   // http://localhost:3000/api
-  const hostUrlContext = urlJoin(`http://${host}:${port}`, proxyContext);
+  const hostUrlContext = new URL(proxyContext, `http://${host}:${port}`).href;
   // http://localhost:8080
   const targetUrl = proxyConfig.target;
   // http://localhost:8080/api
-  const targetUrlContext = urlJoin(proxyConfig.target, proxyContext);
+  const targetUrlContext = new URL(proxyContext, proxyConfig.target).href;
 
-  const regexer = new RegExp(escapeStringRegexp(targetUrl, 'g'));
-  const regexerContext = new RegExp(escapeStringRegexp(targetUrlContext, 'g'));
+  const regexer = new RegExp(escapeRegExp(targetUrl, 'g'));
+  const regexerContext = new RegExp(escapeRegExp(targetUrlContext, 'g'));
 
   for (const header of ['location']) {
     const responseHeader = proxyObject.headers[header];
@@ -148,7 +151,7 @@ function proxy() {
   // Iterate through each proxy configuration
   for (const proxyConfiguration of proxies) {
     // Merge in defaults including custom Logger and custom request/response function
-    const proxyConfig = merge({}, defaultProxy, proxyConfiguration, {
+    const proxyConfig = deepMerge({}, defaultProxy, proxyConfiguration, {
       onProxyReq: (proxyReq, req) => {
         onRequest(proxyConfiguration, proxyReq, req);
         if (typeof proxyConfiguration.onProxyReq === 'function') {
@@ -189,4 +192,48 @@ function proxy() {
   return config.length === 0 ? null : config;
 }
 
-module.exports = proxy;
+// Convert webpack proxy format to Vite proxy format
+// Webpack: [{ context: ['/api', '/ms'], target: 'http://...', pathRewrite: { '^/api': '' }, headers: {} }]
+// Vite: { '/api': { target, rewrite, headers }, '/ms': { target, headers } }
+function toViteProxy(proxies) {
+  if (!proxies) return undefined;
+
+  const viteProxy = {};
+
+  for (const proxyConfig of proxies) {
+    if (!proxyConfig.enabled) continue;
+
+    const contexts = Array.isArray(proxyConfig.context) ? proxyConfig.context : [proxyConfig.context];
+
+    for (const ctx of contexts) {
+      const entry = {
+        target: proxyConfig.target,
+        changeOrigin: true,
+        ws: proxyConfig.ws !== false
+      };
+
+      if (proxyConfig.headers) {
+        entry.headers = proxyConfig.headers;
+      }
+
+      // Convert pathRewrite to Vite's rewrite function
+      if (proxyConfig.pathRewrite) {
+        const rewrites = Object.entries(proxyConfig.pathRewrite);
+        entry.rewrite = (reqPath) => {
+          let result = reqPath;
+          for (const [pattern, replacement] of rewrites) {
+            result = result.replace(new RegExp(pattern), replacement);
+          }
+          return result;
+        };
+      }
+
+      viteProxy[ctx] = entry;
+    }
+  }
+
+  return Object.keys(viteProxy).length === 0 ? undefined : viteProxy;
+}
+
+export default proxy;
+export { toViteProxy };

@@ -1,8 +1,8 @@
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const merge = require('lodash/merge');
+import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import deepMerge from './helpers/deep-merge.js';
 
-const buildProdConfig = require('./webpack.config.production');
+import buildProdConfig from './webpack.config.production.js';
 
 process.noDeprecation = true;
 
@@ -32,7 +32,7 @@ const plugin = (settings) => {
     ]
   };
 
-  return merge({}, baseProdConfig, overrides);
+  return deepMerge({}, baseProdConfig, overrides);
 };
 
-module.exports = plugin;
+export default plugin;

@@ -1,9 +1,9 @@
-const config = require('../config');
+import config from '../config/index.js';
 
-module.exports = function headers() {
+export default function headers() {
   config.app.disable('x-powered-by');
   config.app.use((req, res, next) => {
     res.setHeader('X-Powered-By', 'Availity Mock Server');
     next();
   });
-};
+}

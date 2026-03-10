@@ -1,6 +1,6 @@
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/config/jest/cssTransform.js
 
-module.exports = {
+export default {
   process() {
     return {
       code: 'module.exports = {};'

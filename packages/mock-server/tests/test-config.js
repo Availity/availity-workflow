@@ -1,4 +1,4 @@
-const path = require('path');
+import path from 'path';
 
 const config = {
   latency: 0,
@@ -8,8 +8,8 @@ const config = {
   port: 0,
   host: '127.0.0.1', // 0.0.0.0 or localhost causes windows tests to fail?
 
-  data: path.join(__dirname, '/data'),
-  routes: path.join(__dirname, '/dummy.routes.config.json')
+  data: path.join(import.meta.dirname, '/data'),
+  routes: path.join(import.meta.dirname, '/dummy.routes.config.json')
 };
 
-module.exports = config;
+export default config;

@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-const index = require('./index');
+import upgrade from './index.js';
 
-index(process.cwd());
+upgrade(process.cwd());

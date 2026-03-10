@@ -1,4 +1,4 @@
-module.exports = function notfound() {
+export default function notfound() {
   return (req, res) => {
     res.status(404);
 
@@ -29,4 +29,4 @@ module.exports = function notfound() {
     // default to plain-text. send()
     res.type('txt').send({ error: message });
   };
-};
+}

@@ -1,8 +1,6 @@
-const request = require('superagent');
-const intersection = require('lodash/intersection');
-const isEqual = require('lodash/isEqual');
+import request from 'superagent';
 
-const helper = require('../../tests/helpers');
+import helper from '../../tests/helpers.js';
 
 const getConfiguredVerbs = (ekko, path) => {
   const routeConfigs = ekko.config().router.stack;
@@ -30,7 +28,7 @@ describe('Routes', () => {
 
     const configuredVerbs = getConfiguredVerbs(helper.ekko, '/v1/route1.:format?');
 
-    const count = intersection(verbs, configuredVerbs).length;
+    const count = verbs.filter((v) => configuredVerbs.includes(v)).length;
     expect(count).toBe(4);
   });
 
@@ -38,42 +36,42 @@ describe('Routes', () => {
     const res = await request.get(helper.getUrl('/v1/route1'));
 
     expect(res.status).toBe(200);
-    expect(isEqual(res.body, { a: 1 })).toBeTruthy();
+    expect(res.body).toEqual({ a: 1 });
   });
 
   it('route 2 should respond with dummy-response2.json for GET', async () => {
     const res = await request.get(helper.getUrl('/internal/v2/route2'));
     expect(res.status).toBe(200);
-    expect(isEqual(res.body, { b: 2 })).toBeTruthy();
+    expect(res.body).toEqual({ b: 2 });
   });
 
   it('route 2 should respond with dummy-response3.json for POST', async () => {
     const res = await request.post(helper.getUrl('/internal/v2/route2')).send({ bar: 'baz' });
     expect(res.status).toBe(200);
-    expect(isEqual(res.body, { c: 3 })).toBeTruthy();
+    expect(res.body).toEqual({ c: 3 });
   });
 
   it('route 4 should respond with dummy-response-2.json for POST with parameters', async () => {
     const res = await request.post(helper.getUrl('/v1/route4')).send({ a: { b: 'b' } });
     expect(res.status).toBe(200);
-    expect(isEqual(res.body, { b: 2 })).toBeTruthy();
+    expect(res.body).toEqual({ b: 2 });
   });
 
   it('route 4 should response with dummy-response1.json [default file] for POST with no parameters', async () => {
     const res = await request.post(helper.getUrl('/v1/route4'));
     expect(res.status).toBe(200);
-    expect(isEqual(res.body, { a: 1 })).toBeTruthy();
+    expect(res.body).toEqual({ a: 1 });
   });
 
   it('route 9 should response with dummy-response1.json and status 201 for GET', async () => {
     const res = await request.get(helper.getUrl('/v1/route9'));
     expect(res.status).toBe(201);
-    expect(isEqual(res.body, { a: 1 })).toBeTruthy();
+    expect(res.body).toEqual({ a: 1 });
   });
 
   it('route 9 should response with dummy-response2.json and status 422 for POST', async () => {
     const res = await request.post(helper.getUrl('/v1/route9'));
     expect(res.status).toBe(203);
-    expect(isEqual(res.body, { b: 2 })).toBeTruthy();
+    expect(res.body).toEqual({ b: 2 });
   });
 });

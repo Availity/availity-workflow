@@ -1,7 +1,0 @@
-./yarn
-
-coverage/
-
-/**/build
-/**/dist
-/**/node_modules

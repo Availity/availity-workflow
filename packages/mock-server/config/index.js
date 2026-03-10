@@ -1,7 +1,8 @@
-const merge = require('lodash/merge');
-const chalk = require('chalk');
+import chalk from 'chalk';
+import deepMerge from '../helpers/deep-merge.js';
+import logger from '../logger/index.js';
 
-const logger = require('../logger').getInstance();
+const log = logger.getInstance();
 
 class Configuration {
   constructor() {
@@ -18,11 +19,15 @@ class Configuration {
    * Set the path of the configuration object
    *
    * @param  {Sring} path full path to configuration. Ex: path.join(__dirname, 'config.js')
-
+   *
    */
 
-  defaultConfig(path) {
-    return this.path ? require(path) : this;
+  async defaultConfig(path) {
+    if (this.path) {
+      const mod = await import(path);
+      return mod.default;
+    }
+    return this;
   }
 
   /**
@@ -30,23 +35,29 @@ class Configuration {
    *
    * @param {Object} options configuration object with production|development|testing settings.
    */
-  set(_options) {
+  async set(_options) {
     const options = _options || {};
 
-    logger.setProvider(options.logProvider);
+    log.setProvider(options.logProvider);
 
     // Get the config object by path or from root
     if (this.path) {
-      logger.info(`Using ${chalk.blue(this.path)}`);
+      log.info(`Using ${chalk.blue(this.path)}`);
     }
-    let config = this.path ? require(this.path) : this.defaultConfig();
+    let config;
+    if (this.path) {
+      const mod = await import(this.path);
+      config = mod.default;
+    } else {
+      config = await this.defaultConfig();
+    }
 
     // Allow programmatic overrides for environment
-    config = merge(config, options);
+    config = deepMerge(config, options);
 
     // Save to `this.options`
     this.options = config;
   }
 }
 
-module.exports = new Configuration();
+export default new Configuration();

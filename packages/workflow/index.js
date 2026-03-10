@@ -1,21 +1,31 @@
 #!/usr/bin/env node
+import yargsFactory from 'yargs';
+import chalk from 'chalk';
+import Logger from '@availity/workflow-logger';
+import start from './scripts/start.js';
+import test from './scripts/test.js';
+import lint from './scripts/lint.js';
+import about from './scripts/about.js';
+import build from './scripts/build.js';
+import release from './scripts/release.js';
+import profile from './scripts/profile.js';
+import settings from './settings/index.js';
+import './scripts/init.js';
+
+// ESM imports are hoisted, so this runs after all modules are loaded
 if (process.env.NODE_ENV === 'staging') {
   process.argv.push('--no-optimize');
   process.env.NODE_ENV = 'production';
 }
 const shouldMimicStaging = process.argv.includes('--no-optimize');
 
-const yargs = require('yargs');
-const chalk = require('chalk');
-const start = require('./scripts/start');
-const test = require('./scripts/test');
-const lint = require('./scripts/lint');
-const about = require('./scripts/about');
-const build = require('./scripts/build');
-const release = require('./scripts/release');
-const profile = require('./scripts/profile');
-const settings = require('./settings');
-require('./scripts/init');
+function handleError(command, error) {
+  Logger.error(`Command "${command}" failed:`);
+  Logger.error(error?.stack || error?.message || error);
+  process.exitCode = 1;
+}
+
+const yargs = yargsFactory(process.argv.slice(2));
 
 yargs.command(
   'release',
@@ -31,8 +41,12 @@ yargs.command(
       .example(chalk.yellow(`${chalk.yellow('av release')} ${chalk.magenta('-v 2.0.0')}`));
   },
   async () => {
-    await settings.init({ shouldMimicStaging });
-    await release({ settings });
+    try {
+      await settings.init({ shouldMimicStaging });
+      await release({ settings });
+    } catch (error) {
+      handleError('release', error);
+    }
   }
 );
 
@@ -41,12 +55,24 @@ yargs
 
   .usage(`\nUsage: ${chalk.yellow('av')} ${chalk.green('<command>')} ${chalk.magenta('[options]')}`)
 
+  .option('bundler', {
+    describe: 'Which bundler to use',
+    choices: ['webpack', 'vite'],
+    global: true
+  })
+
+  .option('test-runner', {
+    describe: 'Which test runner to use',
+    choices: ['jest', 'vitest'],
+    global: true
+  })
+
   .command('start', `${chalk.dim('Start the development server')}`, async () => {
     try {
       await settings.init();
       await start();
-    } catch {
-      /* noop */
+    } catch (error) {
+      handleError('start', error);
     }
   })
 
@@ -75,8 +101,8 @@ yargs
       try {
         await settings.init();
         await lint();
-      } catch {
-        /* noop */
+      } catch (error) {
+        handleError('lint', error);
       }
     }
   )
@@ -93,8 +119,8 @@ yargs
       try {
         await settings.init();
         await test.run({ settings });
-      } catch {
-        /* noop */
+      } catch (error) {
+        handleError('test', error);
       }
     }
   )
@@ -103,8 +129,8 @@ yargs
     try {
       await settings.init();
       await profile(settings);
-    } catch {
-      /* noop */
+    } catch (error) {
+      handleError('profile', error);
     }
   })
 
@@ -112,8 +138,8 @@ yargs
     try {
       await settings.init({ shouldMimicStaging });
       await build({ settings });
-    } catch {
-      /* noop */
+    } catch (error) {
+      handleError('build', error);
     }
   })
 
@@ -121,8 +147,8 @@ yargs
     try {
       await settings.init();
       about({ settings });
-    } catch {
-      /* noop */
+    } catch (error) {
+      handleError('about', error);
     }
   })
 

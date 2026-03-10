@@ -1,20 +1,31 @@
-const Logger = require('@availity/workflow-logger');
-const chalk = require('chalk');
-const merge = require('lodash/merge');
-const once = require('lodash/once');
-const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
+/* eslint-disable unicorn/no-useless-promise-resolve-reject */
+import Logger from '@availity/workflow-logger';
+import chalk from 'chalk';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import deepMerge from '../helpers/deep-merge.js';
+import settings from '../settings/index.js';
+import webpackConfigBase from '../webpack.config.js';
+import webpackConfigProduction from '../webpack.config.profile.js';
 
-const settings = require('../settings');
-const webpackConfigBase = require('../webpack.config');
-const webpackConfigProduction = require('../webpack.config.profile');
-
-const proxy = require('./proxy');
-const open = require('./open');
-const formatWebpackMessages = require('./format');
+import proxy from './proxy.js';
+import open from './open.js';
+import formatWebpackMessages from './format.js';
 
 let server;
 let ekko;
+
+function once(fn) {
+  let called = false;
+  let result;
+  return (...args) => {
+    if (!called) {
+      called = true;
+      result = fn(...args);
+    }
+    return result;
+  };
+}
 
 const startupMessage = once(() => {
   const wantedPort = settings.config().development.port;
@@ -37,7 +48,7 @@ function init() {
   settings.log();
 }
 
-function rest() {
+async function rest() {
   if (settings.isEkko()) {
     const ekkoOptions = {
       data: settings.config().ekko.data,
@@ -68,7 +79,7 @@ function rest() {
     };
 
     try {
-      const Ekko = require('@availity/mock-server');
+      const { default: Ekko } = await import('@availity/mock-server');
       ekko = new Ekko();
       return ekko.start(ekkoOptions);
     } catch {
@@ -176,7 +187,7 @@ function web() {
       }
     };
 
-    const devServerOptions = merge(defaults, settings.config().development.webpackDevServer);
+    const devServerOptions = deepMerge(defaults, settings.config().development.webpackDevServer);
     const proxyConfig = proxy();
 
     if (proxyConfig) {
@@ -206,6 +217,44 @@ function web() {
   });
 }
 
+async function webVite() {
+  const { createServer } = await import('vite');
+  const { default: buildViteConfig } = await import('../vite.config.js');
+
+  let viteConfig = buildViteConfig(settings);
+
+  const { modifyViteConfig } = settings.config();
+  if (typeof modifyViteConfig === 'function') {
+    viteConfig = modifyViteConfig(viteConfig, settings) || viteConfig;
+  }
+
+  try {
+    Logger.info('Starting Vite development server');
+    const viteServer = await createServer(viteConfig);
+    await viteServer.listen();
+
+    const wantedPort = settings.config().development.port;
+    const actualPort = settings.port();
+    const differentPort = wantedPort !== actualPort;
+    const uri = `http://${settings.host()}:${actualPort}/`;
+
+    Logger.box(
+      `The app ${chalk.yellow(settings.pkg().name)} is running at ${chalk.green(uri)}${
+        differentPort
+          ? `\n${chalk.yellow.bold('Warning:')} Port ${chalk.blue(wantedPort)} was already in use so we used ${chalk.blue(actualPort)}.`
+          : ''
+      }`
+    );
+
+    viteServer.printUrls();
+    Logger.info('Started Vite development server');
+  } catch (error) {
+    Logger.failed('Failed to start Vite development server');
+    Logger.failed(error);
+    throw error;
+  }
+}
+
 async function start() {
   process.on('unhandledRejection', (reason) => {
     if (reason && reason.stack) {
@@ -216,7 +265,11 @@ async function start() {
 
   try {
     init();
-    await web();
+    if (settings.isVite()) {
+      await webVite();
+    } else {
+      await web();
+    }
     // TODO: implement an update-notifier
     // await notifier();
     await rest();
@@ -227,4 +280,4 @@ async function start() {
   }
 }
 
-module.exports = start;
+export default start;

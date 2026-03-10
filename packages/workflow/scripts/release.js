@@ -1,8 +1,8 @@
-const Logger = require('@availity/workflow-logger');
+import Logger from '@availity/workflow-logger';
 
-const version = require('./version');
-const lint = require('./lint');
-const build = require('./build');
+import * as version from './version.js';
+import lint from './lint.js';
+import build from './build.js';
 
 async function release({ settings }) {
   try {
@@ -20,4 +20,4 @@ async function release({ settings }) {
   }
 }
 
-module.exports = release;
+export default release;

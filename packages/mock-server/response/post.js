@@ -1,8 +1,8 @@
-const isEmpty = require('lodash/isEmpty');
+import logger from '../logger/index.js';
+import match from './match.js';
+import result from './result.js';
 
-const logger = require('../logger').getInstance();
-const match = require('./match');
-const result = require('./result');
+const log = logger.getInstance();
 
 const post = {
   multipart(req) {
@@ -14,11 +14,11 @@ const post = {
 
       req.busboy.on('file', (fieldname, file, fileParams) => {
         file.on('error', (error) => {
-          logger.error('Something went wrong uploading the file', error);
+          log.error('Something went wrong uploading the file', error);
         });
         file.on('end', () => {
           // Treat the file name as a field so we can match and score
-          logger.info('File finished %s:', fileParams.filename);
+          log.info('File finished %s:', fileParams.filename);
           req.body[fieldname] = fileParams.filename;
         });
         // `file` is a `ReadableStream`...always do something with it
@@ -27,22 +27,22 @@ const post = {
       });
 
       req.busboy.on('field', (key, value) => {
-        if (isEmpty(value)) {
+        if (!value) {
           return;
         }
 
-        logger.info(`${key}, ${value}`);
+        log.info(`${key}, ${value}`);
 
         req.body[key] = value;
       });
 
       req.busboy.on('error', (err) => {
-        logger.error(err);
+        log.error(err);
         reject(err);
       });
 
       req.busboy.on('close', () => {
-        logger.info('finished request');
+        log.info('finished request');
         resolve(true);
       });
 
@@ -64,4 +64,4 @@ const post = {
   }
 };
 
-module.exports = post;
+export default post;

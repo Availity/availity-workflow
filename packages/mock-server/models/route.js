@@ -1,17 +1,15 @@
-const each = require('lodash/each');
-const isArray = require('lodash/isArray');
-const isPlainObject = require('lodash/isPlainObject');
-const isString = require('lodash/isString');
-const uniqueId = require('lodash/uniqueId');
+import { isPlainObject } from '../helpers/deep-merge.js';
 
-const Request = require('./request');
-const Response = require('./response');
+import Request from './request.js';
+import Response from './response.js';
+
+let _id = 0;
 
 class Route {
   constructor(url, endpoint, dataPath) {
     this.url = url;
     this.methods = {};
-    this.id = uniqueId('route');
+    this.id = `route${++_id}`;
     this.dataPath = dataPath;
 
     this.init(endpoint);
@@ -23,9 +21,9 @@ class Route {
     this.url = this.url.charAt(0) !== '/' ? `/${this.url}` : this.url;
 
     // Attach default file response for each http method
-    each(['get', 'post', 'put', 'delete', 'head', 'patch'], (method) => {
+    for (const method of ['get', 'post', 'put', 'delete', 'head', 'patch']) {
       this.addMethod(method, endpoint);
-    });
+    }
   }
 
   addMethod(method, endpoint) {
@@ -56,7 +54,7 @@ class Route {
     //   "post": "example3.json",
     //   "delete": "example4.json"
     // }
-    if (isString(endpoint[method])) {
+    if (typeof endpoint[method] === 'string') {
       response.file = endpoint[method];
     }
 
@@ -80,8 +78,8 @@ class Route {
     //     "file": "example2.json",
     //     ...
     //   }...
-    if (isArray(endpoint[method])) {
-      each(endpoint[method], (_request) => {
+    if (Array.isArray(endpoint[method])) {
+      for (const _request of endpoint[method]) {
         // Handle default response.
         //
         // EX:
@@ -91,14 +89,14 @@ class Route {
         //     "file": "example2.json"
         //   }
         // ]
-        if (!_request.params && !_request.headers && !isArray(_request.response)) {
+        if (!_request.params && !_request.headers && !Array.isArray(_request.response)) {
           // If necessary, override the default response from the routes global response.
           if (this.methods[method][0]) {
             this.methods[method][0].responses[0].set(_request);
             // this.methods[method][0].responses[0].url  = _request.file;
           }
 
-          return;
+          continue;
         }
 
         // {
@@ -114,7 +112,7 @@ class Route {
         request.headers = _request.headers;
         // if a request configuration has both a file and response attribute defined, ignore the file
         // attribute and continue...this is most likely an async configuration
-        if ((_request.file || _request.url || _request.status) && !isArray(_request.response)) {
+        if ((_request.file || _request.url || _request.status) && !Array.isArray(_request.response)) {
           response = new Response(_request);
           request.responses.push(response);
         }
@@ -129,18 +127,18 @@ class Route {
         //     "file": "example2.json"
         //   }
         // ]...
-        if (isArray(_request.response)) {
-          each(_request.response, (_response) => {
+        if (Array.isArray(_request.response)) {
+          for (const _response of _request.response) {
             const res = new Response(_request);
             res.set(_response);
             request.responses.push(res);
-          });
+          }
         }
 
         this.methods[method].push(request);
-      });
+      }
     }
   }
 }
 
-module.exports = Route;
+export default Route;
