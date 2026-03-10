@@ -2,6 +2,24 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [5.0.0](https://github.com/Availity/availity-workflow/compare/@availity/example@4.5.6...@availity/example@5.0.0) (2026-03-10)
+
+### Dependency Updates
+
+* `workflow` updated to version `4.5.6`
+
+* feat!: esm, eslint 9, jest 30, vite/vitest opt-in, node 20+ ([28bf5cc](https://github.com/Availity/availity-workflow/commit/28bf5cc361992199d37c35d279fb7bae7dd4b629))
+
+
+### BREAKING CHANGES
+
+* - Node 18 no longer supported
+- ESLint flat config only
+- ESM packages
+- core-js polyfills no longer injected
+
+
+
 ## [4.5.6](https://github.com/Availity/availity-workflow/compare/@availity/example@4.5.5...@availity/example@4.5.6) (2026-02-18)
 
 ### Dependency Updates
