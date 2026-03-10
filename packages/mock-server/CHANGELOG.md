@@ -2,6 +2,29 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [10.0.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@9.1.3...@availity/mock-server@10.0.0) (2026-03-10)
+
+### Dependency Updates
+
+* `mock-data` updated to version `9.1.3`
+
+### Bug Fixes
+
+* **mock-server, workflow:** prevent prototype pollution in deepMerge ([90ffac0](https://github.com/Availity/availity-workflow/commit/90ffac01571930ef959074866ce6a7d60d61a131))
+
+
+* feat!: esm, eslint 9, jest 30, vite/vitest opt-in, node 20+ ([28bf5cc](https://github.com/Availity/availity-workflow/commit/28bf5cc361992199d37c35d279fb7bae7dd4b629))
+
+
+### BREAKING CHANGES
+
+* - Node 18 no longer supported
+- ESLint flat config only
+- ESM packages
+- core-js polyfills no longer injected
+
+
+
 ## [9.1.3](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@9.1.2...@availity/mock-server@9.1.3) (2025-11-21)
 
 ### Dependency Updates
