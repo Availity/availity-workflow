@@ -1,0 +1,42 @@
+# availity-workflow - Mise Configuration
+
+[tasks.install]
+description = "Install dependencies"
+run = "yarn install"
+
+[tasks.build]
+description = "Build example app"
+run = "yarn build:app"
+
+[tasks.test]
+description = "Run all tests"
+run = "yarn test"
+
+[tasks.lint]
+description = "Lint all packages"
+run = "yarn lint"
+
+[tasks.format]
+description = "Format all files"
+run = "yarn format"
+
+[tasks.start]
+description = "Start Docusaurus docs site"
+run = "yarn start"
+
+[tasks."start:app"]
+description = "Start example app dev server"
+run = "yarn start:app"
+
+# KIRO CLI Agent Shortcuts
+[tasks.ai]
+description = "Start dev agent - General development and debugging"
+run = "kiro-cli chat --agent availity-workflow-dev"
+
+[tasks."ai:planner"]
+description = "Start code-planner agent - Branching, commits, and PRs"
+run = "kiro-cli chat --agent code-planner"
+
+[tasks."ai:product"]
+description = "Start product agent - Project knowledge and conventions"
+run = "kiro-cli chat --agent product"
