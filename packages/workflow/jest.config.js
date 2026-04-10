@@ -43,7 +43,7 @@ function create(settings) {
     ],
     testEnvironment: 'jsdom',
     testEnvironmentOptions: {
-      url: 'http://localhost',
+      url: 'http://localhost'
     },
     transform: {
       // Jest and Babel don't allow functions in the options so we just return their values here
@@ -94,7 +94,9 @@ function create(settings) {
 }
 
 function unit(settings) {
-  const argv = process.argv.slice(2);
+  // slice(3) to skip ['node', 'index.js', 'test'] — the yargs command name
+  // must not be forwarded to Jest as it becomes a test path pattern
+  const argv = process.argv.slice(3);
   const jestConfig = JSON.stringify(create(settings));
   argv.push(`--config=${jestConfig}`, '--env=jsdom');
 
