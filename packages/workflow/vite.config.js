@@ -1,13 +1,11 @@
-import { createRequire } from 'module';
 import fs from 'fs';
 import path from 'path';
+import Logger from '@availity/workflow-logger';
 import { toViteProxy } from './scripts/proxy.js';
 import paths from './helpers/paths.js';
 import resolveModule from './helpers/resolve-module.js';
 
-const require = createRequire(import.meta.url);
-
-const buildViteConfig = (settings) => {
+const buildViteConfig = async (settings) => {
   const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
   const getVersion = () => settings.pkg().version || 'N/A';
 
@@ -30,22 +28,22 @@ const buildViteConfig = (settings) => {
   // SWC-based React plugin — 20-70x faster JSX/TS transforms than Babel-based alternative.
   // Falls back to @vitejs/plugin-react (Babel) if SWC plugin isn't installed.
   try {
-    const reactSwc = require('@vitejs/plugin-react-swc');
+    const { default: reactSwc } = await import('@vitejs/plugin-react-swc');
     plugins.push(reactSwc());
   } catch {
-    const react = require('@vitejs/plugin-react');
+    const { default: react } = await import('@vitejs/plugin-react');
     plugins.push(react());
   }
 
   // tsconfig paths support (replaces TsconfigPathsPlugin)
   if (fs.existsSync(paths.tsconfig)) {
-    const tsconfigPaths = require('vite-tsconfig-paths');
+    const { default: tsconfigPaths } = await import('vite-tsconfig-paths');
     plugins.push(tsconfigPaths());
   }
 
   // Static file copying (replaces CopyWebpackPlugin)
   if (fs.existsSync(paths.appStatic)) {
-    const { viteStaticCopy } = require('vite-plugin-static-copy');
+    const { viteStaticCopy } = await import('vite-plugin-static-copy');
     plugins.push(
       viteStaticCopy({
         targets: [
@@ -60,7 +58,7 @@ const buildViteConfig = (settings) => {
 
   // ESLint integration (replaces ESLintPlugin)
   try {
-    const eslintPlugin = require('vite-plugin-checker');
+    const { default: eslintPlugin } = await import('vite-plugin-checker');
     plugins.push(
       eslintPlugin({
         eslint: {
@@ -180,7 +178,6 @@ const buildViteConfig = (settings) => {
 
       for (const [pkgName, locations] of packages) {
         if (locations.size > 1) {
-          const Logger = require('@availity/workflow-logger');
           Logger.warn(
             `Duplicate package: ${pkgName} bundled from ${locations.size} locations:\n${
             [...locations].map((loc) => `  - ${loc}`).join('\n')

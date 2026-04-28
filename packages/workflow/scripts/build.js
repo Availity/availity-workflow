@@ -109,7 +109,7 @@ async function bundleVite({ settings }) {
     fs.rmSync(settings.output(), { recursive: true, force: true });
   }
 
-  let viteConfig = buildViteProductionConfig(settings);
+  let viteConfig = await buildViteProductionConfig(settings);
 
   const { modifyViteConfig } = settings.config();
   if (typeof modifyViteConfig === 'function') {

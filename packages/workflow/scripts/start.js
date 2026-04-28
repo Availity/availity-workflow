@@ -221,7 +221,7 @@ async function webVite() {
   const { createServer } = await import('vite');
   const { default: buildViteConfig } = await import('../vite.config.js');
 
-  let viteConfig = buildViteConfig(settings);
+  let viteConfig = await buildViteConfig(settings);
 
   const { modifyViteConfig } = settings.config();
   if (typeof modifyViteConfig === 'function') {
