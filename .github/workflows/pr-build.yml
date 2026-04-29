@@ -8,15 +8,15 @@ name: Pull Request Build
 
 on:
   pull_request:
-    branches: [master]
+    branches: [ master ]
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        node: [20, 22, 24]
+        os: [ ubuntu-latest, macos-latest ]
+        node: [ 20, 22, 24 ]
 
     steps:
       - name: Checkout Code
@@ -27,7 +27,7 @@ jobs:
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@826660b82addbef3abff5fa871492ebad618c9e1 # v4.3.3
         with:
-          main-branch-name: 'master'
+          main-branch-name: "master"
 
       - name: Set Node Version
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
@@ -67,7 +67,7 @@ jobs:
         run: yarn version:dry-run
 
       - name: Build Docs
-        if: ${{ matrix.node == 22 }}
+        if: ${{ matrix.node == 24 }}
         run: yarn build:docs
 
       - name: Build App
