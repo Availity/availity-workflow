@@ -1,8 +1,8 @@
 import deepMerge from './helpers/deep-merge.js';
 import buildViteConfig from './vite.config.js';
 
-const buildViteProductionConfig = (settings) => {
-  const baseConfig = buildViteConfig(settings);
+const buildViteProductionConfig = async (settings) => {
+  const baseConfig = await buildViteConfig(settings);
 
   const productionOverrides = {
     build: {
