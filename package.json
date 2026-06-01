@@ -2,7 +2,7 @@
   "private": true,
   "name": "availity-workflow",
   "engines": {
-    "yarn": "^3.0.0 || ^4.0.0",
+    "yarn": "^4.0.0",
     "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
   },
   "workspaces": [
