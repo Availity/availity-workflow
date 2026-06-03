@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.0.3](https://github.com/Availity/availity-workflow/compare/@availity/example@5.0.2...@availity/example@5.0.3) (2026-06-03)
+
+### Dependency Updates
+
+* `workflow` updated to version `5.0.2`
+
+### Bug Fixes
+
+* add cjs parsing to jest config ([7836885](https://github.com/Availity/availity-workflow/commit/7836885641c9c42fa1e92c168f3ba8a073dafc1a))
+
+
+
 ## [5.0.2](https://github.com/Availity/availity-workflow/compare/@availity/example@5.0.1...@availity/example@5.0.2) (2026-04-29)
 
 ### Dependency Updates
