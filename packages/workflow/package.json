@@ -74,7 +74,7 @@
     "open": "^10",
     "ora": "^8",
     "path-browserify": "^1.0.1",
-    "postcss": "^8.5.3",
+    "postcss": "^8.5.10",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-focus": "^6.0.0",
     "postcss-loader": "^7.3.4",
