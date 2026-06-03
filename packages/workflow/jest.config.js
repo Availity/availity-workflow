@@ -47,9 +47,9 @@ function create(settings) {
     },
     transform: {
       // Jest and Babel don't allow functions in the options so we just return their values here
-      '^.+\\.(js|jsx|ts|tsx)$': `${require.resolve('./jest/babel.js')}`,
+      '^.+\\.(js|jsx|ts|tsx|cjs)$': `${require.resolve('./jest/babel.js')}`,
       '^.+\\.css$': `${require.resolve('./jest/css.js')}`,
-      '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': `${require.resolve('./jest/file.js')}`
+      '^(?!.*\\.(js|jsx|ts|tsx|cjs|css|json)$)': `${require.resolve('./jest/file.js')}`
     },
     setupFiles: [...setupFiles],
     setupFilesAfterEnv: jestInitExists
