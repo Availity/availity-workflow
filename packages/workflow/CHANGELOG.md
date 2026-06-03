@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [13.0.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@13.0.1...@availity/workflow@13.0.2) (2026-04-29)
+
+
+### Bug Fixes
+
+* av test properly passes args to jest ([29c8ec8](https://github.com/Availity/availity-workflow/commit/29c8ec86798a3fa01ac72f6821a5fb315a3d668c))
+* replace require() with dynamic import() in vite config for ESM compatibility ([83ebd38](https://github.com/Availity/availity-workflow/commit/83ebd38a0863f46795b4a028aaebd05098f18983))
+
+
+
 ## [13.0.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@13.0.0...@availity/workflow@13.0.1) (2026-03-16)
 
 
