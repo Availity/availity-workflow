@@ -1,4 +1,4 @@
-import schema from '../settings/schema.js';
+import schema from '../../settings/schema.js';
 
 describe('settings schema', () => {
   it('validates an empty object and fills defaults', () => {
@@ -7,14 +7,11 @@ describe('settings schema', () => {
     expect(error).toBeUndefined();
     expect(value).toHaveProperty('development');
     expect(value).toHaveProperty('app');
-    expect(value).toHaveProperty('testing');
     expect(value).toHaveProperty('globals');
     expect(value).toHaveProperty('ekko');
     expect(value).toHaveProperty('proxies');
     expect(value).toHaveProperty('experiments');
     expect(value).toHaveProperty('eslint');
-    expect(value).toHaveProperty('bundler');
-    expect(value).toHaveProperty('testRunner');
   });
 
   it('defaults development.port to 3000', () => {
@@ -27,15 +24,6 @@ describe('settings schema', () => {
     expect(value.development.host).toBe('localhost');
   });
 
-  it('defaults bundler to webpack', () => {
-    const { value } = schema.validate({});
-    expect(value.bundler).toBe('webpack');
-  });
-
-  it('defaults testRunner to jest', () => {
-    const { value } = schema.validate({});
-    expect(value.testRunner).toBe('jest');
-  });
 
   it('defaults app.title to Availity', () => {
     const { value } = schema.validate({});
@@ -64,17 +52,6 @@ describe('settings schema', () => {
     expect(error.details[0].path).toEqual(['development', 'port']);
   });
 
-  it('rejects invalid bundler value', () => {
-    const { error } = schema.validate({ bundler: 'rollup' });
-    expect(error).toBeDefined();
-    expect(error.details[0].path).toEqual(['bundler']);
-  });
-
-  it('rejects invalid testRunner value', () => {
-    const { error } = schema.validate({ testRunner: 'mocha' });
-    expect(error).toBeDefined();
-    expect(error.details[0].path).toEqual(['testRunner']);
-  });
 
   it('accepts a valid complete config', () => {
     const input = {
@@ -102,8 +79,6 @@ describe('settings schema', () => {
       ],
       experiments: { lazyCompilation: true },
       eslint: { failOnError: false },
-      bundler: 'vite',
-      testRunner: 'vitest',
       modifyViteConfig: (config) => config,
     };
 
@@ -111,8 +86,6 @@ describe('settings schema', () => {
     expect(error).toBeUndefined();
     expect(value.development.port).toBe(8080);
     expect(value.app.title).toBe('My App');
-    expect(value.bundler).toBe('vite');
-    expect(value.testRunner).toBe('vitest');
     expect(typeof value.modifyViteConfig).toBe('function');
   });
 

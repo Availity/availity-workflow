@@ -3,6 +3,13 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint .",
+        "cwd": "./packages/workflow"
+      }
+    },
     "test": {
       "executor": "nx:run-commands",
       "options": {
@@ -13,7 +20,7 @@
       "executor": "@jscutlery/semver:version",
       "options": {
         "preset": "angular",
-        "commitMessageFormat": "chore({projectName}): release version ${version}",
+        "commitMessageFormat": "chore({projectName}): release version ${version} [skip ci]",
         "tagPrefix": "@availity/{projectName}@",
         "trackDeps": true
       }

@@ -1,38 +1,14 @@
-import { readdir } from 'fs/promises';
 import ora from 'ora';
 import chalk from 'chalk';
 import Logger from '@availity/workflow-logger';
-import { createRequire } from 'module';
-import path from 'path';
-import { spawnSync } from 'child_process';
-import settings from '../settings/index.js';
+import { createRequire } from 'node:module';
+import path from 'node:path';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 
-// Expand glob patterns like "dir/**/*.ext" using native fs
-async function expandGlobs(patterns) {
-  const results = new Set();
-  for (const pattern of patterns) {
-    const doubleStarIdx = pattern.indexOf('**');
-    if (doubleStarIdx === -1) {
-      results.add(pattern);
-      continue;
-    }
-    const baseDir = pattern.slice(0, doubleStarIdx).replace(/\/$/, '') || '.';
-    const ext = path.extname(pattern);
-    try {
-      const entries = await readdir(baseDir, { recursive: true });
-      for (const entry of entries) {
-        if (path.extname(entry) === ext) {
-          results.add(path.join(baseDir, entry));
-        }
-      }
-    } catch {
-      // directory not found, skip
-    }
-  }
-  return [...results];
-}
+const execFileAsync = promisify(execFile);
 
-async function lint() {
+async function lint({ settings } = {}) {
   if (settings.isLinterDisabled()) {
     Logger.warn('Linting is disabled');
     return true;
@@ -69,27 +45,20 @@ async function lint() {
   spinner.color = 'yellow';
   spinner.start();
 
-  // Files tracked by git
-  let gitTrackedFiles;
-  if (settings.isIgnoreUntracked()) {
-    const gitRootCmd = spawnSync('git', ['rev-parse', '--show-toplevel']);
-    if (gitRootCmd.status) {
-      // Non-zero exit code; assume git repository absent
-      gitTrackedFiles = null;
-    } else {
-      const gitLsFiles = spawnSync('git', ['ls-files']);
-      gitTrackedFiles = gitLsFiles.stdout.toString().trim().split('\n');
+  // Determine files to lint
+  let filesToLint = settings.js().map((p) => p.replaceAll('\\', '/'));
 
-      const gitRoot = gitRootCmd.stdout.toString().trim();
-      gitTrackedFiles = gitTrackedFiles.map((file) => path.join(gitRoot, file));
+  if (settings.isIgnoreUntracked()) {
+    try {
+      const { stdout: rootOut } = await execFileAsync('git', ['rev-parse', '--show-toplevel']);
+      const gitRoot = rootOut.trim();
+      const { stdout: filesOut } = await execFileAsync('git', ['ls-files']);
+      const gitTrackedFiles = filesOut.trim().split('\n').map((file) => path.join(gitRoot, file));
+      filesToLint = gitTrackedFiles.filter((file) => ['.js', '.jsx', '.ts', '.tsx'].includes(path.extname(file)));
+    } catch {
+      // If git commands fail, fall back to default patterns
     }
   }
-
-  // Uses expandGlobs which defaults to process.cwd() and path.resolve(options.cwd, "/")
-  const paths = await expandGlobs(settings.js().map((p) => p.replaceAll('\\', '/')));
-
-  // Git repository present
-  const filesToLint = gitTrackedFiles ? paths.filter((file) => gitTrackedFiles.indexOf(file) > 0) : paths;
 
   const report = await engine.lintFiles(filesToLint);
 
@@ -97,27 +66,24 @@ async function lint() {
   for (const result of report) {
     if (result.errorCount) status.error = true;
     if (result.warningCount) status.warning = true;
-
-    // If we have error and warning already then no need to check more
-    if (status.error && status.warning) {
-      break;
-    }
+    if (status.error && status.warning) break;
   }
 
   spinner.stop();
 
-  if (status.error || status.warning) {
+  if (status.error) {
     const formatter = await engine.loadFormatter();
-
     Logger.simple(`${formatter.format(report)}`);
     Logger.failed('Failed linting');
+    throw new Error('Failed linting');
+  }
 
-    // eslint-disable-next-line unicorn/no-process-exit
-    if (settings.isFail()) process.exit(1);
-
-    if (status.error) throw new Error('Failed linting');
+  if (status.warning) {
+    const formatter = await engine.loadFormatter();
+    Logger.simple(`${formatter.format(report)}`);
+    Logger.warn('Passed linting with warnings');
   } else {
-    Logger.success(`Finished linting ${chalk.magenta(paths.length)} file(s)`);
+    Logger.success(`Finished linting ${chalk.magenta(report.length)} file(s)`);
   }
 
   return true;

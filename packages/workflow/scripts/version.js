@@ -1,146 +1,106 @@
-/* eslint-disable unicorn/no-useless-promise-resolve-reject */
-import { execSync } from 'child_process';
-import fs from 'fs';
-import path from 'path';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import fs from 'node:fs';
+import path from 'node:path';
 import semver from 'semver';
 import { rawlist, input, Separator } from '@inquirer/prompts';
-import yargs from 'yargs';
 import Logger from '@availity/workflow-logger';
-import settings from '../settings/index.js';
 
-// Add a new line character to end of contents
-function newLine(contents) {
-  const lastChar = contents && contents.slice(-1) === '\n' ? '' : '\n';
-  return contents + lastChar;
+const execFileAsync = promisify(execFile);
+
+function newline(contents) {
+  return contents + (contents.slice(-1) === '\n' ? '' : '\n');
 }
 
-function tag() {
+async function tag(settings) {
   if (settings.isDistribution() && !settings.isDryRun()) {
     const message = settings.commitMessage()
-      ? `${settings.commitMessage()} v${settings.version}`
-      : `v${settings.version}`;
-    execSync('git add --all', { stdio: 'inherit' });
-    execSync(`git commit -m "${message}"`, { stdio: 'inherit' });
-    execSync(`git tag -a "${message}" -m "${message}"`, { stdio: 'inherit' });
+      ? `${settings.commitMessage()} v${settings._version}`
+      : `v${settings._version}`;
+    await execFileAsync('git', ['add', '--all']);
+    await execFileAsync('git', ['commit', '-m', message]);
+    await execFileAsync('git', ['tag', '-a', message, '-m', message]);
   } else {
     Logger.message('Skipping git commands', 'Dry Run');
   }
-
-  return Promise.resolve(true);
 }
 
-function bump() {
+async function bump(settings) {
   Logger.info('Starting version bump');
 
   if (!settings.isDistribution()) {
-    settings.version = new Date().toISOString();
+    settings._version = new Date().toISOString();
   }
 
-  if (!settings.version) {
-    return Promise.reject(new Error('version is undefined'));
+  if (!settings._version) {
+    throw new Error('version is undefined');
   }
 
   const pkg = settings.pkg();
-  pkg.version = settings.version;
+  pkg.version = settings._version;
 
-  let contents = JSON.stringify(pkg, null, 2);
-  contents = newLine(contents);
+  const contents = newline(JSON.stringify(pkg, null, 2));
 
-  // update package.pkg
   if (settings.isDistribution() && !settings.isDryRun()) {
-    fs.writeFileSync(path.join(process.cwd(), 'package.json'), contents, 'utf8');
+    await fs.promises.writeFile(path.join(process.cwd(), 'package.json'), contents, 'utf8');
     Logger.success('Finished version bump');
   } else {
     Logger.message('Skipping version bump', 'Dry Run');
   }
-
-  return Promise.resolve(true);
 }
 
-async function prompt() {
+async function prompt(settings, versionArg) {
   if (!settings.isDistribution()) {
-    return Promise.resolve(true);
+    return true;
   }
 
   const { version } = settings.pkg();
   const parsed = semver.parse(version);
-  const yargsArgv = yargs(process.argv.slice(2)).argv;
-  const versionArg = yargsArgv.version || yargsArgv._[1];
 
   if (versionArg) {
-    let error;
-    if (semver.valid(versionArg)) {
-      if (semver.gt(versionArg, version)) {
-        settings.version = versionArg;
-        return Promise.resolve(true);
-      }
-      error = `must be greater than the current version [${version}].`;
-    } else {
-      error = `is not a valid semver version.`;
+    if (semver.valid(versionArg) && semver.gt(versionArg, version)) {
+      settings._version = versionArg;
+      return true;
     }
-    error = `Specified version [${versionArg}] ${error}`;
+    const error = semver.valid(versionArg)
+      ? `Specified version [${versionArg}] must be greater than the current version [${version}].`
+      : `Specified version [${versionArg}] is not a valid semver version.`;
     Logger.error(error);
     throw new Error(error);
   }
 
-  // regular release
   const simpleVersion = `${parsed.major}.${parsed.minor}.${parsed.patch}`;
 
   let choices = [
-    {
-      name: `patch ( ${version} => ${semver.inc(simpleVersion, 'patch')} )`,
-      value: semver.inc(simpleVersion, 'patch')
-    },
-    {
-      name: `minor ( ${version} => ${semver.inc(simpleVersion, 'minor')} )`,
-      value: semver.inc(simpleVersion, 'minor')
-    },
-    {
-      name: `major ( ${version} => ${semver.inc(simpleVersion, 'major')} )`,
-      value: semver.inc(simpleVersion, 'major')
-    },
+    { name: `patch ( ${version} => ${semver.inc(simpleVersion, 'patch')} )`, value: semver.inc(simpleVersion, 'patch') },
+    { name: `minor ( ${version} => ${semver.inc(simpleVersion, 'minor')} )`, value: semver.inc(simpleVersion, 'minor') },
+    { name: `major ( ${version} => ${semver.inc(simpleVersion, 'major')} )`, value: semver.inc(simpleVersion, 'major') },
     new Separator(),
-    { name: 'other', value: 'other' }
+    { name: 'other', value: 'other' },
   ];
 
-  // pre-release
   if (parsed.prerelease && parsed.prerelease.length > 0) {
     choices = [
-      {
-        name: `prerelease ( ${version} => ${semver.inc(version, 'prerelease', parsed[0])} )`,
-        value: semver.inc(version, 'prerelease', parsed[0])
-      },
-      {
-        name: `release ( ${version} => ${simpleVersion} )`,
-        value: simpleVersion
-      },
+      { name: `prerelease ( ${version} => ${semver.inc(version, 'prerelease', parsed[0])} )`, value: semver.inc(version, 'prerelease', parsed[0]) },
+      { name: `release ( ${version} => ${simpleVersion} )`, value: simpleVersion },
       new Separator(),
-      { name: 'other', value: 'other' }
+      { name: 'other', value: 'other' },
     ];
   }
 
-  const bumpChoice = await rawlist({
-    message: 'What type of version bump would you like to do?',
-    choices
-  });
+  const bumpChoice = await rawlist({ message: 'What type of version bump would you like to do?', choices });
 
   if (bumpChoice === 'other') {
     const customVersion = await input({
-      message: `version (current version is ${settings.pkg().version})`,
-      validate(value) {
-        const valid = semver.valid(semver.clean(value));
-        if (valid) {
-          return true;
-        }
-        return 'Enter valid semver version. See https://docs.npmjs.com/misc/semver for more details.';
-      }
+      message: `version (current version is ${version})`,
+      validate: (v) => (semver.valid(semver.clean(v)) ? true : 'Enter valid semver. See https://docs.npmjs.com/misc/semver'),
     });
-    settings.version = semver.clean(customVersion);
+    settings._version = semver.clean(customVersion);
   } else {
-    settings.version = bumpChoice;
+    settings._version = bumpChoice;
   }
 
-  return settings.version;
+  return settings._version;
 }
 
-export { tag, prompt, bump };
+export default { tag, prompt, bump };

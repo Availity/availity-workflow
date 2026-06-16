@@ -18,19 +18,17 @@ beforeEach(async () => {
   mockViteBuild.mockReset().mockResolvedValue(undefined);
 
   vi.doMock('fs', () => ({
-    default: { rmSync: mockRmSync },
+    default: { rmSync: mockRmSync, promises: { rm: mockRmSync } },
   }));
 
   vi.doMock('webpack', () => ({
-    default: mockWebpack,
-  }));
-
-  vi.doMock('webpack/lib/ProgressPlugin', () => ({
-    default: class ProgressPlugin {
-      constructor(handler) {
-        this.handler = handler;
-      }
-    },
+    default: Object.assign(mockWebpack, {
+      ProgressPlugin: class ProgressPlugin {
+        constructor(handler) {
+          this.handler = handler;
+        }
+      },
+    }),
   }));
 
   vi.doMock('ora', () => ({
@@ -55,15 +53,15 @@ beforeEach(async () => {
     default: vi.fn(),
   }));
 
-  vi.doMock('../webpack.config.production.js', () => ({
+  vi.doMock('../../webpack.config.production.js', () => ({
     default: vi.fn(() => ({ plugins: [] })),
   }));
 
-  vi.doMock('../webpack.config.profile.js', () => ({
+  vi.doMock('../../webpack.config.profile.js', () => ({
     default: vi.fn(() => ({ plugins: [] })),
   }));
 
-  vi.doMock('../scripts/stats.js', () => ({
+  vi.doMock('../../scripts/stats.js', () => ({
     default: vi.fn(() => 'mock stats'),
   }));
 
@@ -71,23 +69,22 @@ beforeEach(async () => {
     build: mockViteBuild,
   }));
 
-  vi.doMock('../vite.config.production.js', () => ({
+  vi.doMock('../../vite.config.production.js', () => ({
     default: vi.fn(() => ({ build: {} })),
   }));
 
   vi.doMock('yargs', () => ({
-    default: () => ({ argv: {} }),
+    default: () => ({ parseSync: () => ({}) }),
   }));
 
-  const mod = await import('../scripts/build.js');
+  const mod = await import('../../scripts/build.js');
   bundle = mod.default;
 });
 
 function makeSettings(overrides = {}) {
   return {
     isDryRun: vi.fn(() => false),
-    isVite: vi.fn(() => false),
-    isWebpack: vi.fn(() => true),
+    isProfile: vi.fn(() => false),
     output: vi.fn(() => '/fake/output'),
     config: vi.fn(() => ({})),
     ...overrides,
@@ -95,7 +92,7 @@ function makeSettings(overrides = {}) {
 }
 
 describe('bundle', () => {
-  it('delegates to bundleWebpack when not vite', async () => {
+  it('calls webpack', async () => {
     const settings = makeSettings();
     mockWebpackRun.mockImplementation((cb) => {
       cb(null, {
@@ -107,16 +104,6 @@ describe('bundle', () => {
     await bundle({ settings });
 
     expect(mockWebpack).toHaveBeenCalled();
-    expect(mockViteBuild).not.toHaveBeenCalled();
-  });
-
-  it('delegates to bundleVite when vite', async () => {
-    const settings = makeSettings({ isVite: vi.fn(() => true) });
-
-    await bundle({ settings });
-
-    expect(mockViteBuild).toHaveBeenCalled();
-    expect(mockWebpack).not.toHaveBeenCalled();
   });
 });
 
@@ -163,20 +150,4 @@ describe('bundleWebpack', () => {
   });
 });
 
-describe('bundleVite', () => {
-  it('calls fs.rmSync when not dry run', async () => {
-    const settings = makeSettings({ isVite: vi.fn(() => true) });
 
-    await bundle({ settings });
-
-    expect(mockRmSync).toHaveBeenCalledWith('/fake/output', { recursive: true, force: true });
-  });
-
-  it('rejects on vite build error', async () => {
-    const settings = makeSettings({ isVite: vi.fn(() => true) });
-    const viteError = new Error('vite build failed');
-    mockViteBuild.mockRejectedValue(viteError);
-
-    await expect(bundle({ settings })).rejects.toBe(viteError);
-  });
-});

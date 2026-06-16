@@ -1,18 +1,21 @@
-import path from 'path';
-import settings from '../settings/index.js';
-import paths from '../helpers/paths.js';
+import path from 'node:path';
+import Settings from '../../settings/index.js';
+import paths from '../../helpers/paths.js';
 
 // Save original values for restoration
 const originalNodeEnv = process.env.NODE_ENV;
 const originalArgv = process.argv;
 
+let settings;
+
+beforeEach(() => {
+  process.argv = ['node', 'script'];
+  settings = new Settings();
+});
+
 afterEach(() => {
   process.env.NODE_ENV = originalNodeEnv;
   process.argv = originalArgv;
-  settings.configuration = null;
-  settings.shouldMimicStaging = undefined;
-  settings.devServerPort = null;
-  settings.ekkoServerPort = null;
 });
 
 // ---------------------------------------------------------------------------
@@ -48,7 +51,7 @@ describe('isProduction()', () => {
 
   it('returns true when --production flag is passed', () => {
     process.env.NODE_ENV = 'development';
-    process.argv = ['node', 'script', '--production'];
+    settings = new Settings({ production: true });
     expect(settings.isProduction()).toBeTruthy();
   });
 
@@ -143,7 +146,8 @@ describe('sourceMap()', () => {
 
   it('returns source-map for dry runs', () => {
     process.env.NODE_ENV = 'development';
-    process.argv = ['node', 'script', '--dryRun'];
+    settings = new Settings({ dryRun: true });
+    settings.configuration = { development: { sourceMap: 'cheap-module-source-map' } };
     expect(settings.sourceMap()).toBe('source-map');
   });
 
@@ -152,30 +156,16 @@ describe('sourceMap()', () => {
     expect(settings.sourceMap()).toBe('cheap-module-source-map');
   });
 
-  it('defaults to cheap-module-source-map when not configured', () => {
+  it('defaults to source-map when not configured', () => {
     process.env.NODE_ENV = 'development';
     settings.configuration = { development: {} };
-    expect(settings.sourceMap()).toBe('cheap-module-source-map');
+    expect(settings.sourceMap()).toBe('source-map');
   });
 });
 
 // ---------------------------------------------------------------------------
 // css()
 // ---------------------------------------------------------------------------
-describe('css()', () => {
-  it('returns hashed filename in production', () => {
-    process.env.NODE_ENV = 'production';
-    process.argv = ['node', 'script'];
-    expect(settings.css()).toBe('[name]-[contenthash:8].chunk.css');
-  });
-
-  it('returns simple filename in development', () => {
-    process.env.NODE_ENV = 'development';
-    process.argv = ['node', 'script'];
-    expect(settings.css()).toBe('[name].chunk.css');
-  });
-});
-
 // ---------------------------------------------------------------------------
 // fileName()
 // ---------------------------------------------------------------------------
@@ -467,59 +457,6 @@ describe('asset()', () => {
 // ---------------------------------------------------------------------------
 // bundler() / testRunner() / isVite() / isWebpack()
 // ---------------------------------------------------------------------------
-describe('bundler()', () => {
-  it('returns configured bundler', () => {
-    settings.configuration = { bundler: 'vite' };
-    expect(settings.bundler()).toBe('vite');
-  });
-
-  it('defaults to webpack', () => {
-    settings.configuration = {};
-    expect(settings.bundler()).toBe('webpack');
-  });
-});
-
-describe('testRunner()', () => {
-  it('returns configured testRunner', () => {
-    settings.configuration = { testRunner: 'vitest' };
-    expect(settings.testRunner()).toBe('vitest');
-  });
-
-  it('defaults to jest', () => {
-    settings.configuration = {};
-    expect(settings.testRunner()).toBe('jest');
-  });
-});
-
-describe('isVite()', () => {
-  it('returns true when bundler is vite', () => {
-    settings.configuration = { bundler: 'vite' };
-    expect(settings.isVite()).toBe(true);
-  });
-
-  it('returns false when bundler is webpack', () => {
-    settings.configuration = { bundler: 'webpack' };
-    expect(settings.isVite()).toBe(false);
-  });
-});
-
-describe('isWebpack()', () => {
-  it('returns true when bundler is webpack', () => {
-    settings.configuration = { bundler: 'webpack' };
-    expect(settings.isWebpack()).toBe(true);
-  });
-
-  it('returns false when bundler is vite', () => {
-    settings.configuration = { bundler: 'vite' };
-    expect(settings.isWebpack()).toBe(false);
-  });
-
-  it('returns true by default (no bundler set)', () => {
-    settings.configuration = {};
-    expect(settings.isWebpack()).toBe(true);
-  });
-});
-
 // ---------------------------------------------------------------------------
 // enableHotLoader()
 // ---------------------------------------------------------------------------
@@ -619,18 +556,6 @@ describe('include()', () => {
 // ---------------------------------------------------------------------------
 // coverage()
 // ---------------------------------------------------------------------------
-describe('coverage()', () => {
-  it('returns configured coverage path', () => {
-    settings.configuration = { development: { coverage: '/custom/coverage' } };
-    expect(settings.coverage()).toBe('/custom/coverage');
-  });
-
-  it('defaults to project/coverage', () => {
-    settings.configuration = { development: {} };
-    expect(settings.coverage()).toBe(path.join(paths.project, 'coverage'));
-  });
-});
-
 // ---------------------------------------------------------------------------
 // isNotifications()
 // ---------------------------------------------------------------------------
@@ -666,25 +591,12 @@ describe('historyFallback()', () => {
 // ---------------------------------------------------------------------------
 describe('isDryRun()', () => {
   it('returns true when --dryRun flag is passed', () => {
-    process.argv = ['node', 'script', '--dryRun'];
+    settings = new Settings({ dryRun: true });
     expect(settings.isDryRun()).toBe(true);
   });
 
   it('returns false without the flag', () => {
-    process.argv = ['node', 'script'];
     expect(settings.isDryRun()).toBe(false);
-  });
-});
-
-describe('isIntegration()', () => {
-  it('returns true when NODE_ENV is integration', () => {
-    process.env.NODE_ENV = 'integration';
-    expect(settings.isIntegration()).toBe(true);
-  });
-
-  it('returns false otherwise', () => {
-    process.env.NODE_ENV = 'development';
-    expect(settings.isIntegration()).toBe(false);
   });
 });
 
@@ -714,37 +626,3 @@ describe('experimentalWebpackFeatures()', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// getHotLoaderName() / getHotLoaderEntry()
-// ---------------------------------------------------------------------------
-describe('getHotLoaderName()', () => {
-  it('returns react-refresh/babel', () => {
-    expect(settings.getHotLoaderName()).toBe('react-refresh/babel');
-  });
-});
-
-describe('getHotLoaderEntry()', () => {
-  it('returns configured hotLoaderEntry', () => {
-    const regex = /\/Main\.tsx?/;
-    settings.configuration = { development: { hotLoaderEntry: regex } };
-    expect(settings.getHotLoaderEntry()).toBe(regex);
-  });
-
-  it('defaults to /App.jsx? regex', () => {
-    settings.configuration = { development: {} };
-    const result = settings.getHotLoaderEntry();
-    expect(result).toBeInstanceOf(RegExp);
-    expect(result.test('/App.js')).toBe(true);
-    expect(result.test('/App.jsx')).toBe(true);
-  });
-});
-
-// ---------------------------------------------------------------------------
-// browsers()
-// ---------------------------------------------------------------------------
-describe('browsers()', () => {
-  it('returns configured browsers', () => {
-    settings.configuration = { testing: { browsers: ['Firefox', 'Chrome'] } };
-    expect(settings.browsers()).toEqual(['Firefox', 'Chrome']);
-  });
-});

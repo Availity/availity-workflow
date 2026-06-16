@@ -1,5 +1,5 @@
-import formatWebpackMessages from '../scripts/format.js';
-import formatStats from '../scripts/stats.js';
+import formatWebpackMessages from '../../scripts/format.js';
+import formatStats from '../../scripts/stats.js';
 
 describe('formatWebpackMessages', () => {
   const makeJson = (errors = [], warnings = []) => ({

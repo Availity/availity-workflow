@@ -1,11 +1,11 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 describe('helpers/paths', () => {
   let paths;
 
   beforeEach(async () => {
-    paths = (await import('../helpers/paths.js')).default;
+    paths = (await import('../../helpers/paths.js')).default;
   });
 
   it('exports an object with all expected keys', () => {
@@ -58,10 +58,10 @@ describe('helpers/resolve-module', () => {
       existsSync: vi.fn(() => false)
     }));
 
-    const mockedFs = await import('fs');
+    const mockedFs = await import('node:fs');
     existsSyncMock = mockedFs.default.existsSync;
 
-    resolveModule = (await import('../helpers/resolve-module.js')).default;
+    resolveModule = (await import('../../helpers/resolve-module.js')).default;
   });
 
   it('returns the .ts path when .ts file exists', () => {
@@ -92,12 +92,12 @@ describe('helpers/resolve-module', () => {
   });
 
   it('tries extensions in order and returns first match', () => {
-    existsSyncMock.mockImplementation((p) => p.endsWith('.web.js') || p.endsWith('.ts'));
+    existsSyncMock.mockImplementation((p) => p === '/app/index.js' || p === '/app/index.ts');
 
     const resolveFn = (f) => `/app/${f}`;
     const result = resolveModule(resolveFn, 'index');
 
-    // web.js comes before ts in the extension order, so it should win
-    expect(result).toBe('/app/index.web.js');
+    // js comes before ts in the extension order, so it should win
+    expect(result).toBe('/app/index.js');
   });
 });

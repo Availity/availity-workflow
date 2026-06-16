@@ -2,40 +2,34 @@ import chalk from 'chalk';
 import Debug from 'debug';
 import Logger from '@availity/workflow-logger';
 import deepMerge from '../helpers/deep-merge.js';
-import settings from '../settings/index.js';
 
 function escapeRegExp(s) {
-  return s.replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+  return s.replaceAll(/[\\^$*+?.()|[\]{}]/g, '\\$&');
 }
 
 const debug = Debug('workflow:proxy');
 
-// Clean up HPM messages so they appear more @availity/workflow like ;)
-function proxyLogRewrite(daArgs) {
-  const args = [...daArgs];
-
-  return args.map((arg) => {
+function proxyLogRewrite(args) {
+  return [...args].map((arg) => {
     if (typeof arg === 'string') {
-      // eslint-disable-next-line unicorn/prefer-string-replace-all
-      return arg.replace(/\[HPM] /g, '').replace(/ {2}/g, ' ');
+      return arg.replaceAll('[HPM] ', '').replaceAll('  ', ' ');
     }
-
     return arg;
   });
 }
 
-function onRequest(proxyConfig, proxyObject) {
+function onRequest(s, proxyConfig, proxyObject) {
   if (!(proxyConfig?.contextRewrite ?? true)) {
     return;
   }
 
-  const port = settings.port();
-  const host = settings.host();
+  const port = s.port();
+  const host = s.host();
 
   const local = `http://${host}:${port}`;
   const { target } = proxyConfig;
 
-  const regexer = new RegExp(escapeRegExp(local, 'g'));
+  const regexer = new RegExp(escapeRegExp(local), 'g');
 
   for (const header of ['referer', 'origin']) {
     const requestHeader = proxyObject.getHeader(header);
@@ -47,56 +41,31 @@ function onRequest(proxyConfig, proxyObject) {
   }
 }
 
-function onResponse(proxyConfig, proxyObject) {
+function onResponse(s, proxyConfig, proxyObject) {
   if (!(proxyConfig?.contextRewrite ?? true)) {
     return;
   }
 
-  const port = settings.port();
-  const host = settings.host();
+  const port = s.port();
+  const host = s.host();
 
-  // http://localhost:3000
   const hostUrl = `http://${host}:${port}`;
 
   const proxyContext = Array.isArray(proxyConfig.context) ? proxyConfig.context[0] : proxyConfig.context;
-  // http://localhost:3000/api
   const hostUrlContext = new URL(proxyContext, `http://${host}:${port}`).href;
-  // http://localhost:8080
   const targetUrl = proxyConfig.target;
-  // http://localhost:8080/api
   const targetUrlContext = new URL(proxyContext, proxyConfig.target).href;
 
-  const regexer = new RegExp(escapeRegExp(targetUrl, 'g'));
-  const regexerContext = new RegExp(escapeRegExp(targetUrlContext, 'g'));
+  const regexer = new RegExp(escapeRegExp(targetUrl), 'g');
+  const regexerContext = new RegExp(escapeRegExp(targetUrlContext));
 
-  for (const header of ['location']) {
-    const responseHeader = proxyObject.headers[header];
-    if (responseHeader) {
-      const replacedUrl = regexerContext.test(responseHeader) ? hostUrl : hostUrlContext;
-      const replacedHeader = responseHeader.replace(regexer, replacedUrl);
-      debug(`Rewriting ${header} header from ${chalk.blue(responseHeader)} to ${chalk.blue(replacedHeader)}`);
-      proxyObject.headers[header] = replacedHeader;
-    }
+  const responseHeader = proxyObject.headers.location;
+  if (responseHeader) {
+    const replacedUrl = regexerContext.test(responseHeader) ? hostUrl : hostUrlContext;
+    const replacedHeader = responseHeader.replace(regexer, replacedUrl);
+    debug(`Rewriting location header from ${chalk.blue(responseHeader)} to ${chalk.blue(replacedHeader)}`);
+    proxyObject.headers.location = replacedHeader;
   }
-
-  // Below code never worked as the content length also had to be modified before gzipping back to UI.
-  // This middleware didn't update the content length. Leaving this out unless in the future we have
-  // urls we want to rewrite to our localhost that isn't using ekko
-
-  // const isJson = typeIs.is(proxyObject.headers['content-type'], ['json']) === 'json';
-  // if (isJson && proxyObject.statusCode !== 304) {
-  //   proxyJson(res, proxyObject.headers['content-encoding'], body => {
-  //     if (body) {
-  //       const json = JSON.stringify(body);
-  //       const replacedUrl = regexerContext.test(json) ? hostUrl : hostUrlContext;
-  //       const replacedJson = json.replace(regexer, replacedUrl);
-  //       debug(`Rewriting response body urls to ${chalk.blue(replacedUrl)} for request ${chalk.blue(req.url)}`);
-  //       body = JSON.parse(replacedJson);
-  //     }
-
-  //     return body;
-  //   });
-  // }
 }
 
 function onProxyError(proxyConfiguration, err, req, res) {
@@ -112,8 +81,7 @@ function onProxyError(proxyConfiguration, err, req, res) {
   res.end(`Proxy error: Could not proxy request ${req.url} from ${host} to ${proxyConfiguration.target}`);
 }
 
-// https://github.com/chimurai/http-proxy-middleware/tree/master/recipes
-function proxy() {
+function proxy(settings) {
   const defaultProxy = {
     changeOrigin: true,
     ws: true,
@@ -121,21 +89,11 @@ function proxy() {
     xfwd: true,
     logProvider() {
       return {
-        log(...args) {
-          Logger.log(proxyLogRewrite(args));
-        },
-        debug(...args) {
-          Logger.debug(proxyLogRewrite(args));
-        },
-        info(...args) {
-          Logger.info(proxyLogRewrite(args));
-        },
-        warn(...args) {
-          Logger.warn(proxyLogRewrite(args));
-        },
-        error(...args) {
-          Logger.error(proxyLogRewrite(args));
-        }
+        log(...args) { Logger.log(proxyLogRewrite(args)); },
+        debug(...args) { Logger.debug(proxyLogRewrite(args)); },
+        info(...args) { Logger.info(proxyLogRewrite(args)); },
+        warn(...args) { Logger.warn(proxyLogRewrite(args)); },
+        error(...args) { Logger.error(proxyLogRewrite(args)); },
       };
     }
   };
@@ -148,19 +106,17 @@ function proxy() {
 
   const config = [];
 
-  // Iterate through each proxy configuration
   for (const proxyConfiguration of proxies) {
-    // Merge in defaults including custom Logger and custom request/response function
     const proxyConfig = deepMerge({}, defaultProxy, proxyConfiguration, {
       onProxyReq: (proxyReq, req) => {
-        onRequest(proxyConfiguration, proxyReq, req);
+        onRequest(settings, proxyConfiguration, proxyReq, req);
         if (typeof proxyConfiguration.onProxyReq === 'function') {
           proxyConfiguration.onProxyReq(proxyReq, req);
         }
       },
 
       onProxyRes: (proxyRes, req, res) => {
-        onResponse(proxyConfiguration, proxyRes, req, res);
+        onResponse(settings, proxyConfiguration, proxyRes, req, res);
         if (typeof proxyConfiguration.onProxyRes === 'function') {
           proxyConfiguration.onProxyRes(proxyRes, req, res);
         }
@@ -174,12 +130,10 @@ function proxy() {
       }
     });
 
-    const proxyContext = Array.isArray(proxyConfig.context) ? proxyConfig.context[0] : proxyConfig.context;
-
-    // Only create proxy if enabled
     if (proxyConfig.enabled) {
       config.push(proxyConfig);
     } else {
+      const proxyContext = Array.isArray(proxyConfig.context) ? proxyConfig.context[0] : proxyConfig.context;
       Logger.info(
         `Proxy with context: ${chalk.dim(proxyContext)} and target: ${chalk.dim(proxyConfig.target)} is ${chalk.magenta(
           'DISABLED'
@@ -188,52 +142,7 @@ function proxy() {
     }
   }
 
-  // return null if the array is 0 to make the checks easier upstream
   return config.length === 0 ? null : config;
 }
 
-// Convert webpack proxy format to Vite proxy format
-// Webpack: [{ context: ['/api', '/ms'], target: 'http://...', pathRewrite: { '^/api': '' }, headers: {} }]
-// Vite: { '/api': { target, rewrite, headers }, '/ms': { target, headers } }
-function toViteProxy(proxies) {
-  if (!proxies) return undefined;
-
-  const viteProxy = {};
-
-  for (const proxyConfig of proxies) {
-    if (!proxyConfig.enabled) continue;
-
-    const contexts = Array.isArray(proxyConfig.context) ? proxyConfig.context : [proxyConfig.context];
-
-    for (const ctx of contexts) {
-      const entry = {
-        target: proxyConfig.target,
-        changeOrigin: true,
-        ws: proxyConfig.ws !== false
-      };
-
-      if (proxyConfig.headers) {
-        entry.headers = proxyConfig.headers;
-      }
-
-      // Convert pathRewrite to Vite's rewrite function
-      if (proxyConfig.pathRewrite) {
-        const rewrites = Object.entries(proxyConfig.pathRewrite);
-        entry.rewrite = (reqPath) => {
-          let result = reqPath;
-          for (const [pattern, replacement] of rewrites) {
-            result = result.replace(new RegExp(pattern), replacement);
-          }
-          return result;
-        };
-      }
-
-      viteProxy[ctx] = entry;
-    }
-  }
-
-  return Object.keys(viteProxy).length === 0 ? undefined : viteProxy;
-}
-
 export default proxy;
-export { toViteProxy };

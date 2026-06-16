@@ -4,14 +4,9 @@ import deepMerge from './helpers/deep-merge.js';
 
 import buildProdConfig from './webpack.config.production.js';
 
-process.noDeprecation = true;
-
-// Override user's potential browserslist config to ensure portal support here
-// This is needed in addition to config.target below so that browserslist queries inside
-// react-app-polyfill/stable and core-js provide everything needed
-process.env.BROWSERSLIST = 'defaults';
-
 const plugin = (settings) => {
+  process.noDeprecation = true;
+  process.env.BROWSERSLIST = 'defaults';
   // const baseConfig = buildBaseConfig(settings)
   const baseProdConfig = buildProdConfig(settings);
 

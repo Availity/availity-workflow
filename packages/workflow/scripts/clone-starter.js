@@ -2,10 +2,10 @@
  * Motivation
  * https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-cli/src/init-starter.js
  */
-import { spawn as nodeSpawn } from 'child_process';
+import { spawn as nodeSpawn } from 'node:child_process';
 import hostedGitInfo from 'hosted-git-info';
-import fs from 'fs';
-import sysPath from 'path';
+import fs from 'node:fs';
+import sysPath from 'node:path';
 import Logger from '@availity/workflow-logger';
 
 const spawn = (cmd, options) => {
@@ -29,7 +29,6 @@ const spawn = (cmd, options) => {
 const clone = async (hostInfo, appPath, branchOverride) => {
   let url;
   // Let people use private repos accessed over SSH.
-  // eslint-disable-next-line unicorn/prefer-ternary
   if (hostInfo.getDefaultRepresentation() === `sshurl`) {
     url = hostInfo.ssh({ noCommittish: true });
     // Otherwise default to normal git syntax.

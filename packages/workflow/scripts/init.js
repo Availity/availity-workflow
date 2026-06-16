@@ -1,17 +1,12 @@
 /* eslint-disable unicorn/no-process-exit */
-/* eslint-disable import/no-dynamic-require */
-import { createRequire } from 'module';
 import validateProjectName from 'validate-npm-package-name';
-import yargsFactory from 'yargs';
 import chalk from 'chalk';
-import fs from 'fs';
-import path from 'path';
-import { spawnSync } from 'child_process';
-import os from 'os';
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import os from 'node:os';
 import Logger from '@availity/workflow-logger';
 import cloneStarter from './clone-starter.js';
-
-const require = createRequire(import.meta.url);
 
 function printValidationResults(results) {
   if (results !== undefined) {
@@ -93,28 +88,28 @@ function checkThatWeCanReadCwd(installer) {
 }
 
 function updatePackageJson({ appName, appPath }) {
-  const appPackage = require(path.join(appPath, 'package.json'));
+  const appPackage = JSON.parse(fs.readFileSync(path.join(appPath, 'package.json'), 'utf8'));
 
   appPackage.name = appName;
   appPackage.version = '0.1.0';
   appPackage.private = true;
 
   if (appPackage.availityWorkflow !== true) {
-    throw new Error('Starter Project is not a valid Availity Workflow Project.');
-  }
-  if (appPackage.availityWorkflow.plugin) {
-    throw new Error(
-      `This template is based on an older version of Availity Workflow and uses the deprecated plugin feature. ` +
-        `To correct this, remove the ${chalk.cyan('availityWorkflow.plugin')} entry in package.json ` +
-        `and add ${chalk.cyan('"availityWorkflow": true')} in its place.`
-    );
+    if (appPackage.availityWorkflow?.plugin) {
+      throw new Error(
+        `This template uses the deprecated plugin feature. ` +
+          `Remove ${chalk.cyan('"availityWorkflow": { "plugin": "..." }')} from package.json ` +
+          `and add ${chalk.cyan('"availityWorkflow": true')} in its place.`
+      );
+    }
+    throw new Error('Starter Project is not a valid Availity Workflow Project. Add "availityWorkflow": true to package.json.');
   }
 
   fs.writeFileSync(path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2) + os.EOL);
 }
 
-const NPM = 'npm'
-const YARN = 'yarn'
+const NPM = 'npm';
+const YARN = 'yarn';
 
 function isNpm(installer) {
   return installer === NPM;
@@ -124,10 +119,10 @@ function installDeps(installer) {
   Logger.info(`Installing dependencies using ${installer}...`);
   Logger.empty();
 
-  const installArgs = ['install' ]
+  const installArgs = ['install'];
   // Add npm specific args to suppress log output
   if (isNpm(installer)) {
-    installArgs.push('--loglevel', 'error')
+    installArgs.push('--loglevel', 'error');
   }
 
   // Install Dependencies
@@ -144,13 +139,13 @@ async function run({ appPath, appName, originalDirectory, template, installer, b
       appName,
       appPath,
       originalDirectory,
-      branchOverride
+      branchOverride,
     });
 
     // Update the Package JSON with correct deps and name/versions
     updatePackageJson({
       appName,
-      appPath
+      appPath,
     });
 
     // Install Dependencies
@@ -214,10 +209,10 @@ async function run({ appPath, appName, originalDirectory, template, installer, b
   }
 }
 
-function createApp({ projectName: name, currentDir, template, useNpm, branchOverride }) {
+async function createApp({ projectName: name, currentDir, template, useNpm, branchOverride }) {
   const appPath = currentDir ? process.cwd() : path.resolve(name);
   const appName = currentDir ? name : path.basename(appPath);
-  const installer = useNpm ? NPM : YARN
+  const installer = useNpm ? NPM : YARN;
 
   checkAppName(appName);
 
@@ -234,44 +229,7 @@ function createApp({ projectName: name, currentDir, template, useNpm, branchOver
     process.exit(1);
   }
 
-  run({ appPath, appName, originalDirectory, template, installer, branchOverride });
+  await run({ appPath, appName, originalDirectory, template, installer, branchOverride });
 }
-/* eslint-disable no-unused-expressions */
-const yargs = yargsFactory(process.argv.slice(2));
-yargs
-  .command(
-    'init <projectName> [options]',
-    `${chalk.dim('Initialize your project from scratch.')}`,
-    (yyargs) => {
-      yyargs
-        .positional('projectName', {
-          describe: 'The name of the project you want to create.'
-        })
-        .version(false)
-        .option('currentDir', {
-          alias: 'c',
-          describe: 'Pass this if you want to initialize the project in the same folder',
-          default: false
-        })
-        .option('template', {
-          alias: 't',
-          describe: 'The availity template to initialize the project with. ( Git Repo )',
-          default: 'https://github.com/Availity/availity-starter-react'
-        })
-        .option('branchOverride', {
-          alias: 'b',
-          describe: 'The branch of the availity template to initialize the project with.'
-        })
-        .option('useNpm', {
-          alias: 'n',
-          describe: 'Whether or not to use npm for install.',
-          default: false
-        })
-        .usage(`\nUsage: ${chalk.yellow('av init')} ${chalk.green('<projectName>')} ${chalk.magenta('[options]')}`)
-        .example(chalk.yellow(`${chalk.yellow('av init')} ${chalk.green('my-app-name')}`));
-    },
-    createApp
-  )
-  .example(chalk.yellow('av init my-app-name'));
 
 export { createApp };

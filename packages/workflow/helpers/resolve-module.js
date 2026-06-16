@@ -1,18 +1,6 @@
-import fs from 'fs';
+import fs from 'node:fs';
 
-const moduleFileExtensions = [
-  'web.mjs',
-  'mjs',
-  'web.js',
-  'js',
-  'web.ts',
-  'ts',
-  'web.tsx',
-  'tsx',
-  'json',
-  'web.jsx',
-  'jsx'
-];
+const moduleFileExtensions = ['mjs', 'js', 'ts', 'tsx', 'json', 'jsx'];
 
 // Resolve file paths in the same order as webpack
 const resolveModule = (resolveFn, filePath) => {

@@ -33,11 +33,19 @@ describe('version', () => {
     };
 
     vi.doMock('child_process', () => ({
-      execSync: mockExecSync,
+      execFile: (...args) => {
+        const cb = args[args.length - 1];
+        mockExecSync(...args.slice(0, -1));
+        cb(null, '', '');
+      },
+    }));
+
+    vi.doMock('util', () => ({
+      promisify: (fn) => (...args) => new Promise((resolve, reject) => { fn(...args, (err, stdout, stderr) => { if (err) reject(err); else resolve({ stdout, stderr }); }); }),
     }));
 
     vi.doMock('fs', () => ({
-      default: { writeFileSync: mockWriteFileSync },
+      default: { writeFileSync: mockWriteFileSync, promises: { writeFile: mockWriteFileSync } },
     }));
 
     vi.doMock('@inquirer/prompts', () => ({
@@ -58,7 +66,7 @@ describe('version', () => {
     }));
 
     vi.doMock('yargs', () => ({
-      default: () => ({ argv: mockYargsArgv }),
+      default: () => ({ parseSync: () => mockYargsArgv }),
     }));
 
     // Lightweight semver mock — avoids loading real semver (OOM prevention)
@@ -89,14 +97,10 @@ describe('version', () => {
       },
     }));
 
-    vi.doMock('../settings/index.js', () => ({
-      default: mockSettings,
-    }));
-
-    const mod = await import('../scripts/version.js');
-    tag = mod.tag;
-    prompt = mod.prompt;
-    bump = mod.bump;
+    const mod = await import('../../scripts/version.js');
+    tag = mod.default.tag;
+    prompt = mod.default.prompt;
+    bump = mod.default.bump;
   });
 
   afterEach(() => {
@@ -105,7 +109,7 @@ describe('version', () => {
 
   describe('tag()', () => {
     it('skips git commands when not distribution', async () => {
-      await tag();
+      await tag(mockSettings);
 
       expect(mockExecSync).not.toHaveBeenCalled();
       expect(mockLoggerMessage).toHaveBeenCalledWith('Skipping git commands', 'Dry Run');
@@ -115,7 +119,7 @@ describe('version', () => {
       mockSettings.isDistribution.mockReturnValue(true);
       mockSettings.isDryRun.mockReturnValue(true);
 
-      await tag();
+      await tag(mockSettings);
 
       expect(mockExecSync).not.toHaveBeenCalled();
     });
@@ -123,52 +127,50 @@ describe('version', () => {
     it('runs git add, commit, and tag when distribution and not dry run', async () => {
       mockSettings.isDistribution.mockReturnValue(true);
       mockSettings.isDryRun.mockReturnValue(false);
-      mockSettings.version = '2.0.0';
+      mockSettings._version = '2.0.0';
 
-      await tag();
+      await tag(mockSettings);
 
-      expect(mockExecSync).toHaveBeenCalled();
-      const calls = mockExecSync.mock.calls.map((c) => c[0]);
-      expect(calls.some((c) => c.includes('git add'))).toBe(true);
-      expect(calls.some((c) => c.includes('git commit'))).toBe(true);
-      expect(calls.some((c) => c.includes('git tag'))).toBe(true);
+      expect(mockExecSync).toHaveBeenCalledTimes(3);
+      expect(mockExecSync.mock.calls[0]).toEqual(['git', ['add', '--all']]);
+      expect(mockExecSync.mock.calls[1]).toEqual(['git', ['commit', '-m', 'v2.0.0']]);
+      expect(mockExecSync.mock.calls[2]).toEqual(['git', ['tag', '-a', 'v2.0.0', '-m', 'v2.0.0']]);
     });
 
     it('uses commit message from settings when available', async () => {
       mockSettings.isDistribution.mockReturnValue(true);
       mockSettings.isDryRun.mockReturnValue(false);
-      mockSettings.version = '2.0.0';
+      mockSettings._version = '2.0.0';
       mockSettings.commitMessage.mockReturnValue('custom release');
 
-      await tag();
+      await tag(mockSettings);
 
-      const calls = mockExecSync.mock.calls.map((c) => c[0]);
-      const commitCall = calls.find((c) => c.includes('git commit'));
-      expect(commitCall).toBeDefined();
-      expect(commitCall).toContain('custom release');
+      expect(mockExecSync).toHaveBeenCalledTimes(3);
+      expect(mockExecSync.mock.calls[1]).toEqual(['git', ['commit', '-m', 'custom release v2.0.0']]);
+      expect(mockExecSync.mock.calls[2]).toEqual(['git', ['tag', '-a', 'custom release v2.0.0', '-m', 'custom release v2.0.0']]);
     });
   });
 
   describe('bump()', () => {
     it('sets version to ISO date when not distribution', async () => {
-      await bump();
+      await bump(mockSettings);
 
-      expect(new Date(mockSettings.version).toISOString()).toBe(mockSettings.version);
+      expect(new Date(mockSettings._version).toISOString()).toBe(mockSettings._version);
     });
 
-    it('rejects when version is undefined and distribution', async () => {
+    it('throws when version is undefined and distribution', async () => {
       mockSettings.isDistribution.mockReturnValue(true);
-      mockSettings.version = undefined;
+      mockSettings._version = undefined;
 
-      await expect(bump()).rejects.toThrow('version is undefined');
+      await expect(bump(mockSettings)).rejects.toThrow('version is undefined');
     });
 
     it('writes package.json when distribution and not dry run', async () => {
       mockSettings.isDistribution.mockReturnValue(true);
       mockSettings.isDryRun.mockReturnValue(false);
-      mockSettings.version = '2.0.0';
+      mockSettings._version = '2.0.0';
 
-      await bump();
+      await bump(mockSettings);
 
       expect(mockWriteFileSync).toHaveBeenCalled();
       const [, contents] = mockWriteFileSync.mock.calls[0];
@@ -179,9 +181,9 @@ describe('version', () => {
     it('skips writing package.json when dry run', async () => {
       mockSettings.isDistribution.mockReturnValue(true);
       mockSettings.isDryRun.mockReturnValue(true);
-      mockSettings.version = '2.0.0';
+      mockSettings._version = '2.0.0';
 
-      await bump();
+      await bump(mockSettings);
 
       expect(mockWriteFileSync).not.toHaveBeenCalled();
     });
@@ -189,9 +191,9 @@ describe('version', () => {
     it('preserves trailing newline in package.json', async () => {
       mockSettings.isDistribution.mockReturnValue(true);
       mockSettings.isDryRun.mockReturnValue(false);
-      mockSettings.version = '2.0.0';
+      mockSettings._version = '2.0.0';
 
-      await bump();
+      await bump(mockSettings);
 
       const [, contents] = mockWriteFileSync.mock.calls[0];
       expect(contents.endsWith('\n')).toBe(true);
@@ -200,31 +202,28 @@ describe('version', () => {
 
   describe('prompt()', () => {
     it('resolves immediately when not distribution', async () => {
-      const result = await prompt();
+      const result = await prompt(mockSettings);
       expect(result).toBe(true);
     });
 
     it('sets version from valid CLI arg', async () => {
       mockSettings.isDistribution.mockReturnValue(true);
-      mockYargsArgv.version = '2.0.0';
 
-      await prompt();
+      await prompt(mockSettings, '2.0.0');
 
-      expect(mockSettings.version).toBe('2.0.0');
+      expect(mockSettings._version).toBe('2.0.0');
     });
 
     it('throws for invalid semver CLI arg', async () => {
       mockSettings.isDistribution.mockReturnValue(true);
-      mockYargsArgv.version = 'not-valid';
 
-      await expect(prompt()).rejects.toThrow('is not a valid semver version');
+      await expect(prompt(mockSettings, 'not-valid')).rejects.toThrow('is not a valid semver version');
     });
 
     it('throws when CLI version is not greater than current', async () => {
       mockSettings.isDistribution.mockReturnValue(true);
-      mockYargsArgv.version = '0.5.0';
 
-      await expect(prompt()).rejects.toThrow('must be greater than the current version');
+      await expect(prompt(mockSettings, '0.5.0')).rejects.toThrow('must be greater than the current version');
     });
   });
 });
