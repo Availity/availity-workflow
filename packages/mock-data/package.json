@@ -22,7 +22,7 @@
     "api"
   ],
   "engines": {
-    "node": "^22.0.0 || ^24.0.0"
+    "node": ">=22.0.0"
   },
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "license": "MIT",
