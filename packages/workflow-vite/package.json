@@ -61,7 +61,7 @@
     "yargs": "^18.0.0"
   },
   "peerDependencies": {
-    "eslint-config-availity": ">=13.0.0"
+    "eslint-config-availity": "^14.0.0"
   },
   "engines": {
     "node": "^22.0.0 || ^24.0.0"

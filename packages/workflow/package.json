@@ -89,7 +89,7 @@
     "yargs": "^18.0.0"
   },
   "peerDependencies": {
-    "eslint-config-availity": ">=13.0.0"
+    "eslint-config-availity": "^14.0.0"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.2"
