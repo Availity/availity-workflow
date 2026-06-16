@@ -56,12 +56,12 @@ const match = {
   scoreArray(score, _paramValue, __paramValue) {
     // Note: variables prefixed with "_" underscore signify config object|key|value
 
-    const paramValue = __paramValue == null ? [] : Array.from(__paramValue);
+    const paramValue = __paramValue == null ? [] : [...__paramValue];
 
-    const hits = _paramValue.filter(x => paramValue.includes(x));
+    const hits = _paramValue.filter((x) => paramValue.includes(x));
     score.hits += hits.length;
 
-    const misses = _paramValue.filter(x => !paramValue.includes(x));
+    const misses = _paramValue.filter((x) => !paramValue.includes(x));
     score.misses += misses.length;
 
     return score;
@@ -75,7 +75,7 @@ const match = {
     const score = {
       hits: 0, // Matching parameters
       misses: 0, // Parameters specified in route, but not present in query
-      valid: true // False if a parameter is specified in route and query, but they are not equal and therefore should never match
+      valid: true, // False if a parameter is specified in route and query, but they are not equal and therefore should never match
     };
 
     const reqParams = _request.params;
@@ -117,7 +117,7 @@ const match = {
 
     const topScore = {
       hits: 0,
-      misses: 0
+      misses: 0,
     };
 
     // set the default request
@@ -146,7 +146,7 @@ const match = {
         res.locals.request = _request;
       }
     }
-  }
+  },
 };
 
 export default match;

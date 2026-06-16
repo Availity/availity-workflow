@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import config from '../config/index.js';
 import Ekko from '../index.js';
 
@@ -24,7 +24,7 @@ const test = {
   getFile(name) {
     const filePath = path.join(import.meta.dirname, 'data', name);
     return filePath;
-  }
+  },
 };
 
 export default test;

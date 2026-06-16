@@ -4,6 +4,7 @@
   "description": "Mock data for Availity API rest services",
   "type": "module",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Availity/availity-workflow.git"
@@ -21,7 +22,7 @@
     "api"
   ],
   "engines": {
-    "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
+    "node": "^22.0.0 || ^24.0.0"
   },
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "license": "MIT",

@@ -1,6 +1,6 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import chalk from 'chalk';
-import { createRequire } from 'module';
+import { createRequire } from 'node:module';
 import deepMerge from '../helpers/deep-merge.js';
 import config from '../config/index.js';
 import response from '../response/index.js';
@@ -18,7 +18,7 @@ const routes = {
   /**
    * Initialize the Express routes from the endpoints in the configurations file.
    */
-  init() {
+  async init() {
     // eslint-disable-next-line unicorn/no-this-assignment
     const self = this;
 
@@ -29,14 +29,14 @@ const routes = {
       res.send({
         name: pkg.name,
         description: pkg.description,
-        version: pkg.version
+        version: pkg.version,
       });
     });
 
     config.options.endpoints = {};
 
     // Load plugins that contain data and routes
-    this.plugins();
+    await this.plugins();
 
     // Load local data and routes.  Local data and routes should override the plugins.
     const routePaths = config.options.routes;
@@ -101,7 +101,7 @@ const routes = {
         response.send(req, res, next);
       });
     }
-  }
+  },
 };
 
 export default routes;

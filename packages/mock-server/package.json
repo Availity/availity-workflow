@@ -4,6 +4,7 @@
   "description": "Mock server simulating Availity API rest services",
   "type": "module",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Availity/availity-workflow.git"
@@ -20,22 +21,22 @@
     "availity"
   ],
   "engines": {
-    "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
+    "node": "^22.0.0 || ^24.0.0"
   },
   "author": "Robert McGuinness <rob.mcguinness@availity.com>",
   "license": "MIT",
   "dependencies": {
     "@availity/mock-data": "workspace:*",
-    "chalk": "^5",
-    "compression": "^1.8.0",
+    "chalk": "^5.6.2",
+    "compression": "^1.8.1",
     "connect-busboy": "1.0.0",
-    "cors": "^2.8.5",
-    "errorhandler": "^1.5.1",
-    "express": "^4.21.2",
+    "cors": "^2.8.6",
+    "errorhandler": "^1.5.2",
+    "express": "^4.22.2",
     "method-override": "^3.0.0"
   },
   "devDependencies": {
-    "superagent": "^9.0.2"
+    "superagent": "^10.3.0"
   },
   "publishConfig": {
     "access": "public"

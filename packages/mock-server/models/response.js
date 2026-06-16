@@ -2,13 +2,6 @@ let _id = 0;
 
 class Response {
   constructor(response) {
-    this.headers = null;
-    this.file = null;
-    this.url = null;
-    this.latency = null;
-    this.status = null;
-    this.repeat = 1;
-
     if (response) {
       this.set(response);
     }
@@ -25,6 +18,18 @@ class Response {
     this.status = response.status || this.status;
     this.repeat = response.repeat || this.repeat;
   }
+
+  headers = null;
+
+  file = null;
+
+  url = null;
+
+  latency = null;
+
+  status = null;
+
+  repeat = 1;
 }
 
 export default Response;

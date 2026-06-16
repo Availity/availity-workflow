@@ -6,9 +6,6 @@ const log = logger.getInstance();
 
 class Configuration {
   constructor() {
-    this.server = null;
-    this.app = null;
-    this.router = null;
     this.routes = [];
     this.cache = [];
     this.path = null;
@@ -58,6 +55,12 @@ class Configuration {
     // Save to `this.options`
     this.options = config;
   }
+
+  server = null;
+
+  app = null;
+
+  router = null;
 }
 
 export default new Configuration();

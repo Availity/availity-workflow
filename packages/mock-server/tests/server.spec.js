@@ -1,5 +1,5 @@
 import request from 'superagent';
-import path from 'path';
+import path from 'node:path';
 import Ekko from '../index.js';
 import config from '../config/index.js';
 
@@ -61,7 +61,7 @@ describe('Ekko', () => {
         port: 0,
         host: '127.0.0.1',
         data: path.join(import.meta.dirname, 'data'),
-        routes: path.join(import.meta.dirname, 'dummy.routes.config.json')
+        routes: path.join(import.meta.dirname, 'dummy.routes.config.json'),
       });
 
       const { port } = config.server.address();

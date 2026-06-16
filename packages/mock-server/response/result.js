@@ -1,7 +1,7 @@
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 import chalk from 'chalk';
-import { setTimeout as delay } from 'timers/promises';
+import { setTimeout as delay } from 'node:timers/promises';
 
 import config from '../config/index.js';
 import logger from '../logger/index.js';
@@ -146,7 +146,7 @@ const result = {
     }
 
     res.sendStatus(404);
-  }
+  },
 };
 
 export default result;

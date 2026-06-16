@@ -1,5 +1,5 @@
 import express from 'express';
-import http from 'http';
+import http from 'node:http';
 import chalk from 'chalk';
 import logger from './logger/index.js';
 import config from './config/index.js';
@@ -26,7 +26,7 @@ class Ekko {
     config.router = new express.Router();
 
     middleware.headers();
-    middleware.config();
+    await middleware.config();
 
     return config.router;
   }

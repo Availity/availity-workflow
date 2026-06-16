@@ -2,8 +2,6 @@ let _id = 0;
 
 class Request {
   constructor() {
-    this.params = null;
-    this.headers = null;
     this.responses = [];
     this.id = `request${++_id}`;
   }
@@ -11,6 +9,10 @@ class Request {
   addResponse(response) {
     this.responses.push(response);
   }
+
+  params = null;
+
+  headers = null;
 }
 
 export default Request;
