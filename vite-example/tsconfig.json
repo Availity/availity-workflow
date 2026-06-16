@@ -5,7 +5,7 @@
     "paths": { "@/*": ["./project/app/*"] },
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "ESNext"],
-    "types": ["@availity/workflow/globals"],
+    "types": ["@availity/workflow-vite/globals"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

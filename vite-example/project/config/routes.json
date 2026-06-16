@@ -1,0 +1,18 @@
+{
+  "cloud/web/appl/feature-management/legacy/v1/user-permissions": {
+    "file": "user-permissions.json"
+  },
+  "cloud/web/appl/user-management/legacy/sdk/platform/v1/users/me": {
+    "file": "me.json"
+  },
+  "sdk/platform/v1/users/me": {
+    "file": "me.json"
+  },
+  "sdk/platform/v1/regions": {
+    "file": "current-region.json"
+  },
+  "v1/log-messages": {
+    "file": "log-messages.json",
+    "post": "log-messages.json"
+  }
+}

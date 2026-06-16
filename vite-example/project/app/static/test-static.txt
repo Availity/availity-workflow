@@ -1,0 +1,1 @@
+This file validates that static assets are copied to the build output.
