@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import Logger from '@availity/workflow-logger';
 import yaml from 'yaml';
 
@@ -49,7 +49,8 @@ function formatRuleValue(value) {
   if (typeof value === 'string') return `'${value}'`;
   if (Array.isArray(value)) {
     const [severity, ...rest] = value;
-    const sev = typeof severity === 'number' && SEVERITY_MAP[severity] ? `'${SEVERITY_MAP[severity]}'` : `'${severity}'`;
+    const sev =
+      typeof severity === 'number' && SEVERITY_MAP[severity] ? `'${SEVERITY_MAP[severity]}'` : `'${severity}'`;
     return `[${sev}, ${rest.map((r) => JSON.stringify(r)).join(', ')}]`;
   }
   return JSON.stringify(value);
