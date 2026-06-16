@@ -54,7 +54,7 @@
     "vitest": "^4.1.9"
   },
   "resolutions": {
-    "vite": "^6.3.5"
+    "vite": "^8.0.16"
   },
   "packageManager": "yarn@4.12.0"
 }
