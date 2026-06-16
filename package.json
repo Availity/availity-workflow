@@ -1,72 +1,60 @@
 {
   "private": true,
   "name": "availity-workflow",
+  "type": "module",
   "engines": {
     "yarn": "^4.0.0",
-    "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
+    "node": "^22.0.0 || ^24.0.0"
   },
   "workspaces": [
     "packages/*",
     "docusaurus",
-    "example"
+    "example",
+    "vite-example"
   ],
   "scripts": {
+    "build": "yarn nx run-many --target=build",
     "build:app": "yarn workspace @availity/example build",
+    "build:vite-app": "yarn workspace @availity/vite-example build",
     "build:docs": "yarn workspace @availity/dinosaurdocs build",
     "check:packages": "sh ./scripts/artifactory-check.sh",
-    "check:versions": "node scripts/check-version-strategy.js",
     "format": "prettier --write 'packages/*/*.(js|ts|tsx|jsx)' 'packages/*/!(node_modules|dist)/**/*.(js|ts|jsx|tsx)'",
-    "lint": "node ./node_modules/.bin/eslint .",
-    "postinstall": "is-ci || husky install",
+    "lint": "nx affected --target=lint",
+    "lint:all": "nx run-many --target=lint",
+    "lint:fix": "nx affected --target=lint --fix",
+    "postinstall": "is-ci || husky",
+    "prepare": "husky",
     "start": "yarn workspace @availity/dinosaurdocs start --no-open",
     "start:app": "yarn workspace @availity/example start",
+    "start:vite-app": "yarn workspace @availity/vite-example start",
     "start:docs": "yarn workspace @availity/dinosaurdocs start",
     "test": "vitest run",
+    "test:affected": "nx affected --target=test",
     "test:app": "yarn workspace @availity/example test",
+    "test:vite-app": "yarn workspace @availity/vite-example test",
     "test:integration": "yarn workspaces foreach -i -v run integration --verbose",
     "version": "nx affected --target version --parallel=1",
     "version:dry-run": "nx affected --target version --dryRun --verbose --parallel=1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-angular": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
-    "@jscutlery/semver": "~5.7.0",
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "@commitlint/config-nx-scopes": "^21.0.2",
+    "@jscutlery/semver": "^5.8.1",
     "@nx/js": "22.5.1",
     "@nx/workspace": "22.5.1",
-    "@types/is-ci": "^3.0.4",
-    "conventional-changelog-conventionalcommits": "^8.0.0",
-    "del": "^8.0.1",
-    "eslint-config-availity": "^13.0.0",
+    "eslint-config-availity": "^14.0.0",
     "gh-pages": "^5.0.0",
     "husky": "^9.1.7",
-    "is-ci": "^3.0.1",
-    "lint-staged": "^15.5.2",
+    "is-ci": "^4.1.0",
+    "lint-staged": "^17.0.7",
     "nx": "22.5.1",
-    "prettier": "^3.5.3",
+    "prettier": "^3.8.4",
     "typescript": "5.9.3",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.9"
   },
   "resolutions": {
-    "socks": "2.7.3",
     "vite": "^6.3.5"
   },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
-    "rules": {
-      "header-max-length": [
-        0,
-        "always",
-        85
-      ]
-    }
-  },
-  "prettier": {
-    "printWidth": 120,
-    "singleQuote": true,
-    "trailingComma": "none"
-  },
-  "packageManager": "yarn@4.11.0"
+  "packageManager": "yarn@4.12.0"
 }

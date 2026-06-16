@@ -2,65 +2,48 @@
 title: Configuring Root Imports
 ---
 
-> Note that the below recipe only works in Workflow Versions `>=7.0.0`
-
-By default we include `babel-plugin-import` which allows you to import components using a specific syntax if you have a tree structure that goes past 2 - 3 layers.
-
-Using the `@/` key we can alias anything from the root of `project/app` inside of our project. We include the eslint config, and tsconfig so that if you are using vscode you will get all the intellisense for free.
+Root imports let you use `@/` as an alias for `project/app/`, avoiding deeply nested relative paths.
 
 ## Example
 
-In the below example, we are
-
-```jsx hideCopy=true
-import React from 'react';
+```jsx
 import Form from '@/components/Form';
-
-<Form>{/* Stuff */}</Form>;
 ```
 
-## Eslint Config
+Instead of:
 
-Make sure you have the latest `eslint-config-availity` installed.
+```jsx
+import Form from '../../../components/Form';
+```
+
+## How It Works
+
+- **Webpack workflow** (`@availity/workflow`): Uses `babel-plugin-root-import` which is preconfigured.
+- **Vite workflow** (`@availity/workflow-vite`): Uses Vite's `resolve.alias` which is preconfigured.
+
+Both resolve `@/` to `project/app/` by default.
+
+## ESLint Configuration
+
+The `eslint-config-availity` package includes resolver support for root imports. Ensure you have the latest version:
 
 ```bash
 yarn add eslint-config-availity@latest --dev
 ```
 
-```yaml header=.eslintrc.yml
-extends: availity/workflow
-```
+## TypeScript / Editor Support
 
-## TsConfig For Visual Studio Code
-
-If you want intellisense in vscode to pick up the root imports and allow you to control click into components you will need to make sure your `tsconfig.json` is updated. We have pasted ours below that we use in our starter projects.
+For VS Code IntelliSense and TypeScript resolution, add `paths` to your `tsconfig.json`:
 
 ```json
 {
-    "compilerOptions": {
-        "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": true,
-        "jsx": "react",
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["./project/app/*"]
-        }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./project/app/*"]
     }
+  }
 }
 ```
 
-## References
-
--   [babel-plugin-root-import](https://www.npmjs.com/package/babel-plugin-root-import)
--   [eslint-root-import-resolver](https://www.npmjs.com/package/eslint-import-resolver-babel-plugin-root-import)
+This enables ctrl+click navigation and autocomplete for root imports in VS Code.

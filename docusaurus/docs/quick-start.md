@@ -2,38 +2,41 @@
 title: Quick Start
 ---
 
-## Create a new App using the Workflow CLI
+## Create a New App
 
 ```bash
-npx @availity/workflow init workflow-app
+npx @availity/workflow init my-app
 ```
 
-## Change directories into the App Folder
+This scaffolds a React project with development server, mock API server, ESLint, Vitest, and a sample application.
+
+> **Prefer Vite?** See the [Setting Up a Vite App](/recipes/vite) recipe to use `@availity/workflow-vite` instead.
+
+## Start Developing
 
 ```bash
-cd ./workflow-app
-```
-
-## Start Development Enviornment
-
-```bash
+cd my-app
 yarn start
 ```
 
-Workflow will start a development environment avaiable at `http://localhost:3000`. Any changes inside the `project/app` directory will hot reload the application.
+The dev server starts at `http://localhost:3000` with hot module replacement. Changes inside `project/app/` reflect instantly in the browser.
 
-## Create a Production Deployment
-
-The toolkit ships with several release tasks for building your bundle and updating the package version.
+## Run Tests
 
 ```bash
-yarn production
+yarn test
 ```
 
-This will bundle the app in the `./dist` directory and create a tag with the appropriate version. Push this to the server.
+## Lint
 
 ```bash
-git push && git push --tags
+yarn lint
 ```
 
-> Note that in order to push the `./dist` folder up you will need to make sure the folder is not ignored inside of your `.gitignore` file.
+## Build for Production
+
+```bash
+yarn build
+```
+
+Outputs an optimized bundle to `./dist`, ready for deployment.

@@ -8,7 +8,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 Throughout the documentation you will see [yarn](https://yarnpkg.com/) used. You are not required to use this however it is our package manager of choice. If you are still wanting to use npm then just note the subtle differences in the commands. `yarn start` would be the same `npm start`.
 
-The minimum required [Nodejs](https://nodejs.org/) version to run and use our toolkit is `v16.0.0`, but using `v18.0.0` or higher is recommended.
+The minimum required [Node.js](https://nodejs.org/) version to run and use our toolkit is `v22.0.0`. Supported versions: `^22.0.0 || ^24.0.0`.
 
 ## Creating a new App Using the Workflow CLI
 
@@ -60,11 +60,11 @@ Let's open the current file and see what we got.
 
 ```js header=workflow.js
 module.exports = (config) => {
-    config.development.open = '#/?spaceId=48C607A70B5A46A3864A34E2BDDDEA04';
+  config.development.open = '#/?spaceId=48C607A70B5A46A3864A34E2BDDDEA04';
 
-    config.development.hotLoader = true;
+  config.development.hotLoader = true;
 
-    return config;
+  return config;
 };
 ```
 
@@ -76,13 +76,10 @@ config.development.open = '#/?spaceId=48C607A70B5A46A3864A34E2BDDDEA04';
 
 Wait, but what is a `spaceId`? We will get into that later but if you want you can skip ahead to `here`.
 
-Next we have some overrides to the `hotLoader` that will hot reload our app. The experimental flag is enabled so that we can leverage a new feature that the [React Core Team](https://reactjs.org/community/team.html) is working on but is not yet feature complete.
+Next we enable hot module replacement via Fast Refresh, which will instantly reflect code changes in the browser without losing component state.
 
 ```js hideCopy=true
-config.development.hotLoader = {
-    enabled: true,
-    experimental: true
-};
+config.development.hotLoader = true;
 ```
 
 Lastly we have to return the `config` for the rest of the build process to take advantage of the overrides we gave it.

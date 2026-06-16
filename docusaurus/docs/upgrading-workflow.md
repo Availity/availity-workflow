@@ -8,7 +8,7 @@ It's important to stay up to date with the latest version of `@availity/workflow
 
 ## The `workflow-upgrade` script
 
-Navigate to the directory you want to upgrade `@availity/workflow` for and run the following command. 
+Navigate to the directory you want to upgrade `@availity/workflow` for and run the following command.
 
 ```bash
 npx @availity/workflow-upgrade

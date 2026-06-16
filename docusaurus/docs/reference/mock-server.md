@@ -20,77 +20,84 @@ This server can return other file types besides XML or JSON (PDFs, images, etc).
 
 The default server configuration can be found in [config.js](https://github.com/Availity/availity-workflow/blob/master/packages/mock-server/config/index.js). Pass a different configuration file to the `availity-mock-server` server to override the defaults.
 
-```javascript
-const path = require('path');
-const MockServer = require('@availity/mock-server');
+```js
+import path from 'node:path';
+import MockServer from '@availity/mock-server';
 
-const configPath = path.join(__dirname, 'path/to/config.js');
+const configPath = path.join(import.meta.dirname, 'path/to/config.js');
 const server = new MockServer(configPath);
 server.start();
 ```
 
 Alternatively, pass options in the start method.
 
-```javascript
-const  = new MockServer();
-.start({
-    data: path.join(__dirname, './data'),
-    routes: path.join(__dirname, './routes'),
-    plugins: ['@availity/mock-data']
-}).then(function() {
+```js
+import path from 'node:path';
+import MockServer from '@availity/mock-server';
+
+const server = new MockServer();
+server
+  .start({
+    data: path.join(import.meta.dirname, './data'),
+    routes: path.join(import.meta.dirname, './routes'),
+    plugins: ['@availity/mock-data'],
+  })
+  .then(() => {
     // server started
-});
+  });
 ```
 
 ### Express Middleware
 
 ```js
-const express = require('express');
+import express from 'express';
+import MockServer from '@availity/mock-server';
+
 const app = express();
+const server = new MockServer({
+  /* options */
+});
 
-// This is the same as the stand-alone server use.
-const MockServer = require('@availity/mock-server');
-const server = new MockServer({/* options */});
-
-app.use(server.middleware(/* options, same as `start` */);
-
+app.use(server.middleware(/* options */));
 app.listen(3001);
 ```
 
 ## Options
 
--   **latency**: Global delay for all reponses. The latency can be overridden per route configuration. Default is `250ms`.
--   **limit**: Upload max size. Default is `50mb`,
--   **host**: Server binds and listens for connections on the specified host. Default is `0.0.0.0`.
--   **port**: Server binds and listens for connections on the specified port. Default is `9999`.
--   **data**: Path to folder that contains the json mock responses.
--   **routes**: Path(s) to configuration file that contains a mapping of the request/response routes. Multiple paths can be passed in with an array of strings.
--   **plugins**: Array of NPM module names that enhance `@availity/mock-server` with additional data and routes. @See [@availity/mock-data](https://github.com/Availity/availity-workflow/tree/master/packages/mock-data)
--   **logProvider**: Function that returns a logger that is used in place of the default logger. Inspired by the log provider in [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
--   **pluginContext**: A url context value which is used to rewrite every instance of `${context}` variable in mock data responses. This can be useful for HATEOS links.
+- **latency**: Global delay for all reponses. The latency can be overridden per route configuration. Default is `250ms`.
+- **limit**: Upload max size. Default is `50mb`,
+- **host**: Server binds and listens for connections on the specified host. Default is `0.0.0.0`.
+- **port**: Server binds and listens for connections on the specified port. Default is `9999`.
+- **data**: Path to folder that contains the json mock responses.
+- **routes**: Path(s) to configuration file that contains a mapping of the request/response routes. Multiple paths can be passed in with an array of strings.
+- **plugins**: Array of NPM module names that enhance `@availity/mock-server` with additional data and routes. @See [@availity/mock-data](https://github.com/Availity/availity-workflow/tree/master/packages/mock-data)
+- **logProvider**: Function that returns a logger that is used in place of the default logger. Inspired by the log provider in [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
+- **pluginContext**: A url context value which is used to rewrite every instance of `${context}` variable in mock data responses. This can be useful for HATEOS links.
 
 **Simple**
 
 ```js
-function logProvider(provider) {
-    return require('winston');
+import winston from 'winston';
+
+function logProvider() {
+  return winston;
 }
 ```
 
 **Advanced**
 
 ```js
-function logProvider(provider) {
-    var logger = new (require('winston').Logger)();
+import { createLogger } from 'winston';
 
-    var myCustomProvider = {
-        log: logger.log,
-        debug: logger.debug,
-        info: logger.info,
-        warn: logger.warn,
-        error: logger.error
-    };
-    return myCustomProvider;
+function logProvider() {
+  const logger = createLogger();
+  return {
+    log: logger.log.bind(logger),
+    debug: logger.debug.bind(logger),
+    info: logger.info.bind(logger),
+    warn: logger.warn.bind(logger),
+    error: logger.error.bind(logger),
+  };
 }
 ```
 
@@ -223,12 +230,12 @@ The mock configuration supports deep nested introspection of JSON and multi-part
 
 ```html
 <form action="/api/v1/users" method="post" enctype="multipart/form-data">
-    <p><input type="text" name="a" value="example" /></p>
-    <p>
-        <input type="file" name="b" />
-        <!--the name of the file is used below to match and score the proper response -->
-    </p>
-    <p><button type="submit">Submit</button></p>
+  <p><input type="text" name="a" value="example" /></p>
+  <p>
+    <input type="file" name="b" />
+    <!--the name of the file is used below to match and score the proper response -->
+  </p>
+  <p><button type="submit">Submit</button></p>
 </form>
 ```
 
@@ -349,5 +356,5 @@ This allows you to run multiple servers without keeping track of all ports being
 
 ## Acknowledgements
 
--   [apimocker](https://github.com/gstroup/apimocker)
--   [json-server](https://github.com/typicode/json-server)
+- [apimocker](https://github.com/gstroup/apimocker)
+- [json-server](https://github.com/typicode/json-server)

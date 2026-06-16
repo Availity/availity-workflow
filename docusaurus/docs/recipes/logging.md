@@ -40,6 +40,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { avLogMessagesApi } from '@availity/api-axios';
 import { AvSplunkAnalytics } from '@availity/analytics-core';
+import Analytics from '@availity/analytics';
 import App from './App';
 
 const splunkAnalytics = new AvSplunkAnalytics(avLogMessagesApi, true);
@@ -48,10 +49,9 @@ const container = document.getElementById('app');
 const root = createRoot(container);
 
 root.render(
-    <Analytics plugins={[splunkAnalytics]} attributePrefix="data-av-analytics" pageTracking recursive>
-        <App />
-    </Analytics>,
-    document.querySelector('#root')
+  <Analytics plugins={[splunkAnalytics]} attributePrefix="data-av-analytics" pageTracking recursive>
+    <App />
+  </Analytics>
 );
 ```
 
@@ -63,12 +63,12 @@ Now that the component is initialized we can start to add attributes onto our js
 
 ```html
 <a
-    href="https://google.com"
-    target="_blank"
-    data-av-analytics-label="Google"
-    data-av-analytics-value="google.com"
-    data-av-analytics-action="click"
-    >Go To Google
+  href="https://google.com"
+  target="_blank"
+  data-av-analytics-label="Google"
+  data-av-analytics-value="google.com"
+  data-av-analytics-action="click"
+  >Go To Google
 </a>
 ```
 
@@ -78,14 +78,14 @@ One of the key's here is the `action` attribute. These can be of type `['click',
 
 ```json hideCopy=true
 {
-    "level": "info",
-    "entries": {
-        "label": "Google",
-        "value": "google.com",
-        "action": "click",
-        "event": "click",
-        "url": "http://localhost:3000"
-    }
+  "level": "info",
+  "entries": {
+    "label": "Google",
+    "value": "google.com",
+    "action": "click",
+    "event": "click",
+    "url": "http://localhost:3000"
+  }
 }
 ```
 
@@ -115,22 +115,22 @@ What this means is that we can define our properties early on that are shared in
 
 ```jsx header=Example
 <div data-av-analytics-section="links">
-    <a
-        href="blah"
-        data-av-analytics-label="Link One"
-        data-av-analytics-value="http://google.com"
-        data-av-analytics-action="click"
-    >
-        Link One
-    </a>
-    <a
-        href="blahblah"
-        data-av-analytics-label="Link Two"
-        data-av-analytics-value="http://google.com"
-        data-av-analytics-action="click"
-    >
-        Link Two
-    </a>
+  <a
+    href="blah"
+    data-av-analytics-label="Link One"
+    data-av-analytics-value="http://google.com"
+    data-av-analytics-action="click"
+  >
+    Link One
+  </a>
+  <a
+    href="blahblah"
+    data-av-analytics-label="Link Two"
+    data-av-analytics-value="http://google.com"
+    data-av-analytics-action="click"
+  >
+    Link Two
+  </a>
 </div>
 ```
 
@@ -154,5 +154,5 @@ If we enable `recursive` in the react props, then with the above example we woul
 
 The above examples show example what log calls would look like hitting our `splunk` analytics service. However, if you want to implement your own `analytics` plugin then the `JSON` payload may differ.
 
--   [Analytics React Component](https://availity.github.io/availity-react/components/analytics/analytics)
--   [Analytics Core SDK](https://availity.github.io/sdk-js/resources/analytics/)
+- [Analytics React Component](https://availity.github.io/availity-react/components/analytics/analytics)
+- [Analytics Core SDK](https://availity.github.io/sdk-js/resources/analytics/)

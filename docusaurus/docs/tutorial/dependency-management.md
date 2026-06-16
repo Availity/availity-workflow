@@ -8,16 +8,16 @@ Everything related to managing dependencies
 
 Availity creates open source projects that follow [Semantic Versioning](https://semver.org/) for dependency management. SemVer is a 3-component system in the format of `x.y.z` where:
 
--   `x` stands for a major version:
-    -   Breaking Change and **NOT** backwards compatible
-    -   Potential new features
-    -   Potential bug fixes
--   `y` stands for a minor version:
-    -   New Feature
-    -   Backwards compatible
--   `z` stands for a patch
-    -   Bug fix
-    -   Backwards compatible
+- `x` stands for a major version:
+  - Breaking Change and **NOT** backwards compatible
+  - Potential new features
+  - Potential bug fixes
+- `y` stands for a minor version:
+  - New Feature
+  - Backwards compatible
+- `z` stands for a patch
+  - Bug fix
+  - Backwards compatible
 
 For example, one of the libraries created and maintained by Availity is [availity-workflow](https://github.com/Availity/availity-workflow). This library is used by developers to create web applications using React. There have been [many releases](https://github.com/Availity/availity-workflow/tags) for `availity-workflow` and they follow semantic versioning.
 
@@ -33,9 +33,9 @@ All Availity open-source projects maintain a changelog. Each project maintains i
 
 ### Changelog.md Examples
 
--   [`availity-workflow` changelog](https://github.com/Availity/availity-workflow/blob/master/packages/workflow/CHANGELOG.md)
--   [`sdk-js/analytics-core` changelog](https://github.com/Availity/sdk-js/blob/master/packages/analytics-core/CHANGELOG.md)
--   [`availity-react/analytics` changelog](https://github.com/Availity/availity-react/blob/master/packages/analytics/CHANGELOG.md)
+- [`availity-workflow` changelog](https://github.com/Availity/availity-workflow/blob/master/packages/workflow/CHANGELOG.md)
+- [`sdk-js/analytics-core` changelog](https://github.com/Availity/sdk-js/blob/master/packages/analytics-core/CHANGELOG.md)
+- [`availity-react/analytics` changelog](https://github.com/Availity/availity-react/blob/master/packages/analytics/CHANGELOG.md)
 
 ## Tools
 
@@ -70,11 +70,11 @@ info Color legend :
 
 ### What happens when teams upgrade a library and the project/build breaks?
 
--   Check the library changelog for BREAKING CHANGE announcements or recent fixes
--   Check the offending library issue board and see if tickets have been
-    opened or closed similar to the issue being experienced.
--   If the problem can't be resolved, feel free to open an issue so that the Availity team can fix or provide feedback.
--   Rollback to previous library version if necessary
+- Check the library changelog for BREAKING CHANGE announcements or recent fixes
+- Check the offending library issue board and see if tickets have been
+  opened or closed similar to the issue being experienced.
+- If the problem can't be resolved, feel free to open an issue so that the Availity team can fix or provide feedback.
+- Rollback to previous library version if necessary
 
 ### Why did `minor` or `patch` upgrade break my build/app?
 

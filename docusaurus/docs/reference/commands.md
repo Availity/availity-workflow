@@ -25,7 +25,7 @@ Commands:
                                    or staging) and create a git tag
   av start                         Start the development server
   av lint                          Lint source files using ESLint
-  av test                          Run your tests
+  av test                          Run your tests using Vitest
   av profile                       Analyze Webpack bundles and find what is
                                    contributing their sizes
   av build                         Bundle project for distribution (production
@@ -37,11 +37,10 @@ Options:
   --version, -v  Show version number                                   [boolean]
 
 Examples:
-  av init my-app-name
   av start
   av lint
 
-View documentation at https://github.com/availity/workflow
+View documentation at https://github.com/availity/availity-workflow
 ```
 
 ## `init`
@@ -124,26 +123,18 @@ Analyze Webpack bundles and find what is contributing their sizes. This command 
 
 ## `test`
 
-Run the tests for your project. (Jest)
+Run the tests for your project using Vitest.
 
 #### options
 
+- `--watch`: Watch files for changes and rerun tests related to changed files.
+
 #### `--coverage`
 
-Indicates that test coverage information should be collected and reported in the output. You can leverage the `--coverage` option from Jest.
+Indicates that test coverage information should be collected and reported in the output.
 
-```shell hideCopy=true
-> yarn test --coverage
-› Started testing
-Chrome 59.0.3071 (Mac OS X 10.12.5): Executed 3 of 3 SUCCESS (0.706 secs / 0.082 secs)
-
-=============================== Coverage summary ===============================
-Statements   : 27.69% ( 8620/31134 )
-Branches     : 9.81% ( 1980/20189 )
-Functions    : 22.15% ( 1381/6235 )
-Lines        : 27.23% ( 7955/29217 )
-================================================================================
-✔ Finished testing
+```bash
+av test --coverage
 ```
 
 ## `upgrade`
