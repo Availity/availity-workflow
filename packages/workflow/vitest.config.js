@@ -14,6 +14,15 @@ function create(settings) {
   const jestInitExists = existsSync(jestInitPath);
 
   const setupFiles = [];
+
+  // Auto-register @testing-library/jest-dom matchers if installed
+  try {
+    require.resolve('@testing-library/jest-dom/vitest');
+    setupFiles.push('@testing-library/jest-dom/vitest');
+  } catch {
+    // not installed — skip
+  }
+
   if (setupFilesExist) {
     setupFiles.push(setupFilesPath);
   }

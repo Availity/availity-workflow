@@ -11,6 +11,15 @@ function create(settings) {
   const jestInitPath = path.join(settings.app(), 'jest.init.js');
 
   const setupFiles = [];
+
+  // Auto-register @testing-library/jest-dom matchers if installed
+  try {
+    require.resolve('@testing-library/jest-dom/vitest');
+    setupFiles.push('@testing-library/jest-dom/vitest');
+  } catch {
+    // not installed — skip
+  }
+
   if (existsSync(setupFilesPath)) setupFiles.push(setupFilesPath);
   if (existsSync(jestInitPath)) {
     const initModules = require(jestInitPath);

@@ -144,7 +144,8 @@ function web(settings) {
         logging: settings.infrastructureLogLevel(),
         overlay: {
           warnings: false,
-          errors: false
+          errors: true,
+          runtimeErrors: true,
         }
       },
 

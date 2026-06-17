@@ -30,7 +30,9 @@ const buildBaseConfig = (settings) => {
   // Check for tsconfig.json
   const resolvePlugins = [];
   if (fs.existsSync(paths.tsconfig)) {
-    resolvePlugins.push(new TsconfigPathsPlugin({ configFile: paths.tsconfig, extensions: ['.js', '.jsx', '.ts', '.tsx'] }));
+    resolvePlugins.push(
+      new TsconfigPathsPlugin({ configFile: paths.tsconfig, extensions: ['.js', '.jsx', '.ts', '.tsx'] })
+    );
   }
 
   const config = {
@@ -75,11 +77,13 @@ const buildBaseConfig = (settings) => {
       symlinks: true,
     },
     plugins: [
-      new webpack.DefinePlugin((() => {
-        const globals = settings.globals();
-        delete globals['process.env.NODE_ENV'];
-        return globals;
-      })()),
+      new webpack.DefinePlugin(
+        (() => {
+          const globals = settings.globals();
+          delete globals['process.env.NODE_ENV'];
+          return globals;
+        })()
+      ),
 
       new webpack.BannerPlugin({
         banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
@@ -158,11 +162,13 @@ const plugin = (settings) => {
         cache: true,
         cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
         extensions: ['js', 'jsx', 'ts', 'tsx', 'mjs'],
+        emitError: !settings.isDevelopment(),
+        emitWarning: true,
         ...settings.eslint(),
       }),
     ],
   };
-
+  console.log('ESLINT SETTINGS', settings.eslint());
   if (fs.existsSync(paths.appStatic)) {
     overrides.plugins.push(
       new CopyWebpackPlugin({
@@ -178,9 +184,11 @@ const plugin = (settings) => {
     );
   }
 
-  overrides.plugins.push(new ReactRefreshWebpackPlugin({
-    esModule: true,
-  }));
+  overrides.plugins.push(
+    new ReactRefreshWebpackPlugin({
+      esModule: true,
+    })
+  );
 
   if (settings.isNotifications()) {
     overrides.plugins.push(
