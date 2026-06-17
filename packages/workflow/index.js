@@ -26,7 +26,9 @@ yargs
   .command(
     'start',
     `${chalk.dim('Start the development server')}`,
-    () => {},
+    (yyargs) => {
+      yyargs.option('dry-run', { describe: 'Serve production build from dist/ (run av build first)' });
+    },
     async (argv) => {
       try {
         const settings = await Settings.create({ argv });
@@ -45,14 +47,14 @@ yargs
       yyargs
         .option('include', {
           alias: 'i',
-          describe: 'Glob patterns to INCLUDE for ESLint scanning'
+          describe: 'Glob patterns to INCLUDE for ESLint scanning',
         })
         .option('ignore-git-untracked', {
           alias: 'u',
-          describe: 'Ignore files that are not indexed by git'
+          describe: 'Ignore files that are not indexed by git',
         })
         .option('disable-linter', {
-          describe: 'Disable linter when creating bundles for production or staging'
+          describe: 'Disable linter when creating bundles for production or staging',
         });
     },
     async (argv) => {
@@ -104,7 +106,7 @@ yargs
         .version(false)
         .option('version', {
           alias: 'v',
-          describe: 'Specify which version you want to use when tagging the project and creating the release.'
+          describe: 'Specify which version you want to use when tagging the project and creating the release.',
         })
         .usage(`\nUsage: ${chalk.yellow('av release')} ${chalk.magenta('[options]')}`)
         .example(chalk.yellow(`${chalk.yellow('av release')} ${chalk.magenta('-v 2.0.0')}`));
@@ -204,4 +206,5 @@ yargs
   .example(chalk.yellow('av lint'))
   .example(chalk.yellow('av init my-app-name'))
 
-  .epilog(`View documentation at ${chalk.blue('https://github.com/availity/availity-workflow')}`).parse();
+  .epilog(`View documentation at ${chalk.blue('https://github.com/availity/availity-workflow')}`)
+  .parse();

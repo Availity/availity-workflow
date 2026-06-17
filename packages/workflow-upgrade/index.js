@@ -40,6 +40,7 @@ const DEPRECATED_DEPS = [
   'jest-cli',
   'jest-environment-jsdom',
   'jest-transform-stub',
+  'jest-junit',
   'ts-jest',
   '@types/jest',
   'react-test-renderer',
@@ -197,10 +198,16 @@ export default async (cwd) => {
   if (updatedPkg.availityWorkflow?.plugin) {
     delete updatedPkg.availityWorkflow.plugin;
   }
-  // Clean empty availityWorkflow object
-  if (updatedPkg.availityWorkflow && typeof updatedPkg.availityWorkflow === 'object' && Object.keys(updatedPkg.availityWorkflow).length === 0) {
-      delete updatedPkg.availityWorkflow;
-    }
+  // Clean availityWorkflow if it's a boolean or empty object
+  if (
+    updatedPkg.availityWorkflow === true ||
+    updatedPkg.availityWorkflow === false ||
+    (updatedPkg.availityWorkflow &&
+      typeof updatedPkg.availityWorkflow === 'object' &&
+      Object.keys(updatedPkg.availityWorkflow).length === 0)
+  ) {
+    delete updatedPkg.availityWorkflow;
+  }
 
   // --- Write package.json ---
   fs.writeFileSync(pkgFile, `${JSON.stringify(updatedPkg, null, 2)}\n`, 'utf8');
@@ -223,6 +230,29 @@ export default async (cwd) => {
   if (fs.existsSync(jsconfigPath) && !fs.existsSync(path.join(cwd, 'tsconfig.json'))) {
     fs.renameSync(jsconfigPath, path.join(cwd, 'tsconfig.json'));
     Logger.info('Renamed jsconfig.json → tsconfig.json');
+  }
+
+  // --- Update tsconfig.json types for Vitest ---
+  const tsconfigPath = path.join(cwd, 'tsconfig.json');
+  if (fs.existsSync(tsconfigPath)) {
+    const tsconfig = JSON.parse(fs.readFileSync(tsconfigPath, 'utf8'));
+    const types = tsconfig.compilerOptions?.types;
+    if (Array.isArray(types)) {
+      let changed = false;
+      const idx = types.indexOf('jest');
+      if (idx !== -1) {
+        types.splice(idx, 1);
+        changed = true;
+      }
+      if (!types.includes('vitest/globals')) {
+        types.push('vitest/globals');
+        changed = true;
+      }
+      if (changed) {
+        fs.writeFileSync(tsconfigPath, `${JSON.stringify(tsconfig, null, 2)}\n`, 'utf8');
+        Logger.info('Updated tsconfig.json types: replaced "jest" with "vitest/globals"');
+      }
+    }
   }
 
   // --- Remove obsolete config files ---

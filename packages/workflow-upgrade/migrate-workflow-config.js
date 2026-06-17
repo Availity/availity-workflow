@@ -25,6 +25,43 @@ function convertToESM(source) {
   return result;
 }
 
+/**
+ * Remove dead config keys that are no longer functional in v14.
+ * - config.eslint = { configType: 'flat' } (flat is the only option)
+ * - config.development.jestOverrides with unsupported fields (only collectCoverageFrom,
+ *   coveragePathIgnorePatterns, testTimeout are mapped to vitest — all others are dead)
+ *
+ * NOTE: babelInclude is NOT removed — it still controls which node_modules packages
+ * are compiled by esbuild-loader (webpack) and transformed by vitest (deps.inline).
+ */
+function removeDeadConfigKeys(source) {
+  let result = source;
+
+  // Remove config.eslint = { configType: ... };
+  result = result.replaceAll(/^\s*config\.eslint\s*=\s*\{[^}]*configType[^}]*\};\s*\n?/gm, '');
+
+  // Add a migration comment above jestOverrides if it contains unsupported keys
+  // (moduleNameMapper, transform, transformIgnorePatterns, etc. don't work in vitest compat shim)
+  const hasUnsupportedJestOverrides =
+    /config\.development\.jestOverrides\s*=/.test(result) &&
+    /moduleNameMapper|transform(?!IgnorePatterns)|globals|setupFiles|testEnvironment/.test(result);
+
+  if (hasUnsupportedJestOverrides) {
+    // Remove the jestOverrides block since it contains keys the vitest compat shim ignores
+    result = result.replaceAll(
+      /^\s*config\.development\.jestOverrides\s*=\s*\{[^}]*(?:\{[^}]*\}[^}]*)*\};\s*\n?/gm,
+      ''
+    );
+    // Also remove associated comments
+    result = result.replaceAll(/^\s*\/\/.*jestOverrides.*\n/gm, '');
+    result = result.replaceAll(/^\s*\/\/.*moduleNameMapper.*\n/gm, '');
+    result = result.replaceAll(/^\s*\/\/.*CJS interop.*\n/gm, '');
+    result = result.replaceAll(/^\s*\/\/.*__toESM.*\n/gm, '');
+  }
+
+  return result;
+}
+
 export default function migrateWorkflowConfig(cwd) {
   const workflowPath = path.join(cwd, 'project/config/workflow.js');
 
@@ -33,18 +70,33 @@ export default function migrateWorkflowConfig(cwd) {
     return false;
   }
 
-  const source = fs.readFileSync(workflowPath, 'utf8');
+  let source = fs.readFileSync(workflowPath, 'utf8');
+  let changed = false;
 
-  // Already ESM — has export default or import statements
-  if (/\bexport\s+default\b/.test(source) || /^\s*import\s+/m.test(source)) {
-    Logger.info('workflow.js is already ESM — skipping conversion');
-    return false;
+  // Remove dead config keys (do this regardless of CJS/ESM)
+  const cleaned = removeDeadConfigKeys(source);
+  if (cleaned !== source) {
+    source = cleaned;
+    changed = true;
+    Logger.info('Removed dead config keys from workflow.js');
   }
 
-  // Only convert if it uses CJS patterns
+  // Convert CJS → ESM if needed
+  if (/\bexport\s+default\b/.test(source) || /^\s*import\s+/m.test(source)) {
+    // Already ESM
+    if (changed) {
+      fs.writeFileSync(workflowPath, source, 'utf8');
+    }
+    if (!changed) Logger.info('workflow.js is already ESM — skipping conversion');
+    return changed;
+  }
+
   if (!source.includes('module.exports') && !source.includes('require(')) {
-    Logger.info('workflow.js has no CJS patterns — skipping conversion');
-    return false;
+    if (changed) {
+      fs.writeFileSync(workflowPath, source, 'utf8');
+    }
+    if (!changed) Logger.info('workflow.js has no CJS patterns — skipping conversion');
+    return changed;
   }
 
   Logger.info('Converting workflow.js from CommonJS to ESM...');

@@ -94,17 +94,6 @@ function updatePackageJson({ appName, appPath }) {
   appPackage.version = '0.1.0';
   appPackage.private = true;
 
-  if (appPackage.availityWorkflow !== true) {
-    if (appPackage.availityWorkflow?.plugin) {
-      throw new Error(
-        `This template uses the deprecated plugin feature. ` +
-          `Remove ${chalk.cyan('"availityWorkflow": { "plugin": "..." }')} from package.json ` +
-          `and add ${chalk.cyan('"availityWorkflow": true')} in its place.`
-      );
-    }
-    throw new Error('Starter Project is not a valid Availity Workflow Project. Add "availityWorkflow": true to package.json.');
-  }
-
   fs.writeFileSync(path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2) + os.EOL);
 }
 
