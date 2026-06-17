@@ -1,7 +1,5 @@
-import { Typography } from '@availity/element';
+import { FileUpload } from '@/components/FileUpload';
 
-const LazyPage = () => (
-  <Typography>This component was loaded via React.lazy and validates code splitting.</Typography>
-);
+const LazyPage = () => <FileUpload />;
 
 export default LazyPage;

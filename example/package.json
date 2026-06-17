@@ -50,18 +50,17 @@
     "react-hook-form": "^7.79.0",
     "yup": "^1.7.1"
   },
-  "availityWorkflow": true,
   "devDependencies": {
+    "@availity/mock-server": "workspace:*",
     "@availity/workflow": "workspace:*",
-    "@testing-library/react": "^16.3.2",
     "@types/node": "^22.19.21",
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
-    "@types/yup": "^0.32.0",
     "cross-env": "^10.1.0",
     "eslint-config-availity": "^14.0.0",
     "typescript": "5.9.3"
   },
+  "availityWorkflow": true,
   "prettier": {
     "printWidth": 120,
     "singleQuote": true,

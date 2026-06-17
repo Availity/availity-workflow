@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { ThemeProvider, PageHeader, Card, Container, Alert, Typography, Authorize } from '@availity/element';
+import { ThemeProvider, PageHeader, Card, Container, Alert, Authorize } from '@availity/element';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { useCurrentUser } from '@availity/hooks';
 
@@ -16,7 +16,11 @@ const AppContent = () => {
     <Authorize permissions={['7777']} unauthorized={<div>You are not authorized to view this content.</div>}>
       <PageHeader headerText="Sample Project" feedback />
       <Container>
-        {user && <Typography>Welcome, {user.firstName} {user.lastName}</Typography>}
+        {user && (
+          <Alert severity="success">
+            Welcome, {user.firstName} {user.lastName}
+          </Alert>
+        )}
         {__DEV__ && <Alert severity="info">Running in development mode</Alert>}
         <Card>
           <SearchForm />

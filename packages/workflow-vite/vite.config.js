@@ -20,13 +20,13 @@ const buildViteConfig = async (settings) => {
   const viteProxy = toViteProxy(settings.configuration.proxies);
   const plugins = [];
 
-  // React plugin — prefer SWC, fall back to Babel
+  // React plugin — prefer standard plugin for Rolldown compatibility, fall back to SWC
   try {
-    const { default: reactSwc } = await import('@vitejs/plugin-react-swc');
-    plugins.push(reactSwc());
-  } catch {
     const { default: react } = await import('@vitejs/plugin-react');
     plugins.push(react());
+  } catch {
+    const { default: reactSwc } = await import('@vitejs/plugin-react-swc');
+    plugins.push(reactSwc());
   }
 
   // tsconfig paths — use Vite 8 built-in support

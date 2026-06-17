@@ -1,0 +1,5 @@
+{
+  "id": "123456",
+  "status": "accepted",
+  "references": [{ "id": "123456" }]
+}
