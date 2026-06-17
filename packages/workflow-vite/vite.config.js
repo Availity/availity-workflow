@@ -42,7 +42,10 @@ const buildViteConfig = async (settings) => {
   try {
     const { default: eslintPlugin } = await import('vite-plugin-checker');
     plugins.push(
-      eslintPlugin({ eslint: { lintCommand: `eslint "${settings.app()}/**/*.{js,jsx,ts,tsx}"`, useFlatConfig: true } })
+      eslintPlugin({
+        overlay: false,
+        eslint: { lintCommand: `eslint "${settings.app()}/**/*.{js,jsx,ts,tsx}"`, useFlatConfig: true },
+      })
     );
   } catch {
     /* optional */
@@ -177,6 +180,5 @@ const buildViteConfig = async (settings) => {
     },
   };
 };
-
 
 export default buildViteConfig;
