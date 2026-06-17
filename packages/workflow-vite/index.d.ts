@@ -40,8 +40,19 @@ export interface WorkflowViteConfig {
   globals?: Record<string, boolean | string>;
   ekko?: EkkoConfig;
   proxies?: ProxyConfig[];
-  eslint?: Record<string, unknown>;
+  eslint?: EslintConfig;
   modifyViteConfig?: (viteConfig: ViteConfig, settings: Settings) => ViteConfig;
+}
+
+export interface EslintConfig {
+  /** Will cause the module build to fail if there are any errors */
+  failOnError?: boolean;
+  /** Will cause the module build to fail if there are any warnings */
+  failOnWarning?: boolean;
+  /** Apply fixes */
+  fix?: boolean;
+  /** Will process and report errors only and ignore warnings */
+  quiet?: boolean;
 }
 
 export type WorkflowViteConfigFunction = (config: WorkflowViteConfig) => WorkflowViteConfig;

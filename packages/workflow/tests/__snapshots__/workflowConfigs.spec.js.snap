@@ -294,7 +294,6 @@ exports[`webpack configs > sets up the default config with default settings 1`] 
           "tsx",
           "mjs",
         ],
-        "failOnError": true,
         "resourceQueryExclude": [],
       },
     },

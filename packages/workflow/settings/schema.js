@@ -61,13 +61,17 @@ const schema = Joi.object()
         jestOverrides: Joi.object()
           .keys({})
           .unknown()
-          .description('Customize vitest configuration options (legacy name for compatibility). https://vitest.dev/config/')
+          .description(
+            'Customize vitest configuration options (legacy name for compatibility). https://vitest.dev/config/'
+          )
           .example({ collectCoverageFrom: ['project/app/**/*.{ts|tsx}', '!project/app/**/*.d.ts'] })
           .default({}),
         vitestOverrides: Joi.object()
           .keys({})
           .unknown()
-          .description('Vitest configuration overrides merged directly into the test config. https://vitest.dev/config/')
+          .description(
+            'Vitest configuration overrides merged directly into the test config. https://vitest.dev/config/'
+          )
           .default({}),
         suppressDeprecationWarnings: Joi.boolean()
           .default(false)
@@ -163,7 +167,7 @@ const schema = Joi.object()
         failOnError: Joi.boolean(),
       })
       .unknown()
-      .default({ failOnError: true }),
+      .default({}),
     modifyWebpackConfig: Joi.function()
       .optional()
       .description(

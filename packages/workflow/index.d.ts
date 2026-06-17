@@ -44,6 +44,33 @@ export interface ProxyConfig {
   onError?: (...args: unknown[]) => void;
 }
 
+export interface EslintConfig {
+  /** Will cause the module build to fail if there are any errors. Defaults to true in production, false in development. */
+  failOnError?: boolean;
+  /** Will cause the module build to fail if there are any warnings */
+  failOnWarning?: boolean;
+  /** The errors found will always be emitted */
+  emitError?: boolean;
+  /** The warnings found will always be emitted */
+  emitWarning?: boolean;
+  /** Specify the extensions that should be checked */
+  extensions?: string | string[];
+  /** Specify the files and/or directories to exclude */
+  exclude?: string | string[];
+  /** Specify directories, files, or globs */
+  files?: string | string[];
+  /** Apply fixes */
+  fix?: boolean;
+  /** Lint only changed files, skip linting on start */
+  lintDirtyModulesOnly?: boolean;
+  /** Will process and report errors only and ignore warnings */
+  quiet?: boolean;
+  /** Enable file caching */
+  cache?: boolean;
+  /** Path to `eslint` instance that will be used for linting */
+  eslintPath?: string;
+}
+
 export interface WorkflowConfig {
   development?: DevelopmentConfig;
   app?: AppConfig;
@@ -51,7 +78,7 @@ export interface WorkflowConfig {
   ekko?: EkkoConfig;
   proxies?: ProxyConfig[];
   experiments?: Record<string, unknown>;
-  eslint?: Record<string, unknown>;
+  eslint?: EslintConfig;
   modifyWebpackConfig?: (webpackConfig: WebpackConfig, settings: Settings) => WebpackConfig;
 }
 
@@ -81,7 +108,7 @@ export default class Settings {
   isNotifications(): boolean;
   enableHotLoader(): boolean;
   isEkko(): boolean;
-  eslint(): Record<string, unknown>;
+  eslint(): EslintConfig;
   experimentalWebpackFeatures(): Record<string, unknown>;
   include(): (string | RegExp)[];
   sourceMap(): string;
