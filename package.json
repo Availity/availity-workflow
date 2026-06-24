@@ -37,9 +37,9 @@
     "version:dry-run": "nx affected --target version --dryRun --verbose --parallel=1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.0.2",
-    "@commitlint/config-conventional": "^21.0.2",
-    "@commitlint/config-nx-scopes": "^21.0.2",
+    "@commitlint/cli": "^21.1.0",
+    "@commitlint/config-conventional": "^21.1.0",
+    "@commitlint/config-nx-scopes": "^21.1.0",
     "@jscutlery/semver": "^5.8.1",
     "@nx/js": "22.5.1",
     "@nx/workspace": "22.5.1",
@@ -48,7 +48,7 @@
     "gh-pages": "^5.0.0",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
-    "lint-staged": "^17.0.7",
+    "lint-staged": "^17.0.8",
     "nx": "22.5.1",
     "prettier": "^3.8.4",
     "typescript": "5.9.3",
