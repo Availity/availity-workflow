@@ -23,16 +23,16 @@ describe('test runner', () => {
   });
 
   it('calls vitest', async () => {
-    const settings = { testRunner: () => 'vitest' };
+    const settings = { testRunner: () => 'vitest', argv: () => ({}) };
 
     await test({ settings });
 
-    expect(mockStartVitest).toHaveBeenCalledWith('test', [], undefined, expect.any(Object));
+    expect(mockStartVitest).toHaveBeenCalledWith('run', [], undefined, { configFile: false });
   });
 
   it('sets NODE_ENV to test', async () => {
     process.env.NODE_ENV = 'development';
-    const settings = { testRunner: () => 'vitest' };
+    const settings = { testRunner: () => 'vitest', argv: () => ({}) };
 
     await test({ settings });
 
@@ -40,7 +40,7 @@ describe('test runner', () => {
   });
 
   it('closes vitest instance after running', async () => {
-    const settings = { testRunner: () => 'vitest' };
+    const settings = { testRunner: () => 'vitest', argv: () => ({}) };
 
     await test({ settings });
 
@@ -49,7 +49,7 @@ describe('test runner', () => {
 
   it('throws when vitest fails to start', async () => {
     mockStartVitest.mockResolvedValue(null);
-    const settings = { testRunner: () => 'vitest' };
+    const settings = { testRunner: () => 'vitest', argv: () => ({}) };
 
     await expect(test({ settings })).rejects.toThrow('Vitest failed to start');
   });
