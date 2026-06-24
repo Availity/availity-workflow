@@ -7,6 +7,10 @@ export default async function test({ settings }) {
   const vitestConfig = createVitestConfig(settings);
   const { test: testOptions, ...viteOverrides } = vitestConfig;
 
+  const argv = settings.argv();
+  const watch = Boolean(argv.watch);
+  testOptions.watch = watch;
+
   const vitest = await startVitest('test', [], testOptions, { ...viteOverrides, configFile: false });
 
   if (!vitest) {

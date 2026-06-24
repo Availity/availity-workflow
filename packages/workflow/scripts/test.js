@@ -7,7 +7,7 @@ async function runVitest({ settings }) {
   const argv = settings.argv();
   const vitestConfig = createVitestConfig(settings);
 
-  const { test: testOptions, ...viteOverrides } = vitestConfig;
+  const { test: testOptions = {}, ...viteOverrides } = vitestConfig;
 
   // Forward CLI flags to vitest
   if (argv.coverage) {
@@ -15,6 +15,7 @@ async function runVitest({ settings }) {
   }
 
   const mode = argv.watch ? 'watch' : 'run';
+  testOptions.watch = Boolean(argv.watch);
 
   const vitest = await startVitest(mode, [], testOptions, { ...viteOverrides, configFile: false });
 

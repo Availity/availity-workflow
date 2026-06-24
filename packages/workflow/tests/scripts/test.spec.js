@@ -27,7 +27,7 @@ describe('test runner', () => {
 
     await test({ settings });
 
-    expect(mockStartVitest).toHaveBeenCalledWith('run', [], undefined, { configFile: false });
+    expect(mockStartVitest).toHaveBeenCalledWith('run', [], { watch: false }, { configFile: false });
   });
 
   it('sets NODE_ENV to test', async () => {
