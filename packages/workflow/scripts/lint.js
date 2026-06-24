@@ -78,7 +78,8 @@ async function lint({ settings } = {}) {
     const formatter = await engine.loadFormatter();
     Logger.simple(`${formatter.format(report)}`);
     Logger.failed('Failed linting');
-    throw new Error('Failed linting');
+    process.exitCode = 1;
+    return false;
   }
 
   if (status.warning) {

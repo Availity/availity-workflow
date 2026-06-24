@@ -168,7 +168,7 @@ const plugin = (settings) => {
       }),
     ],
   };
-  console.log('ESLINT SETTINGS', settings.eslint());
+
   if (fs.existsSync(paths.appStatic)) {
     overrides.plugins.push(
       new CopyWebpackPlugin({

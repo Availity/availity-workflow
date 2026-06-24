@@ -21,6 +21,7 @@ export default async function resolveRuntime(configuration, host) {
       host,
     });
 
+    // Use a different port if the one we asked for is not available
     if (availablePort !== devServerPort) {
       devServerPort = availablePort;
     }

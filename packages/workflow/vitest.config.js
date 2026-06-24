@@ -38,7 +38,7 @@ function create(settings) {
 
   // Allow developers to add their own node_modules include path
   const userInclude = settings.configuration.development.babelInclude;
-  const includes = ['@av', 'axios', '@tanstack', 'is-what', 'copy-anything', ...userInclude].join('|');
+  const includes = ['@av', 'axios', '@tanstack', 'is-what', 'copy-anything', 'dayjs', ...userInclude].join('|');
 
   // Build define map from settings.globals()
   const globals = settings.globals();
@@ -125,7 +125,7 @@ function create(settings) {
   }
 
   // Apply vitestOverrides — merged directly into test config
-  const {vitestOverrides} = settings.configuration.development;
+  const { vitestOverrides } = settings.configuration.development;
   if (vitestOverrides && Object.keys(vitestOverrides).length > 0) {
     Object.assign(config.test, vitestOverrides);
   }

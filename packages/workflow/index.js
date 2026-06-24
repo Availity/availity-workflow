@@ -192,6 +192,20 @@ yargs
     }
   )
 
+  .command(
+    'update-browsers',
+    `${chalk.dim('Update the caniuse-lite browser database')}`,
+    () => {},
+    async () => {
+      try {
+        const { default: updateBrowsers } = await import('./scripts/update-browsers.js');
+        updateBrowsers();
+      } catch (error) {
+        handleError('update-browsers', error);
+      }
+    }
+  )
+
   .demandCommand(1, chalk.red('Must provide a valid cli command'))
 
   .showHelpOnFail(false, 'Specify --help for available options')

@@ -168,10 +168,26 @@ yargs
     }
   )
 
+  .command(
+    'update-browsers',
+    `${chalk.dim('Update the caniuse-lite browser database')}`,
+    () => {},
+    async () => {
+      try {
+        const { default: updateBrowsers } = await import('./scripts/update-browsers.js');
+        updateBrowsers();
+      } catch (error) {
+        handleError('update-browsers', error);
+      }
+    }
+  )
+
   .demandCommand(1, chalk.red('Must provide a valid cli command'))
   .showHelpOnFail(false, 'Specify --help for available options')
-  .help('help').alias('help', 'h')
-  .version().alias('version', 'V')
+  .help('help')
+  .alias('help', 'h')
+  .version()
+  .alias('version', 'V')
   .example(chalk.yellow('av start'))
   .example(chalk.yellow('av build'))
   .example(chalk.yellow('av test'))

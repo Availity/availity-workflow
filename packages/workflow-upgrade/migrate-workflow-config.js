@@ -48,10 +48,7 @@ function removeDeadConfigKeys(source) {
 
   if (hasUnsupportedJestOverrides) {
     // Remove the jestOverrides block since it contains keys the vitest compat shim ignores
-    result = result.replaceAll(
-      /^\s*config\.development\.jestOverrides\s*=\s*\{[^}]*(?:\{[^}]*\}[^}]*)*\};\s*\n?/gm,
-      ''
-    );
+    result = result.replaceAll(/^\s*config\.development\.jestOverrides\s*=\s*\{(?:[^{}]|\{[^}]*\})*\};\s*\n?/gm, '');
     // Also remove associated comments
     result = result.replaceAll(/^\s*\/\/.*jestOverrides.*\n/gm, '');
     result = result.replaceAll(/^\s*\/\/.*moduleNameMapper.*\n/gm, '');

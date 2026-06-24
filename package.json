@@ -43,6 +43,7 @@
     "@jscutlery/semver": "^5.8.1",
     "@nx/js": "22.5.1",
     "@nx/workspace": "22.5.1",
+    "@testing-library/user-event": "^14.6.1",
     "eslint-config-availity": "^14.0.0",
     "gh-pages": "^5.0.0",
     "husky": "^9.1.7",

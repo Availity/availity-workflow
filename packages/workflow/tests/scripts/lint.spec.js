@@ -13,13 +13,16 @@ describe('lint', () => {
 
   beforeEach(async () => {
     vi.resetModules();
+    process.exitCode = undefined;
 
     mockFormatter = { format: vi.fn(() => 'lint output') };
     mockEngine = {
       lintFiles: vi.fn(() => []),
-      loadFormatter: vi.fn(() => mockFormatter)
+      loadFormatter: vi.fn(() => mockFormatter),
     };
-    mockESLint = vi.fn(function () { return mockEngine; });
+    mockESLint = vi.fn(function () {
+      return mockEngine;
+    });
 
     mockReaddir = vi.fn(() => ['index.js', 'app.js']);
     vi.doMock('fs/promises', () => ({ readdir: mockReaddir }));
@@ -34,7 +37,7 @@ describe('lint', () => {
       warn: vi.fn(),
       success: vi.fn(),
       failed: vi.fn(),
-      simple: vi.fn()
+      simple: vi.fn(),
     };
     vi.doMock('@availity/workflow-logger', () => ({ default: mockLogger }));
 
@@ -42,14 +45,24 @@ describe('lint', () => {
     vi.doMock('module', () => ({ createRequire: mockCreateRequire }));
 
     vi.doMock('child_process', () => ({ execFile: vi.fn((cmd, args, cb) => cb(null, '', '')) }));
-        vi.doMock('util', () => ({ promisify: (fn) => (...args) => new Promise((resolve, reject) => { fn(...args, (err, stdout, stderr) => { if (err) reject(err); else resolve({ stdout, stderr }); }); }) }));
+    vi.doMock('util', () => ({
+      promisify:
+        (fn) =>
+        (...args) =>
+          new Promise((resolve, reject) => {
+            fn(...args, (err, stdout, stderr) => {
+              if (err) reject(err);
+              else resolve({ stdout, stderr });
+            });
+          }),
+    }));
 
     mockSettings = {
       isLinterDisabled: vi.fn(() => false),
       project: vi.fn(() => '/project'),
       isIgnoreUntracked: vi.fn(() => false),
       js: vi.fn(() => ['src/**/*.js']),
-      isFail: vi.fn(() => false)
+      isFail: vi.fn(() => false),
     };
 
     const mod = await import('../../scripts/lint.js');
@@ -67,7 +80,9 @@ describe('lint', () => {
   it('falls back to import("eslint") when createRequire throws', async () => {
     vi.resetModules();
 
-    const fallbackESLint = vi.fn(function () { return mockEngine; });
+    const fallbackESLint = vi.fn(function () {
+      return mockEngine;
+    });
     const throwingRequire = vi.fn(() => {
       throw new Error('not found');
     });
@@ -78,7 +93,17 @@ describe('lint', () => {
     vi.doMock('@availity/workflow-logger', () => ({ default: mockLogger }));
     vi.doMock('module', () => ({ createRequire: vi.fn(() => throwingRequire) }));
     vi.doMock('child_process', () => ({ execFile: vi.fn((cmd, args, cb) => cb(null, '', '')) }));
-        vi.doMock('util', () => ({ promisify: (fn) => (...args) => new Promise((resolve, reject) => { fn(...args, (err, stdout, stderr) => { if (err) reject(err); else resolve({ stdout, stderr }); }); }) }));
+    vi.doMock('util', () => ({
+      promisify:
+        (fn) =>
+        (...args) =>
+          new Promise((resolve, reject) => {
+            fn(...args, (err, stdout, stderr) => {
+              if (err) reject(err);
+              else resolve({ stdout, stderr });
+            });
+          }),
+    }));
     vi.doMock('eslint', () => ({ default: { ESLint: fallbackESLint } }));
 
     const mod = await import('../../scripts/lint.js');
@@ -102,7 +127,17 @@ describe('lint', () => {
     vi.doMock('@availity/workflow-logger', () => ({ default: mockLogger }));
     vi.doMock('module', () => ({ createRequire: vi.fn(() => throwingRequire) }));
     vi.doMock('child_process', () => ({ execFile: vi.fn((cmd, args, cb) => cb(null, '', '')) }));
-        vi.doMock('util', () => ({ promisify: (fn) => (...args) => new Promise((resolve, reject) => { fn(...args, (err, stdout, stderr) => { if (err) reject(err); else resolve({ stdout, stderr }); }); }) }));
+    vi.doMock('util', () => ({
+      promisify:
+        (fn) =>
+        (...args) =>
+          new Promise((resolve, reject) => {
+            fn(...args, (err, stdout, stderr) => {
+              if (err) reject(err);
+              else resolve({ stdout, stderr });
+            });
+          }),
+    }));
     vi.doMock('eslint', () => {
       throw new Error('eslint not available');
     });
@@ -127,15 +162,23 @@ describe('lint', () => {
     vi.doMock('@availity/workflow-logger', () => ({ default: mockLogger }));
     vi.doMock('module', () => ({ createRequire: vi.fn(() => vi.fn(() => ({ ESLint: badESLint }))) }));
     vi.doMock('child_process', () => ({ execFile: vi.fn((cmd, args, cb) => cb(null, '', '')) }));
-        vi.doMock('util', () => ({ promisify: (fn) => (...args) => new Promise((resolve, reject) => { fn(...args, (err, stdout, stderr) => { if (err) reject(err); else resolve({ stdout, stderr }); }); }) }));
+    vi.doMock('util', () => ({
+      promisify:
+        (fn) =>
+        (...args) =>
+          new Promise((resolve, reject) => {
+            fn(...args, (err, stdout, stderr) => {
+              if (err) reject(err);
+              else resolve({ stdout, stderr });
+            });
+          }),
+    }));
 
     const mod = await import('../../scripts/lint.js');
     const lintBadConfig = mod.default;
 
     await expect(lintBadConfig({ settings: mockSettings })).rejects.toThrow('ESLint configuration error');
-    expect(mockLogger.failed).toHaveBeenCalledWith(
-      expect.stringContaining('ESLint configuration error')
-    );
+    expect(mockLogger.failed).toHaveBeenCalledWith(expect.stringContaining('ESLint configuration error'));
   });
 
   it('passes glob patterns from settings.js() to lintFiles', async () => {
@@ -145,9 +188,7 @@ describe('lint', () => {
   });
 
   it('reports success when no errors or warnings', async () => {
-    mockEngine.lintFiles.mockResolvedValue([
-      { errorCount: 0, warningCount: 0 }
-    ]);
+    mockEngine.lintFiles.mockResolvedValue([{ errorCount: 0, warningCount: 0 }]);
 
     const result = await lint({ settings: mockSettings });
     expect(result).toBe(true);
@@ -155,18 +196,17 @@ describe('lint', () => {
     expect(mockLogger.failed).not.toHaveBeenCalled();
   });
 
-  it('throws "Failed linting" when errors exist', async () => {
-    mockEngine.lintFiles.mockResolvedValue([
-      { errorCount: 2, warningCount: 0 }
-    ]);
+  it('returns false and sets exit code when errors exist', async () => {
+    mockEngine.lintFiles.mockResolvedValue([{ errorCount: 2, warningCount: 0 }]);
 
-    await expect(lint({ settings: mockSettings })).rejects.toThrow('Failed linting');
+    const result = await lint({ settings: mockSettings });
+    expect(result).toBe(false);
+    expect(process.exitCode).toBe(1);
+    expect(mockLogger.failed).toHaveBeenCalledWith('Failed linting');
   });
 
   it('logs warning when only warnings exist', async () => {
-    mockEngine.lintFiles.mockResolvedValue([
-      { errorCount: 0, warningCount: 3 }
-    ]);
+    mockEngine.lintFiles.mockResolvedValue([{ errorCount: 0, warningCount: 3 }]);
 
     await lint({ settings: mockSettings });
     expect(mockLogger.warn).toHaveBeenCalledWith('Passed linting with warnings');

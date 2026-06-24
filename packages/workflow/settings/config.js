@@ -24,6 +24,7 @@ export default async function resolveConfig({ pkg, argv }) {
   let workflowConfigPath;
   let developerConfig = {};
 
+  // Read the workflow file if it exists
   if (existsSync(jsWorkflowConfig)) {
     workflowConfigPath = jsWorkflowConfig;
     const module = await import(workflowConfigPath);
