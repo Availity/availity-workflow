@@ -4,9 +4,6 @@ gen_enforced_dependency(WorkspaceCwd, DependencyIdent, 'workspace:*', Dependency
   workspace_ident(_, DependencyIdent),
   workspace_has_dependency(WorkspaceCwd, DependencyIdent, _, DependencyType).
 
-gen_enforced_dependency(WorkspaceCwd, 'lodash', '^4.17.21', DependencyType) :-
-  workspace_has_dependency(WorkspaceCwd, 'lodash', _, DependencyType).
-
 % Enforce ESM - all packages must declare type: module
 gen_enforced_field(WorkspaceCwd, 'type', 'module') :-
     WorkspaceCwd \= 'docusaurus'.
