@@ -2,6 +2,29 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [11.0.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@10.0.0...@availity/mock-server@11.0.0) (2026-06-26)
+
+### Dependency Updates
+
+* `mock-data` updated to version `10.0.0`
+
+* feat!: migrate mock-server and mock-data to ESM ([294be85](https://github.com/Availity/availity-workflow/commit/294be855a91b1e4d24a167c6fe837d6d777753e5))
+
+
+### Features
+
+* add update-browsers command, fix lint output noise, fix regex backtracking ([51f8127](https://github.com/Availity/availity-workflow/commit/51f81279660e15afe6f214cc38ba4d90f57f698f))
+
+
+### BREAKING CHANGES
+
+* mock-server and mock-data now use ESM exports.
+- Converted all files to ESM (import/export)
+- Fixed async plugin loading race condition (await routes.init())
+- Added nx lint targets
+
+
+
 # [10.0.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@9.1.3...@availity/mock-server@10.0.0) (2026-03-10)
 
 ### Dependency Updates
