@@ -2,6 +2,40 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.0.0](https://github.com/Availity/availity-workflow/compare/@availity/example@5.0.3...@availity/example@6.0.0) (2026-06-26)
+
+### Dependency Updates
+
+* `mock-server` updated to version `5.0.3`
+* `workflow` updated to version `5.0.3`
+
+* feat!: update example apps for ESM workflow ([45d9f37](https://github.com/Availity/availity-workflow/commit/45d9f3720f93ad0ede5d959d7329cfd566cb4723))
+* feat!: migrate mock-server and mock-data to ESM ([294be85](https://github.com/Availity/availity-workflow/commit/294be855a91b1e4d24a167c6fe837d6d777753e5))
+
+
+### Features
+
+* add FileSelector example, audit deps, prefer plugin-react over swc ([40a3b57](https://github.com/Availity/availity-workflow/commit/40a3b57814463b75ce5f0ccbcbf6cad345fc4cd4))
+* allow react 18 and 19 in peerDependencies ([2eb5033](https://github.com/Availity/availity-workflow/commit/2eb503338d9a6962e1a46d70f1f2b1fb12abc3aa))
+
+
+### BREAKING CHANGES
+
+* Example apps updated for new Settings API and element v3.
+- Both apps share identical source code
+- Added @availity/hooks dependency
+- Added mock server routes for element v3 (users/me endpoint)
+- Added type annotations to workflow.js configs
+- Use globals.d.ts from workflow packages (removed local globals.d.ts)
+- Fixed layout (PageHeader outside Container)
+- Added nx lint targets
+* mock-server and mock-data now use ESM exports.
+- Converted all files to ESM (import/export)
+- Fixed async plugin loading race condition (await routes.init())
+- Added nx lint targets
+
+
+
 ## [5.0.3](https://github.com/Availity/availity-workflow/compare/@availity/example@5.0.2...@availity/example@5.0.3) (2026-06-03)
 
 ### Dependency Updates

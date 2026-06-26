@@ -2,6 +2,64 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [14.0.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@13.0.3...@availity/workflow@14.0.0) (2026-06-26)
+
+### Dependency Updates
+
+* `workflow-logger` updated to version `13.0.3`
+* `mock-server` updated to version `13.0.3`
+* `mock-server` updated to version `13.0.3`
+
+### Bug Fixes
+
+* align eslint-config-availity version constraints ([e716c31](https://github.com/Availity/availity-workflow/commit/e716c3148e682596dfc6b5c70e2be4bcf8e26d63))
+* disable errorOnUnmatchedPattern in ESLint for missing file extensions ([d1a0eb4](https://github.com/Availity/availity-workflow/commit/d1a0eb439e4f51080e12fc607f8d792ab83afc2a))
+* eslint failOnError default and typed config options ([3472400](https://github.com/Availity/availity-workflow/commit/3472400666f01cee5804fe4b0356aa57578d31ae))
+* eslint overlay in dev, auto-register jest-dom matchers ([f4bf50e](https://github.com/Availity/availity-workflow/commit/f4bf50eca529018afa1b4c331c6a19726ad31e8a))
+* explicitly disable vitest watch mode in test scripts ([a828d77](https://github.com/Availity/availity-workflow/commit/a828d777917102b8cc3572cd07200fc2f0ea072f))
+* update test script ([baf235c](https://github.com/Availity/availity-workflow/commit/baf235c3714d3a0746dc6c94ae33dbe38c7fd3d0))
+* upgrade tool improvements for v14 migration ([9aa7d9d](https://github.com/Availity/availity-workflow/commit/9aa7d9dc8ee6c78dce8a7589c5ca42c0b847b470))
+
+
+* feat!: refactor workflow CLI and Settings architecture ([6a1203a](https://github.com/Availity/availity-workflow/commit/6a1203a201f6721b8ebb23b19b62c29f79004751))
+* feat!: migrate mock-server and mock-data to ESM ([294be85](https://github.com/Availity/availity-workflow/commit/294be855a91b1e4d24a167c6fe837d6d777753e5))
+
+
+### Features
+
+* add FileSelector example, audit deps, prefer plugin-react over swc ([40a3b57](https://github.com/Availity/availity-workflow/commit/40a3b57814463b75ce5f0ccbcbf6cad345fc4cd4))
+* add update-browsers command, fix lint output noise, fix regex backtracking ([51f8127](https://github.com/Availity/availity-workflow/commit/51f81279660e15afe6f214cc38ba4d90f57f698f))
+* allow react 18 and 19 in peerDependencies ([2eb5033](https://github.com/Availity/availity-workflow/commit/2eb503338d9a6962e1a46d70f1f2b1fb12abc3aa))
+
+
+### BREAKING CHANGES
+
+* Settings is now a class with async factory (Settings.create()).
+- Converted settings from singleton to class with static create()
+- Split config resolution (config.js) and runtime setup (runtime.js)
+- All scripts receive { settings } as parameter (no module-level imports)
+- Lazy-load command scripts via dynamic import for faster cold start
+- Unified yargs command registration (4-arg form, single instance)
+- Removed redundant yargs parsing from build.js, version.js, init.js
+- Fixed command injection in git tag/commit (execFileSync)
+- Fixed React Refresh require error (esModule: true)
+- Fixed TsconfigPathsPlugin resolution (explicit configFile)
+- Fixed lint indexOf bug, removed process.exit, removed expandGlobs
+- Removed dead methods and dead --fail CLI option
+- Added globals.d.ts for shipped TypeScript global types
+- Added historyFallback to Joi schema validation
+- Updated types (index.d.ts) to reflect Settings class API
+- Cleaned start.js (no swallowed errors, no module globals)
+- Cleaned proxy.js (settings as param, regex fix)
+- Cleaned version.js (no Promise wrappers, execFileSync)
+- Added nx lint target
+* mock-server and mock-data now use ESM exports.
+- Converted all files to ESM (import/export)
+- Fixed async plugin loading race condition (await routes.init())
+- Added nx lint targets
+
+
+
 ## [13.0.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow@13.0.2...@availity/workflow@13.0.3) (2026-06-03)
 
 ### Dependency Updates

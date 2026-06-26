@@ -2,6 +2,29 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [9.0.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow-logger@8.0.1...@availity/workflow-logger@9.0.0) (2026-06-26)
+
+
+* feat!: migrate workflow-logger to ESM ([d7a500d](https://github.com/Availity/availity-workflow/commit/d7a500db47c77912660099b6ba670675b29b85f7))
+* feat!: migrate mock-server and mock-data to ESM ([294be85](https://github.com/Availity/availity-workflow/commit/294be855a91b1e4d24a167c6fe837d6d777753e5))
+
+
+### Features
+
+* add update-browsers command, fix lint output noise, fix regex backtracking ([51f8127](https://github.com/Availity/availity-workflow/commit/51f81279660e15afe6f214cc38ba4d90f57f698f))
+
+
+### BREAKING CHANGES
+
+* workflow-logger now uses ESM exports.
+- Added nx lint target
+* mock-server and mock-data now use ESM exports.
+- Converted all files to ESM (import/export)
+- Fixed async plugin loading race condition (await routes.init())
+- Added nx lint targets
+
+
+
 ## [8.0.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow-logger@8.0.0...@availity/workflow-logger@8.0.1) (2026-06-03)
 
 
