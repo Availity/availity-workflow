@@ -2,6 +2,38 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [9.0.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow-upgrade@8.0.1...@availity/workflow-upgrade@9.0.0) (2026-06-26)
+
+### Dependency Updates
+
+* `workflow-logger` updated to version `8.0.1`
+
+### Bug Fixes
+
+* upgrade tool improvements for v14 migration ([9aa7d9d](https://github.com/Availity/availity-workflow/commit/9aa7d9dc8ee6c78dce8a7589c5ca42c0b847b470))
+
+
+* feat!: migrate workflow-upgrade to ESM ([6f31a83](https://github.com/Availity/availity-workflow/commit/6f31a8388f9174af8c9f2b2607674bf6ef4d0925))
+* feat!: migrate mock-server and mock-data to ESM ([294be85](https://github.com/Availity/availity-workflow/commit/294be855a91b1e4d24a167c6fe837d6d777753e5))
+
+
+### Features
+
+* add update-browsers command, fix lint output noise, fix regex backtracking ([51f8127](https://github.com/Availity/availity-workflow/commit/51f81279660e15afe6f214cc38ba4d90f57f698f))
+
+
+### BREAKING CHANGES
+
+* workflow-upgrade now uses ESM exports.
+- Fixed unicorn/prefer-includes lint error
+- Added nx lint target
+* mock-server and mock-data now use ESM exports.
+- Converted all files to ESM (import/export)
+- Fixed async plugin loading race condition (await routes.init())
+- Added nx lint targets
+
+
+
 ## [8.0.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow-upgrade@8.0.0...@availity/workflow-upgrade@8.0.1) (2026-06-03)
 
 ### Dependency Updates
