@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [3.1.0](https://github.com/Availity/availity-workflow/compare/@availity/dinosaurdocs@3.0.10...@availity/dinosaurdocs@3.1.0) (2026-06-26)
+
+
+### Features
+
+* allow react 18 and 19 in peerDependencies ([2eb5033](https://github.com/Availity/availity-workflow/commit/2eb503338d9a6962e1a46d70f1f2b1fb12abc3aa))
+
+
+
 ## [3.0.10](https://github.com/Availity/availity-workflow/compare/@availity/dinosaurdocs@3.0.9...@availity/dinosaurdocs@3.0.10) (2026-03-10)
 
 ## [3.0.9](https://github.com/Availity/availity-workflow/compare/@availity/dinosaurdocs@3.0.8...@availity/dinosaurdocs@3.0.9) (2026-02-18)
