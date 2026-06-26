@@ -136,6 +136,9 @@ function updateScripts(scripts) {
 }
 
 // eslint-disable-next-line unicorn/no-exports-in-scripts
+export { detectInstaller, updateScripts, addDev, removeDev };
+
+// eslint-disable-next-line unicorn/no-exports-in-scripts
 export default async (cwd) => {
   Logger.info('Upgrading to @availity/workflow (ESM)\n');
   const pkgFile = path.join(cwd, 'package.json');

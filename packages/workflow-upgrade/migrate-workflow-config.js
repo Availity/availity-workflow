@@ -59,6 +59,8 @@ function removeDeadConfigKeys(source) {
   return result;
 }
 
+export { convertToESM, removeDeadConfigKeys };
+
 export default function migrateWorkflowConfig(cwd) {
   const workflowPath = path.join(cwd, 'project/config/workflow.js');
 

@@ -119,6 +119,8 @@ function generateFlatConfig(config, ignorePatterns) {
   return `${imports.join('\n')}\n\nexport default [\n${spreads.join('\n')}\n${configObjects.join('\n')}\n];\n`;
 }
 
+export { generateFlatConfig, formatRules };
+
 export default function migrateEslintConfig(cwd) {
   const flatConfigPath = path.join(cwd, 'eslint.config.js');
 
