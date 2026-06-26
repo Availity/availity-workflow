@@ -9,6 +9,7 @@ yarn-error.log
 
 coverage/
 reports/
+**/profile.html
 
 /**/node_modules
 /**/build
