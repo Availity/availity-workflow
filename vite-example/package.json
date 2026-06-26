@@ -14,7 +14,9 @@
     "lint": "av lint",
     "build": "av build",
     "build:production": "cross-env NODE_ENV=production av build",
-    "build:staging": "cross-env NODE_ENV=staging av build"
+    "build:staging": "cross-env NODE_ENV=staging av build",
+    "profile": "av profile",
+    "profile:production": "cross-env NODE_ENV=production av profile"
   },
   "keywords": [
     "react",
