@@ -1,0 +1,17 @@
+{
+  "header": "Test Card Header",
+  "fields": [
+    {
+      "name": "formField",
+      "label": "Some Field Label"
+    },
+    {
+      "name": "chainedField",
+      "label": "Another Field Label"
+    },
+    {
+      "name": "nullishCoalescedField",
+      "label": "Yet Another Field Label"
+    }
+  ]
+}

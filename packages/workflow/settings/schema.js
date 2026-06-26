@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import path from 'path';
+import path from 'node:path';
 
 const schema = Joi.object()
   .keys({
@@ -21,7 +21,7 @@ const schema = Joi.object()
               .default('minimal')
               .description(
                 'Allows presets to be used for Webpack stats log levels. https://webpack.js.org/configuration/stats/#stats'
-              )
+              ),
           })
           .default(),
         infrastructureLogging: Joi.object()
@@ -30,17 +30,16 @@ const schema = Joi.object()
               .default('warn')
               .description(
                 'Allows presets to be used for Webpack infrastructure log levels. https://webpack.js.org/configuration/other-options/#infrastructurelogging'
-              )
+              ),
           })
           .default(),
         sourceMap: Joi.string()
           .default('source-map')
           .description('Webpack devtool setting. https://webpack.js.org/configuration/devtool/#devtool'),
-        hotLoader: Joi.boolean().default(true).description('Enable or disable react-hot-loader'),
-        hotLoaderEntry: Joi.object()
-          .instance(RegExp)
-          .default(/\/App\.jsx?/)
-          .description('The entry point of the hot loader'),
+        hotLoader: Joi.boolean().default(true).description('Enable or disable React Fast Refresh'),
+        historyFallback: Joi.boolean()
+          .default(true)
+          .description('Enable webpack-dev-server historyApiFallback for single-page apps'),
         webpackDevServer: Joi.object(),
         targets: Joi.alternatives()
           .try(
@@ -56,15 +55,27 @@ const schema = Joi.object()
           .default('browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version'),
         babelInclude: Joi.array()
           .items(Joi.string())
-          .description('Include additional packages from node_modules that should be compiled by Babel and Webpack.')
+          .description('Additional node_modules packages to include in compilation and testing transforms')
           .example(['react-loadable'])
           .default([]),
         jestOverrides: Joi.object()
           .keys({})
           .unknown()
-          .description('Customize any jest configuration option. https://jestjs.io/docs/configuration#reference')
+          .description(
+            'Customize vitest configuration options (legacy name for compatibility). https://vitest.dev/config/'
+          )
           .example({ collectCoverageFrom: ['project/app/**/*.{ts|tsx}', '!project/app/**/*.d.ts'] })
-          .default({})
+          .default({}),
+        vitestOverrides: Joi.object()
+          .keys({})
+          .unknown()
+          .description(
+            'Vitest configuration overrides merged directly into the test config. https://vitest.dev/config/'
+          )
+          .default({}),
+        suppressDeprecationWarnings: Joi.boolean()
+          .default(false)
+          .description('Suppress Node.js deprecation warnings during builds'),
       })
       .unknown()
       .default(),
@@ -73,12 +84,7 @@ const schema = Joi.object()
         title: Joi.string()
           .default('Availity')
           .description('Page title to use for the generated HTML document')
-          .example('Availity ID Card Viewer')
-      })
-      .default(),
-    testing: Joi.object()
-      .keys({
-        browsers: Joi.array().items(Joi.string()).default(['Chrome'])
+          .example('Availity ID Card Viewer'),
       })
       .default(),
     globals: Joi.object()
@@ -86,12 +92,12 @@ const schema = Joi.object()
         __DEV__: false,
         __TEST__: false,
         __PROD__: false,
-        __STAGING__: false
+        __STAGING__: false,
       })
       .unknown()
       .example({
         BROWSER_SUPPORTS_HTML5: true,
-        EXPERIMENTAL_FEATURE: false
+        EXPERIMENTAL_FEATURE: false,
       }),
     ekko: Joi.object()
       .keys({
@@ -107,7 +113,7 @@ const schema = Joi.object()
           ),
         pluginContext: Joi.string().description(
           'Mock data can be passed a context so that HATEOS links traverse correctly'
-        )
+        ),
       })
       .unknown()
       .default((parent) => ({
@@ -117,7 +123,7 @@ const schema = Joi.object()
         data: path.join(process.cwd(), 'project/data'),
         routes: path.join(process.cwd(), 'project/config/routes.json'),
         plugins: ['@availity/mock-data'],
-        pluginContext: `http://${parent.development.host}:${parent.development.port}/api`
+        pluginContext: `http://${parent.development.host}:${parent.development.port}/api`,
       })),
     proxies: Joi.array()
       .items(
@@ -132,47 +138,41 @@ const schema = Joi.object()
             pathRewrite: Joi.object().description(
               'Rewrites (using regex) the a path before sending request to proxy target.'
             ),
-            headers: Joi.object().description('Send default headers to the proxy destination')
+            headers: Joi.object().description('Send default headers to the proxy destination'),
           })
           .unknown()
       )
       .default((parent) => [
         {
-          context: ['/api', '/ms'],
+          context: ['/api', '/ms', '/cloud'],
           target: `http://${parent.development.host}:${parent.ekko.port}`,
           enabled: true,
           logLevel: 'info',
           pathRewrite: {
-            '^/api': ''
+            '^/api': '',
           },
           headers: {
-            RemoteUser: 'jsmith'
-          }
-        }
+            RemoteUser: 'jsmith',
+          },
+        },
       ]),
     experiments: Joi.object()
       .description('Configure experimental Webpack features. https://webpack.js.org/configuration/experiments/')
       .example({
-        lazyCompilation: true
+        lazyCompilation: true,
       })
       .default({}),
     eslint: Joi.object()
       .keys({
-        failOnError: Joi.boolean()
+        failOnError: Joi.boolean(),
       })
       .unknown()
-      .default({ failOnError: true }),
-    bundler: Joi.string()
-      .valid('webpack', 'vite')
-      .default('webpack')
-      .description('Which bundler to use: webpack (default) or vite'),
-    testRunner: Joi.string()
-      .valid('jest', 'vitest')
-      .default('jest')
-      .description('Which test runner to use: jest (default) or vitest. Auto-set to vitest when bundler is vite'),
-    modifyViteConfig: Joi.function()
+      .default({}),
+    modifyWebpackConfig: Joi.function()
       .optional()
-      .description('Function to modify the Vite configuration. Receives (viteConfig, settings) and should return modified config')
+      .description(
+        'Function to modify the Webpack configuration. Receives (webpackConfig, settings) and should return modified config'
+      ),
   })
   .unknown();
 

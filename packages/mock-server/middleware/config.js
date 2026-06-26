@@ -2,7 +2,7 @@ import errorhandler from 'errorhandler';
 import compression from 'compression';
 import methodOverride from 'method-override';
 import cors from 'cors';
-import path from 'path';
+import path from 'node:path';
 import express from 'express';
 import busboy from 'connect-busboy';
 import chalk from 'chalk';
@@ -16,7 +16,7 @@ import notFoundHandler from './not.found.js';
 const log = logger.getInstance();
 
 // Custom request logger
-export default function development() {
+export default async function development() {
   if (log.canLog()) {
     config.router.use((req, res, next) => {
       function logRequest() {
@@ -46,21 +46,21 @@ export default function development() {
 
   config.router.use(
     express.json({
-      limit: config?.options?.limit ?? '50mb'
+      limit: config?.options?.limit ?? '50mb',
     })
   ); // parse application/json
 
   config.router.use(
     express.urlencoded({
       extended: true,
-      limit: config.options.limit
+      limit: config.options.limit,
     })
   ); // parse application/x-www-form-urlencoded
 
   config.router.use(busboy({ immediate: false }));
 
   config.app.use('/', config.router);
-  routes.init();
+  await routes.init();
 
   config.app.use(notFoundHandler());
 }

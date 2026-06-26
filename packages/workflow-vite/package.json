@@ -1,0 +1,76 @@
+{
+  "name": "@availity/workflow-vite",
+  "version": "1.0.0-alpha.4",
+  "description": "Vite-based workflow toolkit for Availity web projects",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": "./index.js",
+    "./vite.config.js": "./vite.config.js",
+    "./vite.config.production.js": "./vite.config.production.js",
+    "./vitest.config.js": "./vitest.config.js",
+    "./settings": "./settings/index.js"
+  },
+  "bin": {
+    "av": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Availity/availity-workflow.git"
+  },
+  "keywords": [
+    "vite",
+    "workflow",
+    "availity",
+    "react"
+  ],
+  "author": "Robert McGuinness",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/availity/availity-workflow/issues"
+  },
+  "homepage": "https://github.com/availity/availity-workflow#readme",
+  "scripts": {
+    "publish": "yarn npm publish --tolerate-republish --access public"
+  },
+  "dependencies": {
+    "@availity/mock-server": "workspace:*",
+    "@availity/workflow-logger": "workspace:*",
+    "@inquirer/prompts": "^8.5.2",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@vitejs/plugin-react": "^6.0.3",
+    "@vitejs/plugin-react-swc": "^4.3.1",
+    "chalk": "^5.6.2",
+    "envinfo": "^7.21.0",
+    "get-port": "^7.2.0",
+    "hosted-git-info": "^9.0.3",
+    "joi": "^18.2.3",
+    "jsdom": "^29.1.1",
+    "ora": "^9.4.1",
+    "rollup-plugin-visualizer": "^7.0.1",
+    "sass": "^1.101.0",
+    "semver": "^7.8.5",
+    "validate-npm-package-name": "^7.0.2",
+    "vite": "^8.1.0",
+    "vite-plugin-checker": "^0.14.4",
+    "vite-plugin-static-copy": "^4.1.1",
+    "vitest": "^4.1.9",
+    "yargs": "^18.0.0"
+  },
+  "peerDependencies": {
+    "@vitest/coverage-v8": "^4.1.9",
+    "eslint-config-availity": "^14.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -63,20 +63,20 @@ import React, { useEffect, useState } from 'react';
 import { avUserApi } from '@availity/api-axios';
 
 const App = () => {
-    const [name, setName] = useState(''); // initialize state
+  const [name, setName] = useState(''); // initialize state
 
-    // Fetch the user on component mount
-    useEffect(() => {
-        const fetchData = async () => {
-            const user = await avUserApi.me(); // Request current user
+  // Fetch the user on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = await avUserApi.me(); // Request current user
 
-            setName(user.firstName); // set the name to state
-        };
+      setName(user.firstName); // set the name to state
+    };
 
-        fetchData();
-    }, []);
+    fetchData();
+  }, []);
 
-    return <div>Hello {name}</div>;
+  return <div>Hello {name}</div>;
 };
 
 export default App;
@@ -90,12 +90,12 @@ Since we know the route is going to look like `api/sdk/platform/v1/users/me` we 
 
 ```json header=routes.json
 {
-    "ms/api/availity/internal/spc/slotmachine/graphql": {
-        "file": "slotmachine.json"
-    },
-    "sdk/platform/v1/users/me": {
-        "file": "user.json"
-    }
+  "ms/api/availity/internal/spc/slotmachine/graphql": {
+    "file": "slotmachine.json"
+  },
+  "sdk/platform/v1/users/me": {
+    "file": "user.json"
+  }
 }
 ```
 
@@ -107,7 +107,7 @@ Now that we have the route we need to mock out our `user.json` response:
 
 ```json header=user.json
 {
-    "firstName": "Kyle"
+  "firstName": "Kyle"
 }
 ```
 

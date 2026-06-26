@@ -21,6 +21,12 @@ export default [
     }
   },
   {
-    ignores: ['./yarn', '.yarn/*', '**/coverage/', '**/build/', '**/dist/', '**/node_modules/', '**/.docusaurus', './example']
+    ignores: ['./yarn', '.yarn/*', '**/coverage/', '**/build/', '**/dist/', '**/node_modules/', '**/.docusaurus', './example', '**/*.d.ts', '**/*.snap', 'docusaurus/']
+  },
+  {
+    files: ['packages/mock-server/**/*.js', 'packages/workflow/settings/index.js', 'packages/workflow-vite/settings/index.js', 'packages/workflow-vite/vite.config.js'],
+    rules: {
+      'unicorn/no-this-outside-of-class': 'off',
+    }
   },
 ];

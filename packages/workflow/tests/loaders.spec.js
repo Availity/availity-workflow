@@ -1,7 +1,6 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import css from '../loaders/loader-css.js';
 import scss from '../loaders/loader-scss.js';
-import less from '../loaders/loader-less.js';
 import postcss from '../loaders/loader-postcss.js';
 import images from '../loaders/rule-images.js';
 import loaders from '../loaders/index.js';
@@ -58,31 +57,6 @@ describe('loader-scss', () => {
   });
 });
 
-describe('loader-less', () => {
-  it('has development and production configs', () => {
-    expect(less).toHaveProperty('development');
-    expect(less).toHaveProperty('production');
-  });
-
-  it('test regex matches .less files', () => {
-    expect(less.development.test.test('app.less')).toBe(true);
-    expect(less.production.test.test('app.less')).toBe(true);
-    expect(less.development.test.test('app.css')).toBe(false);
-    expect(less.development.test.test('app.scss')).toBe(false);
-  });
-
-  it('development config uses style-loader as first loader', () => {
-    expect(less.development.use[0]).toBe('style-loader');
-  });
-
-  it('production config uses MiniCssExtractPlugin.loader', () => {
-    expect(less.production.use[0]).toEqual({
-      loader: MiniCssExtractPlugin.loader,
-      options: { publicPath: 'auto' },
-    });
-  });
-});
-
 describe('loader-postcss', () => {
   it('has sourceMap enabled', () => {
     expect(postcss.options.sourceMap).toBe(true);
@@ -129,10 +103,6 @@ describe('loaders index', () => {
 
   it('re-exports scss loader', () => {
     expect(loaders.scss).toBe(scss);
-  });
-
-  it('re-exports less loader', () => {
-    expect(loaders.less).toBe(less);
   });
 
   it('re-exports postcss loader', () => {

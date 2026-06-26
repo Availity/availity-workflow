@@ -17,20 +17,6 @@ exports[`webpack configs > sets up the default config with default settings 1`] 
   "module": {
     "rules": [
       {
-        "test": {},
-        "use": [
-          {
-            "loader": "imports-loader",
-            "options": {
-              "imports": [
-                "single process/browser process",
-              ],
-              "type": "commonjs",
-            },
-          },
-        ],
-      },
-      {
         "include": [
           "<ROOT>/project/app",
           {},
@@ -227,7 +213,6 @@ exports[`webpack configs > sets up the default config with default settings 1`] 
         "__PROD__": false,
         "__STAGING__": false,
         "__TEST__": true,
-        "process.env.NODE_ENV": ""test"",
       },
     },
     {
@@ -288,6 +273,7 @@ exports[`webpack configs > sets up the default config with default settings 1`] 
     {
       "options": {
         "emitError": false,
+        "exclude": null,
         "showHelp": true,
         "strict": true,
         "verbose": true,
@@ -298,6 +284,7 @@ exports[`webpack configs > sets up the default config with default settings 1`] 
       "options": {
         "cache": true,
         "cacheLocation": "<ROOT>/node_modules/.cache/.eslintcache",
+        "configType": "flat",
         "emitError": true,
         "emitWarning": true,
         "extensions": [
@@ -307,12 +294,12 @@ exports[`webpack configs > sets up the default config with default settings 1`] 
           "tsx",
           "mjs",
         ],
-        "failOnError": true,
         "resourceQueryExclude": [],
       },
     },
     {
       "options": {
+        "esModule": true,
         "exclude": {},
         "include": {},
         "overlay": {
@@ -372,6 +359,7 @@ exports[`webpack configs > sets up the default config with default settings 1`] 
     "modules": [
       "<ROOT>/node_modules",
       "<ROOT>/packages/workflow/node_modules",
+      "node_modules",
     ],
     "symlinks": true,
   },
@@ -397,21 +385,13 @@ exports[`webpack configs > sets up the production config with default settings 1
   "module": {
     "rules": [
       {
+        "resolve": {
+          "fullySpecified": false,
+        },
+        "test": {},
+      },
+      {
         "oneOf": [
-          {
-            "test": {},
-            "use": [
-              {
-                "loader": "imports-loader",
-                "options": {
-                  "imports": [
-                    "single process/browser process",
-                  ],
-                  "type": "commonjs",
-                },
-              },
-            ],
-          },
           {
             "include": [
               "<ROOT>/project/app",
@@ -427,12 +407,6 @@ exports[`webpack configs > sets up the production config with default settings 1
                 },
               },
             ],
-          },
-          {
-            "resolve": {
-              "fullySpecified": false,
-            },
-            "test": {},
           },
           {
             "test": {},
@@ -671,7 +645,6 @@ exports[`webpack configs > sets up the production config with default settings 1
         "__PROD__": false,
         "__STAGING__": false,
         "__TEST__": true,
-        "process.env.NODE_ENV": ""test"",
       },
     },
     {
@@ -732,7 +705,6 @@ exports[`webpack configs > sets up the production config with default settings 1
     {
       "_sortedModulesCache": {},
       "options": {
-        "chunkFilename": "css/[name]-[contenthash:8].chunk.css",
         "filename": "css/[name]-[contenthash:8].chunk.css",
         "ignoreOrder": false,
         "runtime": true,
@@ -783,6 +755,7 @@ exports[`webpack configs > sets up the production config with default settings 1
     "modules": [
       "<ROOT>/node_modules",
       "<ROOT>/packages/workflow/node_modules",
+      "node_modules",
     ],
     "symlinks": true,
   },
@@ -807,21 +780,13 @@ exports[`webpack configs > sets up the profile config with default settings 1`] 
   "module": {
     "rules": [
       {
+        "resolve": {
+          "fullySpecified": false,
+        },
+        "test": {},
+      },
+      {
         "oneOf": [
-          {
-            "test": {},
-            "use": [
-              {
-                "loader": "imports-loader",
-                "options": {
-                  "imports": [
-                    "single process/browser process",
-                  ],
-                  "type": "commonjs",
-                },
-              },
-            ],
-          },
           {
             "include": [
               "<ROOT>/project/app",
@@ -837,12 +802,6 @@ exports[`webpack configs > sets up the profile config with default settings 1`] 
                 },
               },
             ],
-          },
-          {
-            "resolve": {
-              "fullySpecified": false,
-            },
-            "test": {},
           },
           {
             "test": {},
@@ -1081,7 +1040,6 @@ exports[`webpack configs > sets up the profile config with default settings 1`] 
         "__PROD__": false,
         "__STAGING__": false,
         "__TEST__": true,
-        "process.env.NODE_ENV": ""test"",
       },
     },
     {
@@ -1142,7 +1100,6 @@ exports[`webpack configs > sets up the profile config with default settings 1`] 
     {
       "_sortedModulesCache": {},
       "options": {
-        "chunkFilename": "css/[name]-[contenthash:8].chunk.css",
         "filename": "css/[name]-[contenthash:8].chunk.css",
         "ignoreOrder": false,
         "runtime": true,
@@ -1152,6 +1109,7 @@ exports[`webpack configs > sets up the profile config with default settings 1`] 
       },
     },
     {
+      "compiler": null,
       "logger": {
         "activeLevels": {},
       },
@@ -1159,6 +1117,7 @@ exports[`webpack configs > sets up the profile config with default settings 1`] 
         "analyzerHost": "127.0.0.1",
         "analyzerMode": "static",
         "analyzerPort": 8888,
+        "compressionAlgorithm": "gzip",
         "defaultSizes": "parsed",
         "excludeAssets": null,
         "generateStatsFile": false,
@@ -1167,7 +1126,6 @@ exports[`webpack configs > sets up the profile config with default settings 1`] 
         "reportFilename": "profile.html",
         "startAnalyzer": true,
         "statsFilename": "stats.json",
-        "statsOptions": null,
       },
       "server": null,
     },
@@ -1221,6 +1179,7 @@ exports[`webpack configs > sets up the profile config with default settings 1`] 
     "modules": [
       "<ROOT>/node_modules",
       "<ROOT>/packages/workflow/node_modules",
+      "node_modules",
     ],
     "symlinks": true,
   },

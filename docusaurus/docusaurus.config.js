@@ -25,7 +25,7 @@ module.exports = {
       defaultMode: 'dark',
       // Should we use the prefers-color-scheme media-query,
       // using user system preferences, instead of the hardcoded defaultMode
-      respectPrefersColorScheme: true
+      respectPrefersColorScheme: true,
     },
 
     navbar: {
@@ -35,35 +35,35 @@ module.exports = {
         alt: 'Availity Docs Logo',
         src: 'img/icon.png',
         href: 'https://availity.github.io',
-        target: '_self'
+        target: '_self',
       },
       items: [
         {
           to: 'https://availity.github.io/availity-react',
           target: '_self',
           label: 'React',
-          position: 'right'
+          position: 'right',
         },
         {
           to: 'https://availity.github.io/sdk-js',
           target: '_self',
           label: 'SDK-JS',
-          position: 'right'
+          position: 'right',
         },
         {
           to: '/', // availity.github.io/availity-workflow, this repo
           label: 'Workflow',
-          position: 'right'
+          position: 'right',
         },
         {
           href: 'https://github.com/availity/availity-workflow',
           position: 'right',
           className: 'header-github-link',
-          'aria-label': 'GitHub repository'
-        }
-      ]
+          'aria-label': 'GitHub repository',
+        },
+      ],
     },
-    footer: {}
+    footer: {},
   },
   presets: [
     [
@@ -73,13 +73,13 @@ module.exports = {
           // It is recommended to set document id as docs home page (`docs/` path).
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/availity/availity-workflow/edit/master/docusaurus/'
+          editUrl: 'https://github.com/availity/availity-workflow/edit/master/docusaurus/',
         },
 
         theme: {
-          customCss: require.resolve('./src/css/custom.css')
-        }
-      }
-    ]
-  ]
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+      },
+    ],
+  ],
 };

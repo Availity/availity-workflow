@@ -1,9 +1,7 @@
-import settings from '../settings/index.js';
+import Settings from '../settings/index.js';
 import baseConfig from '../webpack.config.js';
 import prodConfig from '../webpack.config.production.js';
 import profileConfig from '../webpack.config.profile.js';
-import buildViteConfig from '../vite.config.js';
-import buildViteProductionConfig from '../vite.config.production.js';
 
 const NOW = '2023-03-28T16:07:07.909Z';
 
@@ -14,9 +12,11 @@ function stabilizePaths(obj) {
 }
 
 describe('webpack configs', () => {
+  let settings;
+
   beforeAll(async () => {
     vi.spyOn(global.Date.prototype, 'toJSON').mockImplementation(() => NOW);
-    await settings.init();
+    settings = await Settings.create();
   });
 
   it('sets up the default config with default settings', () => {
@@ -36,21 +36,4 @@ describe('webpack configs', () => {
   });
 });
 
-describe('vite configs', () => {
-  beforeAll(async () => {
-    await settings.init();
-  });
 
-  it('resolves the vite dev config without ERR_REQUIRE_ESM', async () => {
-    const config = await buildViteConfig(settings);
-    expect(config).toBeDefined();
-    expect(config.root).toBeDefined();
-    expect(config.plugins.length).toBeGreaterThan(0);
-  });
-
-  it('resolves the vite production config without ERR_REQUIRE_ESM', async () => {
-    const config = await buildViteProductionConfig(settings);
-    expect(config).toBeDefined();
-    expect(config.build).toBeDefined();
-  });
-});

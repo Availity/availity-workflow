@@ -1,23 +1,22 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
     "allowJs": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./project/app/*"]
-    },
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "paths": { "@/*": ["./project/app/*"] },
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "ESNext"],
+    "types": ["@availity/workflow/globals"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
+    "module": "ESNext",
     "jsx": "react-jsx",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true
-  }
+  },
+  "include": ["project"]
 }

@@ -1,6 +1,6 @@
-import { createRequire } from 'module';
-import path from 'path';
-import { existsSync } from 'fs';
+import { createRequire } from 'node:module';
+import path from 'node:path';
+import { existsSync } from 'node:fs';
 
 const require = createRequire(import.meta.url);
 
@@ -14,6 +14,15 @@ function create(settings) {
   const jestInitExists = existsSync(jestInitPath);
 
   const setupFiles = [];
+
+  // Auto-register @testing-library/jest-dom matchers if installed
+  try {
+    require.resolve('@testing-library/jest-dom/vitest');
+    setupFiles.push('@testing-library/jest-dom/vitest');
+  } catch {
+    // not installed — skip
+  }
+
   if (setupFilesExist) {
     setupFiles.push(setupFilesPath);
   }
@@ -29,7 +38,7 @@ function create(settings) {
 
   // Allow developers to add their own node_modules include path
   const userInclude = settings.configuration.development.babelInclude;
-  const includes = ['@av', 'axios', '@tanstack', 'is-what', 'copy-anything', ...userInclude].join('|');
+  const includes = ['@av', 'axios', '@tanstack', 'is-what', 'copy-anything', 'dayjs', ...userInclude].join('|');
 
   // Build define map from settings.globals()
   const globals = settings.globals();
@@ -43,8 +52,8 @@ function create(settings) {
     define,
     resolve: {
       alias: {
-        '@/': `${settings.app()}/`
-      }
+        '@/': `${settings.app()}/`,
+      },
     },
     test: {
       globals: true,
@@ -54,12 +63,10 @@ function create(settings) {
       // the default forks pool which spawns new processes per test file
       pool: 'vmThreads',
 
-      setupFiles,
-      // Vitest equivalent of setupFilesAfterEnv
-      ...(setupFilesAfterEnv.length > 0 ? { setupFiles: [...setupFiles, ...setupFilesAfterEnv] } : {}),
+      setupFiles: [...setupFiles, ...setupFilesAfterEnv],
       include: [
         '!(build|docs|dist|node_modules|scripts)/**/__tests__/**/*.(js|ts|tsx)?(x)',
-        '!(build|docs|dist|node_modules|scripts)/**/*(*.)(spec|test).(js|ts|tsx)?(x)'
+        '!(build|docs|dist|node_modules|scripts)/**/*(*.)(spec|test).(js|ts|tsx)?(x)',
       ],
       exclude: [
         '.vscode/**',
@@ -71,7 +78,7 @@ function create(settings) {
         'observability/**',
         'scripts/**',
         'static/**',
-        'wiremock/**'
+        'wiremock/**',
       ],
 
       // Skip CSS processing entirely in tests — jest returns empty objects for CSS imports,
@@ -85,7 +92,7 @@ function create(settings) {
         provider: 'v8',
         reportsDirectory: './reports',
         include: ['project/app/**/*.{js,jsx,ts,tsx}'],
-        exclude: ['node_modules/', 'coverage/', 'dist/', 'build/']
+        exclude: ['node_modules/', 'coverage/', 'dist/', 'build/'],
       },
       // Equivalent to Jest's transformIgnorePatterns — deps that need transformation
       deps: {
@@ -93,11 +100,11 @@ function create(settings) {
         // Pre-bundle test dependencies for faster startup
         optimizer: {
           web: {
-            enabled: true
-          }
-        }
-      }
-    }
+            enabled: true,
+          },
+        },
+      },
+    },
   };
 
   // Merge in user jest overrides that are compatible with vitest
@@ -115,6 +122,12 @@ function create(settings) {
     if (testTimeout) {
       config.test.testTimeout = testTimeout;
     }
+  }
+
+  // Apply vitestOverrides — merged directly into test config
+  const { vitestOverrides } = settings.configuration.development;
+  if (vitestOverrides && Object.keys(vitestOverrides).length > 0) {
+    Object.assign(config.test, vitestOverrides);
   }
 
   return config;

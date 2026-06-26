@@ -1,24 +1,18 @@
 import opn from 'open';
 import chalk from 'chalk';
 import Logger from '@availity/workflow-logger';
-import settings from '../settings/index.js';
 
-function open() {
-  if (settings.open()) {
-    try {
-      const port = settings.port();
-      const url = settings.open() || '';
-      const host = settings.host();
+function open(settings) {
+  const openPath = settings.open();
+  if (!openPath) return;
 
-      const uri = new URL(url, `http://${host}:${port}/`).href;
-      opn(uri);
-      Logger.info(`Opening browser at ${chalk.green(uri)}`);
-    } catch {
-      // Ignore errors.
-    }
+  try {
+    const uri = new URL(openPath, `http://${settings.host()}:${settings.port()}/`).href;
+    opn(uri);
+    Logger.info(`Opening browser at ${chalk.green(uri)}`);
+  } catch (error) {
+    Logger.warn(`Failed to open browser: ${error.message}`);
   }
-
-  return Promise.resolve(true);
 }
 
 export default open;

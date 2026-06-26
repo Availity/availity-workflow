@@ -4,12 +4,9 @@ gen_enforced_dependency(WorkspaceCwd, DependencyIdent, 'workspace:*', Dependency
   workspace_ident(_, DependencyIdent),
   workspace_has_dependency(WorkspaceCwd, DependencyIdent, _, DependencyType).
 
-% Prevent two workspaces from depending on conflicting versions on the same dependency
-% This is useful for avoiding resolution bugs when multiple workspaces of the same package are installed
-gen_enforced_dependency(WorkspaceCwd, DependencyIdent, DependencyRange2, DependencyType) :-
-  workspace_has_dependency(WorkspaceCwd, DependencyIdent, DependencyRange, DependencyType),
-  workspace_has_dependency(OtherWorkspaceCwd, DependencyIdent, DependencyRange2, DependencyType2),
-  DependencyRange \= DependencyRange2.
+% Enforce ESM - all packages must declare type: module
+gen_enforced_field(WorkspaceCwd, 'type', 'module') :-
+    WorkspaceCwd \= 'docusaurus'.
 
-gen_enforced_dependency(WorkspaceCwd, 'lodash', '^4.17.21', DependencyType) :-
-  workspace_has_dependency(WorkspaceCwd, 'lodash', _, DependencyType).
+% Enforce minimum Node version
+gen_enforced_field(WorkspaceCwd, 'engines.node', '>=22.0.0').

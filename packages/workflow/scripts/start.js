@@ -1,10 +1,8 @@
-/* eslint-disable unicorn/no-useless-promise-resolve-reject */
 import Logger from '@availity/workflow-logger';
 import chalk from 'chalk';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import deepMerge from '../helpers/deep-merge.js';
-import settings from '../settings/index.js';
 import webpackConfigBase from '../webpack.config.js';
 import webpackConfigProduction from '../webpack.config.profile.js';
 
@@ -12,8 +10,12 @@ import proxy from './proxy.js';
 import open from './open.js';
 import formatWebpackMessages from './format.js';
 
-let server;
-let ekko;
+process.on('unhandledRejection', (reason) => {
+  if (reason && reason.stack) {
+    Logger.error(reason.stack);
+    Logger.empty();
+  }
+});
 
 function once(fn) {
   let called = false;
@@ -27,7 +29,7 @@ function once(fn) {
   };
 }
 
-const startupMessage = once(() => {
+function showStartupMessage(settings) {
   const wantedPort = settings.config().development.port;
   const actualPort = settings.port();
   const differentPort = wantedPort !== actualPort;
@@ -42,61 +44,46 @@ ${chalk.yellow.bold('Warning:')} Port ${chalk.blue(wantedPort)} was already in u
         : ''
     }`
   );
-});
-
-function init() {
-  settings.log();
 }
 
-async function rest() {
-  if (settings.isEkko()) {
-    const ekkoOptions = {
-      data: settings.config().ekko.data,
-      routes: settings.config().ekko.routes,
-      plugins: settings.config().ekko.plugins,
-      port: settings.ekkoPort(),
-      host: settings.host(),
-      pluginContext: settings.config().ekko.pluginContext,
-      logProvider() {
-        return {
-          log(...args) {
-            Logger.log(args);
-          },
-          debug(...args) {
-            Logger.debug(args);
-          },
-          info(...args) {
-            Logger.info(args);
-          },
-          warn(...args) {
-            Logger.warn(args);
-          },
-          error(...args) {
-            Logger.error(args);
-          }
-        };
-      }
-    };
+async function rest(settings) {
+  if (!settings.isEkko()) return;
 
-    try {
-      const { default: Ekko } = await import('@availity/mock-server');
-      ekko = new Ekko();
-      return ekko.start(ekkoOptions);
-    } catch {
-      Logger.error(
-        "Failed to create Ekko Server. Please install '@availity/mock-server' with `yarn install @availity/mock-server --dev` or check your settings"
-      );
+  const ekkoOptions = {
+    data: settings.config().ekko.data,
+    routes: settings.config().ekko.routes,
+    plugins: settings.config().ekko.plugins,
+    port: settings.ekkoPort(),
+    host: settings.host(),
+    pluginContext: settings.config().ekko.pluginContext,
+    logProvider() {
+      return {
+        log(...args) { Logger.log(args); },
+        debug(...args) { Logger.debug(args); },
+        info(...args) { Logger.info(args); },
+        warn(...args) { Logger.warn(args); },
+        error(...args) { Logger.error(args); },
+      };
     }
-  }
+  };
 
-  return Promise.resolve();
+  try {
+    const { default: Ekko } = await import('@availity/mock-server');
+    const ekko = new Ekko();
+    await ekko.start(ekkoOptions);
+  } catch (error) {
+    Logger.error(
+      "Failed to create Ekko Server. Please install '@availity/mock-server' with `yarn install @availity/mock-server --dev` or check your settings"
+    );
+    Logger.error(error.message || error);
+  }
 }
 
-function web() {
+function web(settings) {
   return new Promise((resolve, reject) => {
     let previousPercent;
     let webpackConfig;
-    // Allow production version to run in development
+
     if (settings.isDryRun() && settings.isDevelopment()) {
       Logger.message('Using production webpack settings', 'Dry Run');
       webpackConfig = webpackConfigProduction(settings);
@@ -128,22 +115,14 @@ function web() {
       Logger.info('Started compiling');
     });
 
-    const openBrowser = once(open);
+    const startupMessage = once(() => showStartupMessage(settings));
+    const openBrowser = once(() => open(settings));
 
     compiler.hooks.done.tap('done', (stats) => {
-      const hasErrors = stats.hasErrors();
-
-      // https://webpack.js.org/configuration/stats/
       const json = stats.toJson({}, true);
       const messages = formatWebpackMessages(json);
 
-      if (!hasErrors) {
-        startupMessage();
-        openBrowser();
-        return resolve();
-      }
-
-      if (hasErrors) {
+      if (stats.hasErrors()) {
         for (const error of messages.errors) {
           Logger.empty();
           Logger.simple(`${chalk.red(error)}`);
@@ -152,10 +131,12 @@ function web() {
 
         Logger.failed('Failed compiling');
         Logger.empty();
-        return reject(json.errors);
+        reject(new Error(json.errors[0]));
+        return;
       }
 
-      return resolve();
+      startupMessage();
+      openBrowser();
     });
 
     const defaults = {
@@ -163,7 +144,8 @@ function web() {
         logging: settings.infrastructureLogLevel(),
         overlay: {
           warnings: false,
-          errors: false
+          errors: true,
+          runtimeErrors: true,
         }
       },
 
@@ -171,7 +153,6 @@ function web() {
 
       historyApiFallback: settings.historyFallback(),
 
-      // Enable gzip compression of generated files.
       compress: true,
 
       hot: settings.enableHotLoader(),
@@ -188,13 +169,13 @@ function web() {
     };
 
     const devServerOptions = deepMerge(defaults, settings.config().development.webpackDevServer);
-    const proxyConfig = proxy();
+    const proxyConfig = proxy(settings);
 
     if (proxyConfig) {
       devServerOptions.proxy = proxyConfig;
     }
 
-    server = new WebpackDevServer(devServerOptions, compiler);
+    const server = new WebpackDevServer(devServerOptions, compiler);
 
     const runServer = async () => {
       try {
@@ -209,75 +190,14 @@ function web() {
       }
     };
 
-    try {
-      runServer();
-    } catch (error) {
-      Logger.failed(error);
-    }
+    runServer();
   });
 }
 
-async function webVite() {
-  const { createServer } = await import('vite');
-  const { default: buildViteConfig } = await import('../vite.config.js');
-
-  let viteConfig = await buildViteConfig(settings);
-
-  const { modifyViteConfig } = settings.config();
-  if (typeof modifyViteConfig === 'function') {
-    viteConfig = modifyViteConfig(viteConfig, settings) || viteConfig;
-  }
-
-  try {
-    Logger.info('Starting Vite development server');
-    const viteServer = await createServer(viteConfig);
-    await viteServer.listen();
-
-    const wantedPort = settings.config().development.port;
-    const actualPort = settings.port();
-    const differentPort = wantedPort !== actualPort;
-    const uri = `http://${settings.host()}:${actualPort}/`;
-
-    Logger.box(
-      `The app ${chalk.yellow(settings.pkg().name)} is running at ${chalk.green(uri)}${
-        differentPort
-          ? `\n${chalk.yellow.bold('Warning:')} Port ${chalk.blue(wantedPort)} was already in use so we used ${chalk.blue(actualPort)}.`
-          : ''
-      }`
-    );
-
-    viteServer.printUrls();
-    Logger.info('Started Vite development server');
-  } catch (error) {
-    Logger.failed('Failed to start Vite development server');
-    Logger.failed(error);
-    throw error;
-  }
-}
-
-async function start() {
-  process.on('unhandledRejection', (reason) => {
-    if (reason && reason.stack) {
-      Logger.error(reason.stack);
-      Logger.empty();
-    }
-  });
-
-  try {
-    init();
-    if (settings.isVite()) {
-      await webVite();
-    } else {
-      await web();
-    }
-    // TODO: implement an update-notifier
-    // await notifier();
-    await rest();
-  } catch (error) {
-    Logger.failed(`${error}
-
-    Stack: ${error.stack}`);
-  }
+async function start({ settings }) {
+  settings.log();
+  await web(settings);
+  await rest(settings);
 }
 
 export default start;

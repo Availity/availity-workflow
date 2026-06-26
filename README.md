@@ -57,36 +57,74 @@ CLI options are documented in it's [README](./packages/workflow/README.md)
 `workflow` can be configured using a javascript or yaml configuration file called `workflow.js` or `workflow.yml`.
 `workflow.js` or `workflow.yml` lives in `<application_root>/project/config/workflow.js`
 
+### TypeScript Support
+
+You can get IntelliSense and type checking in your `workflow.js` file using JSDoc type annotations:
+
+```js
+/** @type {import('@availity/workflow').WorkflowConfig} */
+export default {
+    development: {
+        port: 3000,
+        hotLoader: true,
+    },
+    app: {
+        title: 'My App',
+    },
+};
+```
+
+Or with the function form:
+
+```js
+/** @type {import('@availity/workflow').WorkflowConfigFunction} */
+export default (config) => {
+    config.development.open = '/';
+    return config;
+};
+```
+
+For Vite-based projects, use `@availity/workflow-vite` instead:
+
+```js
+/** @type {import('@availity/workflow-vite').WorkflowViteConfig} */
+export default {
+    development: {
+        port: 3000,
+    },
+};
+```
+
 **Example:**
 
 ```js
-module.exports = {
+export default {
     development: {
-        notification: true
-        hotLoader: true
+        notification: true,
+        hotLoader: true,
     },
     app: {
-        title: 'My Awesome App'
-    }
+        title: 'My Awesome App',
+    },
     mock: {
         latency: 300,
-        port: 9999
+        port: 9999,
     },
     proxies: [
         {
             context: '/api',
-            target: `http://localhost:9999`,
+            target: 'http://localhost:9999',
             enabled: true,
             logLevel: 'info',
             pathRewrite: {
-            '^/api': ''
+                '^/api': '',
             },
             headers: {
-                RemoteUser: 'janedoe'
-            }
-        }
-    ]
-}
+                RemoteUser: 'janedoe',
+            },
+        },
+    ],
+};
 ```
 
 `workflow` can also be configured using `package.json`:
@@ -109,18 +147,16 @@ module.exports = {
 If `workflow.js` exports a function it can be used to override properties from the default configuration. The function must return a configuration.
 
 ```js
-function merge(config) {
+export default function merge(config) {
     config.development.open = '#/foo';
     return config;
 }
-
-module.exports = merge;
 ```
 
 or
 
 ```js
-module.exports = (config) => {
+export default (config) => {
     config.development.open = '/';
     config.development.hotLoader = true;
 
@@ -185,7 +221,9 @@ When starting the dev server using production settings as a dry run, `yarn start
 
 #### `development.jestOverrides`
 
-Customize any available jest configuration option. See https://jestjs.io/docs/configuration#reference for list of configuration options. Uses lodash merge to deeply merge user config object with defaults.
+> **Deprecated**: This option is maintained for backward compatibility. Use `development.vitestOverrides` instead.
+
+Customize Vitest configuration options. Uses lodash merge to deeply merge user config object with defaults.
 
 **Ex:**:
 
@@ -229,6 +267,10 @@ If your project's `package.json` contains a `browserslist` entry, that will be u
 #### `development.babelInclude`
 
 Include additional packages from `node_modules` that should be compiled by Babel and Webpack. The default is to compile all packages that are prefixed with `@av/`
+
+#### `development.suppressDeprecationWarnings`
+
+Suppress Node.js deprecation warnings during builds. Default is `false`. Enable this if third-party dependencies emit noisy deprecation warnings that you cannot resolve.
 
 #### `development.experiments`
 
@@ -474,14 +516,12 @@ const modifyWebpackConfig = (webpackConfig) => {
     return webpackConfig;
 };
 
-function config(config) {
+export default (config) => {
     config.modifyWebpackConfig = modifyWebpackConfig;
     // ...rest of custom workflow config
 
     return config;
-}
-
-module.exports = config;
+};
 ```
 
 Now the runtime issue has been resolved! Note that this only polyfills `process` for the one package that needs it, instead of all packages. Some packages may rely on the existence of `process` to determine what type of environment they are running in, in those cases we probably wouldn't want to make `process` available to them.
@@ -507,7 +547,7 @@ Most packages will ship transpiled, but more and more are starting to drop IE 11
 This approach, requiring the least amount of investigating, is to develop locally against modern targets, then use a combination of `yarn build:production`, `yarn start --dry-run`, and something like below inside `workflow.js` to allow you to test what the production-like code will look like in IE 11.
 
 ```js
-const path = require('path');
+import path from 'node:path';
 
 // ...
 
@@ -530,24 +570,16 @@ This will instruct the webpackDevServer to serve content from your `dist` folder
 
 ### **END DEPRECATED IE 11 SECTION**
 
-### How to integrate with Visual Studio Code's [Jest plugin](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)?
+### How to integrate with Visual Studio Code's [Vitest plugin](https://marketplace.visualstudio.com/items?itemName=vitest.explorer)?
 
-Create `./vscode/settings.json` file with the following configuration:
-
-```json
-{
-    "jest.pathToJest": "npm test -- --runInBand"
-}
-```
-
-**Note**: The Jest plugin will still warn about Jest 20+ features missing but it doesn't appear to affect the plugins's functionality
+The Vitest VS Code extension should auto-detect your configuration. No additional setup is required.
 
 ### How to setup a development environment to match the deployment environment?
 
 Update `workflow.js` using the configuration below:
 
 ```js
-module.exports = (config) => {
+export default (config) => {
     config.proxies = [
         {
             context: ['/api/**', '/ms/**', '!/api/v1/proxy/healthplan/**'],

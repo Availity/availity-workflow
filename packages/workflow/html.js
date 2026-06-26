@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 const html = (settings) => {
   const workflowTemplate = path.join(import.meta.dirname, './public/index.html');
@@ -10,7 +10,7 @@ const html = (settings) => {
   const config = {
     template: settings.asset(workflowTemplate, projectTemplate),
     favicon: settings.asset(workflowFavicon, projectFavicon),
-    title: settings.title()
+    title: settings.title(),
   };
 
   return config;

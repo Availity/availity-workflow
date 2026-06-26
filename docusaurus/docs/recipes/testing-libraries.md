@@ -2,64 +2,67 @@
 title: Testing Libraries
 ---
 
-By default `@testing-library/react` and `@testing-library/jest-dom/extend-expect` are added to the project. Some of their scripts are also automatically added to the `setupFilesAfterEnv` param for jest [here](https://github.com/Availity/availity-workflow/blob/master/packages/workflow/jest.config.js#L38).
+`@availity/workflow` uses Vitest as its test runner. Tests run via `av test` or `yarn test`.
 
--   `@testing-library/react/cleanup-after-each` - Will clean up the DOM after each test has ran.
--   `@testing-library/jest-dom/extend-expect` - Custom jest matchers that you can use to extend jest
+## Included Libraries
 
-If you want to override this you can create a file in the `/app` directory called `jest.init.js` and export whichever modules you want.
+- **`vitest`** — test runner and assertion library
+- **`@testing-library/react`** — React component testing utilities
+- **`@testing-library/jest-dom`** — custom DOM matchers (works with Vitest)
+- **`jsdom`** — browser environment for tests
 
-## Example
+## Setup
 
-```javascript
-module.exports = ['@testing-library/react/cleanup-after-each', '@testing-library/jest-dom/extend-expect'];
-```
-
-More Info on Jest `setupFilesAfterEnv` [here](https://jestjs.io/docs/en/configuration#setupfilesafterenv-array)
-
-### Mocking API Responses
-
-If your tests require data that's supplied by an external data source, you can use the `jest.mock(...)` function to automatically mock the modules used to supply the data.
-
-Once you've mocked the module, you can provide a `mockResolvedValue` that returns the data you want to use for your test.
-
-## Example
-
-```javascript
-import React from 'react';
-import axiosMock from 'axios';
-import slotmachineResponse from '../data/slotmachine.json';
-
-jest.mock('axios');
-
-axiosMock.mockResolvedValue({
-    config: { polling: false },
-    data: slotmachineResponse,
-    status: 202,
-    statusText: 'Ok'
-});
-```
-
-More info on using mocks in Jest [here](https://jestjs.io/docs/en/mock-functions)
-
-## Vite Support
-
-Vite and Vitest are available as an alternative to Webpack and Jest. Jest tests are generally compatible with vitest tests. For more information, see [Vitest's migration documentation](https://vitest.dev/guide/migration.html#jest). 
-
-### Opting into Vite + Vitest
-
-To opt in, set `bundler: 'vite'` in your `project/config/workflow.js`:
+Create a `vitest.setup.js` file at your project root to add global test configuration:
 
 ```js
-module.exports = (config) => {
-  config.bundler = 'vite';
-  // testRunner is automatically set to 'vitest' when bundler is 'vite'
+import '@testing-library/jest-dom/vitest';
+```
 
-  // Modify Vite config if needed (equivalent to modifyWebpackConfig)
-  config.modifyViteConfig = (viteConfig, settings) => {
-    return viteConfig;
+Then reference it in `workflow.js`:
+
+```js
+export default (config) => {
+  config.development.vitestOverrides = {
+    setupFiles: ['./vitest.setup.js'],
   };
-
   return config;
 };
 ```
+
+## Example Test
+
+```jsx
+import { render, screen } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
+import App from './App';
+
+describe('App', () => {
+  it('renders heading', () => {
+    render(<App />);
+    expect(screen.getByRole('heading')).toBeInTheDocument();
+  });
+});
+```
+
+## Mocking API Responses
+
+```js
+import { vi, describe, it, expect } from 'vitest';
+
+vi.mock('axios');
+
+describe('data fetching', () => {
+  it('fetches user data', async () => {
+    const axios = await import('axios');
+    axios.default.get.mockResolvedValue({ data: { name: 'Jane' } });
+    // ... test component that calls axios
+  });
+});
+```
+
+## More Info
+
+- [Vitest Guide](https://vitest.dev/guide/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- [Migrating from Jest](https://vitest.dev/guide/migration.html#jest)

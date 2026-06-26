@@ -12,6 +12,8 @@
     -   [profile](#profile)
     -   [test](#test)
 
+> **Note:** For Vite-based projects, use [`@availity/workflow-vite`](../workflow-vite/README.md) instead. It provides the same CLI commands powered by Vite and Vitest.
+
 ## NPM
 
 > NPM requires `--` between the command and options
@@ -46,7 +48,7 @@ Show help menu for all CLI options.
 
 ### `start`
 
-Start the development server and watches for file changes. Hot-reloading is enabled for React projects. Angular projects hot reload CSS only.
+Start the development server and watches for file changes. Hot-reloading is enabled via Fast Refresh.
 
 #### options
 
@@ -143,26 +145,21 @@ css-loader: 2.14 KB (0.157%)
 
 ### `test`
 
-Run the tests for your project. The behavior of the test are determined by the plugin used in the workflow engine. The engine supports `@availity/workflow-plugin-react` (Jest) and `@availity/workflow-plugin-angular` (Karma and Chrome|Firefox|IE) plugins.
+Run the tests for your project using Vitest.
 
 #### options
 
 ##### `--coverage`
 
-Indicates that test coverage information should be collected and reported in the output. React project leverage the `--coverage` option from Jest. Angular projects use Instanbul to collect coverage metrics. Angular projects output coverage statistics to the console as well as html files in the `{workspaces}/coverage` folder.
+Indicates that test coverage information should be collected and reported in the output using `@vitest/coverage-v8`.
 
 ```bash
-› Started testing
-Chrome 59.0.3071 (Mac OS X 10.12.5): Executed 3 of 3 SUCCESS (0.706 secs / 0.082 secs)
-
-=============================== Coverage summary ===============================
-Statements   : 27.69% ( 8620/31134 )
-Branches     : 9.81% ( 1980/20189 )
-Functions    : 22.15% ( 1381/6235 )
-Lines        : 27.23% ( 7955/29217 )
-================================================================================
-✔ Finished testing
+av test --coverage
 ```
+
+##### `--watch`
+
+Watch files for changes and rerun tests related to changed files.
 
 ### `about`
 

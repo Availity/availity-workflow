@@ -1,48 +1,49 @@
 ---
-title: Adding Typescript Support
+title: Adding TypeScript Support
 ---
 
-Step by step for adding typescript to workflow.
-
-> Note that the below recipe only works in Workflow Versions `>=7.0.0`
-
-Adding in [Typescript](https://www.typescriptlang.org/) to an existing project is close to the same as [create-react-app](https://create-react-app.dev/docs/adding-typescript).
+Both `@availity/workflow` and `@availity/workflow-vite` support TypeScript out of the box.
 
 ## Install Dependencies
 
 ```bash
-yarn add typescript @types/node @types/react @types/react-dom @types/jest --dev
+yarn add typescript @types/node @types/react @types/react-dom --dev
 ```
 
-Once installed, all files need to be renamed from `.js/.jsx` to `.tsx`.
+## Add tsconfig.json
 
-## Adding the TsConfig
+Create a `tsconfig.json` at the root of your project:
 
-Also noted on the previous section. We use the tsconfig for vscode to let us intellisense the root imports and in this case also experimental decorators. Add the below file to the root of you project workspace.
-
-```json header=tsconfig.json
+```json
 {
-    "compilerOptions": {
-        "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": true,
-        "jsx": "react",
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["./project/app/*"]
-        }
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./project/app/*"]
     }
+  },
+  "include": ["project/app"]
 }
 ```
 
+## Rename Files
+
+Rename your source files from `.js`/`.jsx` to `.ts`/`.tsx`.
+
 ## Try it Out
+
+Run `yarn start` — TypeScript errors will appear as overlay warnings in the browser during development, and will fail the build in production.

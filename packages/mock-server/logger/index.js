@@ -40,7 +40,6 @@ class DefaultLogger {
 
 class Logger {
   constructor() {
-    this.provider = null;
     this.setProvider(() => new DefaultLogger());
   }
 
@@ -83,6 +82,8 @@ class Logger {
       this.provider.log(entry);
     }
   }
+
+  provider = null;
 }
 
 export default {
@@ -93,5 +94,5 @@ export default {
     }
 
     return loggerInstance;
-  }
+  },
 };

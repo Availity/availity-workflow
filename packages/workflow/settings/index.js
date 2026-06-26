@@ -1,135 +1,209 @@
-/* eslint-disable import/no-dynamic-require */
-import { createRequire } from 'module';
-import path from 'path';
+import path from 'node:path';
+import fs from 'node:fs';
 import Logger from '@availity/workflow-logger';
 import chalk from 'chalk';
-import fs, { existsSync } from 'fs';
-import yargs from 'yargs';
-import getPort, { portNumbers } from 'get-port';
-import Joi from 'joi';
 import deepMerge from '../helpers/deep-merge.js';
 import paths from '../helpers/paths.js';
-import schema from './schema.js';
+import resolveConfig from './config.js';
+import resolveRuntime from './runtime.js';
 
-const require = createRequire(import.meta.url);
-
-function argv() {
-  return yargs(process.argv.slice(2)).argv;
-}
-
-function stringify(obj) {
+/** Recursively JSON.stringify string values that aren't already valid JSON (for webpack DefinePlugin). */
+function stringifyValues(obj) {
+  const result = {};
   for (const [key, value] of Object.entries(obj)) {
     if (typeof value === 'string') {
       try {
         JSON.parse(value);
-        obj[key] = value;
+        result[key] = value;
       } catch {
-        obj[key] = JSON.stringify(value);
+        result[key] = JSON.stringify(value);
       }
     } else if (typeof value === 'object' && value !== null && typeof value !== 'function') {
-      stringify(value);
+      result[key] = stringifyValues(value);
+    } else {
+      result[key] = value;
     }
   }
-  return obj;
+  return result;
 }
 
-const settings = {
-  // Cache these values
-  configuration: null,
-  workflowConfigPath: null,
-  devServerPort: null,
-  ekkoServerPort: null,
+export default class Settings {
+  // -- State --
+  configuration = null;
+
+  workflowConfigPath = null;
+
+  devServerPort = null;
+
+  ekkoServerPort = null;
+
+  shouldMimicStaging = false;
+
+  _version = undefined;
+
+  #pkg = null;
+
+  #argv = null;
+
+  constructor(argv = {}) {
+    this.#argv = argv;
+  }
+
+  argv() {
+    return this.#argv;
+  }
+
+  /**
+   * Async factory — use this instead of new Settings().
+   * @param {{ shouldMimicStaging?: boolean, argv?: object }} options
+   * @returns {Promise<Settings>}
+   */
+  static async create({ shouldMimicStaging, argv = {} } = {}) {
+    const instance = new Settings(argv);
+    instance.shouldMimicStaging = shouldMimicStaging;
+
+    await instance.loadPkg();
+
+    const { configuration, workflowConfigPath } = await resolveConfig({
+      pkg: instance.pkg(),
+      argv: instance.argv(),
+    });
+
+    instance.configuration = configuration;
+    instance.workflowConfigPath = workflowConfigPath;
+
+    // Validate globals early
+    try {
+      instance.globals();
+    } catch (error) {
+      Logger.failed(`There was an error initializing globals. See details below:\n\n${error.message}`);
+      throw error;
+    }
+
+    // Resolve ports
+    const { devServerPort, ekkoServerPort } = await resolveRuntime(instance.configuration, instance.host());
+    instance.devServerPort = devServerPort;
+    instance.ekkoServerPort = ekkoServerPort;
+
+    return instance;
+  }
+
+  // -- Path accessors --
 
   app() {
     return paths.app;
-  },
+  }
+
+  project() {
+    return paths.project;
+  }
+
+  output() {
+    return this.isDistribution() ? path.join(this.project(), 'dist') : path.join(this.project(), 'build');
+  }
+
+  // -- Package --
+
+  pkg() {
+    if (!this.#pkg) {
+      this.#pkg = JSON.parse(fs.readFileSync(path.join(this.project(), 'package.json'), 'utf8'));
+    }
+    return this.#pkg;
+  }
+
+  async loadPkg() {
+    if (!this.#pkg) {
+      const content = await fs.promises.readFile(path.join(this.project(), 'package.json'), 'utf8');
+      this.#pkg = JSON.parse(content);
+    }
+    return this.#pkg;
+  }
+
+  // -- Config accessors --
+
+  config() {
+    return this.configuration;
+  }
+
+  title() {
+    return this.configuration?.app?.title ?? 'Availity';
+  }
+
+  host() {
+    return this.configuration?.development?.host ?? '0.0.0.0';
+  }
+
+  port() {
+    return this.devServerPort;
+  }
+
+  ekkoPort() {
+    return this.ekkoServerPort;
+  }
+
+  open() {
+    return this.configuration?.development?.open;
+  }
+
+  historyFallback() {
+    return this.configuration?.development?.historyFallback ?? true;
+  }
+
+  isNotifications() {
+    return this.configuration?.development?.notification ?? true;
+  }
+
+  enableHotLoader() {
+    const isHot = this.configuration?.development?.hotLoader ?? true;
+    if (typeof isHot === 'object') return isHot.enabled || false;
+    return isHot;
+  }
+
+  isEkko() {
+    return this.configuration?.ekko?.enabled ?? true;
+  }
+
+  eslint() {
+    return this.configuration.eslint;
+  }
+
+  experimentalWebpackFeatures() {
+    return this.configuration?.experiments ?? {};
+  }
+
+  // -- Webpack helpers --
 
   include() {
-    // Allow developers to add their own node_modules include path
     const userInclude = this.configuration.development.babelInclude;
     const includes = ['@av', ...userInclude].join('|');
     const regex = new RegExp(`node_modules[/\\\\](?=(${includes})).*`);
     return [this.app(), regex];
-  },
+  }
 
-  // https://webpack.js.org/configuration/devtool/
   sourceMap() {
-    // Get sourcemap from command line or developer config else "source-map"
-    const sourceMap = this.configuration?.development?.sourceMap ?? 'cheap-module-source-map';
-
+    const sourceMap = this.configuration?.development?.sourceMap ?? 'source-map';
     return this.isDistribution() || this.isDryRun() ? 'source-map' : sourceMap;
-  },
+  }
 
-  coverage() {
-    return this.configuration?.development?.coverage ?? path.join(this.project(), 'coverage');
-  },
-
-  css() {
-    return this.isProduction() ? '[name]-[contenthash:8].chunk.css' : '[name].chunk.css';
-  },
-
-  // Returns the JSON object from contents or the JSON object from
-  // the project root
-  pkg(contents) {
-    if (contents) {
-      return JSON.parse(contents || this.raw());
-    }
-
-    return require(path.join(this.project(), 'package.json'));
-  },
-
-  // [contenthash] generates unique hashes depending on the file contents
-  // If the contents of a file don't change, the file should be cached in the browser.
-  // https://webpack.js.org/guides/caching/#output-filenames
   fileName() {
     return this.isProduction() ? '[name]-[contenthash:8].chunk.js' : '[name].js';
-  },
+  }
 
   chunkFileName() {
     return this.isProduction() ? '[name]-[contenthash:8].chunk.js' : '[name].chunk.js';
-  },
-
-  output() {
-    return this.isDistribution() ? path.join(this.project(), 'dist') : path.join(this.project(), 'build');
-  },
-
-  port() {
-    return this.devServerPort;
-  },
-
-  host() {
-    return this.configuration?.development?.host ?? '0.0.0.0';
-  },
-
-  ekkoPort() {
-    return this.ekkoServerPort;
-  },
-
-  open() {
-    return this.configuration?.development?.open;
-  },
+  }
 
   developmentTargets() {
     const defaultTargets = 'browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version';
     const { browserslist } = this.pkg();
-
     const developmentTargets = this.configuration?.development?.targets ?? defaultTargets;
-
-    // If project has a browserslist entry, webpack will use that as its development target
-    // https://webpack.js.org/configuration/target/#target
     return browserslist ? 'browserslist' : developmentTargets;
-  },
+  }
 
   globals() {
-    const configGlobals = stringify(this.configuration?.globals ?? {});
-
+    const configGlobals = stringifyValues(this.configuration?.globals ?? {});
     const env = this.environment();
 
-    // - Read environment variables from command line
-    // - Filter out variables that have not been declared in workflow config
-    // - Apply environment variables to the default config
-    // - Map "staging" to "production" for process.env so that React deploys without extra debugging
-    //   capabilities
     const parsedGlobals = Object.keys(process.env)
       .filter((key) => key in configGlobals)
       .reduce(
@@ -142,179 +216,22 @@ const settings = {
           __TEST__: env === 'test',
           __DEV__: env === 'development',
           __PROD__: env === 'production',
-          __STAGING__: env === 'staging'
+          __STAGING__: env === 'staging',
         }
       );
 
     return deepMerge(configGlobals, parsedGlobals);
-  },
-
-  project() {
-    return paths.project;
-  },
-
-  version() {
-    return this.pkg().version || 'N/A';
-  },
-
-  browsers() {
-    return this.configuration.testing.browsers;
-  },
-
-  title() {
-    return this.configuration?.app?.title ?? 'Availity';
-  },
-
-  log() {
-    Logger.warn(chalk.bold.yellow('REACT'));
-
-    if (!this.isTesting()) {
-      Logger.info(
-        `Using ${chalk.blue(path.relative(process.cwd(), this.workflowConfigPath).replace(/^node_modules\//, ''))}`
-      );
-    }
-  },
+  }
 
   statsLogLevel() {
     const level = this.configuration?.development?.stats?.level ?? 'normal';
-    return argv()?.development?.stats?.level ?? level;
-  },
+    return this.argv()?.development?.stats?.level ?? level;
+  }
 
   infrastructureLogLevel() {
     const level = this.configuration?.development?.infrastructureLogging?.level ?? 'normal';
-    return argv()?.development?.infrastructureLogging?.level ?? level;
-  },
-
-  async init({ shouldMimicStaging } = {}) {
-    let config = {};
-    let developerConfig = {};
-
-    this.shouldMimicStaging = shouldMimicStaging;
-
-    const { value: defaultConfig } = schema.validate({});
-
-    const defaultWorkflowConfig = path.join(import.meta.dirname, 'schema.js');
-    const jsWorkflowConfig = path.join(settings.project(), 'project/config/workflow.js');
-
-    if (existsSync(jsWorkflowConfig)) {
-      // Try project's workflow.js
-      this.workflowConfigPath = jsWorkflowConfig;
-      developerConfig = require(this.workflowConfigPath);
-    } else {
-      // fall back to default ./schema.js
-      this.workflowConfigPath = defaultWorkflowConfig;
-    }
-
-    // Merge in ./schema.js defaults with overrides from developer config
-    try {
-      if (typeof developerConfig === 'function') {
-        config = developerConfig(defaultConfig);
-      } else {
-        deepMerge(config, defaultConfig, this.pkg().availityWorkflow, developerConfig);
-      }
-    } catch (error) {
-      const message = `There was an error merging the local config. See details below:\n\n${error.message}`;
-      Logger.failed(message);
-      throw error;
-    }
-
-    // Validate workflow.js settings
-    try {
-      Joi.assert(config, schema);
-      this.configuration = config;
-    } catch (error) {
-      const details = JSON.stringify(error.details, null, 2);
-      const message = `Your workflow.js settings are invalid. See details below:\n\n${details}`;
-      Logger.failed(message);
-      throw error;
-    }
-
-    // Merge in CLI overrides.  The command line args can pass nested properties like:
-    //
-    //    start --development.port=3000 --ekko.port=9999
-    //
-    // Yargs will convert those arguments into an object.  We pluck the only the top level attributes that we
-    // are interested in and merge into the default configuration.
-    //
-    const args = argv();
-    deepMerge(this.configuration, {
-      development: args.development,
-      ekko: args.ekko,
-      globals: args.globals
-    });
-
-    // Handle --bundler and --test-runner CLI args
-    if (args.bundler) {
-      this.configuration.bundler = args.bundler;
-    }
-    if (args.testRunner) {
-      this.configuration.testRunner = args.testRunner;
-    }
-
-    // Auto-set testRunner to vitest when bundler is vite (unless explicitly overridden)
-    if (this.configuration.bundler === 'vite' && !args.testRunner && this.configuration.testRunner === 'jest') {
-      this.configuration.testRunner = 'vitest';
-    }
-
-    try {
-      this.globals();
-    } catch (error) {
-      const message = `There was an error initializing globals. See details below:\n\n${error.message}`;
-      Logger.failed(message);
-      throw error;
-    }
-
-    // Setup dev port
-    try {
-      this.devServerPort = this.configuration?.development?.port ?? 3000;
-      const availablePort = await getPort({
-        port: portNumbers(this.devServerPort, this.devServerPort + 1000),
-        host: this.host()
-      });
-
-      if (availablePort !== this.devServerPort) {
-        this.devServerPort = availablePort;
-      }
-    } catch (error) {
-      const message = `There was an error setting up the dev port. See details below:\n\n${error.message}`;
-      Logger.failed(message);
-      throw error;
-    }
-
-    // Setup ekko port
-    try {
-      const wantedEkkoPort = this.configuration?.ekko?.port ?? 9999;
-      this.ekkoServerPort = await getPort({
-        port: portNumbers(wantedEkkoPort, wantedEkkoPort + 1000),
-        host: this.host()
-      });
-
-      if (wantedEkkoPort !== this.ekkoServerPort) {
-        this.configuration.ekko.pluginContext = this.configuration.ekko.pluginContext.replace(
-          `:${wantedEkkoPort}`,
-          `:${this.ekkoServerPort}`
-        );
-
-        if (Array.isArray(this.configuration.proxies)) {
-          for (const proxy of this.configuration.proxies) {
-            proxy.target = proxy.target.replace(`:${wantedEkkoPort}`, `:${this.ekkoServerPort}`);
-          }
-        }
-      }
-    } catch (error) {
-      const message = `There was an error setting up the dev port. See details below:\n\n${error.message}`;
-      Logger.failed(message);
-      throw error;
-    }
-  },
-
-  raw() {
-    if (!this.raw) {
-      this.raw = fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8');
-    }
-
-    return this.raw;
-  },
+    return this.argv()?.development?.infrastructureLogging?.level ?? level;
+  }
 
   asset(workflowFilePath, projectFilePath) {
     const hasProjectFile = fs.existsSync(projectFilePath);
@@ -326,158 +243,85 @@ const settings = {
     }
 
     return path.relative(this.app(), filePath);
-  },
+  }
 
-  config() {
-    return this.configuration;
-  },
+  // -- Environment --
 
   environment() {
-    if (process.env.NODE_ENV) {
-      return process.env.NODE_ENV;
-    }
-
+    if (process.env.NODE_ENV) return process.env.NODE_ENV;
     process.env.NODE_ENV = 'development';
     return process.env.NODE_ENV;
-  },
+  }
 
-  // Uses globby which defaults to process.cwd() and path.resolve(options.cwd, "/")
+  isDevelopment() {
+    return this.environment() === 'development';
+  }
+
+  isTesting() {
+    return this.environment() === 'test';
+  }
+
+  isProduction() {
+    return this.argv().production || this.environment() === 'production';
+  }
+
+  isStaging() {
+    return this.environment() === 'staging' || this.shouldMimicStaging;
+  }
+
+  isDistribution() {
+    return this.isProduction() || this.isStaging();
+  }
+
+  // -- CLI flags --
+
+  isDryRun() {
+    return this.argv().dryRun !== undefined;
+  }
+
+  isProfile() {
+    return this.argv().profile !== undefined;
+  }
+
+  isIgnoreUntracked() {
+    return this.argv().ignoreGitUntracked !== undefined;
+  }
+
+  isLinterDisabled() {
+    return this.argv().disableLinter !== undefined;
+  }
+
+  commitMessage() {
+    return this.argv().message;
+  }
+
+  // -- Lint file patterns --
+
   js() {
-    let includeGlobs = argv().include;
-
+    const userInclude = this.argv().include;
     const defaultInclude = [
       `${this.app()}/**/*.js`,
       `${this.app()}/**/*.jsx`,
       `${this.app()}/**/*.ts`,
-      `${this.app()}/**/*.tsx`
+      `${this.app()}/**/*.tsx`,
     ];
 
-    if (!includeGlobs || !Array.isArray(includeGlobs) || includeGlobs.length === 0) {
-      includeGlobs = defaultInclude;
+    if (!userInclude || !Array.isArray(userInclude) || userInclude.length === 0) {
+      return defaultInclude;
     }
 
-    // eslint-disable-next-line unicorn/prefer-spread
-    return includeGlobs.concat(includeGlobs); // FIXME: should probably be [...default, ...includeGlobs]
-  },
-
-  isDryRun() {
-    return argv().dryRun !== undefined;
-  },
-
-  isOptimized() {
-    return argv().optimize === undefined;
-  },
-
-  isStaging() {
-    return this.environment() === 'staging' || this.shouldMimicStaging;
-  },
-
-  isIntegration() {
-    return this.environment() === 'integration';
-  },
-
-  isNotifications() {
-    return this.configuration?.development?.notification ?? true;
-  },
-
-  isDevelopment() {
-    return this.environment() === 'development';
-  },
-
-  isTesting() {
-    return this.environment() === 'test';
-  },
-
-  isIgnoreUntracked() {
-    return argv().ignoreGitUntracked !== undefined;
-  },
-
-  isWatch() {
-    return argv().watch !== undefined;
-  },
-
-  isIntegrationTesting() {
-    return argv().integration !== undefined;
-  },
-
-  isProduction() {
-    return argv().production || this.environment() === 'production';
-  },
-
-  isDistribution() {
-    return this.isProduction() || this.isStaging();
-  },
-
-  isCoverage() {
-    return argv().coverage !== undefined;
-  },
-
-  isFail() {
-    return argv().fail !== undefined;
-  },
-
-  isProfile() {
-    return argv().profile !== undefined;
-  },
-
-  historyFallback() {
-    return this.configuration?.development?.historyFallback ?? true;
-  },
-
-  isLinterDisabled() {
-    return argv().disableLinter !== undefined;
-  },
-
-  enableHotLoader() {
-    const isHot = this.configuration?.development?.hotLoader ?? true;
-
-    if (typeof isHot === 'object') {
-      return isHot.enabled || false;
-    }
-
-    return isHot;
-  },
-
-  getHotLoaderName() {
-    return 'react-refresh/babel';
-  },
-
-  getHotLoaderEntry() {
-    return this.configuration?.development?.hotLoaderEntry ?? /\/App\.jsx?/;
-  },
-
-  isEkko() {
-    return this.configuration?.ekko?.enabled ?? true;
-  },
-
-  commitMessage() {
-    return argv().message;
-  },
-
-  eslint() {
-    return this.configuration.eslint;
-  },
-
-  // webpack docs default experiments to false, but that causes build errors
-  experimentalWebpackFeatures() {
-    return this.configuration?.experiments ?? {};
-  },
-
-  bundler() {
-    return this.configuration?.bundler ?? 'webpack';
-  },
-
-  testRunner() {
-    return this.configuration?.testRunner ?? 'jest';
-  },
-
-  isVite() {
-    return this.bundler() === 'vite';
-  },
-
-  isWebpack() {
-    return this.bundler() === 'webpack';
+    return [...defaultInclude, ...userInclude];
   }
-};
 
-export default settings;
+  // -- Logging --
+
+  log() {
+    Logger.warn(chalk.bold.yellow('REACT'));
+
+    if (!this.isTesting()) {
+      Logger.info(
+        `Using ${chalk.blue(path.relative(process.cwd(), this.workflowConfigPath).replace(/^node_modules\//, ''))}`
+      );
+    }
+  }
+}

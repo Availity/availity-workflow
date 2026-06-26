@@ -1,0 +1,19 @@
+{
+  "totalCount": 1,
+  "count": 1,
+  "offset": 0,
+  "limit": 50,
+  "axiUserPermissions": [
+    {
+      "id": "7777",
+      "description": "Sample App Permission",
+      "organizations": [
+        {
+          "id": "1111",
+          "name": "Acme Medical Center",
+          "customerId": "2222"
+        }
+      ]
+    }
+  ]
+}

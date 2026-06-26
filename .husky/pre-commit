@@ -1,2 +1,1 @@
-yarn constraints
-yarn lint-staged
+yarn lint-staged --relative

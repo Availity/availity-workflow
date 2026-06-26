@@ -1,8 +1,12 @@
+import { vi } from 'vitest';
 import { render } from '@testing-library/react';
-
 import { chain, nullChain } from '@/chain';
-
 import App from './App';
+
+vi.mock('@availity/element', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@availity/element')>();
+  return { ...actual, Authorize: ({ children }: { children: React.ReactNode }) => children };
+});
 
 describe('App', () => {
   test('renders without error', () => {

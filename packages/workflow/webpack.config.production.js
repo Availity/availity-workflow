@@ -1,18 +1,16 @@
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import TerserPlugin from 'terser-webpack-plugin';
 import deepMerge from './helpers/deep-merge.js';
 import paths from './helpers/paths.js';
 import loaders from './loaders/index.js';
 import { buildBaseConfig } from './webpack.config.js';
 
-process.noDeprecation = true;
-
-process.env.BROWSERSLIST = 'defaults';
-
 const plugin = (settings) => {
+  process.noDeprecation = true;
+  process.env.BROWSERSLIST = 'defaults';
   const baseConfig = buildBaseConfig(settings);
 
   const overrides = {
@@ -34,12 +32,12 @@ const plugin = (settings) => {
             test: /[/\\]node_modules[/\\]/,
             idHint: 'defaultVendors',
             chunks: 'all',
-            priority: -10
+            priority: -10,
           },
           default: {
             minChunks: 2,
             priority: -20,
-            reuseExistingChunk: true
+            reuseExistingChunk: true,
           },
           // Create a chunk for react and react-dom since they shouldn't change often
           // https://webpack.js.org/guides/caching/#extracting-boilerplate
@@ -48,7 +46,7 @@ const plugin = (settings) => {
             test: /[/\\]node_modules[/\\](react|react-dom)[/\\]/,
             idHint: 'vendors',
             chunks: 'all',
-            priority: 10
+            priority: 10,
           },
           // Create a chunk for lodash or any of its separate packages
           lodash: {
@@ -56,22 +54,22 @@ const plugin = (settings) => {
             test: /[/\\]node_modules[/\\](lodash([.-])?\w*?)[/\\]/,
             idHint: 'vendors',
             chunks: 'all',
-            priority: 1
+            priority: 1,
           },
           moment: {
             test: /[/\\]node_modules[/\\](moment)[/\\]/,
             idHint: 'vendors',
             chunks: 'all',
-            priority: 2
+            priority: 2,
           },
           styles: {
             idHint: 'styles',
             test: /\.css$/,
             chunks: 'all',
-            enforce: true
-          }
+            enforce: true,
+          },
           // TODO: Add cacheGroup for Availity packages in node_modules ?
-        }
+        },
       },
       minimizer: [],
 
@@ -82,7 +80,7 @@ const plugin = (settings) => {
       // Keeps vendor hashes consistent between builds where local dependency imports change the order of resolution
       // https://webpack.js.org/guides/caching/#module-identifiers
       // https://webpack.js.org/configuration/optimization/#optimizationmoduleids
-      moduleIds: 'deterministic'
+      moduleIds: 'deterministic',
     },
 
     output: {
@@ -90,30 +88,22 @@ const plugin = (settings) => {
       devtoolModuleFilenameTemplate: (info) =>
         `webpack:///${path.relative(settings.project(), info.absoluteResourcePath)}${
           info.loaders ? `?${info.loaders}` : ''
-        }`
+        }`,
     },
 
     module: {
       rules: [
+        // Allows .mjs and .js files from packages of type "module" to be required without the extension
+        {
+          test: /\.m?js/,
+          resolve: {
+            fullySpecified: false,
+          },
+        },
         // "oneOf" will traverse all the following loaders until it finds a match.
         // If no loader matches it will use the default file loader at the end of this list.
         {
           oneOf: [
-            // solution to process.cwd() is undefined in @availity/spaces -> react-markdown -> vfile
-            // https://github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835
-            // Needed for @availity/spaces compatibility with Webpack 5
-            {
-              test: /[/\\]node_modules[/\\]vfile[/\\]core\.js/,
-              use: [
-                {
-                  loader: 'imports-loader',
-                  options: {
-                    type: 'commonjs',
-                    imports: ['single process/browser process']
-                  }
-                }
-              ]
-            },
             {
               test: /\.(js|jsx|ts|tsx)$/,
               include: settings.include(),
@@ -122,17 +112,10 @@ const plugin = (settings) => {
                   loader: 'esbuild-loader',
                   options: {
                     loader: 'tsx',
-                    target: 'es2015'
-                  }
-                }
-              ]
-            },
-            // Allows .mjs and .js files from packages of type "module" to be required without the extension
-            {
-              test: /\.m?js/,
-              resolve: {
-                fullySpecified: false
-              }
+                    target: 'es2015',
+                  },
+                },
+              ],
             },
             loaders.css.production,
             loaders.scss.production,
@@ -140,8 +123,8 @@ const plugin = (settings) => {
               test: /font\.(woff|woff2|eot|ttf|otf|svg)$/i,
               type: 'asset/resource',
               generator: {
-                filename: 'fonts/[name][ext]'
-              }
+                filename: 'fonts/[name][ext]',
+              },
             },
             loaders.images,
             // "file" loader makes sure those assets get served by WebpackDevServer.
@@ -157,19 +140,19 @@ const plugin = (settings) => {
               // by webpack's internal loaders.
               exclude: [/\.(js|cjs|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
               generator: {
-                filename: 'static/media/[contenthash:8][ext]'
-              }
-            }
-          ]
-        }
-      ]
+                filename: 'static/media/[contenthash:8][ext]',
+              },
+            },
+          ],
+        },
+      ],
     },
     plugins: [
       ...baseConfig.plugins,
       new loaders.MiniCssExtractPlugin({
-        filename: 'css/[name]-[contenthash:8].chunk.css'
-      })
-    ]
+        filename: 'css/[name]-[contenthash:8].chunk.css',
+      }),
+    ],
   };
 
   if (fs.existsSync(paths.appStatic)) {
@@ -180,9 +163,9 @@ const plugin = (settings) => {
             context: paths.appStatic, // copy from this directory
             from: '**/*', // copy all files
             to: 'static', // copy into {output}/static folder
-            noErrorOnMissing: false
-          }
-        ]
+            noErrorOnMissing: false,
+          },
+        ],
       })
     );
   }
@@ -192,41 +175,24 @@ const plugin = (settings) => {
       new TerserPlugin({
         terserOptions: {
           parse: {
-            // We want terser to parse ecma 8 code. However, we don't want it
-            // to apply any minification steps that turns valid ecma 5 code
-            // into invalid ecma 5 code. This is why the 'compress' and 'output'
-            // sections only apply transformations that are ecma 5 safe
-            // https://github.com/facebook/create-react-app/pull/4234
-            ecma: 8
+            ecma: 2020,
           },
           compress: {
-            ecma: 5,
+            ecma: 2020,
             warnings: false,
-            // Disabled because of an issue with Uglify breaking seemingly valid code:
-            // https://github.com/facebook/create-react-app/issues/2376
-            // Pending further investigation:
-            // https://github.com/mishoo/UglifyJS2/issues/2011
             comparisons: false,
-            // Disabled because of an issue with Terser breaking valid code:
-            // https://github.com/facebook/create-react-app/issues/5250
-            // Pending further investigation:
-            // https://github.com/terser-js/terser/issues/120
-            inline: 2
+            inline: 2,
           },
           mangle: {
-            safari10: true
+            safari10: true,
           },
           output: {
-            ecma: 5,
+            ecma: 2020,
             comments: false,
-            // Turned on because emoji and regex is not minified properly using default
-            // https://github.com/facebook/create-react-app/issues/2488
-            ascii_only: true
-          }
+            ascii_only: true,
+          },
         },
-        // Use multi-process parallel running to improve the build speed
-        // Default number of concurrent runs: os.cpus().length - 1
-        parallel: true
+        parallel: true,
       }),
       new CssMinimizerPlugin()
     );

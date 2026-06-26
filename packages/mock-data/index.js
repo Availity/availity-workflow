@@ -1,6 +1,6 @@
-import path from 'path';
+import path from 'node:path';
 
 export default {
   data: path.join(import.meta.dirname, './data'),
-  routes: path.join(import.meta.dirname, './routes.json')
+  routes: path.join(import.meta.dirname, './routes.json'),
 };

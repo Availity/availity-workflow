@@ -1,6 +1,6 @@
-import { createRequire } from 'module';
-import fs from 'fs';
-import path from 'path';
+import { createRequire } from 'node:module';
+import fs from 'node:fs';
+import path from 'node:path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
@@ -19,9 +19,10 @@ import html from './html.js';
 
 const require = createRequire(import.meta.url);
 
-process.noDeprecation = true;
-
 const buildBaseConfig = (settings) => {
+  if (settings.config()?.development?.suppressDeprecationWarnings) {
+    process.noDeprecation = true;
+  }
   const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
 
   const getVersion = () => settings.pkg().version || 'N/A';
@@ -29,7 +30,9 @@ const buildBaseConfig = (settings) => {
   // Check for tsconfig.json
   const resolvePlugins = [];
   if (fs.existsSync(paths.tsconfig)) {
-    resolvePlugins.push(new TsconfigPathsPlugin({ extensions: ['.js', '.jsx', '.ts', '.tsx'] }));
+    resolvePlugins.push(
+      new TsconfigPathsPlugin({ configFile: paths.tsconfig, extensions: ['.js', '.jsx', '.ts', '.tsx'] })
+    );
   }
 
   const config = {
@@ -37,15 +40,15 @@ const buildBaseConfig = (settings) => {
     // https://webpack.js.org/configuration/experiments/
     experiments: settings.experimentalWebpackFeatures(),
     infrastructureLogging: {
-      level: settings.infrastructureLogLevel()
+      level: settings.infrastructureLogLevel(),
     },
     entry: {
-      index: [resolveModule(resolveApp, 'index')]
+      index: [resolveModule(resolveApp, 'index')],
     },
     output: {
       path: settings.output(),
       filename: settings.fileName(),
-      chunkFilename: settings.chunkFileName()
+      chunkFilename: settings.chunkFileName(),
     },
     devtool: settings.sourceMap(),
     resolve: {
@@ -54,41 +57,51 @@ const buildBaseConfig = (settings) => {
         settings.app(),
         'node_modules',
         path.join(settings.project(), 'node_modules'),
-        path.join(import.meta.dirname, 'node_modules')
+        path.join(import.meta.dirname, 'node_modules'),
       ],
       symlinks: true,
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', '.scss'],
       fallback: {
-        path: require.resolve('path-browserify')
+        path: require.resolve('path-browserify'),
       },
-      plugins: resolvePlugins
+      plugins: resolvePlugins,
     },
     // This set of options is identical to the resolve property set above,
     // but is used only to resolve webpack's loader packages.
     resolveLoader: {
-      modules: [path.join(settings.project(), 'node_modules'), path.join(import.meta.dirname, 'node_modules')],
-      symlinks: true
+      modules: [
+        path.join(settings.project(), 'node_modules'),
+        path.join(import.meta.dirname, 'node_modules'),
+        'node_modules',
+      ],
+      symlinks: true,
     },
     plugins: [
-      new webpack.DefinePlugin(settings.globals()),
+      new webpack.DefinePlugin(
+        (() => {
+          const globals = settings.globals();
+          delete globals['process.env.NODE_ENV'];
+          return globals;
+        })()
+      ),
 
       new webpack.BannerPlugin({
         banner: `APP_VERSION=${JSON.stringify(getVersion())};`,
         test: /\.(js|mjs|jsx|ts|tsx)$/,
         raw: true,
-        entryOnly: true
+        entryOnly: true,
       }),
 
       new webpack.BannerPlugin({
-        banner: `v${getVersion()} - ${new Date().toJSON()}`
+        banner: `v${getVersion()} - ${new Date().toJSON()}`,
       }),
 
       new HtmlWebpackPlugin(html(settings)),
       // Ignore all the moment local files
       new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }),
 
-      new CaseSensitivePathsPlugin()
-    ]
+      new CaseSensitivePathsPlugin(),
+    ],
   };
   return config;
 };
@@ -105,21 +118,6 @@ const plugin = (settings) => {
 
     module: {
       rules: [
-        // solution to process.cwd() is undefined in @availity/spaces -> react-markdown -> vfile
-        // https://github.com/remarkjs/react-markdown/issues/339#issuecomment-683199835
-        // Needed for @availity/spaces compatibility with Webpack 5
-        {
-          test: /[/\\]node_modules[/\\]vfile[/\\]core\.js/,
-          use: [
-            {
-              loader: 'imports-loader',
-              options: {
-                type: 'commonjs',
-                imports: ['single process/browser process']
-              }
-            }
-          ]
-        },
         {
           test: /\.(js|mjs|jsx|ts|tsx)$/,
           include: settings.include(),
@@ -128,17 +126,17 @@ const plugin = (settings) => {
               loader: 'esbuild-loader',
               options: {
                 loader: 'tsx',
-                target: 'es2015'
-              }
-            }
-          ]
+                target: 'es2015',
+              },
+            },
+          ],
         },
         // Allows .mjs and .js files from packages of type "module" to be required without the extension
         {
           test: /\.m?js/,
           resolve: {
-            fullySpecified: false
-          }
+            fullySpecified: false,
+          },
         },
         loaders.css.development,
         loaders.scss.development,
@@ -146,11 +144,11 @@ const plugin = (settings) => {
           test: /font\.(woff|woff2|eot|ttf|otf|svg)$/i,
           type: 'asset/resource',
           generator: {
-            filename: 'fonts/[name].[ext]'
-          }
+            filename: 'fonts/[name].[ext]',
+          },
         },
-        loaders.images
-      ]
+        loaders.images,
+      ],
     },
 
     plugins: [
@@ -158,23 +156,17 @@ const plugin = (settings) => {
 
       new DuplicatePackageCheckerPlugin({
         verbose: true,
-        exclude(instance) {
-          return (
-            instance.name === 'regenerator-runtime' ||
-            instance.name === 'unist-util-visit-parents' ||
-            instance.name === 'scheduler' ||
-            instance.name === '@babel/runtime'
-          );
-        }
       }),
 
       new ESLintPlugin({
         cache: true,
         cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
         extensions: ['js', 'jsx', 'ts', 'tsx', 'mjs'],
-        ...settings.eslint()
-      })
-    ]
+        emitError: !settings.isDevelopment(),
+        emitWarning: true,
+        ...settings.eslint(),
+      }),
+    ],
   };
 
   if (fs.existsSync(paths.appStatic)) {
@@ -185,20 +177,24 @@ const plugin = (settings) => {
             context: paths.appStatic, // copy from this directory
             from: '**/*', // copy all files
             to: 'static', // copy into {output}/static folder
-            noErrorOnMissing: false
-          }
-        ]
+            noErrorOnMissing: false,
+          },
+        ],
       })
     );
   }
 
-  overrides.plugins.push(new ReactRefreshWebpackPlugin());
+  overrides.plugins.push(
+    new ReactRefreshWebpackPlugin({
+      esModule: true,
+    })
+  );
 
   if (settings.isNotifications()) {
     overrides.plugins.push(
       new WebpackNotifierPlugin({
         contentImage: path.join(import.meta.dirname, './public/availity.png'),
-        excludeWarnings: true
+        excludeWarnings: true,
       })
     );
   }

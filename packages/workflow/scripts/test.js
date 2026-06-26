@@ -1,40 +1,29 @@
-/* eslint-disable unicorn/no-process-exit */
-// eslint-disable-next-line import/extensions
-import webpackConfig from '../jest.config.js';
-
-function runJest({ settings }) {
-  const tester = webpackConfig(settings);
-  process.env.NODE_ENV = 'test';
-  return tester.run().then((exitCode) => {
-    if (Number.isInteger(exitCode)) {
-      process.exit(exitCode);
-    }
-    return exitCode;
-  });
-}
+import { startVitest } from 'vitest/node';
+import createVitestConfig from '../vitest.config.js';
 
 async function runVitest({ settings }) {
   process.env.NODE_ENV = 'test';
-  const { startVitest } = await import('vitest/node');
-  const { default: createVitestConfig } = await import('../vitest.config.js');
 
+  const argv = settings.argv();
   const vitestConfig = createVitestConfig(settings);
 
-  const vitest = await startVitest('test', [], vitestConfig);
+  const { test: testOptions = {}, ...viteOverrides } = vitestConfig;
+
+  // Forward CLI flags to vitest
+  if (argv.coverage) {
+    testOptions.coverage = { ...testOptions.coverage, enabled: true };
+  }
+
+  const mode = argv.watch ? 'watch' : 'run';
+  testOptions.watch = Boolean(argv.watch);
+
+  const vitest = await startVitest(mode, [], testOptions, { ...viteOverrides, configFile: false });
 
   if (!vitest) {
-    process.exit(1);
+    throw new Error('Vitest failed to start');
   }
 
   await vitest.close();
 }
 
-export default {
-  description: 'Run your tests',
-  run: ({ settings }) => {
-    if (settings.testRunner() === 'vitest') {
-      return runVitest({ settings });
-    }
-    return runJest({ settings });
-  }
-};
+export default runVitest;

@@ -1,5 +1,5 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import html from '../html.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -12,7 +12,7 @@ describe('html', () => {
     mockSettings = {
       app: vi.fn(() => '/fake/project/app'),
       asset: vi.fn((workflow, project) => project),
-      title: vi.fn(() => 'Test App')
+      title: vi.fn(() => 'Test App'),
     };
   });
 

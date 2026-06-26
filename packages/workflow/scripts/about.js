@@ -1,10 +1,9 @@
-import { createRequire } from 'module';
+import { readFileSync } from 'node:fs';
 import Logger from '@availity/workflow-logger';
 import chalk from 'chalk';
 import envinfo from 'envinfo';
 
-const require = createRequire(import.meta.url);
-const pkg = require('../package.json');
+const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 
 const version = chalk.bold.yellow(`v${pkg.version}`);
 
@@ -42,16 +41,14 @@ ${chalk.yellow(logo)}
 ${chalk.bold('@availity/workflow')} ${version}
  `;
 
-function about() {
-  // TODO: Implement an update-notifier
-  // notifier();
+async function about() {
   Logger.simple(message);
-  envinfo.run(
+  await envinfo.run(
     {
       System: ['OS', 'CPU'],
       Binaries: ['Node', 'Yarn', 'npm'],
       Browsers: ['Chrome', 'Firefox', 'Safari'],
-      npmPackages: ['@availity/workflow']
+      npmPackages: ['@availity/workflow'],
     },
     { console: true, showNotFound: true }
   );
