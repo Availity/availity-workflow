@@ -7,7 +7,7 @@ import Settings from './settings/index.js';
 function handleError(command, error) {
   Logger.error(`Command "${command}" failed:`);
   Logger.error(error?.stack || error?.message || error);
-  process.exitCode = 1;
+  process.exit(1);
 }
 
 function getStagingOptions() {
