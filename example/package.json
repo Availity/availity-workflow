@@ -1,7 +1,7 @@
 {
   "name": "@availity/example",
   "private": true,
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "React project using @availity/workflow",
   "main": "index.js",
   "type": "module",
