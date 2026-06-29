@@ -40,7 +40,7 @@
     "@availity/yup": "^8.2.0",
     "@hookform/resolvers": "^5.4.0",
     "@tanstack/react-query": "^5.75.5",
-    "axios": "^1.18.0",
+    "axios": "^1.18.1",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.21",
     "formik": "^2.4.9",
@@ -53,11 +53,11 @@
   "devDependencies": {
     "@availity/mock-server": "workspace:*",
     "@availity/workflow": "workspace:*",
-    "@types/node": "^22.19.21",
+    "@types/node": "^22.20.0",
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
     "cross-env": "^10.1.0",
-    "eslint-config-availity": "^14.0.0",
+    "eslint-config-availity": "^15.1.1",
     "typescript": "5.9.3"
   },
   "availityWorkflow": true,
