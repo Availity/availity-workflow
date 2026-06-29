@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [14.2.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.1.0...@availity/workflow@14.2.0) (2026-06-29)
+
+
+### Features
+
+* **workflow,workflow-vite:** add --ui flag to av test for Vitest UI ([a5c5427](https://github.com/Availity/availity-workflow/commit/a5c54277f9fdd449678675ff7c23c27012fd0469))
+
+
+
 # [14.1.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.0.1...@availity/workflow@14.1.0) (2026-06-29)
 
 
