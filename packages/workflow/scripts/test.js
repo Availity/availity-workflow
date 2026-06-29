@@ -13,6 +13,18 @@ async function runVitest({ settings }) {
   if (argv.coverage) {
     testOptions.coverage = { ...testOptions.coverage, enabled: true };
   }
+  if (argv.reporter) {
+    testOptions.reporters = [argv.reporter];
+  }
+  if (argv.changed) {
+    testOptions.changed = argv.changed === true ? 'HEAD' : argv.changed;
+  }
+  if (argv.bail) {
+    testOptions.bail = typeof argv.bail === 'number' ? argv.bail : 1;
+  }
+  if (argv.silent) {
+    testOptions.silent = true;
+  }
 
   const mode = argv.watch ? 'watch' : 'run';
   testOptions.watch = Boolean(argv.watch);
