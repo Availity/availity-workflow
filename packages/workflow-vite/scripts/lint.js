@@ -34,7 +34,7 @@ export default async function lint({ settings }) {
 
   let engine;
   try {
-    engine = new eslint.ESLint({});
+    engine = new eslint.ESLint({ errorOnUnmatchedPattern: false });
   } catch (error) {
     Logger.failed(`ESLint configuration error. "${error.message}"`);
     throw new Error(`ESLint configuration error. "${error.message}"`);
@@ -52,7 +52,10 @@ export default async function lint({ settings }) {
       const { stdout: rootOut } = await execFileAsync('git', ['rev-parse', '--show-toplevel']);
       const gitRoot = rootOut.trim();
       const { stdout: filesOut } = await execFileAsync('git', ['ls-files']);
-      const gitTrackedFiles = filesOut.trim().split('\n').map((file) => path.join(gitRoot, file));
+      const gitTrackedFiles = filesOut
+        .trim()
+        .split('\n')
+        .map((file) => path.join(gitRoot, file));
       filesToLint = gitTrackedFiles.filter((file) => ['.js', '.jsx', '.ts', '.tsx'].includes(path.extname(file)));
     } catch {
       // If git commands fail, fall back to default patterns
