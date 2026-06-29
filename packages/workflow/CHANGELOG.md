@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [14.1.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.0.1...@availity/workflow@14.1.0) (2026-06-29)
+
+
+### Features
+
+* **workflow-vite,workflow:** export globals types and add test CLI flags ([a8f93f7](https://github.com/Availity/availity-workflow/commit/a8f93f79e427df6c2821d7efbf73635c6a27592d))
+
+
+
 ## [14.0.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.0.0...@availity/workflow@14.0.1) (2026-06-29)
 
 
