@@ -70,7 +70,8 @@ yargs
         .option('reporter', { describe: 'Test reporter (e.g., verbose, json, junit)', type: 'string' })
         .option('changed', { describe: 'Run tests for changed files (optionally specify base ref)', type: 'string' })
         .option('bail', { describe: 'Stop after first failure (optionally specify count)', type: 'number' })
-        .option('silent', { describe: 'Suppress console output from tests', type: 'boolean' });
+        .option('silent', { describe: 'Suppress console output from tests', type: 'boolean' })
+        .option('ui', { describe: 'Open Vitest UI', type: 'boolean' });
     },
     async (argv) => {
       try {
