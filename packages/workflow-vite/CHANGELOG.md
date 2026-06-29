@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.2.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.1.0...@availity/workflow-vite@1.2.0) (2026-06-29)
+
+
+### Bug Fixes
+
+* **workflow-vite:** replace deprecated advancedChunks with codeSplitting ([28bd2d2](https://github.com/Availity/availity-workflow/commit/28bd2d2b144af026a6bd03753136ace1de43898b))
+
+
+### Features
+
+* **workflow,workflow-vite:** add --ui flag to av test for Vitest UI ([a5c5427](https://github.com/Availity/availity-workflow/commit/a5c54277f9fdd449678675ff7c23c27012fd0469))
+
+
+
 # [1.1.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.0.2...@availity/workflow-vite@1.1.0) (2026-06-29)
 
 
