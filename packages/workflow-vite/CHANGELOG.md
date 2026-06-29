@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.0.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.0.1...@availity/workflow-vite@1.0.2) (2026-06-29)
+
+
+### Bug Fixes
+
+* **workflow-vite:** resolve lint hanging in TypeScript-only projects ([a2d3365](https://github.com/Availity/availity-workflow/commit/a2d336537aac0e530ac1466bbb68816913db3659))
+
+
+
 ## [1.0.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.0.0...@availity/workflow-vite@1.0.1) (2026-06-29)
 
 
