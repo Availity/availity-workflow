@@ -25,9 +25,13 @@ async function runVitest({ settings }) {
   if (argv.silent) {
     testOptions.silent = true;
   }
+  if (argv.ui) {
+    testOptions.ui = true;
+    testOptions.watch = true;
+  }
 
-  const mode = argv.watch ? 'watch' : 'run';
-  testOptions.watch = Boolean(argv.watch);
+  const mode = argv.watch || argv.ui ? 'watch' : 'run';
+  testOptions.watch = Boolean(argv.watch || argv.ui);
 
   const vitest = await startVitest(mode, [], testOptions, { ...viteOverrides, configFile: false });
 

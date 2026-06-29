@@ -17,15 +17,13 @@ const buildViteProductionConfig = async (settings) => {
           entryFileNames: 'assets/[name]-[hash:8].js',
           chunkFileNames: 'assets/[name]-[hash:8].chunk.js',
           assetFileNames: 'assets/[name]-[hash:8][extname]',
-          advancedChunks: {
-            groups: [
-              { name: 'vendor-react', test: /[/\\]node_modules[/\\](react|react-dom)[/\\]/ }
-            ]
-          }
-        }
-      }
+          codeSplitting: {
+            groups: [{ name: 'vendor-react', test: /[/\\]node_modules[/\\](react|react-dom)[/\\]/ }],
+          },
+        },
+      },
     },
-    server: undefined
+    server: undefined,
   });
 };
 
