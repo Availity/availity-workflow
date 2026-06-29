@@ -71,7 +71,15 @@ yargs
   .command(
     'test',
     `${chalk.dim('Run your tests using Vitest')}`,
-    () => {},
+    (yyargs) => {
+      yyargs
+        .option('coverage', { describe: 'Run tests with coverage reporting', type: 'boolean' })
+        .option('watch', { describe: 'Run tests in watch mode', type: 'boolean' })
+        .option('reporter', { describe: 'Test reporter (e.g., verbose, json, junit)', type: 'string' })
+        .option('changed', { describe: 'Run tests for changed files (optionally specify base ref)', type: 'string' })
+        .option('bail', { describe: 'Stop after first failure (optionally specify count)', type: 'number' })
+        .option('silent', { describe: 'Suppress console output from tests', type: 'boolean' });
+    },
     async (argv) => {
       try {
         const settings = await Settings.create({ argv });
