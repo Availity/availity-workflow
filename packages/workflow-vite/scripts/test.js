@@ -30,7 +30,7 @@ export default async function test({ settings }) {
     testOptions.watch = true;
   }
 
-  const vitest = await startVitest(argv.watch || argv.ui ? 'watch' : 'test', [], testOptions, {
+  const vitest = await startVitest(argv.watch || argv.ui ? 'watch' : 'run', [], testOptions, {
     ...viteOverrides,
     configFile: false,
   });
