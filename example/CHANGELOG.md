@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.4](https://github.com/Availity/availity-workflow/compare/@availity/example@6.0.3...@availity/example@6.0.4) (2026-06-30)
+
+### Dependency Updates
+
+* `workflow` updated to version `6.0.3`
+
+### Bug Fixes
+
+* resolve dayjs ESM resolution and improve vitestOverrides API ([c0cd895](https://github.com/Availity/availity-workflow/commit/c0cd895d0da448ac0947119bf4935f3ea0d65ecd))
+
+
+
 ## [6.0.3](https://github.com/Availity/availity-workflow/compare/@availity/example@6.0.2...@availity/example@6.0.3) (2026-06-29)
 
 ### Dependency Updates
