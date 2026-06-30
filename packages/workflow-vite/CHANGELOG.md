@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.2.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.2.0...@availity/workflow-vite@1.2.1) (2026-06-30)
+
+
+### Bug Fixes
+
+* resolve dayjs ESM resolution and improve vitestOverrides API ([c0cd895](https://github.com/Availity/availity-workflow/commit/c0cd895d0da448ac0947119bf4935f3ea0d65ecd))
+
+
+
 # [1.2.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.1.0...@availity/workflow-vite@1.2.0) (2026-06-29)
 
 
