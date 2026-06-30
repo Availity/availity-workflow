@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --no-deprecation
 import yargsFactory from 'yargs';
 import chalk from 'chalk';
 import Logger from '@availity/workflow-logger';
