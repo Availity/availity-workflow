@@ -94,9 +94,17 @@ function create(settings) {
         include: ['project/app/**/*.{js,jsx,ts,tsx}'],
         exclude: ['node_modules/', 'coverage/', 'dist/', 'build/'],
       },
-      // Equivalent to Jest's transformIgnorePatterns — deps that need transformation
+      // Equivalent to Jest's transformIgnorePatterns — deps that need transformation.
+      // In Vitest 4.x with vmThreads, server.deps.inline tells Vite to process these
+      // modules through its transform pipeline rather than passing them to native Node.
+      server: {
+        deps: {
+          inline: [new RegExp(`node_modules[/\\\\](?=(${includes})).*`)],
+          // Try CJS fallback for packages with invalid ESM (like dayjs which has no exports map)
+          fallbackCJS: true,
+        },
+      },
       deps: {
-        inline: [new RegExp(`node_modules[/\\\\](?=(${includes})).*`)],
         // Pre-bundle test dependencies for faster startup
         optimizer: {
           web: {
@@ -107,12 +115,10 @@ function create(settings) {
     },
   };
 
-  // Merge in user jest overrides that are compatible with vitest
+  // Merge in user jest overrides that are compatible with vitest (legacy support)
   const userJestOverrides = settings.configuration.development.jestOverrides;
   if (userJestOverrides && Object.keys(userJestOverrides).length > 0) {
-    // Only merge test-related overrides that are vitest-compatible
-    // eslint-disable-next-line no-unused-vars
-    const { collectCoverageFrom, coveragePathIgnorePatterns, testTimeout, ...rest } = userJestOverrides;
+    const { collectCoverageFrom, coveragePathIgnorePatterns, testTimeout } = userJestOverrides;
     if (collectCoverageFrom) {
       config.test.coverage.include = collectCoverageFrom;
     }
@@ -124,10 +130,86 @@ function create(settings) {
     }
   }
 
-  // Apply vitestOverrides — merged directly into test config
+  // Apply structured vitestOverrides — additive merging for safe customization.
+  //
+  // Supported options (all are additive or override-safe):
+  //   pool            - 'vmThreads' (default) | 'forks' | 'threads'
+  //   environment     - 'jsdom' (default) | 'happy-dom' | 'node'
+  //   testTimeout     - milliseconds (default: vitest default 5000)
+  //   setupFiles      - additional setup files (appended to internal list)
+  //   inlineDeps      - additional packages to inline (appended to internal list)
+  //   fallbackCJS     - true (default) | false
+  //   optimizeDeps    - additional packages to pre-bundle (appended to internal list)
+  //   exclude         - additional test file exclusion globs (appended to internal list)
+  //   coverage        - { include, exclude } overrides for coverage paths
+  //
+  // Example in workflow.js:
+  //   config.development.vitestOverrides = {
+  //     testTimeout: 15000,
+  //     inlineDeps: ['some-cjs-package', /my-esm-pattern/],
+  //     setupFiles: ['./test/my-global-setup.js'],
+  //   };
+  //
   const { vitestOverrides } = settings.configuration.development;
   if (vitestOverrides && Object.keys(vitestOverrides).length > 0) {
-    Object.assign(config.test, vitestOverrides);
+    const {
+      pool,
+      environment,
+      testTimeout: vTestTimeout,
+      setupFiles: userSetupFiles,
+      inlineDeps,
+      fallbackCJS,
+      optimizeDeps,
+      exclude,
+      coverage,
+      ...rest
+    } = vitestOverrides;
+
+    // Simple overrides
+    if (pool) config.test.pool = pool;
+    if (environment) config.test.environment = environment;
+    if (vTestTimeout) config.test.testTimeout = vTestTimeout;
+
+    // Additive: setup files
+    if (userSetupFiles) {
+      const files = Array.isArray(userSetupFiles) ? userSetupFiles : [userSetupFiles];
+      config.test.setupFiles.push(...files);
+    }
+
+    // Additive: inline deps (appended to internal server.deps.inline list)
+    if (inlineDeps) {
+      const deps = Array.isArray(inlineDeps) ? inlineDeps : [inlineDeps];
+      config.test.server.deps.inline.push(...deps);
+    }
+
+    // Override: CJS fallback toggle
+    if (fallbackCJS !== undefined) {
+      config.test.server.deps.fallbackCJS = fallbackCJS;
+    }
+
+    // Additive: optimizer pre-bundle list
+    if (optimizeDeps) {
+      const deps = Array.isArray(optimizeDeps) ? optimizeDeps : [optimizeDeps];
+      const existing = config.test.deps.optimizer.web.include || [];
+      config.test.deps.optimizer.web.include = [...existing, ...deps];
+    }
+
+    // Additive: test exclusion globs
+    if (exclude) {
+      const globs = Array.isArray(exclude) ? exclude : [exclude];
+      config.test.exclude.push(...globs);
+    }
+
+    // Override: coverage paths
+    if (coverage) {
+      if (coverage.include) config.test.coverage.include = coverage.include;
+      if (coverage.exclude) config.test.coverage.exclude = coverage.exclude;
+    }
+
+    // Escape hatch: any remaining keys are spread directly (use with caution)
+    if (Object.keys(rest).length > 0) {
+      Object.assign(config.test, rest);
+    }
   }
 
   return config;

@@ -27,7 +27,7 @@ function create(settings) {
   }
 
   const userInclude = settings.configuration.development.babelInclude;
-  const includes = ['@av', 'axios', '@tanstack', 'is-what', 'copy-anything', ...userInclude].join('|');
+  const includes = ['@av', 'axios', '@tanstack', 'is-what', 'copy-anything', 'dayjs', ...userInclude].join('|');
 
   const globals = settings.globals();
   const define = {};
@@ -69,13 +69,21 @@ function create(settings) {
         exclude: ['node_modules/', 'coverage/', 'dist/', 'build/'],
       },
       deps: {
-        inline: [new RegExp(`node_modules[/\\\\](?=(${includes})).*`)],
         optimizer: { web: { enabled: true } },
+      },
+      // In Vitest 4.x with vmThreads, server.deps.inline tells Vite to process these
+      // modules through its transform pipeline rather than passing them to native Node.
+      server: {
+        deps: {
+          inline: [new RegExp(`node_modules[/\\\\](?=(${includes})).*`)],
+          // Try CJS fallback for packages with invalid ESM (like dayjs which has no exports map)
+          fallbackCJS: true,
+        },
       },
     },
   };
 
-  // Merge compatible jest overrides
+  // Merge compatible jest overrides (legacy support)
   const userJestOverrides = settings.configuration.development.jestOverrides;
   if (userJestOverrides && Object.keys(userJestOverrides).length > 0) {
     const { collectCoverageFrom, coveragePathIgnorePatterns, testTimeout } = userJestOverrides;
@@ -84,10 +92,60 @@ function create(settings) {
     if (testTimeout) config.test.testTimeout = testTimeout;
   }
 
-  // Apply vitestOverrides — merged directly into test config
-  const {vitestOverrides} = settings.configuration.development;
+  // Apply structured vitestOverrides — additive merging for safe customization.
+  // See packages/workflow/vitest.config.js for full documentation of supported options.
+  const { vitestOverrides } = settings.configuration.development;
   if (vitestOverrides && Object.keys(vitestOverrides).length > 0) {
-    Object.assign(config.test, vitestOverrides);
+    const {
+      pool,
+      environment,
+      testTimeout: vTestTimeout,
+      setupFiles: userSetupFiles,
+      inlineDeps,
+      fallbackCJS,
+      optimizeDeps,
+      exclude,
+      coverage,
+      ...rest
+    } = vitestOverrides;
+
+    if (pool) config.test.pool = pool;
+    if (environment) config.test.environment = environment;
+    if (vTestTimeout) config.test.testTimeout = vTestTimeout;
+
+    if (userSetupFiles) {
+      const files = Array.isArray(userSetupFiles) ? userSetupFiles : [userSetupFiles];
+      config.test.setupFiles.push(...files);
+    }
+
+    if (inlineDeps) {
+      const deps = Array.isArray(inlineDeps) ? inlineDeps : [inlineDeps];
+      config.test.server.deps.inline.push(...deps);
+    }
+
+    if (fallbackCJS !== undefined) {
+      config.test.server.deps.fallbackCJS = fallbackCJS;
+    }
+
+    if (optimizeDeps) {
+      const deps = Array.isArray(optimizeDeps) ? optimizeDeps : [optimizeDeps];
+      const existing = config.test.deps.optimizer.web.include || [];
+      config.test.deps.optimizer.web.include = [...existing, ...deps];
+    }
+
+    if (exclude) {
+      const globs = Array.isArray(exclude) ? exclude : [exclude];
+      config.test.exclude.push(...globs);
+    }
+
+    if (coverage) {
+      if (coverage.include) config.test.coverage.include = coverage.include;
+      if (coverage.exclude) config.test.coverage.exclude = coverage.exclude;
+    }
+
+    if (Object.keys(rest).length > 0) {
+      Object.assign(config.test, rest);
+    }
   }
 
   return config;
