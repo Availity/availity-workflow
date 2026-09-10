@@ -6,18 +6,13 @@ title: Setting Up a Vite App
 
 ## New Project
 
-Scaffold a new project with the Vite template:
+Scaffold a new project directly with the Vite + TypeScript template:
 
 ```bash
-npx @availity/workflow init my-app --template https://github.com/Availity/availity-starter-typescript
+npx @availity/workflow init my-app --template https://github.com/Availity/availity-starter-vite-typescript
 ```
 
-Then swap the workflow dependency:
-
-```bash
-yarn remove @availity/workflow
-yarn add @availity/workflow-vite --dev
-```
+This template comes pre-configured with `@availity/workflow-vite`, TypeScript, Vitest, and ESLint — no additional setup needed.
 
 ## Migrating an Existing Project
 

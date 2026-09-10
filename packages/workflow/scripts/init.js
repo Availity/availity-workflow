@@ -100,24 +100,62 @@ function updatePackageJson({ appName, appPath }) {
 const NPM = 'npm';
 const YARN = 'yarn';
 
-function isNpm(installer) {
-  return installer === NPM;
+function detectInstaller(appPath, defaultInstaller) {
+  // If the caller explicitly requested npm, honour that.
+  if (defaultInstaller === NPM) return NPM;
+
+  // Check for a .yarnrc.yml with a yarnPath entry. When present, the repo
+  // bundles its own Yarn release (e.g. Yarn 4 Berry). Invoke that directly
+  // via `node` rather than relying on whatever global yarn binary is on the
+  // machine — this avoids both Yarn 1 / Yarn 4 mismatches and the need for
+  // Corepack to be enabled.
+  try {
+    const yarnrc = fs.readFileSync(path.join(appPath, '.yarnrc.yml'), 'utf8');
+    const match = yarnrc.match(/^yarnPath:\s*(.+)$/m);
+    if (match) {
+      const yarnRelativePath = match[1].trim().replaceAll(/^['"]|['"]$/g, '');
+      const yarnAbsPath = path.join(appPath, yarnRelativePath);
+      if (fs.existsSync(yarnAbsPath)) {
+        return `node ${yarnAbsPath}`;
+      }
+    }
+  } catch {
+    // No .yarnrc.yml or unreadable — fall through
+  }
+
+  // Fall back to checking the packageManager field for pnpm or npm.
+  try {
+    const pkg = JSON.parse(fs.readFileSync(path.join(appPath, 'package.json'), 'utf8'));
+    const pm = pkg.packageManager;
+    if (typeof pm === 'string') {
+      const [name] = pm.split('@');
+      if (name === 'npm') return NPM;
+      if (name === 'pnpm') return 'pnpm';
+    }
+  } catch {
+    // package.json not readable — fall through to default
+  }
+
+  return defaultInstaller;
 }
 
 function installDeps(installer) {
   Logger.info(`Installing dependencies using ${installer}...`);
   Logger.empty();
 
-  const installArgs = ['install'];
+  const [bin, ...extraArgs] = installer.split(' ');
+  const installArgs = [...extraArgs, 'install'];
   // Add npm specific args to suppress log output
-  if (isNpm(installer)) {
+  if (bin === NPM) {
     installArgs.push('--loglevel', 'error');
   }
 
   // Install Dependencies
-  const proc = spawnSync(installer, installArgs, { stdio: 'inherit', shell: true });
+  const proc = spawnSync(bin, installArgs, { stdio: 'inherit', shell: true });
   if (proc.status !== 0) {
-    Logger.failed(`${installer} install failed`);
+    const error = new Error(`${installer} install failed`);
+    error.command = `${installer} install`;
+    throw error;
   }
 }
 
@@ -137,8 +175,13 @@ async function run({ appPath, appName, originalDirectory, template, installer, b
       appPath,
     });
 
+    // Re-detect installer now that we have the cloned package.json.
+    // The template may declare a specific packageManager (e.g. yarn@4)
+    // that requires corepack rather than the bare global binary.
+    const resolvedInstaller = detectInstaller(appPath, installer);
+
     // Install Dependencies
-    installDeps(installer);
+    installDeps(resolvedInstaller);
 
     // Display the most elegant way to cd.
     // This needs to handle an undefined originalDirectory for
@@ -149,20 +192,20 @@ async function run({ appPath, appName, originalDirectory, template, installer, b
     Logger.success(`Success! Created ${appName} at ${appPath}`);
     Logger.info('Inside that directory, you can run several commands:');
     Logger.info();
-    Logger.info(chalk.cyan(`  ${installer} start`));
+    Logger.info(chalk.cyan(`  ${resolvedInstaller} start`));
     Logger.info('    Starts the development server.');
     Logger.info();
-    Logger.info(chalk.cyan(`  ${installer} run build`));
+    Logger.info(chalk.cyan(`  ${resolvedInstaller} run build`));
     Logger.info('    Bundles the app into static files for production.');
     Logger.info();
-    Logger.info(chalk.cyan(`  ${installer} test`));
+    Logger.info(chalk.cyan(`  ${resolvedInstaller} test`));
     Logger.info('    Starts the test runner.');
     Logger.info();
     Logger.info('We suggest that you begin by typing:');
     if (originalDirectory !== appPath) {
       Logger.info(chalk.cyan(`  cd ${cdpath}`));
     }
-    Logger.info(`  ${chalk.cyan(`${installer} start`)}`);
+    Logger.info(`  ${chalk.cyan(`${resolvedInstaller} start`)}`);
   } catch (error) {
     Logger.empty();
     Logger.failed('Aborting installation.');
@@ -176,7 +219,14 @@ async function run({ appPath, appName, originalDirectory, template, installer, b
 
     // On 'exit' we will delete these files from target directory.
     const knownGeneratedFiles = ['package.json', 'package-lock.json', 'node_modules', 'yarn.lock'];
-    const currentFiles = fs.readdirSync(path.join(appPath));
+    let currentFiles;
+    try {
+      currentFiles = fs.readdirSync(path.join(appPath));
+    } catch {
+      // Directory doesn't exist or isn't readable — nothing to clean up.
+      Logger.info('Done.');
+      process.exit(1);
+    }
     for (const file of currentFiles) {
       for (const fileToMatch of knownGeneratedFiles) {
         // This remove all of knownGeneratedFiles.
@@ -214,7 +264,9 @@ async function createApp({ projectName: name, currentDir, template, useNpm, bran
 
   const originalDirectory = process.cwd();
   process.chdir(appPath);
-  if (!checkThatWeCanReadCwd(installer)) {
+  // checkThatWeCanReadCwd uses `npm config list` output which is npm-specific.
+  // Only run it when npm is the installer; for yarn/pnpm it's always a no-op.
+  if (installer === NPM && !checkThatWeCanReadCwd(installer)) {
     process.exit(1);
   }
 

@@ -7,15 +7,15 @@
 
 ## Table of Contents
 
--   [Getting Started](#getting-started)
--   [Features](#features)
--   [CLI](#cli)
--   [Configuration](#configuration)
--   [Upgrading](#upgrading)
--   [FAQ](#faq)
--   [CONTRIBUTE](#contribute)
--   [DISCLAIMER](#disclaimer)
--   [License](#license)
+- [Getting Started](#getting-started)
+- [Features](#features)
+- [CLI](#cli)
+- [Configuration](#configuration)
+- [Upgrading](#upgrading)
+- [FAQ](#faq)
+- [CONTRIBUTE](#contribute)
+- [DISCLAIMER](#disclaimer)
+- [License](#license)
 
 ## Getting Started
 
@@ -29,13 +29,18 @@ npx @availity/workflow init <your-project-name>
 
 #### Availity Templates
 
--   [React Starter (default)](https://github.com/Availity/availity-starter-react)
--   [TypeScript Starter (React)](https://github.com/Availity/availity-starter-typescript)
+- [React Starter (default)](https://github.com/Availity/availity-starter-react)
+- [TypeScript Starter (React)](https://github.com/Availity/availity-starter-typescript)
+- [Vite + TypeScript Starter](https://github.com/Availity/availity-starter-vite-typescript) — uses `@availity/workflow-vite` (Vite-based, recommended for new projects)
 
 Use either of the flags `-t` or `--template` to specify a template
 
 ```bash
+# Webpack + TypeScript
 npx @availity/workflow init <your-project-name> --template https://github.com/Availity/availity-starter-typescript
+
+# Vite + TypeScript (recommended for new projects)
+npx @availity/workflow init <your-project-name> --template https://github.com/Availity/availity-starter-vite-typescript
 ```
 
 ### Angular
@@ -44,9 +49,9 @@ npx @availity/workflow init <your-project-name> --template https://github.com/Av
 
 ## Features
 
--   Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
--   A global variable `APP_VERSION` is written to javascript bundle that can be used to determine the version of the application that was deployed. Open up the browser debugger and type `APP_VERSION`.
--   Hook into Jest `setupFiles` by adding `jest.setup.js` at the root of your project
+- Files placed in `project/app/static` will automatically get copied to the build directory. This can be useful when an application needs to reference static documents like images and PDFs without having to import them using Webpack. The files would be accessible through the path `static` relative to the application.
+- A global variable `APP_VERSION` is written to javascript bundle that can be used to determine the version of the application that was deployed. Open up the browser debugger and type `APP_VERSION`.
+- Hook into Jest `setupFiles` by adding `jest.setup.js` at the root of your project
 
 ## CLI
 
@@ -64,13 +69,13 @@ You can get IntelliSense and type checking in your `workflow.js` file using JSDo
 ```js
 /** @type {import('@availity/workflow').WorkflowConfig} */
 export default {
-    development: {
-        port: 3000,
-        hotLoader: true,
-    },
-    app: {
-        title: 'My App',
-    },
+  development: {
+    port: 3000,
+    hotLoader: true,
+  },
+  app: {
+    title: 'My App',
+  },
 };
 ```
 
@@ -79,8 +84,8 @@ Or with the function form:
 ```js
 /** @type {import('@availity/workflow').WorkflowConfigFunction} */
 export default (config) => {
-    config.development.open = '/';
-    return config;
+  config.development.open = '/';
+  return config;
 };
 ```
 
@@ -89,9 +94,9 @@ For Vite-based projects, use `@availity/workflow-vite` instead:
 ```js
 /** @type {import('@availity/workflow-vite').WorkflowViteConfig} */
 export default {
-    development: {
-        port: 3000,
-    },
+  development: {
+    port: 3000,
+  },
 };
 ```
 
@@ -99,31 +104,31 @@ export default {
 
 ```js
 export default {
-    development: {
-        notification: true,
-        hotLoader: true,
+  development: {
+    notification: true,
+    hotLoader: true,
+  },
+  app: {
+    title: 'My Awesome App',
+  },
+  mock: {
+    latency: 300,
+    port: 9999,
+  },
+  proxies: [
+    {
+      context: '/api',
+      target: 'http://localhost:9999',
+      enabled: true,
+      logLevel: 'info',
+      pathRewrite: {
+        '^/api': '',
+      },
+      headers: {
+        RemoteUser: 'janedoe',
+      },
     },
-    app: {
-        title: 'My Awesome App',
-    },
-    mock: {
-        latency: 300,
-        port: 9999,
-    },
-    proxies: [
-        {
-            context: '/api',
-            target: 'http://localhost:9999',
-            enabled: true,
-            logLevel: 'info',
-            pathRewrite: {
-                '^/api': '',
-            },
-            headers: {
-                RemoteUser: 'janedoe',
-            },
-        },
-    ],
+  ],
 };
 ```
 
@@ -148,8 +153,8 @@ If `workflow.js` exports a function it can be used to override properties from t
 
 ```js
 export default function merge(config) {
-    config.development.open = '#/foo';
-    return config;
+  config.development.open = '#/foo';
+  return config;
 }
 ```
 
@@ -157,10 +162,10 @@ or
 
 ```js
 export default (config) => {
-    config.development.open = '/';
-    config.development.hotLoader = true;
+  config.development.open = '/';
+  config.development.hotLoader = true;
 
-    return config;
+  return config;
 };
 ```
 
@@ -248,19 +253,19 @@ If your project's `package.json` contains a `browserslist` entry, that will be u
 
 ```js
 {
-    targets: 'web';
+  targets: 'web';
 }
 ```
 
 ```js
 {
-    targets: ['web', 'es5'];
+  targets: ['web', 'es5'];
 }
 ```
 
 ```js
 {
-    targets: 'browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version';
+  targets: 'browserslist: last 1 chrome version, last 1 firefox version, last 1 safari version';
 }
 ```
 
@@ -282,9 +287,9 @@ Page title to use for the generated HTML document. Default is `Availity`.
 
 ```html
 <html>
-    <head>
-        <title>Availity</title>
-    </head>
+  <head>
+    <title>Availity</title>
+  </head>
 </html>
 ```
 
@@ -309,11 +314,11 @@ EXPERIMENTAL_FEATURE=true npm run production
 
 By default, the following feature flags are enabled:
 
--   `__DEV__`: **true** when `process.env.NODE_ENV` is **development**
--   `__TEST__`: **true** when `process.env.NODE_ENV` is **test**
--   `__PROD__`: **true** when `process.env.NODE_ENV` is **production**
--   `__STAGING__`: **true** when `process.env.NODE_ENV` is **staging**
--   `process.env.NODE_ENV`: is `development`, `test`, `staging` or `production` accordingly.
+- `__DEV__`: **true** when `process.env.NODE_ENV` is **development**
+- `__TEST__`: **true** when `process.env.NODE_ENV` is **test**
+- `__PROD__`: **true** when `process.env.NODE_ENV` is **production**
+- `__STAGING__`: **true** when `process.env.NODE_ENV` is **staging**
+- `process.env.NODE_ENV`: is `development`, `test`, `staging` or `production` accordingly.
 
 > `eslint-config-availity@2.1.0` or higher is needed for the default feature toggles to be recognized as valid globals by **eslint**.
 
@@ -351,7 +356,7 @@ Pass URL context information to mock responses so that HATEOS links traverse cor
 
 Array of proxy configurations. A default configuration is enabled to proxy requests to the mock server. Each proxy configuration can have the following attributes.
 
--   `context`: URL context used to match the activation of the proxy per request.
+- `context`: URL context used to match the activation of the proxy per request.
 
 **Ex:**:
 
@@ -359,9 +364,9 @@ Array of proxy configurations. A default configuration is enabled to proxy reque
 context: '/api';
 ```
 
--   `target`: Host and port number for proxy.
--   `enabled`: Enables or disables a proxy configuration
--   `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.
+- `target`: Host and port number for proxy.
+- `enabled`: Enables or disables a proxy configuration
+- `pathRewrite`: _(Optional)_ Rewrites (using regex) the a path before sending request to proxy target.
 
 **Ex:**
 
@@ -371,19 +376,19 @@ pathRewrite: {
 }
 ```
 
--   `contextRewrite`: _(Optional)_ Does not work with multiple proxy contexts. When `true`:
+- `contextRewrite`: _(Optional)_ Does not work with multiple proxy contexts. When `true`:
 
-    -   Rewrites the `Origin` and `Referer` headers from host to match the the proxy target url.
-    -   Rewrites the `Location` header from proxy to the host url.
-    -   Rewrites any urls of the response body (JSON only) to match the url of the host. Only URLs that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host. The proxy context is automatically appended to the host url if missing the a URL response.
+  - Rewrites the `Origin` and `Referer` headers from host to match the the proxy target url.
+  - Rewrites the `Location` header from proxy to the host url.
+  - Rewrites any urls of the response body (JSON only) to match the url of the host. Only URLs that match the proxy target are rewritten. This feature is useful if the proxy server sends back HATEOS links that need to work on the host. The proxy context is automatically appended to the host url if missing the a URL response.
 
--   `headers`: _(Optional)_ Send default headers to the proxy destination.
+- `headers`: _(Optional)_ Send default headers to the proxy destination.
 
 **Ex:**:
 
 ```js
 headers: {
-    RemoteUser: 'janedoe';
+  RemoteUser: 'janedoe';
 }
 ```
 
@@ -395,17 +400,17 @@ A function which, when provided, can be used to enhance/override or replace the 
 
 ```js
 modifyWebpackConfig: (webpackConfig, settings) => {
-    // Add Subresource Integrity (SRI) security feature
-    webpackConfig.output = { crossOriginLoading: 'anonymous' };
-    // Note: SriPlugin would be imported in your workflow.js to be referenced here
-    webpackConfig.plugins.push(
-        new SriPlugin({
-            hashFuncNames: ['sha256', 'sha384'],
-            // only enable it for non-development builds
-            enabled: !settings.isDevelopment()
-        })
-    );
-    return webpackConfig;
+  // Add Subresource Integrity (SRI) security feature
+  webpackConfig.output = { crossOriginLoading: 'anonymous' };
+  // Note: SriPlugin would be imported in your workflow.js to be referenced here
+  webpackConfig.plugins.push(
+    new SriPlugin({
+      hashFuncNames: ['sha256', 'sha384'],
+      // only enable it for non-development builds
+      enabled: !settings.isDevelopment(),
+    })
+  );
+  return webpackConfig;
 };
 ```
 
@@ -501,26 +506,26 @@ Inside `project/config/workflow.js`:
 
 ```js
 const modifyWebpackConfig = (webpackConfig) => {
-    webpackConfig.module.rules.push({
-        test: /node_modules\/vfile\/core\.js/,
-        use: [
-            {
-                loader: 'imports-loader',
-                options: {
-                    type: 'commonjs',
-                    imports: ['single process/browser process']
-                }
-            }
-        ]
-    });
-    return webpackConfig;
+  webpackConfig.module.rules.push({
+    test: /node_modules\/vfile\/core\.js/,
+    use: [
+      {
+        loader: 'imports-loader',
+        options: {
+          type: 'commonjs',
+          imports: ['single process/browser process'],
+        },
+      },
+    ],
+  });
+  return webpackConfig;
 };
 
 export default (config) => {
-    config.modifyWebpackConfig = modifyWebpackConfig;
-    // ...rest of custom workflow config
+  config.modifyWebpackConfig = modifyWebpackConfig;
+  // ...rest of custom workflow config
 
-    return config;
+  return config;
 };
 ```
 
@@ -552,11 +557,11 @@ import path from 'node:path';
 // ...
 
 if (dryRun) {
-    config.development.webpackDevServer = {
-        contentBase: path.join(process.cwd(), 'dist'),
-        compress: true,
-        port: 3000
-    };
+  config.development.webpackDevServer = {
+    contentBase: path.join(process.cwd(), 'dist'),
+    compress: true,
+    port: 3000,
+  };
 }
 ```
 
@@ -564,9 +569,9 @@ This will instruct the webpackDevServer to serve content from your `dist` folder
 
 #### Other Approaches
 
--   Figure out which packages are causing the issue and then add them to `configuration.development.babelInclude` inside `workflow.js`
+- Figure out which packages are causing the issue and then add them to `configuration.development.babelInclude` inside `workflow.js`
 
--   Alternatively, use `modifyWebpackConfig` to include the packages and specify a custom loader or rule for them https://github.com/Availity/availity-workflow#modifywebpackconfig
+- Alternatively, use `modifyWebpackConfig` to include the packages and specify a custom loader or rule for them https://github.com/Availity/availity-workflow#modifywebpackconfig
 
 ### **END DEPRECATED IE 11 SECTION**
 
@@ -580,49 +585,49 @@ Update `workflow.js` using the configuration below:
 
 ```js
 export default (config) => {
-    config.proxies = [
-        {
-            context: ['/api/**', '/ms/**', '!/api/v1/proxy/healthplan/**'],
-            target: 'http://localhost:9999',
-            enabled: true,
-            logLevel: 'debug',
-            pathRewrite: {
-                '^/api': ''
-            }
-        },
-        {
-            context: ['/api/v1/proxy/healthplan/some/mock/path'],
-            target: 'http://localhost:9999',
-            enabled: true,
-            logLevel: 'debug',
-            pathRewrite: {
-                '^/api': ''
-            }
-        },
-        {
-            context: ['/api/v1/proxy/healthplan/**'],
-            target: 'http://localhost:8888',
-            enabled: true,
-            logLevel: 'debug',
-            pathRewrite: {
-                '^/api/v1/proxy/healthplan/': ''
-            }
-        }
-    ];
-    return config;
+  config.proxies = [
+    {
+      context: ['/api/**', '/ms/**', '!/api/v1/proxy/healthplan/**'],
+      target: 'http://localhost:9999',
+      enabled: true,
+      logLevel: 'debug',
+      pathRewrite: {
+        '^/api': '',
+      },
+    },
+    {
+      context: ['/api/v1/proxy/healthplan/some/mock/path'],
+      target: 'http://localhost:9999',
+      enabled: true,
+      logLevel: 'debug',
+      pathRewrite: {
+        '^/api': '',
+      },
+    },
+    {
+      context: ['/api/v1/proxy/healthplan/**'],
+      target: 'http://localhost:8888',
+      enabled: true,
+      logLevel: 'debug',
+      pathRewrite: {
+        '^/api/v1/proxy/healthplan/': '',
+      },
+    },
+  ];
+  return config;
 };
 ```
 
 The configuration above does the following:
 
--   Proxy requests starting with `/ms` or `/api` to the mock server but not paths that haves segments `/api/v1/proxy/healthplan/`. This configuration allows the Availity API to be simulated from mock server.
--   Proxy requests with path `/api/v1/proxy/healthplan/some/mock/path` to the mock server. Optional configuration that is useful if an API is not available for use and needs to be mocked.
--   Proxy all requests with path segments `/api/v1/proxy/healthplan/` to the configured target `'http://localhost:8888'`. Notice the URL is being rewritten. Change the rewrite path to match your local path as needed. This configuration is useful when testing against live services.
+- Proxy requests starting with `/ms` or `/api` to the mock server but not paths that haves segments `/api/v1/proxy/healthplan/`. This configuration allows the Availity API to be simulated from mock server.
+- Proxy requests with path `/api/v1/proxy/healthplan/some/mock/path` to the mock server. Optional configuration that is useful if an API is not available for use and needs to be mocked.
+- Proxy all requests with path segments `/api/v1/proxy/healthplan/` to the configured target `'http://localhost:8888'`. Notice the URL is being rewritten. Change the rewrite path to match your local path as needed. This configuration is useful when testing against live services.
 
 ## Contribute
 
--   Run `yarn` to install all dependencies
--   Use `yarn start` to use the React sample application
+- Run `yarn` to install all dependencies
+- Use `yarn start` to use the React sample application
 
 If you need to test changes to the template, you can use the `--branchOverride` command when running `npx @availity/workflow init`.
 

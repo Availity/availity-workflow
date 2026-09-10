@@ -62,8 +62,8 @@ const schema = Joi.object()
       .items(
         Joi.object()
           .keys({
-            context: Joi.array()
-              .items(Joi.string())
+            context: Joi.alternatives()
+              .try(Joi.string(), Joi.array().items(Joi.string()))
               .description('URL context used to match the activation of the proxy per request'),
             target: Joi.string().description('Host and port number for proxy'),
             enabled: Joi.boolean().default(true).description('Enables or disables the proxy configuration'),
@@ -77,11 +77,11 @@ const schema = Joi.object()
       )
       .default((parent) => [
         {
-          context: ['/api', '/ms', '/cloud'],
+          context: ['/api/', '/ms', '/cloud'],
           target: `http://${parent.development.host}:${parent.ekko.port}`,
           enabled: true,
           logLevel: 'info',
-          pathRewrite: { '^/api': '' },
+          pathRewrite: { '^/api/': '/' },
           headers: { RemoteUser: 'jsmith' },
         },
       ]),

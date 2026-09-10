@@ -14,10 +14,10 @@ Requires Node.js `^22.0.0 || ^24.0.0`. This package is ESM only.
 
 ## Getting Started
 
-Scaffold a new project:
+Scaffold a new project using the Vite + TypeScript starter template:
 
 ```bash
-npx @availity/workflow init <your-project-name>
+npx @availity/workflow init <your-project-name> --template https://github.com/Availity/availity-starter-vite-typescript
 ```
 
 Or add to an existing project by installing the package and adding scripts to `package.json`:
@@ -35,16 +35,16 @@ Or add to an existing project by installing the package and adding scripts to `p
 
 ## CLI Commands
 
-| Command   | Description                          |
-| --------- | ------------------------------------ |
-| `start`   | Start dev server with HMR            |
-| `build`   | Production build                     |
-| `test`    | Run tests via Vitest                 |
-| `lint`    | Lint with ESLint                     |
-| `release` | Build and prepare for release        |
-| `profile` | Analyze bundle                       |
-| `about`   | Display environment info             |
-| `version` | Print version                        |
+| Command   | Description                   |
+| --------- | ----------------------------- |
+| `start`   | Start dev server with HMR     |
+| `build`   | Production build              |
+| `test`    | Run tests via Vitest          |
+| `lint`    | Lint with ESLint              |
+| `release` | Build and prepare for release |
+| `profile` | Analyze bundle                |
+| `about`   | Display environment info      |
+| `version` | Print version                 |
 
 ## Configuration
 

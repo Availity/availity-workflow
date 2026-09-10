@@ -19,7 +19,7 @@ async function startEkko(settings) {
         warn: (...args) => Logger.warn(args),
         error: (...args) => Logger.error(args),
       };
-    }
+    },
   };
 
   try {
@@ -41,9 +41,21 @@ export default async function start({ settings }) {
   if (settings.isDryRun()) {
     Logger.message('Serving production build from dist/', 'Dry Run');
     await startEkko(settings);
+
+    let previewConfig = await buildViteConfig(settings);
+
+    const { modifyViteConfig } = settings.config();
+    if (typeof modifyViteConfig === 'function') {
+      previewConfig = modifyViteConfig(previewConfig, settings) || previewConfig;
+    }
+
     const previewServer = await preview({
       root: settings.project(),
-      preview: { port: settings.port(), host: settings.host() },
+      preview: {
+        port: settings.port(),
+        host: settings.host(),
+        proxy: previewConfig.server?.proxy,
+      },
     });
     const uri = `http://${settings.host()}:${settings.port()}/`;
     Logger.box(`Previewing ${chalk.yellow(settings.pkg().name)} at ${chalk.green(uri)}`);
