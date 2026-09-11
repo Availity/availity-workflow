@@ -1235,7 +1235,7 @@ __metadata:
     react-dom: "npm:^19.0.0"
     react-hook-form: "npm:^7.79.0"
     typescript: "npm:5.9.3"
-    vitest: "npm:^4.1.9"
+    vitest: "npm:^5.0.0"
     yup: "npm:^1.7.1"
   languageName: unknown
   linkType: soft
