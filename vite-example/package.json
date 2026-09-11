@@ -51,7 +51,7 @@
     "cross-env": "^10.1.0",
     "eslint-config-availity": "^15.1.1",
     "typescript": "5.9.3",
-    "vitest": "^4.1.9"
+    "vitest": "^5.0.0"
   },
   "prettier": {
     "printWidth": 120,
@@ -59,6 +59,6 @@
     "trailingComma": "es5"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.12.0"
   }
 }

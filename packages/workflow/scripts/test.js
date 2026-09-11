@@ -33,7 +33,11 @@ async function runVitest({ settings }) {
   const mode = argv.watch || argv.ui ? 'watch' : 'run';
   testOptions.watch = Boolean(argv.watch || argv.ui);
 
-  const vitest = await startVitest(mode, [], testOptions, { ...viteOverrides, configFile: false });
+  // Forward positional args (argv._) as file filters so users can run specific tests:
+  //   av test project/app/App.test.tsx
+  const fileFilters = (argv._ || []).filter((arg) => arg !== 'test');
+
+  const vitest = await startVitest(mode, fileFilters, testOptions, { ...viteOverrides, configFile: false });
 
   if (!vitest) {
     throw new Error('Vitest failed to start');

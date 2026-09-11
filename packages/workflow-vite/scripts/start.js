@@ -1,5 +1,6 @@
 import Logger from '@availity/workflow-logger';
 import chalk from 'chalk';
+import applyModifyViteConfig from '../helpers/apply-modify-vite-config.js';
 
 async function startEkko(settings) {
   if (!settings.isEkko()) return;
@@ -10,7 +11,7 @@ async function startEkko(settings) {
     plugins: settings.config().ekko.plugins,
     port: settings.ekkoPort(),
     host: settings.host(),
-    pluginContext: settings.config().ekko.pluginContext,
+    pluginContext: settings.ekkoPluginContext(),
     logProvider() {
       return {
         log: (...args) => Logger.log(args),
@@ -43,11 +44,7 @@ export default async function start({ settings }) {
     await startEkko(settings);
 
     let previewConfig = await buildViteConfig(settings);
-
-    const { modifyViteConfig } = settings.config();
-    if (typeof modifyViteConfig === 'function') {
-      previewConfig = modifyViteConfig(previewConfig, settings) || previewConfig;
-    }
+    previewConfig = applyModifyViteConfig(previewConfig, settings);
 
     const previewServer = await preview({
       root: settings.project(),
@@ -66,11 +63,7 @@ export default async function start({ settings }) {
   await startEkko(settings);
 
   let viteConfig = await buildViteConfig(settings);
-
-  const { modifyViteConfig } = settings.config();
-  if (typeof modifyViteConfig === 'function') {
-    viteConfig = modifyViteConfig(viteConfig, settings) || viteConfig;
-  }
+  viteConfig = applyModifyViteConfig(viteConfig, settings);
 
   Logger.info('Starting Vite development server');
   const server = await createServer(viteConfig);

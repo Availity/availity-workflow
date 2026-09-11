@@ -10,7 +10,7 @@
 npm install @availity/workflow-vite --save-dev
 ```
 
-Requires Node.js `^22.0.0 || ^24.0.0`. This package is ESM only.
+Requires Node.js `>=22.12.0`. This package is ESM only.
 
 ## Getting Started
 
@@ -83,9 +83,45 @@ export default {
 ### Key Options
 
 - **`development.vitestOverrides`** — Override any [Vitest config](https://vitest.dev/config/) option.
-- **`development.babelInclude`** — Additional `node_modules` packages to transform during testing.
+  - **`vitestOverrides.inlineDeps`** — Additional `node_modules` packages to inline-transform via Vite during testing (maps to `server.deps.inline`).
+  - **`vitestOverrides.resolveConditions`** — Override Vite resolve conditions for the test run (see below).
+  - **`vitestOverrides.clearMocks`** — Set to `true` to opt into Vitest 5's default behavior (auto-clear mock call history before each test, leaving implementations intact). Defaults to `false` to preserve pre-Vitest-5 behavior.
+- **`development.resolveConditions`** — Override the Vite resolve conditions used during testing. Defaults to `['browser', 'module', 'import', 'default']`, which intentionally excludes the Node 22 `module-sync` condition to prevent `vmThreads` failures on Linux. Only set this if you have specific needs.
+- **`development.babelInclude`** — ⚠️ **Deprecated.** Use `development.vitestOverrides.inlineDeps` instead. (The name is a webpack-era holdover — Vite does not use Babel for this.)
+- **`development.jestOverrides`** — ⚠️ **Deprecated.** Use `development.vitestOverrides` instead. Supports a limited backward-compatible subset: `collectCoverageFrom`, `coveragePathIgnorePatterns`, `testTimeout`.
 - **`globals`** — Feature flag constants (`__DEV__`, `__TEST__`, `__PROD__`, `__STAGING__`).
 - **`eslint.failOnError`** — Fail the build on lint errors.
+
+## Troubleshooting
+
+### `SyntaxError: Cannot use import statement outside a module` on Node 22 + Linux
+
+**Root cause:** Node 22 introduced the `module-sync` export condition for synchronous ESM loading in CJS contexts. When Vitest runs with the `vmThreads` pool on Linux + Node 22, it can resolve `module-sync` → a `.mjs` file, then try to `require()` it — producing this error. This does not reproduce on macOS.
+
+**Built-in fix:** `workflow-vite` already works around this by excluding `module-sync` from `resolve.conditions`, forcing the `import` or `default` condition instead.
+
+If you encounter a similar issue with a different package, add it to your inline list:
+
+```js
+/** @type {import('@availity/workflow-vite').WorkflowViteConfig} */
+export default {
+  development: {
+    vitestOverrides: {
+      inlineDeps: ['some-problematic-package'],
+    },
+  },
+};
+```
+
+Or override the full resolve conditions list:
+
+```js
+export default {
+  development: {
+    resolveConditions: ['browser', 'module', 'import', 'default'],
+  },
+};
+```
 
 ## TypeScript Support
 

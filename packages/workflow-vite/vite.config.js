@@ -6,6 +6,12 @@ import paths from './helpers/paths.js';
 import resolveModule from './helpers/resolve-module.js';
 
 const buildViteConfig = async (settings) => {
+  // Suppress Node.js deprecation warnings when configured (default: true).
+  // Vite 8/Rolldown and upstream packages emit warnings that apps cannot resolve.
+  if (settings.configuration.development.suppressDeprecationWarnings) {
+    process.noDeprecation = true;
+  }
+
   const resolveApp = (relativePath) => path.resolve(settings.app(), relativePath);
   const getVersion = () => settings.pkg().version || 'N/A';
   const entryFile = resolveModule(resolveApp, 'index');
@@ -38,17 +44,61 @@ const buildViteConfig = async (settings) => {
     plugins.push(viteStaticCopy({ targets: [{ src: path.join(paths.appStatic, '**/*'), dest: 'static' }] }));
   }
 
-  // ESLint checker
+  // ESLint checker (dev server only — shows lint errors as overlay and in terminal)
   try {
     const { default: eslintPlugin } = await import('vite-plugin-checker');
+    const eslintConfig = settings.config().eslint ?? {};
+    const { watchPath, failOnWarning = false } = eslintConfig;
+
+    // dev.logLevel controls which severity levels are shown in the overlay/terminal.
+    // Always show errors. Show warnings too only when failOnWarning is enabled so that
+    // the dev server doesn't flood the overlay with warnings that won't fail the build.
+    const logLevel = failOnWarning ? ['error', 'warning'] : ['error'];
+
     plugins.push(
       eslintPlugin({
         overlay: false,
-        eslint: { lintCommand: `eslint "${settings.app()}/**/*.{js,jsx,ts,tsx}"`, useFlatConfig: true },
+        eslint: {
+          lintCommand: `eslint "${settings.app()}/**/*.{js,jsx,ts,tsx}"`,
+          useFlatConfig: true,
+          ...(watchPath ? { watchPath } : {}),
+          dev: { logLevel },
+        },
       })
     );
   } catch {
     /* optional */
+  }
+
+  // Build status system notifications — respects development.notification (default: true)
+  if (settings.configuration.development.notification) {
+    const appName = settings.pkg().name || 'workflow-vite';
+    let notifier;
+    try {
+      const mod = await import('node-notifier');
+      notifier = mod.default ?? mod;
+    } catch {
+      // node-notifier not available — skip notifications silently
+    }
+
+    if (notifier) {
+      plugins.push({
+        name: 'availity-notifier',
+        buildEnd(error) {
+          if (error) {
+            notifier.notify({ title: appName, message: `Build failed: ${error.message}`, sound: true });
+          }
+        },
+        closeBundle() {
+          notifier.notify({ title: appName, message: 'Build complete', sound: false });
+        },
+        configureServer(server) {
+          server.httpServer?.once('listening', () => {
+            notifier.notify({ title: appName, message: 'Dev server ready', sound: false });
+          });
+        },
+      });
+    }
   }
 
   function generateIndexHtml(s, entry) {
@@ -74,6 +124,7 @@ const buildViteConfig = async (settings) => {
   }
 
   // APP_VERSION banner
+
   plugins.push({
     name: 'availity-banner',
     transformIndexHtml(html) {
@@ -142,6 +193,20 @@ const buildViteConfig = async (settings) => {
     },
   });
 
+  // Force process exit after build completes.
+  // Vite 8 (Rolldown) can leave open handles that prevent Node from exiting naturally.
+  // Using setTimeout defers the exit one tick so all closeBundle callbacks finish first.
+  // Only applied during builds — not during the dev server.
+  // eslint-disable-next-line unicorn/prefer-single-call
+  plugins.push({
+    name: 'availity-force-exit',
+    apply: 'build',
+    closeBundle() {
+      // eslint-disable-next-line unicorn/no-process-exit
+      setTimeout(() => process.exit(0), 0);
+    },
+  });
+
   return {
     root: settings.app(),
     define,
@@ -157,17 +222,17 @@ const buildViteConfig = async (settings) => {
       alias: { '@/': `${settings.app()}/` },
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', '.scss'],
     },
-    css: { preprocessorOptions: { scss: { sourceMap: true } } },
+    css: { preprocessorOptions: { scss: { sourceMap: settings.configuration.development.sourceMap } } },
     plugins,
     optimizeDeps: {
       include: ['react', 'react-dom', 'react-dom/client', 'react-router-dom', 'axios'],
     },
     build: {
       outDir: settings.output(),
-      sourcemap: true,
+      sourcemap: settings.configuration.development.sourceMap,
       target: settings.isDevelopment() ? 'esnext' : 'es2020',
       emptyOutDir: true,
-      rollupOptions: {
+      rolldownOptions: {
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {

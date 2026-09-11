@@ -7,7 +7,7 @@ const buildViteProductionConfig = async (settings) => {
   return deepMerge({}, baseConfig, {
     build: {
       outDir: settings.output(),
-      sourcemap: true,
+      sourcemap: settings.configuration.development.sourceMap,
       target: 'es2020',
       emptyOutDir: true,
       cssMinify: true,
@@ -17,8 +17,10 @@ const buildViteProductionConfig = async (settings) => {
           entryFileNames: 'assets/[name]-[hash:8].js',
           chunkFileNames: 'assets/[name]-[hash:8].chunk.js',
           assetFileNames: 'assets/[name]-[hash:8][extname]',
-          codeSplitting: {
-            groups: [{ name: 'vendor-react', test: /[/\\]node_modules[/\\](react|react-dom)[/\\]/ }],
+          manualChunks(id) {
+            if (/node_modules[/\\](react|react-dom)[/\\]/.test(id)) return 'vendor-react';
+            if (id.includes('node_modules')) return 'vendor';
+            return undefined;
           },
         },
       },

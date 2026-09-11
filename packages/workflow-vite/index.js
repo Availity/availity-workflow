@@ -47,7 +47,8 @@ yargs
       yyargs
         .option('include', { alias: 'i', describe: 'Glob patterns to INCLUDE for ESLint scanning' })
         .option('ignore-git-untracked', { alias: 'u', describe: 'Ignore files not indexed by git' })
-        .option('disable-linter', { describe: 'Disable linter' });
+        .option('disable-linter', { describe: 'Disable linter' })
+        .option('verbose', { alias: 'v', describe: 'Print each file being linted', type: 'boolean' });
     },
     async (argv) => {
       try {
