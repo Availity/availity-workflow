@@ -2,6 +2,24 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.2.0](https://github.com/Availity/availity-workflow/compare/@availity/example@6.1.0...@availity/example@6.2.0) (2026-09-14)
+
+### Dependency Updates
+
+* `mock-server` updated to version `6.1.0`
+* `workflow` updated to version `6.1.0`
+
+### Bug Fixes
+
+* use avDate().isRequired() instead of .required() in example test ([9e0a3c0](https://github.com/Availity/availity-workflow/commit/9e0a3c0fa5229ed2704e923f4ce267dd93544670))
+
+
+### Features
+
+* vitest v5, jest-dom v7, DX improvements and bug fixes ([4411f4a](https://github.com/Availity/availity-workflow/commit/4411f4a6ea221713ced56115c5e6c9aa52521a6d))
+
+
+
 # [6.1.0](https://github.com/Availity/availity-workflow/compare/@availity/example@6.0.4...@availity/example@6.1.0) (2026-09-14)
 
 ### Dependency Updates
