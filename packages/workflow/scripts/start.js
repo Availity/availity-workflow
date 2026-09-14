@@ -47,7 +47,7 @@ ${chalk.yellow.bold('Warning:')} Port ${chalk.blue(wantedPort)} was already in u
 }
 
 async function rest(settings) {
-  if (!settings.isEkko()) return;
+  if (!settings.isEkko()) return null;
 
   const ekkoOptions = {
     data: settings.config().ekko.data,
@@ -58,31 +58,46 @@ async function rest(settings) {
     pluginContext: settings.config().ekko.pluginContext,
     logProvider() {
       return {
-        log(...args) { Logger.log(args); },
-        debug(...args) { Logger.debug(args); },
-        info(...args) { Logger.info(args); },
-        warn(...args) { Logger.warn(args); },
-        error(...args) { Logger.error(args); },
+        log(...args) {
+          Logger.log(...args);
+        },
+        debug(...args) {
+          Logger.debug(...args);
+        },
+        info(...args) {
+          Logger.info(...args);
+        },
+        warn(...args) {
+          Logger.warn(...args);
+        },
+        error(...args) {
+          Logger.error(...args);
+        },
       };
-    }
+    },
   };
 
   try {
     const { default: Ekko } = await import('@availity/mock-server');
     const ekko = new Ekko();
     await ekko.start(ekkoOptions);
+    return ekko;
   } catch (error) {
     Logger.error(
       "Failed to create Ekko Server. Please install '@availity/mock-server' with `yarn install @availity/mock-server --dev` or check your settings"
     );
     Logger.error(error.message || error);
+    return null;
   }
 }
 
-function web(settings) {
+function web(settings, ekko) {
   return new Promise((resolve, reject) => {
     let previousPercent;
     let webpackConfig;
+    // Declared here so the done hook closure can reference it before the
+    // WebpackDevServer instantiation below (avoids no-use-before-define).
+    let server;
 
     if (settings.isDryRun() && settings.isDevelopment()) {
       Logger.message('Using production webpack settings', 'Dry Run');
@@ -118,7 +133,7 @@ function web(settings) {
     const startupMessage = once(() => showStartupMessage(settings));
     const openBrowser = once(() => open(settings));
 
-    compiler.hooks.done.tap('done', (stats) => {
+    compiler.hooks.done.tap('done', async (stats) => {
       const json = stats.toJson({}, true);
       const messages = formatWebpackMessages(json);
 
@@ -131,6 +146,18 @@ function web(settings) {
 
         Logger.failed('Failed compiling');
         Logger.empty();
+        // Stop both servers so the process can exit cleanly. Without this, their open
+        // socket handles keep Node alive even after process.exit(1) is called.
+        try {
+          await server.stop();
+        } catch {
+          /* best-effort */
+        }
+        try {
+          if (ekko?.stop) await ekko.stop();
+        } catch {
+          /* best-effort */
+        }
         reject(new Error(json.errors[0]));
         return;
       }
@@ -146,7 +173,7 @@ function web(settings) {
           warnings: false,
           errors: true,
           runtimeErrors: true,
-        }
+        },
       },
 
       port: settings.port(),
@@ -163,9 +190,9 @@ function web(settings) {
         // Reportedly, this avoids CPU overload on some systems.
         // https://github.com/facebookincubator/create-react-app/issues/293
         watch: {
-          ignored: /node_modules(\\+|\/)+(?!(@availity|@av))/
-        }
-      }
+          ignored: /node_modules(\\+|\/)+(?!(@availity|@av))/,
+        },
+      },
     };
 
     const devServerOptions = deepMerge(defaults, settings.config().development.webpackDevServer);
@@ -175,7 +202,7 @@ function web(settings) {
       devServerOptions.proxy = proxyConfig;
     }
 
-    const server = new WebpackDevServer(devServerOptions, compiler);
+    server = new WebpackDevServer(devServerOptions, compiler);
 
     const runServer = async () => {
       try {
@@ -186,6 +213,16 @@ function web(settings) {
       } catch (error) {
         Logger.failed('Failed to start development server');
         Logger.failed(error);
+        try {
+          await server.stop();
+        } catch {
+          /* best-effort */
+        }
+        try {
+          if (ekko?.stop) await ekko.stop();
+        } catch {
+          /* best-effort */
+        }
         reject(error);
       }
     };
@@ -196,8 +233,12 @@ function web(settings) {
 
 async function start({ settings }) {
   settings.log();
-  await web(settings);
-  await rest(settings);
+
+  // Start Ekko first so the proxy target is ready when webpack dev server opens.
+  // Store the instance so we can stop it if webpack compilation fails later.
+  const ekko = await rest(settings);
+
+  await web(settings, ekko);
 }
 
 export default start;

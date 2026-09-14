@@ -59,7 +59,22 @@ Additional `node_modules` packages to transform during testing. Default: `[]`.
 
 ### `development.vitestOverrides`
 
-Vitest configuration overrides merged directly into the test config. See [Vitest config reference](https://vitest.dev/config/).
+Vitest configuration overrides merged directly into the test config. Options are additive — you only need to specify what you want to change. See [Vitest config reference](https://vitest.dev/config/) for the full list.
+
+| Option              | Type                    | Description                                                                                           |
+| ------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------- |
+| `pool`              | string                  | `'vmThreads'` (default), `'forks'`, or `'threads'`                                                    |
+| `environment`       | string                  | `'jsdom'` (default), `'happy-dom'`, or `'node'`                                                       |
+| `testTimeout`       | number                  | Test timeout in ms (default: 5000)                                                                    |
+| `setupFiles`        | string \| string[]      | Additional setup files — appended to the internal list                                                |
+| `inlineDeps`        | string \| RegExp \| ... | Extra packages to inline through Vite's transform pipeline                                            |
+| `fallbackCJS`       | boolean                 | Try CJS build for packages with broken ESM (default: `true`)                                          |
+| `optimizeDeps`      | string \| string[]      | Extra packages to pre-bundle for faster startup                                                       |
+| `exclude`           | string \| string[]      | Additional glob patterns to exclude from test discovery                                               |
+| `resolveConditions` | string[]                | Override the module resolution condition list (default: `['browser', 'module', 'import', 'default']`) |
+| `coverage`          | object                  | Any [Vitest coverage options](https://vitest.dev/config/#coverage) — merged with defaults             |
+
+> **Note on `clearMocks`:** Vitest 5 changed the default for `clearMocks` to `true`. `@availity/workflow-vite` explicitly pins it to `false` to preserve existing test behavior. To auto-clear mocks before each test, opt in via `vitestOverrides.clearMocks: true`.
 
 ```js
 export default (config) => {

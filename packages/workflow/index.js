@@ -7,7 +7,7 @@ import Settings from './settings/index.js';
 function handleError(command, error) {
   Logger.error(`Command "${command}" failed:`);
   Logger.error(error?.stack || error?.message || error);
-  process.exitCode = 1;
+  process.exit(1);
 }
 
 function getStagingOptions() {
@@ -55,6 +55,11 @@ yargs
         })
         .option('disable-linter', {
           describe: 'Disable linter when creating bundles for production or staging',
+        })
+        .option('verbose', {
+          alias: 'v',
+          describe: 'Print each file being linted',
+          type: 'boolean',
         });
     },
     async (argv) => {
@@ -79,7 +84,12 @@ yargs
         .option('changed', { describe: 'Run tests for changed files (optionally specify base ref)', type: 'string' })
         .option('bail', { describe: 'Stop after first failure (optionally specify count)', type: 'number' })
         .option('silent', { describe: 'Suppress console output from tests', type: 'boolean' })
-        .option('ui', { describe: 'Open Vitest UI', type: 'boolean' });
+        .option('ui', { describe: 'Open Vitest UI', type: 'boolean' })
+        .option('testNamePattern', {
+          alias: 't',
+          describe: 'Only run tests whose full name matches this pattern (regex or string)',
+          type: 'string',
+        });
     },
     async (argv) => {
       try {

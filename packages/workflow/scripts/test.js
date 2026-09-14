@@ -29,6 +29,9 @@ async function runVitest({ settings }) {
     testOptions.ui = true;
     testOptions.watch = true;
   }
+  if (argv.testNamePattern) {
+    testOptions.testNamePattern = argv.testNamePattern;
+  }
 
   const mode = argv.watch || argv.ui ? 'watch' : 'run';
   testOptions.watch = Boolean(argv.watch || argv.ui);

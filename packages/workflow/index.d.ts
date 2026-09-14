@@ -9,12 +9,27 @@ export interface DevelopmentConfig {
   infrastructureLogging?: { level?: string };
   sourceMap?: string;
   hotLoader?: boolean;
+  historyFallback?: boolean;
   webpackDevServer?: Record<string, unknown>;
   targets?: string | string[];
   babelInclude?: string[];
+  /**
+   * @deprecated Use `vitestOverrides` instead.
+   * Supports a limited subset of legacy Jest/Vitest options for backward compatibility:
+   * `collectCoverageFrom`, `coveragePathIgnorePatterns`, `testTimeout`.
+   */
   jestOverrides?: Record<string, unknown>;
   vitestOverrides?: Record<string, unknown>;
   suppressDeprecationWarnings?: boolean;
+  /**
+   * Override the Vite resolve conditions used during testing.
+   *
+   * Defaults to `['browser', 'module', 'import', 'default']`, which intentionally
+   * excludes the Node 22 `module-sync` condition to prevent vmThreads failures on Linux.
+   *
+   * Only set this if you need a custom condition order or need to re-add `module-sync`.
+   */
+  resolveConditions?: string[];
 }
 
 export interface AppConfig {
@@ -45,30 +60,36 @@ export interface ProxyConfig {
 }
 
 export interface EslintConfig {
-  /** Will cause the module build to fail if there are any errors. Defaults to true in production, false in development. */
+  /**
+   * Fail the lint run if there are any ESLint errors.
+   * @default true
+   */
   failOnError?: boolean;
-  /** Will cause the module build to fail if there are any warnings */
+  /**
+   * Fail the lint run if there are any ESLint warnings.
+   * Superseded by `maxWarnings` when both are set.
+   * @default false
+   */
   failOnWarning?: boolean;
-  /** The errors found will always be emitted */
-  emitError?: boolean;
-  /** The warnings found will always be emitted */
-  emitWarning?: boolean;
-  /** Specify the extensions that should be checked */
-  extensions?: string | string[];
-  /** Specify the files and/or directories to exclude */
-  exclude?: string | string[];
-  /** Specify directories, files, or globs */
-  files?: string | string[];
-  /** Apply fixes */
+  /**
+   * Automatically fix all auto-fixable ESLint problems and write changes to disk.
+   * Applied during `av lint` only.
+   * @default false
+   */
   fix?: boolean;
-  /** Lint only changed files, skip linting on start */
-  lintDirtyModulesOnly?: boolean;
-  /** Will process and report errors only and ignore warnings */
+  /**
+   * Report errors only — suppress warnings from lint output.
+   * Applied during `av lint` only.
+   * @default false
+   */
   quiet?: boolean;
-  /** Enable file caching */
-  cache?: boolean;
-  /** Path to `eslint` instance that will be used for linting */
-  eslintPath?: string;
+  /**
+   * Maximum number of warnings allowed before the lint run fails.
+   * When set, takes precedence over `failOnWarning`.
+   * - `0` — fail on any warning
+   * - `10` — allow up to 10 warnings before failing
+   */
+  maxWarnings?: number;
 }
 
 export interface WorkflowConfig {
@@ -128,6 +149,7 @@ export default class Settings {
   isDryRun(): boolean;
   isProfile(): boolean;
   isIgnoreUntracked(): boolean;
+  isVerbose(): boolean;
   isLinterDisabled(): boolean;
   commitMessage(): string | undefined;
   js(): string[];

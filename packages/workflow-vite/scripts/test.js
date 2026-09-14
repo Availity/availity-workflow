@@ -30,6 +30,9 @@ export default async function test({ settings }) {
     testOptions.ui = true;
     testOptions.watch = true;
   }
+  if (argv.testNamePattern) {
+    testOptions.testNamePattern = argv.testNamePattern;
+  }
 
   // Forward positional args (argv._) as file filters so users can run specific tests:
   //   av test project/app/App.test.tsx
@@ -48,9 +51,9 @@ export default async function test({ settings }) {
 
   // In run mode, exit with a non-zero code if any tests failed so that CI pipelines
   // correctly detect failures. Watch/UI mode stays alive so we don't force-exit.
-  if (!argv.watch && !argv.ui) {
-    const failed = vitest.state?.getFiles().some((f) => f.result?.state === 'fail');
-    // eslint-disable-next-line unicorn/no-process-exit
-    if (failed) process.exit(1);
-  }
+  // vitest.exitCode is set by Vitest itself and is the authoritative source — it reflects
+  // actual test failures, unhandled errors, and setup failures. Checking state.getFiles()
+  // is unreliable after close() because the state may already be cleared.
+  // eslint-disable-next-line unicorn/no-process-exit
+  if (!argv.watch && !argv.ui && vitest.exitCode) process.exit(vitest.exitCode);
 }

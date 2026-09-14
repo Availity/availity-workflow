@@ -312,9 +312,19 @@ exports[`webpack configs > sets up the default config with default settings 1`] 
     {
       "isFirstBuild": true,
       "lastBuildSucceeded": false,
+      "notifier": {
+        "_events": {},
+        "_eventsCount": 0,
+        "options": {
+          "withFallback": true,
+        },
+      },
       "options": {
         "contentImage": "<ROOT>/packages/workflow/public/availity.png",
         "excludeWarnings": true,
+        "notifierOptions": {
+          "withFallback": true,
+        },
       },
     },
   ],

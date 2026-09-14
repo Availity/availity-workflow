@@ -72,7 +72,12 @@ yargs
         .option('changed', { describe: 'Run tests for changed files (optionally specify base ref)', type: 'string' })
         .option('bail', { describe: 'Stop after first failure (optionally specify count)', type: 'number' })
         .option('silent', { describe: 'Suppress console output from tests', type: 'boolean' })
-        .option('ui', { describe: 'Open Vitest UI', type: 'boolean' });
+        .option('ui', { describe: 'Open Vitest UI', type: 'boolean' })
+        .option('testNamePattern', {
+          alias: 't',
+          describe: 'Only run tests whose full name matches this pattern (regex or string)',
+          type: 'string',
+        });
     },
     async (argv) => {
       try {

@@ -156,10 +156,18 @@ const buildViteConfig = async (settings) => {
         fs.writeFileSync(projectHtml, generateIndexHtml(settings, entryFile));
       }
     },
+    // buildEnd is called on both success and failure (error is defined on failure).
+    // Always clean up the generated file so a failed build doesn't leave a stale
+    // index.html on disk that would confuse subsequent runs or git status.
     buildEnd() {
       if (this._generatedHtml) {
         const projectHtml = path.join(settings.app(), 'index.html');
-        if (fs.existsSync(projectHtml)) fs.unlinkSync(projectHtml);
+        try {
+          if (fs.existsSync(projectHtml)) fs.unlinkSync(projectHtml);
+        } catch {
+          // best-effort cleanup — ignore errors
+        }
+        this._generatedHtml = false;
       }
     },
   });
@@ -201,9 +209,14 @@ const buildViteConfig = async (settings) => {
   plugins.push({
     name: 'availity-force-exit',
     apply: 'build',
+    buildEnd(error) {
+      // Track whether the build failed so closeBundle can exit with the right code.
+      if (error) this._buildFailed = true;
+    },
     closeBundle() {
+      const code = this._buildFailed ? 1 : 0;
       // eslint-disable-next-line unicorn/no-process-exit
-      setTimeout(() => process.exit(0), 0);
+      setTimeout(() => process.exit(code), 0);
     },
   });
 

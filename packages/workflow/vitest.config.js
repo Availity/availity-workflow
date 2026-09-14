@@ -27,12 +27,14 @@ function create(settings) {
     setupFiles.push(setupFilesPath);
   }
 
-  const setupFilesAfterEnv = [];
+  // jest.init.js is a legacy hook that exports an array of setup module paths.
+  // Collect them separately so they're appended after the primary setup files.
+  const jestInitSetupFiles = [];
   if (jestInitExists) {
     // jest.init.js exports an array of setup modules
     const initModules = require(jestInitPath);
     if (Array.isArray(initModules)) {
-      setupFilesAfterEnv.push(...initModules);
+      jestInitSetupFiles.push(...initModules);
     }
   }
 
@@ -50,10 +52,16 @@ function create(settings) {
   const config = {
     root: rootDir,
     define,
+    // Explicitly exclude `module-sync` from resolve conditions.
+    // Node 22 introduced the `module-sync` condition for synchronous ESM loading in CJS contexts.
+    // With vmThreads on Linux + Node 22, Vitest resolves `module-sync` → a .mjs file, then tries
+    // to require() it — which fails with SyntaxError. Omitting it forces the `import` or `default`
+    // condition instead. Consumers can override via `development.resolveConditions` in workflow.js.
     resolve: {
       alias: {
         '@/': `${settings.app()}/`,
       },
+      conditions: settings.configuration.development.resolveConditions ?? ['browser', 'module', 'import', 'default'],
     },
     test: {
       globals: true,
@@ -63,7 +71,7 @@ function create(settings) {
       // the default forks pool which spawns new processes per test file
       pool: 'vmThreads',
 
-      setupFiles: [...setupFiles, ...setupFilesAfterEnv],
+      setupFiles: [...setupFiles, ...jestInitSetupFiles],
       include: [
         '!(build|docs|dist|node_modules|scripts)/**/__tests__/**/*.(js|ts|tsx)?(x)',
         '!(build|docs|dist|node_modules|scripts)/**/*(*.)(spec|test).(js|ts|tsx)?(x)',
@@ -85,6 +93,11 @@ function create(settings) {
       // this is the faster equivalent (no parsing at all)
       css: false,
 
+      // Vitest 5 changed clearMocks default from false to true.
+      // We keep false here to preserve the existing behavior for consumers upgrading.
+      // Consumers who want auto-clearing between tests can set vitestOverrides.clearMocks: true.
+      clearMocks: false,
+
       // Coverage runs only when --coverage is passed, not by default.
       // v8 provider is the fastest option (native V8 coverage, no instrumentation).
       coverage: {
@@ -95,22 +108,23 @@ function create(settings) {
         include: ['project/app/**/*.{js,jsx,ts,tsx}'],
         exclude: ['node_modules/', 'coverage/', 'dist/', 'build/'],
       },
-      // Equivalent to Jest's transformIgnorePatterns — deps that need transformation.
-      // In Vitest 4.x with vmThreads, server.deps.inline tells Vite to process these
-      // modules through its transform pipeline rather than passing them to native Node.
-      server: {
-        deps: {
-          inline: [new RegExp(`node_modules[/\\\\](?=(${includes})).*`)],
-          // Try CJS fallback for packages with invalid ESM (like dayjs which has no exports map)
-          fallbackCJS: true,
-        },
-      },
       deps: {
         // Pre-bundle test dependencies for faster startup
         optimizer: {
           web: {
             enabled: true,
           },
+        },
+      },
+      // server.deps is deprecated in Vitest 5 but still functional.
+      // server.deps.inline routes packages through Vite's transform pipeline so they
+      // are processed as ESM. server.deps.fallbackCJS guesses a CJS build for packages
+      // with confusing ESM/CJS packaging (e.g. dayjs which has no exports map).
+      server: {
+        deps: {
+          inline: [new RegExp(`node_modules[/\\\\](?=(${includes})).*`)],
+          // Try CJS fallback for packages with invalid ESM (like dayjs which has no exports map)
+          fallbackCJS: true,
         },
       },
     },
@@ -142,6 +156,7 @@ function create(settings) {
   //   fallbackCJS     - true (default) | false
   //   optimizeDeps    - additional packages to pre-bundle (appended to internal list)
   //   exclude         - additional test file exclusion globs (appended to internal list)
+  //   resolveConditions - override the resolve conditions list (replaces the default)
   //   coverage        - all vitest coverage options (merged with defaults)
   //                     e.g. { include, exclude, all, provider, thresholds, reporter, ... }
   //
@@ -169,6 +184,7 @@ function create(settings) {
       optimizeDeps,
       exclude,
       coverage,
+      resolveConditions,
       ...rest
     } = vitestOverrides;
 
@@ -205,6 +221,11 @@ function create(settings) {
     if (exclude) {
       const globs = Array.isArray(exclude) ? exclude : [exclude];
       config.test.exclude.push(...globs);
+    }
+
+    // Override: resolve conditions (replaces the default module-sync workaround list)
+    if (resolveConditions) {
+      config.resolve.conditions = Array.isArray(resolveConditions) ? resolveConditions : [resolveConditions];
     }
 
     // Override: coverage options (merged with defaults — user values win)
