@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [11.1.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@11.0.0...@availity/mock-server@11.1.0) (2026-09-14)
+
+### Dependency Updates
+
+* `mock-data` updated to version `11.0.0`
+
+### Features
+
+* **workflow-vite:** major config, DX, and test improvements ([765665a](https://github.com/Availity/availity-workflow/commit/765665a5df4e5d875faadcb23981a44e5d347ce9))
+
+
+
 # [11.0.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@10.0.0...@availity/mock-server@11.0.0) (2026-06-26)
 
 ### Dependency Updates

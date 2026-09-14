@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [3.2.0](https://github.com/Availity/availity-workflow/compare/@availity/dinosaurdocs@3.1.0...@availity/dinosaurdocs@3.2.0) (2026-09-14)
+
+
+### Bug Fixes
+
+* add vite template docs and fix scaffold bugs ([572f4ea](https://github.com/Availity/availity-workflow/commit/572f4ea6ae00b1297fa6f088a883f08002b06837))
+
+
+### Features
+
+* **workflow-vite:** major config, DX, and test improvements ([765665a](https://github.com/Availity/availity-workflow/commit/765665a5df4e5d875faadcb23981a44e5d347ce9))
+
+
+
 # [3.1.0](https://github.com/Availity/availity-workflow/compare/@availity/dinosaurdocs@3.0.10...@availity/dinosaurdocs@3.1.0) (2026-06-26)
 
 
