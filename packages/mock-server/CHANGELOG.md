@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [11.2.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@11.1.0...@availity/mock-server@11.2.0) (2026-09-14)
+
+
+### Features
+
+* vitest v5, jest-dom v7, DX improvements and bug fixes ([4411f4a](https://github.com/Availity/availity-workflow/commit/4411f4a6ea221713ced56115c5e6c9aa52521a6d))
+
+
+
 # [11.1.0](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@11.0.0...@availity/mock-server@11.1.0) (2026-09-14)
 
 ### Dependency Updates

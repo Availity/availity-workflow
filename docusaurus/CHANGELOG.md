@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [3.3.0](https://github.com/Availity/availity-workflow/compare/@availity/dinosaurdocs@3.2.0...@availity/dinosaurdocs@3.3.0) (2026-09-14)
+
+
+### Features
+
+* vitest v5, jest-dom v7, DX improvements and bug fixes ([4411f4a](https://github.com/Availity/availity-workflow/commit/4411f4a6ea221713ced56115c5e6c9aa52521a6d))
+
+
+
 # [3.2.0](https://github.com/Availity/availity-workflow/compare/@availity/dinosaurdocs@3.1.0...@availity/dinosaurdocs@3.2.0) (2026-09-14)
 
 
