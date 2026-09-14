@@ -25,7 +25,11 @@ describe('@availity/yup avDate', () => {
 
   test('works within an object schema', async () => {
     const objectSchema = yup.object({
-      startDate: avDate().required(),
+      // avDate uses a custom `check` that accepts empty strings as a valid type
+      // (so the transform can run and provide better error messages). Use
+      // `.isRequired()` — avDate's own required validator — not yup's built-in
+      // `.required()`, which passes for empty strings because the type check succeeds.
+      startDate: avDate().isRequired(),
     });
 
     await expect(objectSchema.validate({ startDate: '12/25/2025' })).resolves.toBeDefined();
