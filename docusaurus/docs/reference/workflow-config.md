@@ -142,15 +142,52 @@ Include additional packages from `node_modules` that should be compiled by Babel
 
 #### `development.jestOverrides`
 
-Customize any available Vitest configuration option. See https://vitest.dev/config/ for list of configuration options. Uses lodash merge to deeply merge user config object with defaults.
+> **Deprecated.** Use `development.vitestOverrides` instead. `jestOverrides` is a legacy compatibility shim that maps a small subset of Jest config keys to their Vitest equivalents. Only three keys are recognized: `collectCoverageFrom`, `coveragePathIgnorePatterns`, and `testTimeout`. All other keys are silently ignored.
 
-**Ex:**:
+**Supported (legacy) mappings:**
 
 ```js
 {
-    collectCoverageFrom: ['project/app/**/*.{js,jsx,ts,tsx}', '!project/app/**/*.d.ts'],
-    coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/', '/types'],
+  collectCoverageFrom: ['project/app/**/*.{js,jsx,ts,tsx}', '!project/app/**/*.d.ts'],
+  coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/', '/types'],
+  testTimeout: 15000,
 }
+```
+
+#### `development.vitestOverrides`
+
+The preferred way to customize Vitest. Options are merged additively with the workflow defaults — you only need to specify what you want to change.
+
+| Option              | Type                    | Description                                                                                           |
+| ------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------- |
+| `pool`              | string                  | `'vmThreads'` (default), `'forks'`, or `'threads'`                                                    |
+| `environment`       | string                  | `'jsdom'` (default), `'happy-dom'`, or `'node'`                                                       |
+| `testTimeout`       | number                  | Test timeout in ms (default: 5000)                                                                    |
+| `setupFiles`        | string \| string[]      | Additional setup files — appended to the internal list                                                |
+| `inlineDeps`        | string \| RegExp \| ... | Extra packages to inline through Vite's transform pipeline                                            |
+| `fallbackCJS`       | boolean                 | Try CJS build for packages with broken ESM (default: `true`)                                          |
+| `optimizeDeps`      | string \| string[]      | Extra packages to pre-bundle for faster startup                                                       |
+| `exclude`           | string \| string[]      | Additional glob patterns to exclude from test discovery                                               |
+| `resolveConditions` | string[]                | Override the module resolution condition list (default: `['browser', 'module', 'import', 'default']`) |
+| `coverage`          | object                  | Any [Vitest coverage options](https://vitest.dev/config/#coverage) — merged with defaults             |
+
+> **Note on `clearMocks`:** Vitest 5 changed the default for `clearMocks` to `true`. `@availity/workflow` explicitly pins it to `false` to preserve existing test behavior. If you want mocks auto-cleared before each test, opt in via `vitestOverrides.clearMocks: true`.
+
+**Example:**
+
+```js
+export default (config) => {
+  config.development.vitestOverrides = {
+    testTimeout: 15000,
+    setupFiles: ['./vitest.setup.js'],
+    coverage: {
+      all: true,
+      provider: 'istanbul',
+      thresholds: { statements: 80 },
+    },
+  };
+  return config;
+};
 ```
 
 #### `app.title`

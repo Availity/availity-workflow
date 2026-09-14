@@ -124,6 +124,8 @@ Jest is no longer bundled. Remove these from your devDependencies (the upgrade t
 - `ts-jest`, `@types/jest`, `jest-junit`
 - `react-test-renderer`
 
+> **Vitest 5 note:** Vitest 5 changed the default for `clearMocks` to `true`, which would auto-clear mock call history before each test. `@availity/workflow` explicitly pins it back to `false` so existing tests behave the same as before. If you want the new behavior, opt in via `vitestOverrides.clearMocks: true` in your workflow config.
+
 ### Babel Removed
 
 esbuild-loader replaces Babel for compilation. Remove these (handled by the upgrade tool):

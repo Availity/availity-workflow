@@ -76,6 +76,15 @@ const schema = Joi.object()
         suppressDeprecationWarnings: Joi.boolean()
           .default(false)
           .description('Suppress Node.js deprecation warnings during builds'),
+        resolveConditions: Joi.array()
+          .items(Joi.string())
+          .optional()
+          .description(
+            'Override the Vite resolve conditions used during testing. ' +
+              'Defaults to ["browser", "module", "import", "default"], which intentionally excludes ' +
+              'the Node 22 `module-sync` condition to prevent vmThreads failures on Linux. ' +
+              'Set this if you need a custom condition (e.g. ["browser", "import", "default", "require"]).'
+          ),
       })
       .unknown()
       .default(),
@@ -87,18 +96,10 @@ const schema = Joi.object()
           .example('Availity ID Card Viewer'),
       })
       .default(),
-    globals: Joi.object()
-      .default({
-        __DEV__: false,
-        __TEST__: false,
-        __PROD__: false,
-        __STAGING__: false,
-      })
-      .unknown()
-      .example({
-        BROWSER_SUPPORTS_HTML5: true,
-        EXPERIMENTAL_FEATURE: false,
-      }),
+    globals: Joi.object().default({}).unknown().example({
+      BROWSER_SUPPORTS_HTML5: true,
+      EXPERIMENTAL_FEATURE: false,
+    }),
     ekko: Joi.object()
       .keys({
         enabled: Joi.boolean().description('Enables or disables Ekko'),
@@ -164,7 +165,18 @@ const schema = Joi.object()
       .default({}),
     eslint: Joi.object()
       .keys({
-        failOnError: Joi.boolean(),
+        failOnError: Joi.boolean().default(true).description('Fail the lint run if there are any ESLint errors'),
+        failOnWarning: Joi.boolean().default(false).description('Fail the lint run if there are any ESLint warnings'),
+        fix: Joi.boolean().default(false).description('Automatically fix fixable ESLint problems'),
+        quiet: Joi.boolean().default(false).description('Report errors only — suppress warnings from lint output'),
+        maxWarnings: Joi.number()
+          .integer()
+          .min(0)
+          .optional()
+          .description(
+            'Number of warnings allowed before the lint run fails. ' +
+              'Overrides failOnWarning when set (e.g. maxWarnings: 0 fails on any warning, 10 allows up to 10).'
+          ),
       })
       .unknown()
       .default({}),

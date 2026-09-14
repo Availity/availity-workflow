@@ -215,6 +215,16 @@ export default async (cwd) => {
   // --- Write package.json ---
   fs.writeFileSync(pkgFile, `${JSON.stringify(updatedPkg, null, 2)}\n`, 'utf8');
 
+  // --- Bump pinned @testing-library/jest-dom to v7 if consumer has it directly ---
+  // jest-dom is bundled with @availity/workflow, but some consumers pin it explicitly.
+  // v7 is required for compatibility with @testing-library/dom >=10 and vitest >=5.
+  const jestDomKey = '@testing-library/jest-dom';
+  const jestDomCurrent = updatedPkg.devDependencies?.[jestDomKey] || updatedPkg.dependencies?.[jestDomKey];
+  if (jestDomCurrent && jestDomCurrent.startsWith('^6')) {
+    Logger.info(`Upgrading ${jestDomKey}: ${jestDomCurrent} → ^7.0.1`);
+    await run(addDev(installer, [`${jestDomKey}@^7.0.1`]), cwd);
+  }
+
   // --- Update .nvmrc / .node-version ---
   for (const versionFile of ['.nvmrc', '.node-version']) {
     const versionPath = path.join(cwd, versionFile);

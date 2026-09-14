@@ -23,6 +23,8 @@ describe('lint', () => {
     mockESLint = vi.fn(function () {
       return mockEngine;
     });
+    mockESLint.outputFixes = vi.fn();
+    mockESLint.getErrorResults = vi.fn((report) => report.filter((r) => r.errorCount > 0));
 
     mockReaddir = vi.fn(() => ['index.js', 'app.js']);
     vi.doMock('fs/promises', () => ({ readdir: mockReaddir }));
@@ -30,7 +32,7 @@ describe('lint', () => {
     mockOraSpinner = { start: vi.fn(), stop: vi.fn(), color: '' };
     vi.doMock('ora', () => ({ default: vi.fn(() => mockOraSpinner) }));
 
-    vi.doMock('chalk', () => ({ default: { magenta: vi.fn((v) => v) } }));
+    vi.doMock('chalk', () => ({ default: { magenta: vi.fn((v) => v), cyan: vi.fn((v) => v), dim: vi.fn((v) => v) } }));
 
     mockLogger = {
       info: vi.fn(),
@@ -61,8 +63,10 @@ describe('lint', () => {
       isLinterDisabled: vi.fn(() => false),
       project: vi.fn(() => '/project'),
       isIgnoreUntracked: vi.fn(() => false),
+      isVerbose: vi.fn(() => false),
       js: vi.fn(() => ['src/**/*.js']),
       isFail: vi.fn(() => false),
+      config: vi.fn(() => ({ eslint: {} })),
     };
 
     const mod = await import('../../scripts/lint.js');
@@ -89,7 +93,7 @@ describe('lint', () => {
 
     vi.doMock('fs/promises', () => ({ readdir: mockReaddir }));
     vi.doMock('ora', () => ({ default: vi.fn(() => mockOraSpinner) }));
-    vi.doMock('chalk', () => ({ default: { magenta: vi.fn((v) => v) } }));
+    vi.doMock('chalk', () => ({ default: { magenta: vi.fn((v) => v), cyan: vi.fn((v) => v), dim: vi.fn((v) => v) } }));
     vi.doMock('@availity/workflow-logger', () => ({ default: mockLogger }));
     vi.doMock('module', () => ({ createRequire: vi.fn(() => throwingRequire) }));
     vi.doMock('child_process', () => ({ execFile: vi.fn((cmd, args, cb) => cb(null, '', '')) }));
@@ -123,7 +127,7 @@ describe('lint', () => {
 
     vi.doMock('fs/promises', () => ({ readdir: mockReaddir }));
     vi.doMock('ora', () => ({ default: vi.fn(() => mockOraSpinner) }));
-    vi.doMock('chalk', () => ({ default: { magenta: vi.fn((v) => v) } }));
+    vi.doMock('chalk', () => ({ default: { magenta: vi.fn((v) => v), cyan: vi.fn((v) => v), dim: vi.fn((v) => v) } }));
     vi.doMock('@availity/workflow-logger', () => ({ default: mockLogger }));
     vi.doMock('module', () => ({ createRequire: vi.fn(() => throwingRequire) }));
     vi.doMock('child_process', () => ({ execFile: vi.fn((cmd, args, cb) => cb(null, '', '')) }));
@@ -158,7 +162,7 @@ describe('lint', () => {
 
     vi.doMock('fs/promises', () => ({ readdir: mockReaddir }));
     vi.doMock('ora', () => ({ default: vi.fn(() => mockOraSpinner) }));
-    vi.doMock('chalk', () => ({ default: { magenta: vi.fn((v) => v) } }));
+    vi.doMock('chalk', () => ({ default: { magenta: vi.fn((v) => v), cyan: vi.fn((v) => v), dim: vi.fn((v) => v) } }));
     vi.doMock('@availity/workflow-logger', () => ({ default: mockLogger }));
     vi.doMock('module', () => ({ createRequire: vi.fn(() => vi.fn(() => ({ ESLint: badESLint }))) }));
     vi.doMock('child_process', () => ({ execFile: vi.fn((cmd, args, cb) => cb(null, '', '')) }));
@@ -196,12 +200,10 @@ describe('lint', () => {
     expect(mockLogger.failed).not.toHaveBeenCalled();
   });
 
-  it('returns false and sets exit code when errors exist', async () => {
-    mockEngine.lintFiles.mockResolvedValue([{ errorCount: 2, warningCount: 0 }]);
+  it('throws when errors exist', async () => {
+    mockEngine.lintFiles.mockResolvedValue([{ errorCount: 2, warningCount: 0, messages: [] }]);
 
-    const result = await lint({ settings: mockSettings });
-    expect(result).toBe(false);
-    expect(process.exitCode).toBe(1);
+    await expect(lint({ settings: mockSettings })).rejects.toThrow('Failed linting');
     expect(mockLogger.failed).toHaveBeenCalledWith('Failed linting');
   });
 

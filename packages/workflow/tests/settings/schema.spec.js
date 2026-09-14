@@ -24,20 +24,14 @@ describe('settings schema', () => {
     expect(value.development.host).toBe('localhost');
   });
 
-
   it('defaults app.title to Availity', () => {
     const { value } = schema.validate({});
     expect(value.app.title).toBe('Availity');
   });
 
-  it('defaults globals to include __DEV__, __TEST__, __PROD__, __STAGING__', () => {
+  it('defaults globals to an empty object (runtime flags like __DEV__ are set by settings.globals())', () => {
     const { value } = schema.validate({});
-    expect(value.globals).toEqual({
-      __DEV__: false,
-      __TEST__: false,
-      __PROD__: false,
-      __STAGING__: false,
-    });
+    expect(value.globals).toEqual({});
   });
 
   it('rejects port below 1024', () => {
@@ -51,7 +45,6 @@ describe('settings schema', () => {
     expect(error).toBeDefined();
     expect(error.details[0].path).toEqual(['development', 'port']);
   });
-
 
   it('accepts a valid complete config', () => {
     const input = {

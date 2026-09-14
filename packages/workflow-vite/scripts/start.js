@@ -14,11 +14,11 @@ async function startEkko(settings) {
     pluginContext: settings.ekkoPluginContext(),
     logProvider() {
       return {
-        log: (...args) => Logger.log(args),
-        debug: (...args) => Logger.debug(args),
-        info: (...args) => Logger.info(args),
-        warn: (...args) => Logger.warn(args),
-        error: (...args) => Logger.error(args),
+        log: (...args) => Logger.log(...args),
+        debug: (...args) => Logger.debug(...args),
+        info: (...args) => Logger.info(...args),
+        warn: (...args) => Logger.warn(...args),
+        error: (...args) => Logger.error(...args),
       };
     },
   };

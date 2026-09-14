@@ -130,6 +130,9 @@ export default class Settings {
   }
 
   host() {
+    // Default to 0.0.0.0 (bind all interfaces) so webpack-dev-server works inside
+    // Docker containers and CI environments. workflow-vite defaults to 'localhost'
+    // because Vite's server handles container binding differently.
     return this.configuration?.development?.host ?? '0.0.0.0';
   }
 
@@ -285,6 +288,10 @@ export default class Settings {
 
   isIgnoreUntracked() {
     return this.argv().ignoreGitUntracked !== undefined;
+  }
+
+  isVerbose() {
+    return Boolean(this.argv().verbose);
   }
 
   isLinterDisabled() {
