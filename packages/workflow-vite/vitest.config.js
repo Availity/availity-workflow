@@ -76,6 +76,7 @@ function create(settings) {
       coverage: {
         enabled: false,
         provider: 'v8',
+        reporter: ['text', 'cobertura', 'lcov'],
         reportsDirectory: './reports',
         include: ['project/app/**/*.{js,jsx,ts,tsx}'],
         exclude: ['node_modules/', 'coverage/', 'dist/', 'build/'],
