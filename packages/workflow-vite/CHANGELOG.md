@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.4.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.3.0...@availity/workflow-vite@1.4.0) (2026-09-14)
+
+### Dependency Updates
+
+* `mock-server` updated to version `1.3.0`
+* `mock-server` updated to version `1.3.0`
+
+### Features
+
+* vitest v5, jest-dom v7, DX improvements and bug fixes ([4411f4a](https://github.com/Availity/availity-workflow/commit/4411f4a6ea221713ced56115c5e6c9aa52521a6d))
+
+
+
 # [1.3.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.2.1...@availity/workflow-vite@1.3.0) (2026-09-14)
 
 ### Dependency Updates
