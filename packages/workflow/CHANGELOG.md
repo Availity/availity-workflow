@@ -2,6 +2,26 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [14.3.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.2.1...@availity/workflow@14.3.0) (2026-09-14)
+
+### Dependency Updates
+
+* `workflow-logger` updated to version `14.2.1`
+* `mock-server` updated to version `14.2.1`
+* `mock-server` updated to version `14.2.1`
+
+### Bug Fixes
+
+* add vite template docs and fix scaffold bugs ([572f4ea](https://github.com/Availity/availity-workflow/commit/572f4ea6ae00b1297fa6f088a883f08002b06837))
+
+
+### Features
+
+* add default coverage reporters (text, cobertura, lcov) ([8800a62](https://github.com/Availity/availity-workflow/commit/8800a624a3d8d895702c788bcbf685047ff32a25))
+* **workflow-vite:** major config, DX, and test improvements ([765665a](https://github.com/Availity/availity-workflow/commit/765665a5df4e5d875faadcb23981a44e5d347ce9))
+
+
+
 ## [14.2.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.2.0...@availity/workflow@14.2.1) (2026-06-30)
 
 
