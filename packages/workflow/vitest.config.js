@@ -90,6 +90,7 @@ function create(settings) {
       coverage: {
         enabled: false,
         provider: 'v8',
+        reporter: ['text', 'cobertura', 'lcov'],
         reportsDirectory: './reports',
         include: ['project/app/**/*.{js,jsx,ts,tsx}'],
         exclude: ['node_modules/', 'coverage/', 'dist/', 'build/'],
@@ -141,13 +142,19 @@ function create(settings) {
   //   fallbackCJS     - true (default) | false
   //   optimizeDeps    - additional packages to pre-bundle (appended to internal list)
   //   exclude         - additional test file exclusion globs (appended to internal list)
-  //   coverage        - { include, exclude } overrides for coverage paths
+  //   coverage        - all vitest coverage options (merged with defaults)
+  //                     e.g. { include, exclude, all, provider, thresholds, reporter, ... }
   //
   // Example in workflow.js:
   //   config.development.vitestOverrides = {
   //     testTimeout: 15000,
   //     inlineDeps: ['some-cjs-package', /my-esm-pattern/],
   //     setupFiles: ['./test/my-global-setup.js'],
+  //     coverage: {
+  //       all: true,
+  //       provider: 'istanbul',
+  //       thresholds: { statements: 80 },
+  //     },
   //   };
   //
   const { vitestOverrides } = settings.configuration.development;
@@ -200,10 +207,9 @@ function create(settings) {
       config.test.exclude.push(...globs);
     }
 
-    // Override: coverage paths
+    // Override: coverage options (merged with defaults — user values win)
     if (coverage) {
-      if (coverage.include) config.test.coverage.include = coverage.include;
-      if (coverage.exclude) config.test.coverage.exclude = coverage.exclude;
+      config.test.coverage = { ...config.test.coverage, ...coverage };
     }
 
     // Escape hatch: any remaining keys are spread directly (use with caution)

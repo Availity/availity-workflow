@@ -129,9 +129,13 @@ export default class Settings {
 
   // -- Path accessors --
 
-  app() { return paths.app; }
+  app() {
+    return paths.app;
+  }
 
-  project() { return paths.project; }
+  project() {
+    return paths.project;
+  }
 
   output() {
     return this.isDistribution() ? path.join(this.project(), 'dist') : path.join(this.project(), 'build');
@@ -156,25 +160,53 @@ export default class Settings {
 
   // -- Config accessors --
 
-  config() { return this.configuration; }
+  config() {
+    return this.configuration;
+  }
 
-  title() { return this.configuration?.app?.title ?? 'Availity'; }
+  title() {
+    return this.configuration?.app?.title ?? 'Availity';
+  }
 
-  host() { return this.configuration?.development?.host ?? '0.0.0.0'; }
+  host() {
+    return this.configuration?.development?.host ?? 'localhost';
+  }
 
-  port() { return this.devServerPort; }
+  port() {
+    return this.devServerPort;
+  }
 
-  ekkoPort() { return this.ekkoServerPort; }
+  ekkoPort() {
+    return this.ekkoServerPort;
+  }
 
-  open() { return this.configuration?.development?.open; }
+  ekkoPluginContext() {
+    return this.configuration?.ekko?.pluginContext ?? `http://${this.host()}:${this.port()}/api`;
+  }
 
-  isEkko() { return this.configuration?.ekko?.enabled ?? true; }
+  open() {
+    return this.configuration?.development?.open;
+  }
 
-  isLinterDisabled() { return this.argv().disableLinter !== undefined; }
+  isEkko() {
+    return this.configuration?.ekko?.enabled ?? true;
+  }
 
-  isIgnoreUntracked() { return this.argv().ignoreGitUntracked !== undefined; }
+  isLinterDisabled() {
+    return this.argv().disableLinter !== undefined;
+  }
 
-  commitMessage() { return this.argv().message; }
+  isIgnoreUntracked() {
+    return this.argv().ignoreGitUntracked !== undefined;
+  }
+
+  isVerbose() {
+    return Boolean(this.argv().verbose);
+  }
+
+  commitMessage() {
+    return this.argv().message;
+  }
 
   // -- Environment --
 
@@ -184,17 +216,29 @@ export default class Settings {
     return process.env.NODE_ENV;
   }
 
-  isDevelopment() { return this.environment() === 'development'; }
+  isDevelopment() {
+    return this.environment() === 'development';
+  }
 
-  isTesting() { return this.environment() === 'test'; }
+  isTesting() {
+    return this.environment() === 'test';
+  }
 
-  isProduction() { return this.argv().production || this.environment() === 'production'; }
+  isProduction() {
+    return this.argv().production || this.environment() === 'production';
+  }
 
-  isStaging() { return this.environment() === 'staging' || this.shouldMimicStaging; }
+  isStaging() {
+    return this.environment() === 'staging' || this.shouldMimicStaging;
+  }
 
-  isDistribution() { return this.isProduction() || this.isStaging(); }
+  isDistribution() {
+    return this.isProduction() || this.isStaging();
+  }
 
-  isDryRun() { return this.argv().dryRun !== undefined; }
+  isDryRun() {
+    return this.argv().dryRun !== undefined;
+  }
 
   // -- Globals --
 

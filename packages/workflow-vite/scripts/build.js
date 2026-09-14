@@ -1,22 +1,18 @@
 import fs from 'node:fs';
 import ora from 'ora';
 import Logger from '@availity/workflow-logger';
+import applyModifyViteConfig from '../helpers/apply-modify-vite-config.js';
 
 export default async function build({ settings }) {
   const { build } = await import('vite');
   const { default: buildViteProductionConfig } = await import('../vite.config.production.js');
 
   if (!settings.isDryRun()) {
-    Logger.success(`Cleaning directories ${settings.output()}`);
+    Logger.info(`Cleaning ${settings.output()}`);
     await fs.promises.rm(settings.output(), { recursive: true, force: true });
   }
 
-  let viteConfig = await buildViteProductionConfig(settings);
-
-  const { modifyViteConfig } = settings.config();
-  if (typeof modifyViteConfig === 'function') {
-    viteConfig = modifyViteConfig(viteConfig, settings) || viteConfig;
-  }
+  const viteConfig = applyModifyViteConfig(await buildViteProductionConfig(settings), settings);
 
   Logger.info('Started compiling with Vite');
   const spinner = ora('Running Vite build\n');

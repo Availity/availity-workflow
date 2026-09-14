@@ -38,7 +38,15 @@ function create(settings) {
   const config = {
     root: rootDir,
     define,
-    resolve: { alias: { '@/': `${settings.app()}/` } },
+    // Explicitly exclude `module-sync` from resolve conditions.
+    // Node 22 introduced the `module-sync` condition for synchronous ESM loading in CJS contexts.
+    // With vmThreads on Linux + Node 22, Vitest resolves `module-sync` → a .mjs file, then tries
+    // to require() it — which fails with SyntaxError. Omitting it forces the `import` or `default`
+    // condition instead. Consumers can override via `development.resolveConditions` in workflow.js.
+    resolve: {
+      alias: { '@/': `${settings.app()}/` },
+      conditions: settings.configuration.development.resolveConditions ?? ['browser', 'module', 'import', 'default'],
+    },
     test: {
       globals: true,
       environment: 'jsdom',
@@ -61,9 +69,14 @@ function create(settings) {
         'wiremock/**',
       ],
       css: false,
+      // Vitest 5 changed clearMocks default from false to true.
+      // We keep false here to preserve the existing behavior for consumers upgrading.
+      // Consumers who want auto-clearing between tests can set vitestOverrides.clearMocks: true.
+      clearMocks: false,
       coverage: {
         enabled: false,
         provider: 'v8',
+        reporter: ['text', 'cobertura', 'lcov'],
         reportsDirectory: './reports',
         include: ['project/app/**/*.{js,jsx,ts,tsx}'],
         exclude: ['node_modules/', 'coverage/', 'dist/', 'build/'],
@@ -71,8 +84,10 @@ function create(settings) {
       deps: {
         optimizer: { web: { enabled: true } },
       },
-      // In Vitest 4.x with vmThreads, server.deps.inline tells Vite to process these
-      // modules through its transform pipeline rather than passing them to native Node.
+      // server.deps is deprecated in Vitest 5 but still functional.
+      // server.deps.inline routes packages through Vite's transform pipeline so they
+      // are processed as ESM. server.deps.fallbackCJS guesses a CJS build for packages
+      // with confusing ESM/CJS packaging (e.g. dayjs which has no exports map).
       server: {
         deps: {
           inline: [new RegExp(`node_modules[/\\\\](?=(${includes})).*`)],
@@ -94,6 +109,7 @@ function create(settings) {
 
   // Apply structured vitestOverrides — additive merging for safe customization.
   // See packages/workflow/vitest.config.js for full documentation of supported options.
+  // Coverage accepts all vitest coverage options (e.g. all, provider, thresholds, reporter).
   const { vitestOverrides } = settings.configuration.development;
   if (vitestOverrides && Object.keys(vitestOverrides).length > 0) {
     const {
@@ -106,6 +122,7 @@ function create(settings) {
       optimizeDeps,
       exclude,
       coverage,
+      resolveConditions,
       ...rest
     } = vitestOverrides;
 
@@ -138,9 +155,14 @@ function create(settings) {
       config.test.exclude.push(...globs);
     }
 
+    // Override: resolve conditions (replaces the default module-sync workaround list)
+    if (resolveConditions) {
+      config.resolve.conditions = Array.isArray(resolveConditions) ? resolveConditions : [resolveConditions];
+    }
+
+    // Override: coverage options (merged with defaults — user values win)
     if (coverage) {
-      if (coverage.include) config.test.coverage.include = coverage.include;
-      if (coverage.exclude) config.test.coverage.exclude = coverage.exclude;
+      config.test.coverage = { ...config.test.coverage, ...coverage };
     }
 
     if (Object.keys(rest).length > 0) {

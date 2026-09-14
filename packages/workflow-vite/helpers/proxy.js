@@ -9,7 +9,7 @@ export default function toViteProxy(proxies) {
   const viteProxy = {};
 
   for (const proxyConfig of proxies) {
-    if (!proxyConfig.enabled) continue;
+    if (proxyConfig.enabled === false) continue;
 
     const contexts = Array.isArray(proxyConfig.context) ? proxyConfig.context : [proxyConfig.context];
 
@@ -17,7 +17,7 @@ export default function toViteProxy(proxies) {
       const entry = {
         target: proxyConfig.target,
         changeOrigin: true,
-        ws: proxyConfig.ws !== false
+        ws: proxyConfig.ws !== false,
       };
 
       if (proxyConfig.headers) {
@@ -25,7 +25,10 @@ export default function toViteProxy(proxies) {
       }
 
       if (proxyConfig.pathRewrite) {
-        const rewrites = Object.entries(proxyConfig.pathRewrite).map(([pattern, replacement]) => [new RegExp(pattern), replacement]);
+        const rewrites = Object.entries(proxyConfig.pathRewrite).map(([pattern, replacement]) => [
+          new RegExp(pattern),
+          replacement,
+        ]);
         entry.rewrite = (reqPath) => {
           let result = reqPath;
           for (const [regex, replacement] of rewrites) {

@@ -60,18 +60,17 @@ export default async ({ template: templateUrl, appPath, branchOverride }) => {
   try {
     const parsed = new URL(appPath);
     if (parsed.protocol && parsed.host) {
-      Logger.failed(
+      throw new Error(
         `It looks like you forgot to add a name for your new project. Try running instead "npx @availity/workflow init new-project"`
       );
-      return;
     }
-  } catch {
-    // Not a URL, continue
+  } catch (error) {
+    // Re-throw our own error; swallow URL parse errors (appPath is not a URL, which is expected).
+    if (error.message.includes('npx @availity/workflow')) throw error;
   }
 
   if (typeof appPath !== 'string' || appPath.length === 0 || appPath.includes('\0')) {
-    Logger.failed(`Could not create a project in "${sysPath.resolve(appPath)}" because it's not a valid path`);
-    return;
+    throw new Error(`Could not create a project in "${sysPath.resolve(appPath)}" because it's not a valid path`);
   }
 
   const hostedInfo = hostedGitInfo.fromUrl(templateUrl);
@@ -79,6 +78,8 @@ export default async ({ template: templateUrl, appPath, branchOverride }) => {
   if (hostedInfo) {
     await clone(hostedInfo, appPath, branchOverride);
   } else {
-    Logger.failed('Could not find Hosted Git Info for the Project.', hostedInfo);
+    const error = new Error(`Could not find Hosted Git Info for the template URL: ${templateUrl}`);
+    error.command = `git clone ${templateUrl}`;
+    throw error;
   }
 };

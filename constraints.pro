@@ -9,4 +9,4 @@ gen_enforced_field(WorkspaceCwd, 'type', 'module') :-
     WorkspaceCwd \= 'docusaurus'.
 
 % Enforce minimum Node version
-gen_enforced_field(WorkspaceCwd, 'engines.node', '>=22.0.0').
+gen_enforced_field(WorkspaceCwd, 'engines.node', '>=22.12.0').

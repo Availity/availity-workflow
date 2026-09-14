@@ -2,6 +2,7 @@ import ora from 'ora';
 import chalk from 'chalk';
 import Logger from '@availity/workflow-logger';
 import { createRequire } from 'node:module';
+import { performance } from 'node:perf_hooks';
 import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -32,9 +33,12 @@ export default async function lint({ settings }) {
     }
   }
 
+  const eslintConfig = settings.config().eslint ?? {};
+  const { fix = false, quiet = false, failOnWarning = false, failOnError = true, maxWarnings } = eslintConfig;
+
   let engine;
   try {
-    engine = new eslint.ESLint({ errorOnUnmatchedPattern: false });
+    engine = new eslint.ESLint({ errorOnUnmatchedPattern: false, fix });
   } catch (error) {
     Logger.failed(`ESLint configuration error. "${error.message}"`);
     throw new Error(`ESLint configuration error. "${error.message}"`);
@@ -62,30 +66,73 @@ export default async function lint({ settings }) {
     }
   }
 
+  const startTime = performance.now();
   const report = await engine.lintFiles(filesToLint);
 
+  // Write fixes back to disk when fix mode is enabled
+  if (fix) {
+    await eslint.ESLint.outputFixes(report);
+  }
+
+  if (settings.isVerbose()) {
+    spinner.stop();
+    Logger.info(`Linting ${chalk.magenta(report.length)} file(s):`);
+    for (const result of report) {
+      Logger.simple(`  ${chalk.dim(result.filePath)}`);
+    }
+    spinner.start();
+  }
+
+  // In quiet mode, strip warnings from the report so only errors are shown/counted
+  const effectiveReport = quiet ? eslint.ESLint.getErrorResults(report) : report;
+
   const status = { error: false, warning: false };
-  for (const result of report) {
+  let totalWarnings = 0;
+  for (const result of effectiveReport) {
     if (result.errorCount) status.error = true;
-    if (result.warningCount) status.warning = true;
+    if (result.warningCount) {
+      status.warning = true;
+      totalWarnings += result.warningCount;
+    }
     if (status.error && status.warning) break;
   }
 
+  // maxWarnings takes precedence over failOnWarning when both are set
+  const warningThresholdExceeded =
+    maxWarnings !== undefined ? totalWarnings > maxWarnings : failOnWarning && status.warning;
+
   spinner.stop();
 
-  if (status.error) {
+  if (status.error && failOnError) {
     const formatter = await engine.loadFormatter();
-    Logger.simple(`${formatter.format(report)}`);
+    Logger.simple(`${formatter.format(effectiveReport)}`);
     Logger.failed('Failed linting');
     throw new Error('Failed linting');
   }
 
-  if (status.warning) {
+  if (warningThresholdExceeded) {
     const formatter = await engine.loadFormatter();
-    Logger.simple(`${formatter.format(report)}`);
-    Logger.warn('Passed linting with warnings');
+    Logger.simple(`${formatter.format(effectiveReport)}`);
+    const msg =
+      maxWarnings !== undefined
+        ? `Failed linting: ${totalWarnings} warning(s) exceeded maxWarnings limit of ${maxWarnings}`
+        : 'Failed linting: warnings found and failOnWarning is enabled';
+    Logger.failed(msg);
+    throw new Error(msg);
+  }
+
+  if (status.error || status.warning) {
+    const formatter = await engine.loadFormatter();
+    Logger.simple(`${formatter.format(effectiveReport)}`);
+    if (status.error) {
+      Logger.warn('Passed linting with errors (failOnError is disabled)');
+    } else {
+      Logger.warn('Passed linting with warnings');
+    }
   } else {
-    Logger.success(`Finished linting ${chalk.magenta(report.length)} file(s)`);
+    const elapsed = performance.now() - startTime;
+    const duration = elapsed < 1000 ? `${elapsed.toFixed(0)}ms` : `${(elapsed / 1000).toFixed(1)}s`;
+    Logger.success(`Finished linting ${chalk.magenta(report.length)} file(s) in ${chalk.cyan(duration)}`);
   }
 
   return true;
