@@ -276,3 +276,52 @@ export default {
 ```
 
 This runs `tsc --noEmit` in a worker thread via `vite-plugin-checker` alongside Vite's dev server. Type errors appear in the terminal and fail `yarn build`. This option is disabled by default and requires a `tsconfig.json` in the project root.
+
+## eslint-config-availity v16
+
+### New peer dependency: `eslint`
+
+`eslint` has moved from a bundled dependency to a required peer dependency. Add it to your project if not already present:
+
+```bash
+yarn add eslint --dev
+```
+
+### Test runner rules are now opt-in for the `browser` profile
+
+Jest and Vitest rules are no longer auto-detected from what's installed. If you use the **`workflow` profile**, Vitest rules are still included automatically — no changes needed.
+
+If you use the **`browser` profile**, you must now opt in explicitly:
+
+```bash
+yarn add @vitest/eslint-plugin --dev
+```
+
+```js
+import browser from 'eslint-config-availity/browser';
+import { withVitest } from 'eslint-config-availity';
+
+export default [...browser, ...withVitest];
+```
+
+For Jest projects using the `browser` profile:
+
+```bash
+yarn add eslint-plugin-jest --dev
+```
+
+```js
+import browser from 'eslint-config-availity/browser';
+import { withJest } from 'eslint-config-availity';
+
+export default [...browser, ...withJest];
+```
+
+### `@vitest/eslint-plugin` and `eslint-plugin-jest` moved to optional peer deps
+
+These packages are no longer bundled. Install whichever you need:
+
+- Vitest: `yarn add @vitest/eslint-plugin --dev`
+- Jest: `yarn add eslint-plugin-jest --dev`
+
+Projects using `@availity/workflow` or `@availity/workflow-vite` with the `workflow` profile only need `@vitest/eslint-plugin` — it is used automatically by the `workflow` profile.

@@ -44,8 +44,8 @@ const DEPRECATED_DEPS = [
   'ts-jest',
   '@types/jest',
   'react-test-renderer',
-  // Old ESLint packages (eslint-config-availity bundles these)
-  'eslint',
+  // Old ESLint packages (eslint-config-availity bundles these as of v16)
+  // Note: 'eslint' itself is NOT removed — it's a required peer dep in v16+
   'eslint-config-airbnb',
   'eslint-config-airbnb-base',
   'eslint-plugin-import',
@@ -172,9 +172,17 @@ export default async (cwd) => {
     await run(removeDev(installer, depsToRemove), cwd);
   }
 
-  // --- Install latest workflow + eslint-config ---
-  Logger.info('\nInstalling @availity/workflow@latest and eslint-config-availity@latest...');
-  await run(addDev(installer, ['@availity/workflow@latest', 'eslint-config-availity@latest']), cwd);
+  // --- Install latest workflow + eslint-config + required peers ---
+  Logger.info('\nInstalling @availity/workflow@latest, eslint-config-availity@latest, and required peers...');
+  await run(
+    addDev(installer, [
+      '@availity/workflow@latest',
+      'eslint-config-availity@latest',
+      'eslint@^9.0.0',
+      '@vitest/eslint-plugin@^1.0.0',
+    ]),
+    cwd
+  );
 
   // --- Re-read package.json after installs ---
   const updatedPkg = JSON.parse(fs.readFileSync(pkgFile, 'utf8'));
