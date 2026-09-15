@@ -52,6 +52,14 @@ const schema = Joi.object()
             'Vitest configuration overrides merged directly into the test config. https://vitest.dev/config/'
           )
           .default({}),
+        typeCheck: Joi.boolean()
+          .default(false)
+          .description(
+            'Enable TypeScript type checking during the dev server and build. ' +
+              'Runs tsc --noEmit in a worker thread via vite-plugin-checker. ' +
+              'Type errors appear in the terminal during development and will fail production builds. ' +
+              'Requires a tsconfig.json in the project root. Default: false.'
+          ),
       })
       .unknown()
       .default(),

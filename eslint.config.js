@@ -1,14 +1,9 @@
 import browser from 'eslint-config-availity/browser';
+import { withVitest } from 'eslint-config-availity';
 
 export default [
   ...browser,
-  {
-    languageOptions: {
-      globals: {
-        "vi": true
-      }
-    }
-  },
+  ...withVitest,
   {
     rules: {
       'import/extensions': 0,
@@ -18,15 +13,32 @@ export default [
       'no-plusplus': 0,
       'unicorn/no-await-expression-member': 0,
       'unicorn/prefer-string-raw': 0,
-    }
+    },
   },
   {
-    ignores: ['./yarn', '.yarn/*', '**/coverage/', '**/build/', '**/dist/', '**/node_modules/', '**/.docusaurus', './example', '**/*.d.ts', '**/*.snap', 'docusaurus/']
+    ignores: [
+      './yarn',
+      '.yarn/*',
+      '**/coverage/',
+      '**/build/',
+      '**/dist/',
+      '**/node_modules/',
+      '**/.docusaurus',
+      './example',
+      '**/*.d.ts',
+      '**/*.snap',
+      'docusaurus/',
+    ],
   },
   {
-    files: ['packages/mock-server/**/*.js', 'packages/workflow/settings/index.js', 'packages/workflow-vite/settings/index.js', 'packages/workflow-vite/vite.config.js'],
+    files: [
+      'packages/mock-server/**/*.js',
+      'packages/workflow/settings/index.js',
+      'packages/workflow-vite/settings/index.js',
+      'packages/workflow-vite/vite.config.js',
+    ],
     rules: {
       'unicorn/no-this-outside-of-class': 'off',
-    }
+    },
   },
 ];

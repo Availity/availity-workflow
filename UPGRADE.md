@@ -212,3 +212,116 @@ The `eslint.config.js` and ESM conversion from v13 are preserved — the tool sk
 **`Cannot find module` in tests** — If you had `moduleNameMapper` in `jestOverrides`, migrate them to `vitestOverrides` using Vitest's `resolve.alias` format, or use `babelInclude` to ensure the packages are transformed.
 
 **`babelInclude` warning** — Despite the name, this config key is still functional in v14. It controls which `node_modules` packages get compiled. You don't need to remove it.
+
+## TypeScript 6 Support
+
+`@availity/workflow` and `@availity/workflow-vite` now support TypeScript `^5.0.0 || ^6.0.0`. TypeScript remains an optional peer dependency — you only need it if your project uses TypeScript.
+
+### If you are upgrading to TypeScript 6
+
+TypeScript 6 deprecated `baseUrl` and changed several compiler option defaults. Run the official migration tool in your app:
+
+```bash
+npx @andrewbranch/ts5to6 --fixBaseUrl .
+```
+
+This rewrites your `tsconfig.json` to remove `baseUrl` and update `paths` entries to be relative to the tsconfig file location. For example:
+
+```diff
+  {
+    "compilerOptions": {
+-     "baseUrl": ".",
+      "paths": {
+-       "@/*": ["./project/app/*"]
++       "@/*": ["./project/app/*"]
+      }
+    }
+  }
+```
+
+In most Availity projects, the `paths` entries are already written relative to the tsconfig directory (since `baseUrl` was `"."`), so the codemod confirms the paths are correct and just removes `baseUrl`.
+
+If your tsconfig has `"lib": ["dom", "dom.iterable"]`, you can simplify it — `dom.iterable` is now included in `dom` in TypeScript 6:
+
+```diff
+- "lib": ["dom", "dom.iterable", "ESNext"]
++ "lib": ["dom", "ESNext"]
+```
+
+You may also need to explicitly declare `types` if you rely on global `@types/*` packages — TypeScript 6 no longer auto-discovers them:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["@availity/workflow-vite/globals", "node"]
+  }
+}
+```
+
+### If you are staying on TypeScript 5
+
+No action required. TypeScript 5 continues to work without any changes.
+
+### New: opt-in TypeScript type checking (workflow-vite only)
+
+You can now enable TypeScript type checking during development and builds via `workflow.js`:
+
+```js
+/** @type {import('@availity/workflow-vite').WorkflowViteConfig} */
+export default {
+  development: {
+    typeCheck: true,
+  },
+};
+```
+
+This runs `tsc --noEmit` in a worker thread via `vite-plugin-checker` alongside Vite's dev server. Type errors appear in the terminal and fail `yarn build`. This option is disabled by default and requires a `tsconfig.json` in the project root.
+
+## eslint-config-availity v16
+
+### New peer dependency: `eslint`
+
+`eslint` has moved from a bundled dependency to a required peer dependency. Add it to your project if not already present:
+
+```bash
+yarn add eslint --dev
+```
+
+### Test runner rules are now opt-in for the `browser` profile
+
+Jest and Vitest rules are no longer auto-detected from what's installed. If you use the **`workflow` profile**, Vitest rules are still included automatically — no changes needed.
+
+If you use the **`browser` profile**, you must now opt in explicitly:
+
+```bash
+yarn add @vitest/eslint-plugin --dev
+```
+
+```js
+import browser from 'eslint-config-availity/browser';
+import { withVitest } from 'eslint-config-availity';
+
+export default [...browser, ...withVitest];
+```
+
+For Jest projects using the `browser` profile:
+
+```bash
+yarn add eslint-plugin-jest --dev
+```
+
+```js
+import browser from 'eslint-config-availity/browser';
+import { withJest } from 'eslint-config-availity';
+
+export default [...browser, ...withJest];
+```
+
+### `@vitest/eslint-plugin` and `eslint-plugin-jest` moved to optional peer deps
+
+These packages are no longer bundled. Install whichever you need:
+
+- Vitest: `yarn add @vitest/eslint-plugin --dev`
+- Jest: `yarn add eslint-plugin-jest --dev`
+
+Projects using `@availity/workflow` or `@availity/workflow-vite` with the `workflow` profile only need `@vitest/eslint-plugin` — it is used automatically by the `workflow` profile.

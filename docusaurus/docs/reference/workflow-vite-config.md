@@ -88,6 +88,25 @@ export default (config) => {
 };
 ```
 
+### `development.typeCheck`
+
+Enable TypeScript type checking during the dev server and production builds. When `true`, `tsc --noEmit` runs in a worker thread via `vite-plugin-checker` so it does not block Vite's HMR. Type errors appear in the terminal during development and will fail `yarn build`.
+
+Default: `false`.
+
+Requires a `tsconfig.json` in the project root. If no `tsconfig.json` is found, the option is silently ignored.
+
+```js
+/** @type {import('@availity/workflow-vite').WorkflowViteConfig} */
+export default {
+  development: {
+    typeCheck: true,
+  },
+};
+```
+
+**TypeScript version support:** `@availity/workflow-vite` supports TypeScript `^5.0.0 || ^6.0.0`. The version installed in your project is used automatically — no additional configuration required.
+
 ### `app.title`
 
 Page title for the generated HTML document. Default: `'Availity'`.
