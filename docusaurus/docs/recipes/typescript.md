@@ -18,7 +18,7 @@ Create a `tsconfig.json` at the root of your project:
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "lib": ["DOM", "ES2022"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowJs": true,
@@ -31,7 +31,6 @@ Create a `tsconfig.json` at the root of your project:
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./project/app/*"]
     }
@@ -40,10 +39,35 @@ Create a `tsconfig.json` at the root of your project:
 }
 ```
 
+:::note TypeScript 6
+If you are using TypeScript 6 or later, `baseUrl` has been deprecated. Use `paths` with entries relative to the `tsconfig.json` location instead, as shown above.
+
+For TypeScript 5, the above config works as-is. No `baseUrl` is needed.
+:::
+
 ## Rename Files
 
 Rename your source files from `.js`/`.jsx` to `.ts`/`.tsx`.
 
-## Try it Out
+## Enable Type Checking During Development (Vite only)
 
-Run `yarn start` — TypeScript errors will appear as overlay warnings in the browser during development, and will fail the build in production.
+By default, Vite strips TypeScript types without checking them — this keeps the dev server and builds fast. If you want type errors to surface during development and fail production builds, opt in via `project/config/workflow.js`:
+
+```js
+/** @type {import('@availity/workflow-vite').WorkflowViteConfig} */
+export default {
+  development: {
+    typeCheck: true,
+  },
+};
+```
+
+When enabled, `tsc --noEmit` runs in a worker thread alongside Vite so it does not block Hot Module Replacement (HMR). Type errors appear in the terminal and will fail `yarn build`.
+
+:::tip
+This is a good option for teams who want consistent type enforcement across local development and CI without maintaining a separate `tsc --noEmit` step.
+:::
+
+## TypeScript Version Support
+
+`@availity/workflow-vite` supports TypeScript `^5.0.0 || ^6.0.0`. The version installed in your project is the one used for type checking — there is nothing extra to configure.

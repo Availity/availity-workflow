@@ -349,8 +349,7 @@ exports[`webpack configs > sets up the default config with default settings 1`] 
     ],
     "plugins": [
       {
-        "absoluteBaseUrl": "<ROOT>/example",
-        "baseUrl": "./example/",
+        "absoluteBaseUrl": "<ROOT>",
         "extensions": [
           ".js",
           ".jsx",
@@ -745,8 +744,7 @@ exports[`webpack configs > sets up the production config with default settings 1
     ],
     "plugins": [
       {
-        "absoluteBaseUrl": "<ROOT>/example",
-        "baseUrl": "./example/",
+        "absoluteBaseUrl": "<ROOT>",
         "extensions": [
           ".js",
           ".jsx",
@@ -1169,8 +1167,7 @@ exports[`webpack configs > sets up the profile config with default settings 1`] 
     ],
     "plugins": [
       {
-        "absoluteBaseUrl": "<ROOT>/example",
-        "baseUrl": "./example/",
+        "absoluteBaseUrl": "<ROOT>",
         "extensions": [
           ".js",
           ".jsx",

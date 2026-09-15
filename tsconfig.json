@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": "./example/",
     "paths": {
-      "@/*": ["./project/app/*"]
+      "@/*": ["./example/project/app/*"]
     },
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "ESNext"],
@@ -18,5 +17,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true
-  }
+  },
+  "exclude": ["**/node_modules", "**/dist", "**/build", "**/.docusaurus"]
 }

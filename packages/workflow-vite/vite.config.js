@@ -46,7 +46,7 @@ const buildViteConfig = async (settings) => {
 
   // ESLint checker (dev server only — shows lint errors as overlay and in terminal)
   try {
-    const { default: eslintPlugin } = await import('vite-plugin-checker');
+    const { default: checker } = await import('vite-plugin-checker');
     const eslintConfig = settings.config().eslint ?? {};
     const { watchPath, failOnWarning = false } = eslintConfig;
 
@@ -55,17 +55,27 @@ const buildViteConfig = async (settings) => {
     // the dev server doesn't flood the overlay with warnings that won't fail the build.
     const logLevel = failOnWarning ? ['error', 'warning'] : ['error'];
 
-    plugins.push(
-      eslintPlugin({
-        overlay: false,
-        eslint: {
-          lintCommand: `eslint "${settings.app()}/**/*.{js,jsx,ts,tsx}"`,
-          useFlatConfig: true,
-          ...(watchPath ? { watchPath } : {}),
-          dev: { logLevel },
-        },
-      })
-    );
+    const checkerOptions = {
+      overlay: false,
+      eslint: {
+        lintCommand: `eslint "${settings.app()}/**/*.{js,jsx,ts,tsx}"`,
+        useFlatConfig: true,
+        ...(watchPath ? { watchPath } : {}),
+        dev: { logLevel },
+      },
+    };
+
+    // Opt-in TypeScript type checking. Runs tsc --noEmit in a worker thread so
+    // it does not block Vite's HMR. Type errors surface in the terminal during
+    // development and fail production builds. Disabled by default — enable via
+    // development.typeCheck: true in workflow.js.
+    const typeCheckEnabled = settings.configuration.development.typeCheck && fs.existsSync(paths.tsconfig);
+
+    if (typeCheckEnabled) {
+      checkerOptions.typescript = { tsconfigPath: paths.tsconfig };
+    }
+
+    plugins.push(checker(checkerOptions));
   } catch {
     /* optional */
   }

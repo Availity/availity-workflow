@@ -125,6 +125,11 @@ describe('settings schema — defaults', () => {
   it('does not set eslint.watchPath by default (optional)', () => {
     expect(value.eslint.watchPath).toBeUndefined();
   });
+
+  // typeCheck default
+  it('defaults development.typeCheck to false', () => {
+    expect(value.development.typeCheck).toBe(false);
+  });
 });
 
 const passthroughConfig = (config) => config;
@@ -246,5 +251,32 @@ describe('settings schema — partial eslint overrides preserve defaults', () =>
     const { value } = schema.validate({ eslint: { failOnError: false } });
     expect(value.eslint.fix).toBe(false);
     expect(value.eslint.quiet).toBe(false);
+  });
+});
+
+describe('settings schema — typeCheck', () => {
+  it('accepts development.typeCheck: true', () => {
+    const { error, value } = schema.validate({ development: { typeCheck: true } });
+    expect(error).toBeUndefined();
+    expect(value.development.typeCheck).toBe(true);
+  });
+
+  it('accepts development.typeCheck: false explicitly', () => {
+    const { error, value } = schema.validate({ development: { typeCheck: false } });
+    expect(error).toBeUndefined();
+    expect(value.development.typeCheck).toBe(false);
+  });
+
+  it('rejects non-boolean values for typeCheck', () => {
+    const { error } = schema.validate({ development: { typeCheck: 'yes' } });
+    expect(error).toBeDefined();
+    expect(error.details[0].path).toEqual(['development', 'typeCheck']);
+  });
+
+  it('preserves other development defaults when typeCheck is set', () => {
+    const { value } = schema.validate({ development: { typeCheck: true } });
+    expect(value.development.port).toBe(3000);
+    expect(value.development.host).toBe('localhost');
+    expect(value.development.notification).toBe(true);
   });
 });
