@@ -180,7 +180,7 @@ jobs:
   deploy-docs:
     if: "${{!contains(github.event.head_commit.message, 'skip ci') &&
       !contains(github.event.head_commit.message, 'Release: Version Updates')}}"
-    needs: [ publish ]
+    needs: [ setup ]
     runs-on: ubuntu-latest
     env:
       NX_DAEMON: 'false'
