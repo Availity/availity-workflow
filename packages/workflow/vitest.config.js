@@ -52,6 +52,10 @@ function create(settings) {
   const config = {
     root: rootDir,
     define,
+    esbuild: {
+      jsx: 'automatic',
+      jsxImportSource: 'react',
+    },
     // Explicitly exclude `module-sync` from resolve conditions.
     // Node 22 introduced the `module-sync` condition for synchronous ESM loading in CJS contexts.
     // With vmThreads on Linux + Node 22, Vitest resolves `module-sync` → a .mjs file, then tries
