@@ -20,6 +20,13 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: 'yarn.lock'
 
+      # Full install is required because commitlint.config.js extends
+      # @commitlint/config-nx-scopes, which reads the NX workspace at
+      # runtime to enumerate valid scope names. The yarn cache above
+      # (keyed on yarn.lock) means this is a cache-restore on most runs.
+      # wagoid/commitlint-github-action cannot be used here — it runs in
+      # an isolated Docker container that cannot resolve the Nx workspace,
+      # causing it to hang indefinitely.
       - name: Install Dependencies
         run: yarn install --immutable
 

@@ -33,9 +33,9 @@
   "license": "MIT",
   "homepage": "https://github.com/availity/availity-workflow#readme",
   "dependencies": {
-    "@availity/analytics": "^2.0.1",
-    "@availity/api-axios": "^13.2.0",
-    "@availity/element": "^3.0.3",
+    "@availity/analytics": "^2.0.2",
+    "@availity/api-axios": "^13.2.2",
+    "@availity/element": "^3.0.4",
     "@availity/hooks": "^6.0.1",
     "@availity/yup": "^8.2.1",
     "@hookform/resolvers": "^5.9.1",

@@ -13,6 +13,8 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    env:
+      NX_DAEMON: 'false'
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
