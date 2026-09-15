@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [9.3.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow-upgrade@9.2.0...@availity/workflow-upgrade@9.3.0) (2026-09-15)
+
+
+### Features
+
+* support eslint-config-availity v16 and update eslint setup ([3c4868c](https://github.com/Availity/availity-workflow/commit/3c4868c60cc9d31088686e48a4eb60fb30cea0e5))
+
+
+
 # [9.2.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow-upgrade@9.1.0...@availity/workflow-upgrade@9.2.0) (2026-09-14)
 
 
