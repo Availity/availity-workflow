@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [6.3.0](https://github.com/Availity/availity-workflow/compare/@availity/example@6.2.1...@availity/example@6.3.0) (2026-09-15)
+
+### Dependency Updates
+
+* `workflow` updated to version `6.2.1`
+
+### Features
+
+* support eslint-config-availity v16 and update eslint setup ([3c4868c](https://github.com/Availity/availity-workflow/commit/3c4868c60cc9d31088686e48a4eb60fb30cea0e5))
+* upgrade to TypeScript 6 and add opt-in typeCheck for workflow-vite ([389f5e0](https://github.com/Availity/availity-workflow/commit/389f5e0e1272e09ce39a9d80db02bd8af3d87644))
+
+
+
 ## [6.2.1](https://github.com/Availity/availity-workflow/compare/@availity/example@6.2.0...@availity/example@6.2.1) (2026-09-15)
 
 ### Dependency Updates
