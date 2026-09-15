@@ -67,12 +67,22 @@
   },
   "peerDependencies": {
     "@vitest/coverage-v8": "^5.0.0",
+    "eslint": "^9.0.0 || ^10.0.0",
     "eslint-config-availity": "^14.0.0 || ^15.0.0 || ^16.0.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
     "typescript": "^5.0.0 || ^6.0.0"
   },
   "peerDependenciesMeta": {
+    "@vitest/coverage-v8": {
+      "optional": true
+    },
+    "eslint": {
+      "optional": true
+    },
+    "eslint-config-availity": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     }
