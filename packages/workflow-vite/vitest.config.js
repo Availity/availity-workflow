@@ -82,7 +82,7 @@ function create(settings) {
         exclude: ['node_modules/', 'coverage/', 'dist/', 'build/'],
       },
       deps: {
-        optimizer: { web: { enabled: true } },
+        optimizer: { client: { enabled: true } },
       },
       // server.deps is deprecated in Vitest 5 but still functional.
       // server.deps.inline routes packages through Vite's transform pipeline so they
@@ -146,8 +146,8 @@ function create(settings) {
 
     if (optimizeDeps) {
       const deps = Array.isArray(optimizeDeps) ? optimizeDeps : [optimizeDeps];
-      const existing = config.test.deps.optimizer.web.include || [];
-      config.test.deps.optimizer.web.include = [...existing, ...deps];
+      const existing = config.test.deps.optimizer.client.include || [];
+      config.test.deps.optimizer.client.include = [...existing, ...deps];
     }
 
     if (exclude) {
