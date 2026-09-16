@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [14.6.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.5.0...@availity/workflow@14.6.0) (2026-09-16)
+
+
+### Features
+
+* enable JSX automatic runtime in webpack esbuild-loader and vitest ([21e8342](https://github.com/Availity/availity-workflow/commit/21e834262a9c919fbf5c4624cb176b2f714349c0))
+
+
+
 # [14.5.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.4.1...@availity/workflow@14.5.0) (2026-09-15)
 
 
