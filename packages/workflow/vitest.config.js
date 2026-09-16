@@ -115,7 +115,7 @@ function create(settings) {
       deps: {
         // Pre-bundle test dependencies for faster startup
         optimizer: {
-          web: {
+          client: {
             enabled: true,
           },
         },
@@ -217,8 +217,8 @@ function create(settings) {
     // Additive: optimizer pre-bundle list
     if (optimizeDeps) {
       const deps = Array.isArray(optimizeDeps) ? optimizeDeps : [optimizeDeps];
-      const existing = config.test.deps.optimizer.web.include || [];
-      config.test.deps.optimizer.web.include = [...existing, ...deps];
+      const existing = config.test.deps.optimizer.client.include || [];
+      config.test.deps.optimizer.client.include = [...existing, ...deps];
     }
 
     // Additive: test exclusion globs
