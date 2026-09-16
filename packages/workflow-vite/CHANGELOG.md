@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.5.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.5.0...@availity/workflow-vite@1.5.1) (2026-09-16)
+
+
+### Bug Fixes
+
+* replace deprecated deps.optimizer.web with deps.optimizer.client ([4ba63e7](https://github.com/Availity/availity-workflow/commit/4ba63e7974a346b4de7b25b2df33268e09c09928))
+
+
+
 # [1.5.0](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.4.0...@availity/workflow-vite@1.5.0) (2026-09-15)
 
 
