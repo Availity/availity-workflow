@@ -19,9 +19,9 @@ describe('settings schema', () => {
     expect(value.development.port).toBe(3000);
   });
 
-  it('defaults development.host to localhost', () => {
+  it('defaults development.host to 0.0.0.0', () => {
     const { value } = schema.validate({});
-    expect(value.development.host).toBe('localhost');
+    expect(value.development.host).toBe('0.0.0.0');
   });
 
   it('defaults app.title to Availity', () => {

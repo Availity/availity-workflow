@@ -30,8 +30,8 @@ describe('settings schema — defaults', () => {
     expect(value.development.port).toBe(3000);
   });
 
-  it('defaults development.open to false', () => {
-    expect(value.development.open).toBe(false);
+  it("defaults development.open to '/'", () => {
+    expect(value.development.open).toBe('/');
   });
 
   it('defaults development.notification to true', () => {
@@ -42,8 +42,8 @@ describe('settings schema — defaults', () => {
     expect(value.development.sourceMap).toBe(true);
   });
 
-  it('defaults development.suppressDeprecationWarnings to true', () => {
-    expect(value.development.suppressDeprecationWarnings).toBe(true);
+  it('defaults development.suppressDeprecationWarnings to false', () => {
+    expect(value.development.suppressDeprecationWarnings).toBe(false);
   });
 
   it('defaults development.babelInclude to empty array', () => {
@@ -129,6 +129,11 @@ describe('settings schema — defaults', () => {
   // typeCheck default
   it('defaults development.typeCheck to false', () => {
     expect(value.development.typeCheck).toBe(false);
+  });
+
+  // optimizeDeps default
+  it('defaults development.optimizeDeps to an empty array', () => {
+    expect(value.development.optimizeDeps).toEqual([]);
   });
 });
 
@@ -278,5 +283,34 @@ describe('settings schema — typeCheck', () => {
     expect(value.development.port).toBe(3000);
     expect(value.development.host).toBe('localhost');
     expect(value.development.notification).toBe(true);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// development.optimizeDeps
+// ---------------------------------------------------------------------------
+describe('settings schema — optimizeDeps', () => {
+  it('accepts an array of package names', () => {
+    const { error, value } = schema.validate({ development: { optimizeDeps: ['dayjs', '@availity/spaces'] } });
+    expect(error).toBeUndefined();
+    expect(value.development.optimizeDeps).toEqual(['dayjs', '@availity/spaces']);
+  });
+
+  it('accepts an empty array', () => {
+    const { error, value } = schema.validate({ development: { optimizeDeps: [] } });
+    expect(error).toBeUndefined();
+    expect(value.development.optimizeDeps).toEqual([]);
+  });
+
+  it('rejects non-string array items', () => {
+    const { error } = schema.validate({ development: { optimizeDeps: [42] } });
+    expect(error).toBeDefined();
+    expect(error.details[0].path).toEqual(['development', 'optimizeDeps', 0]);
+  });
+
+  it('preserves other development defaults when optimizeDeps is set', () => {
+    const { value } = schema.validate({ development: { optimizeDeps: ['dayjs'] } });
+    expect(value.development.port).toBe(3000);
+    expect(value.development.sourceMap).toBe(true);
   });
 });

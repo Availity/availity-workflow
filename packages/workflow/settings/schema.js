@@ -5,15 +5,23 @@ const schema = Joi.object()
   .keys({
     development: Joi.object()
       .keys({
-        open: Joi.string()
-          .default('')
-          .allow('')
-          .description('Where to open the application in the default browser')
+        open: Joi.alternatives()
+          .try(Joi.boolean().valid(false), Joi.string().allow(''))
+          .default('/')
+          .description(
+            'Where to open the application in the default browser. Set to a path string (e.g. "#/my-route") or false to disable.'
+          )
           .example('#/my-route'),
         notification: Joi.boolean()
           .default(true)
           .description('Whether to send webpack build status system notifications'),
-        host: Joi.string().default('localhost').description('Webpack dev server host'),
+        host: Joi.string()
+          .default('0.0.0.0')
+          .description(
+            'Webpack dev server host. Defaults to 0.0.0.0 (bind all interfaces) so the dev server ' +
+              'works inside Docker containers and CI environments. Set to "localhost" to restrict to ' +
+              'loopback only.'
+          ),
         port: Joi.number().integer().min(1024).max(65535).default(3000).description('Webpack dev server port'),
         stats: Joi.object()
           .keys({
@@ -102,30 +110,30 @@ const schema = Joi.object()
     }),
     ekko: Joi.object()
       .keys({
-        enabled: Joi.boolean().description('Enables or disables Ekko'),
-        port: Joi.number().integer().min(1024).max(65535).description('The port to run Ekko on'),
-        latency: Joi.number().description('Set a latency for all route responses'),
-        data: Joi.string().description('Folder that contains the mock data files'),
-        routes: Joi.string().description('Path to route configuration file used by Ekko to build Express routes'),
+        enabled: Joi.boolean().default(true).description('Enables or disables Ekko'),
+        port: Joi.number().integer().min(1024).max(65535).default(9999).description('The port to run Ekko on'),
+        latency: Joi.number().default(250).description('Set a latency for all route responses'),
+        data: Joi.string()
+          .default(() => path.join(process.cwd(), 'project/data'))
+          .description('Folder that contains the mock data files. Default: project/data'),
+        routes: Joi.string()
+          .default(() => path.join(process.cwd(), 'project/config/routes.json'))
+          .description(
+            'Path to route configuration file used by Ekko to build Express routes. Default: project/config/routes.json'
+          ),
         plugins: Joi.array()
           .items(Joi.string())
+          .default(['@availity/mock-data'])
           .description(
             'Array of NPM module names that enhance Ekko with additional data and routes. https://github.com/Availity/availity-mock-data'
           ),
         pluginContext: Joi.string().description(
-          'Mock data can be passed a context so that HATEOS links traverse correctly'
+          'Mock data can be passed a context so that HATEOS links traverse correctly. ' +
+            'Defaults to http://{host}:{port}/api using the resolved dev server host and port.'
         ),
       })
       .unknown()
-      .default((parent) => ({
-        enabled: true,
-        port: 9999,
-        latency: 250,
-        data: path.join(process.cwd(), 'project/data'),
-        routes: path.join(process.cwd(), 'project/config/routes.json'),
-        plugins: ['@availity/mock-data'],
-        pluginContext: `http://${parent.development.host}:${parent.development.port}/api`,
-      })),
+      .default(),
     proxies: Joi.array()
       .items(
         Joi.object()

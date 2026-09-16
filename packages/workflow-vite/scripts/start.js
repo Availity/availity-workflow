@@ -46,13 +46,20 @@ export default async function start({ settings }) {
     let previewConfig = await buildViteConfig(settings);
     previewConfig = applyModifyViteConfig(previewConfig, settings);
 
+    // Spread the full resolved config so that base, define, resolve, plugins, and
+    // any modifyViteConfig changes are all honoured by the preview server.
+    // Move server-level options (port, host, proxy, open) into the `preview` key
+    // where Vite's preview server expects them, then clear `server` so Vite doesn't
+    // try to start a dev server alongside the preview server.
     const previewServer = await preview({
-      root: settings.project(),
+      ...previewConfig,
       preview: {
         port: settings.port(),
         host: settings.host(),
+        open: previewConfig.server?.open || false,
         proxy: previewConfig.server?.proxy,
       },
+      server: undefined,
     });
     const uri = `http://${settings.host()}:${settings.port()}/`;
     Logger.box(`Previewing ${chalk.yellow(settings.pkg().name)} at ${chalk.green(uri)}`);
