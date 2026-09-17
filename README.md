@@ -111,7 +111,7 @@ export default {
   app: {
     title: 'My Awesome App',
   },
-  mock: {
+  ekko: {
     latency: 300,
     port: 9999,
   },
@@ -226,18 +226,30 @@ When starting the dev server using production settings as a dry run, `yarn start
 
 #### `development.jestOverrides`
 
-> **Deprecated**: This option is maintained for backward compatibility. Use `development.vitestOverrides` instead.
-
-Customize Vitest configuration options. Uses lodash merge to deeply merge user config object with defaults.
+> **Deprecated**: This option is maintained for backward compatibility. Use `development.vitestOverrides` instead. Only three keys are recognized: `collectCoverageFrom`, `coveragePathIgnorePatterns`, and `testTimeout`. All other keys are silently ignored.
 
 **Ex:**:
 
 ```js
 {
-    collectCoverageFrom: ['project/app/**/*.{js,jsx,ts,tsx}', '!project/app/**/types'],
-    coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/', '/types'],
+  collectCoverageFrom: ['project/app/**/*.{js,jsx,ts,tsx}', '!project/app/**/types'],
+  coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/dist/', '/types'],
 }
 ```
+
+#### `development.vitestOverrides`
+
+The preferred way to customize Vitest. Options are merged additively — you only need to specify what you want to change. See the [Vitest config reference](https://vitest.dev/config/) for all options.
+
+| Option        | Type               | Description                                                                               |
+| ------------- | ------------------ | ----------------------------------------------------------------------------------------- |
+| `pool`        | string             | `'vmThreads'` (default), `'forks'`, or `'threads'`                                        |
+| `environment` | string             | `'jsdom'` (default), `'happy-dom'`, or `'node'`                                           |
+| `testTimeout` | number             | Test timeout in ms (default: 5000)                                                        |
+| `setupFiles`  | string \| string[] | Additional setup files — appended to the internal list                                    |
+| `coverage`    | object             | Any [Vitest coverage options](https://vitest.dev/config/#coverage) — merged with defaults |
+
+> **Note on `clearMocks`:** Vitest 5 changed the default for `clearMocks` to `true`. `@availity/workflow` explicitly pins it to `false` to preserve existing test behavior. To auto-clear mocks before each test, opt in via `vitestOverrides.clearMocks: true`.
 
 #### `development.targets`
 
@@ -320,37 +332,19 @@ By default, the following feature flags are enabled:
 - `__STAGING__`: **true** when `process.env.NODE_ENV` is **staging**
 - `process.env.NODE_ENV`: is `development`, `test`, `staging` or `production` accordingly.
 
-> `eslint-config-availity@2.1.0` or higher is needed for the default feature toggles to be recognized as valid globals by **eslint**.
+#### `ekko`
 
-#### `mock.enabled`
+Mock server configuration. The `mock.*` key form is no longer supported — use `ekko.*` instead.
 
-Enables or disables mock server. Default is `true`.
-
-#### `mock.port`
-
-Mock server port number. If the port is unavailable, a random available port will be used.
-
-Note: we will automatically update the proxy settings to reflect the port used in the case of a random port being selected.
-
-#### `mock.latency`
-
-Sets default latency for all mock responses
-
-#### `mock.data`
-
-Folder that contains the mock data files (json, images, etc). Defaults to `project/data`.
-
-#### `mock.path`
-
-Path to route configuration file used by Mock server to build Express routes. Defaults to `project/config/routes.json`.
-
-#### `mock.plugins`
-
-Array of NPM module names that enhance mock server with additional data and routes. @See https://github.com/Availity/@availity/mock-data
-
-#### `mock.pluginContext`
-
-Pass URL context information to mock responses so that HATEOS links traverse correctly. Defaults to `http://localhost:{development.port}/api`
+| Option          | Default                      | Description                                            |
+| --------------- | ---------------------------- | ------------------------------------------------------ |
+| `enabled`       | `true`                       | Enable/disable the mock server                         |
+| `port`          | `9999`                       | Mock server port                                       |
+| `latency`       | `250`                        | Default response delay in ms                           |
+| `data`          | `project/data`               | Folder containing mock data files (JSON, images, etc.) |
+| `routes`        | `project/config/routes.json` | Path to the Express route configuration file           |
+| `plugins`       | `['@availity/mock-data']`    | NPM modules that add additional routes and data        |
+| `pluginContext` | `http://{host}:{port}/api`   | Context URL for HATEOAS links in mock responses        |
 
 #### `proxies`
 

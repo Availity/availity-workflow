@@ -7,7 +7,7 @@
 - **Vitest** — replaces Jest as the default test runner. Tests use the same `describe`/`it`/`expect` API — most tests work without changes.
 - **esbuild-loader** — replaces Babel for TypeScript/JSX compilation (faster builds).
 - **ESLint 9 flat config** — `.eslintrc` is replaced by `eslint.config.js`.
-- **Vite (opt-in)** — set `bundler: 'vite'` in your workflow config to use Vite for dev/build. Webpack remains the default bundler.
+- **Vite (separate package)** — use `@availity/workflow-vite` for a Vite-based dev/build stack. See the [Vite recipe](/recipes/vite) for setup. Webpack remains the default via `@availity/workflow`.
 
 > **Important:** `@availity/workflow` v14 and `eslint-config-availity` (ESLint 9) must be upgraded together. They are not compatible with older versions of each other.
 
@@ -93,22 +93,27 @@ The upgrade tool does not modify Dockerfiles. Update Node base images manually:
 
 If your CI used `jest-junit` for test reports, the Vitest `junit` reporter is configured automatically by workflow. Reports are written to the same location. Remove `jest-junit` from your devDependencies (the upgrade tool does this).
 
-## Opting into Vite
+## Using Vite Instead of Webpack
 
-Vite is available as an alternative bundler to Webpack. To opt in:
+Vite is available as a separate package — `@availity/workflow-vite`. It is not a config flag on `@availity/workflow`. To switch:
+
+```bash
+yarn remove @availity/workflow
+yarn add @availity/workflow-vite --dev
+```
+
+Then update `project/config/workflow.js` to use the Vite type:
 
 ```js
-export default (config) => {
-  config.bundler = 'vite';
-
-  // Modify Vite config if needed
-  config.modifyViteConfig = (viteConfig, settings) => {
-    return viteConfig;
-  };
-
-  return config;
+/** @type {import('@availity/workflow-vite').WorkflowViteConfig} */
+export default {
+  development: {
+    port: 3000,
+  },
 };
 ```
+
+See the [Vite recipe](/recipes/vite) for the full migration guide.
 
 ## Breaking Changes
 

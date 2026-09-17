@@ -96,3 +96,18 @@ export default (config) => {
 ## Commands
 
 All CLI commands are the same: `av start`, `av build`, `av test`, `av lint`, `av release`.
+
+## Troubleshooting ESM/CJS Compatibility
+
+Some packages in `node_modules` ship broken or dual-mode ESM that causes Vite pre-bundling issues. If you see errors like `failed to resolve import` or `X does not provide an export named Y`, add the package to `development.optimizeDeps`:
+
+```js
+/** @type {import('@availity/workflow-vite').WorkflowViteConfig} */
+export default {
+  development: {
+    optimizeDeps: ['@availity/spaces', 'dayjs'],
+  },
+};
+```
+
+This forces Vite to pre-bundle those packages as CommonJS-compatible, which resolves most interop issues.

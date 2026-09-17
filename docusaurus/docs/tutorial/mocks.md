@@ -25,29 +25,12 @@ The above pictured scenario can be explained by saying "the specified path will 
 
 ## Starting Mock Server
 
-By default, if you have not modified your `workflow.js` file the mock server will automatically start up and be running. This can be disabled by setting `development.mock.enabled` to `false` in the configuration file.
+By default, if you have not modified your `workflow.js` file the mock server will automatically start up and be running. This can be disabled by setting `ekko.enabled` to `false` in the configuration file.
 
 The easiest way to know if the server is running is you should see a message saying `Ekko server started at...`.
 
 ```shell hideCopy=true
-Workspaces/workflow-app is 📦 v0.1.0 via ⬢ v12.14.0 took 11s 487ms yarn start
-yarn run v1.21.1
-$ av start
-› REACT
-› Using project/config/workflow.js
-› Using @availity/workflow/public/index.html
-› Using @availity/workflow/public/favicon.ico
-› Webpack 0% compiling
-› Webpack 10% building
-› Proxy created: [ '/api', '/ms' ] -> http://localhost:51484
-› Proxy rewrite rule created: "^/api" ~> ""
-ℹ ｢wds｣: Project is running at http://localhost:3000/
-ℹ ｢wds｣: webpack output is served from undefined
-ℹ ｢wds｣: Content not from webpack is served from /Users/kgray/Workspaces/proving-grounds/workflow-app/build
-ℹ ｢wds｣: 404s will fallback to /index.html
-› Started development server
-› Loading plugin @availity/mock-data
-› Ekko server started at http://localhost:51484
+› Ekko server started at http://localhost:9999
 ```
 
 ## Example
