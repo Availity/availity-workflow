@@ -1,92 +1,177 @@
 # Contributing
 
-This is a monorepo managed using [`yarn berry` workspaces](https://yarnpkg.com/features/workspaces). Each package is versioned and published individually.
+This is a monorepo managed using [`yarn berry` workspaces](https://yarnpkg.com/features/workspaces) and [Nx](https://nx.dev/) for task orchestration. Each package is versioned and published individually.
 
-## Adding a New Package
+## Prerequisites
 
--   ```bash
-    yarn run new
-    ```
+- **Node.js** ≥ 22.12.0 (see `.nvmrc`)
+- **Yarn** 4.x — managed via the `packageManager` field in `package.json`. Enable it with [Corepack](https://nodejs.org/api/corepack.html):
 
--   Add link to new package in README
+  ```bash
+  corepack enable
+  ```
+
+  You do not need to install Yarn globally via npm.
 
 ## Installing
 
-We use [yarn](https://yarnpkg.com/lang/en/) workspaces for developing. If you don't have [yarn](https://yarnpkg.com/lang/en/) you can install it by running
-`npm install -g yarn`. Otherwise you can run the below to install all the dependencies.
+Clone or fork the repository, then install all dependencies from the repo root:
 
 ```bash
 yarn install
 ```
 
-Although we are not yet using [Plug'n'Play](https://yarnpkg.com/features/pnp) all subsequent installs should be quick after the first initial one.
+## Packages
 
-## Commits
+The monorepo contains the following packages under `./packages/`:
 
-Once satisfied with your changes, you will need to commit them.
+| Package                      | Description                                             |
+| ---------------------------- | ------------------------------------------------------- |
+| `@availity/workflow`         | Webpack-based build toolkit                             |
+| `@availity/workflow-vite`    | Vite-based build toolkit (recommended for new projects) |
+| `@availity/workflow-logger`  | Shared logger                                           |
+| `@availity/workflow-upgrade` | Upgrade CLI                                             |
+| `@availity/mock-server`      | Local mock server                                       |
+| `@availity/mock-data`        | Mock data for development                               |
 
--   Commits should use the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type).
--   Scope should be one of the un-prefixed name of the packages under `./packages/`, for example, `feat(workflow): msg` would apply to the `@availity/workflow` package.
--   If a commit applies to multiple packages, leave out the scope.
--   Using conventional commits will help you to determine the appropriate version bump during the versioning process, so following the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type) is important! When in doubt, don't hesitate to reach out to the reviewers of your PR for help with commit messages and versioning.
+When adding a new package, also add a link to it in the root `README.md`.
 
-## Testing Changes
+## Testing Your Changes
 
-There are a few scripts you can use for testing changes. If you are using `vscode` you will be able to run them from the debugger, otherwise they can be run from your CLI.
+Several scripts are available for validating changes. In VS Code, these can also be run via the integrated debugger.
 
-### `yarn start:app`
+### Unit Tests
 
-Runs the example application
+```bash
+# Run all unit tests
+yarn test
 
-### `yarn test:app`
+# Run only tests affected by your changes (via Nx)
+yarn test:affected
+```
 
-Tests the example application
+### Example Apps
 
-### `yarn test:integration`
+```bash
+# Run the Webpack example app
+yarn start:app
 
-Runs the integration command on each workspace in this repo. Generally, it will build and test each workspace.
+# Run the Vite example app
+yarn start:vite-app
 
-### `yarn build:app`
+# Test the Webpack example app
+yarn test:app
 
-Builds the example application
+# Test the Vite example app
+yarn test:vite-app
+
+# Build the Webpack example app
+yarn build:app
+
+# Build the Vite example app
+yarn build:vite-app
+```
+
+### Integration Tests
+
+```bash
+# Runs the build and test targets for every workspace
+yarn test:integration
+```
 
 ### Testing Template Changes
 
-If you need to test changes to the template, you can use the `--branchOverride` command when running `npx @availity/workflow init`.
+If you need to test changes to a project template, use the `--branchOverride` flag when initializing:
+
+```bash
+npx @availity/workflow init <your-project-name> --branchOverride <your-branch>
+```
+
+### Linting
+
+```bash
+# Lint files affected by your changes
+yarn lint
+
+# Lint all files
+yarn lint:all
+
+# Auto-fix lint issues in affected files
+yarn lint:fix
+```
+
+## Commits
+
+Commits must follow the [Conventional Commits](https://www.conventionalcommits.org/) format (enforced via `commitlint`).
+
+The project uses `@commitlint/config-nx-scopes`, so valid scopes are derived from the Nx project names:
+
+- `workflow`
+- `workflow-vite`
+- `workflow-logger`
+- `workflow-upgrade`
+- `mock-server`
+- `mock-data`
+
+**Examples:**
+
+```
+feat(workflow): add support for custom PostCSS config
+fix(workflow-vite): resolve HMR issue with SASS modules
+chore: update dependencies
+```
+
+- Use `BREAKING CHANGE:` in the commit footer for breaking changes.
+- If a commit applies to multiple packages, omit the scope.
+- When in doubt, ask the PR reviewers — they'll help with commit messages and versioning.
 
 ## Versioning
 
-This repo uses the [yarn release workflow](https://yarnpkg.com/features/release-workflow) for managing versions and releases. We expect you to follow the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type) since it will help when determining an appropriate version bump for your PR.
+This repo uses [`@jscutlery/semver`](https://github.com/jscutlery/semver) with Nx to manage versions and changelogs. Versioning happens automatically on merge to `master` based on conventional commit messages.
 
--   Once your changes have been committed and tested, it's time to create a release definition file
--   Run
+To do a dry run of the version bump locally:
 
-    ```bash
-     yarn version check --interactive
-    ```
+```bash
+yarn version:dry-run
+```
 
-    to see a summary of all your changed files, changed workspaces, and dependent workspaces. You will also see checkboxes for each entry, allowing you to pick the release strategy that's appropriate for each workspace.
+General version bump rules:
 
-    This can be tricky sometimes, but your commit messages will help out here. In general, the following is a guide for selecting version bump levels:
+| Commit type               | Version bump |
+| ------------------------- | ------------ |
+| `feat`                    | Minor        |
+| `fix`, `refactor`, `perf` | Patch        |
+| `BREAKING CHANGE` footer  | Major        |
 
-    -   Major: Any workspace with a commit containing `BREAKING CHANGES:` should receive a major version bump, regardless of commit type. Any dependent workspaces should also receive a major bump.
-
-    -   Minor: Any workspace with a commit type of `feat`. Any dependent workspaces can receive a patch version bump.
-
-    -   Patch: Any workspace with a commit type of `fix, refactor, perf`. Any dependent workspaces can receive a patch version bump.
-
--   When in doubt, don't hesitate to reach out to the reviewers of your PR for help determining the right version strategy.
+When in doubt, ask the PR reviewers for help determining the right version bump.
 
 ## Contributor Workflow
 
--   `git clone` this repo if you are a member of the Availity organization, otherwise `git fork` it
+1. **Members of the Availity org:** Clone the repo and create a branch off `master`.
+   **External contributors:** Fork the repo and create a branch off `master`.
 
--   Make and commit any changes, being sure to follow the [Angular Commit Format](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#type)
+2. Install dependencies:
 
--   Create or update any necessary tests and run them
+   ```bash
+   yarn install
+   ```
 
--   Version your changes and commit them
+3. Make your changes.
 
--   `git push` those changes to your PR
+4. Add or update tests as needed and make sure they pass:
 
--   Upon merge to `master`, changelogs will be automatically generated, and your versions will be tagged and published without requiring any further action
+   ```bash
+   yarn test
+   ```
+
+5. Ensure linting passes:
+
+   ```bash
+   yarn lint
+   ```
+
+6. Commit your changes following the [Conventional Commits](https://www.conventionalcommits.org/) format.
+
+7. Push your branch and open a pull request against `master`.
+
+8. On merge to `master`, changelogs are automatically generated, and new package versions are tagged and published.
