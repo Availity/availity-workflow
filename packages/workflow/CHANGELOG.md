@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [14.6.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.6.1...@availity/workflow@14.6.2) (2026-09-17)
+
+### Dependency Updates
+
+* `workflow-logger` updated to version `14.6.1`
+* `mock-server` updated to version `14.6.1`
+* `mock-server` updated to version `14.6.1`
+
+### Bug Fixes
+
+* **workflow-vite:** sub-path deploy 404s, source maps, staging build, schema defaults ([5ac0f59](https://github.com/Availity/availity-workflow/commit/5ac0f59ba57cea161c1d82c5f6e9013bce38a281))
+
+
+
 ## [14.6.1](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.6.0...@availity/workflow@14.6.1) (2026-09-16)
 
 
