@@ -1,4 +1,14 @@
 {
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [
+      "!{workspaceRoot}/README.md",
+      "!{workspaceRoot}/UPGRADE.md",
+      "!{workspaceRoot}/CHANGELOG.md",
+      "!{workspaceRoot}/CHANGELOG_2019.md"
+    ],
+    "production": ["default", "!{projectRoot}/**/*.spec.{js,ts}", "!{projectRoot}/**/*.test.{js,ts}"]
+  },
   "targetDefaults": {
     "build": {
       "cache": true,

@@ -8,7 +8,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 Throughout the documentation you will see [yarn](https://yarnpkg.com/) used. You are not required to use this however it is our package manager of choice. If you are still wanting to use npm then just note the subtle differences in the commands. `yarn start` would be the same `npm start`.
 
-The minimum required [Node.js](https://nodejs.org/) version to run and use our toolkit is `v22.0.0`. Supported versions: `^22.0.0 || ^24.0.0`.
+The minimum required [Node.js](https://nodejs.org/) version to run and use our toolkit is `v22.12.0`. Supported versions: `^22.12.0 || ^24.0.0`.
 
 ## Creating a new App Using the Workflow CLI
 
@@ -58,29 +58,22 @@ Inside of the `config` folder there is a file titled `workflow.js`. You can use 
 
 Let's open the current file and see what we got.
 
-```js header=workflow.js
-module.exports = (config) => {
-  config.development.open = '#/?spaceId=48C607A70B5A46A3864A34E2BDDDEA04';
-
-  config.development.hotLoader = true;
+```js title="workflow.js"
+/** @type {import('@availity/workflow').WorkflowConfigFunction} */
+export default (config) => {
+  config.development.open = '/';
 
   return config;
 };
 ```
 
-The workflow file takes in a `config` object which contains all of the webpack configurations, babel presets and more. We specify the webpack development server to open the application with a path of `#/?spaceId=48C607A70B5A46A3864A34E2BDDDEA04` once it has compiled.
+The workflow file takes in a `config` object which contains all of the webpack configurations, loaders, and more. We tell the dev server to open the application at the root path `/` once it has compiled.
 
-```bash hideCopy=true
-config.development.open = '#/?spaceId=48C607A70B5A46A3864A34E2BDDDEA04';
+```js
+config.development.open = '/';
 ```
 
-Wait, but what is a `spaceId`? We will get into that later but if you want you can skip ahead to `here`.
-
-Next we enable hot module replacement via Fast Refresh, which will instantly reflect code changes in the browser without losing component state.
-
-```js hideCopy=true
-config.development.hotLoader = true;
-```
+You can change this to any route in your application — for example `'#/dashboard'` if your app uses hash-based routing.
 
 Lastly we have to return the `config` for the rest of the build process to take advantage of the overrides we gave it.
 

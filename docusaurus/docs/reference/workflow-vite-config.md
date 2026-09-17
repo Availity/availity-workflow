@@ -35,7 +35,7 @@ export default (config) => {
 
 ### `development.open`
 
-URL path to open in the default browser when the dev server starts. Default: `''` (disabled).
+URL path to open in the default browser when the dev server starts. Default: `'/'` (opens at root). Set to `false` to disable.
 
 ### `development.notification`
 
@@ -55,7 +55,21 @@ Enable source maps in development. Default: `true`.
 
 ### `development.babelInclude`
 
+> ⚠️ **Deprecated.** Use `development.vitestOverrides.inlineDeps` instead. The name is a webpack-era holdover — Vite does not use Babel for this purpose.
+
 Additional `node_modules` packages to transform during testing. Default: `[]`.
+
+### `development.optimizeDeps`
+
+Additional packages to add to Vite's `optimizeDeps.include` list for the dev server and builds. Merged with the built-in defaults (`react`, `react-dom`, `react-dom/client`, `react-router`, `axios`). Use this for packages that have ESM/CJS compatibility issues and need pre-bundling.
+
+```js
+export default {
+  development: {
+    optimizeDeps: ['@availity/spaces', 'dayjs'],
+  },
+};
+```
 
 ### `development.vitestOverrides`
 
@@ -165,11 +179,16 @@ export default {
 
 ### `eslint`
 
-ESLint checker options for the Vite dev server.
+ESLint checker options for the Vite dev server and lint script.
 
-| Option        | Default | Description                   |
-| ------------- | ------- | ----------------------------- |
-| `failOnError` | `true`  | Fail the build on lint errors |
+| Option          | Default | Description                                                                                                                                                |
+| --------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `failOnError`   | `true`  | Fail the build on lint errors                                                                                                                              |
+| `failOnWarning` | `false` | Fail the build on lint warnings                                                                                                                            |
+| `fix`           | `false` | Automatically fix fixable ESLint problems                                                                                                                  |
+| `quiet`         | `false` | Report errors only — suppress warnings from lint output                                                                                                    |
+| `maxWarnings`   | (unset) | Number of warnings allowed before lint fails. Overrides `failOnWarning` when set (e.g. `0` = fail on any warning)                                          |
+| `watchPath`     | (unset) | Path or glob patterns to watch for changes during dev server lint checking. Defaults to the app directory. Useful when linting files outside `project/app` |
 
 ### `modifyViteConfig`
 

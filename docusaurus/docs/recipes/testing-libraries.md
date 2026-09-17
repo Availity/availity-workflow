@@ -22,6 +22,7 @@ import '@testing-library/jest-dom/vitest';
 Then reference it in `workflow.js`:
 
 ```js
+/** @type {import('@availity/workflow').WorkflowConfigFunction} */
 export default (config) => {
   config.development.vitestOverrides = {
     setupFiles: ['./vitest.setup.js'],
@@ -29,6 +30,49 @@ export default (config) => {
   return config;
 };
 ```
+
+For `@availity/workflow-vite`, it's the same pattern:
+
+```js
+/** @type {import('@availity/workflow-vite').WorkflowViteConfigFunction} */
+export default (config) => {
+  config.development.vitestOverrides = {
+    setupFiles: ['./vitest.setup.js'],
+  };
+  return config;
+};
+```
+
+## Customizing Test Config
+
+Use `vitestOverrides` to tune timeout, environment, coverage thresholds, and more:
+
+```js
+/** @type {import('@availity/workflow').WorkflowConfigFunction} */
+export default (config) => {
+  config.development.vitestOverrides = {
+    setupFiles: ['./vitest.setup.js'],
+    testTimeout: 15000,
+    environment: 'jsdom', // default — use 'node' for non-DOM tests
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'lcov'],
+      thresholds: {
+        statements: 80,
+        branches: 80,
+      },
+      exclude: ['**/types/**', '**/dist/**'],
+    },
+  };
+  return config;
+};
+```
+
+> **Note on `clearMocks`:** Vitest 5 changed the default for `clearMocks` to `true`. `@availity/workflow` pins it to `false` to preserve pre-Vitest-5 behavior. Opt in explicitly if you want mocks cleared before each test:
+>
+> ```js
+> config.development.vitestOverrides = { clearMocks: true };
+> ```
 
 ## Example Test
 

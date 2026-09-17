@@ -56,8 +56,8 @@ Initializes a new project. Typically this is used in unison with `npx` for kicks
 #### Availity Templates
 
 - [React Starter (Default)](https://github.com/Availity/availity-starter-react)
-- [Wizard Starter (React)](https://github.com/Availity/availity-starter-wizard)
-- [Typescript Starter](https://github.com/Availity/availity-starter-typescript)
+- [TypeScript Starter](https://github.com/Availity/availity-starter-typescript)
+- [Vite + TypeScript Starter](https://github.com/Availity/availity-starter-vite-typescript) — uses `@availity/workflow-vite` (recommended for new projects)
 
 ```bash
 npx @availity/workflow init my-package-name --template https://github.com/Availity/availity-starter-typescript
