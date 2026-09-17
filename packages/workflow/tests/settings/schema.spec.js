@@ -19,9 +19,9 @@ describe('settings schema', () => {
     expect(value.development.port).toBe(3000);
   });
 
-  it('defaults development.host to localhost', () => {
+  it('defaults development.host to 0.0.0.0', () => {
     const { value } = schema.validate({});
-    expect(value.development.host).toBe('localhost');
+    expect(value.development.host).toBe('0.0.0.0');
   });
 
   it('defaults app.title to Availity', () => {
@@ -86,5 +86,58 @@ describe('settings schema', () => {
     const { error, value } = schema.validate({ customKey: 'customValue' });
     expect(error).toBeUndefined();
     expect(value.customKey).toBe('customValue');
+  });
+
+  it('accepts development.open as false', () => {
+    const { error, value } = schema.validate({ development: { open: false } });
+    expect(error).toBeUndefined();
+    expect(value.development.open).toBe(false);
+  });
+
+  it('accepts development.resolveConditions as a string array', () => {
+    const { error, value } = schema.validate({ development: { resolveConditions: ['browser', 'import', 'default'] } });
+    expect(error).toBeUndefined();
+    expect(value.development.resolveConditions).toEqual(['browser', 'import', 'default']);
+  });
+
+  it('does not set development.resolveConditions by default (optional)', () => {
+    const { value } = schema.validate({});
+    expect(value.development.resolveConditions).toBeUndefined();
+  });
+
+  it('accepts eslint.maxWarnings as 0', () => {
+    const { error, value } = schema.validate({ eslint: { maxWarnings: 0 } });
+    expect(error).toBeUndefined();
+    expect(value.eslint.maxWarnings).toBe(0);
+  });
+
+  it('rejects eslint.maxWarnings below 0', () => {
+    const { error } = schema.validate({ eslint: { maxWarnings: -1 } });
+    expect(error).toBeDefined();
+  });
+
+  it('does not set eslint.maxWarnings by default (optional)', () => {
+    const { value } = schema.validate({});
+    expect(value.eslint.maxWarnings).toBeUndefined();
+  });
+
+  it('defaults experiments to an empty object', () => {
+    const { value } = schema.validate({});
+    expect(value.experiments).toEqual({});
+  });
+
+  it('preserves other development defaults when a single field is overridden', () => {
+    const { value } = schema.validate({ development: { port: 8080 } });
+    expect(value.development.host).toBe('0.0.0.0');
+    expect(value.development.notification).toBe(true);
+    expect(value.development.hotLoader).toBe(true);
+    expect(value.development.sourceMap).toBe('source-map');
+  });
+
+  it('preserves other eslint defaults when a single field is overridden', () => {
+    const { value } = schema.validate({ eslint: { failOnWarning: true } });
+    expect(value.eslint.failOnError).toBe(true);
+    expect(value.eslint.fix).toBe(false);
+    expect(value.eslint.quiet).toBe(false);
   });
 });

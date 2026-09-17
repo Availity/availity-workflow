@@ -130,10 +130,7 @@ export default class Settings {
   }
 
   host() {
-    // Default to 0.0.0.0 (bind all interfaces) so webpack-dev-server works inside
-    // Docker containers and CI environments. workflow-vite defaults to 'localhost'
-    // because Vite's server handles container binding differently.
-    return this.configuration?.development?.host ?? '0.0.0.0';
+    return this.configuration?.development?.host;
   }
 
   port() {
@@ -227,13 +224,13 @@ export default class Settings {
   }
 
   statsLogLevel() {
-    const level = this.configuration?.development?.stats?.level ?? 'normal';
-    return this.argv()?.development?.stats?.level ?? level;
+    const level = this.configuration?.development?.stats?.level;
+    return this.argv().development?.stats?.level ?? level;
   }
 
   infrastructureLogLevel() {
-    const level = this.configuration?.development?.infrastructureLogging?.level ?? 'normal';
-    return this.argv()?.development?.infrastructureLogging?.level ?? level;
+    const level = this.configuration?.development?.infrastructureLogging?.level;
+    return this.argv().development?.infrastructureLogging?.level ?? level;
   }
 
   asset(workflowFilePath, projectFilePath) {

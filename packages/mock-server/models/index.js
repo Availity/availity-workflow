@@ -5,5 +5,5 @@ import Route from './route.js';
 export default {
   Request,
   Response,
-  Route
+  Route,
 };

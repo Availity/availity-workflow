@@ -7,22 +7,22 @@ const schema = Joi.object()
       .keys({
         open: Joi.alternatives()
           .try(Joi.boolean().valid(false), Joi.string().allow(''))
-          .default(false)
+          .default('/')
           .description(
             'Where to open the application in the default browser on dev server start. ' +
               'Set to a path string (e.g. "/my-app") to open a specific URL, or false to disable. ' +
-              'Default: false (do not auto-open).'
+              "Default: '/' (open at root)."
           ),
         notification: Joi.boolean().default(true).description('Whether to send build status system notifications'),
         host: Joi.string().default('localhost').description('Vite dev server host'),
         port: Joi.number().integer().min(1024).max(65535).default(3000).description('Vite dev server port'),
         sourceMap: Joi.boolean().default(true).description('Enable source maps in development'),
         suppressDeprecationWarnings: Joi.boolean()
-          .default(true)
+          .default(false)
           .description(
             'Suppress Node.js deprecation warnings during builds and dev server startup. ' +
-              'Defaults to true — Vite 8/Rolldown and some upstream packages emit noisy deprecation ' +
-              'warnings that cannot be resolved by the application. Set to false to surface them.'
+              'Defaults to false. Enable this if third-party dependencies emit noisy deprecation ' +
+              'warnings that you cannot resolve. Set to true to silence them.'
           ),
         babelInclude: Joi.array()
           .items(Joi.string())
@@ -59,6 +59,15 @@ const schema = Joi.object()
               'Runs tsc --noEmit in a worker thread via vite-plugin-checker. ' +
               'Type errors appear in the terminal during development and will fail production builds. ' +
               'Requires a tsconfig.json in the project root. Default: false.'
+          ),
+        optimizeDeps: Joi.array()
+          .items(Joi.string())
+          .default([])
+          .description(
+            "Additional packages to add to Vite's optimizeDeps.include list for the dev server and build. " +
+              'Merged with the built-in defaults (react, react-dom, react-dom/client, react-router, axios). ' +
+              'Use this for packages that have ESM/CJS compatibility issues and need pre-bundling. ' +
+              "Example: ['@availity/spaces', 'dayjs']"
           ),
       })
       .unknown()

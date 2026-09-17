@@ -43,7 +43,9 @@ describe('open', () => {
   });
 
   it('logs warning on error', async () => {
-    mockOpn.mockImplementation(() => { throw new Error('spawn failed'); });
+    mockOpn.mockImplementation(() => {
+      throw new Error('spawn failed');
+    });
     const settings = { open: () => '/app', port: () => 3000, host: () => 'localhost' };
 
     await open(settings);

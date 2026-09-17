@@ -232,6 +232,14 @@ const buildViteConfig = async (settings) => {
 
   return {
     root: settings.app(),
+    // Use relative base so asset chunk URLs are emitted as ./assets/... rather
+    // than /assets/.... Availity apps are typically served from Tyk sub-paths
+    // (e.g. /tst/appl/my-service/static/nav/) — absolute paths cause 404s for
+    // every JS/CSS chunk even though index.html loads fine.  Relative URLs
+    // resolve correctly regardless of deploy depth.  Apps served from the root
+    // are unaffected; Vite injects the base into generated HTML at build time
+    // so history-mode routing continues to work.
+    base: './',
     define,
     server: {
       port: settings.port(),
@@ -248,7 +256,17 @@ const buildViteConfig = async (settings) => {
     css: { preprocessorOptions: { scss: { sourceMap: settings.configuration.development.sourceMap } } },
     plugins,
     optimizeDeps: {
-      include: ['react', 'react-dom', 'react-dom/client', 'react-router-dom', 'axios'],
+      // react-router replaces react-router-dom as of v7 — keep both so apps mid-migration
+      // still get pre-bundling benefits. react-router-dom is intentionally excluded from
+      // the default list; teams still on v6 can add it via development.optimizeDeps.
+      include: [
+        'react',
+        'react-dom',
+        'react-dom/client',
+        'react-router',
+        'axios',
+        ...settings.configuration.development.optimizeDeps,
+      ],
     },
     build: {
       outDir: settings.output(),

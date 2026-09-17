@@ -89,13 +89,23 @@ function proxy(settings) {
     xfwd: true,
     logProvider() {
       return {
-        log(...args) { Logger.log(proxyLogRewrite(args)); },
-        debug(...args) { Logger.debug(proxyLogRewrite(args)); },
-        info(...args) { Logger.info(proxyLogRewrite(args)); },
-        warn(...args) { Logger.warn(proxyLogRewrite(args)); },
-        error(...args) { Logger.error(proxyLogRewrite(args)); },
+        log(...args) {
+          Logger.log(proxyLogRewrite(args));
+        },
+        debug(...args) {
+          Logger.debug(proxyLogRewrite(args));
+        },
+        info(...args) {
+          Logger.info(proxyLogRewrite(args));
+        },
+        warn(...args) {
+          Logger.warn(proxyLogRewrite(args));
+        },
+        error(...args) {
+          Logger.error(proxyLogRewrite(args));
+        },
       };
-    }
+    },
   };
 
   const { proxies } = settings.configuration;
@@ -127,7 +137,7 @@ function proxy(settings) {
         if (typeof proxyConfiguration.onError === 'function') {
           proxyConfiguration.onError(err, req, res);
         }
-      }
+      },
     });
 
     if (proxyConfig.enabled) {

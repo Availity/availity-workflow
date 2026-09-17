@@ -16,15 +16,15 @@ const plugin = (settings) => {
 
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
-        reportFilename: 'profile.html'
+        reportFilename: 'profile.html',
       }),
 
       new DuplicatePackageCheckerPlugin({
         exclude(instance) {
           return instance.name === 'regenerator-runtime';
-        }
-      })
-    ]
+        },
+      }),
+    ],
   };
 
   return deepMerge({}, baseProdConfig, overrides);

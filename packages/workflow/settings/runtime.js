@@ -38,6 +38,12 @@ export default async function resolveRuntime(configuration, host) {
       host,
     });
 
+    // Compute pluginContext default here — it depends on the resolved ports and host
+    // which are not available at schema-validation time.
+    if (!configuration.ekko.pluginContext) {
+      configuration.ekko.pluginContext = `http://${host}:${ekkoServerPort}/api`;
+    }
+
     if (wantedEkkoPort !== ekkoServerPort) {
       configuration.ekko.pluginContext = configuration.ekko.pluginContext.replace(
         `:${wantedEkkoPort}`,

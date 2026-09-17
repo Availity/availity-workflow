@@ -4,7 +4,7 @@ import formatStats from '../../scripts/stats.js';
 describe('formatWebpackMessages', () => {
   const makeJson = (errors = [], warnings = []) => ({
     errors: errors.map((msg) => ({ message: msg })),
-    warnings: warnings.map((msg) => ({ message: msg }))
+    warnings: warnings.map((msg) => ({ message: msg })),
   });
 
   it('returns empty arrays when no errors or warnings', () => {
@@ -14,7 +14,9 @@ describe('formatWebpackMessages', () => {
 
   it('strips webpack loader notation from filenames', () => {
     const result = formatWebpackMessages(
-      makeJson(['./~/css-loader!./~/postcss-loader!./src/App.css\nModule not found: Cannot resolve module some-module\n\n./src/App.css 1:0'])
+      makeJson([
+        './~/css-loader!./~/postcss-loader!./src/App.css\nModule not found: Cannot resolve module some-module\n\n./src/App.css 1:0',
+      ])
     );
     expect(result.errors[0]).toContain('./src/App.css');
     expect(result.errors[0]).not.toContain('css-loader');
@@ -23,7 +25,9 @@ describe('formatWebpackMessages', () => {
 
   it('cleans "Module not found" messages', () => {
     const result = formatWebpackMessages(
-      makeJson(["./src/App.css\nModule not found: Cannot resolve module 'some-module'\nExtra line 1\nExtra line 2\n./src/App.css 10:0"])
+      makeJson([
+        "./src/App.css\nModule not found: Cannot resolve module 'some-module'\nExtra line 1\nExtra line 2\n./src/App.css 10:0",
+      ])
     );
     const error = result.errors[0];
     expect(error).toContain('Module not found:');
@@ -33,7 +37,9 @@ describe('formatWebpackMessages', () => {
 
   it('cleans "Module build failed: SyntaxError" messages', () => {
     const result = formatWebpackMessages(
-      makeJson(['./src/App.css\nModule build failed: SyntaxError: Unexpected token (5:2)\n\n  3 |\n  4 |   render() {\n> 5 |   }\n'])
+      makeJson([
+        './src/App.css\nModule build failed: SyntaxError: Unexpected token (5:2)\n\n  3 |\n  4 |   render() {\n> 5 |   }\n',
+      ])
     );
     const error = result.errors[0];
     expect(error).toContain('Syntax error:');
@@ -42,7 +48,9 @@ describe('formatWebpackMessages', () => {
 
   it('strips internal stack traces without webpack:', () => {
     const result = formatWebpackMessages(
-      makeJson(['./src/App.css\nSome error\n  at Object.<anonymous> (/path/to/file.js:1:2)\n  at Module._compile (internal/modules.js:3:4)\nEnd'])
+      makeJson([
+        './src/App.css\nSome error\n  at Object.<anonymous> (/path/to/file.js:1:2)\n  at Module._compile (internal/modules.js:3:4)\nEnd',
+      ])
     );
     const error = result.errors[0];
     expect(error).not.toContain('at Object.<anonymous>');
@@ -72,7 +80,7 @@ describe('formatWebpackMessages', () => {
     const result = formatWebpackMessages(
       makeJson([
         './src/App.css\nModule build failed: SyntaxError: Unexpected token\ncode line',
-        './src/Other.css\nSome other error'
+        './src/Other.css\nSome other error',
       ])
     );
     // Syntax errors get filtered, and then capped at 1
@@ -83,11 +91,7 @@ describe('formatWebpackMessages', () => {
 
   it('caps errors at 1', () => {
     const result = formatWebpackMessages(
-      makeJson([
-        './src/A.css\nError one',
-        './src/B.css\nError two',
-        './src/C.css\nError three'
-      ])
+      makeJson(['./src/A.css\nError one', './src/B.css\nError two', './src/C.css\nError three'])
     );
     expect(result.errors).toHaveLength(1);
   });
@@ -95,7 +99,7 @@ describe('formatWebpackMessages', () => {
 
 describe('formatStats', () => {
   const createMockStats = () => ({
-    toString: vi.fn(() => 'formatted output')
+    toString: vi.fn(() => 'formatted output'),
   });
 
   it('calls stats.toString() with correct default options', () => {
@@ -113,7 +117,7 @@ describe('formatStats', () => {
       chunkOrigins: false,
       children: false,
       errorDetails: true,
-      warnings: true
+      warnings: true,
     });
     expect(result).toBe('formatted output');
   });
@@ -125,7 +129,7 @@ describe('formatStats', () => {
     expect(stats.toString).toHaveBeenCalledWith(
       expect.objectContaining({
         errorDetails: false,
-        warnings: false
+        warnings: false,
       })
     );
   });

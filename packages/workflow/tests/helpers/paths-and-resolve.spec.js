@@ -15,7 +15,7 @@ describe('helpers/paths', () => {
         app: expect.any(String),
         appNodeModules: expect.any(String),
         appStatic: expect.any(String),
-        tsconfig: expect.any(String)
+        tsconfig: expect.any(String),
       })
     );
   });
@@ -55,7 +55,7 @@ describe('helpers/resolve-module', () => {
     vi.resetModules();
     vi.doMock('fs', () => ({
       default: { existsSync: vi.fn(() => false) },
-      existsSync: vi.fn(() => false)
+      existsSync: vi.fn(() => false),
     }));
 
     const mockedFs = await import('node:fs');

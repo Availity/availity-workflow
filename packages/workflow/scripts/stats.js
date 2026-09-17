@@ -13,6 +13,6 @@ export default (stats, options = {}) => {
     chunkOrigins: false,
     children: false,
     errorDetails,
-    warnings
+    warnings,
   });
 };

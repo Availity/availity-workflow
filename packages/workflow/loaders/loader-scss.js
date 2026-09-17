@@ -9,17 +9,17 @@ export default {
       {
         loader: 'css-loader',
         options: {
-          sourceMap: true
-        }
+          sourceMap: true,
+        },
       },
       loaderPostcss,
       {
         loader: 'sass-loader',
         options: {
-          sourceMap: true
-        }
-      }
-    ]
+          sourceMap: true,
+        },
+      },
+    ],
   },
   production: {
     test: /\.(scss|sass)$/,
@@ -27,12 +27,12 @@ export default {
       {
         loader: MiniCssExtractPlugin.loader,
         options: {
-          publicPath: 'auto'
-        }
+          publicPath: 'auto',
+        },
       },
       'css-loader',
       loaderPostcss,
-      { loader: 'sass-loader', options: { sourceMap: true } }
-    ]
-  }
+      { loader: 'sass-loader', options: { sourceMap: true } },
+    ],
+  },
 };

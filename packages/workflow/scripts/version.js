@@ -72,16 +72,28 @@ async function prompt(settings, versionArg) {
   const simpleVersion = `${parsed.major}.${parsed.minor}.${parsed.patch}`;
 
   let choices = [
-    { name: `patch ( ${version} => ${semver.inc(simpleVersion, 'patch')} )`, value: semver.inc(simpleVersion, 'patch') },
-    { name: `minor ( ${version} => ${semver.inc(simpleVersion, 'minor')} )`, value: semver.inc(simpleVersion, 'minor') },
-    { name: `major ( ${version} => ${semver.inc(simpleVersion, 'major')} )`, value: semver.inc(simpleVersion, 'major') },
+    {
+      name: `patch ( ${version} => ${semver.inc(simpleVersion, 'patch')} )`,
+      value: semver.inc(simpleVersion, 'patch'),
+    },
+    {
+      name: `minor ( ${version} => ${semver.inc(simpleVersion, 'minor')} )`,
+      value: semver.inc(simpleVersion, 'minor'),
+    },
+    {
+      name: `major ( ${version} => ${semver.inc(simpleVersion, 'major')} )`,
+      value: semver.inc(simpleVersion, 'major'),
+    },
     new Separator(),
     { name: 'other', value: 'other' },
   ];
 
   if (parsed.prerelease && parsed.prerelease.length > 0) {
     choices = [
-      { name: `prerelease ( ${version} => ${semver.inc(version, 'prerelease', parsed[0])} )`, value: semver.inc(version, 'prerelease', parsed[0]) },
+      {
+        name: `prerelease ( ${version} => ${semver.inc(version, 'prerelease', parsed[0])} )`,
+        value: semver.inc(version, 'prerelease', parsed[0]),
+      },
       { name: `release ( ${version} => ${simpleVersion} )`, value: simpleVersion },
       new Separator(),
       { name: 'other', value: 'other' },
@@ -93,7 +105,8 @@ async function prompt(settings, versionArg) {
   if (bumpChoice === 'other') {
     const customVersion = await input({
       message: `version (current version is ${version})`,
-      validate: (v) => (semver.valid(semver.clean(v)) ? true : 'Enter valid semver. See https://docs.npmjs.com/misc/semver'),
+      validate: (v) =>
+        semver.valid(semver.clean(v)) ? true : 'Enter valid semver. See https://docs.npmjs.com/misc/semver',
     });
     settings._version = semver.clean(customVersion);
   } else {

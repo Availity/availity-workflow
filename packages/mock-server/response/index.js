@@ -24,7 +24,7 @@ const response = {
     }
 
     next();
-  }
+  },
 };
 
 export default response;

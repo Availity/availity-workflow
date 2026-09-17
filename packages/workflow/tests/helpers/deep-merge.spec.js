@@ -37,8 +37,8 @@ describe('deepMerge', () => {
 
   it('does not merge non-plain objects (class instances)', () => {
     class Foo {
- x = 1;
-}
+      x = 1;
+    }
     const foo = new Foo();
     const result = deepMerge({ a: { old: true } }, { a: foo });
     expect(result.a).toBe(foo);
@@ -47,7 +47,7 @@ describe('deepMerge', () => {
   it('rejects __proto__ key (prototype pollution)', () => {
     const target = {};
     deepMerge(target, JSON.parse('{"__proto__":{"polluted":true}}'));
-    expect(({}).polluted).toBeUndefined();
+    expect({}.polluted).toBeUndefined();
     expect(target.polluted).toBeUndefined();
   });
 
