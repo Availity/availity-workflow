@@ -620,10 +620,32 @@ The configuration above does the following:
 
 ## Contribute
 
-- Run `yarn` to install all dependencies
-- Use `yarn start` to use the React sample application
+See [CONTRIBUTING.md](./.github/CONTRIBUTING.md) for the full contributor guide.
 
-If you need to test changes to the template, you can use the `--branchOverride` command when running `npx @availity/workflow init`.
+Quick start:
+
+```bash
+# Install dependencies
+yarn
+
+# Run the Webpack example app
+yarn start:app
+
+# Run the Vite example app
+yarn start:vite-app
+
+# Run all tests
+yarn test
+
+# Lint affected files
+yarn lint
+```
+
+If you need to test changes to a project template, use the `--branchOverride` flag:
+
+```bash
+npx @availity/workflow init <your-project-name> --branchOverride <your-branch>
+```
 
 ## Disclaimer
 
