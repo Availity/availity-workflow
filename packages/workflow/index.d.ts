@@ -1,7 +1,79 @@
 import type { Configuration as WebpackConfig } from 'webpack';
 
+export interface VitestOverrides {
+  /**
+   * Vitest worker pool type.
+   * @default 'vmThreads'
+   */
+  pool?: string;
+  /**
+   * Test environment. Use `'jsdom'` for browser-like DOM tests, `'node'` for pure Node.js tests.
+   * @default 'jsdom'
+   */
+  environment?: string;
+  /**
+   * Timeout in milliseconds for each test.
+   * @default 5000
+   */
+  testTimeout?: number;
+  /**
+   * Additional setup files to run before each test file.
+   * Appended to the built-in setup (which auto-registers `@testing-library/jest-dom` if installed).
+   */
+  setupFiles?: string | string[];
+  /**
+   * Additional node_modules packages to inline-transform via Vite during testing.
+   * Maps to Vitest's `server.deps.inline`. Accepts strings or RegExp patterns.
+   *
+   * Prefer this over the deprecated `babelInclude` option.
+   *
+   * @example
+   * vitestOverrides: {
+   *   inlineDeps: ['some-esm-package', /my-pattern/],
+   * }
+   */
+  inlineDeps?: string | RegExp | (string | RegExp)[];
+  /**
+   * When `true`, Vitest tries to resolve a CommonJS (CJS) build for packages
+   * that have invalid or missing ESM exports (e.g. `dayjs`).
+   * @default true
+   */
+  fallbackCJS?: boolean;
+  /**
+   * Additional packages to add to Vitest's pre-bundling optimizer (`deps.optimizer.client.include`).
+   * Use for packages that cause issues in the test runner due to ESM/CJS packaging.
+   */
+  optimizeDeps?: string | string[];
+  /**
+   * Glob patterns for test files to exclude from the test run.
+   * Merged with the built-in exclusions (node_modules, dist, scripts, etc.).
+   */
+  exclude?: string | string[];
+  /**
+   * Vitest coverage configuration options. Merged with built-in defaults — user values win.
+   * Accepts any options from https://vitest.dev/config/#coverage.
+   *
+   * @example
+   * vitestOverrides: {
+   *   coverage: {
+   *     enabled: true,
+   *     thresholds: { lines: 80, branches: 80 },
+   *   },
+   * }
+   */
+  coverage?: Record<string, unknown>;
+  /**
+   * Override the Vite resolve conditions used during testing.
+   * Takes precedence over `development.resolveConditions`.
+   * See `DevelopmentConfig.resolveConditions` for full documentation.
+   */
+  resolveConditions?: string[];
+  /** Pass-through for any other Vitest config options not explicitly listed above. */
+  [key: string]: unknown;
+}
+
 export interface DevelopmentConfig {
-  open?: string;
+  open?: string | false;
   notification?: boolean;
   host?: string;
   port?: number;
@@ -19,7 +91,7 @@ export interface DevelopmentConfig {
    * `collectCoverageFrom`, `coveragePathIgnorePatterns`, `testTimeout`.
    */
   jestOverrides?: Record<string, unknown>;
-  vitestOverrides?: Record<string, unknown>;
+  vitestOverrides?: VitestOverrides;
   suppressDeprecationWarnings?: boolean;
   /**
    * Override the Vite resolve conditions used during testing.
@@ -47,7 +119,7 @@ export interface EkkoConfig {
 }
 
 export interface ProxyConfig {
-  context?: string[];
+  context?: string | string[];
   target?: string;
   enabled?: boolean;
   logLevel?: string;

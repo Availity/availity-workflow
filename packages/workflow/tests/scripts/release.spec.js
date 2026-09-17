@@ -11,7 +11,7 @@ describe('release', () => {
     mockVersion = {
       prompt: vi.fn(),
       bump: vi.fn(),
-      tag: vi.fn()
+      tag: vi.fn(),
     };
     vi.doMock('../../scripts/version.js', () => ({ default: mockVersion }));
 

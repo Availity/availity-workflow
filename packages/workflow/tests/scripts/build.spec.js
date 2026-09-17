@@ -149,5 +149,3 @@ describe('bundleWebpack', () => {
     await expect(bundle({ settings })).rejects.toBe(webpackError);
   });
 });
-
-

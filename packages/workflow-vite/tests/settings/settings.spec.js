@@ -368,4 +368,51 @@ describe('js()', () => {
     expect(result).toContain('extra/**/*.js');
     expect(result).toHaveLength(5);
   });
+
+  it('returns defaults when argv.include is an empty array', () => {
+    settings = new Settings({ include: [] });
+    expect(settings.js()).toHaveLength(4);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// isIgnoreUntracked()
+// ---------------------------------------------------------------------------
+describe('isIgnoreUntracked()', () => {
+  it('returns true when ignoreGitUntracked argv is set', () => {
+    settings = new Settings({ ignoreGitUntracked: true });
+    expect(settings.isIgnoreUntracked()).toBe(true);
+  });
+
+  it('returns false without the flag', () => {
+    expect(settings.isIgnoreUntracked()).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// isLinterDisabled()
+// ---------------------------------------------------------------------------
+describe('isLinterDisabled()', () => {
+  it('returns true when disableLinter argv is set', () => {
+    settings = new Settings({ disableLinter: true });
+    expect(settings.isLinterDisabled()).toBe(true);
+  });
+
+  it('returns false without the flag', () => {
+    expect(settings.isLinterDisabled()).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// commitMessage()
+// ---------------------------------------------------------------------------
+describe('commitMessage()', () => {
+  it('returns the message from argv', () => {
+    settings = new Settings({ message: 'chore: update deps' });
+    expect(settings.commitMessage()).toBe('chore: update deps');
+  });
+
+  it('returns undefined when not set', () => {
+    expect(settings.commitMessage()).toBeUndefined();
+  });
 });

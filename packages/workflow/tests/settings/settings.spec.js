@@ -592,6 +592,58 @@ describe('historyFallback()', () => {
 });
 
 // ---------------------------------------------------------------------------
+// open() — false value
+// ---------------------------------------------------------------------------
+describe('open() with false', () => {
+  it('returns false when explicitly set to false', () => {
+    settings.configuration = { development: { open: false } };
+    expect(settings.open()).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// statsLogLevel()
+// ---------------------------------------------------------------------------
+describe('statsLogLevel()', () => {
+  it('returns the configured stats level', () => {
+    settings.configuration = { development: { stats: { level: 'verbose' } } };
+    expect(settings.statsLogLevel()).toBe('verbose');
+  });
+
+  it('returns undefined when not configured', () => {
+    settings.configuration = { development: {} };
+    expect(settings.statsLogLevel()).toBeUndefined();
+  });
+
+  it('argv level takes precedence over configuration', () => {
+    settings = new Settings({ development: { stats: { level: 'errors-only' } } });
+    settings.configuration = { development: { stats: { level: 'verbose' } } };
+    expect(settings.statsLogLevel()).toBe('errors-only');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// infrastructureLogLevel()
+// ---------------------------------------------------------------------------
+describe('infrastructureLogLevel()', () => {
+  it('returns the configured infrastructure log level', () => {
+    settings.configuration = { development: { infrastructureLogging: { level: 'info' } } };
+    expect(settings.infrastructureLogLevel()).toBe('info');
+  });
+
+  it('returns undefined when not configured', () => {
+    settings.configuration = { development: {} };
+    expect(settings.infrastructureLogLevel()).toBeUndefined();
+  });
+
+  it('argv level takes precedence over configuration', () => {
+    settings = new Settings({ development: { infrastructureLogging: { level: 'warn' } } });
+    settings.configuration = { development: { infrastructureLogging: { level: 'info' } } };
+    expect(settings.infrastructureLogLevel()).toBe('warn');
+  });
+});
+
+// ---------------------------------------------------------------------------
 // isDryRun() and other argv-dependent booleans
 // ---------------------------------------------------------------------------
 describe('isDryRun()', () => {
@@ -602,6 +654,108 @@ describe('isDryRun()', () => {
 
   it('returns false without the flag', () => {
     expect(settings.isDryRun()).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// isIgnoreUntracked()
+// ---------------------------------------------------------------------------
+describe('isIgnoreUntracked()', () => {
+  it('returns true when ignoreGitUntracked argv is set', () => {
+    settings = new Settings({ ignoreGitUntracked: true });
+    expect(settings.isIgnoreUntracked()).toBe(true);
+  });
+
+  it('returns false without the flag', () => {
+    expect(settings.isIgnoreUntracked()).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// isVerbose()
+// ---------------------------------------------------------------------------
+describe('isVerbose()', () => {
+  it('returns true when verbose argv is set', () => {
+    settings = new Settings({ verbose: true });
+    expect(settings.isVerbose()).toBe(true);
+  });
+
+  it('returns false without the flag', () => {
+    expect(settings.isVerbose()).toBe(false);
+  });
+
+  it('returns false when verbose is undefined', () => {
+    settings = new Settings({ verbose: undefined });
+    expect(settings.isVerbose()).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// isLinterDisabled()
+// ---------------------------------------------------------------------------
+describe('isLinterDisabled()', () => {
+  it('returns true when disableLinter argv is set', () => {
+    settings = new Settings({ disableLinter: true });
+    expect(settings.isLinterDisabled()).toBe(true);
+  });
+
+  it('returns false without the flag', () => {
+    expect(settings.isLinterDisabled()).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// isProfile()
+// ---------------------------------------------------------------------------
+describe('isProfile()', () => {
+  it('returns true when profile argv is set', () => {
+    settings = new Settings({ profile: true });
+    expect(settings.isProfile()).toBe(true);
+  });
+
+  it('returns false without the flag', () => {
+    expect(settings.isProfile()).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// commitMessage()
+// ---------------------------------------------------------------------------
+describe('commitMessage()', () => {
+  it('returns the message from argv', () => {
+    settings = new Settings({ message: 'chore: update deps' });
+    expect(settings.commitMessage()).toBe('chore: update deps');
+  });
+
+  it('returns undefined when not set', () => {
+    expect(settings.commitMessage()).toBeUndefined();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// js()
+// ---------------------------------------------------------------------------
+describe('js()', () => {
+  it('returns default app glob patterns', () => {
+    const result = settings.js();
+    expect(result).toEqual([
+      `${paths.app}/**/*.js`,
+      `${paths.app}/**/*.jsx`,
+      `${paths.app}/**/*.ts`,
+      `${paths.app}/**/*.tsx`,
+    ]);
+  });
+
+  it('appends argv.include to the defaults', () => {
+    settings = new Settings({ include: ['extra/**/*.js'] });
+    const result = settings.js();
+    expect(result).toContain('extra/**/*.js');
+    expect(result).toHaveLength(5);
+  });
+
+  it('returns defaults when argv.include is an empty array', () => {
+    settings = new Settings({ include: [] });
+    expect(settings.js()).toHaveLength(4);
   });
 });
 

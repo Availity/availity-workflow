@@ -10,11 +10,11 @@ export default {
         loader: 'css-loader',
         options: {
           sourceMap: true,
-          importLoaders: 1
-        }
+          importLoaders: 1,
+        },
       },
-      loaderPostcss
-    ]
+      loaderPostcss,
+    ],
   },
   production: {
     test: /\.css$/,
@@ -22,17 +22,17 @@ export default {
       {
         loader: MiniCssExtractPlugin.loader,
         options: {
-          publicPath: 'auto'
-        }
+          publicPath: 'auto',
+        },
       },
       {
         loader: 'css-loader',
         options: {
           sourceMap: true,
-          importLoaders: 1
-        }
+          importLoaders: 1,
+        },
       },
-      loaderPostcss
-    ]
-  }
+      loaderPostcss,
+    ],
+  },
 };

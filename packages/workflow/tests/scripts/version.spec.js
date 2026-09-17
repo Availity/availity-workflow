@@ -34,14 +34,22 @@ describe('version', () => {
 
     vi.doMock('child_process', () => ({
       execFile: (...args) => {
-        const cb = args[args.length - 1];
+        const cb = args.at(-1);
         mockExecSync(...args.slice(0, -1));
         cb(null, '', '');
       },
     }));
 
     vi.doMock('util', () => ({
-      promisify: (fn) => (...args) => new Promise((resolve, reject) => { fn(...args, (err, stdout, stderr) => { if (err) reject(err); else resolve({ stdout, stderr }); }); }),
+      promisify:
+        (fn) =>
+        (...args) =>
+          new Promise((resolve, reject) => {
+            fn(...args, (err, stdout, stderr) => {
+              if (err) reject(err);
+              else resolve({ stdout, stderr });
+            });
+          }),
     }));
 
     vi.doMock('fs', () => ({
@@ -147,7 +155,10 @@ describe('version', () => {
 
       expect(mockExecSync).toHaveBeenCalledTimes(3);
       expect(mockExecSync.mock.calls[1]).toEqual(['git', ['commit', '-m', 'custom release v2.0.0']]);
-      expect(mockExecSync.mock.calls[2]).toEqual(['git', ['tag', '-a', 'custom release v2.0.0', '-m', 'custom release v2.0.0']]);
+      expect(mockExecSync.mock.calls[2]).toEqual([
+        'git',
+        ['tag', '-a', 'custom release v2.0.0', '-m', 'custom release v2.0.0'],
+      ]);
     });
   });
 

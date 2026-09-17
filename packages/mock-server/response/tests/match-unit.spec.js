@@ -1,4 +1,4 @@
-import match from "../match.js";
+import match from '../match.js';
 
 const freshScore = () => ({ hits: 0, misses: 0, valid: true });
 
@@ -45,12 +45,12 @@ describe('match', () => {
         headers: {
           'content-type': 'application/json',
           accept: 'text/html',
-          authorization: 'Bearer abc'
-        }
+          authorization: 'Bearer abc',
+        },
       };
       const headers = {
         'content-type': 'application/json',
-        accept: 'text/html'
+        accept: 'text/html',
         // authorization missing
       };
 
@@ -318,13 +318,13 @@ describe('match', () => {
         params: {
           name: 'test',
           ids: ['1', '2'],
-          code: { pattern: '^[A-Z]+$' }
-        }
+          code: { pattern: '^[A-Z]+$' },
+        },
       };
       const params = {
         name: 'test',
         ids: ['1', '2'],
-        code: 'ABC'
+        code: 'ABC',
       };
 
       const score = match.scoreParams(_request, params, 'get');

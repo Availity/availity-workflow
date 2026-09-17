@@ -4,7 +4,7 @@ describe('proxy() webpack format', () => {
   const mockSettings = {
     port: () => 3000,
     host: () => 'localhost',
-    configuration: {}
+    configuration: {},
   };
 
   it('returns null when proxies is undefined', () => {
@@ -19,10 +19,8 @@ describe('proxy() webpack format', () => {
     const settings = {
       ...mockSettings,
       configuration: {
-        proxies: [
-          { context: '/api', target: 'http://localhost:8080', enabled: false }
-        ]
-      }
+        proxies: [{ context: '/api', target: 'http://localhost:8080', enabled: false }],
+      },
     };
     expect(proxy(settings)).toBeNull();
   });
@@ -31,10 +29,8 @@ describe('proxy() webpack format', () => {
     const settings = {
       ...mockSettings,
       configuration: {
-        proxies: [
-          { context: '/api', target: 'http://localhost:8080', enabled: true }
-        ]
-      }
+        proxies: [{ context: '/api', target: 'http://localhost:8080', enabled: true }],
+      },
     };
     const result = proxy(settings);
     expect(result).toHaveLength(1);
@@ -43,7 +39,7 @@ describe('proxy() webpack format', () => {
       target: 'http://localhost:8080',
       changeOrigin: true,
       ws: true,
-      xfwd: true
+      xfwd: true,
     });
   });
 
@@ -51,10 +47,8 @@ describe('proxy() webpack format', () => {
     const settings = {
       ...mockSettings,
       configuration: {
-        proxies: [
-          { context: '/api', target: 'http://localhost:8080', enabled: true }
-        ]
-      }
+        proxies: [{ context: '/api', target: 'http://localhost:8080', enabled: true }],
+      },
     };
     const result = proxy(settings);
     const proxyReq = {
@@ -63,7 +57,7 @@ describe('proxy() webpack format', () => {
         if (h === 'origin') return 'http://localhost:3000';
         return null;
       }),
-      setHeader: vi.fn()
+      setHeader: vi.fn(),
     };
 
     result[0].onProxyReq(proxyReq, {});
@@ -76,15 +70,13 @@ describe('proxy() webpack format', () => {
     const settings = {
       ...mockSettings,
       configuration: {
-        proxies: [
-          { context: '/api', target: 'http://localhost:8080', enabled: true, contextRewrite: false }
-        ]
-      }
+        proxies: [{ context: '/api', target: 'http://localhost:8080', enabled: true, contextRewrite: false }],
+      },
     };
     const result = proxy(settings);
     const proxyReq = {
       getHeader: vi.fn(() => 'http://localhost:3000/api'),
-      setHeader: vi.fn()
+      setHeader: vi.fn(),
     };
 
     result[0].onProxyReq(proxyReq, {});
@@ -96,14 +88,12 @@ describe('proxy() webpack format', () => {
     const settings = {
       ...mockSettings,
       configuration: {
-        proxies: [
-          { context: '/api', target: 'http://localhost:8080', enabled: true }
-        ]
-      }
+        proxies: [{ context: '/api', target: 'http://localhost:8080', enabled: true }],
+      },
     };
     const result = proxy(settings);
     const proxyRes = {
-      headers: { location: 'http://localhost:8080/api/redirect' }
+      headers: { location: 'http://localhost:8080/api/redirect' },
     };
 
     result[0].onProxyRes(proxyRes, {}, {});
@@ -115,14 +105,12 @@ describe('proxy() webpack format', () => {
     const settings = {
       ...mockSettings,
       configuration: {
-        proxies: [
-          { context: '/api', target: 'http://localhost:8080', enabled: true, contextRewrite: false }
-        ]
-      }
+        proxies: [{ context: '/api', target: 'http://localhost:8080', enabled: true, contextRewrite: false }],
+      },
     };
     const result = proxy(settings);
     const proxyRes = {
-      headers: { location: 'http://localhost:8080/something' }
+      headers: { location: 'http://localhost:8080/something' },
     };
 
     result[0].onProxyRes(proxyRes, {}, {});
@@ -134,10 +122,8 @@ describe('proxy() webpack format', () => {
     const settings = {
       ...mockSettings,
       configuration: {
-        proxies: [
-          { context: '/api', target: 'http://localhost:8080', enabled: true }
-        ]
-      }
+        proxies: [{ context: '/api', target: 'http://localhost:8080', enabled: true }],
+      },
     };
     const result = proxy(settings);
     const req = { url: '/api/fail', headers: { host: 'localhost:3000' } };
@@ -153,10 +139,8 @@ describe('proxy() webpack format', () => {
     const settings = {
       ...mockSettings,
       configuration: {
-        proxies: [
-          { context: '/api', target: 'http://localhost:8080', enabled: true }
-        ]
-      }
+        proxies: [{ context: '/api', target: 'http://localhost:8080', enabled: true }],
+      },
     };
     const result = proxy(settings);
     const req = { url: '/api/fail', headers: { host: 'localhost:3000' } };
@@ -173,10 +157,8 @@ describe('proxy() webpack format', () => {
     const settings = {
       ...mockSettings,
       configuration: {
-        proxies: [
-          { context: '/api', target: 'http://localhost:8080', enabled: true, onProxyReq: userHook }
-        ]
-      }
+        proxies: [{ context: '/api', target: 'http://localhost:8080', enabled: true, onProxyReq: userHook }],
+      },
     };
     const result = proxy(settings);
     const proxyReq = { getHeader: vi.fn(() => null), setHeader: vi.fn() };
@@ -186,5 +168,3 @@ describe('proxy() webpack format', () => {
     expect(userHook).toHaveBeenCalledWith(proxyReq, {});
   });
 });
-
-

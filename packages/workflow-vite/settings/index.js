@@ -105,7 +105,7 @@ export default class Settings {
     }
 
     // Setup dev port
-    instance.devServerPort = instance.configuration?.development?.port ?? 3000;
+    instance.devServerPort = instance.configuration.development.port ?? 3000;
     const availablePort = await getPort({
       port: portNumbers(instance.devServerPort, instance.devServerPort + 1000),
       host: instance.host(),
@@ -113,7 +113,7 @@ export default class Settings {
     if (availablePort !== instance.devServerPort) instance.devServerPort = availablePort;
 
     // Setup ekko port
-    const wantedEkkoPort = instance.configuration?.ekko?.port ?? 9999;
+    const wantedEkkoPort = instance.configuration.ekko.port ?? 9999;
     instance.ekkoServerPort = await getPort({
       port: portNumbers(wantedEkkoPort, wantedEkkoPort + 1000),
       host: instance.host(),

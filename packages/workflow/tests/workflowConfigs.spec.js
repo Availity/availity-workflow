@@ -35,5 +35,3 @@ describe('webpack configs', () => {
     expect(stabilizePaths(config)).toMatchSnapshot();
   });
 });
-
-

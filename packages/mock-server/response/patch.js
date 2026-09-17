@@ -16,7 +16,7 @@ const patch = {
     } catch {
       res.status(500).send({ error: 'mock server error' });
     }
-  }
+  },
 };
 
 export default patch;

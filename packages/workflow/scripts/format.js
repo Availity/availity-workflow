@@ -35,7 +35,7 @@ function formatMessage(message) {
       // Skip all irrelevant lines.
       // (For some reason they only appear on the client in browser.)
       '',
-      lines.at(-1) // error location is the last line
+      lines.at(-1), // error location is the last line
     ];
   }
 
@@ -69,7 +69,7 @@ function formatWebpackMessages(json) {
   const formattedWarnings = json.warnings.map((message) => `Warning in ${formatMessage(message.message)}`);
   const result = {
     errors: formattedErrors,
-    warnings: formattedWarnings
+    warnings: formattedWarnings,
   };
 
   if (result.errors.some((msg) => isLikelyASyntaxError(msg))) {

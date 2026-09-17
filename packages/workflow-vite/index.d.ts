@@ -29,10 +29,10 @@ export interface VitestOverrides {
    *
    * @example
    * vitestOverrides: {
-   *   inlineDeps: ['some-esm-package', 'another-package'],
+   *   inlineDeps: ['some-esm-package', /my-pattern/],
    * }
    */
-  inlineDeps?: string | string[];
+  inlineDeps?: string | RegExp | (string | RegExp)[];
   /**
    * When `true`, Vitest tries to resolve a CommonJS (CJS) build for packages
    * that have invalid or missing ESM exports (e.g. `dayjs`).

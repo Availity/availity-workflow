@@ -225,12 +225,12 @@ export default class Settings {
 
   statsLogLevel() {
     const level = this.configuration?.development?.stats?.level;
-    return this.argv()?.development?.stats?.level ?? level;
+    return this.argv().development?.stats?.level ?? level;
   }
 
   infrastructureLogLevel() {
     const level = this.configuration?.development?.infrastructureLogging?.level;
-    return this.argv()?.development?.infrastructureLogging?.level ?? level;
+    return this.argv().development?.infrastructureLogging?.level ?? level;
   }
 
   asset(workflowFilePath, projectFilePath) {

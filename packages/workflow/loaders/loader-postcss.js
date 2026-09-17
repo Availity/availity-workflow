@@ -13,14 +13,14 @@ export default {
         postcssFlexBugs(),
         postCssEnv({
           autoprefixer: {
-            flexbox: 'no-2009'
+            flexbox: 'no-2009',
           },
-          stage: 3
+          stage: 3,
         }),
         postcssReporter({
-          clearMessages: true
-        })
-      ]
-    }
-  }
+          clearMessages: true,
+        }),
+      ],
+    },
+  },
 };
