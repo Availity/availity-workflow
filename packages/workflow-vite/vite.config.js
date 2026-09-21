@@ -39,9 +39,23 @@ const buildViteConfig = async (settings) => {
   const useTsconfigPaths = fs.existsSync(paths.tsconfig);
 
   // Static file copying
+  const staticCopyTargets = [];
   if (fs.existsSync(paths.appStatic)) {
+    staticCopyTargets.push({ src: path.join(paths.appStatic, '**/*'), dest: 'static' });
+  }
+
+  // Copy bundled favicon to dist root when the project doesn't provide its own.
+  // Without this, the fallback path resolves into node_modules which Vite does
+  // not copy into the build output, causing a broken favicon in production.
+  const projectFavicon = path.join(settings.app(), 'favicon.ico');
+  const workflowFavicon = path.join(import.meta.dirname, './public/favicon.ico');
+  if (!fs.existsSync(projectFavicon) && fs.existsSync(workflowFavicon)) {
+    staticCopyTargets.push({ src: workflowFavicon, dest: '.' });
+  }
+
+  if (staticCopyTargets.length > 0) {
     const { viteStaticCopy } = await import('vite-plugin-static-copy');
-    plugins.push(viteStaticCopy({ targets: [{ src: path.join(paths.appStatic, '**/*'), dest: 'static' }] }));
+    plugins.push(viteStaticCopy({ targets: staticCopyTargets }));
   }
 
   // ESLint checker (dev server only — shows lint errors as overlay and in terminal)
