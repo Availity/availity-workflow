@@ -128,6 +128,7 @@ const plugin = (settings) => {
                 loader: 'tsx',
                 target: 'es2015',
                 jsx: 'automatic',
+                jsxImportSource: 'react',
               },
             },
           ],
