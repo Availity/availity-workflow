@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [14.6.4](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.6.3...@availity/workflow@14.6.4) (2026-09-22)
+
+
+### Bug Fixes
+
+* add jsxImportSource to esbuild-loader webpack configs ([303bc81](https://github.com/Availity/availity-workflow/commit/303bc8140bc4b9002358fa94bef7ecd7a4a04b19))
+
+
+
 ## [14.6.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.6.2...@availity/workflow@14.6.3) (2026-09-22)
 
 
