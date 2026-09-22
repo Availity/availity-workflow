@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.5.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.5.2...@availity/workflow-vite@1.5.3) (2026-09-22)
+
+
+### Bug Fixes
+
+* add missing favicon.ico to workflow-vite public directory ([2af836d](https://github.com/Availity/availity-workflow/commit/2af836de554b8dacbb55127c07815ba79df70e47))
+* add react/jsx-runtime to optimizeDeps and fix vite-example favicon path ([0b7c8f8](https://github.com/Availity/availity-workflow/commit/0b7c8f86c2feab4b98e884b3500789502741c216))
+
+
+
 ## [1.5.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.5.1...@availity/workflow-vite@1.5.2) (2026-09-17)
 
 ### Dependency Updates
