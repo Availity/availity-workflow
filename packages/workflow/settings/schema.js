@@ -16,11 +16,10 @@ const schema = Joi.object()
           .default(true)
           .description('Whether to send webpack build status system notifications'),
         host: Joi.string()
-          .default('0.0.0.0')
+          .default('localhost')
           .description(
-            'Webpack dev server host. Defaults to 0.0.0.0 (bind all interfaces) so the dev server ' +
-              'works inside Docker containers and CI environments. Set to "localhost" to restrict to ' +
-              'loopback only.'
+            'Webpack dev server host. Defaults to "localhost" (loopback only). Set to "0.0.0.0" to ' +
+              'bind all interfaces (e.g. for LAN testing or running the dev server directly in Docker).'
           ),
         port: Joi.number().integer().min(1024).max(65535).default(3000).description('Webpack dev server port'),
         stats: Joi.object()

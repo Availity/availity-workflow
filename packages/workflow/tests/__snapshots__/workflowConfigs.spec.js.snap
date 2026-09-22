@@ -26,7 +26,7 @@ exports[`webpack configs > sets up the default config with default settings 1`] 
           {
             "loader": "esbuild-loader",
             "options": {
-              "jsxRuntime": "automatic",
+              "jsx": "automatic",
               "loader": "tsx",
               "target": "es2015",
             },

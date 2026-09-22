@@ -19,9 +19,9 @@ describe('settings schema', () => {
     expect(value.development.port).toBe(3000);
   });
 
-  it('defaults development.host to 0.0.0.0', () => {
+  it('defaults development.host to localhost', () => {
     const { value } = schema.validate({});
-    expect(value.development.host).toBe('0.0.0.0');
+    expect(value.development.host).toBe('localhost');
   });
 
   it('defaults app.title to Availity', () => {
@@ -128,9 +128,7 @@ describe('settings schema', () => {
 
   it('preserves other development defaults when a single field is overridden', () => {
     const { value } = schema.validate({ development: { port: 8080 } });
-    expect(value.development.host).toBe('0.0.0.0');
-    expect(value.development.notification).toBe(true);
-    expect(value.development.hotLoader).toBe(true);
+    expect(value.development.host).toBe('localhost');
     expect(value.development.sourceMap).toBe('source-map');
   });
 

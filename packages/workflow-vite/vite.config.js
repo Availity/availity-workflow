@@ -39,9 +39,23 @@ const buildViteConfig = async (settings) => {
   const useTsconfigPaths = fs.existsSync(paths.tsconfig);
 
   // Static file copying
+  const staticCopyTargets = [];
   if (fs.existsSync(paths.appStatic)) {
+    staticCopyTargets.push({ src: path.join(paths.appStatic, '**/*'), dest: 'static' });
+  }
+
+  // Copy bundled favicon to dist root when the project doesn't provide its own.
+  // Without this, the fallback path resolves into node_modules which Vite does
+  // not copy into the build output, causing a broken favicon in production.
+  const projectFavicon = path.join(settings.app(), 'favicon.ico');
+  const workflowFavicon = path.join(import.meta.dirname, './public/favicon.ico');
+  if (!fs.existsSync(projectFavicon) && fs.existsSync(workflowFavicon)) {
+    staticCopyTargets.push({ src: workflowFavicon, dest: '.' });
+  }
+
+  if (staticCopyTargets.length > 0) {
     const { viteStaticCopy } = await import('vite-plugin-static-copy');
-    plugins.push(viteStaticCopy({ targets: [{ src: path.join(paths.appStatic, '**/*'), dest: 'static' }] }));
+    plugins.push(viteStaticCopy({ targets: staticCopyTargets }));
   }
 
   // ESLint checker (dev server only — shows lint errors as overlay and in terminal)
@@ -259,8 +273,17 @@ const buildViteConfig = async (settings) => {
       // react-router replaces react-router-dom as of v7 — keep both so apps mid-migration
       // still get pre-bundling benefits. react-router-dom is intentionally excluded from
       // the default list; teams still on v6 can add it via development.optimizeDeps.
+      //
+      // react/jsx-runtime and react/jsx-dev-runtime must be explicitly pre-bundled so
+      // that all dependencies (including pre-compiled @availity/mui-* packages that ship
+      // their own dist with jsx-runtime imports) share the exact same module instance.
+      // Without this, Vite may serve multiple copies of jsx-runtime, causing
+      // @vitejs/plugin-react to fail with "can't detect preamble" because Fast Refresh
+      // never injected its preamble into the alternate copy.
       include: [
         'react',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
         'react-dom',
         'react-dom/client',
         'react-router',
