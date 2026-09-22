@@ -27,6 +27,7 @@ exports[`webpack configs > sets up the default config with default settings 1`] 
             "loader": "esbuild-loader",
             "options": {
               "jsx": "automatic",
+              "jsxImportSource": "react",
               "loader": "tsx",
               "target": "es2015",
             },
@@ -412,6 +413,8 @@ exports[`webpack configs > sets up the production config with default settings 1
               {
                 "loader": "esbuild-loader",
                 "options": {
+                  "jsx": "automatic",
+                  "jsxImportSource": "react",
                   "loader": "tsx",
                   "target": "es2015",
                 },
@@ -806,6 +809,8 @@ exports[`webpack configs > sets up the profile config with default settings 1`] 
               {
                 "loader": "esbuild-loader",
                 "options": {
+                  "jsx": "automatic",
+                  "jsxImportSource": "react",
                   "loader": "tsx",
                   "target": "es2015",
                 },

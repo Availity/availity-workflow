@@ -7,6 +7,7 @@
   "types": "index.d.ts",
   "exports": {
     ".": "./index.js",
+    "./globals": "./globals.d.ts",
     "./vitest.config.js": "./vitest.config.js",
     "./webpack.config.js": "./webpack.config.js",
     "./webpack.config.production.js": "./webpack.config.production.js",
