@@ -273,8 +273,17 @@ const buildViteConfig = async (settings) => {
       // react-router replaces react-router-dom as of v7 — keep both so apps mid-migration
       // still get pre-bundling benefits. react-router-dom is intentionally excluded from
       // the default list; teams still on v6 can add it via development.optimizeDeps.
+      //
+      // react/jsx-runtime and react/jsx-dev-runtime must be explicitly pre-bundled so
+      // that all dependencies (including pre-compiled @availity/mui-* packages that ship
+      // their own dist with jsx-runtime imports) share the exact same module instance.
+      // Without this, Vite may serve multiple copies of jsx-runtime, causing
+      // @vitejs/plugin-react to fail with "can't detect preamble" because Fast Refresh
+      // never injected its preamble into the alternate copy.
       include: [
         'react',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
         'react-dom',
         'react-dom/client',
         'react-router',
