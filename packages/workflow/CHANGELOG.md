@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [14.6.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.6.2...@availity/workflow@14.6.3) (2026-09-22)
+
+
+### Bug Fixes
+
+* rename jsxRuntime to jsx in esbuild-loader options for esbuild 0.28 compatibility ([c02f8dc](https://github.com/Availity/availity-workflow/commit/c02f8dcc85e7ae417dfe6a82cb974980a2687820))
+* revert development.host default to localhost from 0.0.0.0 ([08c78d2](https://github.com/Availity/availity-workflow/commit/08c78d2fd92d0dca29f90cf6af04b92bb54d2f86))
+
+
+
 ## [14.6.2](https://github.com/Availity/availity-workflow/compare/@availity/workflow@14.6.1...@availity/workflow@14.6.2) (2026-09-17)
 
 ### Dependency Updates
