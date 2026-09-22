@@ -127,7 +127,7 @@ const plugin = (settings) => {
               options: {
                 loader: 'tsx',
                 target: 'es2015',
-                jsxRuntime: 'automatic',
+                jsx: 'automatic',
               },
             },
           ],
