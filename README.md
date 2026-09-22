@@ -181,7 +181,7 @@ Webpack build status system notifications
 
 #### `development.host`
 
-Webpack dev server host
+Webpack dev server host. Default: `localhost`. Set to `0.0.0.0` to bind all interfaces (e.g. for LAN testing or running the dev server directly in Docker).
 
 #### `development.port`
 
