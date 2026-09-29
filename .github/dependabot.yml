@@ -1,22 +1,33 @@
 version: 2
 updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      gh-actions:
+        update-types:
+          - "minor"
+          - "patch"
+          - "major"
+
   - package-ecosystem: npm
-    directory: '/'
+    directory: "/"
+    versioning-strategy: increase-if-necessary
     schedule:
       interval: monthly
-      time: '10:00'
+      time: "10:00"
     open-pull-requests-limit: 10
+    commit-message:
+      prefix: build
+      prefix-development: chore
     groups:
-      dependencies:
-        dependency-type: "production"
+      nx:
+        patterns:
+          - "nx"
+          - "@nx/*"
         update-types:
-          - "minor"
-          - "patch"
-      dev-dependencies:
-        dependency-type: "development"
-        update-types:
-          - "minor"
-          - "patch"
+          - "major"
       commitlint:
         patterns:
           - "@commitlint/*"
@@ -33,27 +44,13 @@ updates:
           - "*jest*"
         update-types:
           - "major"
-      nx:
-        patterns:
-          - "nx"
-          - "@nx/*"
+      dependencies:
+        dependency-type: "production"
         update-types:
-          - "major"
-    ignore:
-      - dependency-name: '@testing-library/react'
-        versions:
-          - 11.2.3
-          - 11.2.5
-      - dependency-name: elliptic
-        versions:
-          - 6.5.4
-      - dependency-name: webpack
-        versions:
-          - 5.11.1
-          - 5.19.0
-      - dependency-name: copy-webpack-plugin
-        versions:
-          - 7.0.0
-      - dependency-name: boxen
-      - dependency-name: chalk
-      - dependency-name: figures
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
