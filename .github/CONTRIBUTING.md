@@ -4,7 +4,7 @@ This is a monorepo managed using [`yarn berry` workspaces](https://yarnpkg.com/f
 
 ## Prerequisites
 
-- **Node.js** ≥ 22.12.0 (see `.nvmrc`)
+- **Node.js** 22.12+ or 24 (see `engines` in `package.json`; `.nvmrc` is set to 24)
 - **Yarn** 4.x — managed via the `packageManager` field in `package.json`. Enable it with [Corepack](https://nodejs.org/api/corepack.html):
 
   ```bash
