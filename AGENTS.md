@@ -10,7 +10,7 @@ Nx and Yarn monorepo of the build, dev-server, mock, and release tooling behind 
 
 ## Environment
 
-- Node `>=22.12.0` (the engine pin is not `^22 || ^24`; do not change it without a decision).
+- Node `^22 || ^24` (`.nvmrc` is 22). Do not change the engine pin without a human decision.
 - Yarn 4 (`packageManager: yarn@4.17.0`).
 - Install with `yarn install --immutable`. Do not hand-edit `yarn.lock`.
 
