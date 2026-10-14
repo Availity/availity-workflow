@@ -6,7 +6,7 @@ Nx and Yarn monorepo of the build, dev-server, mock, and release tooling behind 
 
 - Default and PR target: `master` (see `.github/workflows/pr-build.yml`).
 - Check `git branch --show-current` and `git status` before editing. This clone may have uncommitted work. Do not overwrite changes you did not make.
-- Never push to `master`. Work on `feature/<JIRA-###>-description` or `fix/<JIRA-###>-description`.
+- Never push to `master`. Work on a branch named `feature/<short-description>` or `fix/<short-description>`.
 
 ## Environment
 
