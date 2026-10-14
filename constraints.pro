@@ -8,5 +8,3 @@ gen_enforced_dependency(WorkspaceCwd, DependencyIdent, 'workspace:*', Dependency
 gen_enforced_field(WorkspaceCwd, 'type', 'module') :-
     WorkspaceCwd \= 'docusaurus'.
 
-% Enforce minimum Node version
-gen_enforced_field(WorkspaceCwd, 'engines.node', '^22.12.0 || ^24.0.0').
