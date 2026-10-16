@@ -6,15 +6,20 @@ import TerserPlugin from 'terser-webpack-plugin';
 import deepMerge from './helpers/deep-merge.js';
 import paths from './helpers/paths.js';
 import loaders from './loaders/index.js';
+import buildWebpackCache from './helpers/webpack-cache.js';
 import { buildBaseConfig } from './webpack.config.js';
 
 const plugin = (settings) => {
   process.noDeprecation = true;
   process.env.BROWSERSLIST = 'defaults';
   const baseConfig = buildBaseConfig(settings);
+  const webpackCache = buildWebpackCache(settings, 'production');
 
   const overrides = {
     mode: 'production',
+
+    // Opt-in persistent cache (workflow.js `cache.production`). Omitted when disabled.
+    ...(webpackCache && { cache: webpackCache }),
 
     // Using an explicit browserslist query will override any project configs
     // This is fine because we need to ensure our targets in the portal
