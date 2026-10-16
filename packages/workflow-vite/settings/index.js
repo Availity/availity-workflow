@@ -1,5 +1,6 @@
 import path from 'node:path';
 import fs, { existsSync } from 'node:fs';
+import { pathToFileURL } from 'node:url';
 import Logger from '@availity/workflow-logger';
 import chalk from 'chalk';
 import getPort, { portNumbers } from 'get-port';
@@ -68,7 +69,7 @@ export default class Settings {
 
     if (existsSync(jsWorkflowConfig)) {
       instance.workflowConfigPath = jsWorkflowConfig;
-      const module = await import(jsWorkflowConfig);
+      const module = await import(pathToFileURL(jsWorkflowConfig).href);
       developerConfig = module.default || module;
     } else {
       instance.workflowConfigPath = defaultWorkflowConfig;
