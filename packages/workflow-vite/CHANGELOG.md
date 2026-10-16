@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.5.4](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.5.3...@availity/workflow-vite@1.5.4) (2026-10-16)
+
+### Dependency Updates
+
+* `mock-server` updated to version `1.5.3`
+* `mock-server` updated to version `1.5.3`
+
+### Bug Fixes
+
+* **workflow:** wrap dynamic imports with pathToFileURL for Windows compatibility ([80e701f](https://github.com/Availity/availity-workflow/commit/80e701fc2cf89e588b50fc0a419506e5f219d0c6))
+
+
+
 ## [1.5.3](https://github.com/Availity/availity-workflow/compare/@availity/workflow-vite@1.5.2...@availity/workflow-vite@1.5.3) (2026-09-22)
 
 
