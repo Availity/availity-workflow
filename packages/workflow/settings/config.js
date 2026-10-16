@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { existsSync } from 'node:fs';
+import { pathToFileURL } from 'node:url';
 import Logger from '@availity/workflow-logger';
 import Joi from 'joi';
 import deepMerge from '../helpers/deep-merge.js';
@@ -27,7 +28,7 @@ export default async function resolveConfig({ pkg, argv }) {
   // Read the workflow file if it exists
   if (existsSync(jsWorkflowConfig)) {
     workflowConfigPath = jsWorkflowConfig;
-    const module = await import(workflowConfigPath);
+    const module = await import(pathToFileURL(workflowConfigPath).href);
     developerConfig = module.default || module;
   } else {
     workflowConfigPath = defaultWorkflowConfig;

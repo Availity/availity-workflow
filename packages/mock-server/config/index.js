@@ -1,3 +1,4 @@
+import { pathToFileURL } from 'node:url';
 import chalk from 'chalk';
 import deepMerge from '../helpers/deep-merge.js';
 import logger from '../logger/index.js';
@@ -21,7 +22,7 @@ class Configuration {
 
   async defaultConfig(path) {
     if (this.path) {
-      const mod = await import(path);
+      const mod = await import(pathToFileURL(path).href);
       return mod.default;
     }
     return this;
@@ -43,7 +44,7 @@ class Configuration {
     }
     let config;
     if (this.path) {
-      const mod = await import(this.path);
+      const mod = await import(pathToFileURL(this.path).href);
       config = mod.default;
     } else {
       config = await this.defaultConfig();
