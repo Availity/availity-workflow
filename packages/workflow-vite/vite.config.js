@@ -58,7 +58,8 @@ const buildViteConfig = async (settings) => {
     plugins.push(viteStaticCopy({ targets: staticCopyTargets }));
   }
 
-  // ESLint checker (dev server only — shows lint errors as overlay and in terminal)
+  // ESLint checker (dev server only — shows lint errors as overlay and in terminal).
+  // Production builds never run these checks: CI lints ahead of time with `av lint`.
   try {
     const { default: checker } = await import('vite-plugin-checker');
     const eslintConfig = settings.config().eslint ?? {};
@@ -89,7 +90,9 @@ const buildViteConfig = async (settings) => {
       checkerOptions.typescript = { tsconfigPath: paths.tsconfig };
     }
 
-    plugins.push(checker(checkerOptions));
+    // `apply: 'serve'` keeps the checker out of `vite build` entirely, so production
+    // builds never run ESLint or tsc. Lint and typecheck run in CI via `av lint` / `tsc`.
+    plugins.push({ ...checker(checkerOptions), apply: 'serve' });
   } catch {
     /* optional */
   }

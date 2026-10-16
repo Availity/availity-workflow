@@ -104,7 +104,9 @@ export default (config) => {
 
 ### `development.typeCheck`
 
-Enable TypeScript type checking during the dev server and production builds. When `true`, `tsc --noEmit` runs in a worker thread via `vite-plugin-checker` so it does not block Vite's HMR. Type errors appear in the terminal during development and will fail `yarn build`.
+Enable TypeScript type checking during the dev server. When `true`, `tsc --noEmit` runs in a worker thread via `vite-plugin-checker` so it does not block Vite's HMR. Type errors appear in the terminal while you develop.
+
+Type checking and the ESLint overlay run in `av start` only. They do not run during `av build`, so a production build never spends time linting or type checking. Run `av lint` and `tsc --noEmit` (for example in a CI step ahead of the build) to enforce them before a release.
 
 Default: `false`.
 
@@ -179,7 +181,7 @@ export default {
 
 ### `eslint`
 
-ESLint checker options for the Vite dev server and lint script.
+ESLint checker options for the Vite dev server and lint script. The dev server shows lint errors in the terminal as you work. `av build` does not run ESLint, so run `av lint` before building if you want lint to gate a release.
 
 | Option          | Default | Description                                                                                                                                                |
 | --------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
