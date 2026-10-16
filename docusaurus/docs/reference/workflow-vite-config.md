@@ -106,7 +106,7 @@ export default (config) => {
 
 Enable TypeScript type checking during the dev server. When `true`, `tsc --noEmit` runs in a worker thread via `vite-plugin-checker` so it does not block Vite's HMR. Type errors appear in the terminal while you develop.
 
-Type checking and the ESLint overlay run in `av start` only. They do not run during `av build`, so a production build never spends time linting or type checking. Run `av lint` and `tsc --noEmit` (for example in a CI step ahead of the build) to enforce them before a release.
+Type checking and the ESLint overlay run in `av start` only. They do not run during `av build`. To make `av build` fail on type errors, use [`build.typeCheck`](#build).
 
 Default: `false`.
 
@@ -181,16 +181,43 @@ export default {
 
 ### `eslint`
 
-ESLint checker options for the Vite dev server and lint script. The dev server shows lint errors in the terminal as you work. `av build` does not run ESLint, so run `av lint` before building if you want lint to gate a release.
+ESLint options for `av lint`, the Vite dev server overlay, and the pre-build check ([`build.lint`](#build)). The dev server shows lint errors in the terminal as you work. `av build` does not lint unless `build.lint` is enabled.
 
 | Option          | Default | Description                                                                                                                                                |
 | --------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `failOnError`   | `true`  | Fail the build on lint errors                                                                                                                              |
-| `failOnWarning` | `false` | Fail the build on lint warnings                                                                                                                            |
+| `failOnError`   | `true`  | Fail `av lint` (and `build.lint`) on lint errors                                                                                                           |
+| `failOnWarning` | `false` | Fail `av lint` (and `build.lint`) on lint warnings                                                                                                         |
 | `fix`           | `false` | Automatically fix fixable ESLint problems                                                                                                                  |
 | `quiet`         | `false` | Report errors only — suppress warnings from lint output                                                                                                    |
 | `maxWarnings`   | (unset) | Number of warnings allowed before lint fails. Overrides `failOnWarning` when set (e.g. `0` = fail on any warning)                                          |
 | `watchPath`     | (unset) | Path or glob patterns to watch for changes during dev server lint checking. Defaults to the app directory. Useful when linting files outside `project/app` |
+
+### `build`
+
+Checks that run before `av build`. Both are off by default, because the normal setup is for CI to run `av lint` and `tsc` ahead of the build. Turn them on when you want `av build` itself to stop on lint or type errors, for example in a pipeline that has no separate lint step.
+
+| Option      | Default | Description                                                                                                                   |
+| ----------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `lint`      | `false` | Run ESLint before the build, using the same settings as `av lint` (see [`eslint`](#eslint)). Stops the build if linting fails |
+| `typeCheck` | `false` | Run `tsc --noEmit` before the build against your `tsconfig.json`. Stops the build if type checking fails                      |
+
+```js
+/** @type {import('@availity/workflow-vite').WorkflowViteConfig} */
+export default {
+  build: {
+    lint: true,
+    typeCheck: true,
+  },
+};
+```
+
+How it behaves:
+
+- Lint runs first, then type checking, then Vite builds. If a check fails, the build stops before the output directory is cleaned, so your last good `build/` is kept.
+- `lint` follows the `eslint` options. For example, `eslint.failOnWarning` and `eslint.maxWarnings` also apply to the pre-build lint.
+- `typeCheck` uses the TypeScript version your project installs. It is skipped with a warning if there is no `tsconfig.json`.
+- Both checks are skipped during `av start --dry-run`, which serves the existing `build/` output and does not rebuild it.
+- These checks are separate from `development.typeCheck` and the `eslint` dev overlay. Those only show errors while `av start` is running.
 
 ### `modifyViteConfig`
 

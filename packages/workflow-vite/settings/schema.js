@@ -55,9 +55,10 @@ const schema = Joi.object()
         typeCheck: Joi.boolean()
           .default(false)
           .description(
-            'Enable TypeScript type checking during the dev server and build. ' +
+            'Enable TypeScript type checking during the dev server. ' +
               'Runs tsc --noEmit in a worker thread via vite-plugin-checker. ' +
-              'Type errors appear in the terminal during development and will fail production builds. ' +
+              'Type errors appear in the terminal during development. ' +
+              'For a check that fails av build, use build.typeCheck. ' +
               'Requires a tsconfig.json in the project root. Default: false.'
           ),
         optimizeDeps: Joi.array()
@@ -175,6 +176,23 @@ const schema = Joi.object()
       .unknown()
       .default()
       .description('ESLint configuration for both the lint script and dev-server checker'),
+    build: Joi.object()
+      .keys({
+        lint: Joi.boolean()
+          .default(false)
+          .description(
+            'Run ESLint (the same as av lint) before av build and stop the build if linting fails. ' +
+              'Off by default because CI usually lints ahead of the build.'
+          ),
+        typeCheck: Joi.boolean()
+          .default(false)
+          .description(
+            'Run tsc --noEmit before av build and stop the build if type checking fails. ' +
+              'Requires a tsconfig.json in the project root. Off by default. Skipped during a dry run.'
+          ),
+      })
+      .default()
+      .description('Checks that run before av build. Both are off by default.'),
     modifyViteConfig: Joi.function()
       .optional()
       .description(

@@ -110,9 +110,10 @@ export interface DevelopmentConfig {
    */
   suppressDeprecationWarnings?: boolean;
   /**
-   * Enable TypeScript type checking during the dev server and production builds.
+   * Enable TypeScript type checking during the dev server.
    * Runs `tsc --noEmit` in a worker thread via `vite-plugin-checker`.
-   * Type errors appear in the terminal during development and fail production builds.
+   * Type errors appear in the terminal during development. To make `av build` fail on
+   * type errors, use `build.typeCheck`.
    * Requires a `tsconfig.json` in the project root.
    * @default false
    */
@@ -294,6 +295,21 @@ export interface EslintConfig {
   watchPath?: string | string[];
 }
 
+export interface BuildConfig {
+  /**
+   * Run ESLint (the same as `av lint`) before `av build`. Stops the build if linting fails.
+   * Off by default, because CI usually lints ahead of the build. Skipped during a dry run.
+   * @default false
+   */
+  lint?: boolean;
+  /**
+   * Run `tsc --noEmit` before `av build`. Stops the build if type checking fails.
+   * Requires a `tsconfig.json` in the project root. Skipped during a dry run.
+   * @default false
+   */
+  typeCheck?: boolean;
+}
+
 export interface WorkflowViteConfig {
   /** Development server and build tool configuration. */
   development?: DevelopmentConfig;
@@ -320,6 +336,8 @@ export interface WorkflowViteConfig {
   proxies?: ProxyConfig[];
   /** ESLint configuration for `av lint` and the dev server checker. */
   eslint?: EslintConfig;
+  /** Checks that run before `av build`. Both are off by default. */
+  build?: BuildConfig;
   /**
    * Hook to modify or replace the Vite configuration after workflow has built it.
    * Receives the fully constructed config and the settings instance.
