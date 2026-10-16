@@ -54,12 +54,23 @@ async function bundleWebpack({ profile, settings }) {
       })
     );
 
-    webpack(webpackConfig).run((err, stats) => {
+    const compiler = webpack(webpackConfig);
+
+    compiler.run((err, stats) => {
       spinner.stop();
+
+      // Close the compiler so the persistent (filesystem) cache is flushed to disk
+      // before the process exits. Without this, warm rebuilds never see a cache.
+      const finish = (fn) => {
+        compiler.close((closeErr) => {
+          if (closeErr) Logger.warn(`Failed to close webpack compiler: ${closeErr.message}`);
+          fn();
+        });
+      };
 
       if (err) {
         Logger.failed('Failed to run, possible webpack configuration error');
-        reject(err);
+        finish(() => reject(err));
         return;
       }
 
@@ -71,7 +82,7 @@ async function bundleWebpack({ profile, settings }) {
       if (stats.hasErrors()) {
         Logger.failed('Compilation finished with errors');
         Logger.info(`${chalk.dim('Webpack stats:')}\n\n${statistics}\n`);
-        reject(new Error('Webpack compilation failed'));
+        finish(() => reject(new Error('Webpack compilation failed')));
         return;
       }
 
@@ -89,7 +100,7 @@ async function bundleWebpack({ profile, settings }) {
 
       Logger.info(`${chalk.dim('Webpack stats:')}\n\n${statistics}\n`);
       Logger.success('Finished compiling');
-      resolve();
+      finish(() => resolve());
     });
   });
 }

@@ -15,6 +15,7 @@ import deepMerge from './helpers/deep-merge.js';
 import loaders from './loaders/index.js';
 import paths from './helpers/paths.js';
 import resolveModule from './helpers/resolve-module.js';
+import buildWebpackCache from './helpers/webpack-cache.js';
 import html from './html.js';
 
 const require = createRequire(import.meta.url);
@@ -108,9 +109,13 @@ const buildBaseConfig = (settings) => {
 
 const plugin = (settings) => {
   const configBase = buildBaseConfig(settings);
+  const webpackCache = buildWebpackCache(settings, 'development');
 
   const overrides = {
     mode: 'development',
+
+    // Opt-in persistent cache (workflow.js `cache.development`). Omitted when disabled.
+    ...(webpackCache && { cache: webpackCache }),
 
     target: settings.developmentTargets(),
 

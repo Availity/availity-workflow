@@ -170,6 +170,29 @@ const schema = Joi.object()
         lazyCompilation: true,
       })
       .default({}),
+    cache: Joi.object()
+      .keys({
+        development: Joi.boolean()
+          .default(false)
+          .description(
+            'Persist webpack\'s module cache to disk for "av start" so restarts skip unchanged modules. ' +
+              'Off by default.'
+          ),
+        production: Joi.boolean()
+          .default(false)
+          .description(
+            'Persist webpack\'s module cache to disk for "av build" (production and staging), "av profile", ' +
+              'and "av start --dry-run". Off by default.'
+          ),
+        directory: Joi.string()
+          .optional()
+          .description(
+            'Directory for the persistent cache, resolved from the project root. ' +
+              'Defaults to node_modules/.cache/webpack. Useful for pointing CI cache restores at a stable path.'
+          )
+          .example('.cache/webpack'),
+      })
+      .default(),
     eslint: Joi.object()
       .keys({
         failOnError: Joi.boolean().default(true).description('Fail the lint run if there are any ESLint errors'),

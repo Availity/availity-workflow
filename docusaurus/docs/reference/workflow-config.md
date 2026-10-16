@@ -297,6 +297,45 @@ headers: {
 }
 ```
 
+#### `cache`
+
+Persist webpack's module cache to disk so that restarts and rebuilds skip modules that haven't changed. **Off by default.** Turn it on separately for the dev server and for production builds.
+
+| Option        | Default                       | Description                                                                                                     |
+| ------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `development` | `false`                       | Cache for `av start`                                                                                            |
+| `production`  | `false`                       | Cache for `av build` (production and staging), `av profile`, and `av start --dry-run`                           |
+| `directory`   | `node_modules/.cache/webpack` | Where to store the cache, resolved from the project root. Set this to point a CI cache restore at a stable path |
+
+```js
+export default (config) => {
+  config.cache = {
+    development: true,
+    production: true,
+  };
+  return config;
+};
+```
+
+Or as a plain object:
+
+```js
+export default {
+  cache: { development: true },
+};
+```
+
+**What to expect.** In our example app on a busy laptop, the first dev compile dropped from about 3.0s to about 2.0s with a warm cache, and a production build from about 1.65s to about 0.95s. A production build with an empty cache was about 0.8s _slower_ than with no cache, because webpack has to write the cache. Your numbers will vary with app size.
+
+**When to turn on `production`.** It only pays off when the cache survives between builds. On a developer machine that's automatic. In CI it helps only if your pipeline restores the cache directory between runs, for example by caching `node_modules/.cache/webpack` (or the `directory` you set). Without a restore, every CI build starts cold and pays the cache write cost, so leave it off.
+
+**Good to know.**
+
+- The cache is stored per mode and `NODE_ENV`, so `av start`, `av build`, and staging builds never share entries.
+- The cache is invalidated automatically when `@availity/workflow` is upgraded or your `workflow.js` changes. If you change a loader, Babel, or browserslist setting outside those files and see stale output, delete the cache directory.
+- The cache can be large (about 130MB for the example app in development). It lives under `node_modules` by default, so it's already git-ignored.
+- `modifyWebpackConfig` runs after the cache is configured, so it can still override or remove `webpackConfig.cache`.
+
 #### `modifyWebpackConfig`
 
 A function which, when provided, can be used to enhance/override or replace the webpack configuration used. The function will be invoked with the current webpack configuration object and a reference to the workflow settings.

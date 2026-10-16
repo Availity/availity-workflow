@@ -164,6 +164,25 @@ export interface EslintConfig {
   maxWarnings?: number;
 }
 
+export interface CacheConfig {
+  /**
+   * Persist webpack's module cache to disk for `av start`, so restarts skip unchanged modules.
+   * @default false
+   */
+  development?: boolean;
+  /**
+   * Persist webpack's module cache to disk for `av build` (production and staging),
+   * `av profile`, and `av start --dry-run`.
+   * @default false
+   */
+  production?: boolean;
+  /**
+   * Directory for the persistent cache, resolved from the project root.
+   * @default 'node_modules/.cache/webpack'
+   */
+  directory?: string;
+}
+
 export interface WorkflowConfig {
   development?: DevelopmentConfig;
   app?: AppConfig;
@@ -171,6 +190,8 @@ export interface WorkflowConfig {
   ekko?: EkkoConfig;
   proxies?: ProxyConfig[];
   experiments?: Record<string, unknown>;
+  /** Opt-in persistent webpack cache. Off by default. */
+  cache?: CacheConfig;
   eslint?: EslintConfig;
   modifyWebpackConfig?: (webpackConfig: WebpackConfig, settings: Settings) => WebpackConfig;
 }

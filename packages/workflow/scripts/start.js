@@ -17,6 +17,22 @@ process.on('unhandledRejection', (reason) => {
   }
 });
 
+// Close the webpack compiler so the persistent (filesystem) cache is flushed before the
+// process exits. server.stop() does not close the compiler; webpack-dev-server only does
+// so on a graceful Ctrl-C, so every other exit path must do it explicitly.
+function closeCompiler(compiler) {
+  return new Promise((resolve) => {
+    if (!compiler || typeof compiler.close !== 'function') {
+      resolve();
+      return;
+    }
+    compiler.close((error) => {
+      if (error) Logger.warn(`Failed to close webpack compiler: ${error.message}`);
+      resolve();
+    });
+  });
+}
+
 function once(fn) {
   let called = false;
   let result;
@@ -153,6 +169,7 @@ function web(settings, ekko) {
         } catch {
           /* best-effort */
         }
+        await closeCompiler(compiler);
         try {
           if (ekko?.stop) await ekko.stop();
         } catch {
@@ -218,6 +235,7 @@ function web(settings, ekko) {
         } catch {
           /* best-effort */
         }
+        await closeCompiler(compiler);
         try {
           if (ekko?.stop) await ekko.stop();
         } catch {
