@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [11.2.2](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@11.2.1...@availity/mock-server@11.2.2) (2026-10-16)
+
+
+### Bug Fixes
+
+* **workflow:** wrap dynamic imports with pathToFileURL for Windows compatibility ([80e701f](https://github.com/Availity/availity-workflow/commit/80e701fc2cf89e588b50fc0a419506e5f219d0c6))
+
+
+
 ## [11.2.1](https://github.com/Availity/availity-workflow/compare/@availity/mock-server@11.2.0...@availity/mock-server@11.2.1) (2026-09-17)
 
 
